@@ -36,9 +36,34 @@ if %errorlevel% == 0 (
     
     REM Try direct download and installation
     echo.
-    echo Downloading Python 3.8.10 installer...
-    set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
-    set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
+    echo Detecting system architecture...
+    
+    REM Detect system architecture
+    if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+        set ARCH=amd64
+        set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
+        set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
+        echo Detected 64-bit system
+    ) else if "%PROCESSOR_ARCHITECTURE%"=="x86" (
+        if "%PROCESSOR_ARCHITEW6432%"=="AMD64" (
+            set ARCH=amd64
+            set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
+            set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
+            echo Detected 64-bit system (WOW64)
+        ) else (
+            set ARCH=win32
+            set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10.exe
+            set PYTHON_INSTALLER=%TEMP%\python-3.8.10.exe
+            echo Detected 32-bit system
+        )
+    ) else (
+        echo Warning: Unknown architecture %PROCESSOR_ARCHITECTURE%, defaulting to 64-bit
+        set ARCH=amd64
+        set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
+        set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
+    )
+    
+    echo Downloading Python 3.8.10 installer for %ARCH%...
     
     powershell -Command "Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile '%PYTHON_INSTALLER%'"
     if %errorlevel% == 0 (
@@ -64,11 +89,14 @@ if %errorlevel% == 0 (
     echo =========================================
     echo Automatic installation failed. Please:
     echo 1. Download Python 3.8.10 from: https://www.python.org/downloads/release/python-3810/
+    echo    - For 64-bit systems: python-3.8.10-amd64.exe
+    echo    - For 32-bit systems: python-3.8.10.exe
     echo 2. Run the installer and make sure to check 'Add Python to PATH'
     echo 3. Restart this script after installation
     echo.
-    echo TIP: You can also place the Python installer (python-3.8.10-amd64.exe) 
-    echo      in the same directory as this script for easier access
+    echo TIP: You can also place the Python installer in the same directory as this script
+    echo      Your system architecture: %ARCH%
+    echo      Required installer: %PYTHON_INSTALLER%
     pause
     exit /b 1
     
