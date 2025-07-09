@@ -1,0 +1,126 @@
+{
+  "participant_id": "P001",
+  "analysis_name": "powerlifting_musculoskeletal_analysis",
+  "paths": {
+    "input": {
+      "motion_data": {
+        "c3d_files": "./data/input/motion/participant_trials.c3d",
+        "csv_files": "./data/input/motion/marker_data.csv",
+        "trial_directory": "./data/input/motion/trials/"
+      },
+      "force_data": {
+        "force_plates": "./data/input/forces/force_plate_data.csv",
+        "analog_data": "./data/input/forces/analog_signals.csv"
+      },
+      "emg_data": {
+        "raw_emg": "./data/input/emg/raw_emg_signals.csv",
+        "processed_emg": "./data/input/emg/processed_emg.csv"
+      },
+      "anthropometric": {
+        "measurements": "./data/input/anthropometric/body_measurements.json",
+        "scaling_factors": "./data/input/anthropometric/scaling_setup.xml"
+      },
+      "video": {
+        "sagittal_view": "./data/input/video/sagittal_camera.mp4",
+        "frontal_view": "./data/input/video/frontal_camera.mp4",
+        "lateral_view": "./data/input/video/lateral_camera.mp4"
+      }
+    },
+    "models": {
+      "opensim": {
+        "base_model": "./models/opensim/gait2392_simbody.osim",
+        "scaled_model": "./models/opensim/scaled_participant_model.osim",
+        "marker_set": "./models/opensim/marker_protocol.xml"
+      },
+      "templates": {
+        "ik_setup": "./models/templates/inverse_kinematics_setup.xml",
+        "id_setup": "./models/templates/inverse_dynamics_setup.xml",
+        "so_setup": "./models/templates/static_optimization_setup.xml",
+        "muscle_analysis": "./models/templates/muscle_analysis_setup.xml"
+      }
+    },
+    "configuration": {
+      "calibration": {
+        "camera_calibration": "./config/calibration/camera_parameters.json",
+        "force_plate_calibration": "./config/calibration/force_plate_config.xml"
+      },
+      "protocols": {
+        "marker_protocol": "./config/protocols/powerlifting_marker_set.json",
+        "movement_protocol": "./config/protocols/lift_movement_definitions.json"
+      },
+      "analysis_settings": {
+        "filtering": "./config/analysis/filtering_parameters.json",
+        "processing": "./config/analysis/processing_pipeline.json",
+        "optimization": "./config/analysis/optimization_settings.json"
+      }
+    },
+    "output": {
+      "kinematics": {
+        "joint_angles": "./results/kinematics/joint_angles.csv",
+        "joint_velocities": "./results/kinematics/joint_velocities.csv",
+        "joint_accelerations": "./results/kinematics/joint_accelerations.csv",
+        "marker_trajectories": "./results/kinematics/marker_positions.csv"
+      },
+      "kinetics": {
+        "joint_moments": "./results/kinetics/joint_moments.csv",
+        "joint_forces": "./results/kinetics/joint_forces.csv",
+        "ground_reaction_forces": "./results/kinetics/grf_data.csv",
+        "center_of_pressure": "./results/kinetics/cop_data.csv"
+      },
+      "muscle_analysis": {
+        "muscle_forces": "./results/muscles/muscle_forces.csv",
+        "muscle_activations": "./results/muscles/muscle_activations.csv",
+        "muscle_lengths": "./results/muscles/muscle_lengths.csv",
+        "muscle_velocities": "./results/muscles/muscle_velocities.csv"
+      },
+      "reports": {
+        "summary_report": "./results/reports/analysis_summary.pdf",
+        "detailed_report": "./results/reports/detailed_analysis.html",
+        "data_quality": "./results/reports/data_quality_report.json"
+      },
+      "visualizations": {
+        "stick_figure": "./results/visualizations/stick_figure_animation.mp4",
+        "joint_angle_plots": "./results/visualizations/joint_angle_graphs.png",
+        "force_plots": "./results/visualizations/force_time_series.png",
+        "muscle_plots": "./results/visualizations/muscle_activation_patterns.png"
+      }
+    },
+    "logs": {
+      "processing_log": "./logs/processing.log",
+      "error_log": "./logs/errors.log",
+      "analysis_log": "./logs/analysis_pipeline.log"
+    },
+    "temp": {
+      "intermediate_files": "./temp/processing/",
+      "cache": "./temp/cache/",
+      "backup": "./temp/backup/"
+    }
+  },
+  "analysis_parameters": {
+    "lift_types": ["squat", "bench_press", "deadlift"],
+    "sampling_rate": 100,
+    "filter_cutoff": 6,
+    "time_range": {
+      "start": 0,
+      "end": "auto"
+    },
+    "coordinate_system": "laboratory",
+    "units": {
+      "length": "meters",
+      "mass": "kilograms",
+      "force": "newtons",
+      "moment": "newton_meters",
+      "angle": "degrees",
+      "time": "seconds"
+    }
+  },
+  "file_formats": {
+    "motion_data": ["c3d", "csv", "trc"],
+    "force_data": ["csv", "txt"],
+    "model_files": ["osim", "xml"],
+    "output_data": ["csv", "json", "mat"]
+  },
+  "version": "1.0.0",
+  "created_date": "2024-01-01",
+  "description": "Configuration file for single participant musculoskeletal analysis in powerlifting movements"
+}
