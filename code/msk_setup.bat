@@ -38,30 +38,32 @@ if %errorlevel% == 0 (
     echo.
     echo Detecting system architecture...
     
-    REM Detect system architecture
+    REM Detect system architecture using simpler logic
+    set ARCH=amd64
+    set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
+    set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
+    
     if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-        set ARCH=amd64
-        set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
-        set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
         echo Detected 64-bit system
-    ) else if "%PROCESSOR_ARCHITECTURE%"=="x86" (
+        goto :arch_detected
+    )
+    
+    if "%PROCESSOR_ARCHITECTURE%"=="x86" (
         if "%PROCESSOR_ARCHITEW6432%"=="AMD64" (
-            set ARCH=amd64
-            set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
-            set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
-            echo Detected 64-bit system (WOW64)
+            echo Detected 64-bit system ^(WOW64^)
+            goto :arch_detected
         ) else (
             set ARCH=win32
             set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10.exe
             set PYTHON_INSTALLER=%TEMP%\python-3.8.10.exe
             echo Detected 32-bit system
+            goto :arch_detected
         )
-    ) else (
-        echo Warning: Unknown architecture %PROCESSOR_ARCHITECTURE%, defaulting to 64-bit
-        set ARCH=amd64
-        set PYTHON_URL=https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
-        set PYTHON_INSTALLER=%TEMP%\python-3.8.10-amd64.exe
     )
+    
+    echo Warning: Unknown architecture %PROCESSOR_ARCHITECTURE%, defaulting to 64-bit
+    
+    :arch_detected
     
     echo Downloading Python 3.8.10 installer for %ARCH%...
     
