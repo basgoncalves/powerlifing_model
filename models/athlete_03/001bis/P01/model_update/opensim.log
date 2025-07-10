@@ -1,0 +1,245 @@
+[2025-06-26 13:23:26.104] [info] Preparing to run ScaleTool.
+[2025-06-26 13:23:26.106] [info] Processing subject Rajagopal-generic-scaled...
+[2025-06-26 13:23:26.106] [info] Step 1: Loading generic model
+[2025-06-26 13:23:29.758] [info] Loaded model RajagopalModifiedGeneric from file e:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\templates\RajagopalModified_generic_copy_with_joints.osim
+[2025-06-26 13:23:29.831] [info] Loading marker set from '../templates/scaling_EXP_Markers_to_Scale_final_3.xml'.
+[2025-06-26 13:23:30.094] [info] Updated markers in model RajagopalModifiedGeneric
+[2025-06-26 13:23:30.094] [info] Step 2: Scaling generic model
+[2025-06-26 13:23:30.227] [info] Loaded marker file E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (73 markers, 693 frames)
+[2025-06-26 13:23:30.239] [info] Measurement 'pelvis width'
+[2025-06-26 13:23:30.239] [info] 	pair 0 (LASI, RASI): model = 0.256, experimental = 0.227666
+[2025-06-26 13:23:30.239] [info] 	pair 1 (LPSI, RPSI): model = 0.0880006, experimental = 0.0891936
+[2025-06-26 13:23:30.239] [info] 	overall scale factor = 0.951439
+[2025-06-26 13:23:30.239] [info] Measurement 'pelvis height'
+[2025-06-26 13:23:30.239] [warning] Marker LMKNE in pelvis height measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.239] [warning] 'pelvis height' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.239] [info] Measurement 'torso height'
+[2025-06-26 13:23:30.239] [warning] Marker PE01 in torso height measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.239] [warning] 'torso height' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.239] [info] Measurement 'torso depth'
+[2025-06-26 13:23:30.239] [warning] Marker T10 in torso depth measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.239] [warning] 'torso depth' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.239] [info] Measurement 'femur_r_length'
+[2025-06-26 13:23:30.240] [warning] Marker RMKNE in femur_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'femur_r_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.240] [info] Measurement 'femur_l_length'
+[2025-06-26 13:23:30.240] [warning] Marker LMKNE in femur_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'femur_l_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.240] [info] Measurement 'tibia_r_length'
+[2025-06-26 13:23:30.240] [warning] Marker RKNE in tibia_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] Marker RANK in tibia_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'tibia_r_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.240] [info] Measurement 'tibia_l_length'
+[2025-06-26 13:23:30.240] [warning] Marker LKNE in tibia_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] Marker LANK in tibia_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'tibia_l_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.240] [info] Measurement 'foot_horiz_l'
+[2025-06-26 13:23:30.240] [info] 	pair 0 (LHEE, LTOE): model = 0.212119, experimental = 0.212017
+[2025-06-26 13:23:30.240] [info] 	overall scale factor = 0.999522
+[2025-06-26 13:23:30.240] [info] Measurement 'foot_horiz_r'
+[2025-06-26 13:23:30.240] [info] 	pair 0 (RHEE, RTOE): model = 0.204784, experimental = 0.211009
+[2025-06-26 13:23:30.240] [info] 	overall scale factor = 1.03040
+[2025-06-26 13:23:30.240] [info] Measurement 'foot_vertic_l'
+[2025-06-26 13:23:30.240] [warning] Marker LANK in foot_vertic_l measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'foot_vertic_l' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.240] [info] Measurement 'foot_vertic_r'
+[2025-06-26 13:23:30.240] [warning] Marker RANK in foot_vertic_r measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:23:30.240] [warning] 'foot_vertic_r' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:23:30.443] [info] Wrote model file '3a_osim_markers\scaled_model_P01bis.osim' from model.
+[2025-06-26 13:23:30.446] [info] Wrote scale file '3a_osim_markers\output_scale_file.txt' for model Rajagopal-generic-scaled.
+[2025-06-26 13:23:30.446] [info] Step 3: Placing markers on model
+[2025-06-26 13:23:30.894] [info] Loaded marker file E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (73 markers, 693 frames)
+[2025-06-26 13:23:30.896] [info] Averaged frames from time 0.0 to 3.46 in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (frames 1 to 693)
+[2025-06-26 13:23:30.897] [info] Deleted 35 unused markers from model Rajagopal-generic-scaled.
+[2025-06-26 13:23:31.297] [info] Frame at (t = 0.0):	 total squared error = 0.0137073, marker error: RMS = 0.0234156, max = 0.0979281 (STRN)
+[2025-06-26 13:23:31.297] [info] Moved markers in model Rajagopal-generic-scaled to match locations in marker file 'E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc'.
+[2025-06-26 13:23:31.534] [info] Wrote model file '3a_osim_markers\scaled_model_P01bis.osim' from model Rajagopal-generic-scaled.
+[2025-06-26 13:27:32.098] [info] Preparing to run ScaleTool.
+[2025-06-26 13:27:32.101] [info] Processing subject Rajagopal-generic-scaled...
+[2025-06-26 13:27:32.101] [info] Step 1: Loading generic model
+[2025-06-26 13:27:32.407] [info] Loaded model Athlete_03 from file e:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\templates\Athlete_03_lowerBody_final_increased_3.00.osim
+[2025-06-26 13:27:32.541] [info] Loading marker set from '../templates/Athlete_03_markerset.xml'.
+[2025-06-26 13:27:34.330] [info] Updated markers in model Athlete_03
+[2025-06-26 13:27:34.331] [info] Step 2: Scaling generic model
+[2025-06-26 13:27:34.539] [info] Loaded marker file E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (73 markers, 693 frames)
+[2025-06-26 13:27:34.540] [info] Measurement 'pelvis width'
+[2025-06-26 13:27:34.541] [info] 	pair 0 (LASI, RASI): model = 0.249129, experimental = 0.227666
+[2025-06-26 13:27:34.541] [info] 	pair 1 (LPSI, RPSI): model = 0.0775916, experimental = 0.0891936
+[2025-06-26 13:27:34.542] [info] 	overall scale factor = 1.03169
+[2025-06-26 13:27:34.542] [info] Measurement 'pelvis height'
+[2025-06-26 13:27:34.542] [warning] Marker LMKNE in pelvis height measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.542] [warning] 'pelvis height' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.542] [info] Measurement 'torso height'
+[2025-06-26 13:27:34.542] [warning] Marker C7 in torso height measurement not found in Rajagopal-generic-scaled.
+[2025-06-26 13:27:34.542] [warning] Marker PE01 in torso height measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.542] [warning] 'torso height' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'torso depth'
+[2025-06-26 13:27:34.543] [warning] Marker T10 in torso depth measurement not found in Rajagopal-generic-scaled.
+[2025-06-26 13:27:34.543] [warning] Marker T10 in torso depth measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] 'torso depth' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'femur_r_length'
+[2025-06-26 13:27:34.543] [warning] Marker RMKNE in femur_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] 'femur_r_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'femur_l_length'
+[2025-06-26 13:27:34.543] [warning] Marker LMKNE in femur_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] 'femur_l_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'tibia_r_length'
+[2025-06-26 13:27:34.543] [warning] Marker RKNE in tibia_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] Marker RANK in tibia_r_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] 'tibia_r_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'tibia_l_length'
+[2025-06-26 13:27:34.543] [warning] Marker LKNE in tibia_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] Marker LANK in tibia_l_length measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.543] [warning] 'tibia_l_length' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.543] [info] Measurement 'foot_horiz_l'
+[2025-06-26 13:27:34.543] [info] 	pair 0 (LHEE, LTOE): model = 0.210644, experimental = 0.212017
+[2025-06-26 13:27:34.543] [info] 	overall scale factor = 1.00652
+[2025-06-26 13:27:34.543] [info] Measurement 'foot_horiz_r'
+[2025-06-26 13:27:34.543] [info] 	pair 0 (RHEE, RTOE): model = 0.203249, experimental = 0.211009
+[2025-06-26 13:27:34.543] [info] 	overall scale factor = 1.03818
+[2025-06-26 13:27:34.543] [info] Measurement 'foot_vertic_l'
+[2025-06-26 13:27:34.544] [warning] Marker LANK in foot_vertic_l measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.544] [warning] 'foot_vertic_l' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.544] [info] Measurement 'foot_vertic_r'
+[2025-06-26 13:27:34.544] [warning] Marker RANK in foot_vertic_r measurement not found in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc.
+[2025-06-26 13:27:34.544] [warning] 'foot_vertic_r' measurement not used to scale Rajagopal-generic-scaled
+[2025-06-26 13:27:34.784] [info] Wrote model file '3a_osim_markers\scaled_model_P01bis.osim' from model.
+[2025-06-26 13:27:34.788] [info] Wrote scale file '3a_osim_markers\output_scale_file.txt' for model Rajagopal-generic-scaled.
+[2025-06-26 13:27:34.789] [info] Step 3: Placing markers on model
+[2025-06-26 13:27:35.343] [info] Loaded marker file E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (73 markers, 693 frames)
+[2025-06-26 13:27:35.345] [info] Averaged frames from time 0.0 to 3.46 in E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc (frames 1 to 693)
+[2025-06-26 13:27:35.347] [info] Deleted 134 unused markers from model Rajagopal-generic-scaled.
+[2025-06-26 13:27:35.573] [info] Frame at (t = 0.0):	 total squared error = 0.00131897, marker error: RMS = 0.00726352, max = 0.0200146 (RASI)
+[2025-06-26 13:27:35.573] [info] Moved markers in model Rajagopal-generic-scaled to match locations in marker file 'E:\DataFolder\AlexP\simulations\22_07_06\static_01\marker_experimental.trc'.
+[2025-06-26 13:27:35.664] [info] Wrote model file '3a_osim_markers\scaled_model_P01bis.osim' from model Rajagopal-generic-scaled.
+[2025-06-26 13:27:49.647] [info] Loaded model Athlete_03 from file ../templates/Athlete_03_lowerBody_final_increased_3.00.osim
+[2025-06-26 13:27:50.327] [info] Loaded model Rajagopal-generic-scaled from file 3a_osim_markers\scaled_model_P01bis.osim
+[2025-06-26 13:27:50.331] [warning] Couldn't find file 'r_pelvis.vtp'.
+[2025-06-26 13:27:50.332] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-06-26 13:27:50.333] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-06-26 13:27:50.335] [warning] Couldn't find file 'r_femur.vtp'.
+[2025-06-26 13:27:50.336] [warning] Couldn't find file 'r_tibia.vtp'.
+[2025-06-26 13:27:50.337] [warning] Couldn't find file 'r_fibula.vtp'.
+[2025-06-26 13:27:50.339] [warning] Couldn't find file 'r_patella.vtp'.
+[2025-06-26 13:27:50.340] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-06-26 13:27:50.341] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-06-26 13:27:50.342] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-06-26 13:27:50.343] [warning] Couldn't find file 'l_femur.vtp'.
+[2025-06-26 13:27:50.343] [warning] Couldn't find file 'l_tibia.vtp'.
+[2025-06-26 13:27:50.344] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-06-26 13:27:50.345] [warning] Couldn't find file 'l_patella.vtp'.
+[2025-06-26 13:27:50.347] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-06-26 13:27:50.348] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-06-26 13:27:50.349] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-06-26 13:28:23.068] [info] Loaded model Rajagopal-generic-scaled from file 3a_osim_markers\scaled_model_P01bis.osim
+[2025-06-26 13:28:23.069] [warning] Couldn't find file 'r_pelvis.vtp'.
+[2025-06-26 13:28:23.069] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-06-26 13:28:23.069] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-06-26 13:28:23.069] [warning] Couldn't find file 'r_femur.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_tibia.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_fibula.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_patella.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'l_femur.vtp'.
+[2025-06-26 13:28:23.070] [warning] Couldn't find file 'l_tibia.vtp'.
+[2025-06-26 13:28:23.071] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-06-26 13:28:23.071] [warning] Couldn't find file 'l_patella.vtp'.
+[2025-06-26 13:28:23.071] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-06-26 13:28:23.071] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-06-26 13:28:23.071] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-06-26 13:35:29.013] [info] Loaded model Rajagopal-generic-scaled from file 3a_osim_markers\scaled_model_P01bis_joints.osim
+[2025-06-26 13:35:29.014] [warning] Couldn't find file 'r_pelvis.vtp'.
+[2025-06-26 13:35:29.014] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-06-26 13:35:29.014] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_femur.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_tibia.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_fibula.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_patella.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-06-26 13:35:29.015] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-06-26 13:35:29.016] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-06-26 13:35:29.016] [warning] Couldn't find file 'l_femur.vtp'.
+[2025-06-26 13:35:29.016] [warning] Couldn't find file 'l_tibia.vtp'.
+[2025-06-26 13:35:29.017] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-06-26 13:35:29.017] [warning] Couldn't find file 'l_patella.vtp'.
+[2025-06-26 13:35:29.017] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-06-26 13:35:29.017] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-06-26 13:35:29.017] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-06-26 13:35:53.524] [info] Loaded model Rajagopal-generic-scaled from file 3a_osim_markers\scaled_model_P01bis_joints.osim
+[2025-06-26 13:35:53.526] [warning] Couldn't find file 'r_pelvis.vtp'.
+[2025-06-26 13:35:53.526] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-06-26 13:35:53.527] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-06-26 13:35:53.528] [warning] Couldn't find file 'r_femur.vtp'.
+[2025-06-26 13:35:53.533] [warning] Couldn't find file 'r_tibia.vtp'.
+[2025-06-26 13:35:53.534] [warning] Couldn't find file 'r_fibula.vtp'.
+[2025-06-26 13:35:53.535] [warning] Couldn't find file 'r_patella.vtp'.
+[2025-06-26 13:35:53.538] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-06-26 13:35:53.539] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-06-26 13:35:53.539] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-06-26 13:35:53.540] [warning] Couldn't find file 'l_femur.vtp'.
+[2025-06-26 13:35:53.541] [warning] Couldn't find file 'l_tibia.vtp'.
+[2025-06-26 13:35:53.542] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-06-26 13:35:53.542] [warning] Couldn't find file 'l_patella.vtp'.
+[2025-06-26 13:35:53.543] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-06-26 13:35:53.544] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-06-26 13:35:53.544] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-02 11:39:16.137] [info] Preparing to run ScaleTool.
+[2025-07-02 11:39:16.154] [info] Processing subject Rajagopal-generic-scaled-scaled...
+[2025-07-02 11:39:16.154] [info] Step 1: Loading generic model
+[2025-07-02 11:39:16.187] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:39:16.188] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:39:16.193] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:39:16.193] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:39:16.297] [info] Loaded model Rajagopal-generic-scaled from file e:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\P01bis_tps_transformed.osim
+[2025-07-02 11:39:16.299] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-02 11:39:16.299] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-02 11:39:16.302] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-02 11:39:16.302] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-02 11:39:16.303] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-02 11:39:16.303] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-02 11:39:16.304] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-02 11:39:16.305] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-02 11:39:16.305] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-02 11:39:16.305] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-02 11:39:16.306] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-02 11:39:16.306] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-02 11:39:16.306] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-02 11:39:16.307] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-02 11:39:16.307] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-02 11:39:16.307] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-02 11:39:16.308] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-02 11:39:16.419] [info] Loading marker set from '4_tps-bones-muscles-updated/markers.xml'.
+[2025-07-02 11:39:16.425] [error] Object: Cannot open file e:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\markers.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+[2025-07-02 11:39:16.425] [error] Unable to load the generic model or marker set file.
+[2025-07-02 11:39:16.425] [error] ScaleTool: No model specified.
+[2025-07-02 11:39:16.426] [error] ScaleTool: No model specified.
+[2025-07-08 18:10:31.426] [info] Preparing to run ScaleTool.
+[2025-07-08 18:10:32.051] [info] Processing subject Rajagopal-generic-scaled-scaled...
+[2025-07-08 18:10:32.051] [info] Step 1: Loading generic model
+[2025-07-08 18:10:32.101] [info] Loaded model Rajagopal-generic-scaled from file e:\DataFolder\AlexP\models\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\P01bis_tps_transformed.osim
+[2025-07-08 18:10:32.102] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 18:10:32.102] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 18:10:32.103] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-08 18:10:32.104] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-08 18:10:32.105] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-08 18:10:32.149] [info] Loading marker set from '4_tps-bones-muscles-updated/markers.xml'.
+[2025-07-08 18:10:32.150] [error] Object: Cannot open file e:\DataFolder\AlexP\models\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\markers.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+[2025-07-08 18:10:32.150] [error] Unable to load the generic model or marker set file.
+[2025-07-08 18:10:32.150] [error] ScaleTool: No model specified.
+[2025-07-08 18:10:32.151] [error] ScaleTool: No model specified.

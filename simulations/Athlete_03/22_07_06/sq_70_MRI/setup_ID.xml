@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSimDocument Version="20302">
+   <InverseDynamicsTool name="Run_baselineA1">
+      <results_directory>.\</results_directory>
+      <model_file>..\..\019_Rajagopal2015_FAI.osim</model_file>
+      <time_range>[5.815 6.278]</time_range>
+      <forces_to_exclude>Muscles</forces_to_exclude>
+      <external_loads_file>.\grf.xml</external_loads_file>
+      <coordinates_file>.\joint_angles.mot</coordinates_file>
+      <lowpass_cutoff_frequency_for_coordinates>6</lowpass_cutoff_frequency_for_coordinates>
+      <output_gen_force_file>.\inverse_dynamics.sto</output_gen_force_file>
+   </InverseDynamicsTool>
+</OpenSimDocument>

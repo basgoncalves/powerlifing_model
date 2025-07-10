@@ -1,0 +1,4 @@
+columnName	longName	Plugin	name	description	unitLabel	DICOM.QuantityCode	DICOM.UnitsCode	type	componentNames
+Segment	Segment							string	
+Centroid	Centroid<br>Computed by Labelmap Statistics plugin	Labelmap	Centroid	Location of the centroid in RAS				double	r|a|s
+Surface area [mm2]	Surface area [mm2]<br>Computed by Labelmap Statistics plugin	Labelmap	Surface mm2	Surface area in mm2	mm2	CodeValue:000247|CodingSchemeDesignator:99CHEMINF|CodeMeaning:Surface area	CodeValue:mm2|CodingSchemeDesignator:UCUM|CodeMeaning:square millimeter	double	

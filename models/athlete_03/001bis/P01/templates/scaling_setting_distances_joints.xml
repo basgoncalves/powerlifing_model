@@ -1,0 +1,488 @@
+<OpenSimDocument Version="40000">
+	<ScaleTool name="Rajagopal-generic-scaled">
+		
+		<mass>50</mass>
+		
+		<height>1.6</height>
+		
+		<age>36</age>
+		
+		<notes>Unassigned</notes>
+		
+		<GenericModelMaker>
+			
+			<model_file>RajagopalModified_generic_copy.osim</model_file>
+			
+			<marker_set_file>scaling_EXP_Markers_to_Scale_final_3.xml</marker_set_file>
+		</GenericModelMaker>
+		
+		<ModelScaler>
+			
+			<apply>true</apply>
+			
+			<scaling_order> measurements manualScale </scaling_order>
+			
+			<MeasurementSet>
+				<objects>
+					<Measurement name="torso height">					
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> PE01 C7</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="torso">									
+									<axes> Y Z</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+					<Measurement name="torso depth">						
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> T10 STRN</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="torso">									
+									<axes> X</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+					<Measurement name="foot_horiz_l">						
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> LHEE LTOE</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="talus_l">									
+									<axes> X Z</axes>
+								</BodyScale>
+								<BodyScale name="calcn_l">									
+									<axes> X Z</axes>
+								</BodyScale>
+								<BodyScale name="toes_l">									
+									<axes> X Z</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+					<Measurement name="foot_horiz_r">						
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> RHEE RTOE</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="talus_r">								
+									<axes> X Z</axes>
+								</BodyScale>
+								<BodyScale name="calcn_r">									
+									<axes> X Z</axes>
+								</BodyScale>
+								<BodyScale name="toes_r">									
+									<axes> X Z</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+					<Measurement name="foot_vertic_l">						
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> LHEE LANK</markers>
+								</MarkerPair>
+								<MarkerPair>									
+									<markers> LHEE LMMA</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="talus_l">									
+									<axes> Y</axes>
+								</BodyScale>
+								<BodyScale name="calcn_l">									
+									<axes> Y</axes>
+								</BodyScale>
+								<BodyScale name="toes_l">									
+									<axes> Y</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+					<Measurement name="foot_vertic_r">						
+						<apply>true</apply>						
+						<MarkerPairSet>
+							<objects>
+								<MarkerPair>									
+									<markers> RHEE RANK</markers>
+								</MarkerPair>
+								<MarkerPair>									
+									<markers> RHEE RMMA</markers>
+								</MarkerPair>
+							</objects>
+							<groups />
+						</MarkerPairSet>						
+						<BodyScaleSet>
+							<objects>
+								<BodyScale name="talus_r">									
+									<axes>Y</axes>
+								</BodyScale>
+								<BodyScale name="calcn_r">									
+									<axes> Y</axes>
+								</BodyScale>
+								<BodyScale name="toes_r">									
+									<axes> Y</axes>
+								</BodyScale>
+							</objects>
+							<groups />
+						</BodyScaleSet>
+					</Measurement>
+				</objects>
+			</MeasurementSet>
+			
+			<ScaleSet>
+
+				<objects>
+                    <Scale name="pelvis"> 
+                        <scales> 1 1 1 </scales> 
+                        <segment> pelvis </segment> 
+                        <apply> true </apply> 
+                    </Scale>
+
+                    <Scale name="femur_r"> 
+                        <scales> 1 1 1 </scales> 
+                        <segment> femur_r </segment> 
+                        <apply> true </apply> 
+                    </Scale> 
+                
+                    <Scale name="femur_l"> 
+                        <scales> 1 1 1 </scales> 
+                        <segment> femur_l </segment> 
+                        <apply> true </apply> 
+                    </Scale> 
+                
+                
+                    <Scale name="tibia_r"> 
+                        <scales> 1 1 1 </scales> 
+                        <segment> tibia_r </segment> 
+                        <apply> true </apply> 
+                    </Scale> 
+                
+                    <Scale name="tibia_l"> 
+                        <scales> 1 1 1 </scales> 
+                        <segment> tibia_l </segment> 
+                        <apply> true </apply> 
+                    </Scale>
+                </objects>
+				<groups />
+			</ScaleSet>
+			
+			<marker_file>task.trc</marker_file>
+			
+			<time_range> 0 3.295</time_range>
+			
+			<preserve_mass_distribution>true</preserve_mass_distribution>
+			
+			<output_model_file>scaled_model.osim</output_model_file>
+			
+			<output_scale_file>output_scale_file.txt</output_scale_file>
+		</ModelScaler>
+		
+		<MarkerPlacer>
+			
+			<apply>true</apply>
+			
+			<IKTaskSet>
+				<objects>
+					<IKMarkerTask name="C7">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RBAK">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="CLAV">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="STRN">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="T10">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RASI">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RPSI">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LPSI">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LASI">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="PE01">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="PE02">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="PE03">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTH1">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTH2">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTH3">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RGT">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RKNE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RMKNE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTH1">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTH2">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTH3">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LGT">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LKNE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LMKNE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTB1">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTB2">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTB3">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RANK">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RMMA">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTB1">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTB2">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTB3">
+						
+						<apply>false</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LANK">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LMMA">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RHEE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RD5M">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="RTOE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LHEE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LD5M">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+					<IKMarkerTask name="LTOE">
+						
+						<apply>true</apply>
+						
+						<weight>1</weight>
+					</IKMarkerTask>
+
+				</objects>
+				<groups />
+			</IKTaskSet>
+			
+			<marker_file>task.trc</marker_file>
+			
+			<coordinate_file>Unassigned</coordinate_file>
+			
+			<time_range> 0 3.295</time_range>
+			
+			<output_motion_file>Unassigned</output_motion_file>
+			
+			<output_model_file>scaled_model.osim</output_model_file>
+			
+			<output_marker_file>Unassigned</output_marker_file>
+			
+			<max_marker_movement>-1</max_marker_movement>
+		</MarkerPlacer>
+	</ScaleTool>
+</OpenSimDocument>

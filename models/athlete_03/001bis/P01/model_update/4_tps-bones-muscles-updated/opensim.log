@@ -1,0 +1,844 @@
+[2025-07-02 11:37:31.410] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:37:31.506] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:37:31.508] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:37:31.508] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:37:31.533] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\P01bis_tps_transformed.osim
+[2025-07-02 11:37:31.534] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-02 11:37:31.534] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-02 11:37:31.535] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-02 11:37:31.535] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-02 11:37:31.536] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-02 11:37:31.537] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-02 11:37:31.538] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-02 11:37:31.857] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.858] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.861] [warning] Visualizer couldn't open sacrum.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.861] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.862] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.862] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.863] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.863] [warning] Visualizer couldn't open r_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.864] [warning] Visualizer couldn't open r_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.864] [warning] Visualizer couldn't open r_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.864] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.865] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.866] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.867] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:37:31.867] [warning] Visualizer couldn't open l_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.867] [warning] Visualizer couldn't open l_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:37:31.867] [warning] Visualizer couldn't open l_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.292] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:53:25.292] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:53:25.295] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:53:25.295] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:53:25.369] [info] Loaded model Rajagopal-generic-scaled from file E:/DataFolder/Katya_UniVie/athlete_03/001bis/P01/model_update/4_tps-bones-muscles-updated/P01bis_tps_transformed.osim
+[2025-07-02 11:53:25.371] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-02 11:53:25.371] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-02 11:53:25.372] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-02 11:53:25.372] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-02 11:53:25.373] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-02 11:53:25.374] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-02 11:53:25.374] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-02 11:53:25.375] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-02 11:53:25.375] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-02 11:53:25.376] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-02 11:53:25.376] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-02 11:53:25.377] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-02 11:53:25.378] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-02 11:53:25.378] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-02 11:53:25.379] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-02 11:53:25.380] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-02 11:53:25.380] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-02 11:53:25.540] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.541] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.543] [warning] Visualizer couldn't open sacrum.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.543] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.545] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.545] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.546] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.547] [warning] Visualizer couldn't open r_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.547] [warning] Visualizer couldn't open r_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.547] [warning] Visualizer couldn't open r_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.548] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.549] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.549] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.550] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:53:25.551] [warning] Visualizer couldn't open l_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.577] [warning] Visualizer couldn't open l_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:53:25.577] [warning] Visualizer couldn't open l_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-02 11:55:31.337] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:55:31.337] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:55:31.340] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-02 11:55:31.340] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-02 11:55:31.427] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\Katya_UniVie\athlete_03\001bis\P01\model_update\P01bis_tps_transformed.osim
+[2025-07-02 11:55:31.429] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-02 11:55:31.429] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-02 11:55:31.471] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-02 11:55:31.472] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-02 11:55:31.473] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-02 11:55:31.473] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-02 11:55:31.578] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-02 11:55:31.579] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-02 11:55:31.580] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-02 11:55:31.580] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-02 11:55:31.896] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:31.896] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:31.939] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:31.941] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:31.942] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:31.943] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:32.041] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:32.043] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:32.043] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-02 11:55:32.044] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.202] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:53:44.203] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:53:44.203] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:53:44.203] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:53:44.221] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\P01bis_tps_transformed.osim
+[2025-07-08 17:53:44.222] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 17:53:44.222] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 17:53:44.222] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-08 17:53:44.223] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-08 17:53:44.224] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-08 17:53:44.379] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.380] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.383] [warning] Visualizer couldn't open sacrum.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.383] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.384] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.384] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.385] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.386] [warning] Visualizer couldn't open r_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.386] [warning] Visualizer couldn't open r_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.386] [warning] Visualizer couldn't open r_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.387] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.388] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.388] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.388] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:53:44.389] [warning] Visualizer couldn't open l_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.389] [warning] Visualizer couldn't open l_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:53:44.389] [warning] Visualizer couldn't open l_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:54:10.952] [info] Updated markers in model Rajagopal-generic-scaled
+[2025-07-08 17:55:35.992] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\athlete_03\001bis\P01\model_update\3a_osim_markers\scaled_model_P01bis_joints.osim
+[2025-07-08 17:55:35.993] [warning] Couldn't find file 'r_pelvis.vtp'.
+[2025-07-08 17:55:35.993] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-08 17:55:35.993] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_femur.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_tibia.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_fibula.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_patella.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_talus.vtp'.
+[2025-07-08 17:55:35.994] [warning] Couldn't find file 'r_foot.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'r_bofoot.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_femur.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_tibia.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_patella.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-08 17:55:35.995] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-08 17:55:35.996] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-08 17:55:36.040] [warning] Visualizer couldn't open r_pelvis.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_pelvis.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_pelvis.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.040] [warning] Visualizer couldn't open l_pelvis.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_pelvis.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_pelvis.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.040] [warning] Visualizer couldn't open sacrum.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\sacrum.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.040] [warning] Visualizer couldn't open r_femur.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_femur.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_femur.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_tibia.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_tibia.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_tibia.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_fibula.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_fibula.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_fibula.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_patella.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_patella.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_patella.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open r_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\r_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.041] [warning] Visualizer couldn't open l_femur.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_femur.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_femur.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.042] [warning] Visualizer couldn't open l_tibia.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_tibia.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_tibia.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.042] [warning] Visualizer couldn't open l_fibula.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_fibula.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_fibula.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.042] [warning] Visualizer couldn't open l_patella.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_patella.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_patella.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.042] [warning] Visualizer couldn't open l_talus.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_talus.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.049] [warning] Visualizer couldn't open l_foot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_foot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:55:36.050] [warning] Visualizer couldn't open l_bofoot.vtp because: SimTK Exception thrown at PolygonalMesh.cpp:411:
+  Error detected by Simbody method PolygonalMesh::loadVtpFile(): Attempt to load a VTK PolyData (.vtp) file from file name 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' failed with message:
+  SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'C:\OpenSim 4.3\opensim\..\\Geometry\l_bofoot.vtp' with error 'Failed to open file (line=0, col=0)'.
+  (Required condition 'loadOK' was not met.)
+
+  (Required condition '!"failed"' was not met.)
+
+[2025-07-08 17:56:55.735] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:56:55.736] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:56:55.736] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:56:55.736] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:56:55.755] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\Athlete_03_Katya.osim
+[2025-07-08 17:56:55.755] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 17:56:55.755] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 17:56:56.172] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 17:56:56.172] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 17:56:56.173] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 17:56:56.173] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 17:56:56.236] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 17:56:56.237] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 17:56:56.237] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 17:56:56.237] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 17:56:56.360] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.360] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.365] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.366] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.366] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.366] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.399] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.399] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.399] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:56:56.400] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.480] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:57:54.480] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:57:54.481] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:57:54.481] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:57:54.500] [info] Loaded model Rajagopal-generic-scaled from file E:/DataFolder/AlexP/models/Athlete_03_Katya.osim
+[2025-07-08 17:57:54.501] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 17:57:54.501] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 17:57:54.502] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 17:57:54.502] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 17:57:54.502] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 17:57:54.502] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 17:57:54.503] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 17:57:54.503] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 17:57:54.503] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 17:57:54.504] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 17:57:54.532] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.532] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.535] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.536] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.536] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.536] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.566] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.566] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.566] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:57:54.567] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.798] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:58:10.798] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:58:10.799] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:58:10.799] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:58:10.816] [info] Loaded model Rajagopal-generic-scaled from file E:/DataFolder/AlexP/models/Athlete_03_Katya.osim
+[2025-07-08 17:58:10.816] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 17:58:10.817] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 17:58:10.817] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 17:58:10.817] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 17:58:10.817] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 17:58:10.818] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 17:58:10.818] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 17:58:10.818] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 17:58:10.819] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 17:58:10.819] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 17:58:10.886] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.886] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.890] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.890] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.890] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.891] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.916] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.916] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.916] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:10.916] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.390] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:58:23.390] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:58:23.391] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 17:58:23.391] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 17:58:23.407] [info] Loaded model Rajagopal-generic-scaled from file E:/DataFolder/AlexP/models/Athlete_03_Katya.osim
+[2025-07-08 17:58:23.407] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 17:58:23.408] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 17:58:23.408] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 17:58:23.408] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 17:58:23.408] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 17:58:23.409] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 17:58:23.409] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 17:58:23.409] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 17:58:23.409] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 17:58:23.410] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 17:58:23.464] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.464] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.467] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.468] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.468] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.468] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.494] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.494] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.494] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 17:58:23.494] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.156] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\athlete_03\001bis\P01\model_update\4_tps-bones-muscles-updated\P01bis_tps_transformed.osim
+[2025-07-08 18:10:58.156] [warning] Couldn't find file 'bones\r_pelvis.stl'.
+[2025-07-08 18:10:58.157] [warning] Couldn't find file 'bones\l_pelvis.stl'.
+[2025-07-08 18:10:58.165] [warning] Couldn't find file 'bones\femur_r.stl'.
+[2025-07-08 18:10:58.165] [warning] Couldn't find file 'bones\tibia_r.stl'.
+[2025-07-08 18:10:58.165] [warning] Couldn't find file 'bones\fibula_r.stl'.
+[2025-07-08 18:10:58.165] [warning] Couldn't find file 'bones\patella_r.stl'.
+[2025-07-08 18:10:58.188] [warning] Couldn't find file 'bones\femur_l.stl'.
+[2025-07-08 18:10:58.188] [warning] Couldn't find file 'bones\tibia_l.stl'.
+[2025-07-08 18:10:58.189] [warning] Couldn't find file 'bones\fibula_l.stl'.
+[2025-07-08 18:10:58.189] [warning] Couldn't find file 'bones\patella_l.stl'.
+[2025-07-08 18:10:58.233] [warning] Visualizer couldn't open bones\r_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\r_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.234] [warning] Visualizer couldn't open bones\l_pelvis.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\l_pelvis.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.238] [warning] Visualizer couldn't open bones\femur_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.238] [warning] Visualizer couldn't open bones\tibia_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.238] [warning] Visualizer couldn't open bones\fibula_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.239] [warning] Visualizer couldn't open bones\patella_r.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_r.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.264] [warning] Visualizer couldn't open bones\femur_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\femur_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.265] [warning] Visualizer couldn't open bones\tibia_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\tibia_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.265] [warning] Visualizer couldn't open bones\fibula_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\fibula_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:10:58.265] [warning] Visualizer couldn't open bones\patella_l.stl because: SimTK Exception thrown at PolygonalMesh.cpp:556:
+  Error detected by Simbody method PolygonalMesh::loadStlFile(): Can't open file 'C:\OpenSim 4.3\opensim\..\\Geometry\bones\patella_l.stl'
+  (Required condition 'm_ifs.good()' was not met.)
+
+[2025-07-08 18:12:21.794] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 18:12:21.794] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 18:12:21.794] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': the data has been ignored
+[2025-07-08 18:12:21.794] [warning] Failed to read 'class SimTK::Vec<3,double,1>': property 'translation' with input 'Series([], )': does not contain enough values (minimum: 1, got: 0): the data (all fields) have been ignored
+[2025-07-08 18:12:21.810] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\Athlete_03_Katya.osim
+[2025-07-08 18:12:38.597] [info] Loaded model Rajagopal-generic-scaled from file E:\DataFolder\AlexP\models\Athlete_03_Katya.osim
+[2025-07-08 18:13:32.748] [info] Updated markers in model Rajagopal-generic-scaled
+[2025-07-08 18:14:46.962] [info] Updating Model file from 40000 to latest format...
+[2025-07-08 18:14:46.986] [info] Loaded model Athlete_03 from file E:\DataFolder\AlexP\models\Athlete_03_lowerBody_final.osim
