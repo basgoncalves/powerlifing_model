@@ -47,3 +47,31 @@
 2025-07-10 09:53:05,364 - INFO - Created directory: ./tps_warping_results/control
 2025-07-10 09:53:05,364 - INFO - Created directory: ./logs
 2025-07-10 09:53:05,364 - INFO - Created directory: ./temp
+2025-07-10 09:54:04,565 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:54:04,565 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:54:04,565 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:54:04,565 - INFO - Created directory: ./logs
+2025-07-10 09:54:04,566 - INFO - Created directory: ./temp
+2025-07-10 09:54:04,566 - INFO - Starting model creation pipeline with steps: ['start_c3d_processing', 'tps_processing']
+2025-07-10 09:54:04,566 - WARNING - Some packages are not available. Consider running install_requirements first.
+2025-07-10 09:54:04,566 - INFO - Executing step: start_c3d_processing
+2025-07-10 09:54:04,566 - INFO - Starting C3D processing...
+2025-07-10 09:54:04,566 - INFO - C3D processing completed successfully.
+2025-07-10 09:54:04,566 - INFO - Executing step: tps_processing
+2025-07-10 09:54:04,566 - INFO - Starting TPS processing...
+2025-07-10 09:54:04,566 - INFO - TPS processing completed successfully.
+2025-07-10 09:54:04,566 - INFO - Model creation pipeline completed successfully!
+2025-07-10 09:55:01,785 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:55:01,785 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:55:01,786 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:55:01,786 - INFO - Created directory: ./logs
+2025-07-10 09:55:01,786 - INFO - Created directory: ./temp
+2025-07-10 09:55:01,786 - INFO - Starting model creation pipeline with steps: ['model_compare', 'moment_arms_compare']
+2025-07-10 09:55:01,786 - WARNING - Some packages are not available. Consider running install_requirements first.
+2025-07-10 09:55:01,786 - INFO - Executing step: model_compare
+2025-07-10 09:55:01,786 - INFO - Starting model comparison...
+2025-07-10 09:55:01,786 - INFO - Model comparison completed successfully.
+2025-07-10 09:55:01,786 - INFO - Executing step: moment_arms_compare
+2025-07-10 09:55:01,786 - INFO - Starting moment arms comparison...
+2025-07-10 09:55:01,786 - INFO - Moment arms comparison completed successfully.
+2025-07-10 09:55:01,786 - INFO - Model creation pipeline completed successfully!
