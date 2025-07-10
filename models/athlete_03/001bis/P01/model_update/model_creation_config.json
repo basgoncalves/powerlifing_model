@@ -1,0 +1,58 @@
+{
+  "model_creation_config": {
+    "participant_id": "P01",
+    "working_directory": ".",
+    "paths": {
+      "input": {
+        "mri_results": "../../MRI/results",
+        "orientation_json": "../../MRI/results/orientation.mrk.json",
+        "xml_markerset": "../../../../Geometry/tps_warping.xml",
+        "osim_model": "Athlete_03_lowerBody_final_increased_3.00.osim",
+        "geometry_dir": "./Geometry"
+      },
+      "output": {
+        "tps_warping_results": "./tps_warping_results",
+        "tps_warping_after_mri": "./tps_warping_results/after_MRI",
+        "control_path": "./tps_warping_results/control",
+        "logs": "./logs"
+      },
+      "temp": {
+        "intermediate": "./temp"
+      }
+    },
+    "processing_steps": [
+      "install_requirements",
+      "morph_bones_from_mri",
+      "start_c3d_processing",
+      "tps_processing",
+      "tps_after_mri",
+      "tps_workflow_scaling",
+      "after_mri_tps",
+      "model_compare",
+      "moment_arms_compare"
+    ],
+    "requirements": [
+      "numpy",
+      "scipy",
+      "nibabel",
+      "matplotlib",
+      "pandas",
+      "plotly",
+      "pyvista"
+    ],
+    "optional_requirements": [
+      "opensim"
+    ],
+    "processing_parameters": {
+      "stance_threshold": 50,
+      "plates": 3,
+      "debug": false,
+      "import_emg": false,
+      "plot": false
+    },
+    "tps_parameters": {
+      "individual_prefix": "P",
+      "model_suffix": "bis"
+    }
+  }
+}

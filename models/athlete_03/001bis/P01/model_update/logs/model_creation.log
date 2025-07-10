@@ -1,0 +1,49 @@
+2025-07-10 09:50:46,315 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:50:46,316 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:50:46,316 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:50:46,316 - INFO - Created directory: ./logs
+2025-07-10 09:50:46,316 - INFO - Created directory: ./temp
+2025-07-10 09:50:46,316 - INFO - Starting model creation pipeline with steps: ['install_requirements']
+2025-07-10 09:50:46,316 - INFO - Executing step: install_requirements
+2025-07-10 09:50:46,316 - INFO - Installing required packages...
+2025-07-10 09:50:51,606 - INFO - Successfully installed numpy
+2025-07-10 09:50:57,843 - INFO - Successfully installed scipy
+2025-07-10 09:50:59,884 - INFO - Successfully installed nibabel
+2025-07-10 09:51:09,197 - INFO - Successfully installed matplotlib
+2025-07-10 09:51:16,247 - INFO - Successfully installed pandas
+2025-07-10 09:51:17,323 - ERROR - Failed to install opensim: Command '['/usr/bin/python', '-m', 'pip', 'install', 'opensim']' returned non-zero exit status 1.
+2025-07-10 09:51:17,323 - ERROR - Step install_requirements failed. Stopping pipeline.
+2025-07-10 09:51:52,864 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:51:52,864 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:51:52,864 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:51:52,864 - INFO - Created directory: ./logs
+2025-07-10 09:51:52,864 - INFO - Created directory: ./temp
+2025-07-10 09:51:52,864 - INFO - Starting model creation pipeline with steps: ['install_requirements']
+2025-07-10 09:51:52,865 - INFO - Executing step: install_requirements
+2025-07-10 09:51:52,865 - INFO - Installing required packages...
+2025-07-10 09:51:53,762 - INFO - Successfully installed numpy
+2025-07-10 09:51:54,664 - INFO - Successfully installed scipy
+2025-07-10 09:51:55,578 - INFO - Successfully installed nibabel
+2025-07-10 09:51:56,524 - INFO - Successfully installed matplotlib
+2025-07-10 09:51:57,455 - INFO - Successfully installed pandas
+2025-07-10 09:52:02,599 - INFO - Successfully installed plotly
+2025-07-10 09:52:10,686 - INFO - Successfully installed pyvista
+2025-07-10 09:52:26,528 - WARNING - Could not install optional package opensim: Command '['/usr/bin/python', '-m', 'pip', 'install', 'opensim']' returned non-zero exit status 2.
+2025-07-10 09:52:26,528 - INFO - Package installation completed.
+2025-07-10 09:52:26,528 - INFO - Model creation pipeline completed successfully!
+2025-07-10 09:52:36,424 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:52:36,425 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:52:36,425 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:52:36,425 - INFO - Created directory: ./logs
+2025-07-10 09:52:36,425 - INFO - Created directory: ./temp
+2025-07-10 09:52:36,425 - INFO - Starting model creation pipeline with steps: ['morph_bones_from_mri']
+2025-07-10 09:52:36,425 - WARNING - Some packages are not available. Consider running install_requirements first.
+2025-07-10 09:52:36,425 - INFO - Executing step: morph_bones_from_mri
+2025-07-10 09:52:36,425 - INFO - Starting bone morphing from MRI...
+2025-07-10 09:52:36,425 - INFO - Bone morphing from MRI completed successfully.
+2025-07-10 09:52:36,425 - INFO - Model creation pipeline completed successfully!
+2025-07-10 09:53:05,364 - INFO - Created directory: ./tps_warping_results
+2025-07-10 09:53:05,364 - INFO - Created directory: ./tps_warping_results/after_MRI
+2025-07-10 09:53:05,364 - INFO - Created directory: ./tps_warping_results/control
+2025-07-10 09:53:05,364 - INFO - Created directory: ./logs
+2025-07-10 09:53:05,364 - INFO - Created directory: ./temp
