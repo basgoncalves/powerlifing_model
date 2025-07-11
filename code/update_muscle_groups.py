@@ -1,10 +1,13 @@
 import os
 import opensim as osim
 import paths
+import utils
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 txt_file_path = os.path.join(CURRENT_DIR, "muscle_groups_by_coordinate.txt")
 
+
+exit()
 # Load the model
 model = osim.Model(paths.USED_MODEL)
 state = model.initSystem()
@@ -13,6 +16,8 @@ state = model.initSystem()
 if os.path.exists(txt_file_path):
     with open(txt_file_path, 'r') as f:
         lines = f.readlines()
+        
+    # Parse the muscle groups by coordinate 
     muscle_groups = {}
     current_coord = None
     for line in lines:
@@ -23,6 +28,7 @@ if os.path.exists(txt_file_path):
         elif current_coord is not None and line:
             muscle_groups[current_coord].append(line)
 
+    # 
     print("Muscle groups loaded from file:")
     for coord, muscles in muscle_groups.items():
         print(f"{coord}: {', '.join(muscles)}")

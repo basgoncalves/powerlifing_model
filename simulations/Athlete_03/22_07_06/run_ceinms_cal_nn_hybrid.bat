@@ -3,13 +3,13 @@ setlocal
 
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
+set "CODE_DIR=%SCRIPT_DIR%..\..\..\code"
+set "EXECUTABLES_DIR=%CODE_DIR%\executables"
 
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
-pushd "%SCRIPT_DIR%..\..\..\code\executables"
-set "CEINMS_EXE_DIR=%CD%"
-popd
+
 rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_CAL_EXE=%CEINMS_EXE_DIR%\ceinms-nn-calibrate.exe"
+set "CEINMS_CAL_EXE=%EXECUTABLES_DIR%\ceinms-nn-calibrate.exe"
 set "CALIBRATION_SETUP=%SCRIPT_DIR%calibrationSetup_ceinms-nn_hybrid.xml"
 
 if not exist "%CEINMS_CAL_EXE%" (

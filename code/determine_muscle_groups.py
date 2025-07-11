@@ -2,6 +2,7 @@ import opensim as osim
 import numpy as np
 import paths
 import os
+import utils
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 

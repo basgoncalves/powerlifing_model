@@ -7,6 +7,9 @@ import subprocess
 import xml.etree.ElementTree as ET
 import paths
 
+print(osim.__version__)
+exit()
+
 
 def run_ceinms_calibration(calibration_setup=None):
     

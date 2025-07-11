@@ -57,7 +57,12 @@ def create_excitation_mapping(osim_model_path, emg_path, save_path):
     muscle_dict = {}
     for muscle in muscle_list:
         # use the fuzz library to find the best match for the muscle name in the EMG labels
-        best_match, score = process.extractOne(muscle, emg_labels)
+        best_match, score = process.extractBests(muscle, emg_labels)
+        breakpoint()
+        
+        # calculate the best match based on the string similarity simple without fuzz
+        
+        
         muscle_dict[muscle] = best_match
         excitation = ET.SubElement(mapping, 'excitation', {'id': muscle})
         input_elem = ET.SubElement(excitation, 'input', {'weight': '1'})
@@ -85,5 +90,5 @@ if __name__ == "__main__":
     # Example usage
     osim_model_path = paths.SCALED_MODEL
     emg_path = paths.EMG_MOT
-    save_path = paths.EXCITATION_MAPPING
+    save_path = paths.CEINMS_EXCITATION_MAPPING
     create_excitation_mapping(osim_model_path, emg_path, save_path)

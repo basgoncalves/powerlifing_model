@@ -4,27 +4,27 @@ setlocal
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
 
+echo Script directory is: "%SCRIPT_DIR%"
+
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
-pushd "%SCRIPT_DIR%..\..\..\code\executables"
-set "CEINMS_EXE_DIR=%CD%"
+set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
 
 rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_CAL_EXE=%CEINMS_EXE_DIR%\CEINMSoptimise.exe"
-set "CALIBRATION_SETUP=%SCRIPT_DIR%setup_ceinms_optimise.xml"
+set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMSoptimise.exe"
+set "SETUP_XML=%SCRIPT_DIR%setup_ceinms_optimise.xml"
 
-if not exist "%CEINMS_CAL_EXE%" (
-    echo Error: CEINMS calibration executable not found at "%CEINMS_CAL_EXE%"
+if not exist "%CEINMS_EXE%" (
+    echo Error: executable not found at "%CEINMS_EXE%"
     exit /b 1
 )
 
-if not exist "%CALIBRATION_SETUP%" (
-    echo Error: CEINMS calibration setup file not found at "%CALIBRATION_SETUP%"
+if not exist "%SETUP_XML%" (
+    echo Error: setup file not found at "%SETUP_XML%"
     exit /b 1
 )
-
 
 rem Find the outputDirectory line in the setup file and extract the path
-for /f "tokens=3 delims=<>" %%a in ('findstr /i "<outputDirectory>" "%CALIBRATION_SETUP%"') do (
+for /f "tokens=3 delims=<>" %%a in ('findstr /i "<outputDirectory>" "%SETUP_XML%"') do (
     set "OUTPUT_DIR=%%a"
 )
 
@@ -40,11 +40,11 @@ if defined OUTPUT_DIR (
         )
     )
 ) else (
-    echo Warning: Could not find <outputDirectory> tag in "%CALIBRATION_SETUP%".
+    echo Warning: Could not find <outputDirectory> tag in "%SETUP_XML%".
 )
 
 rem Construct and display the command
-set "COMMAND="%CEINMS_CAL_EXE%" -S "%CALIBRATION_SETUP%""
+set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
 echo Running command: %COMMAND%
 
 rem Run the command
