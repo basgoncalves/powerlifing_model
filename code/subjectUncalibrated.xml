@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <subject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <mtuDefault>
       <emDelay>0.015</emDelay>
@@ -910,48 +910,28 @@
    <dofSet>
       <dof>
          <name>hip_adduction_r</name>
-         <mtuNameSet>addbrev_r addlong_r addmagDist_r addmagIsch_r addmagMid_r addmagProx_r bflh_r glmax1_r glmax2_r glmax3_r glmed1_r glmed2_r glmed3_r  glmin1_r glmin2_r glmin3_r grac_r iliacus_r piri_r psoas_r recfem_r sart_r semimem_r  semiten_r tfl_r</mtuNameSet>
+         <mtuNameSet>add_brev_r add_long_r add_mag1_r add_mag2_r add_mag3_r bifemlh_r grac_r pect_r semimem_r semiten_r glut_max1_r glut_med1_r glut_med2_r glut_med3_r glut_min1_r glut_min2_r glut_min3_r peri_r sar_r tfl_r</mtuNameSet>
       </dof>
       <dof>
          <name>hip_rotation_r</name>
-         <mtuNameSet>addbrev_r addlong_r addmagDist_r addmagIsch_r addmagMid_r addmagProx_r bflh_r glmax1_r glmax2_r glmax3_r glmed1_r glmed2_r glmed3_r glmin1_r glmin2_r glmin3_r grac_r iliacus_r piri_r psoas_r recfem_r sart_r semimem_r semiten_r tfl_r</mtuNameSet>
+         <mtuNameSet>glut_med1_r glut_min1_r iliacus_r psoas_r tfl_r gem_r glut_med3_r glut_min3_r peri_r quad_fem_r</mtuNameSet>
       </dof>
       <dof>
          <name>hip_flexion_r</name>
-         <mtuNameSet>addbrev_r addlong_r addmagDist_r addmagIsch_r addmagMid_r addmagProx_r bflh_r glmax1_r glmax2_r glmax3_r glmed1_r glmed2_r glmed3_r glmin1_r glmin2_r glmin3_r grac_r iliacus_r piri_r psoas_r recfem_r sart_r semimem_r semiten_r tfl_r</mtuNameSet>
+         <mtuNameSet>add_brev_r add_long_r add_mag1_r add_mag2_r add_mag3_r bifemlh_r glut_max1_r glut_max2_r glut_max3_r glut_med1_r glut_med3_r glut_min1_r glut_min3_r grac_r iliacus_r pect_r psoas_r rect_fem_r sar_r semimem_r semiten_r tfl_r </mtuNameSet>
       </dof>
       <dof>
          <name>knee_angle_r</name>
-         <mtuNameSet>bflh_r bfsh_r gaslat_r gasmed_r grac_r recfem_r sart_r  semimem_r semiten_r tfl_r vasint_r vaslat_r vasmed_r</mtuNameSet>
+         <mtuNameSet>bifemlh_r bifemsh_r grac_r lat_gas_r med_gas_r sar_r semimem_r semiten_r rect_fem_r vas_int_r vas_lat_r vas_med_r</mtuNameSet>
       </dof>
       <dof>
          <name>ankle_angle_r</name>
-         <mtuNameSet>edl_r ehl_r fdl_r fhl_r gaslat_r gasmed_r perbrev_r perlong_r soleus_r tibant_r tibpost_r</mtuNameSet>
-      </dof>
-      <dof>
-         <name>hip_adduction_l</name>
-         <mtuNameSet>addbrev_l addlong_l addmagDist_l addmagIsch_l addmagMid_l addmagProx_l bflh_l glmax1_l glmax2_l glmax3_l glmed1_l glmed2_l glmed3_l  glmin1_l glmin2_l glmin3_l grac_l iliacus_l piri_l psoas_l recfem_l sart_l semimem_l  semiten_l tfl_l</mtuNameSet>
-      </dof>
-      <dof>
-         <name>hip_rotation_l</name>
-         <mtuNameSet>addbrev_l addlong_l addmagDist_l addmagIsch_l addmagMid_l addmagProx_l bflh_l glmax1_l glmax2_l glmax3_l glmed1_l glmed2_l glmed3_l glmin1_l glmin2_l glmin3_l grac_l iliacus_l piri_l psoas_l recfem_l sart_l semimem_l semiten_l tfl_l</mtuNameSet>
-      </dof>
-      <dof>
-         <name>hip_flexion_l</name>
-         <mtuNameSet>addbrev_l addlong_l addmagDist_l addmagIsch_l addmagMid_l addmagProx_l bflh_l glmax1_l glmax2_l glmax3_l glmed1_l glmed2_l glmed3_l glmin1_l glmin2_l glmin3_l grac_l iliacus_l piri_l psoas_l recfem_l sart_l semimem_l semiten_l tfl_l</mtuNameSet>
-      </dof>
-      <dof>
-         <name>knee_angle_l</name>
-         <mtuNameSet>bflh_l bfsh_l gaslat_l gasmed_l grac_l recfem_l sart_l  semimem_l semiten_l tfl_l vasint_l vaslat_l vasmed_l</mtuNameSet>
-      </dof>
-      <dof>
-         <name>ankle_angle_l</name>
-         <mtuNameSet>edl_l ehl_l fdl_l fhl_l gaslat_l gasmed_l perbrev_l perlong_l soleus_l tibant_l tibpost_l</mtuNameSet>
+         <mtuNameSet>ext_dig_r ext_hal_r per_tert_r tib_ant_r flex_dig_r flex_hal_r lat_gas_r med_gas_r per_brev_r per_long_r soleus_r tib_post_r</mtuNameSet>
       </dof>
    </dofSet>
    <calibrationInfo>
       <uncalibrated>
-         <subjectID>Athlete_03_lowerBody_final</subjectID>
+         <subjectID>Athlete_03_lowerBody_final.osim</subjectID>
          <additionalInfo>TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese</additionalInfo>
       </uncalibrated>
    </calibrationInfo>
