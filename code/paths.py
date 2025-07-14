@@ -90,6 +90,7 @@ IK_OUTPUT = os.path.join(TRIAL_DIR, 'joint_angles.mot')
 ID_OUTPUT = os.path.join(TRIAL_DIR, 'inverse_dynamics.sto')
 MA_OUTPUT = os.path.join(TRIAL_DIR, 'muscleAnalysis')
 SO_OUTPUT = os.path.join(TRIAL_DIR)
+FORCES_OUTPUT = os.path.join(SO_OUTPUT, '_StaticOptimization_force.sto')
 
 CEINMS_CFG_OPTIMISE = os.path.join(TRIAL_DIR, 'ceinms_cfg_optimise.xml')
 
@@ -103,3 +104,23 @@ CEINMS_RESULTS_EXE_DIR = os.path.join(TRIAL_DIR, 'Output')
 events = pd.read_csv(EVENTS, index_col=0, header=None)
 TIME_RANGE = [events.iloc[0, 0], events.iloc[1, 0]]
 
+
+def print():
+    """Print the paths for debugging."""
+    print("CODE:", CODE)
+    print("POWERLIFTING_DIR:", POWERLIFTING_DIR)
+    print("USED_MODEL:", USED_MODEL)
+    print("MARKERSET:", MARKERSET)
+    print("ACTUATORS_MODEL:", ACTUATORS_MODEL)
+    print("GEOMETRY_PATH:", GEOMETRY_PATH)
+    print("SUBJECT_DIR:", SUBJECT_DIR)
+    print("SESSION_DIR:", SESSION_DIR)
+    print("TRIAL_DIR:", TRIAL_DIR)
+    print("C3D:", C3D)
+    print("EVENTS:", EVENTS)
+    print("MARKERS_TRC:", MARKERS_TRC)
+    print("GRF_MOT:", GRF_MOT)
+    print("EMG_MOT:", EMG_MOT)
+    print("GRF_XML:", GRF_XML)
+    import time
+    time.sleep(1)  # Optional: wait for a second before printing
