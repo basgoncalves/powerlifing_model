@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" ?>
 <calibration>
    <optimiser>
       <debug>true</debug>
@@ -9,10 +9,6 @@
          <minImprovement>0.1</minImprovement>
          <patience>20</patience>
       </earlyStopping>
-      <!-- <learningRateDecay>
-         <decay>0.99</decay>
-         <minLearningRate>0.0001</minLearningRate>
-      </learningRateDecay> -->
       <numberOfSynergies>4</numberOfSynergies>
    </optimiser>
    <tendon>elastic</tendon>
@@ -86,4 +82,4 @@
       <muscles>all</muscles>
    </calibrationTargets>
    <trialSet>..\sq_70_MRI\inputData.xml</trialSet>
-</calibration> 
+</calibration>
