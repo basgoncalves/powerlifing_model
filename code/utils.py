@@ -7,7 +7,6 @@ import re
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
-import paths
 
 def rel_path(path, relative_to):
     """
