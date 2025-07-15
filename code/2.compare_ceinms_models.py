@@ -58,7 +58,8 @@ for i, name in enumerate(params):
     if i == 0:
         axs[i].legend([file_parent1, file_parent2])
     
-    if i == last_row_indices:
+    if i in last_row_indices:
+    
         axs[i].set_xlabel('Muscle')
         axs[i].set_xticks(np.arange(n_muscles))
         axs[i].set_xticklabels([mtu.find('name').text for mtu in mtuSet1.findall('mtu')], rotation=90)
