@@ -1,4 +1,5 @@
 import os
+import shutil
 import opensim as osim
 import paths
 
@@ -52,6 +53,18 @@ if __name__ == '__main__':
     grf_xml = paths.GRF_XML
     setup_id = paths.SETUP_ID
     
+    # copy template setup file to trial directory
+    if not os.path.exists(setup_id):
+        shutil.copy(paths.GENERIC_SETUP_ID, setup_id)
+        
+    if not os.path.exists(grf_xml):
+        shutil.copy(paths.GENERIC_GRF_XML, grf_xml)
     print(f'osim version: {osim.__version__}')
     
-    run_ID(osim_modelPath, ik_mot, grf_xml, setup_id)
+    try:
+        run_ID(osim_modelPath, ik_mot, grf_xml, setup_id)
+    except Exception as e:
+        print(f"Error during Inverse Dynamics: {e}")
+    print("Inverse Dynamics run completed.")
+    
+    

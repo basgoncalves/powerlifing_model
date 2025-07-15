@@ -1,4 +1,5 @@
 import os
+import time
 import opensim as osim
 import paths
 import utils
@@ -33,18 +34,18 @@ def run_MA(osim_modelPath, ik_output, grf_xml, resultsDir):
     # Create the muscle analysis tool
     maTool = osim.AnalyzeTool()
     maTool.setModel(model)
-    maTool.setModelFilename(osim_modelPath)
+    maTool.setModelFilename(os.path.relpath(osim_modelPath, start=os.path.dirname(paths.SETUP_MA)))
     maTool.setLowpassCutoffFrequency(6)
-    maTool.setCoordinatesFileName(ik_output)
+    maTool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(paths.SETUP_MA)))
     maTool.setName('')
     maTool.setMaximumNumberOfSteps(20000)
     maTool.setStartTime(motion.getFirstTime())
     maTool.setFinalTime(motion.getLastTime())
     maTool.getAnalysisSet().cloneAndAppend(muscleAnalysis)
-    maTool.setResultsDir(resultsDir)
+    maTool.setResultsDir(os.path.relpath(resultsDir, start=os.path.dirname(paths.SETUP_MA)))
     maTool.setInitialTime(motion.getFirstTime())
     maTool.setFinalTime(motion.getLastTime())
-    maTool.setExternalLoadsFileName(grf_xml)
+    maTool.setExternalLoadsFileName(os.path.relpath(grf_xml, start=os.path.dirname(paths.SETUP_MA)))
     maTool.setSolveForEquilibrium(False)
     maTool.setReplaceForceSet(False)
     maTool.setMaximumNumberOfSteps(20000)
@@ -53,16 +54,39 @@ def run_MA(osim_modelPath, ik_output, grf_xml, resultsDir):
     maTool.setMinDT(1e-008)
     maTool.setErrorTolerance(1e-005)
     maTool.removeControllerSetFromModel()
-    maTool.printToXML(os.path.join(resultsDir, '..', 'setup_ma.xml'))
+    maTool.printToXML(paths.SETUP_MA)
 
     # Reload analysis from xml
-    maTool = osim.AnalyzeTool(os.path.join(resultsDir, '..', 'setup_ma.xml'))
+    maTool = osim.AnalyzeTool(paths.SETUP_MA)
     maTool.getModel().initSystem()
     # Run the muscle analysis calculation
     maTool.run()
 
 if __name__ == '__main__':
     osim_modelPath = paths.USED_MODEL
+    
+    print(f'osim version: {osim.__version__}')
+    print(f'Running Muscle Analysis on model: {osim_modelPath}')
+    time.sleep(1)  # Optional: wait for a second before running the analysis
+    
+    if not os.path.exists(osim_modelPath):
+        raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
+
+    if not os.path.exists(paths.IK_OUTPUT):
+        print(f"Inverse Kinematics motion file not found: {paths.IK_OUTPUT}")
+        time.sleep(1)
+        import run_ik
+        
+        run_ik.run_IK(osim_modelPath=paths.USED_MODEL, marker_trc=paths.MARKERS_TRC, 
+                      ik_output=paths.IK_OUTPUT, setup_xml=paths.SETUP_IK, time_range=paths.TIME_RANGE)
+    
+    if not os.path.exists(paths.ID_OUTPUT):
+        print(f"Ground Reaction Forces XML file not found: {paths.GRF_XML}")
+        time.sleep(1)
+        import run_id
+        
+        run_id.run_ID(osim_modelPath=paths.USED_MODEL, ik_mot=paths.IK_OUTPUT, 
+                      grf_xml=paths.GRF_XML, setup_xml=paths.SETUP_ID)
     
     # Run the Muscle Analysis
     run_MA(osim_modelPath, ik_output=paths.IK_OUTPUT, grf_xml=paths.GRF_XML, resultsDir=paths.MA_OUTPUT)

@@ -2,9 +2,23 @@ import os
 import opensim as osim
 import paths
 import numpy as np
+import pandas as pd
 
+
+def compute_moment_arms(osim_modelPath, muscle_set=[], coordinates = None):
+
+    if not os.path.exists(osim_modelPath):
+        Warning(f"OpenSim model file not found: {osim_modelPath}")
+    
+    model = osim.Model(osim_modelPath)
+    model.initSystem()
+    
+    if not os.path.exists(muscle_set):
+        Warning(f"Muscle set file not found: {muscle_set}")
+        muscle_set = model.getMuscles()
+    
+      
 model_path = paths.USED_MODEL
-
 
 # for each coordinate in the model, get the moment arms for each muscle across the range of motion
 model = osim.Model(model_path)

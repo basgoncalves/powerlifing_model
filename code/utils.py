@@ -20,17 +20,21 @@ def rel_path(path, relative_to):
     """
     return os.path.relpath(path, relative_to)
 
-def check_path(path):
-    # Check if the path is provided and is a valid string
-    if path is None:
-        print("No path provided. Please provide a valid file path.")
-        return False
-    
-    if not isinstance(path, str):
-        print("Provided path is not a string. Please provide a valid file path.")
-        return False
-    
-    return True
+def check_path(path, create=False, isdir=False):
+    """Check if a path exists and is a directory."""
+    if not os.path.exists(path):        
+        if create:
+            try:
+                os.makedirs(path)
+                print("[INFO] Created directory:", path)
+            except Exception as e:
+                print("[ERROR] Could not create directory:", path, "Error:", e)
+        else:
+            print("[ERROR] Path does not exist:", path)
+    if isdir and not os.path.isdir(path):
+        print("[ERROR] Path is not a directory:", path)
+
+    return path, os.path.isdir(path)
 
 def load_c3d(path=None, output=0):
     """
@@ -123,7 +127,12 @@ def load_mot(path=None, output=0):
         if path.endswith('.sto'):
             data = pd.read_csv(path, sep= '\s+', header=i+1)
         else:
-            data = pd.read_csv(path, sep= '\s+', header=i)
+            data = pd.read_csv(path, sep= '\s+', header=i-1)
+        
+        # check if header is non numeric or empty
+        if data.columns[0].isdigit() or data.columns[0] == '':
+            print(f"Warning: The first column of the file {path} is numeric or empty. This may cause issues with the data structure.")
+        
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
@@ -260,6 +269,55 @@ def load_data_file(file_path):
 
     return data, metadata
 
+def load_any_data_file(file_path):
+    """
+    Loads any data file (TRC, MOT, STO, C3D) into a pandas DataFrame.
+
+    Args:
+        file_path (str): The path to the data file.
+
+    Returns:
+        pd.DataFrame: The loaded data.
+    """
+    if file_path.endswith('.trc'):
+        return load_trc(file_path)
+    
+    elif file_path.endswith('.mot'):
+        return load_mot(file_path)
+    
+    elif file_path.endswith('.sto'):
+        return load_sto(file_path)
+    
+    elif file_path.endswith('.c3d'):
+        return load_c3d(file_path)
+    
+    elif file_path.endswith('.txt') or file_path.endswith('.csv'):
+        # Assuming these are plain text files with tab-separated values
+        return pd.read_csv(file_path, sep='\t', header=0)
+    
+    elif file_path.endswith('.xml'):
+        # For XML files, we can use the XML_tools module to read them
+        tree = ET.parse(file_path)
+        if tree is not None:
+            return pd.DataFrame([elem.attrib for elem in tree.findall('.//')])
+        else:
+            raise ValueError(f"Could not read XML file: {file_path}")
+    else:
+        try:
+            # Try to read as a generic text file
+            with open(file_path, 'r') as f:
+                data = f.readlines()
+            # Assuming the first line is a header
+            header = data[0].strip().split('\t')
+            # Load the rest of the data into a DataFrame
+            data = [line.strip().split('\t') for line in data[1:]]
+            return pd.DataFrame(data, columns=header)
+        
+        except Exception as e:
+            print(f"Error: Could not read the file at {file_path}. Please check the file format and try again.")
+            print(f"Details: {e}")
+        raise ValueError(f"Unsupported file format: {file_path}")
+
 def save_data_file(file_path, data, metadata):
     """
     Saves the DataFrame back to a file in the original format.
@@ -319,8 +377,8 @@ def read_xml(path):
         str: The content of the XML file.
     """
     try:
-        with open(path, 'r') as file:
-            return file.read()
+        tree = ET.parse(path)
+        return tree
     except FileNotFoundError:
         print(f"Error: The file at {path} does not exist.")
         return None
@@ -329,16 +387,47 @@ def read_xml(path):
         return None
 
 def save_pretty_xml(tree, save_path):
-            """Saves the XML tree to a file with proper indentation."""
-            # Convert to string and format with proper indents
+            """Saves the XML tree to a file with proper indentation and no blank lines."""
             rough_string = ET.tostring(tree.getroot(), 'utf-8')
             reparsed = xml.dom.minidom.parseString(rough_string)
             pretty_xml = reparsed.toprettyxml(indent="   ")
-
-            # Write to file
+            # Remove blank lines
+            pretty_xml_no_blanks = "\n".join([line for line in pretty_xml.splitlines() if line.strip()])
             with open(save_path, 'w') as file:
-                file.write(pretty_xml)
+                file.write(pretty_xml_no_blanks)
 
+
+# plotting
+def get_screen_size():
+
+    try:
+        import tkinter as tk
+        root = tk.Tk()
+        width = root.winfo_screenwidth()
+        height = root.winfo_screenheight()
+        root.destroy()
+        return width, height
+    except Exception as e:
+        print(f"Error getting screen size: {e}")
+        return None
+
+def calculate_nRows_nCold(n_subplots):
+    """
+    Calculate the number of rows and columns for subplots based on the number of subplots.
+
+    Args:
+        n_subplots (int): The total number of subplots.
+
+    Returns:
+        tuple: (nrows, ncols) where nrows is the number of rows and ncols is the number of columns.
+    """
+    import numpy as np
+    # Find the smallest nrows and ncols such that nrows * ncols >= n_subplots and (nrows-1) * ncols < n_subplots
+    ncols = int(np.ceil(np.sqrt(n_subplots)))
+    nrows = int(np.ceil(n_subplots / ncols))
+    while (nrows - 1) * ncols >= n_subplots:
+        nrows -= 1
+    return nrows, ncols
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -354,7 +443,54 @@ if __name__ == "__main__":
                 data = load_trc(path, output=1)
             else:
                 print("Please provide the path to the .trc file. Example: python utils.py load_trc path/to/file.trc")
+        
+        # run the command string as each function if it exists
+        elif command == "load_mot":
+            if len(sys.argv) > 2:
+                path = sys.argv[2]
+                data = load_mot(path, output=1)
+            else:
+                print("Please provide the path to the .mot file. Example: python utils.py load_mot path/to/file.mot")
+        elif command == "load_sto":
+            if len(sys.argv) > 2:
+                path = sys.argv[2]
+                data = load_sto(path, output=1)
+            else:
+                print("Please provide the path to the .sto file. Example: python utils.py load_sto path/to/file.sto")
+        elif command == "load_c3d":
+            if len(sys.argv) > 2:
+                path = sys.argv[2]
+                data = load_c3d(path, output=1)
+            else:
+                print("Please provide the path to the .c3d file. Example: python utils.py load_c3d path/to/file.c3d")
+        elif command == "load_data_file":
+            if len(sys.argv) > 2:
+                path = sys.argv[2]
+                data, metadata = load_data_file(path)
+                print("Data loaded successfully.")
+                print("Metadata:", metadata)
+            else:
+                print("Please provide the path to the data file. Example: python utils.py load_data_file path/to/file.txt")
                 
+        elif command == "save_data_file":
+            if len(sys.argv) > 3:
+                path = sys.argv[2]
+                data = pd.read_csv(sys.argv[3], sep='\t')
+                    
+        elif command == "get_screen_size":
+            screen_size = get_screen_size()
+            if screen_size:
+                print(f"Screen size: {screen_size[0]}x{screen_size[1]}")
+            else:
+                print("Could not determine screen size.")      
+        
+        elif command == "calculate_nRows_nCols":
+            if len(sys.argv) > 2:
+                n_subplots = int(sys.argv[2])
+                nrows, ncols = calculate_nRows_nCold(n_subplots)
+                print(f"Calculated rows: {nrows}, columns: {ncols} for {n_subplots} subplots.")
+            else:
+                print("Please provide the number of subplots. Example: python utils.py calculate_nRows_nCols 9")
 
         else:
             print(f"Unknown command: {command}")

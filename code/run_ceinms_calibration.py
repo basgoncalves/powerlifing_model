@@ -8,7 +8,6 @@ import xml.etree.ElementTree as ET
 import paths
 
 print(osim.__version__)
-exit()
 
 
 def run_ceinms_calibration(calibration_setup=None):
@@ -50,6 +49,7 @@ def run_ceinms_calibration(calibration_setup=None):
     # Run the CEINMS calibration executable
     command = [ceinms_calibration_exe, "-S", calibration_setup]
     print(f"Running command: {' '.join(command)}")
+    breakpoint()
     try:
         result = subprocess.run(command, capture_output=True, text=True)
     except Exception as e:

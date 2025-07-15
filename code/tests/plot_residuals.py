@@ -3,11 +3,10 @@ from tkinter import Tk, filedialog
 import matplotlib.pyplot as plt
 import os
 import msk_modelling_python as msk
+import paths
 
-current_path = os.path.dirname(os.path.abspath(__file__))
-athlete = 'Athlete_03'
 
-force_path = r'D:\athlete_03\simulations\Athlete_03\dl_70\Output\SO\_StaticOptimization_force.sto'
+force_path = paths.FORCES_OUTPUT
 
 forces = msk.bops.import_sto_data(force_path)
 plt.figure(figsize=(10, 6))
