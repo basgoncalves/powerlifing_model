@@ -5,6 +5,32 @@ import paths
 import utils
 import time
 
+
+def edit_pelvis_com_actuators(modelFilePath, actuatorsFilePath):
+    """
+    Edit the pelvis center of mass actuator in the OpenSim model.
+    """ 
+    model = osim.Model(modelFilePath)
+    model.initSystem()
+
+    # Find the pelvis center of mass actuator
+    pelvis = model.getBodySet().get('pelvis')
+    com = pelvis.get_mass_center().to_numpy()
+
+    actuators = utils.read_xml(actuatorsFilePath)
+    point_actuators = actuators.find('ForceSet').find('objects').findall('PointActuator')
+    
+    for actuator in point_actuators:
+        if actuator.get('name') in ['FX', 'FY', 'FZ']:
+            # Update the point in the actuator to match the pelvis center of mass
+            point = actuator.find('point')
+            point.text = f"{com[0]} {com[1]} {com[2]}"
+    
+    # Save the modified actuators file
+    utils.save_pretty_xml(actuators, actuatorsFilePath)
+    
+    print(f"Updated pelvis center of mass actuator in {actuatorsFilePath} to {com}")
+
 def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
@@ -83,6 +109,9 @@ if __name__ == '__main__':
         
     if not os.path.exists(paths.SETUP_SO):
         shutil.copy(paths.GENERIC_SETUP_SO, paths.SETUP_SO)
+        
+    # Edit pelvis center of mass actuator
+    edit_pelvis_com_actuators(paths.USED_MODEL, paths.ACTUATORS_SO)
     
     # Run the Static Optimization
     run_SO(osim_modelPath=paths.USED_MODEL, ik_output=paths.IK_OUTPUT, grf_xml=paths.GRF_XML, 
