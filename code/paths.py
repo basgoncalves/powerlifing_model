@@ -75,6 +75,11 @@ GENERIC_SETUP_MA = os.path.join(GENREIC_SETUP_DIR, 'setup_MA.xml')
 GENERIC_ACTUATORS_SO = os.path.join(GENREIC_SETUP_DIR, 'actuators_so.xml')
 GENERIC_SETUP_SO = os.path.join(GENREIC_SETUP_DIR, 'setup_SO.xml')
 
+GENERIC_CEINMS_SETUP_OPTIMISE = os.path.join(GENREIC_SETUP_DIR, 'setup_ceinms_optimise.xml')
+GENERIC_CEINMS_CFG_OPTIMISE = os.path.join(GENREIC_SETUP_DIR, 'ceinms_cfg_optimise.xml')
+GENERIC_CEINMS_INPUT_DATA = os.path.join(GENREIC_SETUP_DIR, 'inputData.xml')
+GENERIC_CEINMS_RUN_OPTIMISE_BAT = os.path.join(GENREIC_SETUP_DIR, 'run_ceinms_nn_optimise.bat')
+
 # CEINMS executables paths
 EXECUTABLE_DIR = os.path.join(CODE, 'executables')
 CEINMS_PATH = os.path.join(EXECUTABLE_DIR, 'CEINMS.exe')

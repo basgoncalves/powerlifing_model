@@ -18,7 +18,7 @@ copy_setups_to_trial.run()
 # 1. Scale the model
 
 # 2. Run IK
-if False:
+if True:
     run_ik.run_IK(osim_modelPath=paths.USED_MODEL, marker_trc=paths.MARKERS_TRC,
               ik_output=paths.IK_OUTPUT, setup_xml=paths.SETUP_IK, time_range=paths.TIME_RANGE)
 
