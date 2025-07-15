@@ -1,3 +1,4 @@
+import shutil
 import pandas as pd
 import sys
 import pandas as pd
@@ -6,6 +7,7 @@ import c3d
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
+import paths
 
 def rel_path(path, relative_to):
     """

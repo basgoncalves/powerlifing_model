@@ -1,4 +1,6 @@
 import os
+import shutil
+import time
 import pandas as pd
 import utils
 
@@ -31,7 +33,7 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_90_MRI'
+TRIAL_NAME = 'sq_75_MRI'
 STATIC_NAME = 'static_01'
 
 # CEINMS settings
@@ -69,6 +71,7 @@ GENREIC_SETUP_DIR = os.path.join(CODE, 'SetupFiles\\Purzel')
 GENERIC_GRF_XML = os.path.join(GENREIC_SETUP_DIR, 'externalloads.xml')
 GENERIC_SETUP_IK = os.path.join(GENREIC_SETUP_DIR, 'setup_IK.xml')
 GENERIC_SETUP_ID = os.path.join(GENREIC_SETUP_DIR, 'setup_ID.xml')
+GENERIC_SETUP_MA = os.path.join(GENREIC_SETUP_DIR, 'setup_MA.xml')
 GENERIC_ACTUATORS_SO = os.path.join(GENREIC_SETUP_DIR, 'actuators_so.xml')
 GENERIC_SETUP_SO = os.path.join(GENREIC_SETUP_DIR, 'setup_SO.xml')
 
@@ -147,13 +150,13 @@ TIME_RANGE = [events.iloc[0, 0], events.iloc[1, 0]]
 if any(pd.isna(TIME_RANGE)):
     print(f"Warning: Time range in {EVENTS} is not set. Using default time range [0, 1].")
     
-def print():
+def print_settings():
     """Print the paths for debugging."""
     print("CODE:", CODE)
     print("POWERLIFTING_DIR:", POWERLIFTING_DIR)
     print("USED_MODEL:", USED_MODEL)
     print("MARKERSET:", MARKERSET)
-    print("ACTUATORS_MODEL:", ACTUATORS_MODEL)
+    print("ACTUATORS_MODEL:", ACTUATORS_SO)
     print("GEOMETRY_PATH:", GEOMETRY_PATH)
     print("SUBJECT_DIR:", SUBJECT_DIR)
     print("SESSION_DIR:", SESSION_DIR)
@@ -164,12 +167,11 @@ def print():
     print("GRF_MOT:", GRF_MOT)
     print("EMG_MOT:", EMG_MOT)
     print("GRF_XML:", GRF_XML)
-    import time
+    
     time.sleep(1)  # Optional: wait for a second before printing
     
 
-
 if __name__ == "__main__":
-    print()  # Call the print function to display paths
+    print_settings()  # Call the print function to display paths
 
 # END
