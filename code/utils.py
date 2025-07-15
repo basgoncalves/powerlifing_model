@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 import pandas as pd
 import re
-import c3d
+# import c3d
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
