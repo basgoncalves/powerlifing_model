@@ -42,6 +42,7 @@ def run_ID(osim_modelPath, ik_mot, grf_xml, setup_xml):
     # Reload tool from xml
     idTool = osim.InverseDynamicsTool(setup_xml)    
     # Run the inverse dynamics calculation
+    os.chdir(resultsDir)
     idTool.run()
     
     print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}")

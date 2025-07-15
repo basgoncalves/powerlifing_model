@@ -61,7 +61,9 @@ def run_IK(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None):
     # Reload tool from xml
     ikTool = osim.InverseKinematicsTool(setup_xml)
     ikTool.setModel(model)
+    
     # Run the inverse kinematics calculation
+    os.chdir(resultsDir)
     ikTool.run()
     
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")

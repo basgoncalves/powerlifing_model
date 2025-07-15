@@ -64,6 +64,7 @@ def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
     so_analyze_tool = osim.AnalyzeTool(paths.SETUP_SO)
     so_analyze_tool.setModel(model)
     try:
+        os.chdir(resultsDir)
         output = so_analyze_tool.run()
         print(f"Static Optimization calculation completed. Results saved to {resultsDir}")
         print(f"Output file: {output}")
