@@ -51,7 +51,9 @@ def run_ceinms_calibration(calibration_setup=None):
     print(f"Running command: {' '.join(command)}")
     breakpoint()
     try:
-        result = subprocess.run(command, capture_output=True, text=True)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        for line in result.stdout.splitlines():
+            print(line)
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
         exit()
@@ -69,7 +71,14 @@ if __name__ == "__main__":
     start_time = time.time()
      
     # Run CEINMS calibration
-    run_ceinms_calibration(paths.CEINMS_SETUP_CALIBRATION)    
+    try:
+        utils.print_to_log(f'{time.time()}: Running CEINMS calibration with setup: {paths.CEINMS_SETUP_CALIBRATION}')
+        run_ceinms_calibration(paths.CEINMS_SETUP_CALIBRATION)    
+    except Exception as e:
+        print(f"Error during CEINMS calibration: {e}")
+        utils.print_to_log(f'{time.time()}: Error during CEINMS calibration: {e}')
+        exit(1)
     
     print("CEINMS calibration completed successfully.")
     print(f"Execution time: {time.time() - start_time:.2f} seconds")
+    utils.print_to_log(f'{time.time()}: CEINMS calibration completed successfully.')

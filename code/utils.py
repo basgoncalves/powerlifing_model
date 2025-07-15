@@ -1,4 +1,6 @@
 import shutil
+import time
+from tkinter import filedialog, messagebox, simpledialog
 import pandas as pd
 import sys
 import pandas as pd
@@ -7,6 +9,23 @@ import re
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
+import opensim as osim
+
+import tk
+
+MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def print_to_log(message):
+    """
+    Prints a message to the console and logs it to a file.
+    
+    Args:
+        message (str): The message to print and log.
+    """
+    timestamp = time.strftime('%d.%m.%Y_%H:%M:%S', time.localtime()) + f":{int((time.time() % 1) * 1000):03d}"
+    print(f'{timestamp} {message}')
+    with open(MODULE_DIR + '\\log.txt', 'a') as log_file:
+        log_file.write(f'{timestamp}: {message}\n')
 
 def rel_path(path, relative_to):
     """
@@ -396,6 +415,63 @@ def save_pretty_xml(tree, save_path):
             pretty_xml_no_blanks = "\n".join([line for line in pretty_xml.splitlines() if line.strip()])
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
+
+# opensim 
+
+def select_osim_file():
+    root = tk.Tk()
+    root.withdraw()
+    file_path = filedialog.askopenfilename(
+        title="Select OpenSim Model File",
+        filetypes=[("OpenSim Model Files", "*.osim")]
+    )
+    root.destroy()
+    return file_path
+
+# User selects a factor to increase the max isometric force of muscles
+def get_factor():
+    root = tk.Tk()
+    root.withdraw()
+    factor = simpledialog.askfloat(
+        "Increase Factor",
+        "Enter factor to multiply max isometric force (e.g., 1.2):",
+        minvalue=0.0
+    )
+    root.destroy()
+    return factor
+
+def increase_muscle_force(osim_file=None, factor=None, save_path=None):
+    root = tk.Tk() # prevent the main window from appearing
+    root.withdraw()
+    if osim_file is None:
+        osim_file = select_osim_file()
+        
+    if not osim_file:
+        messagebox.showinfo("Cancelled", "No file selected.")
+        return
+    
+    if factor is None:
+        factor = get_factor()
+        
+    if not factor:
+        messagebox.showinfo("Cancelled", "No factor entered.")
+        return
+
+    model = osim.Model(osim_file)
+    muscles = model.getMuscles()
+    for i in range(muscles.getSize()):
+        muscle = muscles.get(i)
+        orig_force = muscle.getMaxIsometricForce()
+        muscle.setMaxIsometricForce(orig_force * factor)
+
+    if save_path is None:
+        new_file = osim_file.replace('.osim', f'_increased_{factor:.2f}.osim')
+    else:
+        new_file = save_path
+        
+    model.printToXML(new_file)
+    messagebox.showinfo("Done", f"Saved new model to:\n{new_file}")
+
 
 
 # plotting

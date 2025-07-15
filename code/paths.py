@@ -10,6 +10,12 @@ import utils
 #     setupFiles/
 #       Rajagopal/
 #       Purzel/
+#          setup_IK.xml
+#          setup_ID.xml 
+#          setup_MA.xml
+#          setup_SO.xml
+#          externalloads.xml    
+#          ...
 #     executables/
 #       CEINMS.exe
 #       CEINMSoptimise.exe
@@ -45,9 +51,11 @@ DOFs = ['hip_flexion_l', 'hip_flexion_r',
 
 # Code and executables paths
 CODE,_ = utils.check_path(os.path.dirname(__file__))
-POWERLIFTING_DIR,_ = utils.check_path(os.path.dirname(CODE), isdir=True)
 SETUP_DIR = os.path.join(CODE, 'SetupFiles\Rajagopal')
-SIMULATION_DIR = os.path.join(CODE, 'simulations')
+
+POWERLIFTING_DIR,_ = utils.check_path(os.path.dirname(CODE), isdir=True)
+SIMULATION_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
+RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results', SUBJECT)
 
 # models paths
 MODELS_DIR,_ = utils.check_path(os.path.join(os.path.dirname(CODE),'models'))
@@ -55,10 +63,10 @@ SCALED_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_linearly_scaled.osim')
 SCALED_MODEL_INCREASED_FORCE_3_TIMES = os.path.join(MODELS_DIR, '{SUBJECT}_lowerBody_final_increased_3.00.osim')
 MRI_MODEL = os.path.join(MODELS_DIR, 'Athlete_03_mri_scaled.osim')
 
-# Models used for analysis
+##################################  Models used for analysis #######################################################3
 SUBJECT_MODEL_DIR = os.path.join(MODELS_DIR, 'models')
 
-if TRIAL_NAME.lower().__contains__('mri'):
+if TRIAL_NAME.lower().__contains__('mri'):  # Edit model paths below
     USED_MODEL = MRI_MODEL
 else:
     USED_MODEL = SCALED_MODEL

@@ -79,10 +79,14 @@ if __name__ == '__main__':
     print(f'osim version: {osim.__version__}')
     
     try:
+        utils.print_to_log(f'{time.time}: Running Inverse Kinematics on model: {osim_modelPath}')
         run_IK(osim_modelPath, marker_trc,ik_output, setup_ik, time_range=paths.TIME_RANGE)
     except Exception as e:
         print(f"Error running Inverse Kinematics: {e}")
+        utils.print_to_log(f'{time.time}: Error running Inverse Kinematics: {e}')
         exit(1)
+    
+    utils.print_to_log(f'{time.time}: Inverse Kinematics run completed.')
     
     
   
