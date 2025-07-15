@@ -33,7 +33,7 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_75_MRI'
+TRIAL_NAME = 'sq_80_EMG'
 STATIC_NAME = 'static_01'
 
 # CEINMS settings
@@ -121,7 +121,7 @@ GRF_MOT = os.path.join(TRIAL_DIR, 'grf.mot')
 EMG_MOT = os.path.join(TRIAL_DIR, 'EMG_filtered.sto')
 GRF_XML = os.path.join(TRIAL_DIR, 'externalloads.xml')
 
-ACTUATORS_SO = os.path.join(MODELS_DIR, 'actuators_so.xml')
+ACTUATORS_SO = os.path.join(TRIAL_DIR, 'actuators_so.xml')
 
 SETUP_IK = os.path.join(TRIAL_DIR, 'setup_IK.xml')
 SETUP_ID = os.path.join(TRIAL_DIR, 'setup_ID.xml')
