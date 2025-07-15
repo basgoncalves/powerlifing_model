@@ -9,9 +9,8 @@ simulations/
 ├── SubjectXX/
 │   ├── SessionXX/
 │   │   ├── TrialXX/
-│   │   │   ├── input_files/
-│   │   │   ├── results/
-│   │   │   └── logs/
+│   │   │   ├── input_files
+│   │   │   ├── results
 │   │   └── TrialXX/
 │   └── SessionXX/
 └── SubjectXX/
