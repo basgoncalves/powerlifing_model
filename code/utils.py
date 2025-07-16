@@ -1,6 +1,8 @@
 import shutil
 import time
 from tkinter import filedialog, messagebox, simpledialog
+from matplotlib import pyplot as plt
+import numpy as np
 import pandas as pd
 import sys
 import pandas as pd
@@ -189,7 +191,21 @@ def load_sto(path=None, output=0):
 
     # read the file into a pandas DataFrame, skipping the header
     try:
-        data = pd.read_csv(path, sep= '\s+', header=i+1)
+        columns = []
+        offset = -3
+        while 'time' not in columns:
+            try:    
+                if path.__contains__('force'):
+                    data = pd.read_csv(path, sep= '\s+', header=i-3)
+                    columns = data.columns
+                else:
+                    data = pd.read_csv(path, sep= '\s+', header=i+offset)
+                    columns = data.columns
+                
+                offset += 1
+            except pd.errors.ParserError:
+                offset += 1
+                
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
@@ -386,6 +402,44 @@ def save_data_file(file_path, data, metadata):
         float_format='%.6f'# Format floats to 6 decimal places
     )
 
+def load_sto_header(file_path):
+    """
+    Loads the header of a .sto file and returns it as a list of strings.
+
+    Args:
+        file_path (str): The path to the .sto file.
+
+    Returns:
+        list: A list of strings representing the header lines.
+    """
+    header = []
+    break_next = False
+    with open(file_path, 'r') as f:
+        for line in f:
+            if break_next:
+                break
+            if 'endheader' in line:
+                break_next = True
+            header.append(line.strip())
+    
+    return header
+
+def write_sto_file(data, file_path, header):
+    """
+    Writes a pandas DataFrame to a .sto file with a specified header.
+
+    Args:
+        data (pd.DataFrame): The DataFrame to write.
+        file_path (str): The path where the .sto file will be saved.
+        header (list): A list of strings representing the header lines to write.
+    """
+    with open(file_path, 'w', newline='') as f:
+        for line in header:
+            f.write(line + '\n')
+        
+        # Write the data without extra line spaces
+        data.to_csv(f, sep='\t', index=False, float_format='%.6f')
+
 def read_xml(path):
     """
     Reads an XML file and returns its content as a string.
@@ -427,6 +481,256 @@ def select_osim_file():
     )
     root.destroy()
     return file_path
+
+def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 0.005):
+# Adapted from Willi Koller: https://github.com/WilliKoller/OpenSimMatlabBasic/blob/main/checkMuscleMomentArms.m
+# Only checked if works for for the Rajagopal and Catelli models
+
+    def get_model_coord(model, coord_name):
+        try:
+            index = model.getCoordinateSet().getIndex(coord_name)
+            coord = model.updCoordinateSet().get(index)
+        except:
+            index = None
+            coord = None
+            print(f'Coordinate {coord_name} not found in model')
+        
+        return index, coord
+
+
+    # raise Exception('This function is not yet working. Please use the Matlab version for now or fix line containing " time_discontinuity.append(time_vector[discontinuity_indices]) "')
+
+    # Load motions and model
+    motion = osim.Storage(ik_file_path)
+    model = osim.Model(model_file_path)
+
+    # Initialize system and state
+    model.initSystem()
+    state = model.initSystem()
+
+    # coordinate names
+    flexIndexL, flexCoordL = get_model_coord(model, 'hip_flexion_' + leg)
+    rotIndexL, rotCoordL = get_model_coord(model, 'hip_rotation_' + leg)
+    addIndexL, addCoordL = get_model_coord(model, 'hip_adduction_' + leg)
+    flexIndexLknee, flexCoordLknee = get_model_coord(model, 'knee_angle_' + leg)
+    flexIndexLank, flexCoordLank = get_model_coord(model, 'ankle_angle_' + leg)
+
+    # get names of the hip muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_hip = []
+    muscleNames_hip = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        if ('add' in tmp_muscleName or 'gl' in tmp_muscleName or 'semi' in tmp_muscleName or 'bf' in tmp_muscleName or
+                'grac' in tmp_muscleName or 'piri' in tmp_muscleName or 'sart' in tmp_muscleName or 'tfl' in tmp_muscleName or
+                'iliacus' in tmp_muscleName or 'psoas' in tmp_muscleName or 'rect' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
+            muscleIndices_hip.append(i)
+            muscleNames_hip.append(tmp_muscleName)
+
+    flexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+    addMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+    rotMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+
+    # get names of the knee muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_knee = []
+    muscleNames_knee = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        if ('bf' in tmp_muscleName or 'gas' in tmp_muscleName or 'grac' in tmp_muscleName or 'sart' in tmp_muscleName or
+                'semim' in tmp_muscleName or 'semit' in tmp_muscleName or 'rec' in tmp_muscleName or 'vas' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
+            muscleIndices_knee.append(i)
+            muscleNames_knee.append(tmp_muscleName)
+
+    kneeFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_knee)))
+
+    # get names of the ankle muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_ankle = []
+    muscleNames_ankle = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        print(tmp_muscleName)
+        if ('edl' in tmp_muscleName or 'ehl' in tmp_muscleName or 'tibant' in tmp_muscleName or 'gas' in tmp_muscleName or
+                'fdl' in tmp_muscleName or 'fhl' in tmp_muscleName or 'perb' in tmp_muscleName or 'perl' in tmp_muscleName or
+                'sole' in tmp_muscleName or 'tibpos' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
+            muscleIndices_ankle.append(i)
+            muscleNames_ankle.append(tmp_muscleName)
+
+    ankleFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_ankle)))
+
+    # compute moment arms for each muscle and create time vector
+    time_vector = []
+    for i in range(1, motion.getSize()):
+        flexAngleL = motion.getStateVector(i-1).getData().get(flexIndexL) / 180 * np.pi
+        rotAngleL = motion.getStateVector(i-1).getData().get(rotIndexL) / 180 * np.pi
+        addAngleL = motion.getStateVector(i-1).getData().get(addIndexL) / 180 * np.pi
+        flexAngleLknee = motion.getStateVector(i-1).getData().get(flexIndexLknee) / 180 * np.pi
+        flexAngleLank = motion.getStateVector(i-1).getData().get(flexIndexLank) / 180 * np.pi
+
+        time_vector.append(motion.getStateVector(i-1).getTime())
+        # Update the state with the joint angle
+        coordSet = model.updCoordinateSet()
+        coordSet.get(flexIndexL).setValue(state, flexAngleL)
+        coordSet.get(rotIndexL).setValue(state, rotAngleL)
+        coordSet.get(addIndexL).setValue(state, addAngleL)
+        coordSet.get(flexIndexLknee).setValue(state, flexAngleLknee)
+        coordSet.get(flexIndexLank).setValue(state, flexAngleLank)
+
+        # Realize the state to compute dependent quantities
+        model.computeStateVariableDerivatives(state)
+        model.realizeVelocity(state)
+
+        # Compute the moment arm hip
+        for j in range(len(muscleIndices_hip)):
+            muscleIndex = muscleIndices_hip[j]
+            if muscleNames_hip[j][-1] == leg:
+                flexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordL)
+                flexMomentArms[i, j] = flexMomentArm
+
+                rotMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, rotCoordL)
+                rotMomentArms[i, j] = rotMomentArm
+
+                addMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, addCoordL)
+                addMomentArms[i, j] = addMomentArm
+
+        # Compute the moment arm knee
+        for j in range(len(muscleNames_knee)):
+            muscleIndex = muscleIndices_knee[j]
+            if muscleNames_knee[j][-1] == leg:
+                kneeFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLknee)
+                kneeFlexMomentArms[i, j] = kneeFlexMomentArm
+
+        # Compute the moment arm ankle
+        for j in range(len(muscleNames_ankle)):
+            muscleIndex = muscleIndices_ankle[j]
+            if muscleNames_ankle[j][-1] == leg:
+                ankleFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLank)
+                ankleFlexMomentArms[i, j] = ankleFlexMomentArm
+
+    # check discontinuities
+    discontinuity = []
+    muscle_action = []
+    time_discontinuity = []
+
+    fDistC = plt.figure('Discontinuity', figsize=(8, 8))
+    plt.title(ik_file_path)
+
+    save_folder = os.path.join(os.path.dirname(ik_file_path),'momentArmsCheck')
+
+    def find_discontinuities(momArms, threshold, muscleNames, action, discontinuity, muscle_action, time_discontinuity):
+        for i in range(momArms.shape[1]):
+            dy = np.diff(momArms[:, i])
+            discontinuity_indices = np.where(np.abs(dy) > threshold)[0]
+            if discontinuity_indices.size > 0:
+                print('Discontinuity detected at', muscleNames[i], 'at ', action, ' moment arm')
+                plt.plot(momArms[:, i])
+                plt.plot(discontinuity_indices, momArms[discontinuity_indices, i], 'rx')
+                discontinuity.append(i)
+                muscle_action.append(str(muscleNames[i] + ' ' + action + ' at frames: ' + str(discontinuity_indices)))
+                time_discontinuity.append([time_vector[index] for index in discontinuity_indices])
+
+
+        return discontinuity, muscle_action, time_discontinuity
+
+    # hip flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        flexMomentArms, threshold, muscleNames_hip, 'flexion', discontinuity, muscle_action, time_discontinuity)
+
+    # hip adduction
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        addMomentArms, threshold, muscleNames_hip, 'adduction', discontinuity, muscle_action, time_discontinuity)
+    
+    # hip rotation
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        rotMomentArms, threshold, muscleNames_hip, 'rotation', discontinuity, muscle_action, time_discontinuity)
+    
+    # knee flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        kneeFlexMomentArms, threshold, muscleNames_knee, 'flexion', discontinuity, muscle_action, time_discontinuity)
+    
+    # ankle flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        ankleFlexMomentArms, threshold, muscleNames_ankle, 'dorsiflexion', discontinuity, muscle_action, time_discontinuity)
+    
+    # plot discontinuities
+    if len(discontinuity) > 0:
+        plt.legend(muscle_action)
+        plt.ylabel('Muscle Moment Arms with discontinuities (m)')
+        plt.xlabel('Frame (after start time)')
+        save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'discontinuities_' + leg + '.png'))
+        print('\n\nYou should alter the model - most probably you have to reduce the radius of corresponding wrap objects for the identified muscles\n\n\n')
+
+        # save txt file with discontinuities
+        with open(os.path.join(save_folder, 'discontinuities_' + leg + '.txt'), 'w') as f:
+            f.write(f"model file = {model_file_path}\n")
+            f.write(f"motion file = {ik_file_path}\n")
+            f.write(f"leg checked = {leg}\n")
+            
+            f.write("\n muscles with discontinuities \n", ) 
+            
+            for i in range(len(muscle_action)):
+                try:
+                    f.write("%s : time %s \n" % (muscle_action[i], time_discontinuity[i]))
+                except:
+                    print('no discontinuities detected')
+
+        momentArmsAreWrong = 1
+    else:
+        plt.close(fDistC)
+        print('No discontinuities detected')
+        momentArmsAreWrong = 0
+
+    # plot hip flexion
+    plt.figure('flexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(flexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Flexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_flex_MomentArms_' + leg + '.png'))
+
+    # hip adduction
+    plt.figure('addMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(addMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Adduction Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_add_MomentArms_' + leg + '.png'))
+
+    # hip rotation
+    plt.figure('rotMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(rotMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Rotation Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_rot_MomentArms_' + leg + '.png'))
+
+    # knee flexion
+    plt.figure('kneeFlexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(kneeFlexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.legend(muscleNames_knee, loc='best')
+    plt.ylabel('Knee Flexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'knee_MomentArms_' + leg + '.png'))
+
+    # ankle flexion
+    plt.figure('ankleFlexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(ankleFlexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.legend(muscleNames_ankle, loc='best')
+    plt.ylabel('Ankle Dorsiflexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'ankle_MomentArms_' + leg + '.png'))
+
+    print('Moment arms checked for ' + ik_file_path)
+    print('Results saved in ' + save_folder + ' \n\n' )
+
+    return momentArmsAreWrong,  discontinuity, muscle_action
+
 
 # User selects a factor to increase the max isometric force of muscles
 def get_factor():
@@ -475,6 +779,14 @@ def increase_muscle_force(osim_file=None, factor=None, save_path=None):
 
 
 # plotting
+
+def save_fig(fig, save_path):
+    """Saves the figure to the specified path."""
+    if not os.path.exists(os.path.dirname(save_path)):
+        os.makedirs(os.path.dirname(save_path))
+    fig.savefig(save_path, bbox_inches='tight')
+    print(f"Figure saved to {save_path}")
+
 def get_screen_size():
 
     try:
@@ -505,6 +817,37 @@ def calculate_nRows_nCold(n_subplots):
     while (nrows - 1) * ncols >= n_subplots:
         nrows -= 1
     return nrows, ncols
+
+# data manipulation
+def time_normalise_df(df, fs=''):
+
+    if not type(df) == pd.core.frame.DataFrame:
+        raise Exception('Input must be a pandas DataFrame')
+    
+    if not fs:
+        try:
+            fs = 1/(df['time'][1]-df['time'][0])
+        except  KeyError as e:
+            raise Exception('Input DataFrame must contain a column named "time"')
+    
+    normalised_df = pd.DataFrame(columns=df.columns)
+
+    for column in df.columns:
+        normalised_df[column] = np.zeros(101)
+
+        currentData = df[column]
+        currentData = currentData[~np.isnan(currentData)]
+        
+        timeTrial = np.arange(0, len(currentData)/fs, 1/fs)        
+        Tnorm = np.arange(0, timeTrial[-1], timeTrial[-1]/101)
+        if len(Tnorm) == 102:
+            Tnorm = Tnorm[:-1]
+        normalised_df[column] = np.interp(Tnorm, timeTrial, currentData)
+    
+    return normalised_df
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
