@@ -35,6 +35,7 @@ def run_ID(osim_modelPath, ik_mot, grf_xml, setup_xml):
     idTool.setEndTime(motion.getLastTime())
     idTool.setExternalLoadsFileName(str(grf_xml))
     idTool.setResultsDir(resultsDir)
+    idTool.setLowpassCutoffFrequency(6)
     idTool.setOutputGenForceFileName("inverse_dynamics.sto")
     idTool.printToXML(setup_xml)
     print(f"Inverse Dynamics setup saved to {setup_xml}")

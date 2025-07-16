@@ -12,13 +12,13 @@ if __name__ == '__main__':
     utils.print_to_log(f'Checking muscle moment arms for: {paths.SUBJECT} / {paths.TRIAL_NAME} / {osim_modelPath}')
 
     # Run the Inverse Dynamics
-    utils.checkMuscleMomentArms(model_file_path = osim_modelPath, 
-                                ik_file_path = ik_mot, 
+    utils.checkMuscleMomentArms(osim_modelPath = osim_modelPath, 
+                                ik_output = ik_mot, 
                                 leg = 'l', 
                                 threshold = 0.005)
     
-    utils.checkMuscleMomentArms(model_file_path = osim_modelPath, 
-                                ik_file_path = ik_mot, 
+    utils.checkMuscleMomentArms(osim_modelPath = osim_modelPath, 
+                                ik_output = ik_mot, 
                                 leg = 'r', 
                                 threshold = 0.005)
     

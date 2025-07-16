@@ -482,7 +482,7 @@ def select_osim_file():
     root.destroy()
     return file_path
 
-def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 0.005):
+def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.005):
 # Adapted from Willi Koller: https://github.com/WilliKoller/OpenSimMatlabBasic/blob/main/checkMuscleMomentArms.m
 # Only checked if works for for the Rajagopal and Catelli models
 
@@ -501,8 +501,8 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # raise Exception('This function is not yet working. Please use the Matlab version for now or fix line containing " time_discontinuity.append(time_vector[discontinuity_indices]) "')
 
     # Load motions and model
-    motion = osim.Storage(ik_file_path)
-    model = osim.Model(model_file_path)
+    motion = osim.Storage(ik_output)
+    model = osim.Model(osim_modelPath)
 
     # Initialize system and state
     model.initSystem()
@@ -614,9 +614,9 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     time_discontinuity = []
 
     fDistC = plt.figure('Discontinuity', figsize=(8, 8))
-    plt.title(ik_file_path)
+    plt.title(ik_output)
 
-    save_folder = os.path.join(os.path.dirname(ik_file_path),'momentArmsCheck')
+    save_folder = os.path.join(os.path.dirname(ik_output),'momentArmsCheck')
 
     def find_discontinuities(momArms, threshold, muscleNames, action, discontinuity, muscle_action, time_discontinuity):
         for i in range(momArms.shape[1]):
@@ -663,8 +663,8 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
 
         # save txt file with discontinuities
         with open(os.path.join(save_folder, 'discontinuities_' + leg + '.txt'), 'w') as f:
-            f.write(f"model file = {model_file_path}\n")
-            f.write(f"motion file = {ik_file_path}\n")
+            f.write(f"model file = {osim_modelPath}\n")
+            f.write(f"motion file = {ik_output}\n")
             f.write(f"leg checked = {leg}\n")
             
             f.write("\n muscles with discontinuities \n", ) 
@@ -684,7 +684,7 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # plot hip flexion
     plt.figure('flexMomentArms_' + leg, figsize=(8, 8))
     plt.plot(flexMomentArms)
-    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.title('All muscle moment arms in motion ' + ik_output)
     plt.legend(muscleNames_hip, loc='best')
     plt.ylabel('Hip Flexion Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
@@ -693,7 +693,7 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # hip adduction
     plt.figure('addMomentArms_' + leg, figsize=(8, 8))
     plt.plot(addMomentArms)
-    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.title('All muscle moment arms in motion ' + ik_output)
     plt.legend(muscleNames_hip, loc='best')
     plt.ylabel('Hip Adduction Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
@@ -702,7 +702,7 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # hip rotation
     plt.figure('rotMomentArms_' + leg, figsize=(8, 8))
     plt.plot(rotMomentArms)
-    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.title('All muscle moment arms in motion ' + ik_output)
     plt.legend(muscleNames_hip, loc='best')
     plt.ylabel('Hip Rotation Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
@@ -711,7 +711,7 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # knee flexion
     plt.figure('kneeFlexMomentArms_' + leg, figsize=(8, 8))
     plt.plot(kneeFlexMomentArms)
-    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.title('All muscle moment arms in motion ' + ik_output)
     plt.legend(muscleNames_knee, loc='best')
     plt.ylabel('Knee Flexion Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
@@ -720,13 +720,13 @@ def checkMuscleMomentArms(model_file_path, ik_file_path, leg = 'l', threshold = 
     # ankle flexion
     plt.figure('ankleFlexMomentArms_' + leg, figsize=(8, 8))
     plt.plot(ankleFlexMomentArms)
-    plt.title('All muscle moment arms in motion ' + ik_file_path)
+    plt.title('All muscle moment arms in motion ' + ik_output)
     plt.legend(muscleNames_ankle, loc='best')
     plt.ylabel('Ankle Dorsiflexion Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
     save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'ankle_MomentArms_' + leg + '.png'))
 
-    print('Moment arms checked for ' + ik_file_path)
+    print('Moment arms checked for ' + ik_output)
     print('Results saved in ' + save_folder + ' \n\n' )
 
     return momentArmsAreWrong,  discontinuity, muscle_action

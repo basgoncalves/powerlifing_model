@@ -39,8 +39,9 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_80_EMG'
+TRIAL_NAME = 'sq_70_EMG'
 STATIC_NAME = 'static_01'
+EMG_NORMALISE_LIST = ['sq_90_MRI']
 
 # CEINMS settings
 DOFs = ['hip_flexion_l', 'hip_flexion_r', 
@@ -48,6 +49,51 @@ DOFs = ['hip_flexion_l', 'hip_flexion_r',
         'hip_rotation_l', 'hip_rotation_r', 
         'knee_angle_l', 'knee_angle_r'
         'ankle_angle_l', 'ankle_angle_r']
+
+
+Muscle_Groups = { 'Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
+            'Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
+            'Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+            'Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+            'Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
+            'Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
+            'Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
+            'Vasti':['vasint_r','vaslat_r','vasmed_r']
+            }
+
+JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
+              'Knee': ['walker_knee_r_on_tibia_r_in_tibia_r_fx', 'walker_knee_r_on_tibia_r_in_tibia_r_fy', 'walker_knee_r_on_tibia_r_in_tibia_r_fz'],
+              'Ankle': ['ankle_r_on_talus_r_in_talus_r_fx', 'ankle_r_on_talus_r_in_talus_r_fy', 'ankle_r_on_talus_r_in_talus_r_fz']}
+
+EMG_muscle_mapping = {
+    # Left Leg Muscles
+    'Voltage_EMG1_vast_lat_l': ['vasint_l', 'vaslat_l', 'vasmed_l'],
+    'Voltage_EMG3_rect_fem_l': ['iliacus_l', 'psoas_l', 'recfem_l', 'sart_l', 'tfl_l'],
+    'Voltage_EMG5_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+    'Voltage_EMG7_glut_max_l': ['glmax1_l', 'glmax2_l', 'glmax3_l', 'glmed1_l', 'glmed2_l', 'glmed3_l', 'glmin1_l', 'glmin2_l', 'glmin3_l'],
+    'Voltage_EMG9_gast_med_l': ['gaslat_l', 'gasmed_l', 'soleus_l'],
+    'Voltage_EMG13_add_mag_l': ['addbrev_l', 'addlong_l', 'addmagDist_l', 'addmagIsch_l', 'addmagMid_l', 'addmagProx_l', 'grac_l'],
+
+    # Right Leg Muscles
+    'Voltage_EMG2_vast_lat_r': ['vasint_r', 'vaslat_r', 'vasmed_r'],
+    'Voltage_EMG4_rect_fem_r': ['iliacus_r', 'psoas_r', 'recfem_r', 'sart_r', 'tfl_r'],
+    'Voltage_EMG6_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+    'Voltage_EMG8_glut_max_r': ['glmax1_r', 'glmax2_r', 'glmax3_r', 'glmed1_r', 'glmed2_r', 'glmed3_r', 'glmin1_r', 'glmin2_r', 'glmin3_r'],
+    'Voltage_EMG10_gast_med_r': ['gaslat_r', 'gasmed_r', 'soleus_r'],
+    'Voltage_EMG14_add_mag_r': ['addbrev_r', 'addlong_r', 'addmagDist_r', 'addmagIsch_r', 'addmagMid_r', 'addmagProx_r', 'grac_r']
+}
+
+plot_settings = {'Groups':
+                        {'SO_StaticOptimization_force': Muscle_Groups,
+                        'Analyse_JRA_ReactionLoads': JCF_Groups,
+                        'SO_StaticOptimization_force_normalised': Muscle_Groups,
+                        'SO_StaticOptimization_activation': EMG_muscle_mapping},
+                'Summary': 
+                    {'SO_StaticOptimization_force': 'Sum', 
+                     'SO_StaticOptimization_force': 'mean', 
+                     'Analyse_JRA_ReactionLoads': '3dsum'}
+                }
+
 
 # Code and executables paths
 CODE,_ = utils.check_path(os.path.dirname(__file__))
@@ -60,16 +106,18 @@ RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results', SUBJECT)
 # models paths
 MODELS_DIR,_ = utils.check_path(os.path.join(os.path.dirname(CODE),'models'))
 SCALED_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_linearly_scaled.osim')
-SCALED_MODEL_INCREASED_FORCE_3_TIMES = os.path.join(MODELS_DIR, '{SUBJECT}_lowerBody_final_increased_3.00.osim')
-MRI_MODEL = os.path.join(MODELS_DIR, 'Athlete_03_mri_scaled.osim')
+SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{SUBJECT}_linearly_scaled_increased_20.00.osim')
+MRI_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_mri_scaled.osim')
+MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{SUBJECT}_mri_scaled_increased_20.00.osim')
 
+CATELI_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_Catelli_final.osim')
 ##################################  Models used for analysis #######################################################3
 SUBJECT_MODEL_DIR = os.path.join(MODELS_DIR, 'models')
 
 if TRIAL_NAME.lower().__contains__('mri'):  # Edit model paths below
-    USED_MODEL = MRI_MODEL
+    USED_MODEL = MRI_MODEL_INCREASED_FORCE
 else:
-    USED_MODEL = SCALED_MODEL
+    USED_MODEL = SCALED_MODEL_INCREASED_FORCE
     
 MARKERSET = os.path.join(MODELS_DIR, 'Athlete_03_markerset.xml')
 GEOMETRY_PATH = os.path.join(MODELS_DIR, 'Geometry')
@@ -82,6 +130,7 @@ GENERIC_SETUP_ID = os.path.join(GENREIC_SETUP_DIR, 'setup_ID.xml')
 GENERIC_SETUP_MA = os.path.join(GENREIC_SETUP_DIR, 'setup_MA.xml')
 GENERIC_ACTUATORS_SO = os.path.join(GENREIC_SETUP_DIR, 'actuators_so.xml')
 GENERIC_SETUP_SO = os.path.join(GENREIC_SETUP_DIR, 'setup_SO.xml')
+GENERIC_SETUP_JRA = os.path.join(GENREIC_SETUP_DIR, 'setup_JRA.xml')
 
 GENERIC_CEINMS_SETUP_OPTIMISE = os.path.join(GENREIC_SETUP_DIR, 'setup_ceinms_optimise.xml')
 GENERIC_CEINMS_CFG_OPTIMISE = os.path.join(GENREIC_SETUP_DIR, 'ceinms_cfg_optimise.xml')
@@ -135,12 +184,15 @@ SETUP_IK = os.path.join(TRIAL_DIR, 'setup_IK.xml')
 SETUP_ID = os.path.join(TRIAL_DIR, 'setup_ID.xml')
 SETUP_MA = os.path.join(TRIAL_DIR, 'setup_MA.xml')
 SETUP_SO = os.path.join(TRIAL_DIR, 'setup_SO.xml')
+SETUP_JRA = os.path.join(TRIAL_DIR, 'setup_JRA.xml')
 
 IK_OUTPUT = os.path.join(TRIAL_DIR, 'joint_angles.mot')
 ID_OUTPUT = os.path.join(TRIAL_DIR, 'inverse_dynamics.sto')
 MA_OUTPUT = os.path.join(TRIAL_DIR, 'muscleAnalysis')
 SO_OUTPUT = os.path.join(TRIAL_DIR)
-FORCES_OUTPUT = os.path.join(SO_OUTPUT, '_StaticOptimization_force.sto')
+FORCES_OUTPUT = os.path.join(SO_OUTPUT, 'SO_StaticOptimization_force.sto')
+
+JRA_OUTPUT = os.path.join(TRIAL_DIR, 'Analyse_JRA_ReactionLoads.sto')
 
 CEINMS_INPUT_DATA = os.path.join(TRIAL_DIR, 'inputData.xml')
 CEINMS_CFG_OPTIMISE = os.path.join(TRIAL_DIR, 'ceinms_cfg_optimise.xml')

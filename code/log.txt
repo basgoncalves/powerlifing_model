@@ -5,3 +5,223 @@ Analysis aborted by user.
 15.07.2025_17:56:12:216: Analysis aborted by user.
 15.07.2025_17:56:21:075: Starting analysis...
 15.07.2025_17:56:31:482: Analysis aborted by user.
+16.07.2025_12:23:06:297: Running Joint Reaction Analysis on model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:24:57:600: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:26:53:068: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:27:45:183: Running JRA on: Athlete_03 / sq_70_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:27:45:268: Error during Joint Reaction Analysis: std::exception in 'void OpenSim::JointReaction::setModel(OpenSim::Model &)': Socket child_frame of type PhysicalFrame in /jointset/ground_pelvis of type CustomJoint is not connected.
+	Thrown at Component.h:3340 in getConnectee().
+16.07.2025_12:28:32:296: Running JRA on: Athlete_03 / sq_70_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:28:32:406: Error during Joint Reaction Analysis: std::exception in 'void OpenSim::JointReaction::setModel(OpenSim::Model &)': Socket child_frame of type PhysicalFrame in /jointset/ground_pelvis of type CustomJoint is not connected.
+	Thrown at Component.h:3340 in getConnectee().
+16.07.2025_12:28:45:118: Running JRA on: Athlete_03 / sq_70_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_12:36:27:090: Error during Joint Reaction Analysis: 
+16.07.2025_12:36:40:980: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:36:53:372: Error during Joint Reaction Analysis: 
+16.07.2025_12:36:57:853: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:36:57:966: Error during Joint Reaction Analysis: create_analysis_tool() missing 1 required positional argument: 'results_directory'
+16.07.2025_12:37:26:028: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:37:26:111: Error during Joint Reaction Analysis: create_analysis_tool() missing 1 required positional argument: 'results_directory'
+16.07.2025_12:39:40:033: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:39:40:131: Error during Joint Reaction Analysis: create_analysis_tool() missing 1 required positional argument: 'results_directory'
+16.07.2025_12:44:54:558: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:44:54:656: Error during Joint Reaction Analysis: create_analysis_tool() got an unexpected keyword argument 'force_set_files'
+16.07.2025_12:45:10:046: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:45:10:153: Error during Joint Reaction Analysis: 'Storage' object has no attribute 'getStartTime'
+16.07.2025_12:45:52:506: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:46:28:728: Error during Joint Reaction Analysis: 
+16.07.2025_12:46:31:217: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:46:31:354: Error during Joint Reaction Analysis: 'Model' object has no attribute 'getFilePath'
+16.07.2025_12:47:42:482: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:47:42:618: Error during Joint Reaction Analysis: expected str, bytes or os.PathLike object, not ComponentPath
+16.07.2025_12:51:44:952: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:51:45:157: Error during Joint Reaction Analysis: std::exception in 'bool OpenSim::AnalyzeTool::run()': Object: Cannot open file externalloads.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_12:52:32:010: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_12:53:01:395: Error during Joint Reaction Analysis: 
+16.07.2025_12:53:03:445: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:07:21:090: Error during Joint Reaction Analysis: 
+16.07.2025_13:07:34:510: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:07:34:595: Error during Joint Reaction Analysis: std::exception in 'bool OpenSim::AnalyzeTool::run()': Object: Cannot open file ./externalloads.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_13:07:55:716: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:07:55:803: Error during Joint Reaction Analysis: std::exception in 'bool OpenSim::AnalyzeTool::run()': Object: Cannot open file externalloads.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_13:09:18:071: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:09:18:149: Error during Joint Reaction Analysis: std::exception in 'bool OpenSim::AnalyzeTool::run()': Object: Cannot open file externalloads.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_13:09:52:068: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:09:55:905: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_13:10:16:735: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:10:16:870: Error during Joint Reaction Analysis: expected str, bytes or os.PathLike object, not ComponentPath
+16.07.2025_13:10:44:786: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:12:06:591: Error during Joint Reaction Analysis: 
+16.07.2025_13:12:09:970: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:12:10:107: Error during Joint Reaction Analysis: 'AnalyzeTool' object has no attribute 'get'
+16.07.2025_13:12:27:487: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:14:51:324: Error during Joint Reaction Analysis: 
+16.07.2025_13:14:53:007: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:14:53:200: Error during Joint Reaction Analysis: std::exception in 'OpenSim::AnalyzeTool::AnalyzeTool(std::string const &)': Object: Cannot open file c. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_13:16:06:653: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:16:06:774: Error during Joint Reaction Analysis: 'NoneType' object is not iterable
+16.07.2025_13:16:45:402: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:17:45:407: Error during Joint Reaction Analysis: 
+16.07.2025_13:17:47:213: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:17:51:907: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_13:18:07:973: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_3.00.osim
+16.07.2025_13:18:11:526: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_13:19:47:670: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:19:52:805: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\_JointReaction_ReactionLoads.sto
+16.07.2025_13:39:13:790: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:46:50:800: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:46:59:664: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:57:42:133: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:57:56:114: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_13:58:34:160: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:08:57:989: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI
+16.07.2025_14:10:20:141: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:11:24:952: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:11:42:040: Running moment arms calculation for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:15:30:787: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:15:44:557: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:17:14:168: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:18:09:522: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:18:51:343: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:20:29:702: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:21:19:301: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:21:51:842: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:22:00:075: Calculating and plotting moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:28:10:059: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim and IK file: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\joint_angles.mot
+16.07.2025_14:29:30:483: Muscle moment arms checked successfully.
+16.07.2025_14:35:47:398: Normalizing muscle forces for: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_14:35:47:677: Normalization of muscle forces completed for: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_14:36:16:239: Normalizing muscle forces for: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_14:36:16:497: Normalization of muscle forces completed. Data saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG//SO_StaticOptimization_force_normalised.sto
+16.07.2025_14:41:41:323: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:43:27:094: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:43:38:612: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:47:04:424: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:47:45:965: Running Static Optimization on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:50:46:795: Checking muscle moment arms for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:51:34:121: Checking muscle moment arms for: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_14:53:28:871: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI
+16.07.2025_14:54:44:493: Muscle moment saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI
+16.07.2025_15:02:38:373: Starting analysis...
+16.07.2025_15:03:08:409: Starting analysis...
+16.07.2025_15:03:24:538: None
+
+16.07.2025_15:04:53:322: Starting analysis...
+16.07.2025_15:04:56:733: Running analysis on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:06:56:272: Starting analysis...
+16.07.2025_15:06:59:791: Running analysis on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:10:55:833: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:11:03:301: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_15:13:32:252: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:14:10:750: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:15:01:924: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:16:33:672: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:17:28:061: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:17:47:103: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:18:02:393: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:18:07:799: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_15:21:01:077: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:21:01:241: Error during Joint Reaction Analysis: std::exception in 'OpenSim::AnalyzeTool::AnalyzeTool(std::string const &)': Object: Cannot open file ..\models\Athlete_03_linearly_scaled_increased_20.00.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_15:21:08:487: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:21:08:623: Error during Joint Reaction Analysis: std::exception in 'OpenSim::AnalyzeTool::AnalyzeTool(std::string const &)': Object: Cannot open file ..\models\Athlete_03_linearly_scaled_increased_20.00.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_15:21:37:112: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:22:21:197: Error during Joint Reaction Analysis: 
+16.07.2025_15:22:25:303: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:22:46:811: Error during Joint Reaction Analysis: 
+16.07.2025_15:22:57:689: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:23:03:023: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\_JointReaction_ReactionLoads.sto
+16.07.2025_15:23:22:092: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:23:27:291: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\JointReaction_ReactionLoads.sto
+16.07.2025_15:24:05:219: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:24:05:300: Error during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_15:25:04:428: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:25:04:523: Error during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:106 in Object().
+16.07.2025_15:26:05:890: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:26:11:596: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_15:27:46:790: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:28:43:485: Error during Joint Reaction Analysis: 
+16.07.2025_15:28:57:573: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:29:03:072: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\JRA_ReactionLoads.sto
+16.07.2025_15:29:23:570: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_15:29:28:525: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\JRA_ReactionLoads.sto
+16.07.2025_15:34:51:703: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_15:34:56:628: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\Analyse_JRA_ReactionLoads.sto
+16.07.2025_15:35:25:063: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_15:35:30:183: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\Analyse_JRA_ReactionLoads.sto
+16.07.2025_15:37:26:999: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:37:32:400: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\Analyse_JRA_ReactionLoads.sto
+16.07.2025_15:38:03:183: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_15:38:07:960: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\Analyse_JRA_ReactionLoads.sto
+16.07.2025_15:40:16:008: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_15:40:21:410: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\Analyse_JRA_ReactionLoads.sto
+16.07.2025_15:40:37:997: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_15:40:43:606: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG\Analyse_JRA_ReactionLoads.sto
+16.07.2025_16:53:00:250: Starting analysis...
+16.07.2025_16:53:05:545: Running analysis on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_16:55:10:240: Starting analysis...
+16.07.2025_16:55:13:702: Running analysis on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_16:55:13:703: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:03:17:685: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_17:03:17:686: Running JRA on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:03:25:078: JRA completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_17:06:44:972: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:08:06:225: Starting analysis...
+16.07.2025_17:08:14:269: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:15:12:098: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_17:17:53:967: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:19:01:851: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_17:19:45:994: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_Catelli_final.osim
+16.07.2025_17:29:06:206: Running Static Optimization on: Athlete_03 / sq_90_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_Catelli_final.osim
+16.07.2025_17:32:26:740: Starting analysis...
+16.07.2025_17:32:31:532: Running analysis on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_17:38:26:477: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_17:40:39:584: Starting analysis...
+16.07.2025_17:40:52:455: Running analysis on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_17:40:52:456: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+16.07.2025_17:45:19:499: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_EMG
+16.07.2025_17:56:48:693: Starting analysis...
+16.07.2025_17:56:53:086: Running analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:56:53:086: Running Inverse Kinematics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:57:26:675: Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\joint_angles.mot
+16.07.2025_17:57:26:676: Running Inverse Dynamics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:57:28:749: Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\inverse_dynamics.sto
+16.07.2025_17:57:28:751: Running Muscle Analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:58:06:903: Starting analysis...
+16.07.2025_17:58:10:402: Running analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:58:10:402: Running Inverse Kinematics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:58:42:525: Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\joint_angles.mot
+16.07.2025_17:58:42:526: Running Inverse Dynamics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:58:44:643: Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\inverse_dynamics.sto
+16.07.2025_17:58:44:643: Running Muscle Analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_17:59:58:230: Starting analysis...
+16.07.2025_18:00:00:473: Running analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:00:00:473: Running Inverse Kinematics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:00:32:815: Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\joint_angles.mot
+16.07.2025_18:00:32:815: Running Inverse Dynamics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:00:34:943: Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\inverse_dynamics.sto
+16.07.2025_18:00:34:943: Running Muscle Analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:01:47:791: Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\muscleAnalysis
+16.07.2025_18:01:47:791: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:02:56:208: Starting analysis...
+16.07.2025_18:02:58:978: Running analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:02:58:978: Running Inverse Kinematics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:03:31:461: Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\joint_angles.mot
+16.07.2025_18:03:31:461: Running Inverse Dynamics on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:03:33:836: Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\inverse_dynamics.sto
+16.07.2025_18:03:33:836: Running Muscle Analysis on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:04:44:384: Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG\muscleAnalysis
+16.07.2025_18:04:44:384: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:06:15:305: Muscle moment arms saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG
+16.07.2025_18:06:15:305: Running Static Optimization on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:10:12:437: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG
+16.07.2025_18:10:12:438: Running JRA on: Athlete_03 / sq_70_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+16.07.2025_18:10:16:934: JRA completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70_EMG

@@ -54,7 +54,7 @@ def run_MA(osim_modelPath, ik_output, grf_xml, resultsDir):
     maTool.setMinDT(1e-008)
     maTool.setErrorTolerance(1e-005)
     maTool.removeControllerSetFromModel()
-    maTool.getLowpassCutoffFrequency(6)
+    maTool.setLowpassCutoffFrequency(6)
     maTool.printToXML(paths.SETUP_MA)
 
     # Reload analysis from xml

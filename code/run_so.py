@@ -71,6 +71,7 @@ def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
     so_analyze_tool.setReplaceForceSet(False)
     so_analyze_tool.getForceSetFiles().append(os.path.relpath(actuators, start=os.path.dirname(paths.SETUP_SO)))
 
+    so_analyze_tool.setLowpassCutoffFrequency(6)
     # Add StaticOptimization analysis to the tool
     so_analyze_tool.updAnalysisSet().cloneAndAppend(so)
 
@@ -78,13 +79,19 @@ def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
     so_analyze_tool.setReplaceForceSet(False)
     so_analyze_tool.setStartTime(paths.TIME_RANGE[0])
     so_analyze_tool.setFinalTime(paths.TIME_RANGE[1])
-
+    
     # Set results directory
-    so_analyze_tool.setResultsDir(utils.rel_path(paths.SO_OUTPUT, paths.SETUP_SO))
+    so_analyze_tool.setResultsDir(utils.rel_path(resultsDir, resultsDir))
 
     # Print configuration to XML file
     so_analyze_tool.printToXML(paths.SETUP_SO)
     print("\n \n Static Optimization setup saved to:", paths.SETUP_SO)
+    
+    # change optimizer_max_iterations in the xml file
+    xml = utils.read_xml(paths.SETUP_SO)
+    static_opt = xml.getroot().find('.//StaticOptimization/optimizer_max_iterations')
+    static_opt.text = '10'  # Set to 10 iterations
+    utils.save_pretty_xml(xml, paths.SETUP_SO)
     
     # run the Static Optimization
     so_analyze_tool = osim.AnalyzeTool(paths.SETUP_SO)
@@ -101,6 +108,8 @@ if __name__ == '__main__':
     
     start_time = time.time()
     
+    utils.print_to_log(f'Running Static Optimization on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
+    
     if not os.path.exists(paths.USED_MODEL):
         raise FileNotFoundError(f"OpenSim model file not found: {paths.USED_MODEL}")
     
@@ -114,8 +123,12 @@ if __name__ == '__main__':
     edit_pelvis_com_actuators(paths.USED_MODEL, paths.ACTUATORS_SO)
     
     # Run the Static Optimization
-    run_SO(osim_modelPath=paths.USED_MODEL, ik_output=paths.IK_OUTPUT, grf_xml=paths.GRF_XML, 
-           actuators= paths.ACTUATORS_SO, resultsDir=paths.SO_OUTPUT)
+    run_SO(osim_modelPath=paths.USED_MODEL, 
+           ik_output=paths.IK_OUTPUT, 
+           grf_xml=paths.GRF_XML, 
+           actuators= paths.ACTUATORS_SO, 
+           resultsDir=paths.SO_OUTPUT)
     
     print(f"Static Optimization completed. Results are saved in {paths.SO_OUTPUT}")
     print(f"Execution time: {time.time() - start_time:.2f} seconds")
+    utils.print_to_log(f"Static Optimization completed. Results are saved in {paths.SO_OUTPUT}")
