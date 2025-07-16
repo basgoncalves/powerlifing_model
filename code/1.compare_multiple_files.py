@@ -1,3 +1,9 @@
+"""
+Compare multiple data files by loading them, finding common columns,
+and plotting them in a single figure. The script allows users to select files,
+summarize groups of columns, and visualize the data in a grid layout.
+"""
+
 import os
 import numpy as np
 import utils

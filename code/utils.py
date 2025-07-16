@@ -94,7 +94,7 @@ def load_trc(path=None, output=0):
                         break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        sys.exit(1)
+        return None
         
     # read headers in line i
     try:
@@ -102,7 +102,7 @@ def load_trc(path=None, output=0):
             headers = file.readlines()[i].strip().split('\t')
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        sys.exit(1)
+        return None
 
     # read the file into a pandas DataFrame, skipping the header
     try:
@@ -113,7 +113,7 @@ def load_trc(path=None, output=0):
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
-        sys.exit(1)
+        return None
 
     if output == 1: print(data.columns)
 
@@ -142,7 +142,7 @@ def load_mot(path=None, output=0):
                         break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        sys.exit(1)
+        return None
     
     # read the file into a pandas DataFrame, skipping the header
     try:
@@ -158,7 +158,7 @@ def load_mot(path=None, output=0):
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
-        sys.exit(1)
+        return None
 
     if output == 1: print(data.columns)
 
@@ -187,7 +187,7 @@ def load_sto(path=None, output=0):
                         break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        sys.exit(1)
+        return None
 
     # read the file into a pandas DataFrame, skipping the header
     try:
@@ -209,7 +209,7 @@ def load_sto(path=None, output=0):
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
-        sys.exit(1)
+        return None
 
     if output == 1: print(data.columns)
 
@@ -228,7 +228,7 @@ def load_grf_mot(path=None, output=0):
                         break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        sys.exit(1)
+        return None
 
     # read the file into a pandas DataFrame, skipping the header
     try:
@@ -236,7 +236,7 @@ def load_grf_mot(path=None, output=0):
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
-        sys.exit(1)
+        return None
 
     if output == 1: print(data.columns)
 
@@ -352,7 +352,7 @@ def load_any_data_file(file_path):
         except Exception as e:
             print(f"Error: Could not read the file at {file_path}. Please check the file format and try again.")
             print(f"Details: {e}")
-        raise ValueError(f"Unsupported file format: {file_path}")
+            
 
 def save_data_file(file_path, data, metadata):
     """
