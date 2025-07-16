@@ -98,4 +98,6 @@ if True:
                               setupJRA=paths.SETUP_JRA)
     
     utils.print_to_log(f'JRA completed. Results are saved in {os.path.dirname(paths.JRA_OUTPUT)}')
+
+
 # 6. Run CEINMS calibration and optimization

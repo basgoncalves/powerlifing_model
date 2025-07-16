@@ -39,7 +39,7 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_70_EMG'
+TRIAL_NAME = 'sq_70_MRI'
 STATIC_NAME = 'static_01'
 EMG_NORMALISE_LIST = ['sq_90_MRI']
 
