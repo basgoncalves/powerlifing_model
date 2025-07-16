@@ -9,9 +9,8 @@ simulations/
 ├── SubjectXX/
 │   ├── SessionXX/
 │   │   ├── TrialXX/
-│   │   │   ├── input_files/
-│   │   │   ├── results/
-│   │   │   └── logs/
+│   │   │   ├── input_files
+│   │   │   ├── results
 │   │   └── TrialXX/
 │   └── SessionXX/
 └── SubjectXX/
@@ -46,14 +45,12 @@ For a squat analysis of Subject 01, Session 01, Trial 01:
 ```
 simulations/Subject01/Session01/Trial01/
 ├── input_files/
-│   ├── squat_markers.trc
-│   ├── squat_forces.mot
-│   └── squat_emg.txt
-├── results/
-│   ├── inverse_kinematics.mot
+│   ├── c3dfile.c3d
+│   ├── experimental_markers.trc
+│   ├── grf.mot
+│   └── squat_emg.sto
+│   ├── joint_angles.mot
 │   ├── inverse_dynamics.sto
-│   └── muscle_forces.sto
-└── logs/
-    ├── ik_log.txt
-    └── processing_notes.txt
-```
+│   ├── setup_IK.xml
+│   └── setup_ID.xml
+└── ```
