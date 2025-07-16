@@ -39,9 +39,32 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_90_EMG'
+TRIAL_NAME = 'sq_90_MRI'
 STATIC_NAME = 'static_01'
 EMG_NORMALISE_LIST = ['sq_90_MRI']
+
+def save_sefl():
+    """
+    Save the current state of the paths module.
+    This is useful for debugging and ensuring that the paths are correctly set.
+    """
+    with open('paths.py', 'w') as f:
+        f.write(f"SUBJECT = '{SUBJECT}'\n")
+        f.write(f"SESSION = '{SESSION}'\n")
+        f.write(f"TRIAL_NAME = '{TRIAL_NAME}'\n")
+        f.write(f"STATIC_NAME = '{STATIC_NAME}'\n")
+        f.write(f"EMG_NORMALISE_LIST = {EMG_NORMALISE_LIST}\n")
+
+def set_subject(subject):
+    """
+    Set the subject for the paths.
+    
+    Parameters:
+        subject (str): Name of the subject.
+    """
+    global SUBJECT
+    SUBJECT = subject
+
 
 # CEINMS settings
 DOFs = ['hip_flexion_l', 'hip_flexion_r', 
