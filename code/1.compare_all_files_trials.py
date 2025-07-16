@@ -83,6 +83,11 @@ def main():
             else:
                 data_list.append(pd.DataFrame()) # Add empty placeholder
 
+        # if None
+        if not any(df is not None and not df.empty for df in data_list):
+            print(f"No valid data found for {file_basename}. Skipping.")
+            continue
+
         # Find common columns only among dataframes that are not empty
         non_empty_dfs = [df for df in data_list if not df.empty]
         if len(non_empty_dfs) < 2:
