@@ -1,0 +1,169 @@
+<?xml version="1.0" ?>
+<OpenSimDocument Version="40000">
+   <ForceSet name="gait2392_CMC">
+      <objects>
+         <PointActuator name="FX">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <body>pelvis</body>
+            <point>-0.07546538886503672 0.0 0.0</point>
+            <point_is_global>false</point_is_global>
+            <direction>1 -0 -0</direction>
+            <force_is_global>true</force_is_global>
+            <optimal_force>100</optimal_force>
+         </PointActuator>
+         <PointActuator name="FY">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <body>pelvis</body>
+            <point>-0.07546538886503672 0.0 0.0</point>
+            <point_is_global>false</point_is_global>
+            <direction>-0 1 -0</direction>
+            <force_is_global>true</force_is_global>
+            <optimal_force>200</optimal_force>
+         </PointActuator>
+         <PointActuator name="FZ">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <body>pelvis</body>
+            <point>-0.07546538886503672 0.0 0.0</point>
+            <point_is_global>false</point_is_global>
+            <direction>-0 -0 1</direction>
+            <force_is_global>true</force_is_global>
+            <optimal_force>100</optimal_force>
+         </PointActuator>
+         <TorqueActuator name="MX">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <bodyA>pelvis</bodyA>
+            <bodyB>ground</bodyB>
+            <torque_is_global>true</torque_is_global>
+            <axis>1 -0 -0</axis>
+            <optimal_force>80</optimal_force>
+         </TorqueActuator>
+         <TorqueActuator name="MY">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <bodyA>pelvis</bodyA>
+            <bodyB>ground</bodyB>
+            <torque_is_global>true</torque_is_global>
+            <axis>-0 1 -0</axis>
+            <optimal_force>80</optimal_force>
+         </TorqueActuator>
+         <TorqueActuator name="MZ">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <bodyA>pelvis</bodyA>
+            <bodyB>ground</bodyB>
+            <torque_is_global>true</torque_is_global>
+            <axis>-0 -0 1</axis>
+            <optimal_force>80</optimal_force>
+         </TorqueActuator>
+         <CoordinateActuator name="hip_flexion_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_flexion_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="hip_adduction_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_adduction_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="hip_rotation_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_rotation_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="knee_angle_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>knee_angle_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="ankle_angle_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>ankle_angle_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="subtalar_angle_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>subtalar_angle_r</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="mtp_angle_r_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>mtp_angle_r</coordinate>
+            <optimal_force>100</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="hip_flexion_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_flexion_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="hip_adduction_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_adduction_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="hip_rotation_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>hip_rotation_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="knee_angle_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>knee_angle_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="ankle_angle_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>ankle_angle_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="subtalar_angle_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>subtalar_angle_l</coordinate>
+            <optimal_force>1</optimal_force>
+         </CoordinateActuator>
+         <CoordinateActuator name="mtp_angle_l_reserve">
+            <appliesForce>true</appliesForce>
+            <min_control>-Inf</min_control>
+            <max_control>Inf</max_control>
+            <coordinate>mtp_angle_l</coordinate>
+            <optimal_force>100</optimal_force>
+         </CoordinateActuator>
+      </objects>
+      <groups/>
+   </ForceSet>
+</OpenSimDocument>
