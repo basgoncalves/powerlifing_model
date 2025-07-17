@@ -5,128 +5,163 @@ import utils
 import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_arms
 import normalise_emg
 
-utils.print_to_log("Starting analysis...")
-paths.print_settings()  # Print paths for debugging
-continue_analysis = input("Continue with analysis? (y/n): ").strip().lower()
 
-if continue_analysis != 'y':
-    print("Analysis aborted by user.")
-    utils.print_to_log("Analysis aborted by user.")
-    exit()
+def main(trial: paths.Trial):
+    utils.print_to_log(f'Running analysis on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
 
-utils.print_to_log(f'Running analysis on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-
-# copy generic setups to trial directory
-if True:
-    utils.print_to_log(f'Copying generic setup files to trial directory: {paths.TRIAL_DIR}')
-    copy_setups_to_trial.run()
-    utils.print_to_log(f'Generic setup files copied to: {paths.TRIAL_DIR}')
-
-# 1. Scale the model
-
-# 1b Change model muscle maximum isometric force
-if False:
-    factor = 3.0  # Increase by 3 times
-    utils.increase_muscle_force(osim_file=paths.SCALED_MODEL_INCREASED_FORCE, 
-                                factor=factor)
-    
-    utils.increase_muscle_force(osim_file=paths.MRI_MODEL_INCREASED_FORCE,
-                                factor=factor)
-
-# 2. Run IK
-if True:
-    utils.print_to_log(f'Running Inverse Kinematics on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-    run_ik.run_IK(osim_modelPath=paths.USED_MODEL, 
-                  marker_trc=paths.MARKERS_TRC,
-                  ik_output=paths.IK_OUTPUT, 
-                  setup_xml=paths.SETUP_IK, 
-                  time_range=paths.TIME_RANGE)
-    utils.print_to_log(f'Inverse Kinematics completed. Results are saved in {paths.IK_OUTPUT}')
-
-# 3. Run ID
-if True:
-    utils.print_to_log(f'Running Inverse Dynamics on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-    run_id.run_ID(osim_modelPath=paths.USED_MODEL, 
-                  ik_mot=paths.IK_OUTPUT,
-                  grf_xml=paths.GRF_XML, 
-                  setup_xml=paths.SETUP_ID)
-    utils.print_to_log(f'Inverse Dynamics completed. Results are saved in {paths.ID_OUTPUT}')
-
-# 4. Run muscle analysis
-if True:
-    utils.print_to_log(f'Running Muscle Analysis on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-    run_ma.run_MA(osim_modelPath=paths.USED_MODEL, 
-                  ik_output=paths.IK_OUTPUT,
-                  grf_xml=paths.GRF_XML, 
-                  resultsDir=paths.MA_OUTPUT)
-    utils.print_to_log(f'Muscle Analysis completed. Results are saved in {paths.MA_OUTPUT}')
-    
-# 4b Check moment arms
-if True:
-    utils.print_to_log(f'Checking muscle moment arms for model: {paths.USED_MODEL}')
-    utils.checkMuscleMomentArms(osim_modelPath=paths.USED_MODEL, 
-                                ik_output=paths.IK_OUTPUT,
-                                leg='l', 
-                                threshold=0.005)
-    utils.checkMuscleMomentArms(osim_modelPath=paths.USED_MODEL,
-                                ik_output=paths.IK_OUTPUT, 
-                                leg='r', 
-                                threshold=0.005)
-    utils.print_to_log(f'Muscle moment arms saved to: {os.path.dirname(paths.IK_OUTPUT)}')
-
-# 5. Run Static Optimization
-if True:
-    utils.print_to_log(f'Running Static Optimization on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-    run_so.run_SO(osim_modelPath=paths.USED_MODEL, 
-                  ik_output=paths.IK_OUTPUT,
-                  grf_xml=paths.GRF_XML, 
-                  actuators=paths.ACTUATORS_SO, 
-                  resultsDir=paths.SO_OUTPUT)
-    utils.print_to_log(f'Static Optimization completed. Results are saved in {paths.SO_OUTPUT}')
-    
-# 6 run Joint Reaction Analysis
-if True:
-    if True:
-        utils.print_to_log(f'Running JRA on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
-        run_jra.run_jra(modelpath=paths.USED_MODEL, 
-                        coordinates_file=paths.IK_OUTPUT, 
-                        externalloadsfile=paths.GRF_XML,
-                        setupJRA=paths.SETUP_JRA,
-                        actuators=None,
-                        muscle_forces=paths.FORCES_OUTPUT, 
-                        results_directory=os.path.dirname(paths.JRA_OUTPUT))
-
+    # 2. Run IK
     if False:
-        run_jra.run_jra_setup(modelpath=paths.USED_MODEL, 
-                              setupJRA=paths.SETUP_JRA)
-    
-    utils.print_to_log(f'JRA completed. Results are saved in {os.path.dirname(paths.JRA_OUTPUT)}')
-
-
-# Normalise EMG data
-if True:
-    utils.print_to_log(f'Normalising EMG data for: {paths.SUBJECT} / {paths.TRIAL_NAME}')
-    emg_normalise_list = []
-    for trial_name in paths.EMG_NORMALISE_LIST:
-        filepath = os.path.join(paths.SESSION_DIR, trial_name, os.path.basename(paths.EMG_MOT))
-        if os.path.exists(filepath):
-            emg_normalise_list.append(filepath)
-        else:
-            print(f"EMG file not found: {filepath}")
-            
-    normalise_emg.main(target_emg_path=paths.EMG_MOT,
-                   normalise_emg_list=emg_normalise_list)
-    
-    utils.print_to_log(f'EMG data normalised. Results are saved in {paths.EMG_MOT_NORMALISED}')
-
-# 6. Run CEINMS calibration and optimization
-if False:
-    utils.print_to_log(f'Running CEINMS calibration on: {paths.SUBJECT} / {paths.TRIAL_NAME}')
-    try:
-        import run_ceinms_calibration
-        run_ceinms_calibration.main(paths.CEINMS_SETUP_CALIBRATION)
-        utils.print_to_log(f'CEINMS calibration completed successfully.')
-    except Exception as e:
-        print(f"Error during CEINMS calibration: {e}")
-        utils.print_to_log(f'Error during CEINMS calibration: {e}')
+        utils.print_to_log(f'Running Inverse Kinematics on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
         
+        run_ik.main(osim_modelPath=trial.USED_MODEL, 
+                    marker_trc=trial.inputFiles['MARKERS'].output,
+                    ik_output=trial.outputFiles['IK'].output, 
+                    setup_xml=trial.outputFiles['IK'].setup, 
+                    time_range=trial.TIME_RANGE,
+                    resultsDir=trial.path)
+        
+        ouput_files = trial.outputFiles['IK'].abspath()
+        utils.print_to_log(f'Inverse Kinematics completed. Results are saved in {ouput_files}')
+
+    # 3. Run ID
+    if True:
+        
+        try:
+            utils.print_to_log(f'Running Inverse Dynamics on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+            
+            run_id.main(osim_modelPath=trial.USED_MODEL, 
+                        ik_output=trial.outputFiles['IK'].abspath(),
+                        grf_xml=trial.inputFiles['GRF_XML'].abspath(), 
+                        setup_xml=trial.path + '\\'+ trial.outputFiles['ID'].setup,
+                        resultsDir=trial.path)
+            
+            ouput_files = trial.outputFiles['ID'].abspath()
+            utils.print_to_log(f'Inverse Dynamics completed. Results are saved in {ouput_files}')
+        except Exception as e:
+            utils.print_to_log(f'Error during Inverse Dynamics: {e}')
+            utils.print_to_log(f'Inverse Dynamics failed for: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+
+    # 4. Run muscle analysis
+    if False:
+        try:
+            utils.print_to_log(f'Running Muscle Analysis on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+            run_ma.main(osim_modelPath=trial.USED_MODEL, 
+                        ik_output = trial.outputFiles['IK'].abspath(),
+                        grf_xml = trial.inputFiles['GRF_XML'].abspath(), 
+                        setup_xml = trial.path + '\\' + trial.outputFiles['MA'].setup,
+                        resultsDir=trial.outputFiles['MA'].abspath())
+            
+            ouput_files = trial.outputFiles['MA'].abspath()
+            utils.print_to_log(f'Muscle Analysis completed. Results are saved in {ouput_files}')
+        except Exception as e:
+            utils.print_to_log(f'Error during Muscle Analysis: {e}')
+            utils.print_to_log(f'Muscle Analysis failed for: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+            
+    # 4b Check moment arms
+    if False:
+        utils.print_to_log(f'Checking muscle moment arms for model: {trial.USED_MODEL}')
+        utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL, 
+                                    ik_output=trial.outputFiles['IK'].abspath(),
+                                    leg='l', 
+                                    threshold=0.005)
+        utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
+                                    ik_output=trial.outputFiles['IK'].abspath(), 
+                                    leg='r', 
+                                    threshold=0.005)
+        
+        ouput_files = trial.outputFiles['MA'].abspath()
+        utils.print_to_log(f'Muscle moment arms checked. Results are saved in {ouput_files}')
+
+    # 5. Run Static Optimization
+    if True:
+        utils.print_to_log(f'Running Static Optimization on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+        try:
+            run_so.main(osim_modelPath=trial.USED_MODEL, 
+                        ik_output=trial.outputFiles['IK'].abspath(),
+                        grf_xml=trial.inputFiles['GRF_XML'].abspath(), 
+                        actuators=trial.inputFiles['ACTUATORS_SO'].abspath(), 
+                        resultsDir= trial.path + '\\' + trial.outputFiles['SO'].output)
+        except Exception as e:
+            utils.print_to_log(f'Error during Static Optimization : {e}')
+            utils.print_to_log(f'Static Optimization failed for: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+        
+        ouput_files = trial.outputFiles['SO'].abspath()
+        utils.print_to_log(f'Static Optimization completed. Results are saved in {ouput_files}')
+        
+    # 6 run Joint Reaction Analysis
+    if True:
+        if True:
+            
+            try:
+                utils.print_to_log(f'Running JRA on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+                run_jra.run_jra(modelpath=trial.USED_MODEL, 
+                                coordinates_file = trial.outputFiles['IK'].abspath(), 
+                                externalloadsfile = trial.inputFiles['GRF_XML'].abspath(),
+                                setupJRA = trial.path + '\\' + trial.outputFiles['JRA'].setup,
+                                actuators=None,
+                                muscle_forces = trial.path + '\\' + trial.outputFiles['SO'] + 'SO_StaticOptimization_forces.sto',
+                                results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath()))
+                
+                ouput_files = trial.outputFiles['JRA'].abspath()
+                utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {ouput_files}')
+                
+            except Exception as e:
+                utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
+                utils.print_to_log(f'Joint Reaction Analysis failed for: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+                
+        if False:
+            run_jra.run_jra_setup(modelpath=trial.USED_MODEL, 
+                                setupJRA=trial.SETUP_JRA)
+        
+    # Normalise EMG data
+    if True:
+        utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
+        emg_normalise_list = []
+        for name in paths.Settings().TRIAL_TO_ANALYSE:
+            filepath = os.path.join(os.path.dirname(trial.path, name))
+            if os.path.exists(filepath):
+                emg_normalise_list.append(filepath)
+            else:
+                print(f"EMG file not found: {filepath}")
+                
+        normalise_emg.main(target_emg_path=trial.EMG_MOT,
+                    normalise_emg_list=emg_normalise_list)
+        
+        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.EMG_MOT_NORMALISED}')
+        
+    # 6. Run CEINMS calibration and optimization
+    if False:
+        utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
+        try:
+            import run_ceinms_calibration
+            run_ceinms_calibration.main(trial.CEINMS_SETUP_CALIBRATION)
+            utils.print_to_log(f'CEINMS calibration completed successfully.')
+        except Exception as e:
+            print(f"Error during CEINMS calibration: {e}")
+            utils.print_to_log(f'Error during CEINMS calibration: {e}')
+
+if __name__ == "__main__":
+    utils.print_to_log("Starting analysis...")
+    
+    settings = paths.Settings()
+    analysis = paths.Analysis()
+    trial_list = settings.TRIAL_TO_ANALYSE
+    
+    sessions_to_skip = ['25_03_31']
+    
+    for subject in analysis.subject_list:
+        session_list = analysis.get_subject(subject).SESSIONS
+        
+        for session in session_list:            
+            if session.name in sessions_to_skip:
+                continue
+            
+            for trial in session.TRIALS:
+                trial.copy_inputs_to_trial(replace=False)
+                
+                utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
+                
+                main(trial=trial)
+
+                utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')            
+            

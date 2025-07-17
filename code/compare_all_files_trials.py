@@ -45,9 +45,18 @@ def find_files_to_plot(folder_paths: List[str]) -> Set[str]:
     # Return a set of filenames that appeared in 2 or more folders
     return {file for file, count in file_counter.items() if count >= 2}
 
-def main():
+def main(input_list: List[str] = None):
     """Main execution function."""
+    
     # 1. Get all folder paths from the user
+    if input_list:
+        folder_paths = input_list
+    else:
+        print("No input list provided. Please enter folder paths interactively.")
+        if not input_list:
+            print("No folder paths provided. Exiting.")
+            return
+        
     folder_paths = get_folders_from_user()
     save_directory = input("Enter the path to the directory to save comparison plots: ").strip().strip('"')
 
@@ -173,13 +182,4 @@ def main():
 
 if __name__ == '__main__':
     
-    subject_list = [paths.SUBJECT]
-    trials_list = ['sq_70_EMG', 'sq_70_MRI',
-                   'sq_80_EMG', 'sq_80_MRI',
-                   'sq_90_EMG', 'sq_90_MRI']
-    for subject in subject_list:
-        for trial in trials_list:
-            paths.SUBJECT = subject
-            paths.TRIAL_NAME = trial
-            paths.save_self()
     main()

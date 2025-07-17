@@ -1,4 +1,6 @@
-import os 
+import os
+
+import pandas as pd 
 import paths
 
 
@@ -49,10 +51,47 @@ def main():
     
 if __name__ == "__main__":
     
-    subject = paths.SUBJECT
-    sessrion = paths.SESSION
+    exit
+    dataset = dict()
+    for subject in paths.Analysis().SUBJECTS:
+        
+        subject_data = pd.DataFrame()
+        subject_data['name'] = subject.name
+        dataset[subject.name] = subject_data.copy()
+        
+        print(f"Processing subject: {subject.name}")
+        for session in subject.SESSIONS:
+            print(f"Processing session: {session.name}")
+            for trial in session.TRIALS:
+                print(f"Processing trial: {trial.name}")
+
     trialsList = {'MRI': ['sq_90_MRI', 'sq_70_MRI'],
                 'EMG': ['sq_90_EMG', 'sq_70_EMG']}
+    
+    
+    import compare_all_files_trials as compare_all
+    import utils
+    import paths
+    
+    subject = paths.Analysis().get_subject('Athlete_03') 
+
+    trialsList = {
+        'MRI': ['sq_90', 'sq_70'],
+        'Linear': ['sq_90', 'sq_70']
+    }
+    
+    for session, trials in trialsList.items():
+        print(f"Processing session: {session}")
+        for trial in trials:
+            print(f"Processing trial: {trial}")
+            compare_all.main(
+                subject=subject,
+                session=session,
+                trial=trial,
+                resultsDir=paths.RESULTS_DIR
+            )
+    compare_all.main(
+        subject=subject,
                
     
     

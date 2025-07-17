@@ -31,7 +31,7 @@ def edit_pelvis_com_actuators(modelFilePath, actuatorsFilePath):
     
     print(f"Updated pelvis center of mass actuator in {actuatorsFilePath} to {com}")
 
-def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
+def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
 
@@ -65,11 +65,11 @@ def run_SO(osim_modelPath, ik_output, grf_xml, actuators, resultsDir):
     so_analyze_tool.setName("SO")
 
     # Set model file, motion files and external load file names
-    so_analyze_tool.setModelFilename(os.path.relpath(paths.USED_MODEL, start=os.path.dirname(paths.SETUP_SO)))
-    so_analyze_tool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(paths.SETUP_SO)))
-    so_analyze_tool.setExternalLoadsFileName(os.path.relpath(paths.GRF_XML, start=os.path.dirname(paths.SETUP_SO)))
+    so_analyze_tool.setModelFilename(os.path.relpath(osim_modelPath, start=os.path.dirname(setup_xml)))
+    so_analyze_tool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(setup_xml)))
+    so_analyze_tool.setExternalLoadsFileName(os.path.relpath(paths.GRF_XML, start=os.path.dirname(setup_xml)))
     so_analyze_tool.setReplaceForceSet(False)
-    so_analyze_tool.getForceSetFiles().append(os.path.relpath(actuators, start=os.path.dirname(paths.SETUP_SO)))
+    so_analyze_tool.getForceSetFiles().append(os.path.relpath(actuators, start=os.path.dirname(setup_xml)))
 
     so_analyze_tool.setLowpassCutoffFrequency(6)
     # Add StaticOptimization analysis to the tool
@@ -123,9 +123,10 @@ if __name__ == '__main__':
     edit_pelvis_com_actuators(paths.USED_MODEL, paths.ACTUATORS_SO)
     
     # Run the Static Optimization
-    run_SO(osim_modelPath=paths.USED_MODEL, 
+    main(osim_modelPath=paths.USED_MODEL, 
            ik_output=paths.IK_OUTPUT, 
            grf_xml=paths.GRF_XML, 
+           setup_xml=paths.SETUP_SO,
            actuators= paths.ACTUATORS_SO, 
            resultsDir=paths.SO_OUTPUT)
     

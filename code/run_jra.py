@@ -162,13 +162,13 @@ if __name__ == '__main__':
     
     if not os.path.exists(coordinates_file):
         import run_ik
-        run_ik.run_IK(osim_modelPath=modelpath, marker_trc=paths.MARKERS_TRC, 
+        run_ik.main(osim_modelPath=modelpath, marker_trc=paths.MARKERS_TRC, 
                       ik_output=coordinates_file, setup_xml=paths.SETUP_IK, time_range=paths.TIME_RANGE)
     
     if not os.path.exists(muscle_forces):
         import run_so
         
-        run_so.run_SO(osim_modelPath = modelpath, 
+        run_so.main(osim_modelPath = modelpath, 
                       ik_output = coordinates_file, 
                       grf_xml = paths.GRF_XML,
                       resultsDir = paths.SO_OUTPUT, 

@@ -4,9 +4,9 @@ import opensim as osim
 import paths
 import utils
 
-def validate_markers_used(ikTool):
+def validate_markers_used(ikTool,markers_path):
     task_set = ikTool.get_IKTaskSet()
-    markers = utils.load_trc(paths.MARKERS_TRC)
+    markers = utils.load_trc(markers_path)
     
     markers_list = [col for col in markers.columns if col.strip()]
     
@@ -20,18 +20,17 @@ def validate_markers_used(ikTool):
     
     return ikTool
 
-def run_IK(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None):
+def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resultsDir=None):
     
-    resultsDir = os.path.dirname(setup_xml)
+    os.chdir(resultsDir)
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
 
     if not os.path.exists(osim_modelPath):
-        raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
+        utils.print_to_log(f"OpenSim model file not found: {osim_modelPath}")
     
     if not os.path.exists(marker_trc):
-        
-        raise FileNotFoundError(f"Marker TRC file not found: {marker_trc}")
+        utils.print_to_log(f"Marker TRC file not found: {marker_trc}")
 
     # Load the model
     print(f"Loading OpenSim model from {osim_modelPath}")
@@ -39,21 +38,24 @@ def run_IK(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None):
     model.initSystem()
 
     # Create the Inverse Kinematics tool
-    ikTool = osim.InverseKinematicsTool(paths.GENERIC_SETUP_IK)
+    ikTool = osim.InverseKinematicsTool(setup_xml)
     
     # simple function to validate the markers used in the IK setup
-    ikTool = validate_markers_used(ikTool)
+    ikTool = validate_markers_used(ikTool, marker_trc)
     
     # Set the model and parameters
     ikTool.setModel(model)
     # Set the marker data file and time range
-    ikTool.setMarkerDataFileName(os.path.relpath(marker_trc, start=os.path.dirname(setup_xml)))
-    ikTool.setStartTime(time_range[0])  # Set start time
-    ikTool.setEndTime(time_range[1])    # Set end time
+    ikTool.setMarkerDataFileName(marker_trc)
+    
+    # set the time range for the IK calculation
+    if time_range is not None:
+        ikTool.setStartTime(time_range[0])  # Set start time
+        ikTool.setEndTime(time_range[1])    # Set end time
     
     # Set the output motion file name relative to the results directory
-    ikTool.setResultsDir(os.path.relpath(resultsDir, start=os.path.dirname(setup_xml)))
-    ikTool.setOutputMotionFileName(os.path.relpath(ik_output, start=os.path.dirname(setup_xml)))
+    ikTool.setResultsDir('./')
+    ikTool.setOutputMotionFileName(ik_output)
     ikTool.printToXML(setup_xml)
     print(f"Inverse Kinematics setup saved to {setup_xml}")
     time.sleep(1)  # Optional: wait for a second before running the tool
@@ -63,7 +65,6 @@ def run_IK(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None):
     ikTool.setModel(model)
     
     # Run the inverse kinematics calculation
-    os.chdir(resultsDir)
     ikTool.run()
     
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
@@ -80,7 +81,7 @@ if __name__ == '__main__':
     
     try:
         utils.print_to_log(f'{time.time}: Running Inverse Kinematics on model: {osim_modelPath}')
-        run_IK(osim_modelPath, marker_trc,ik_output, setup_ik, time_range=paths.TIME_RANGE)
+        main(osim_modelPath, marker_trc,ik_output, setup_ik, time_range=paths.TIME_RANGE)
     except Exception as e:
         print(f"Error running Inverse Kinematics: {e}")
         utils.print_to_log(f'{time.time}: Error running Inverse Kinematics: {e}')
