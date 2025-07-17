@@ -3,7 +3,7 @@ import paths
 import utils
 import pandas as pd
 
-def main(target_emg_path, normalise_emg_list):
+def main(target_emg_path: str, normalise_emg_list: list, save_path: str = None):
     """
     Normalises EMG data based on a target EMG file.
     The target EMG file is used to scale the other EMG files in the list.
@@ -43,15 +43,20 @@ def main(target_emg_path, normalise_emg_list):
 if __name__ == "__main__":
     
     emg_normalise_list = []
-    for trial_name in paths.EMG_NORMALISE_LIST:
-        filepath = os.path.join(paths.SESSION_DIR, trial_name, os.path.basename(paths.EMG_MOT))
+    for trial_name in paths.Settings().TRIAL_TO_ANALYSE:
+        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[0].name,
+                            session_name=paths.Analysis().SUBJECTS[0].SESSIONS[0].name,
+                            trial_name=trial_name)
+        
+        filepath = trial.inputFiles['EMG_MOT'].output
         if os.path.exists(filepath):
             emg_normalise_list.append(filepath)
         else:
             print(f"EMG file not found: {filepath}")
-            
-    main(target_emg_path=paths.EMG_MOT,
-                   normalise_emg_list=emg_normalise_list)
+    
+          
+    main(target_emg_path= paths.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].inputFiles['EMG_MOT'].abspath(),
+                normalise_emg_list=emg_normalise_list)
     
     
     

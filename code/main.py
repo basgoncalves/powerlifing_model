@@ -79,6 +79,7 @@ def main(trial: paths.Trial):
             run_so.main(osim_modelPath=trial.USED_MODEL, 
                         ik_output=trial.outputFiles['IK'].abspath(),
                         grf_xml=trial.inputFiles['GRF_XML'].abspath(), 
+                        setup_xml=trial.path + '\\' + trial.outputFiles['SO'].setup,
                         actuators=trial.inputFiles['ACTUATORS_SO'].abspath(), 
                         resultsDir= trial.path + '\\' + trial.outputFiles['SO'].output)
         except Exception as e:
@@ -118,16 +119,17 @@ def main(trial: paths.Trial):
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
         for name in paths.Settings().TRIAL_TO_ANALYSE:
-            filepath = os.path.join(os.path.dirname(trial.path, name))
+        
+            filepath = os.path.join(os.path.dirname(trial.path), name)
             if os.path.exists(filepath):
                 emg_normalise_list.append(filepath)
             else:
                 print(f"EMG file not found: {filepath}")
                 
-        normalise_emg.main(target_emg_path=trial.EMG_MOT,
+        normalise_emg.main(target_emg_path=trial.inputFiles['EMG_MOT'].abspath(),
                     normalise_emg_list=emg_normalise_list)
         
-        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.EMG_MOT_NORMALISED}')
+        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
         
     # 6. Run CEINMS calibration and optimization
     if False:
