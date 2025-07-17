@@ -6,39 +6,46 @@ import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_
 import normalise_emg
 
 
-def main(trial: paths.Trial):
+def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
     if False:
+        output_file = trial.outputFiles['IK'].abspath()
         try:
-            utils.print_to_log(f'Running Inverse Kinematics on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
 
-            run_ik.main(osim_modelPath=trial.USED_MODEL,
-                        marker_trc=trial.inputFiles['MARKERS'].output,
-                        ik_output=trial.outputFiles['IK'].output,
-                        setup_xml=trial.outputFiles['IK'].setup,
-                        time_range=trial.TIME_RANGE,
-                        resultsDir=trial.path)
+            if not os.path.exists(output_file) or replace:
+                # breakpoint()  # This will pause the execution for debugging
+                run_ik.main(osim_modelPath=trial.USED_MODEL,
+                            marker_trc=trial.inputFiles['MARKERS'].output,
+                            ik_output=output_file,
+                            setup_xml=trial.path + '\\' + trial.outputFiles['IK'].setup,
+                            time_range=trial.TIME_RANGE,
+                            resultsDir=trial.path)
 
-            ouput_files = trial.outputFiles['IK'].abspath()
-            utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {ouput_files}')
+                utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
+            else:
+                utils.print_to_log(f'[Info] Inverse Kinematics results already exist. Skipping computation. {output_file}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if True:
-
+    if False:
+        output_file = trial.outputFiles['ID'].abspath()
         try:
-            utils.print_to_log(f'Running Inverse Dynamics on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
+            
+            # Check if the IK output file exists
+            if not os.path.exists(output_file) or replace:               
+                # breakpoint()  # This will pause the execution for debugging
+                run_id.main(osim_modelPath=trial.USED_MODEL,
+                            ik_output=trial.outputFiles['IK'].abspath(),
+                            grf_xml=trial.inputFiles['GRF_XML'].abspath(),
+                            setup_xml=trial.path + '\\'+ trial.outputFiles['ID'].setup,
+                            resultsDir=trial.path)
 
-            run_id.main(osim_modelPath=trial.USED_MODEL,
-                        ik_output=trial.outputFiles['IK'].abspath(),
-                        grf_xml=trial.inputFiles['GRF_XML'].abspath(),
-                        setup_xml=trial.path + '\\'+ trial.outputFiles['ID'].setup,
-                        resultsDir=trial.path)
+                utils.print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {output_file}')
+            else:
+                utils.print_to_log(f'[Info] Inverse Dynamics results already exist. Skipping computation. {output_file}')
 
-            ouput_files = trial.outputFiles['ID'].abspath()
-            utils.print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {ouput_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Inverse Dynamics: {e}')
             exit()
@@ -46,15 +53,15 @@ def main(trial: paths.Trial):
     # 4. Run muscle analysis
     if False:
         try:
-            utils.print_to_log(f'Running Muscle Analysis on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
-            run_ma.main(osim_modelPath=trial.USED_MODEL,
-                        ik_output = trial.outputFiles['IK'].abspath(),
-                        grf_xml = trial.inputFiles['GRF_XML'].abspath(),
-                        setup_xml = trial.path + '\\' + trial.outputFiles['MA'].setup,
-                        resultsDir=trial.outputFiles['MA'].abspath())
+            if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
+                run_ma.main(osim_modelPath=trial.USED_MODEL,
+                            ik_output=trial.outputFiles['IK'].abspath(),
+                            grf_xml=trial.inputFiles['GRF_XML'].abspath(),
+                            setup_xml=trial.path + '\\' + trial.outputFiles['MA'].setup,
+                            resultsDir=trial.outputFiles['MA'].abspath())
 
-            ouput_files = trial.outputFiles['MA'].abspath()
-            utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {ouput_files}')
+                ouput_files = trial.outputFiles['MA'].abspath()
+                utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {ouput_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle Analysis: {e}')
             exit()
@@ -75,18 +82,20 @@ def main(trial: paths.Trial):
         utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
 
     # 5. Run Static Optimization
-    if False:
+    if True:
 
         try:
-            utils.print_to_log(f'Running Static Optimization on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
-            run_so.main(osim_modelPath=trial.USED_MODEL,
-                        ik_output=trial.outputFiles['IK'].abspath(),
-                        grf_xml=trial.inputFiles['GRF_XML'].abspath(),
-                        setup_xml=trial.path + '\\' + trial.outputFiles['SO'].setup,
-                        actuators=trial.inputFiles['ACTUATORS_SO'].abspath(),
-                        resultsDir= trial.path + '\\' + trial.outputFiles['SO'].output)
+            # Check if the Static Optimization output file exists
+            if not os.path.exists(trial.outputFiles['SO'].abspath()) or replace:
+                run_so.main(osim_modelPath=trial.USED_MODEL,
+                            ik_output=trial.outputFiles['IK'].abspath(),
+                            grf_xml=trial.inputFiles['GRF_XML'].abspath(),
+                            setup_xml=trial.path + '\\' + trial.outputFiles['SO'].setup,
+                            actuators=trial.inputFiles['ACTUATORS_SO'].abspath(),
+                            resultsDir= trial.path + '\\' + trial.outputFiles['SO'].output)
 
-            utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
+                utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
+                
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
             exit()
@@ -115,23 +124,24 @@ def main(trial: paths.Trial):
             except Exception as e:
                 utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
 
-
         if False:
             run_jra.run_jra_setup(modelpath=trial.USED_MODEL,
                                 setupJRA=trial.SETUP_JRA)
 
     # Normalise EMG data
     if False:
+        
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
+        
         for name in paths.Settings().TRIAL_TO_ANALYSE:
 
-            filepath = trial.inputFiles['EMG_MOT'].abspath()
-            if os.path.exists(filepath):
-                emg_normalise_list.append(filepath)
+            abs_path_emg = trial.inputFiles['EMG_MOT'].abspath()
+            if os.path.exists(abs_path_emg):
+                emg_normalise_list.append(abs_path_emg)
             else:
-                print(f"EMG file not found: {filepath}")
-        
+                print(f"EMG file not found: {abs_path_emg}")
+
         normalise_emg.main(target_emg_path=trial.inputFiles['EMG_MOT'].abspath(),
                     normalise_emg_list=emg_normalise_list)
 
@@ -165,10 +175,15 @@ if __name__ == "__main__":
                 continue
 
             for trial in session.TRIALS:
-                # trial.copy_inputs_to_trial(replace=False)
+                trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
-                main(trial=trial)
+                
+                #############################################
+                # Run the main analysis function
+                main(trial=trial, replace=True)
+                
+                #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')

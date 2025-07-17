@@ -167,7 +167,7 @@ class Models(Analysis):
         self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
         self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
+        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_3.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
@@ -220,7 +220,7 @@ class Trial():
             'ID': Step(function='run_id.main', setup='setup_ID.xml', output='inverse_dynamics.sto', parentdir=self.path),
             'MA': Step(function='run_ma.main', setup='setup_MA.xml', output='muscleAnalysis', parentdir=self.path),
             'SO': Step(function='run_so.main', setup='setup_SO.xml', output='', parentdir=self.path),
-            'FORCES_SO': Step(function=None, setup=None, output='SO_StaticOptimization_forces.sto', parentdir=self.path),
+            'FORCES_SO': Step(function=None, setup=None, output='SO_StaticOptimization_force.sto', parentdir=self.path),
             'JRA': Step(function='run_jra.main', setup='setup_JRA.xml', output='Analyse_JRA_ReactionLoads.sto', parentdir=self.path),
             'CEINMS_CALIBRATION': Step(function='run_ceinms_calibration.main', 
                                        setup='../calibrationSetup_ceinms-nn_hybrid.xml', 

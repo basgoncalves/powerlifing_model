@@ -77,11 +77,36 @@ def add_mass_to_body(model_path, body_name, mass_to_add, save_path):
     else:
         print(f"Body '{body_name}' not found in the model.")
 
+def print_body_mass_per_segment(model_path):
+    """
+    Print the mass of each body segment in the OpenSim model.
+    """
+    model = osim.Model(model_path)
+    state = model.initSystem()
+
+    print("Body Segment Masses:")
+    for body in model.getBodySet():
+        print(f"{body.getName()}: {body.getMass()} kg ({body.getMass() / model.getTotalMass(state) * 100:.2f}%)")
+
 if __name__ == "__main__":
     
     
     model_reference_path = r"C:\OpenSim 4.5\Models\Rajagopal\generic_unscaled.osim"
-    model_target_path = paths.USED_MODEL
+    model_target_path = paths.Analysis().SUBJECTS[1].SESSIONS[0].TRIALS[0].USED_MODEL
+    print(f"Reference model path: {model_reference_path}")
+    print(f"Target model path: {model_target_path}")
+    
+    # print model masses
+    model_ref = osim.Model(model_reference_path)
+    model_targ = osim.Model(model_target_path)
+    state1 = model_ref.initSystem()
+    state2 = model_targ.initSystem()
+    print(f"Model: {model_reference_path}, Weight: {model_ref.getTotalMass(state1)} kg")
+    print(f"Model: {model_target_path}, Weight: {model_targ.getTotalMass(state2)} kg")
+
+    print_body_mass_per_segment(model_target_path)
+
+    exit()
     
     scale_body_masses(model_reference_path=model_reference_path,
                       model_target_path=model_target_path,
