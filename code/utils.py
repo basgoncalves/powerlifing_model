@@ -2,6 +2,7 @@ import shutil
 import time
 from tkinter import filedialog, messagebox, simpledialog
 from matplotlib import pyplot as plt
+import matplotlib
 import numpy as np
 import pandas as pd
 import sys
@@ -183,7 +184,7 @@ def load_sto(path=None, output=0):
     try:
         with open(path, 'r') as file:
             for i, line in enumerate(file):
-                if 'endheader' in line:
+                if 'endheader' in line or i > 100:  # Limit to first 100 lines to avoid long files
                         break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
@@ -195,14 +196,12 @@ def load_sto(path=None, output=0):
         offset = -3
         while 'time' not in columns:
             try:    
-                if path.__contains__('force'):
-                    data = pd.read_csv(path, sep= '\s+', header=i-3)
-                    columns = data.columns
-                else:
-                    data = pd.read_csv(path, sep= '\s+', header=i+offset)
-                    columns = data.columns
-                
+                data = pd.read_csv(path, sep= '\s+', header=i+offset)
+                columns = data.columns
                 offset += 1
+                if offset > 100:
+                    print(f"Error: Could not find 'time' column in the file {path}. Please check the file format.")
+                    return None
             except pd.errors.ParserError:
                 offset += 1
                 
@@ -353,7 +352,6 @@ def load_any_data_file(file_path):
             print(f"Error: Could not read the file at {file_path}. Please check the file format and try again.")
             print(f"Details: {e}")
             
-
 def save_data_file(file_path, data, metadata):
     """
     Saves the DataFrame back to a file in the original format.
@@ -846,8 +844,53 @@ def time_normalise_df(df, fs=''):
     
     return normalised_df
 
+def get_unique_names(paths):
+    # Split each path into parts
+    split_paths = [p.split(os.sep) for p in paths]
+
+    # Transpose to compare columns
+    columns = list(zip(*split_paths))
+
+    # Find the indices where not all elements are the same
+    diff_indices = [i for i, col in enumerate(columns) if len(set(col)) > 1]
+
+    # Create unique names using the differing parts
+    unique_names = []
+    for parts in split_paths:
+        unique = "_".join([parts[i] for i in diff_indices])
+        unique_names.append(unique)
+    return unique_names
 
 
+def create_color_and_style_dict(labels):
+    """Creates a color and style dictionary based on unique labels.
+    Args:
+        labels (list): List of unique labels.
+        Returns:
+        tuple: Two dictionaries, one for colors and one for styles.
+            
+    Example:
+        labels = ['Athlete_03_sq_70', 'Athlete_03_sq_75', 'Athlete_03_sq_80']
+        color_dict, style_dict = create_color_and_style_dict(labels)
+        
+    """
+    
+    
+    color_dict = {}
+    style_dict = {}
+    # Extract the number (e.g., 70, 75, 80, 85, 90) from each label for color assignment
+    # Assume the number is always at the end after an underscore
+    numbers = [label.split('_')[-1] for label in labels]
+    unique_numbers = sorted(set(numbers), key=lambda x: int(x))
+    color_map = matplotlib.colormaps['tab10']
+    number_to_color = {num: color_map.colors[i % 10] for i, num in enumerate(unique_numbers)}
+    for label, num in zip(labels, numbers):
+        color_dict[label] = number_to_color[num]
+        if 'mri' in label.lower():
+            style_dict[label] = '--'
+        else:
+            style_dict[label] = '-'
+    return color_dict, style_dict
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

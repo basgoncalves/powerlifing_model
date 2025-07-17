@@ -49,7 +49,7 @@ RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isd
 
 class Settings():
     def __init__(self):
-        self.TRIAL_TO_ANALYSE = ['sq_70','sq_80','sq_90']
+        self.TRIAL_TO_ANALYSE = ['sq_70','sq_75','sq_80','sq_85','sq_90']
         
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
@@ -93,7 +93,7 @@ class Settings():
                             {'SO_StaticOptimization_force': self.Muscle_Groups,
                             'Analyse_JRA_ReactionLoads': self.JCF_Groups,
                             'SO_StaticOptimization_force_normalised': self.Muscle_Groups,
-                            'SO_StaticOptimization_activation': self.EMG_muscle_mapping},
+                            'SO_StaticOptimization_activation': self.Muscle_Groups},
                     'Summary': 
                             {'SO_StaticOptimization_force': 'Sum', 
                              'SO_StaticOptimization_force_normalised': 'mean',
@@ -166,8 +166,8 @@ class Models(Analysis):
         self.SCALED_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.SCALED_MODEL.replace('.osim', '_scaledMasses.osim'))
         self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
-        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_increased_20.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_increased_20.00.osim')
+        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
+        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
@@ -194,10 +194,11 @@ class Trial():
         
         models = Models(subject_name)
         
-        if subject_name.lower().__contains__('mri'):  # Edit model paths below
-            self.USED_MODEL = models.MRI_MODEL_SCALED_MASSES
+        # Edit model paths below
+        if subject_name.lower().__contains__('mri'):  
+            self.USED_MODEL = models.MRI_MODEL_INCREASED_FORCE
         else:
-            self.USED_MODEL = models.SCALED_MODEL_SCALED_MASSES
+            self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
         
         self.inputFiles = {
             'C3D': Step(function=None, setup=None, output='c3dfile.c3d', parentdir=self.path),
@@ -219,6 +220,7 @@ class Trial():
             'ID': Step(function='run_id.main', setup='setup_ID.xml', output='inverse_dynamics.sto', parentdir=self.path),
             'MA': Step(function='run_ma.main', setup='setup_MA.xml', output='muscleAnalysis', parentdir=self.path),
             'SO': Step(function='run_so.main', setup='setup_SO.xml', output='', parentdir=self.path),
+            'FORCES_SO': Step(function=None, setup=None, output='SO_StaticOptimization_forces.sto', parentdir=self.path),
             'JRA': Step(function='run_jra.main', setup='setup_JRA.xml', output='Analyse_JRA_ReactionLoads.sto', parentdir=self.path),
             'CEINMS_CALIBRATION': Step(function='run_ceinms_calibration.main', 
                                        setup='../calibrationSetup_ceinms-nn_hybrid.xml', 

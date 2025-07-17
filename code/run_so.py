@@ -52,10 +52,13 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
     model = osim.Model(osim_modelPath)
     model.initSystem()
     
+    # load the motion data
+    motion = osim.Storage(ik_output)
+    
     # Create a StaticOptimization object
     so = osim.StaticOptimization()
-    so.setStartTime(paths.TIME_RANGE[0])
-    so.setEndTime(paths.TIME_RANGE[1])
+    so.setStartTime(motion.getFirstTime())
+    so.setEndTime(motion.getLastTime())
     so.setInDegrees(True)
     so.setUseMusclePhysiology(True)
     so.setUseModelForceSet(True)
@@ -67,7 +70,7 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
     # Set model file, motion files and external load file names
     so_analyze_tool.setModelFilename(os.path.relpath(osim_modelPath, start=os.path.dirname(setup_xml)))
     so_analyze_tool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(setup_xml)))
-    so_analyze_tool.setExternalLoadsFileName(os.path.relpath(paths.GRF_XML, start=os.path.dirname(setup_xml)))
+    so_analyze_tool.setExternalLoadsFileName(os.path.relpath(grf_xml, start=os.path.dirname(setup_xml)))
     so_analyze_tool.setReplaceForceSet(False)
     so_analyze_tool.getForceSetFiles().append(os.path.relpath(actuators, start=os.path.dirname(setup_xml)))
 
@@ -77,24 +80,24 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
 
     # Configure analyze tool
     so_analyze_tool.setReplaceForceSet(False)
-    so_analyze_tool.setStartTime(paths.TIME_RANGE[0])
-    so_analyze_tool.setFinalTime(paths.TIME_RANGE[1])
-    
+    so_analyze_tool.setStartTime(motion.getFirstTime())
+    so_analyze_tool.setFinalTime(motion.getLastTime())
+
     # Set results directory
     so_analyze_tool.setResultsDir(utils.rel_path(resultsDir, resultsDir))
 
     # Print configuration to XML file
-    so_analyze_tool.printToXML(paths.SETUP_SO)
-    print("\n \n Static Optimization setup saved to:", paths.SETUP_SO)
+    so_analyze_tool.printToXML(setup_xml)
+    print("\n \n Static Optimization setup saved to:", setup_xml)
     
     # change optimizer_max_iterations in the xml file
-    xml = utils.read_xml(paths.SETUP_SO)
+    xml = utils.read_xml(setup_xml)
     static_opt = xml.getroot().find('.//StaticOptimization/optimizer_max_iterations')
     static_opt.text = '10'  # Set to 10 iterations
-    utils.save_pretty_xml(xml, paths.SETUP_SO)
+    utils.save_pretty_xml(xml, setup_xml)
     
     # run the Static Optimization
-    so_analyze_tool = osim.AnalyzeTool(paths.SETUP_SO)
+    so_analyze_tool = osim.AnalyzeTool(setup_xml)
     so_analyze_tool.setModel(model)
     try:
         os.chdir(resultsDir)
@@ -107,29 +110,47 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
 if __name__ == '__main__':
     
     start_time = time.time()
+
+    analysis =paths.Analysis()
     
-    utils.print_to_log(f'Running Static Optimization on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
+    # Setup paths using new paths setup
+    subject = analysis.SUBJECTS[0].path
+    trial = analysis.SUBJECTS[0].SESSIONS[0].TRIALS[0]
+    ik_output =  trial.outputFiles['IK'].abspath()
+    grf_xml = trial.inputFiles['GRF_XML'].abspath()
+    setup_so = trial.path + '//' + trial.outputFiles['SO'].setup
+    actuators_so = trial.inputFiles['ACTUATORS_SO'].abspath()
+    so_output = trial.outputFiles['SO'].abspath()
+    used_model = trial.USED_MODEL
+
+    # trial.copy_inputs_to_trial(replace=False)
     
-    if not os.path.exists(paths.USED_MODEL):
-        raise FileNotFoundError(f"OpenSim model file not found: {paths.USED_MODEL}")
+    print(f'osim version: {osim.__version__}')
+    print(f'Running Static Optimization on model: {used_model}')
+    print(f'IK output: {ik_output}')
+    print(f'GRF XML: {grf_xml}')
+    print(f'SO setup XML: {setup_so}')
+    print(f'SO output directory: {so_output}')
+    time.sleep(1)  # Optional: wait for a second before running the analysis
+
+    answer = input("Do you want to continue [Enter/N]? ")
+    if answer.lower() == 'n':
+        print("Exiting Static Optimization.")
+        exit()
     
-    if not os.path.exists(paths.ACTUATORS_SO):
-        shutil.copy(paths.GENERIC_ACTUATORS_SO, paths.ACTUATORS_SO)
-        
-    if not os.path.exists(paths.SETUP_SO):
-        shutil.copy(paths.GENERIC_SETUP_SO, paths.SETUP_SO)
-        
-    # Edit pelvis center of mass actuator
-    edit_pelvis_com_actuators(paths.USED_MODEL, paths.ACTUATORS_SO)
-    
+    # Edit pelvis center of mass actuators
+    edit_pelvis_com_actuators(used_model, actuators_so)
+
     # Run the Static Optimization
-    main(osim_modelPath=paths.USED_MODEL, 
-           ik_output=paths.IK_OUTPUT, 
-           grf_xml=paths.GRF_XML, 
-           setup_xml=paths.SETUP_SO,
-           actuators= paths.ACTUATORS_SO, 
-           resultsDir=paths.SO_OUTPUT)
-    
-    print(f"Static Optimization completed. Results are saved in {paths.SO_OUTPUT}")
+    main(
+        osim_modelPath=used_model,
+        ik_output=ik_output,
+        grf_xml=grf_xml,
+        setup_xml=setup_so,
+        actuators=actuators_so,
+        resultsDir=so_output
+    )
+
+    print(f"Static Optimization completed. Results are saved in {so_output}")
     print(f"Execution time: {time.time() - start_time:.2f} seconds")
-    utils.print_to_log(f"Static Optimization completed. Results are saved in {paths.SO_OUTPUT}")
+    

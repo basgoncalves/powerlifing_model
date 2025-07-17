@@ -53,9 +53,6 @@ def main(input_list: List[str] = None):
         folder_paths = input_list
     else:
         print("No input list provided. Please enter folder paths interactively.")
-        if not input_list:
-            print("No folder paths provided. Exiting.")
-            return
         
     folder_paths = get_folders_from_user()
     save_directory = input("Enter the path to the directory to save comparison plots: ").strip().strip('"')
@@ -71,18 +68,28 @@ def main(input_list: List[str] = None):
         return
         
     print(f"\nFound {len(files_to_plot)} files to compare: {sorted(list(files_to_plot))}\n")
-    labels = [os.path.basename(folder) for folder in folder_paths]
-
+    labels = utils.get_unique_names(folder_paths)
+    # labels = [os.path.basename(folder) for folder in folder_paths]
+    
+    color_dict = utils.create_color_and_style_dict(labels)
+    
     # 3. Process each common file
     for file_basename in sorted(list(files_to_plot)):
         print(f"--- Comparing file: {file_basename} ---")
+        
+        if file_basename.__contains__('EMG_filtered.sto') or file_basename.__contains__('Analyse_JRA_ReactionLoads.sto'):
+            print("Skipping EMG files as they are not supported in this comparison script.")
+            continue
+        if file_basename.__contains__('EMG_filtered_normalised.sto'):
+            print('converting EMG_filtered_normalised.sto to EMG_filtered.sto')
+            continue
+        
         
         # Load data if file exists, otherwise use an empty DataFrame as a placeholder
         data_list = []
         for folder in folder_paths:
             file_path = os.path.join(folder, file_basename)
             if os.path.exists(file_path):
-                
                 # Attempt to load the file, handle any exceptions
                 try:
                     data_list.append(utils.load_any_data_file(file_path))
@@ -90,8 +97,9 @@ def main(input_list: List[str] = None):
                     print(f"Error loading file '{file_path}': {e}")
                     data_list.append(pd.DataFrame())
             else:
-                data_list.append(pd.DataFrame()) # Add empty placeholder
-
+                # If file does not exist, append an empty DataFrame
+                data_list.append(pd.DataFrame()) 
+                
         # if None
         if not any(df is not None and not df.empty for df in data_list):
             print(f"No valid data found for {file_basename}. Skipping.")
@@ -108,10 +116,11 @@ def main(input_list: List[str] = None):
             common_cols.intersection_update(set(df.columns))
 
         # Attempt to get grouping settings
+        # breakpoint()  # This will pause the execution for debugging
         try:
             settings_key = os.path.splitext(file_basename)[0]
-            groups = paths.plot_settings['Groups'][settings_key]
-            summary = paths.plot_settings['Summary'][settings_key]
+            groups = paths.Settings().plot['Groups'][settings_key]
+            summary = paths.Settings().plot['Summary'][settings_key]
         except (AttributeError, KeyError):
             groups = None
             summary = None
@@ -122,7 +131,7 @@ def main(input_list: List[str] = None):
             for df in data_list:
                 if not df.empty: # Only process non-empty dataframes
                     for group_name, members in groups.items():
-                        if summary == 'sum':
+                        if summary == 'Sum':
                             df[group_name] = df[members].sum(axis=1)
                         elif summary == 'mean':
                             df[group_name] = df[members].mean(axis=1)
@@ -145,6 +154,18 @@ def main(input_list: List[str] = None):
         fig, axs = plt.subplots(nrows, ncols, figsize=(5 * ncols, 4 * nrows), squeeze=False)
         axs = axs.flatten()
         plot_colors = matplotlib.colormaps['tab10'].colors
+        
+        # use colors from the color_dict
+        # Build plot_colors list by matching each label to its color in color_dict, preserving order and filling with a default if missing
+        color_map = color_dict[0]  # First element contains colors
+        plot_colors = []
+        for label in labels:
+            if label in color_map:
+                plot_colors.append(color_map[label])
+            else:
+                # Fallback to default matplotlib colors if label not found
+                plot_colors.append(matplotlib.colormaps['tab10'].colors[len(plot_colors) % 10])
+        plot_colors = tuple(plot_colors)
 
         # Plot each column on a separate subplot
         for i, col in enumerate(plot_cols):
@@ -153,7 +174,7 @@ def main(input_list: List[str] = None):
             for j, norm_df in enumerate(normalized_data_list):
                 if not norm_df.empty and col in norm_df.columns:
                     norm_time = np.linspace(0, 100, len(norm_df['time'])) 
-                    ax.plot(norm_time, norm_df[col], color=plot_colors[j % len(plot_colors)])
+                    ax.plot(norm_time, norm_df[col], color=plot_colors[j % len(plot_colors)], linestyle=color_dict[1].get(labels[j], '-'), label=labels[j])
             
             ax.set_title(col)
             ax.set_ylabel(col)
@@ -162,7 +183,20 @@ def main(input_list: List[str] = None):
                 ax.set_xlabel('Time (%)')
 
         # Create a complete, custom legend and add it to the last subplot
-        legend_elements = [Line2D([0], [0], color=plot_colors[j % len(plot_colors)], lw=2, label=labels[j]) for j in range(len(labels))]
+        
+        # Build legend elements using both color and linestyle from color_dict
+        style_map = color_dict[1]  # Second element contains linestyles
+        legend_elements = [
+            Line2D(
+            [0], [0],
+            color=plot_colors[j % len(plot_colors)],
+            lw=2,
+            linestyle=style_map.get(labels[j], '-'),
+            label=labels[j]
+            )
+            for j in range(len(labels))
+        ]
+        
         # Place legend on the last available axis spot for better layout
         axs[len(axs)-1].legend(handles=legend_elements, loc='center')
         axs[len(axs)-1].axis('off') # Hide axis for the legend plot

@@ -2,7 +2,7 @@
 <OpenSimDocument Version="40000">
 	<AnalyzeTool name="Analyse">
 		<!--Name of the .osim file used to construct a model.-->
-		<model_file>..\..\..\..\models\Athlete_03_linearly_scaled_scaledMasses.osim</model_file>
+		<model_file>..\..\..\..\models\Athlete_03_linearly_scaled_scaledMasses_increased_3.00.osim</model_file>
 		<!--Replace the model's force set with sets specified in <force_set_files>? If false, the force set is appended to.-->
 		<replace_force_set>false</replace_force_set>
 		<!--List of xml files used to construct a force set for the model.-->
@@ -40,7 +40,7 @@
 					<!--Flag (true or false) indicating whether the results are in degrees or not.-->
 					<in_degrees>true</in_degrees>
 					<!--The name of a file containing forces storage. If a file name is provided, the forces for all actuators will be applied according to values specified in the forces_file instead of being computed from the states. This option should be used to calculate joint reactions from static optimization results.-->
-					<forces_file>SO_StaticOptimization_force.sto</forces_file>
+					<forces_file>SO_StaticOptimization_forces.sto</forces_file>
 					<!--Names of the joints on which to perform the analysis. The key word 'All' indicates that the analysis should be performed for all joints.-->
 					<joint_names> all</joint_names>
 					<!--Choice of body ('parent' or 'child') for which the reaction loads are calculated. Child body is default. The array must either have one entry or the same number of entries as joints specified above. If the array has one entry only, that selection is applied to all chosen joints.-->
