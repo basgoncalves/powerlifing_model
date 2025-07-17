@@ -9,14 +9,18 @@ import paths
 
 print(osim.__version__)
 
-
-def run_ceinms_calibration(calibration_setup=None):
+def main(calibration_setup=None):
     
-    # Load the model
-    print('Running CEINMS calibration...')
     
+    paths.print_settings()
     time.sleep(1)  # Optional: wait for a second before loading the model
 
+    answer = input("Do you want to run CEINMS calibration? (y/n): ").strip().lower()
+    if answer != 'y':
+        print("CEINMS calibration skipped.")
+        return
+    
+    print('Running CEINMS calibration...')
     # Prepare CEINMS calibration executable and setup file paths
     ceinms_calibration_exe = paths.CEINMS_CALIBRATION_EXE
 
@@ -49,7 +53,6 @@ def run_ceinms_calibration(calibration_setup=None):
     # Run the CEINMS calibration executable
     command = [ceinms_calibration_exe, "-S", calibration_setup]
     print(f"Running command: {' '.join(command)}")
-    breakpoint()
     try:
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         for line in result.stdout.splitlines():
@@ -62,6 +65,7 @@ def run_ceinms_calibration(calibration_setup=None):
         print("Error running CEINMS calibration.")
         print(result.stdout)
         print(result.stderr)
+        utils.print_to_log(f'Error running CEINMS calibration: {result.stdout}')
         raise RuntimeError(f"CEINMS calibration failed with exit code {result.returncode}")
     else:
         print("CEINMS calibration completed successfully.")
@@ -72,13 +76,13 @@ if __name__ == "__main__":
      
     # Run CEINMS calibration
     try:
-        utils.print_to_log(f'{time.time()}: Running CEINMS calibration with setup: {paths.CEINMS_SETUP_CALIBRATION}')
-        run_ceinms_calibration(paths.CEINMS_SETUP_CALIBRATION)    
+        utils.print_to_log(f'Running CEINMS calibration on {paths.SUBJECT} / {paths.TRIAL_NAME}')
+        main(paths.CEINMS_SETUP_CALIBRATION)    
     except Exception as e:
         print(f"Error during CEINMS calibration: {e}")
         utils.print_to_log(f'{time.time()}: Error during CEINMS calibration: {e}')
         exit(1)
     
     print("CEINMS calibration completed successfully.")
-    print(f"Execution time: {time.time() - start_time:.2f} seconds")
-    utils.print_to_log(f'{time.time()}: CEINMS calibration completed successfully.')
+    message = f"Execution time: {time.time() - start_time:.2f} seconds"
+    utils.print_to_log(f'CEINMS calibration completed successfully. {message}')

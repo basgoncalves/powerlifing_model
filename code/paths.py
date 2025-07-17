@@ -255,6 +255,23 @@ def print_settings():
     print("GRF_MOT:", GRF_MOT)
     print("EMG_MOT:", EMG_MOT)
     print("GRF_XML:", GRF_XML)
+    print(" \n")
+    # CEINMS paths
+    print('CEINMS_PATH:', CEINMS_PATH)
+    print('CEINMS_EXCITATION_MAPPING:', CEINMS_EXCITATION_MAPPING)
+    print('CEINMS_INPUT_DATA:', CEINMS_INPUT_DATA)
+    print('CEINMS_CFG_CALIBRATION:', CEINMS_CFG_CALIBRATION)
+    print('CEINMS_SETUP_CALIBRATION:', CEINMS_SETUP_CALIBRATION)
+    print('CEINMS_CFG_OPTIMISE:', CEINMS_CFG_OPTIMISE)
+    print('CEINMS_SETUP_OPTIMISE:', CEINMS_SETUP_OPTIMISE)
+    
+    print('CEINMS_CALIBRATED_MODEL:', CEINMS_CALIBRATED_MODEL)
+    print('CEINMS_UNCALIBRATED_MODEL:', CEINMS_UNCALIBRATED_MODEL)
+    print('CEINMS_RESULTS_OPTIMISE_DIR:', CEINMS_RESULTS_OPTIMISE_DIR)
+    
+    
+    
+    
     
     time.sleep(1)  # Optional: wait for a second before printing
     

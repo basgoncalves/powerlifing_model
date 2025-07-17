@@ -139,6 +139,8 @@ def run_jra_setup(modelpath, setupJRA):
     
     # Create the Joint Reaction Analysis tool
     jraTool = osim.AnalyzeTool(setupJRA)
+    jraTool.setModel(osim.Model(modelpath))
+    jraTool.setModelFilename(os.path.relpath(modelpath, start=os.path.dirname(setupJRA)))
     
     jraTool.printToXML(setupJRA)
     print(f"Joint Reaction Analysis setup saved to {setupJRA}")
@@ -155,6 +157,7 @@ if __name__ == '__main__':
     utils.print_to_log(f'Running JRA on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {modelpath}')
     
     if not os.path.exists(modelpath):
+        utils.print_to_log(f'OpenSim model file not found: {modelpath}')
         raise FileNotFoundError(f"OpenSim model file not found: {modelpath}")
     
     if not os.path.exists(coordinates_file):
@@ -183,6 +186,7 @@ if __name__ == '__main__':
                 actuators = None,
                 muscle_forces = muscle_forces, 
                 results_directory = os.path.dirname(paths.JRA_OUTPUT))
+        
         # run_jra_setup(modelpath=modelpath, 
         #                 setupJRA=paths.SETUP_JRA)
         
