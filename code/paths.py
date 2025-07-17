@@ -37,18 +37,19 @@ import utils
 #           EMG_filtered.sto
 #           externalloads.xml
 
+PATHS_DIR = os.path.dirname(__file__)
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_80_MRI'
+TRIAL_NAME = 'sq_70_EMG'
 STATIC_NAME = 'static_01'
 EMG_NORMALISE_LIST = ['sq_70_MRI','sq_90_MRI','sq_90_MRI']
 
-def save_sefl():
+def save_self():
     """
     Save the current state of the paths module.
     This is useful for debugging and ensuring that the paths are correctly set.
     """
-    with open('paths.py', 'w') as f:
+    with open(PATHS_DIR, 'w') as f:
         f.write(f"SUBJECT = '{SUBJECT}'\n")
         f.write(f"SESSION = '{SESSION}'\n")
         f.write(f"TRIAL_NAME = '{TRIAL_NAME}'\n")

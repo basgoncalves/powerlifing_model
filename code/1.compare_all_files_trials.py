@@ -170,5 +170,16 @@ def main():
 
     print("--- All comparisons complete. ---")
 
+
 if __name__ == '__main__':
+    
+    subject_list = [paths.SUBJECT]
+    trials_list = ['sq_70_EMG', 'sq_70_MRI',
+                   'sq_80_EMG', 'sq_80_MRI',
+                   'sq_90_EMG', 'sq_90_MRI']
+    for subject in subject_list:
+        for trial in trials_list:
+            paths.SUBJECT = subject
+            paths.TRIAL_NAME = trial
+            paths.save_self()
     main()
