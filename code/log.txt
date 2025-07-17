@@ -510,3 +510,25 @@ Creating thread 1/30
 
 17.07.2025_09:23:54:091: 1752737034.0911436: Error during CEINMS optimise: CEINMS optimise failed with exit code 3221225477
 17.07.2025_09:25:16:672: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_09:35:18:925: EMG file not found: sq_90_MRI
+17.07.2025_09:35:18:925: No valid EMG data found in the provided list.
+17.07.2025_09:41:02:949: Normalised EMG data saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\EMG_filtered_normalised.sto
+17.07.2025_09:49:17:013: Starting analysis...
+17.07.2025_09:49:23:592: Running analysis on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_09:49:23:593: Copying generic setup files to trial directory: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG
+17.07.2025_09:49:23:625: Generic setup files copied to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG
+17.07.2025_09:49:23:625: Running Inverse Kinematics on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_09:50:07:832: Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\joint_angles.mot
+17.07.2025_09:50:07:832: Running Inverse Dynamics on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_09:50:10:755: Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\inverse_dynamics.sto
+17.07.2025_09:50:10:757: Running Muscle Analysis on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_09:51:41:712: Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\muscleAnalysis
+17.07.2025_09:51:41:712: Checking muscle moment arms for model: c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_09:53:31:191: Muscle moment arms saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG
+17.07.2025_09:53:31:191: Running Static Optimization on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_10:06:23:093: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG
+17.07.2025_10:06:23:095: Running JRA on: Athlete_03 / sq_80_EMG / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
+17.07.2025_10:06:36:337: JRA completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG
+17.07.2025_10:06:36:338: Normalising EMG data for: Athlete_03 / sq_80_EMG
+17.07.2025_10:06:38:373: Normalised EMG data saved to: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\EMG_filtered_normalised.sto
+17.07.2025_10:06:38:374: EMG data normalised. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\EMG_filtered_normalised.sto

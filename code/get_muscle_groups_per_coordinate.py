@@ -32,7 +32,7 @@ for coord_name in coordinates:
     range_min = coord.getRangeMin()
     range_max = coord.getRangeMax()
     # Sample 10 points in the range
-    values = np.linspace(range_min, range_max, 3)
+    values = np.linspace(range_min, range_max, 10)
     for muscle_name in muscles:
         muscle = model.getMuscles().get(muscle_name)
         nonzero_found = False
@@ -40,7 +40,7 @@ for coord_name in coordinates:
             coord.setValue(state, value)
             model.realizeVelocity(state)
             moment_arm = muscle.computeMomentArm(state, coord)
-            if abs(moment_arm) > 1e-3:
+            if abs(moment_arm) > 1e-6:
                 nonzero_found = True
                 break
         if nonzero_found:

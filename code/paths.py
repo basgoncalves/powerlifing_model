@@ -39,9 +39,9 @@ import utils
 
 SUBJECT = 'Athlete_03'
 SESSION = '22_07_06'
-TRIAL_NAME = 'sq_90_MRI'
+TRIAL_NAME = 'sq_80_MRI'
 STATIC_NAME = 'static_01'
-EMG_NORMALISE_LIST = ['sq_90_MRI']
+EMG_NORMALISE_LIST = ['sq_70_MRI','sq_90_MRI','sq_90_MRI']
 
 def save_sefl():
     """
@@ -120,7 +120,7 @@ plot_settings = {'Groups':
 
 # Code and executables paths
 CODE,_ = utils.check_path(os.path.dirname(__file__))
-SETUP_DIR = os.path.join(CODE, 'SetupFiles\Rajagopal')
+SETUP_DIR = os.path.join(CODE, 'SetupFiles\Purzel')
 
 POWERLIFTING_DIR,_ = utils.check_path(os.path.dirname(CODE), isdir=True)
 SIMULATION_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
@@ -133,14 +133,17 @@ SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{SUBJECT}_linearly_sca
 MRI_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_mri_scaled.osim')
 MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{SUBJECT}_mri_scaled_increased_20.00.osim')
 
+SCALED_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, SCALED_MODEL.replace('.osim', '_scaledMasses.osim'))
+MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
+
 CATELI_MODEL = os.path.join(MODELS_DIR, f'{SUBJECT}_Catelli_final.osim')
 ##################################  Models used for analysis #######################################################3
 SUBJECT_MODEL_DIR = os.path.join(MODELS_DIR, 'models')
 
 if TRIAL_NAME.lower().__contains__('mri'):  # Edit model paths below
-    USED_MODEL = MRI_MODEL_INCREASED_FORCE
+    USED_MODEL = MRI_MODEL_SCALED_MASSES
 else:
-    USED_MODEL = SCALED_MODEL_INCREASED_FORCE
+    USED_MODEL = SCALED_MODEL_SCALED_MASSES
     
 MARKERSET = os.path.join(MODELS_DIR, 'Athlete_03_markerset.xml')
 GEOMETRY_PATH = os.path.join(MODELS_DIR, 'Geometry')
@@ -199,6 +202,7 @@ EVENTS = os.path.join(TRIAL_DIR, 'events.csv')
 MARKERS_TRC = os.path.join(TRIAL_DIR, 'marker_experimental.trc')
 GRF_MOT = os.path.join(TRIAL_DIR, 'grf.mot')
 EMG_MOT = os.path.join(TRIAL_DIR, 'EMG_filtered.sto')
+EMG_MOT_NORMALISED = os.path.join(TRIAL_DIR, 'EMG_filtered_normalised.sto')
 GRF_XML = os.path.join(TRIAL_DIR, 'externalloads.xml')
 
 ACTUATORS_SO = os.path.join(TRIAL_DIR, 'actuators_so.xml')

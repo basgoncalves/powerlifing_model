@@ -3,6 +3,7 @@ import paths
 import shutil
 import utils
 import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_arms
+import normalise_emg
 
 utils.print_to_log("Starting analysis...")
 paths.print_settings()  # Print paths for debugging
@@ -16,8 +17,10 @@ if continue_analysis != 'y':
 utils.print_to_log(f'Running analysis on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {paths.USED_MODEL}')
 
 # copy generic setups to trial directory
-if False:
+if True:
+    utils.print_to_log(f'Copying generic setup files to trial directory: {paths.TRIAL_DIR}')
     copy_setups_to_trial.run()
+    utils.print_to_log(f'Generic setup files copied to: {paths.TRIAL_DIR}')
 
 # 1. Scale the model
 
@@ -100,4 +103,30 @@ if True:
     utils.print_to_log(f'JRA completed. Results are saved in {os.path.dirname(paths.JRA_OUTPUT)}')
 
 
+# Normalise EMG data
+if True:
+    utils.print_to_log(f'Normalising EMG data for: {paths.SUBJECT} / {paths.TRIAL_NAME}')
+    emg_normalise_list = []
+    for trial_name in paths.EMG_NORMALISE_LIST:
+        filepath = os.path.join(paths.SESSION_DIR, trial_name, os.path.basename(paths.EMG_MOT))
+        if os.path.exists(filepath):
+            emg_normalise_list.append(filepath)
+        else:
+            print(f"EMG file not found: {filepath}")
+            
+    normalise_emg.main(target_emg_path=paths.EMG_MOT,
+                   normalise_emg_list=emg_normalise_list)
+    
+    utils.print_to_log(f'EMG data normalised. Results are saved in {paths.EMG_MOT_NORMALISED}')
+
 # 6. Run CEINMS calibration and optimization
+if False:
+    utils.print_to_log(f'Running CEINMS calibration on: {paths.SUBJECT} / {paths.TRIAL_NAME}')
+    try:
+        import run_ceinms_calibration
+        run_ceinms_calibration.main(paths.CEINMS_SETUP_CALIBRATION)
+        utils.print_to_log(f'CEINMS calibration completed successfully.')
+    except Exception as e:
+        print(f"Error during CEINMS calibration: {e}")
+        utils.print_to_log(f'Error during CEINMS calibration: {e}')
+        
