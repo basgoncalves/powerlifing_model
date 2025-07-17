@@ -283,3 +283,230 @@ Analysis aborted by user.
 16.07.2025_20:14:17:291: Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI
 16.07.2025_20:14:17:293: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
 16.07.2025_20:14:24:764: JRA completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI
+16.07.2025_21:11:19:171: Running CEINMS calibration on Athlete_03 / sq_90_MRI
+16.07.2025_21:12:19:616: Running CEINMS calibration on Athlete_03 / sq_90_MRI
+16.07.2025_21:23:35:787: CEINMS calibration completed successfully. Execution time: 676.17 seconds
+17.07.2025_08:42:47:020: Running JRA on: Athlete_03 / sq_90_MRI / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_mri_scaled_increased_20.00.osim
+17.07.2025_08:42:51:489: Joint Reaction Analysis completed. Results saved to c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\Analyse_JRA_ReactionLoads.sto
+17.07.2025_08:43:41:617: Running CEINMS calibration on Athlete_03 / sq_90_MRI
+17.07.2025_08:43:42:637: 1752734622.6378894: Error during CEINMS calibration: CEINMS calibration setup file not found at c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\setup_ceinms_exe.xml
+17.07.2025_08:49:03:206: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:49:11:830: Starting CEINMS optimise...
+17.07.2025_08:49:11:830: CEINMS optimise setup file not found at c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\setup_optimise_ceinms.xml
+17.07.2025_08:49:11:830: 1752734951.8300085: Error during CEINMS optimise: CEINMS optimise setup file not found at c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\setup_optimise_ceinms.xml
+17.07.2025_08:53:13:813: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:53:18:055: Starting CEINMS optimise...
+17.07.2025_08:53:18:057: CEINMS optimise setup file not found at c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\setup_optimise_ceinms.xml
+17.07.2025_08:53:18:057: 1752735198.0573916: Error during CEINMS optimise: CEINMS optimise setup file not found at c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_90_MRI\setup_optimise_ceinms.xml
+17.07.2025_08:55:30:027: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:57:29:603: 1752735449.6031713: Error during CEINMS optimise: 
+17.07.2025_08:57:32:568: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:57:32:757: Error running CEINMS optimise: 
+17.07.2025_08:57:32:757: 1752735452.7572627: Error during CEINMS optimise: CEINMS optimise failed with exit code 3221225785
+17.07.2025_08:58:43:302: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:59:15:760: 1752735555.7607794: Error during CEINMS optimise: 
+17.07.2025_08:59:18:051: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_08:59:18:073: Error running CEINMS optimise: 
+17.07.2025_08:59:18:073: 1752735558.0734284: Error during CEINMS optimise: CEINMS optimise failed with exit code 3221225785
+17.07.2025_09:00:09:387: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_09:06:04:225: 1752735964.2256005: Error during CEINMS optimise: 
+17.07.2025_09:06:07:004: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_09:21:09:620: Running CEINMS calibration on Athlete_03 / sq_90_MRI
+17.07.2025_09:23:50:964: 1752737030.964136: Error during CEINMS optimise: 
+17.07.2025_09:23:53:466: Running CEINMS optimise on Athlete_03 / sq_90_MRI
+17.07.2025_09:23:54:086: Error running CEINMS optimise: 
++-+-+-+-+-+-+
+|C|E|I|N|M|S|
++-+-+-+-+-+-+-+-+-+-+
+|C|a|l|i|b|r|a|t|e|d|
++-+-+-+-+-+-+-+-+-+-+-+-+
+|E|M|G|-|I|n|f|o|r|m|e|d|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|N|e|u|r|o|m|u|s|c|u|l|o|s|k|e|l|e|t|a|l|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|T|o|o|l|b|o|x|
++-+-+-+-+-+-+-+
+
+CEINMSoptimise version 0.30.6
+Copyright (C) Jun  6 2025
+Claudio Pizzolato, Monica Reggiani, Massimo Sartori, David Lloyd
+Software developers: Claudio Pizzolato, Elena Ceseracciu, Monica Reggiani
+Reading subject file: c:/Git/1_current_projects/powerlifing_model/simulations/Athlete_03/22_07_06/sq_90_MRI/../subjectCalibrated_hybrid.xml .
+activeForceLength
+passiveForceLength
+forceVelocity
+tendonForceStrain
+Assuming addbrev_r pennation angle in radians: 0.114781
+Assuming addlong_r pennation angle in radians: 0.13777
+Assuming addmagDist_r pennation angle in radians: 0.194705
+Assuming addmagIsch_r pennation angle in radians: 0.168044
+Assuming addmagMid_r pennation angle in radians: 0.207308
+Assuming addmagProx_r pennation angle in radians: 0.311483
+Assuming bflh_r pennation angle in radians: 0.175918
+Assuming bfsh_r pennation angle in radians: 0.264223
+Assuming edl_r pennation angle in radians: 0.218258
+Assuming ehl_r pennation angle in radians: 0.197268
+Assuming fdl_r pennation angle in radians: 0.224839
+Assuming fhl_r pennation angle in radians: 0.258025
+Assuming gaslat_r pennation angle in radians: 0.210227
+Assuming gasmed_r pennation angle in radians: 0.165682
+Assuming glmax1_r pennation angle in radians: 0.354012
+Assuming glmax2_r pennation angle in radians: 0.367382
+Assuming glmax3_r pennation angle in radians: 0.382416
+Assuming glmed1_r pennation angle in radians: 0.316556
+Assuming glmed2_r pennation angle in radians: 0.316556
+Assuming glmed3_r pennation angle in radians: 0.316556
+Assuming glmin1_r pennation angle in radians: 0.174533
+Assuming glmin2_r pennation angle in radians: 0
+Assuming glmin3_r pennation angle in radians: 0.017453
+Assuming grac_r pennation angle in radians: 0.172002
+Assuming iliacus_r pennation angle in radians: 0.279914
+Assuming perbrev_r pennation angle in radians: 0.205236
+Assuming perlong_r pennation angle in radians: 0.247952
+Assuming piri_r pennation angle in radians: 0.174533
+Assuming psoas_r pennation angle in radians: 0.215525
+Assuming recfem_r pennation angle in radians: 0.217015
+Assuming sart_r pennation angle in radians: 0.026135
+Assuming semimem_r pennation angle in radians: 0.254561
+Assuming semiten_r pennation angle in radians: 0.241295
+Assuming soleus_r pennation angle in radians: 0.381429
+Assuming tfl_r pennation angle in radians: 0.05236
+Assuming tibant_r pennation angle in radians: 0.195183
+Assuming tibpost_r pennation angle in radians: 0.226489
+Assuming vasint_r pennation angle in radians: 0.0631
+Assuming vaslat_r pennation angle in radians: 0.252867
+Assuming vasmed_r pennation angle in radians: 0.422223
+Assuming addbrev_l pennation angle in radians: 0.114781
+Assuming addlong_l pennation angle in radians: 0.13777
+Assuming addmagDist_l pennation angle in radians: 0.194705
+Assuming addmagIsch_l pennation angle in radians: 0.168044
+Assuming addmagMid_l pennation angle in radians: 0.207308
+Assuming addmagProx_l pennation angle in radians: 0.311483
+Assuming bflh_l pennation angle in radians: 0.175918
+Assuming bfsh_l pennation angle in radians: 0.264223
+Assuming edl_l pennation angle in radians: 0.218258
+Assuming ehl_l pennation angle in radians: 0.197268
+Assuming fdl_l pennation angle in radians: 0.224839
+Assuming fhl_l pennation angle in radians: 0.258025
+Assuming gaslat_l pennation angle in radians: 0.210227
+Assuming gasmed_l pennation angle in radians: 0.165682
+Assuming glmax1_l pennation angle in radians: 0.354012
+Assuming glmax2_l pennation angle in radians: 0.367382
+Assuming glmax3_l pennation angle in radians: 0.382416
+Assuming glmed1_l pennation angle in radians: 0.316556
+Assuming glmed2_l pennation angle in radians: 0.316556
+Assuming glmed3_l pennation angle in radians: 0.316556
+Assuming glmin1_l pennation angle in radians: 0.174533
+Assuming glmin2_l pennation angle in radians: 0
+Assuming glmin3_l pennation angle in radians: 0.017453
+Assuming grac_l pennation angle in radians: 0.172002
+Assuming iliacus_l pennation angle in radians: 0.279914
+Assuming perbrev_l pennation angle in radians: 0.205236
+Assuming perlong_l pennation angle in radians: 0.247952
+Assuming piri_l pennation angle in radians: 0.174533
+Assuming psoas_l pennation angle in radians: 0.215525
+Assuming recfem_l pennation angle in radians: 0.217015
+Assuming sart_l pennation angle in radians: 0.026135
+Assuming semimem_l pennation angle in radians: 0.254561
+Assuming semiten_l pennation angle in radians: 0.241295
+Assuming soleus_l pennation angle in radians: 0.381429
+Assuming tfl_l pennation angle in radians: 0.05236
+Assuming tibant_l pennation angle in radians: 0.195183
+Assuming tibpost_l pennation angle in radians: 0.226489
+Assuming vasint_l pennation angle in radians: 0.0631
+Assuming vaslat_l pennation angle in radians: 0.252867
+Assuming vasmed_l pennation angle in radians: 0.422223
+No OpenSim model associated to the subject
+
+EMG: Reading emg file...c:/Git/1_current_projects/powerlifing_model/simulations/Athlete_03/22_07_06/sq_90_MRI/EMG_filtered.sto
+Muscle excitations to muscle mapping:
+addbrev_r -> addbrev_r
+addlong_r -> addlong_r
+addmagDist_r -> addmagDist_r
+addmagIsch_r -> addmagIsch_r
+addmagMid_r -> addmagMid_r
+addmagProx_r -> addmagProx_r
+bflh_r -> bflh_r
+bfsh_r -> bfsh_r
+edl_r -> edl_r
+ehl_r -> ehl_r
+fdl_r -> fdl_r
+fhl_r -> fhl_r
+gaslat_r -> gaslat_r
+gasmed_r -> gasmed_r
+glmax1_r -> glmax1_r
+glmax2_r -> glmax2_r
+glmax3_r -> glmax3_r
+glmed1_r -> glmed1_r
+glmed2_r -> glmed2_r
+glmed3_r -> glmed3_r
+glmin1_r -> glmin1_r
+glmin2_r -> glmin2_r
+glmin3_r -> glmin3_r
+grac_r -> grac_r
+iliacus_r -> iliacus_r
+perbrev_r -> perbrev_r
+perlong_r -> perlong_r
+piri_r -> piri_r
+psoas_r -> psoas_r
+recfem_r -> recfem_r
+sart_r -> sart_r
+semimem_r -> semimem_r
+semiten_r -> semiten_r
+soleus_r -> soleus_r
+tfl_r -> tfl_r
+tibant_r -> tibant_r
+tibpost_r -> tibpost_r
+vasint_r -> vasint_r
+vaslat_r -> vaslat_r
+vasmed_r -> vasmed_r
+addbrev_l -> addbrev_l
+addlong_l -> addlong_l
+addmagDist_l -> addmagDist_l
+addmagIsch_l -> addmagIsch_l
+addmagMid_l -> addmagMid_l
+addmagProx_l -> addmagProx_l
+bflh_l -> bflh_l
+bfsh_l -> bfsh_l
+edl_l -> edl_l
+ehl_l -> ehl_l
+fdl_l -> fdl_l
+fhl_l -> fhl_l
+gaslat_l -> gaslat_l
+gasmed_l -> gasmed_l
+glmax1_l -> glmax1_l
+glmax2_l -> glmax2_l
+glmax3_l -> glmax3_l
+glmed1_l -> glmed1_l
+glmed2_l -> glmed2_l
+glmed3_l -> glmed3_l
+glmin1_l -> glmin1_l
+glmin2_l -> glmin2_l
+glmin3_l -> glmin3_l
+grac_l -> grac_l
+iliacus_l -> iliacus_l
+perbrev_l -> perbrev_l
+perlong_l -> perlong_l
+piri_l -> piri_l
+psoas_l -> psoas_l
+recfem_l -> recfem_l
+sart_l -> sart_l
+semimem_l -> semimem_l
+semiten_l -> semiten_l
+soleus_l -> soleus_l
+tfl_l -> tfl_l
+tibant_l -> tibant_l
+tibpost_l -> tibpost_l
+vasint_l -> vasint_l
+vaslat_l -> vaslat_l
+vasmed_l -> vasmed_l
+
+externalTorque DONE
+
+EMG: EMG DONE
+
+LmtMa: lmtMa DONE
+Creating thread 1/30
+
+17.07.2025_09:23:54:091: 1752737034.0911436: Error during CEINMS optimise: CEINMS optimise failed with exit code 3221225477
+17.07.2025_09:25:16:672: Running CEINMS optimise on Athlete_03 / sq_90_MRI

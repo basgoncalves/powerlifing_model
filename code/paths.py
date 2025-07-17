@@ -217,11 +217,9 @@ FORCES_OUTPUT = os.path.join(SO_OUTPUT, 'SO_StaticOptimization_force.sto')
 
 JRA_OUTPUT = os.path.join(TRIAL_DIR, 'Analyse_JRA_ReactionLoads.sto')
 
-CEINMS_INPUT_DATA = os.path.join(TRIAL_DIR, 'inputData.xml')
-CEINMS_CFG_OPTIMISE = os.path.join(TRIAL_DIR, 'ceinms_cfg_optimise.xml')
-
-CEINMS_SETUP_EXECUTION = os.path.join(TRIAL_DIR, 'setup_ceinms_exe.xml')
-CEINMS_SETUP_OPTIMISE = os.path.join(TRIAL_DIR, 'setup_optimise_ceinms.xml')
+CEINMS_INPUT_DATA = os.path.join(TRIAL_DIR, os.path.basename(GENERIC_CEINMS_INPUT_DATA))
+CEINMS_CFG_OPTIMISE = os.path.join(TRIAL_DIR, os.path.basename(GENERIC_CEINMS_CFG_OPTIMISE))
+CEINMS_SETUP_OPTIMISE = os.path.join(TRIAL_DIR, os.path.basename(GENERIC_CEINMS_SETUP_OPTIMISE))
 
 CEINMS_RESULTS_OPTIMISE_DIR = os.path.join(TRIAL_DIR, 'Optimised')
 CEINMS_RESULTS_EXE_DIR = os.path.join(TRIAL_DIR, 'Output')

@@ -6,19 +6,10 @@ import time
 import subprocess
 import xml.etree.ElementTree as ET
 import paths
-
+import msk_modelling_python 
 print(osim.__version__)
 
 def main(calibration_setup=None):
-    
-    
-    paths.print_settings()
-    time.sleep(1)  # Optional: wait for a second before loading the model
-
-    answer = input("Do you want to run CEINMS calibration? (y/n): ").strip().lower()
-    if answer != 'y':
-        print("CEINMS calibration skipped.")
-        return
     
     print('Running CEINMS calibration...')
     # Prepare CEINMS calibration executable and setup file paths
