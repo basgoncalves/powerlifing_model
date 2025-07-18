@@ -50,7 +50,7 @@ RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isd
 
 class Settings():
     def __init__(self):
-        self.TRIAL_TO_ANALYSE = ['sq_80','sq_90'] #'sq_75','sq_80','sq_85',
+        self.TRIAL_TO_ANALYSE = ['sq_70','sq_80','sq_90'] #'sq_75','sq_80','sq_85',
         
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
