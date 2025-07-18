@@ -9,7 +9,7 @@ import normalise_emg
 def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
-    if False:
+    if True:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -29,7 +29,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if False:
+    if True:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             

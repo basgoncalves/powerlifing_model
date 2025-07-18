@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<OpenSimDocument Version="40000">
+<OpenSimDocument Version="40500">
 	<Model name="Athlete_03_scaled_updated_masses">
 		<!--The model's ground reference frame.-->
 		<Ground name="ground">
@@ -2534,7 +2534,7 @@
 							<!--Flag indicating whether or not the values of the coordinates should be limited to the range, above.-->
 							<clamped>true</clamped>
 							<!--Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.-->
-							<locked>false</locked>
+							<locked>true</locked>
 							<!--If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.-->
 							<prescribed_function />
 							<!--Flag indicating whether or not the values of the coordinates should be prescribed according to the function above. It is ignored if the no prescribed function is specified.-->
@@ -2637,8 +2637,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 5.3e-05 0.000188 0.000378 0.000597 0.000825 0.001045 0.001247 0.00142 0.001558 0.001661 0.001728 0.00176</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 5.3000000000000000778e-05 0.00018799999999999998895 0.00037800000000000002652 0.00059699999999999998294 0.00082499999999999999549 0.001044999999999999922 0.0012470000000000000615 0.0014200000000000000382 0.0015579999999999999231 0.0016609999999999999331 0.0017279999999999999354 0.0017600000000000000627</y>
 									</SimmSpline>
 								</function>
 								<scale>0.93980656395692896</scale>
@@ -2653,8 +2653,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 0.000301 0.000143 -0.000401 -0.001233 -0.002243 -0.003316 -0.004346 -0.005239 -0.005924 -0.006361 -0.006539 -0.00648</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 0.00030099999999999999803 0.00014300000000000000645 -0.00040099999999999998927 -0.0012329999999999999381 -0.0022430000000000002019 -0.0033159999999999999372 -0.0043460000000000000367 -0.0052389999999999997335 -0.0059239999999999995786 -0.0063610000000000003345 -0.0065389999999999996738 -0.0064799999999999996492</y>
 									</SimmSpline>
 								</function>
 								<scale>0.93980656395692896</scale>
@@ -2669,8 +2669,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 0.001055 0.002061 0.00289 0.003447 0.003676 0.003559 0.00311 0.002373 0.001418 0.000329 -0.000805 -0.001898</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 0.0010549999999999999482 0.0020609999999999998981 0.0028900000000000002076 0.0034469999999999999772 0.0036760000000000000141 0.0035590000000000000975 0.0031099999999999999173 0.0023730000000000001092 0.0014179999999999999896 0.00032899999999999997389 -0.00080500000000000005145 -0.0018979999999999999476</y>
 									</SimmSpline>
 								</function>
 								<scale>0.93980656395692896</scale>
@@ -2745,8 +2745,8 @@
 							<axis>0 0 1</axis>
 							<!--Transform function of the generalized coordinates used to        represent the amount of displacement along a specified axis.-->
 							<SimmSpline name="function">
-								<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-								<y> 0.00113686 -0.00629212 -0.105582 -0.253683 -0.414245 -0.579047 -0.747244 -0.91799 -1.09044 -1.26379 -1.43763 -1.61186 -1.78634</y>
+								<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+								<y> 0.0011368599999999999539 -0.0062921200000000000047 -0.1055819999999999953 -0.25368299999999999184 -0.41424499999999997435 -0.57904699999999997839 -0.74724400000000001931 -0.91798999999999997268 -1.0904400000000000759 -1.2637899999999999689 -1.4376299999999999635 -1.6118600000000000705 -1.7863400000000000389</y>
 							</SimmSpline>
 						</TransformAxis>
 						<TransformAxis name="rotation2">
@@ -2779,8 +2779,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0.0524 0.0488 0.0437 0.0371 0.0296 0.0216 0.0136 0.0057 -0.0019 -0.0088 -0.0148 -0.0196 -0.0227</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0.052400000000000002132 0.048800000000000003098 0.043700000000000002731 0.037100000000000001033 0.02960000000000000131 0.021600000000000001144 0.013599999999999999242 0.0057000000000000002054 -0.0018999999999999999962 -0.0088000000000000005301 -0.014800000000000000655 -0.019599999999999999367 -0.022700000000000001427</y>
 									</SimmSpline>
 								</function>
 								<scale>0.93980656395692896</scale>
@@ -2795,8 +2795,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> -0.0108 -0.019 -0.0263 -0.0322 -0.0367 -0.0395 -0.0408 -0.0404 -0.0384 -0.0349 -0.0301 -0.0245 -0.0187</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> -0.010800000000000000572 -0.018999999999999999528 -0.026300000000000000461 -0.032199999999999999456 -0.036700000000000003453 -0.039500000000000000389 -0.040800000000000002931 -0.040399999999999998412 -0.038399999999999996636 -0.034900000000000000466 -0.030099999999999998285 -0.024500000000000000944 -0.018700000000000001343</y>
 									</SimmSpline>
 								</function>
 								<scale>0.93980656395692896</scale>
@@ -2894,7 +2894,7 @@
 							<!--Flag indicating whether or not the values of the coordinates should be limited to the range, above.-->
 							<clamped>true</clamped>
 							<!--Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.-->
-							<locked>false</locked>
+							<locked>true</locked>
 							<!--If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.-->
 							<prescribed_function />
 							<!--Flag indicating whether or not the values of the coordinates should be prescribed according to the function above. It is ignored if the no prescribed function is specified.-->
@@ -3198,7 +3198,7 @@
 							<!--Flag indicating whether or not the values of the coordinates should be limited to the range, above.-->
 							<clamped>true</clamped>
 							<!--Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.-->
-							<locked>false</locked>
+							<locked>true</locked>
 							<!--If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.-->
 							<prescribed_function />
 							<!--Flag indicating whether or not the values of the coordinates should be prescribed according to the function above. It is ignored if the no prescribed function is specified.-->
@@ -3301,8 +3301,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 5.3e-05 0.000188 0.000378 0.000597 0.000825 0.001045 0.001247 0.00142 0.001558 0.001661 0.001728 0.00176</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 5.3000000000000000778e-05 0.00018799999999999998895 0.00037800000000000002652 0.00059699999999999998294 0.00082499999999999999549 0.001044999999999999922 0.0012470000000000000615 0.0014200000000000000382 0.0015579999999999999231 0.0016609999999999999331 0.0017279999999999999354 0.0017600000000000000627</y>
 									</SimmSpline>
 								</function>
 								<scale>0.9195188058429361</scale>
@@ -3317,8 +3317,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 0.000301 0.000143 -0.000401 -0.001233 -0.002243 -0.003316 -0.004346 -0.005239 -0.005924 -0.006361 -0.006539 -0.00648</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 0.00030099999999999999803 0.00014300000000000000645 -0.00040099999999999998927 -0.0012329999999999999381 -0.0022430000000000002019 -0.0033159999999999999372 -0.0043460000000000000367 -0.0052389999999999997335 -0.0059239999999999995786 -0.0063610000000000003345 -0.0065389999999999996738 -0.0064799999999999996492</y>
 									</SimmSpline>
 								</function>
 								<scale>0.9195188058429361</scale>
@@ -3333,8 +3333,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0 -0.001055 -0.002061 -0.00289 -0.003447 -0.003676 -0.003559 -0.00311 -0.002373 -0.001418 -0.000329 0.000805 0.001898</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0 -0.0010549999999999999482 -0.0020609999999999998981 -0.0028900000000000002076 -0.0034469999999999999772 -0.0036760000000000000141 -0.0035590000000000000975 -0.0031099999999999999173 -0.0023730000000000001092 -0.0014179999999999999896 -0.00032899999999999997389 0.00080500000000000005145 0.0018979999999999999476</y>
 									</SimmSpline>
 								</function>
 								<scale>0.9195188058429361</scale>
@@ -3409,8 +3409,8 @@
 							<axis>0 0 1</axis>
 							<!--Transform function of the generalized coordinates used to        represent the amount of displacement along a specified axis.-->
 							<SimmSpline name="function">
-								<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-								<y> 0.00113686 -0.00629212 -0.105582 -0.253683 -0.414245 -0.579047 -0.747244 -0.91799 -1.09044 -1.26379 -1.43763 -1.61186 -1.78634</y>
+								<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+								<y> 0.0011368599999999999539 -0.0062921200000000000047 -0.1055819999999999953 -0.25368299999999999184 -0.41424499999999997435 -0.57904699999999997839 -0.74724400000000001931 -0.91798999999999997268 -1.0904400000000000759 -1.2637899999999999689 -1.4376299999999999635 -1.6118600000000000705 -1.7863400000000000389</y>
 							</SimmSpline>
 						</TransformAxis>
 						<TransformAxis name="rotation2">
@@ -3443,8 +3443,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> 0.0524 0.0488 0.0437 0.0371 0.0296 0.0216 0.0136 0.0057 -0.0019 -0.0088 -0.0148 -0.0196 -0.0227</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> 0.052400000000000002132 0.048800000000000003098 0.043700000000000002731 0.037100000000000001033 0.02960000000000000131 0.021600000000000001144 0.013599999999999999242 0.0057000000000000002054 -0.0018999999999999999962 -0.0088000000000000005301 -0.014800000000000000655 -0.019599999999999999367 -0.022700000000000001427</y>
 									</SimmSpline>
 								</function>
 								<scale>0.9195188058429361</scale>
@@ -3459,8 +3459,8 @@
 							<MultiplierFunction name="function">
 								<function>
 									<SimmSpline name="function">
-										<x> 0 0.174533 0.349066 0.523599 0.698132 0.872665 1.0472 1.22173 1.39626 1.5708 1.74533 1.91986 2.0944</x>
-										<y> -0.0108 -0.019 -0.0263 -0.0322 -0.0367 -0.0395 -0.0408 -0.0404 -0.0384 -0.0349 -0.0301 -0.0245 -0.0187</y>
+										<x> 0 0.1745329999999999937 0.3490659999999999874 0.52359900000000003661 0.6981319999999999748 0.87266500000000002402 1.0471999999999999087 1.2217299999999999827 1.3962600000000000566 1.5707999999999999741 1.745330000000000048 1.9198599999999999 2.0943999999999998174</x>
+										<y> -0.010800000000000000572 -0.018999999999999999528 -0.026300000000000000461 -0.032199999999999999456 -0.036700000000000003453 -0.039500000000000000389 -0.040800000000000002931 -0.040399999999999998412 -0.038399999999999996636 -0.034900000000000000466 -0.030099999999999998285 -0.024500000000000000944 -0.018700000000000001343</y>
 									</SimmSpline>
 								</function>
 								<scale>0.9195188058429361</scale>
@@ -3558,7 +3558,7 @@
 							<!--Flag indicating whether or not the values of the coordinates should be limited to the range, above.-->
 							<clamped>true</clamped>
 							<!--Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.-->
-							<locked>false</locked>
+							<locked>true</locked>
 							<!--If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.-->
 							<prescribed_function />
 							<!--Flag indicating whether or not the values of the coordinates should be prescribed according to the function above. It is ignored if the no prescribed function is specified.-->
@@ -3707,8 +3707,15 @@
 		<ForceSet name="forceset">
 			<objects>
 				<Millard2012EquilibriumMuscle name="addbrev_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -3741,13 +3748,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>6073.5898760110049</max_isometric_force>
@@ -3806,8 +3806,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addlong_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -3840,13 +3847,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8897.5585880272447</max_isometric_force>
@@ -3905,8 +3905,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagDist_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -3947,13 +3954,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -4012,8 +4012,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagIsch_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4054,13 +4061,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -4119,8 +4119,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagMid_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4161,13 +4168,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -4226,8 +4226,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagProx_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4260,13 +4267,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -4325,8 +4325,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="bflh_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4365,13 +4372,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>12744.467796881769</max_isometric_force>
@@ -4430,8 +4430,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="bfsh_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4464,13 +4471,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5406.8075532772127</max_isometric_force>
@@ -4529,8 +4529,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="edl_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4578,13 +4585,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5856.9592028985408</max_isometric_force>
@@ -4643,8 +4643,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="ehl_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4704,13 +4711,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2774.3490962119927</max_isometric_force>
@@ -4769,8 +4769,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="fdl_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4830,13 +4837,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>4106.9399958447375</max_isometric_force>
@@ -4895,8 +4895,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="fhl_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -4950,13 +4957,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8810.5952815117744</max_isometric_force>
@@ -5015,8 +5015,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="gaslat_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5057,13 +5064,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>15285.972816275302</max_isometric_force>
@@ -5122,8 +5122,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="gasmed_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5164,13 +5171,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>30236.120262274708</max_isometric_force>
@@ -5229,8 +5229,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax1_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5275,13 +5282,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9547.6355555028513</max_isometric_force>
@@ -5340,8 +5340,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax2_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5386,13 +5393,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>13645.697848267569</max_isometric_force>
@@ -5451,8 +5451,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax3_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5497,13 +5504,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9197.9686051558383</max_isometric_force>
@@ -5562,8 +5562,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed1_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5596,13 +5603,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>10612.112390334687</max_isometric_force>
@@ -5661,8 +5661,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed2_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5695,13 +5702,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>7425.2267498877754</max_isometric_force>
@@ -5760,8 +5760,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed3_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5794,13 +5801,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8455.0027214940292</max_isometric_force>
@@ -5859,8 +5859,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin1_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5884,13 +5891,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3630.1214271897238</max_isometric_force>
@@ -5949,8 +5949,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin2_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -5974,13 +5981,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3831.7312003627803</max_isometric_force>
@@ -6039,8 +6039,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin3_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6064,13 +6071,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>4335.946551641212</max_isometric_force>
@@ -6129,8 +6129,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="grac_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6169,13 +6176,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2730.1323450517029</max_isometric_force>
@@ -6234,8 +6234,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="iliacus_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6280,13 +6287,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9910.1894941919018</max_isometric_force>
@@ -6345,8 +6345,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="perbrev_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6388,13 +6395,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5058.2698096601989</max_isometric_force>
@@ -6453,8 +6453,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="perlong_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6508,13 +6515,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>10824.697392362265</max_isometric_force>
@@ -6573,8 +6573,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="piri_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6604,13 +6611,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9994.0981071743936</max_isometric_force>
@@ -6669,8 +6669,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="psoas_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6715,13 +6722,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>13847.021243921887</max_isometric_force>
@@ -6780,8 +6780,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="recfem_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6840,13 +6847,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>21270.881120658622</max_isometric_force>
@@ -6905,8 +6905,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="sart_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -6957,13 +6964,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2420.5582473243335</max_isometric_force>
@@ -7022,8 +7022,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="semimem_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7064,13 +7071,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>21360.612743188256</max_isometric_force>
@@ -7129,8 +7129,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="semiten_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7177,13 +7184,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5738.5281791183006</max_isometric_force>
@@ -7242,8 +7242,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="soleus_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7267,13 +7274,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>60121.04622743596</max_isometric_force>
@@ -7332,8 +7332,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tfl_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7369,13 +7376,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3990.7661824206898</max_isometric_force>
@@ -7434,8 +7434,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tibant_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7471,13 +7478,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>11912.445645851265</max_isometric_force>
@@ -7536,8 +7536,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tibpost_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7573,13 +7580,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>16791.173054624054</max_isometric_force>
@@ -7638,8 +7638,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vasint_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7690,13 +7697,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>16472.912172162538</max_isometric_force>
@@ -7755,8 +7755,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vaslat_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7807,13 +7814,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>49968.867729932739</max_isometric_force>
@@ -7872,8 +7872,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vasmed_r">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -7924,13 +7931,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>26667.66546078079</max_isometric_force>
@@ -7989,8 +7989,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addbrev_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8023,13 +8030,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>6073.5898760110049</max_isometric_force>
@@ -8088,8 +8088,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addlong_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8122,13 +8129,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8897.5585880272447</max_isometric_force>
@@ -8187,8 +8187,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagDist_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8229,13 +8236,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -8294,8 +8294,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagIsch_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8336,13 +8343,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -8401,8 +8401,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagMid_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8443,13 +8450,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -8508,8 +8508,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="addmagProx_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8542,13 +8549,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5796.7582745896825</max_isometric_force>
@@ -8607,8 +8607,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="bflh_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8647,13 +8654,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>12744.467796881769</max_isometric_force>
@@ -8712,8 +8712,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="bfsh_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8746,13 +8753,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5406.8075532772127</max_isometric_force>
@@ -8811,8 +8811,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="edl_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8860,13 +8867,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5856.9592028985408</max_isometric_force>
@@ -8925,8 +8925,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="ehl_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -8986,13 +8993,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2774.3490962119927</max_isometric_force>
@@ -9051,8 +9051,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="fdl_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9112,13 +9119,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>4106.9399958447375</max_isometric_force>
@@ -9177,8 +9177,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="fhl_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9232,13 +9239,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8810.5952815117744</max_isometric_force>
@@ -9297,8 +9297,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="gaslat_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9339,13 +9346,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>15285.972816275302</max_isometric_force>
@@ -9404,8 +9404,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="gasmed_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9446,13 +9453,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>30236.120262274708</max_isometric_force>
@@ -9511,8 +9511,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax1_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9557,13 +9564,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9547.6355555028513</max_isometric_force>
@@ -9622,8 +9622,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax2_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9668,13 +9675,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>13645.697848267569</max_isometric_force>
@@ -9733,8 +9733,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmax3_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9779,13 +9786,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9197.9686051558383</max_isometric_force>
@@ -9844,8 +9844,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed1_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9878,13 +9885,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>10612.112390334687</max_isometric_force>
@@ -9943,8 +9943,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed2_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -9977,13 +9984,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>7425.2267498877754</max_isometric_force>
@@ -10042,8 +10042,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmed3_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10076,13 +10083,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>8455.0027214940292</max_isometric_force>
@@ -10141,8 +10141,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin1_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10166,13 +10173,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3630.1214271897238</max_isometric_force>
@@ -10231,8 +10231,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin2_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10256,13 +10263,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3831.7312003627803</max_isometric_force>
@@ -10321,8 +10321,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="glmin3_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10346,13 +10353,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>4335.946551641212</max_isometric_force>
@@ -10411,8 +10411,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="grac_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10451,13 +10458,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2730.1323450517029</max_isometric_force>
@@ -10516,8 +10516,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="iliacus_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10562,13 +10569,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9910.1894941919018</max_isometric_force>
@@ -10627,8 +10627,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="perbrev_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10670,13 +10677,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5058.2698096601989</max_isometric_force>
@@ -10735,8 +10735,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="perlong_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10790,13 +10797,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>10824.697392362265</max_isometric_force>
@@ -10855,8 +10855,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="piri_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10886,13 +10893,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>9994.0981071743936</max_isometric_force>
@@ -10951,8 +10951,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="psoas_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -10997,13 +11004,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>13847.021243921887</max_isometric_force>
@@ -11062,8 +11062,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="recfem_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11122,13 +11129,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>21270.881120658622</max_isometric_force>
@@ -11187,8 +11187,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="sart_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11239,13 +11246,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>2420.5582473243335</max_isometric_force>
@@ -11304,8 +11304,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="semimem_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11346,13 +11353,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>21360.612743188256</max_isometric_force>
@@ -11411,8 +11411,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="semiten_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11459,13 +11466,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>5738.5281791183006</max_isometric_force>
@@ -11524,8 +11524,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="soleus_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11549,13 +11556,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>60121.04622743596</max_isometric_force>
@@ -11614,8 +11614,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tfl_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11651,13 +11658,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>3990.7661824206898</max_isometric_force>
@@ -11716,8 +11716,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tibant_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11753,13 +11760,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>11912.445645851265</max_isometric_force>
@@ -11818,8 +11818,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="tibpost_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11855,13 +11862,6 @@
 							<objects />
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>16791.173054624054</max_isometric_force>
@@ -11920,8 +11920,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vasint_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -11972,13 +11979,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>16472.912172162538</max_isometric_force>
@@ -12037,8 +12037,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vaslat_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -12089,13 +12096,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>49968.867729932739</max_isometric_force>
@@ -12154,8 +12154,15 @@
 					</TendonForceLengthCurve>
 				</Millard2012EquilibriumMuscle>
 				<Millard2012EquilibriumMuscle name="vasmed_l">
-					<!--The set of points defining the path of the actuator.-->
+					<!--The path of the actuator which defines length and lengthening speed.-->
 					<GeometryPath name="path">
+						<!--Default appearance attributes for this AbstractGeometryPath.-->
+						<Appearance>
+							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
+							<visible>false</visible>
+							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
+							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+						</Appearance>
 						<!--The set of points defining the path-->
 						<PathPointSet>
 							<objects>
@@ -12206,13 +12213,6 @@
 							</objects>
 							<groups />
 						</PathWrapSet>
-						<!--Default appearance attributes for this GeometryPath-->
-						<Appearance>
-							<!--Flag indicating whether the associated Geometry is visible or hidden.-->
-							<visible>false</visible>
-							<!--The color, (red, green, blue), [0, 1], used to display the geometry. -->
-							<color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
-						</Appearance>
 					</GeometryPath>
 					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>26667.66546078079</max_isometric_force>
