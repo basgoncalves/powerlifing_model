@@ -82,8 +82,7 @@ lines = []
 for subject, trials in grouped_trials.items():
     for i, trial_data in enumerate(trials):
     
-        trial_name = trial_list[i]
-        
+        trial_name = trial_list[i]        
         time_norm_data = utils.time_normalise_df(trial_data)
         time_vector = np.linspace(0, 1, len(time_norm_data))
         

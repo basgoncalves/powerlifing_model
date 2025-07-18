@@ -5,11 +5,10 @@ import utils
 import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_arms
 import normalise_emg
 
-
 def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
-    if True:
+    if False:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 

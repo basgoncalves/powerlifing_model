@@ -2,6 +2,7 @@ import os
 import shutil
 import opensim as osim
 import paths
+import utils
 
 def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDir: str):
     """
@@ -43,7 +44,7 @@ def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDi
     idTool.setStartTime(motion.getFirstTime()) # Start time
     idTool.setEndTime(motion.getLastTime()) # end time
     idTool.setExternalLoadsFileName(str(grf_xml)) # external loads file
-    idTool.setResultsDir(resultsDir) # results directory
+    idTool.setResultsDir(resultsDir) # results directory 
     
     # Set lowpass filter frequency
     idTool.setLowpassCutoffFrequency(6)
@@ -51,12 +52,21 @@ def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDi
     # Print the setup to XML
     idTool.printToXML(setup_xml)
     print(f"Inverse Dynamics setup saved to {setup_xml}")
+    
+    # Load xml and edit forces to exclude
+    xml = utils.read_xml(setup_xml)
+    xml.find('.//forces_to_exclude').text = 'Muscles'
+    utils.save_pretty_xml(xml, setup_xml)
 
     # Reload tool from xml
-    idTool = osim.InverseDynamicsTool(setup_xml)    
+    idTool = osim.InverseDynamicsTool(setup_xml)   
+    idTool.printToXML(setup_xml)  # Print to XML again to ensure changes are saved
+    
+    # breakpoint()  # Optional: pause execution for debugging 
     # Run the inverse dynamics calculation
     os.chdir(resultsDir)
     idTool.run()
+    idTool.setModel(model)  # Set the model again after running
     
     print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}")
 
@@ -65,7 +75,7 @@ if __name__ == '__main__':
     base_dir = paths.SIMULATION_DIR
     subject = 'Athlete_03_MRI'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'sq_80'  # Replace with actual trial name
+    trial = 'sq_90'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
