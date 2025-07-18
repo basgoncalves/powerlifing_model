@@ -82,7 +82,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
 
     # 5. Run Static Optimization
-    if True:
+    if False:
 
         try:
             # Check if the Static Optimization output file exists

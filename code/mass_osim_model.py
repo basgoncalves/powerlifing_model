@@ -92,7 +92,7 @@ if __name__ == "__main__":
     
     
     model_reference_path = r"C:\OpenSim 4.5\Models\Rajagopal\generic_unscaled.osim"
-    model_target_path = paths.Analysis().SUBJECTS[1].SESSIONS[0].TRIALS[0].USED_MODEL
+    model_target_path = paths.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].USED_MODEL
     print(f"Reference model path: {model_reference_path}")
     print(f"Target model path: {model_target_path}")
     
