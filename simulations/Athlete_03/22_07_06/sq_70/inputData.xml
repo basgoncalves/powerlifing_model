@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inputData>
    <muscleTendonLengthFile>./muscleAnalysis/_MuscleAnalysis_Length.sto</muscleTendonLengthFile>
-   <excitationsFile>EMG_filtered.sto</excitationsFile>
-      <momentArmsFiles>
+   <excitationsFile>EMG_filtered_normalised.sto</excitationsFile>
+   <momentArmsFiles>
       <momentArmsFile dofName="ankle_angle_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_l.sto</momentArmsFile>
       <momentArmsFile dofName="ankle_angle_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_r.sto</momentArmsFile>
       <momentArmsFile dofName="hip_adduction_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_adduction_l.sto</momentArmsFile>
@@ -13,10 +13,6 @@
       <momentArmsFile dofName="hip_rotation_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_rotation_r.sto</momentArmsFile>
       <momentArmsFile dofName="knee_angle_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_angle_l.sto</momentArmsFile>
       <momentArmsFile dofName="knee_angle_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_angle_r.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_adduction_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_adduction_l.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_adduction_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_adduction_r.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_rotation_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_rotation_l.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_rotation_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_rotation_r.sto</momentArmsFile>
    </momentArmsFiles>
    <externalTorquesFile>inverse_dynamics.sto</externalTorquesFile>
    <motionFile>joint_angles.mot</motionFile>
