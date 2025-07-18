@@ -28,7 +28,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if True:
+    if False:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -81,7 +81,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
 
     # 5. Run Static Optimization
-    if False:
+    if True:
 
         try:
             # Check if the Static Optimization output file exists
