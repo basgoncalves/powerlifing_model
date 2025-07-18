@@ -103,7 +103,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'Static Optimization completed. Results are saved in {ouput_files}')
 
     # 6 run Joint Reaction Analysis
-    if False:
+    if True:
         if True:
 
             try:
@@ -128,7 +128,7 @@ def main(trial: paths.Trial, replace: bool = False):
                                 setupJRA=trial.SETUP_JRA)
 
     # Normalise EMG data
-    if True:
+    if False:
         
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
@@ -170,11 +170,12 @@ if __name__ == "__main__":
         session_list = analysis.get_subject(subject).SESSIONS
 
         for session in session_list:
+
             if session.name in sessions_to_skip:
                 continue
 
             for trial in session.TRIALS:
-                trial.copy_inputs_to_trial(replace=False)
+                trial.copy_inputs_to_trial(replace=True)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
