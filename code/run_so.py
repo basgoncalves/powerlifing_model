@@ -93,7 +93,7 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
     # change optimizer_max_iterations in the xml file
     xml = utils.read_xml(setup_xml)
     static_opt = xml.getroot().find('.//StaticOptimization/optimizer_max_iterations')
-    static_opt.text = '10'  # Set to 10 iterations
+    static_opt.text = '100'  # Set to 10 iterations
     utils.save_pretty_xml(xml, setup_xml)
     
     # run the Static Optimization
@@ -110,9 +110,9 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
 if __name__ == '__main__':
     
     base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03_MRI'  # Replace with actual subject name
+    subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'sq_90'  # Replace with actual trial name
+    trial = 'sq_70'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)

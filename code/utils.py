@@ -326,7 +326,10 @@ def load_any_data_file(file_path):
     elif file_path.endswith('.c3d'):
         return load_c3d(file_path)
     
-    elif file_path.endswith('.txt') or file_path.endswith('.csv'):
+    elif file_path.endswith('.csv'):
+        return pd.read_csv(file_path)
+        
+    elif file_path.endswith('.txt'):
         # Assuming these are plain text files with tab-separated values
         return pd.read_csv(file_path, sep='\t', header=0)
     
@@ -836,8 +839,12 @@ def time_normalise_df(df, fs=''):
         currentData = df[column]
         currentData = currentData[~np.isnan(currentData)]
         
-        timeTrial = np.arange(0, len(currentData)/fs, 1/fs)        
+        if currentData.empty:
+            currentData = np.zeros(len(df))
+        
+        timeTrial = np.arange(0, len(currentData)/fs, 1/fs)           
         Tnorm = np.arange(0, timeTrial[-1], timeTrial[-1]/101)
+        
         if len(Tnorm) == 102:
             Tnorm = Tnorm[:-1]
         normalised_df[column] = np.interp(Tnorm, timeTrial, currentData)
