@@ -1,5 +1,5 @@
-model file = c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_increased_20.00.osim
-motion file = c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80_EMG\joint_angles.mot
+model file = c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\models\Athlete_03_linearly_scaled_scaledMasses_increased_10.00.osim
+motion file = c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\joint_angles.mot
 leg checked = l
 
  muscles with discontinuities 
@@ -8,6 +8,7 @@ addlong_l flexion at frames: [0] : time [3.255]
 addmagDist_l flexion at frames: [0] : time [3.255] 
 addmagIsch_l flexion at frames: [0] : time [3.255] 
 addmagMid_l flexion at frames: [0] : time [3.255] 
+addmagProx_l flexion at frames: [0] : time [3.255] 
 bflh_l flexion at frames: [0] : time [3.255] 
 glmax1_l flexion at frames: [0] : time [3.255] 
 glmax2_l flexion at frames: [0] : time [3.255] 
@@ -55,10 +56,9 @@ addmagMid_l rotation at frames: [0] : time [3.255]
 addmagProx_l rotation at frames: [0] : time [3.255] 
 bflh_l rotation at frames: [0] : time [3.255] 
 glmax1_l rotation at frames: [0] : time [3.255] 
-glmax2_l rotation at frames: [0] : time [3.255] 
+glmax3_l rotation at frames: [0] : time [3.255] 
 glmed1_l rotation at frames: [0] : time [3.255] 
 glmed2_l rotation at frames: [0] : time [3.255] 
-glmed3_l rotation at frames: [0] : time [3.255] 
 glmin1_l rotation at frames: [0] : time [3.255] 
 glmin2_l rotation at frames: [0] : time [3.255] 
 glmin3_l rotation at frames: [0] : time [3.255] 

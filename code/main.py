@@ -163,6 +163,7 @@ if __name__ == "__main__":
     
     start_time = time.time()
     settings = paths.Settings()
+
     analysis = paths.Analysis()
     trial_list = settings.TRIAL_TO_ANALYSE
 
@@ -177,8 +178,7 @@ if __name__ == "__main__":
                 continue
 
             for trial in session.TRIALS:
-                trial.copy_inputs_to_trial(replace=False)
-
+                trial.copy_inputs_to_trial(replace=True)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
 
-                end_time = time.time()
-                elapsed_time = end_time - start_time
-                utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds")
-                exit()
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds")
+    exit()
