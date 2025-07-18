@@ -5,7 +5,7 @@ import pandas as pd
 import utils
 import opensim as osim
 
-# Folder stuctures should be: 
+#%% Folder stuctures should be: 
 # powerlifitng_model
 #   code/
 #     setupFiles/
@@ -37,6 +37,7 @@ import opensim as osim
 #           grf.mot
 #           EMG_filtered.sto
 #           externalloads.xml
+# %%
 
 CODE, _ = utils.check_path(os.path.dirname(__file__))
 SETUP_DIR, _ = utils.check_path(os.path.join(CODE, 'SetupFiles\Purzel'), isdir=True)
@@ -49,7 +50,7 @@ RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isd
 
 class Settings():
     def __init__(self):
-        self.TRIAL_TO_ANALYSE = ['sq_70','sq_75','sq_80','sq_85','sq_90']
+        self.TRIAL_TO_ANALYSE = ['sq_70','sq_90'] #'sq_75','sq_80','sq_85',
         
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
