@@ -109,13 +109,13 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
 
 if __name__ == '__main__':
     
-    start_time = time.time()
-
-    analysis =paths.Analysis()
+    base_dir = paths.SIMULATION_DIR
+    subject = 'Athlete_03_MRI'  # Replace with actual subject name
+    session = '22_07_06'  # Replace with actual session name
+    trial = 'sq_90'  # Replace with actual trial name
     
-    # Setup paths using new paths setup
-    subject = analysis.SUBJECTS[0].path
-    trial = analysis.SUBJECTS[0].SESSIONS[0].TRIALS[0]
+    # create a trial instance
+    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
     ik_output =  trial.outputFiles['IK'].abspath()
     grf_xml = trial.inputFiles['GRF_XML'].abspath()
     setup_so = trial.path + '//' + trial.outputFiles['SO'].setup
@@ -131,13 +131,7 @@ if __name__ == '__main__':
     print(f'GRF XML: {grf_xml}')
     print(f'SO setup XML: {setup_so}')
     print(f'SO output directory: {so_output}')
-    time.sleep(1)  # Optional: wait for a second before running the analysis
 
-    answer = input("Do you want to continue [Enter/N]? ")
-    if answer.lower() == 'n':
-        print("Exiting Static Optimization.")
-        exit()
-    
     # Edit pelvis center of mass actuators
     edit_pelvis_com_actuators(used_model, actuators_so)
 
@@ -152,5 +146,5 @@ if __name__ == '__main__':
     )
 
     print(f"Static Optimization completed. Results are saved in {so_output}")
-    print(f"Execution time: {time.time() - start_time:.2f} seconds")
+    utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {so_output}')
     

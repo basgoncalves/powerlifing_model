@@ -38,7 +38,6 @@ plot_trials = {
     'sq_80': {'color': (1.0, 0.0, 0.0)},  # Red
     'sq_85': {'color': (1.0, 0.5, 0.0)},  # Orange
     'sq_90': {'color': (0.5, 0.0, 0.5)},  # Purple
-    'sq_95': {'color': (0.0, 1.0, 1.0)},  # Cyan
 }
 plot_leg = {
     'r': {'alpha': 0.4},

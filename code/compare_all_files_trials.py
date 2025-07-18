@@ -77,11 +77,11 @@ def main(input_list: List[str] = None):
     for file_basename in sorted(list(files_to_plot)):
         print(f"--- Comparing file: {file_basename} ---")
         
-        if file_basename.__contains__('EMG_filtered.sto') or file_basename.__contains__('Analyse_JRA_ReactionLoads.sto'):
-            print("Skipping EMG files as they are not supported in this comparison script.")
-            continue
+        # if file_basename.__contains__('EMG_filtered.sto') or file_basename.__contains__('Analyse_JRA_ReactionLoads.sto'):
+        #     print("Skipping EMG files as they are not supported in this comparison script.")
+        #     continue
         if file_basename.__contains__('EMG_filtered_normalised.sto'):
-            print('converting EMG_filtered_normalised.sto to EMG_filtered.sto')
+            print("Skipping EMG filtered normalised files as they are not supported in this comparison script.")
             continue
         
         
