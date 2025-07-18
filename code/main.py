@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
             for trial in session.TRIALS:
 
-                if not subject.__contains__('MRI'):
+                if subject.__contains__('MRI'):
                     continue
 
                 trial.copy_inputs_to_trial(replace=False)

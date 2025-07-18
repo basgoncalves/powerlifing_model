@@ -2,11 +2,11 @@
 <OpenSimDocument Version="40000">
 	<InverseKinematicsTool>
 		<!--Name of the directory where results are written. Be default this is the directory in which the setup file is be  executed.-->
-		<results_directory>.</results_directory>
+		<results_directory>./</results_directory>
 		<!--The time range for the study.-->
 		<time_range>3.2549999999999999 6.0250000000000004</time_range>
 		<!--Name of the resulting inverse kinematics motion (.mot) file.-->
-		<output_motion_file>joint_angles.mot</output_motion_file>
+		<output_motion_file>c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\joint_angles.mot</output_motion_file>
 		<!--Markers and coordinates to be considered (tasks) and their weightings. The sum of weighted-squared task errors composes the cost function.-->
 		<IKTaskSet>
 			<objects>
