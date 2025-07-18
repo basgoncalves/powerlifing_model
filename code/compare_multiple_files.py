@@ -59,8 +59,8 @@ first_file = file_paths[0]
 # 2. Load plot settings based on the *first* file
 try:
     file_basename = os.path.splitext(os.path.basename(first_file))[0]
-    groups = paths.plot_settings['Groups'][file_basename]
-    summary = paths.plot_settings['Summary'][file_basename]
+    groups = paths.Settings().plot['Groups'][file_basename]
+    summary = paths.Settings().plot['Summary'][file_basename]
     print(f"Using plot settings for '{file_basename}' with summary method: '{summary}'.")
 except KeyError:
     print(f"No specific plot settings found for: {first_file}. Using default columns.")
@@ -114,6 +114,8 @@ fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=(screen_size[0] / 100,
 axs = axs.flatten()  # Flatten to 1D for easy indexing
 plot_colors = plt.cm.get_cmap('tab10', 10).colors # Get a set of distinct colors
 
+labels = utils.get_unique_names(file_paths)
+
 # 9. Plot each common column on a separate subplot
 plot_idx = 0
 for col in sorted(list(common_columns)): # Sort for consistent plot order
@@ -125,7 +127,8 @@ for col in sorted(list(common_columns)): # Sort for consistent plot order
     # Plot data from each file on the current subplot
     for i, norm_df in enumerate(normalized_data_list):
         try:
-            ax.plot(norm_df['time'], norm_df[col], color=plot_colors[i % len(plot_colors)], label=os.path.basename(os.path.dirname(file_paths[i])))
+            time_vector = utils.np.linspace(0, 100, len(norm_df['time'])) 
+            ax.plot(time_vector, norm_df[col], color=plot_colors[i % len(plot_colors)], label=labels[i])
         except KeyError:
             print(f"Warning: Column '{col}' unexpectedly not found in normalized data from '{os.path.basename(file_paths[i])}'. Skipping.")
             continue
