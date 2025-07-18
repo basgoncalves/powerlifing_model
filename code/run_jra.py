@@ -82,7 +82,7 @@ def create_analysis_tool(coordinates_file, externalloadsfile, model_path, result
     return analyze_tool
 
 
-def run_jra(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators, muscle_forces, results_directory):
+def main(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators, muscle_force_path, results_directory):
     # start model
     osimModel = osim.Model(modelpath)
 
@@ -112,7 +112,7 @@ def run_jra(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators,
     # Set other parameters as needed
     jr.setStartTime(initial_time)
     jr.setEndTime(final_time)
-    jr.setForcesFileName(os.path.relpath(muscle_forces, start=os.path.dirname(setupJRA)))
+    jr.setForcesFileName(muscle_force_path) # Has to be absolute path
 
     # add to analysis tool
     analyzeTool_JR = create_analysis_tool(coordinates_file = coordinates_file,
@@ -150,49 +150,28 @@ def run_jra_setup(modelpath, setupJRA):
     
     
 if __name__ == '__main__':
-    modelpath = paths.USED_MODEL
-    coordinates_file = paths.IK_OUTPUT
-    muscle_forces = paths.FORCES_OUTPUT
+   
+    basedir = paths.SIMULATION_DIR
+    subject = 'Athlete_03'  # Replace with actual subject name
+    session = '22_07_06'  # Replace with actual session name
+    trial_name = 'sq_80'  # Replace with actual trial name
+
+    trial = paths.Trial(subject_name=subject,
+                        session_name=session,
+                        trial_name=trial_name)
     
-    utils.print_to_log(f'Running JRA on: {paths.SUBJECT} / {paths.TRIAL_NAME} / {modelpath}')
-    
-    if not os.path.exists(modelpath):
-        utils.print_to_log(f'OpenSim model file not found: {modelpath}')
-        raise FileNotFoundError(f"OpenSim model file not found: {modelpath}")
-    
-    if not os.path.exists(coordinates_file):
-        import run_ik
-        run_ik.main(osim_modelPath=modelpath, marker_trc=paths.MARKERS_TRC, 
-                      ik_output=coordinates_file, setup_xml=paths.SETUP_IK, time_range=paths.TIME_RANGE)
-    
-    if not os.path.exists(muscle_forces):
-        import run_so
-        
-        run_so.main(osim_modelPath = modelpath, 
-                      ik_output = coordinates_file, 
-                      grf_xml = paths.GRF_XML,
-                      resultsDir = paths.SO_OUTPUT, 
-                      actuators = paths.ACTUATORS_SO)
-    
-    print(f'Running Joint Reaction Analysis on model: {modelpath}')
     try:
-        if not os.path.exists(paths.SETUP_JRA):
-            shutil.copy(paths.GENERIC_SETUP_JRA, paths.SETUP_JRA)
-        
-        run_jra(modelpath = modelpath, 
-                coordinates_file = coordinates_file, 
-                externalloadsfile = paths.GRF_XML,
-                setupJRA = paths.SETUP_JRA,
-                actuators = None,
-                muscle_forces = muscle_forces, 
-                results_directory = os.path.dirname(paths.JRA_OUTPUT))
-        
-        # run_jra_setup(modelpath=modelpath, 
-        #                 setupJRA=paths.SETUP_JRA)
-        
-        print(f"Joint Reaction Analysis completed. Results saved to {paths.JRA_OUTPUT}")
-        utils.print_to_log(f"Joint Reaction Analysis completed. Results saved to {paths.JRA_OUTPUT}")
+        main(
+            modelpath=trial.USED_MODEL,
+            coordinates_file=trial.outputFiles['IK'].abspath(),
+            externalloadsfile=trial.inputFiles['GRF_XML'].abspath(),
+            setupJRA=trial.path + '\\' + trial.outputFiles['JRA'].setup,
+            actuators=None,
+            muscle_force_path=trial.outputFiles['FORCES_SO'].abspath(),
+            results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath())
+        )
+        output_files = trial.outputFiles['JRA'].abspath()
+        utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {output_files}')
     except Exception as e:
-        print(f"Error during Joint Reaction Analysis: {e}")
-        utils.print_to_log(f"Error during Joint Reaction Analysis: {e}")
-        
+        utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
+        exit()
