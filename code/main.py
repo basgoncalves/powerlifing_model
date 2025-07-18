@@ -1,4 +1,5 @@
 import os
+import time
 import paths
 import shutil
 import utils
@@ -8,7 +9,7 @@ import run_emg_normalise
 def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
-    if False:
+    if True:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -28,7 +29,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if False:
+    if True:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -50,7 +51,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if False:
+    if True:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -66,7 +67,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4b Check moment arms
-    if False:
+    if True:
         utils.print_to_log(f'Checking muscle moment arms for model: {trial.USED_MODEL}')
         utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                     ik_output=trial.outputFiles['IK'].abspath(),
@@ -159,7 +160,8 @@ def main(trial: paths.Trial, replace: bool = False):
 
 if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
-
+    
+    start_time = time.time()
     settings = paths.Settings()
     analysis = paths.Analysis()
     trial_list = settings.TRIAL_TO_ANALYSE
@@ -175,7 +177,8 @@ if __name__ == "__main__":
                 continue
 
             for trial in session.TRIALS:
-                trial.copy_inputs_to_trial(replace=True)
+                trial.copy_inputs_to_trial(replace=False)
+
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
@@ -187,3 +190,8 @@ if __name__ == "__main__":
                 #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
+
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds")
+                exit()

@@ -103,6 +103,7 @@ class Settings():
                             'Analyse_JRA_ReactionLoads': '3dsum',
                             'MuscleForces_inputData': 'Sum'}
                         }
+
 class Session():
     def __init__(self, subject_name, session_name):
         self.subject = subject_name
@@ -382,8 +383,6 @@ class Trial():
         
         print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
-
-        
     def print_settings(self):
         """Print the paths for debugging."""
         print("CODE:", CODE)

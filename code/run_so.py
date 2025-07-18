@@ -116,6 +116,10 @@ if __name__ == '__main__':
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+
+    # Copy from setups 
+    trial.copy_inputs_to_trial(replace=True)
+
     ik_output =  trial.outputFiles['IK'].abspath()
     grf_xml = trial.inputFiles['GRF_XML'].abspath()
     setup_so = trial.path + '//' + trial.outputFiles['SO'].setup
