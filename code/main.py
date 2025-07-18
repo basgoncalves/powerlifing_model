@@ -68,7 +68,7 @@ def main(trial: paths.Trial, replace: bool = False):
 
     # 4b Check moment arms
     if True:
-        utils.print_to_log(f'Checking muscle moment arms for model: {trial.USED_MODEL}')
+
         utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                     ik_output=trial.outputFiles['IK'].abspath(),
                                     leg='l',
@@ -87,6 +87,7 @@ def main(trial: paths.Trial, replace: bool = False):
         try:
             # Check if the Static Optimization output file exists
             if not os.path.exists(trial.outputFiles['SO'].abspath()) or replace:
+
                 run_so.main(osim_modelPath=trial.USED_MODEL,
                             ik_output=trial.outputFiles['IK'].abspath(),
                             grf_xml=trial.inputFiles['GRF_XML'].abspath(),
@@ -99,9 +100,6 @@ def main(trial: paths.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
             exit()
-
-        ouput_files = trial.outputFiles['SO'].abspath()
-        utils.print_to_log(f'Static Optimization completed. Results are saved in {ouput_files}')
 
     # 6 run Joint Reaction Analysis
     if True:
@@ -119,7 +117,7 @@ def main(trial: paths.Trial, replace: bool = False):
                                 results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath()))
 
                 ouput_files = trial.outputFiles['JRA'].abspath()
-                utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {ouput_files}')
+                utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {ouput_files}')
 
             except Exception as e:
                 utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')

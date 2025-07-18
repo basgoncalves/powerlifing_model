@@ -2,17 +2,17 @@
 <OpenSimDocument Version="40000">
 	<InverseDynamicsTool>
 		<!--Name of the directory where results are written. Be default this is the directory in which the setup file is be  executed.-->
-		<results_directory>c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_85</results_directory>
+		<results_directory>c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03\22_07_06\sq_85</results_directory>
 		<!--Name of the .osim file used to construct a model.-->
-		<model_file>c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_linearly_scaled_scaledMasses_increased_3.00.osim</model_file>
+		<model_file>..\..\..\..\models\Athlete_03_linearly_scaled_scaledMasses_increased_10.00.osim</model_file>
 		<!--Time range over which the inverse dynamics problem is solved.-->
 		<time_range> 3.915 6.87</time_range>
 		<!--List of forces by individual or grouping name (e.g. All, actuators, muscles, ...) to be excluded when computing model dynamics. 'All' also excludes external loads added via 'external_loads_file'.-->
-		<forces_to_exclude />
+		<forces_to_exclude> Muscles</forces_to_exclude>
 		<!--XML file (.xml) containing the external loads applied to the model as a set of ExternalForce(s).-->
-		<external_loads_file>c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_85\externalloads.xml</external_loads_file>
+		<external_loads_file>externalloads.xml</external_loads_file>
 		<!--The name of the file containing coordinate data. Can be a motion (.mot) or a states (.sto) file.-->
-		<coordinates_file>c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_85\joint_angles.mot</coordinates_file>
+		<coordinates_file>joint_angles.mot</coordinates_file>
 		<!--Low-pass cut-off frequency for filtering the coordinates_file data (currently does not apply to states_file or speeds_file). A negative value results in no filtering. The default value is -1.0, so no filtering.-->
 		<lowpass_cutoff_frequency_for_coordinates>6</lowpass_cutoff_frequency_for_coordinates>
 		<!--Name of the storage file (.sto) to which the generalized forces are written. Only a filename should be specified here (not a full path); the file will appear in the location provided in the results_directory property.-->
