@@ -4,12 +4,16 @@ setlocal
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
 
-rem Change the current working directory to the script's directory
+echo Script directory is: "%SCRIPT_DIR%"
+
 cd /d "%SCRIPT_DIR%"
 
+rem Set CEINMS_EXE_DIR to two directories up plus code\executables
+set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
+
 rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_EXE=%SCRIPT_DIR%..\executables\CEINMS.exe"
-set "EXE_SETUP=%SCRIPT_DIR%ceinms_setup.xml"
+set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMS.exe"
+set "EXE_SETUP=%SCRIPT_DIR%\setup_ceinms_exe.xml"
 
 if not exist "%CEINMS_EXE%" (
     echo Error: CEINMS calibration executable not found at "%CEINMS_EXE%"

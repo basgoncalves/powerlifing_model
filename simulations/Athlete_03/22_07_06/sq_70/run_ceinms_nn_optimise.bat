@@ -6,6 +6,8 @@ set "SCRIPT_DIR=%~dp0"
 
 echo Script directory is: "%SCRIPT_DIR%"
 
+cd /d "%SCRIPT_DIR%"
+
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
 set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
 
