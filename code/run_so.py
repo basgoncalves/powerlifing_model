@@ -114,7 +114,7 @@ if __name__ == '__main__':
     analysis =paths.Analysis()
     
     # Setup paths using new paths setup
-    subject = analysis.SUBJECTS[0].path
+    subject = analysis.SUBJECTS[1].path
     trial = analysis.SUBJECTS[0].SESSIONS[0].TRIALS[0]
     ik_output =  trial.outputFiles['IK'].abspath()
     grf_xml = trial.inputFiles['GRF_XML'].abspath()

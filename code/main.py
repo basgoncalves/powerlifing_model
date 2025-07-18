@@ -9,7 +9,7 @@ import normalise_emg
 def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
-    if False:
+    if True:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -29,7 +29,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if False:
+    if True:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -51,7 +51,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if False:
+    if True:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -104,7 +104,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'Static Optimization completed. Results are saved in {ouput_files}')
 
     # 6 run Joint Reaction Analysis
-    if False:
+    if True:
         if True:
 
             try:
@@ -175,6 +175,10 @@ if __name__ == "__main__":
                 continue
 
             for trial in session.TRIALS:
+
+                if not subject.__contains__('MRI'):
+                    continue
+
                 trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
