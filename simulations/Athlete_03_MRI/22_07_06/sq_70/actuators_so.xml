@@ -6,7 +6,7 @@
             <body>pelvis</body>
             <point>-0.07921812333172915 -0.011885054386387043 0.0</point>
             <direction>1 0 0</direction>
-            <optimal_force>100</optimal_force>
+            <optimal_force>1000</optimal_force>
             <min_control>-Inf</min_control>
             <max_control>Inf</max_control>
          </PointActuator>
@@ -14,7 +14,7 @@
             <body>pelvis</body>
             <point>-0.07921812333172915 -0.011885054386387043 0.0</point>
             <direction>0 1 0</direction>
-            <optimal_force>100</optimal_force>
+            <optimal_force>1000</optimal_force>
             <min_control>-Inf</min_control>
             <max_control>Inf</max_control>
          </PointActuator>
@@ -30,7 +30,7 @@
             <bodyA>pelvis</bodyA>
             <bodyB>ground</bodyB>
             <axis>1 0 0</axis>
-            <optimal_force>80</optimal_force>
+            <optimal_force>1000</optimal_force>
             <min_control>-Inf</min_control>
             <max_control>Inf</max_control>
             <direction>1 0 0</direction>
@@ -39,7 +39,7 @@
             <bodyA>pelvis</bodyA>
             <bodyB>ground</bodyB>
             <axis>0 1 0</axis>
-            <optimal_force>80</optimal_force>
+            <optimal_force>1000</optimal_force>
             <min_control>-Inf</min_control>
             <max_control>Inf</max_control>
             <direction>0 1 0</direction>
@@ -48,68 +48,68 @@
             <bodyA>pelvis</bodyA>
             <bodyB>ground</bodyB>
             <axis>0 0 1</axis>
-            <optimal_force>80</optimal_force>
+            <optimal_force>1000</optimal_force>
             <min_control>-Inf</min_control>
             <max_control>Inf</max_control>
             <direction>0 0 1</direction>
          </TorqueActuator>
          <CoordinateActuator name="hip_flexion_r_reserve">
             <coordinate>hip_flexion_r</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="hip_adduction_r_reserve">
             <coordinate>hip_adduction_r</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="hip_rotation_r_reserve">
             <coordinate>hip_rotation_r</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="knee_angle_r_reserve">
             <coordinate>knee_angle_r</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="ankle_angle_r_reserve">
             <coordinate>ankle_angle_r</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="hip_flexion_l_reserve">
             <coordinate>hip_flexion_l</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="hip_adduction_l_reserve">
             <coordinate>hip_adduction_l</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="hip_rotation_l_reserve">
             <coordinate>hip_rotation_l</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="knee_angle_l_reserve">
             <coordinate>knee_angle_l</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>
          <CoordinateActuator name="ankle_angle_l_reserve">
             <coordinate>ankle_angle_l</coordinate>
-            <optimal_force>1</optimal_force>
+            <optimal_force>10</optimal_force>
             <min_control>-1</min_control>
             <max_control>1</max_control>
          </CoordinateActuator>

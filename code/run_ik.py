@@ -70,24 +70,24 @@ def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resu
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
 if __name__ == '__main__':
-    osim_modelPath = paths.USED_MODEL
-    marker_trc = paths.MARKERS_TRC
-    setup_ik = paths.SETUP_IK
-    ik_output = paths.IK_OUTPUT
+    base_dir = paths.SIMULATION_DIR
+    subject = 'Athlete_03_MRI'  # Replace with actual subject name
+    session = '22_07_06'  # Replace with actual session name
+    trial = 'sq_80'  # Replace with actual trial name
     
-    print(f'Time range for IK: {paths.TIME_RANGE}')
-
-    print(f'osim version: {osim.__version__}')
+    # create a trial instance
+    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    osim_modelPath = trial.USED_MODEL
+    ik_mot = trial.outputFiles['IK'].abspath()
+    setup_id = trial.path + '\\' + trial.outputFiles['ID'].setup
+    grf_xml = trial.inputFiles['GRF_XML'].abspath()
     
-    try:
-        utils.print_to_log(f'{time.time}: Running Inverse Kinematics on model: {osim_modelPath}')
-        main(osim_modelPath, marker_trc,ik_output, setup_ik, time_range=paths.TIME_RANGE)
-    except Exception as e:
-        print(f"Error running Inverse Kinematics: {e}")
-        utils.print_to_log(f'{time.time}: Error running Inverse Kinematics: {e}')
-        exit(1)
-    
-    utils.print_to_log(f'{time.time}: Inverse Kinematics run completed.')
+    main(osim_modelPath=osim_modelPath,
+            marker_trc=trial.inputFiles['MARKERS'].abspath(),
+            ik_output=ik_mot,
+            setup_xml=setup_id,
+            time_range=trial.TIME_RANGE,
+            resultsDir=trial.path)
     
     
   

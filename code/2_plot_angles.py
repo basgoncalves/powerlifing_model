@@ -38,11 +38,8 @@ plot_model = {
 
 plot_trials = {
     'sq_70': {'color': (0.0, 0.0, 1.0)},  # Blue
-    'sq_75': {'color': (0.0, 1.0, 0.0)},  # Green
     'sq_80': {'color': (1.0, 0.0, 0.0)},  # Red
-    'sq_85': {'color': (1.0, 0.5, 0.0)},  # Orange
     'sq_90': {'color': (0.5, 0.0, 0.5)},  # Purple
-    'sq_95': {'color': (0.0, 1.0, 1.0)},  # Cyan
 }
 plot_leg = {
     'r': {'alpha': 0.4},
@@ -59,9 +56,9 @@ for trial_name in trial_list:  # Get all sessions for the subject
             # breakpoint()  # This will pause the execution for debugging
             grouped_trials[subject].append(data_trial)
             
-            print(f"Data for trial {trial.name}: {trial.outputFiles['ID'].abspath()}")
+            print(f"Data for trial {trial.name}: {trial.outputFiles['IK'].abspath()}")
         except Exception as e:
-            print(f"Error loading data for trial {trial.outputFiles['ID'].abspath()}: {e}")
+            print(f"Error loading data for trial {trial.outputFiles['IK'].abspath()}: {e}")
             continue
 
 

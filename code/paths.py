@@ -50,7 +50,7 @@ RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isd
 
 class Settings():
     def __init__(self):
-        self.TRIAL_TO_ANALYSE = ['sq_70','sq_90'] #'sq_75','sq_80','sq_85',
+        self.TRIAL_TO_ANALYSE = ['sq_70', 'q_80','sq_90'] #'sq_75','sq_80','sq_85',
         
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
@@ -168,7 +168,7 @@ class Models(Analysis):
         self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
         self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_3.00.osim')
+        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_10.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
