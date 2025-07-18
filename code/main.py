@@ -3,7 +3,7 @@ import paths
 import shutil
 import utils
 import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_arms
-import normalise_emg
+import run_emg_normalise
 
 def main(trial: paths.Trial, replace: bool = False):
 
@@ -128,7 +128,7 @@ def main(trial: paths.Trial, replace: bool = False):
                                 setupJRA=trial.SETUP_JRA)
 
     # Normalise EMG data
-    if False:
+    if True:
         
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
@@ -141,7 +141,7 @@ def main(trial: paths.Trial, replace: bool = False):
             else:
                 print(f"EMG file not found: {abs_path_emg}")
 
-        normalise_emg.main(target_emg_path=trial.inputFiles['EMG_MOT'].abspath(),
+        run_emg_normalise.main(target_emg_path=trial.inputFiles['EMG_MOT'].abspath(),
                     normalise_emg_list=emg_normalise_list)
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')

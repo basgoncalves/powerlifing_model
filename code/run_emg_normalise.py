@@ -34,30 +34,41 @@ def main(target_emg_path: str, normalise_emg_list: list, save_path: str = None):
     max_per_column = max_values.max(axis=0)
     target_emg_norm = target_emg.divide(max_per_column, axis=1)
     
+    # get header
+    header = utils.load_sto_header(target_emg_path)
+    
     # Save the normalised target EMG
     ext = os.path.splitext(target_emg_path)[1]
-    target_emg_norm.to_csv(target_emg_path.replace(ext, f'_normalised{ext}'), index=False)
+    utils.write_sto_file(data=target_emg_norm, 
+                         file_path=target_emg_path.replace(ext, f'_normalised{ext}'),
+                         header=header)
     
     utils.print_to_log(f"Normalised EMG data saved to: {target_emg_path.replace(ext, f'_normalised{ext}')}")
     
 if __name__ == "__main__":
     
     emg_normalise_list = []
+    subject = 1
     for trial_name in paths.Settings().TRIAL_TO_ANALYSE:
-        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[0].name,
-                            session_name=paths.Analysis().SUBJECTS[0].SESSIONS[0].name,
+        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[subject].name,
+                            session_name=paths.Analysis().SUBJECTS[subject].SESSIONS[0].name,
                             trial_name=trial_name)
         
-        filepath = trial.inputFiles['EMG_MOT'].output
+        filepath = trial.inputFiles['EMG_MOT'].abspath()
         if os.path.exists(filepath):
             emg_normalise_list.append(filepath)
         else:
             print(f"EMG file not found: {filepath}")
     
-          
-    main(target_emg_path= paths.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].inputFiles['EMG_MOT'].abspath(),
-                normalise_emg_list=emg_normalise_list)
-    
-    
-    
-    
+    # loop through all the trials and normalise EMG data
+    for  i, trial_name in enumerate(paths.Settings().TRIAL_TO_ANALYSE):
+        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[subject].name,
+                            session_name=paths.Analysis().SUBJECTS[subject].SESSIONS[0].name,
+                            trial_name=trial_name)
+        
+        try:
+            main(target_emg_path= trial.inputFiles['EMG_MOT'].abspath(),
+                 normalise_emg_list=emg_normalise_list)
+        except Exception as e:
+            print(f"Error normalising EMG data for trial {trial.name}: {e}")
+    utils.print_to_log(f"EMG data normalised for all trials in subject {paths.Analysis().SUBJECTS[subject].name}")

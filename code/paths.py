@@ -94,14 +94,15 @@ class Settings():
                             {'SO_StaticOptimization_force': self.Muscle_Groups,
                             'Analyse_JRA_ReactionLoads': self.JCF_Groups,
                             'SO_StaticOptimization_force_normalised': self.Muscle_Groups,
-                            'SO_StaticOptimization_activation': self.Muscle_Groups},
+                            'SO_StaticOptimization_activation': self.Muscle_Groups,
+                            'MuscleForces_inputData': self.Muscle_Groups},
                     'Summary': 
                             {'SO_StaticOptimization_force': 'Sum', 
                              'SO_StaticOptimization_force_normalised': 'mean',
                             'SO_StaticOptimization_activation': 'mean', 
-                            'Analyse_JRA_ReactionLoads': '3dsum'}
+                            'Analyse_JRA_ReactionLoads': '3dsum',
+                            'MuscleForces_inputData': 'Sum'}
                         }
-
 class Session():
     def __init__(self, subject_name, session_name):
         self.subject = subject_name

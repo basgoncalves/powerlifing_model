@@ -89,7 +89,7 @@ print("----------------------------\n")
 if groups is not None and summary is not None:
     for df in data_list:  # Loop through each dataframe
         for group_name, member_cols in groups.items():
-            if summary == 'sum':
+            if summary == 'Sum':
                 df[group_name] = df[member_cols].sum(axis=1)
             elif summary == 'mean':
                 df[group_name] = df[member_cols].mean(axis=1)
@@ -100,7 +100,14 @@ if groups is not None and summary is not None:
     common_columns = groups.keys()
 
 # 7. Time-normalize each dataframe
-normalized_data_list = [utils.time_normalise_df(df) for df in data_list]
+normalized_data_list = []
+for df in data_list:
+    if not df.empty:
+        normalized_df = utils.time_normalise_df(df)
+        normalized_data_list.append(normalized_df)
+    else:
+        print(f"Warning: DataFrame for '{os.path.basename(file_paths[data_list.index(df)])}' is empty. Skipping normalization.")
+        normalized_data_list.append(pd.DataFrame())  # Append an empty DataFrame for consistency
 
 # 8. Setup the plot figure
 screen_size = utils.get_screen_size()
