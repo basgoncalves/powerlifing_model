@@ -39,11 +39,11 @@ def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDi
     idTool = osim.InverseDynamicsTool()
     idTool.setModel(model)
     idTool.setOutputGenForceFileName("inverse_dynamics.sto") # Output file name for the forces
-    idTool.setModelFileName(osim_modelPath) # model file name
-    idTool.setCoordinatesFileName(str(ik_output)) # coordinates file name
+    idTool.setModelFileName(os.path.relpath(osim_modelPath, start=os.path.dirname(setup_xml)))
+    idTool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(setup_xml)))
     idTool.setStartTime(motion.getFirstTime()) # Start time
     idTool.setEndTime(motion.getLastTime()) # end time
-    idTool.setExternalLoadsFileName(str(grf_xml)) # external loads file
+    idTool.setExternalLoadsFileName(os.path.relpath(grf_xml, start=os.path.dirname(setup_xml)))
     idTool.setResultsDir(resultsDir) # results directory 
     
     # Set lowpass filter frequency
