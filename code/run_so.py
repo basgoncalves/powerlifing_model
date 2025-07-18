@@ -61,7 +61,7 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, actuators, resultsDir):
     so.setEndTime(motion.getLastTime())
     so.setInDegrees(True)
     so.setUseMusclePhysiology(True)
-    so.setUseModelForceSet(False)
+    so.setUseModelForceSet(True)
     
     # Create analyze tool for static optimization
     so_analyze_tool = osim.AnalyzeTool()
