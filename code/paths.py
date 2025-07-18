@@ -168,7 +168,7 @@ class Models(Analysis):
         self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
         self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_3.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_3.00.osim')
+        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_20.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
