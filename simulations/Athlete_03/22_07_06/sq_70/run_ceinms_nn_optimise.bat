@@ -6,6 +6,8 @@ set "SCRIPT_DIR=%~dp0"
 
 echo Script directory is: "%SCRIPT_DIR%"
 
+cd /d "%SCRIPT_DIR%"
+
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
 set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
 
@@ -47,8 +49,8 @@ rem Construct and display the command
 set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
 echo Running command: %COMMAND%
 
-rem Run the command
-%COMMAND%
+rem Run the command without printing any output
+%COMMAND% >nul 2>&1
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (

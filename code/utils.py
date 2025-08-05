@@ -8,7 +8,7 @@ import pandas as pd
 import sys
 import pandas as pd
 import re
-# import c3d
+import c3d
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
@@ -110,51 +110,6 @@ def load_trc(path=None, output=0):
         data = pd.read_csv(path, sep= '\s+', header=i+1, index_col=False)
         # add the headers to the DataFrame above the data
         data.columns = headers
-        
-    except Exception as e:
-        print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
-        print(f"Details: {e}")
-        return None
-
-    if output == 1: print(data.columns)
-
-    return data
-
-def load_mot(path=None, output=0):
-    """
-    Load a .mot file into a pandas DataFrame.
-
-    Args:
-        path (str): The path to the .mot file. If None, prompts for input.
-        output (int): If 1, prints the columns of the DataFrame.
-
-    Returns:
-        pd.DataFrame: The loaded data from the .mot file.
-    """
-    
-    if not check_path(path):
-        path = input("Please provide the path to the .mot file: ")
-
-    # find line with 'endheader' to skip the header
-    try:
-        with open(path, 'r') as file:
-            for i, line in enumerate(file):
-                if 'endheader' in line:
-                        break
-    except:
-        print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        return None
-    
-    # read the file into a pandas DataFrame, skipping the header
-    try:
-        if path.endswith('.sto'):
-            data = pd.read_csv(path, sep= '\s+', header=i+1)
-        else:
-            data = pd.read_csv(path, sep= '\s+', header=i-1)
-        
-        # check if header is non numeric or empty
-        if data.columns[0].isdigit() or data.columns[0] == '':
-            print(f"Warning: The first column of the file {path} is numeric or empty. This may cause issues with the data structure.")
         
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
@@ -318,7 +273,7 @@ def load_any_data_file(file_path):
         return load_trc(file_path)
     
     elif file_path.endswith('.mot'):
-        return load_mot(file_path)
+        return load_sto(file_path)
     
     elif file_path.endswith('.sto'):
         return load_sto(file_path)
@@ -472,7 +427,6 @@ def save_pretty_xml(tree, save_path):
                 file.write(pretty_xml_no_blanks)
 
 # opensim 
-
 def select_osim_file():
     root = tk.Tk()
     root.withdraw()
@@ -732,7 +686,6 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
 
     return momentArmsAreWrong,  discontinuity, muscle_action
 
-
 # User selects a factor to increase the max isometric force of muscles
 def get_factor():
     root = tk.Tk()
@@ -777,10 +730,7 @@ def increase_muscle_force(osim_file=None, factor=None, save_path=None):
     model.printToXML(new_file)
     messagebox.showinfo("Done", f"Saved new model to:\n{new_file}")
 
-
-
 # plotting
-
 def save_fig(fig, save_path):
     """Saves the figure to the specified path."""
     if not os.path.exists(os.path.dirname(save_path)):
@@ -868,7 +818,6 @@ def get_unique_names(paths):
         unique_names.append(unique)
     return unique_names
 
-
 def create_color_and_style_dict(labels):
     """Creates a color and style dictionary based on unique labels.
     Args:
@@ -899,7 +848,31 @@ def create_color_and_style_dict(labels):
             style_dict[label] = '-'
     return color_dict, style_dict
 
+# dir manipulation
+def rename_all_files_in_dir(dir_path, old_str, new_str):
+    """
+    Renames all files in the specified directory by replacing old_str with new_str in their names.
+    
+    Args:
+        dir_path (str): The path to the directory containing the files.
+        old_str (str): The substring to be replaced in the file names.
+        new_str (str): The substring to replace old_str with.
+    """
+    if not os.path.isdir(dir_path):
+        raise ValueError(f"The provided path '{dir_path}' is not a valid directory.")
+    
+    for filename in os.listdir(dir_path):
+        if old_str in filename:
+            new_filename = filename.replace(old_str, new_str)
+            try:
+                os.rename(os.path.join(dir_path, filename), os.path.join(dir_path, new_filename))
+                print(f"Renamed '{filename}' to '{new_filename}'")
+            except Exception as e:
+                print(f"Error renaming '{filename}': {e}")
+
 if __name__ == "__main__":
+    
+    # Command line interface for the utils module
     if len(sys.argv) > 1:
         # Use arguments from the command line
         command = sys.argv[1]
@@ -961,7 +934,22 @@ if __name__ == "__main__":
                 print(f"Calculated rows: {nrows}, columns: {ncols} for {n_subplots} subplots.")
             else:
                 print("Please provide the number of subplots. Example: python utils.py calculate_nRows_nCols 9")
-
+        elif command == "increase_muscle_force":
+            if len(sys.argv) > 2:
+                osim_file = sys.argv[2]
+                factor = float(sys.argv[3]) if len(sys.argv) > 3 else None
+                save_path = sys.argv[4] if len(sys.argv) > 4 else None
+                increase_muscle_force(osim_file, factor, save_path)
+            else:
+                print("Please provide the OpenSim model file path and optionally a factor and save path. Example: python utils.py increase_muscle_force path/to/model.osim 1.2 path/to/save.osim")
+        elif command == "rename_all_files_in_dir":
+            if len(sys.argv) > 4:
+                dir_path = sys.argv[2]
+                old_str = sys.argv[3]
+                new_str = sys.argv[4]
+                rename_all_files_in_dir(dir_path, old_str, new_str)
+            else:
+                print("Please provide the directory path, old string, and new string. Example: python utils.py rename_all_files_in_dir path/to/dir old_string new_string")
         else:
             print(f"Unknown command: {command}")
 # END

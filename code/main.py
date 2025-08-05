@@ -9,7 +9,7 @@ import run_emg_normalise
 def main(trial: paths.Trial, replace: bool = False):
 
     # 2. Run IK
-    if True:
+    if False:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -29,7 +29,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
     # 3. Run ID
-    if True:
+    if False:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -51,7 +51,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if True:
+    if False:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -67,7 +67,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4b Check moment arms
-    if True:
+    if False:
 
         utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                     ik_output=trial.outputFiles['IK'].abspath(),
@@ -82,7 +82,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
 
     # 5. Run Static Optimization
-    if True:
+    if False:
 
         try:
             # Check if the Static Optimization output file exists
@@ -102,7 +102,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 6 run Joint Reaction Analysis
-    if True:
+    if False:
         if True:
 
             try:
@@ -145,6 +145,22 @@ def main(trial: paths.Trial, replace: bool = False):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
+    # Create excitation generator file
+    if True:
+        utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
+        try:
+            #breakpoint()  # This will pause the execution for debugging
+            save_path = trial.path + '\\' + 'excitationGenerator.xml'
+            settings = paths.Settings()
+            settings._create_excitation_generator(save_path=save_path,
+                                                    replace=True)
+            utils.print_to_log(f'Excitation generator file created successfully: {save_path}')
+            
+        except Exception as e:
+            utils.print_to_log(f'Error creating excitation generator file: {e}')
+    
+    
+    
     # 6. Run CEINMS calibration and optimization
     if False:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
@@ -161,11 +177,13 @@ if __name__ == "__main__":
     
     start_time = time.time()
     settings = paths.Settings()
+    settings._print()
 
     analysis = paths.Analysis()
     trial_list = settings.TRIAL_TO_ANALYSE
 
     sessions_to_skip = ['25_03_31']
+    analysis.subject_list = settings.SUBJECTS_TO_ANALYSE
 
     for subject in analysis.subject_list:
         session_list = analysis.get_subject(subject).SESSIONS
@@ -176,7 +194,7 @@ if __name__ == "__main__":
                 continue
 
             for trial in session.TRIALS:
-                trial.copy_inputs_to_trial(replace=True)
+                # trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
@@ -191,5 +209,5 @@ if __name__ == "__main__":
 
     end_time = time.time()
     elapsed_time = end_time - start_time
-    utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds")
+    utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds \n \n")
     exit()

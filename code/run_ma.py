@@ -72,9 +72,9 @@ if __name__ == '__main__':
     
     sessions_to_skip = ['25_03_31']
     
-    subject = 'Athlete_03'
-    session = '22_07_06'
-    trial_name = 'dl_75'
+    subject = 'KAtya_01'
+    session = 'session1'
+    trial_name = 'files_in_run01'
     
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
     trial.copy_inputs_to_trial(replace=False)

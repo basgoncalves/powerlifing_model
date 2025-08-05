@@ -37,7 +37,7 @@ import opensim as osim
 #           grf.mot
 #           EMG_filtered.sto
 #           externalloads.xml
-# %%
+# %% CODE 
 
 CODE, _ = utils.check_path(os.path.dirname(__file__))
 SETUP_DIR, _ = utils.check_path(os.path.join(CODE, 'SetupFiles\Purzel'), isdir=True)
@@ -48,9 +48,12 @@ MODELS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'models'), isdir
 SIMULATION_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'simulations'), isdir=True)
 RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isdir=True)
 
+# Setting for 
 class Settings():
     def __init__(self):
-        self.TRIAL_TO_ANALYSE = ['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        
+        self.SUBJECTS_TO_ANALYSE =  ['Katya_01']# ['Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+        self.TRIAL_TO_ANALYSE =  ['files_in_run01']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
@@ -104,6 +107,42 @@ class Settings():
                             'MuscleForces_inputData': 'Sum'}
                         }
 
+    def _print(self):
+        print("Settings:")
+        print(f"Subjects to analyse: {self.SUBJECTS_TO_ANALYSE}")
+        print(f"Trials to analyse: {self.TRIAL_TO_ANALYSE}")
+        print(f"DOFs: {self.DOFs}")
+        print(f"Muscle Groups: {self.Muscle_Groups}")
+        print(f"JCF Groups: {self.JCF_Groups}")
+        print(f"EMG Muscle Mapping: {self.EMG_muscle_mapping}")
+
+    def _create_excitation_generator(self, save_path=None, replace: bool = False):
+        """Create the excitation generator file for CEINMS."""
+        if save_path is None:
+            print("No save path provided for excitation generator.")
+            return
+        
+        if not os.path.exists(save_path) or replace:
+            print(f"Creating excitation generator at {save_path}")
+            muscle_list = self.EMG_muscle_mapping.keys()
+            # Create the excitation generator file
+            with open(save_path, 'w') as f:
+                f.write('<?xml version="1.0" ?>\n')
+                f.write('<excitationGenerator>\n')
+                f.write('   <inputSignals type="EMG">')
+                f.write(' '.join(muscle_list))
+                f.write('</inputSignals>\n')
+                f.write('   <mapping>\n')
+                for muscle in muscle_list:
+                    f.write(f'      <excitation id="{muscle}"/>\n')
+                f.write('   </mapping>\n')
+                f.write('</excitationGenerator>\n')
+
+            print(f"Excitation generator created at {save_path}")
+            
+        else:
+            print(f"Excitation generator already exists at {save_path}. No changes made.")
+            
 class Session():
     def __init__(self, subject_name, session_name):
         self.subject = subject_name
@@ -400,7 +439,7 @@ class Trial():
     def fullpath(self, filename):
         return os.path.join(self.path, filename)
     
-    
+#%% IF MAIN
 if __name__ == "__main__":
     
     settings = Settings()
