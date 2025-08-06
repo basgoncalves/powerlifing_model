@@ -55,6 +55,28 @@ class Settings():
         self.SUBJECTS_TO_ANALYSE =  ['Katya_01']# ['Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
         self.TRIAL_TO_ANALYSE =  ['files_in_run01']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
+        self.C3D_FILE = 'c3dfile.c3d'
+        self.EMG = 'EMG.to'
+        self.EMG_FILTERED = 'EMG_filtered.sto'
+        self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
+        self.GRF_MOT = 'grf.mot'
+        self.GRF_XML = 'externalloads.xml'
+        self.MARKER_FILE = 'marker_experimental.trc'
+        self.EVENTS_FILE = 'events.csv'
+        self.ACTUATORS_SO = 'actuators_so.xml'
+        self.CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
+        self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
+        self.CEINMS_INPUT_DATA = 'inputData.xml'
+        self.CEINMS_RUN_OPTIMISE_BAT = 'run_ceinms_nn_optimise.bat'
+        self.CEINMS_RUN_CALIBRATION_BAT = 'run_ceinms_nn_calibrate.bat'
+        self.SETUP_IK = 'setup_IK.xml'
+        self.SETUP_ID = 'setup_ID.xml'
+        self.SETUP_GRF = 'externalloads.xml'
+        self.SETUP_MA = 'setup_MA.xml'
+        self.SETUP_SO = 'setup_SO.xml'
+        self.SETUP_JRA = 'setup_JRA.xml'
+        self.SETUP_CEINMS = 'setup_ceinms.xml'
+        
         self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
                      'hip_adduction_l', 'hip_adduction_r',
                      'hip_rotation_l', 'hip_rotation_r',
@@ -197,7 +219,10 @@ class Analysis():
         else:
             for subj in self.SUBJECTS:
                 if subj.name == subject_name:
+                    breakpoint()
                     return subj
+            
+            return None  # Subject not found
     
 class Models(Analysis):
     def __init__(self, subject_name='Athlete_03'):
@@ -230,11 +255,18 @@ class Trial():
     def __init__(self, subject_name, session_name, trial_name):
         
         self.subject = subject_name
+        # handle if session name is int
+        if isinstance(session_name, int):
+            breakpoint()
+            subject = Analysis().get_subject(subject_name)
+            session_name = subject.SESSIONS[session_name].name
+             
         self.session = session_name
         self.name = trial_name
         self.path = os.path.join(SIMULATION_DIR, self.subject, self.session, self.name)
         
-        models = Models(subject_name)
+        models = Models(subject_name=subject_name)
+        settings = Settings()
         
         # Edit model paths below
         if subject_name.lower().__contains__('mri'):  
@@ -243,17 +275,17 @@ class Trial():
             self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
         
         self.inputFiles = {
-            'C3D': Step(function=None, setup=None, output='c3dfile.c3d', parentdir=self.path),
-            'MARKERS': Step(function=None, setup=None, output='marker_experimental.trc', parentdir=self.path),
-            'EMG_MOT': Step(function=None, setup=None, output='EMG_filtered.sto', parentdir=self.path),
-            'EMG_MOT_NORMALISED': Step(function=None, setup=None, output='EMG_filtered_normalised.sto', parentdir=self.path),
-            'GRF_MOT': Step(function=None, setup=None, output='grf.mot', parentdir=self.path),
-            'GRF_XML': Step(function=None, setup=None, output='externalloads.xml', parentdir=self.path),
-            'EVENTS': Step(function=None, setup=None, output='events.csv', parentdir=self.path),
-            'ACTUATORS_SO': Step(function=None, setup=None, output='actuators_so.xml', parentdir=self.path),
-            'CALIBRATION_CFG': Step(function=None, setup=None, output='../calibrationCfg_ceinms-nn_hybrid.xml', parentdir=self.path),
-            'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output='../excitationGenerator.xml', parentdir=self.path),
-            'CEINMS_INPUT_DATA': Step(function=None, setup=None, output='inputData.xml', parentdir=self.path),
+            'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),
+            'MARKERS': Step(function=None, setup=None, output=settings.MARKER_FILE, parentdir=self.path),
+            'EMG_MOT': Step(function=None, setup=None, output=settings.EMG_FILTERED, parentdir=self.path),
+            'EMG_MOT_NORMALISED': Step(function=None, setup=None, output=settings.EMG_NORMALISED, parentdir=self.path),
+            'GRF_MOT': Step(function=None, setup=None, output=settings.GRF_MOT, parentdir=self.path),
+            'GRF_XML': Step(function=None, setup=None, output=settings.GRF_XML, parentdir=self.path),
+            'EVENTS': Step(function=None, setup=None, output=settings.EVENTS_FILE, parentdir=self.path),
+            'ACTUATORS_SO': Step(function=None, setup=None, output=settings.ACTUATORS_SO, parentdir=self.path),
+            'CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CALIBRATION_CFG, parentdir=self.path),
+            'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.path),
+            'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
             'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),
         }
 
@@ -275,6 +307,8 @@ class Trial():
                                         parentdir=self.path),
         }
         
+        # Try getting events from csv file
+        self.TIME_RANGE = None
         try:
             events_path = os.path.join(self.path, self.inputFiles['EVENTS'].output)
             events = pd.read_csv(events_path, index_col=0, header=None)
@@ -352,6 +386,9 @@ class Trial():
             print(f"Task: {task.getName()}, Apply: {task.getApply()}, Weight: {task.getWeight()}")
         
         return ikTool
+
+    def export_c3d(self):
+        pass
 
     def run_ik(self, osim_modelPath: str = None,
                marker_trc: str = None,
