@@ -1,0 +1,262 @@
+<OpenSimDocument Version="40500">
+	<InverseKinematicsTool name="IK_half_cycle">
+		
+		<results_directory>.</results_directory>
+		
+		<model_file>..\../001/P01/model_update/5_optimised\P01_pers.osim</model_file>
+		
+		<time_range>0.136 0.742</time_range>
+		
+		<output_motion_file>IK_half_cycle.mot</output_motion_file>
+		
+		<IKTaskSet>
+			<objects>
+				<IKMarkerTask name="C7">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RBAK">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="CLAV">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="STRN">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="T10">
+					
+					<apply>true</apply>
+					
+					<weight>0.10000000000000001</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RASI">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RPSI">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LPSI">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LASI">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="PE01">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="PE02">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="PE03">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTH1">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTH2">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTH3">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RGT">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RKNE">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RMKNE">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTH1">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTH2">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTH3">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LGT">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LKNE">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LMKNE">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTB1">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTB2">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTB3">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RANK">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RMMA">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTB1">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTB2">
+					
+					<apply>true</apply>
+					
+					<weight>5</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTB3">
+					
+					<apply>true</apply>
+					
+					<weight>0.10000000000000001</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LANK">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LMMA">
+					
+					<apply>false</apply>
+					
+					<weight>0</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RHEE">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RD5M">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="RTOE">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LHEE">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LD5M">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+				<IKMarkerTask name="LTOE">
+					
+					<apply>true</apply>
+					
+					<weight>1</weight>
+				</IKMarkerTask>
+			</objects>
+			<groups />
+		</IKTaskSet>
+		
+		<marker_file>.\filtered_trc.trc</marker_file>
+		
+		<coordinate_file>Unassigned</coordinate_file>
+	</InverseKinematicsTool>
+</OpenSimDocument>

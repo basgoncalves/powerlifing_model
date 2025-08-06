@@ -2,7 +2,7 @@
 <calibration>
    <optimiser>
       <debug>true</debug>
-      <hybridCalibration>false</hybridCalibration>
+      <hybridCalibration>true</hybridCalibration>
       <learningRate>0.02</learningRate>
       <maxIterations>1000</maxIterations>
       <earlyStopping>
@@ -13,6 +13,7 @@
          <decay>0.99</decay>
          <minLearningRate>0.0001</minLearningRate>
       </learningRateDecay> -->
+      <numberOfSynergies>4</numberOfSynergies>
    </optimiser>
    <tendon>elastic</tendon>
    <calibrationTargets>
@@ -57,6 +58,17 @@
             <weight>1000</weight>
             <exponent>2</exponent>
             <range>0. 0.5</range>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>ExcitationsSquared</name>
+            <weight>1</weight>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>SynergyExtraction</name>
+            <mseWeight>100</mseWeight>
+            <range>0. 1.</range>
+            <rangeExponent>2</rangeExponent>
+            <rangeWeight>1000</rangeWeight>
          </objectiveFunction>
       </objectiveFunctions>
       <muscles>all</muscles>
