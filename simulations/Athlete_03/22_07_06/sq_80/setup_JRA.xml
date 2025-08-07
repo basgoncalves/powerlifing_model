@@ -40,7 +40,7 @@
 					<!--Flag (true or false) indicating whether the results are in degrees or not.-->
 					<in_degrees>true</in_degrees>
 					<!--The name of a file containing forces storage. If a file name is provided, the forces for all actuators will be applied according to values specified in the forces_file instead of being computed from the states. This option should be used to calculate joint reactions from static optimization results.-->
-					<forces_file>SO_StaticOptimization_force.sto</forces_file>
+					<forces_file>c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\SO_StaticOptimization_force.sto</forces_file>
 					<!--Names of the joints on which to perform the analysis. The key word 'All' indicates that the analysis should be performed for all joints.-->
 					<joint_names> all</joint_names>
 					<!--Choice of body ('parent' or 'child') for which the reaction loads are calculated. Child body is default. The array must either have one entry or the same number of entries as joints specified above. If the array has one entry only, that selection is applied to all chosen joints.-->

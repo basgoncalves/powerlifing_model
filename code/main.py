@@ -108,12 +108,12 @@ def main(trial: paths.Trial, replace: bool = False):
             try:
                 utils.print_to_log(f'Running JRA on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
                 # breakpoint()
-                run_jra.run_jra(modelpath=trial.USED_MODEL,
+                run_jra.main(modelpath=trial.USED_MODEL,
                                 coordinates_file = trial.outputFiles['IK'].abspath(),
                                 externalloadsfile = trial.inputFiles['GRF_XML'].abspath(),
                                 setupJRA = trial.path + '\\' + trial.outputFiles['JRA'].setup,
                                 actuators=None,
-                                muscle_forces = trial.outputFiles['FORCES_SO'].abspath(),
+                                muscle_force_path=trial.outputFiles['FORCES_SO'].abspath(),
                                 results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath()))
 
                 ouput_files = trial.outputFiles['JRA'].abspath()

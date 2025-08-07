@@ -10,6 +10,4 @@ setup_path = os.path.join(basedir, subject, session, trial, 'setup_SO.xml')
 
 tool = osim.AnalyzeTool(setup_path)
 os.chdir(os.path.dirname(setup_path))
-# tool.run()
-
-osim.StaticOptimization().run()
+tool.run()
