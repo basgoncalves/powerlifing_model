@@ -6,8 +6,13 @@ import matplotlib.pyplot as plt
 import paths
 
 if __name__ == '__main__':
-    osim_modelPath = paths.USED_MODEL
-    ik_mot = paths.IK_OUTPUT
+    
+    subject = 'Katya_01'
+    session = 'session1'
+    trial_name = 'files_in_run01'
+    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
+    
+    
 
     utils.print_to_log(f'Checking muscle moment arms for: {paths.SUBJECT} / {paths.TRIAL_NAME} / {osim_modelPath}')
 

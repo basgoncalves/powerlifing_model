@@ -49,8 +49,8 @@ rem Construct and display the command
 set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
 echo Running command: %COMMAND%
 
-rem Run the command
-%COMMAND%
+rem Run the command without printing any output
+%COMMAND% >nul 2>&1
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (

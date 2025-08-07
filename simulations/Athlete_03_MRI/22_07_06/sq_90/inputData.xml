@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <inputData>
    <muscleTendonLengthFile>./muscleAnalysis/_MuscleAnalysis_Length.sto</muscleTendonLengthFile>
-   <excitationsFile>EMG_filtered.sto</excitationsFile>
+   <excitationsFile>EMG_filtered_normalised.sto</excitationsFile>
    <momentArmsFiles>
       <momentArmsFile dofName="ankle_angle_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_l.sto</momentArmsFile>
       <momentArmsFile dofName="ankle_angle_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_r.sto</momentArmsFile>
@@ -17,5 +17,5 @@
    <externalTorquesFile>inverse_dynamics.sto</externalTorquesFile>
    <motionFile>joint_angles.mot</motionFile>
    <externalLoadsFile>externalloads.xml</externalLoadsFile>
-   <startStopTime>2.295 6.225</startStopTime>
+   <startStopTime>3.6000000000000001 5.9699999999999998</startStopTime>
 </inputData>

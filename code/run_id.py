@@ -73,16 +73,26 @@ def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDi
 if __name__ == '__main__':
    
     base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03_MRI'  # Replace with actual subject name
+    subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'sq_90'  # Replace with actual trial name
+    trial = 'dl_70'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+
+    setup_xml = os.path.join(trial.path, trial.outputFiles['ID'].setup)
+    if not os.path.exists(setup_xml):
+        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.outputFiles['ID'].setup), 
+                        dst=setup_xml)
+        
     osim_modelPath = trial.USED_MODEL
     ik_mot = trial.outputFiles['IK'].abspath()
     setup_id = trial.path + '\\' + trial.outputFiles['ID'].setup
     grf_xml = trial.inputFiles['GRF_XML'].abspath()
+
+    if not os.path.exists(grf_xml):
+        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.inputFiles['GRF_XML'].output), 
+                        dst=grf_xml)
     
     main(osim_modelPath=osim_modelPath,
             ik_output=ik_mot,

@@ -1,4 +1,5 @@
 import os
+import time
 import paths
 import shutil
 import utils
@@ -67,7 +68,7 @@ def main(trial: paths.Trial, replace: bool = False):
 
     # 4b Check moment arms
     if False:
-        utils.print_to_log(f'Checking muscle moment arms for model: {trial.USED_MODEL}')
+
         utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                     ik_output=trial.outputFiles['IK'].abspath(),
                                     leg='l',
@@ -81,11 +82,12 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
 
     # 5. Run Static Optimization
-    if True:
+    if False:
 
         try:
             # Check if the Static Optimization output file exists
             if not os.path.exists(trial.outputFiles['SO'].abspath()) or replace:
+
                 run_so.main(osim_modelPath=trial.USED_MODEL,
                             ik_output=trial.outputFiles['IK'].abspath(),
                             grf_xml=trial.inputFiles['GRF_XML'].abspath(),
@@ -98,9 +100,6 @@ def main(trial: paths.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
             exit()
-
-        ouput_files = trial.outputFiles['SO'].abspath()
-        utils.print_to_log(f'Static Optimization completed. Results are saved in {ouput_files}')
 
     # 6 run Joint Reaction Analysis
     if False:
@@ -118,7 +117,7 @@ def main(trial: paths.Trial, replace: bool = False):
                                 results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath()))
 
                 ouput_files = trial.outputFiles['JRA'].abspath()
-                utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {ouput_files}')
+                utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {ouput_files}')
 
             except Exception as e:
                 utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
@@ -128,7 +127,7 @@ def main(trial: paths.Trial, replace: bool = False):
                                 setupJRA=trial.SETUP_JRA)
 
     # Normalise EMG data
-    if True:
+    if False:
         
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
@@ -146,6 +145,22 @@ def main(trial: paths.Trial, replace: bool = False):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
+    # Create excitation generator file
+    if True:
+        utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
+        try:
+            #breakpoint()  # This will pause the execution for debugging
+            save_path = trial.path + '\\' + 'excitationGenerator.xml'
+            settings = paths.Settings()
+            settings._create_excitation_generator(save_path=save_path,
+                                                    replace=True)
+            utils.print_to_log(f'Excitation generator file created successfully: {save_path}')
+            
+        except Exception as e:
+            utils.print_to_log(f'Error creating excitation generator file: {e}')
+    
+    
+    
     # 6. Run CEINMS calibration and optimization
     if False:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
@@ -159,22 +174,27 @@ def main(trial: paths.Trial, replace: bool = False):
 
 if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
-
+    
+    start_time = time.time()
     settings = paths.Settings()
+    settings._print()
+
     analysis = paths.Analysis()
     trial_list = settings.TRIAL_TO_ANALYSE
 
     sessions_to_skip = ['25_03_31']
+    analysis.subject_list = settings.SUBJECTS_TO_ANALYSE
 
     for subject in analysis.subject_list:
         session_list = analysis.get_subject(subject).SESSIONS
 
         for session in session_list:
+
             if session.name in sessions_to_skip:
                 continue
 
             for trial in session.TRIALS:
-                trial.copy_inputs_to_trial(replace=False)
+                # trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
@@ -186,3 +206,8 @@ if __name__ == "__main__":
                 #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
+
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds \n \n")
+    exit()

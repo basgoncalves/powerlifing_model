@@ -1,0 +1,44 @@
+[2025-07-18 18:57:38.440] [info] Loaded model Athlete_03_scaled_updated_masses from file c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\models\Athlete_03_linearly_scaled_scaledMasses_increased_10.00.osim
+[2025-07-18 18:57:39.651] [cout] [info] 
+               MODEL: Athlete_03_scaled_updated_masses
+         coordinates: 26
+              forces: 80
+           actuators: 80
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 14
+              joints: 14
+         constraints: 2
+             markers: 33
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-18 18:57:39.652] [info] Running tool .
+[2025-07-18 18:57:39.766] [error] InverseKinematicsTool Failed: SimTK Exception thrown at InverseKinematicsTool.cpp:158:
+  Internal bug detected: InverseKinematicsTool final time (7.980000) is before start time (15.170000).
+  (Assertion 'final_time >= start_time' failed).
+  Please file an Issue at https://github.com/simbody/simbody/issues.
+  Include the above information and anything else needed to reproduce the problem.
+[2025-07-18 18:58:31.724] [info] Loaded model Athlete_03_scaled_updated_masses from file c:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\models\Athlete_03_linearly_scaled_scaledMasses_increased_10.00.osim
+[2025-07-18 18:59:14.332] [cout] [info] 
+               MODEL: Athlete_03_scaled_updated_masses
+         coordinates: 26
+              forces: 80
+           actuators: 80
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 14
+              joints: 14
+         constraints: 2
+             markers: 33
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-18 18:59:14.333] [info] Running tool .
+[2025-07-18 18:59:14.452] [error] InverseKinematicsTool Failed: SimTK Exception thrown at InverseKinematicsTool.cpp:158:
+  Internal bug detected: InverseKinematicsTool final time (7.980000) is before start time (15.170000).
+  (Assertion 'final_time >= start_time' failed).
+  Please file an Issue at https://github.com/simbody/simbody/issues.
+  Include the above information and anything else needed to reproduce the problem.

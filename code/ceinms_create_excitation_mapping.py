@@ -19,6 +19,31 @@ def save_pretty_xml(element, file_path):
     pretty_xml_as_string = dom.toprettyxml(indent="  ")
     with open(file_path, 'w') as f:
         f.write(pretty_xml_as_string)
+        
+def best_match(list1, list2):
+    """
+    Find the best match for each item in list1 from list2 using fuzzy matching.
+    
+    Args:
+        list1 (list): List of items to match.
+        list2 (list): List of items to match against.
+        
+    Returns:
+        dict: A dictionary with items from list1 as keys and their best matches from list2 as values.
+    """
+    matches = {}
+    for item in list1:
+        match_score = 0
+        for item2 in list2:
+            # Simple manual string similarity: ratio of matching characters to max length
+            matches_count = sum(1 for a, b in zip(item.lower(), item2.lower()) if a == b)
+            match_score = matches_count / max(len(item), len(item2))
+            if match_score > 0.3:
+                matches[item] = item2
+                break
+            else:
+                matches[item] = None
+    return matches
 
 def create_excitation_mapping(osim_model_path, emg_path, save_path):
     """
@@ -35,7 +60,7 @@ def create_excitation_mapping(osim_model_path, emg_path, save_path):
     muscles = osim_model.getMuscles()
     muscle_list = [muscle.getName() for muscle in muscles]
     
-    emg_data = utils.load_mot(emg_path)
+    emg_data = utils.load_any_data_file(emg_path)
     emg_labels = emg_data.columns.tolist()
     
     if 'time' in emg_labels:
@@ -54,20 +79,16 @@ def create_excitation_mapping(osim_model_path, emg_path, save_path):
     # Add mapping element
     mapping = ET.SubElement(root, 'mapping')
 
-    muscle_dict = {}
+    best_matches = best_match(muscle_list, emg_labels)
     for muscle in muscle_list:
-        # use the fuzz library to find the best match for the muscle name in the EMG labels
-        best_match, score = process.extractBests(muscle, emg_labels)
-        breakpoint()
-        
-        # calculate the best match based on the string similarity simple without fuzz
-        
-        
-        muscle_dict[muscle] = best_match
-        excitation = ET.SubElement(mapping, 'excitation', {'id': muscle})
-        input_elem = ET.SubElement(excitation, 'input', {'weight': '1'})
-        input_elem.text = best_match  # Use the best match from EMG labels
-        
+        muscle_dict[muscle] = best_matches.get(muscle, None)
+        if muscle_dict[muscle] is None:
+            excitation = ET.SubElement(mapping, 'excitation', {'id': muscle})
+        else:
+            excitation = ET.SubElement(mapping, 'excitation', {'id': muscle})
+            input_elem = ET.SubElement(excitation, 'input', {'weight': '1'})
+            input_elem.text = muscle_dict[muscle]  # Use the best match from EMG labels
+
     # Write to XML file
     tree = ET.ElementTree(root)
     save_pretty_xml(root, save_path)
@@ -88,7 +109,16 @@ if __name__ == "__main__":
     time.sleep(1)
     
     # Example usage
-    osim_model_path = paths.SCALED_MODEL
-    emg_path = paths.EMG_MOT
-    save_path = paths.CEINMS_EXCITATION_MAPPING
+    subject_name = 'Katya_01'
+    session_name = 'session1'
+    trial_name = 'files_in_run01'
+
+    analysis = paths.Analysis()
+    
+    
+    trial = paths.Trial(subject_name=subject_name, session_name=session_name, trial_name=trial_name)
+    
+    osim_model_path = trial.path + '\\' + 'P01_pers.osim'
+    emg_path = trial.path + '\\' + 'filtered_emg.mot'
+    save_path = trial.path + '\\' + 'excitationGenerator.xml'
     create_excitation_mapping(osim_model_path, emg_path, save_path)

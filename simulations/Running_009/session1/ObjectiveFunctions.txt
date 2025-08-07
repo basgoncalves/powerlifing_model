@@ -1,0 +1,25 @@
+Standard
+- MomentError: joint moment tracking
+	- targets: list of DOF names or "all". Defaults to all if not provided
+	- weight
+- Penalty: penalises values outside of range (NOTE: tendonStrain is included when using elastic tendon)
+	- targetType: options: normalisedFibreLength, tendonStrain
+	- targets: list of muscle names or "all". Defaults to all if not provided
+	- weight
+	- exponent
+	- range
+
+Synergy-hybrid calibration specific
+- ExcitationsSquared: sum of excitations squared, similar to beta term in EMG-assisted NMS execution
+	- weight
+- SynergyExtraction: penalises synergy weighting and primitives outside of range and tracks the synergy reconstructed with the experimental excitations
+	- mseWeight: weight for the excitation tracking
+	- range: penalties range
+	- rangeExponent: penalties exponent
+	- rangeWeight: penalties weight
+
+Other
+- MaxSumPeak: minimises peak muscle forces
+	- targetType: options: forces
+	- weight
+	- exponent

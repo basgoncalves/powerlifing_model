@@ -1,4 +1,5 @@
 import os
+import shutil
 import time
 import opensim as osim
 import paths
@@ -13,7 +14,7 @@ def validate_markers_used(ikTool,markers_path):
     for task in task_set:
         if task.getName() in markers_list:
             task.setApply(True)
-            task.setWeight(1.0)
+            task.setWeight(task.getWeight())
         else:
             task.setApply(False)
         print(f"Task: {task.getName()}, Apply: {task.getApply()}, Weight: {task.getWeight()}")
@@ -71,15 +72,22 @@ def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resu
 
 if __name__ == '__main__':
     base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03_MRI'  # Replace with actual subject name
+    subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'sq_70'  # Replace with actual trial name
+    trial = 'dl_85'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+
+    setup_xml = os.path.join(trial.path, trial.outputFiles['IK'].setup)
+    if not os.path.exists(setup_xml):
+        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.outputFiles['IK'].setup), 
+                        dst=setup_xml)
+
+    # copy setup 
     osim_modelPath = trial.USED_MODEL
     ik_mot = trial.outputFiles['IK'].abspath()
-    setup_id = trial.path + '\\' + trial.outputFiles['ID'].setup
+    setup_id = trial.path + '\\' + trial.outputFiles['IK'].setup
     grf_xml = trial.inputFiles['GRF_XML'].abspath()
     
     main(osim_modelPath=osim_modelPath,
