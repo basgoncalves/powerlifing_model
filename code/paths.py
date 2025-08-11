@@ -37,7 +37,7 @@ import opensim as osim
 #           grf.mot
 #           EMG_filtered.sto
 #           externalloads.xml
-# %% CODE 
+# %% CODE and settings 
 
 CODE, _ = utils.check_path(os.path.dirname(__file__))
 SETUP_DIR, _ = utils.check_path(os.path.join(CODE, 'SetupFiles\Purzel'), isdir=True)

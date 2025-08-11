@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # Run CEINMS calibration
     try:
         utils.print_to_log(f'Running CEINMS calibration on {paths.SUBJECT} / {paths.TRIAL_NAME}')
-        main(paths.CEINMS_SETUP_CALIBRATION)    
+        main(paths.)    
     except Exception as e:
         print(f"Error during CEINMS calibration: {e}")
         utils.print_to_log(f'{time.time()}: Error during CEINMS calibration: {e}')
