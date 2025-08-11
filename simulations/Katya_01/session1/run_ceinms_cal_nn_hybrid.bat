@@ -3,7 +3,7 @@ setlocal
 
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
-set "CODE_DIR=%SCRIPT_DIR%..\..\..\..\code"
+set "CODE_DIR=%SCRIPT_DIR%..\..\..\code"
 set "EXECUTABLES_DIR=%CODE_DIR%\executables"
 
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
