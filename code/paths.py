@@ -52,23 +52,26 @@ RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isd
 class Settings():
     def __init__(self):
         
-        self.SUBJECTS_TO_ANALYSE =  ['Katya_01']# ['Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-        self.TRIAL_TO_ANALYSE =  ['files_in_run01']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
-        
+        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+        self.TRIAL_TO_ANALYSE =  ['dl_70_test']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+
         self.C3D_FILE = 'c3dfile.c3d'
-        self.EMG = 'EMG.to'
+        self.EMG = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
         self.GRF_XML = 'externalloads.xml'
-        self.MARKER_FILE = 'marker_experimental.trc'
+        self.MARKER_FILE = 'task.trc'
         self.EVENTS_FILE = 'events.csv'
         self.ACTUATORS_SO = 'actuators_so.xml'
-        self.CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
+        
+        self.CEINMS_CALIBRATION_SETUP = 'calibrationSetup_ceinms-nn_hybrid.xml'
+        self.CEINMS_CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
         self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
         self.CEINMS_INPUT_DATA = 'inputData.xml'
         self.CEINMS_RUN_OPTIMISE_BAT = 'run_ceinms_nn_optimise.bat'
         self.CEINMS_RUN_CALIBRATION_BAT = 'run_ceinms_nn_calibrate.bat'
+        
         self.SETUP_IK = 'setup_IK.xml'
         self.SETUP_ID = 'setup_ID.xml'
         self.SETUP_GRF = 'externalloads.xml'
@@ -283,7 +286,8 @@ class Trial():
             'GRF_XML': Step(function=None, setup=None, output=settings.GRF_XML, parentdir=self.path),
             'EVENTS': Step(function=None, setup=None, output=settings.EVENTS_FILE, parentdir=self.path),
             'ACTUATORS_SO': Step(function=None, setup=None, output=settings.ACTUATORS_SO, parentdir=self.path),
-            'CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CALIBRATION_CFG, parentdir=self.path),
+            'CEINMS_CALIBRATION_SETUP': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_SETUP, parentdir=self.path),
+            'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.path),
             'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.path),
             'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
             'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),

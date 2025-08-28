@@ -63,19 +63,19 @@ def main(ceinms_exe, optimise_setup=None):
 if __name__ == "__main__":
     
     start_time = time.time()
-     
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    ceinms_exe = os.path.join(current_dir, 'CEINMSoptimise.exe')
+    ceinms_setup = os.path.dirname(current_dir) + '\\simulations\\Running_009\\session1\\runA1\\setup_optimise_ceinms.xml'
+
     # Run CEINMS optimise
     try:
-        utils.print_to_log(f'Running CEINMS optimise on {paths.SUBJECT} / {paths.TRIAL_NAME}')
-        
-        main(ceinms_exe=paths.CEINMS_OPTIMISE_EXE, 
-             optimise_setup=paths.CEINMS_SETUP_OPTIMISE)
-            
+        main(ceinms_exe=ceinms_exe,
+             optimise_setup=ceinms_setup)
+
     except Exception as e:
         print(f"Error during CEINMS optimise: {e}")
-        utils.print_to_log(f'{time.time()}: Error during CEINMS optimise: {e}')
         raise (f"CEINMS optimise failed: {e}")
     
     print("CEINMS optimise completed successfully.")
     message = f"Execution time: {time.time() - start_time:.2f} seconds"
-    utils.print_to_log(f'CEINMS optimise completed successfully. {message}')
+    print(f'CEINMS optimise completed successfully. {message}')

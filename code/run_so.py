@@ -112,7 +112,7 @@ if __name__ == '__main__':
     base_dir = paths.SIMULATION_DIR
     subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'dl_70'  # Replace with actual trial name
+    trial = 'dl_70_test'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)

@@ -56,7 +56,7 @@ def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resu
     
     # Set the output motion file name relative to the results directory
     ikTool.setResultsDir('./')
-    ikTool.setOutputMotionFileName(ik_output)
+    ikTool.setOutputMotionFileName(os.path.relpath(ik_output, resultsDir))
     ikTool.printToXML(setup_xml)
     print(f"Inverse Kinematics setup saved to {setup_xml}")
     time.sleep(1)  # Optional: wait for a second before running the tool
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     base_dir = paths.SIMULATION_DIR
     subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'dl_85'  # Replace with actual trial name
+    trial = 'dl_70_test'  # Replace with actual trial name
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
@@ -87,13 +87,12 @@ if __name__ == '__main__':
     # copy setup 
     osim_modelPath = trial.USED_MODEL
     ik_mot = trial.outputFiles['IK'].abspath()
-    setup_id = trial.path + '\\' + trial.outputFiles['IK'].setup
-    grf_xml = trial.inputFiles['GRF_XML'].abspath()
+    setup_xml = trial.path + '\\' + trial.outputFiles['IK'].setup
     
     main(osim_modelPath=osim_modelPath,
             marker_trc=trial.inputFiles['MARKERS'].abspath(),
             ik_output=ik_mot,
-            setup_xml=setup_id,
+            setup_xml=setup_xml,
             time_range=trial.TIME_RANGE,
             resultsDir=trial.path)
     

@@ -9,6 +9,11 @@ start_time = time.time()
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = r"C:\Git\1_current_projects\powerlifing_model\simulations\Katya_01\session1\P01_pers.osim"
+calibration_cfg_file = r"C:\Git\1_current_projects\powerlifing_model\simulations\Katya_01\session1\calibrationCfg_ceinms-nn_hybrid.xml"
+
+number_of_values = 2 # values for the mom arm check 
+
+dofs = paths.Settings().DOFs
 
 # Load the model
 model = osim.Model(model_path)
@@ -34,8 +39,10 @@ for coord_name in coordinates:
     # Get coordinate range
     range_min = coord.getRangeMin()
     range_max = coord.getRangeMax()
-    # Sample 10 points in the range
-    values = np.linspace(range_min, range_max, 3)
+    
+    # Sample points in the range
+    values = np.linspace(range_min, range_max, number_of_values)
+    
     relevant_muscles = []
     for muscle_name in muscles:
         muscle = model.getMuscles().get(muscle_name)
@@ -63,7 +70,6 @@ with open(save_path, 'w') as f:
         f.write(",".join(row) + "\n")
 
 # load calibration cfg file
-calibration_cfg_file = r"C:\Git\1_current_projects\powerlifing_model\simulations\Katya_01\session1\calibrationCfg_ceinms-nn_hybrid.xml"
 calibration_cfg = utils.read_xml(calibration_cfg_file)
 muscleGroups = calibration_cfg.find("calibrationTargets/parametersToCalibrate/muscleGroups")
 
@@ -81,9 +87,13 @@ with open(save_path, 'w') as f:
         f.write(f"{coord}: {' '.join(muscle_list)}\n")
         print(f"{coord}: {', '.join(muscle_list)}")
         
+        if not muscle_list: continue
+
+        if coord not in  dofs: continue
+        
         # add tag for each muscle group
         muscle_group_tag = utils.ET.Element("muscles")
-        muscle_group_tag.set("text", " ".join(muscle_list))
+        muscle_group_tag.text = " ".join(muscle_list)
         muscleGroups.append(muscle_group_tag)
         
 # Save the updated calibration cfg file
@@ -96,3 +106,4 @@ print(f"Results saved to {save_path}")
 
 time_elapsed = time.time() - start_time
 print(f"Time elapsed: {time_elapsed:.2f} seconds")
+

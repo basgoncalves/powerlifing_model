@@ -47,8 +47,8 @@ rem Construct and display the command
 set "COMMAND="%CEINMS_CAL_EXE%" -S "%CALIBRATION_SETUP%""
 echo Running command: %COMMAND%
 
-rem Run the command
-%COMMAND%
+rem Run the command %COMMAND% >nul 2>nul
+%COMMAND% >nul 2>nul
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (
