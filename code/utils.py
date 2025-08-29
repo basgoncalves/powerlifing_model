@@ -380,21 +380,112 @@ def load_sto_header(file_path):
     
     return header
 
-def write_sto_file(data, file_path, header):
+def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
+    """
+    Write marker data (frames, n_markers, 3) to TRC.
+    """
+    
+    # remove time column
+    time = markers_df["time"]
+    markers_df = markers_df.drop(columns=["time"])
+    
+    num_frames = markers_df.shape[0]
+    marker_labels = markers_df.columns.droplevel(1).to_list()
+    
+    # only unique labels
+    marker_labels = list(dict.fromkeys(marker_labels))
+    n_markers = len(marker_labels)
+
+    with open(trc_file, "w") as writer:
+        # Header
+        writer.write(f"PathFileType\t4\t(X/Y/Z)\t{os.path.basename(writer.name)}\n")
+        writer.write("DataRate\tCameraRate\tNumFrames\tNumMarkers\tUnits\tOrigDataRate\tOrigDataStartFrame\tOrigNumFrames\n")
+        writer.write(f"{frame_rate}\t{frame_rate}\t{num_frames}\t{n_markers}\t{units}\t{frame_rate}\t{first_frame}\t{num_frames}\n")
+
+        # Marker names
+        header = "Frame#\tTime\t" + "\t".join([f"{name}\t\t" for name in marker_labels]) + "\n"
+        writer.write(header)
+
+        # Coordinate labels
+        coord_line = "\t\t" + "\t".join([f"X{i+1}\tY{i+1}\tZ{i+1}" for i in range(n_markers)]) + "\n"
+        writer.write(coord_line)
+
+        # Data rows
+        for i in range(num_frames):
+            frame_num = first_frame + i
+            time_val = time.iloc[i]
+            row = [f"{frame_num}", f"{time_val:.6f}"]
+            row.extend([f"{coord:.6f}" for coord in markers_df.iloc[i].values])
+            writer.write("\t".join(row) + "\n")
+
+def write_mot(analog_df, labels, mot_file):
+    """
+    Write analog data (samples, n_channels) to MOT.
+    
+    inputs:
+        labels: The labels for the analog channels.
+        analog_df: The DataFrame containing the analog data.
+        
+    """
+    
+    # make sure labels include time
+    labels = ['time'] + labels
+
+    # Crop dataframe to include only labels
+    analog_df = analog_df[labels]
+    num_samples, num_columns = analog_df.shape
+    
+    # create writer
+    with open(mot_file, "w") as writer:
+        # Header
+        writer.write(f"{os.path.basename(writer.name)}\n")
+        writer.write("version=1\n")
+        writer.write(f"nRows={num_samples}\n")
+        writer.write(f"nColumns={num_columns}\n") 
+        writer.write("in_degrees=yes\n")
+        writer.write("endheader\n")
+
+        # Column labels
+        writer.write("\t".join(labels) + "\n")
+    
+        # Data rows
+        for i, row in analog_df.iterrows():
+            # breakpoint()
+            writer.write(f"{row['time']:.6f}\t" + "\t".join([f"{val:.6f}" for val in row[1:]]) + "\n")
+
+def write_sto_header(writer, dataFrame):
+    """
+    Writes the header for a .sto file.
+
+    Args:
+        writer (TextIOWrapper): The file writer object.
+        dataFrame (pd.DataFrame): The DataFrame containing the data.
+    """
+    writer.write(f"{os.path.basename(writer.name)}\n")
+    writer.write("version=1\n")
+    writer.write(f"nRows={dataFrame.shape[0]}\n")
+    writer.write(f"nColumns={dataFrame.shape[1]}\n")
+    writer.write("in_degrees=yes\n")
+    writer.write("endheader\n")
+
+def write_sto_file(dataFrame, file_path):
     """
     Writes a pandas DataFrame to a .sto file with a specified header.
 
     Args:
-        data (pd.DataFrame): The DataFrame to write.
+        dataFrame (pd.DataFrame): The DataFrame to write.
         file_path (str): The path where the .sto file will be saved.
         header (list): A list of strings representing the header lines to write.
     """
     with open(file_path, 'w', newline='') as f:
-        for line in header:
-            f.write(line + '\n')
-        
+        # Write the header lines
+        write_sto_header(f, dataFrame)
+
+        # bring time column to front
+        dataFrame = dataFrame[['time'] + [col for col in dataFrame.columns if col != 'time']]
+
         # Write the data without extra line spaces
-        data.to_csv(f, sep='\t', index=False, float_format='%.6f')
+        dataFrame.to_csv(f, sep='\t', index=False, float_format='%.6f')
 
 def read_xml(path):
     """

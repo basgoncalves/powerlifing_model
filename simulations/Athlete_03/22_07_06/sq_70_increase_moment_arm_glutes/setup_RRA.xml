@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSimDocument Version="30000">
+   <RRATool name="Run_baselineA1"><!--Name of the .osim file used to construct a model.--><!--Replace the model's force set with sets specified in <force_set_files>? If false, the force set is appended to.--><!--List of xml files used to construct an force set for the model.--><!--Directory used for writing results.--><!--Output precision.  It is 8 by default.--><!--Initial time for the simulation.--><!--Final time for the simulation.--><!--Flag indicating whether or not to compute equilibrium values for states other than the coordinates or speeds.  For example, equilibrium muscle fiber lengths or muscle forces.--><!--Maximum number of integrator steps.--><!--Maximum integration step size.--><!--Minimum integration step size.--><!--Integrator error tolerance. When the error is greater, the integrator step size is decreased.--><!--Set of analyses to be run during the investigation.--><!--Controller objects in the model.--><!--XML file (.xml) containing the forces applied to the model as ExternalLoads.--><!--Motion (.mot) or storage (.sto) file containing the desired point trajectories.--><!--Motion (.mot) or storage (.sto) file containing the desired kinematic trajectories.--><!--File containing the tracking tasks. Which coordinates are tracked and with what weights are specified here.--><!--DEPRECATED File containing the constraints on the controls.--><!--Low-pass cut-off frequency for filtering the desired kinematics. A negative value results in no filtering. The default value is -1.0, so no filtering.--><!--Preferred optimizer algorithm (currently support "ipopt" or "cfsqp", the latter requiring the osimFSQP library.--><!--Step size used by the optimizer to compute numerical derivatives. A value between 1.0e-4 and 1.0e-8 is usually appropriate.--><!--Convergence criterion for the optimizer. The smaller this value, the deeper the convergence. Decreasing this number can improve a solution, but will also likely increase computation time.--><!--Flag (true or false) indicating whether or not to make an adjustment in the center of mass of a body to reduced DC offsets in MX and MZ. If true, a new model is writen out that has altered anthropometry.--><!--Initial time used when computing average residuals in order to adjust the body's center of mass.  If both initial and final time are set to -1 (their default value) then the main initial and final time settings will be used.--><!--Final time used when computing average residuals in order to adjust the body's center of mass.--><!--Name of the body whose center of mass is adjusted. The heaviest segment in the model should normally be chosen. For a gait model, the torso segment is usually the best choice.--><!--Name of the output model file (.osim) containing adjustments to anthropometry made to reduce average residuals. This file is written if the property adjust_com_to_reduce_residuals is set to true. If a name is not specified, the model is written out to a file called adjusted_model.osim.--><!--True-false flag indicating whether or not to turn on verbose printing for cmc.--><model_file>..\..\019_Rajagopal2015_FAI.osim</model_file>
+      <replace_force_set>true</replace_force_set>
+      <force_set_files>.\actuators_RAA.xml</force_set_files>
+      <results_directory>.\</results_directory>
+      <output_precision>16</output_precision>
+      <initial_time>6.1425</initial_time>
+      <final_time>6.278</final_time>
+      <solve_for_equilibrium_for_auxiliary_states>false</solve_for_equilibrium_for_auxiliary_states>
+      <maximum_number_of_integrator_steps>20000</maximum_number_of_integrator_steps>
+      <maximum_integrator_step_size>1</maximum_integrator_step_size>
+      <minimum_integrator_step_size>1e-08</minimum_integrator_step_size>
+      <integrator_error_tolerance>1e-05</integrator_error_tolerance>
+      <AnalysisSet name="Analyses"/>
+      <ControllerSet name="Controllers"/>
+      <external_loads_file>..\..\inverseDynamics\Run_baselineA1\grf.xml</external_loads_file>
+      <desired_kinematics_file>..\..\inverseKinematics\Run_baselineA1\IK.mot</desired_kinematics_file>
+      <task_set_file>.\tasks_RRA.xml</task_set_file>
+      <lowpass_cutoff_frequency>6</lowpass_cutoff_frequency>
+      <optimizer_algorithm>ipopt</optimizer_algorithm>
+      <numerical_derivative_step_size>0.0001</numerical_derivative_step_size>
+      <optimization_convergence_tolerance>1e-06</optimization_convergence_tolerance>
+      <adjust_com_to_reduce_residuals>true</adjust_com_to_reduce_residuals>
+      <initial_time_for_com_adjustment>6.1425</initial_time_for_com_adjustment>
+      <final_time_for_com_adjustment>6.278</final_time_for_com_adjustment>
+      <adjusted_com_body>torso</adjusted_com_body>
+      <output_model_file>.\019_Rajagopal2015_FAI_rra.osim</output_model_file>
+      <use_verbose_printing>false</use_verbose_printing>
+      <defaults>
+         <CMC_Joint>
+            <active>false false false</active>
+         </CMC_Joint>
+         <PointActuator>
+            <point>0 0 0</point>
+            <direction>-1 0 0</direction>
+         </PointActuator>
+         <TorqueActuator>
+            <axis>-1 -0 -0</axis>
+         </TorqueActuator>
+      </defaults>
+   </RRATool>
+</OpenSimDocument>
