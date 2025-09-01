@@ -49,8 +49,28 @@ def main(muscleAnalysis_dir, muscleForces_filepath):
                 utils.write_sto_file(df, output_file_path)
 
                 print(f"Calculated muscle moments saved in {output_file_path}")
-                
-def plot(muscleAnalysis_dir):
+
+def groups_muscles(dataFrame, muscleMapping, type ='sum'):
+    
+    # find muscles not in mapping
+    all_mapped_muscles = {muscle for muscle_group in muscleMapping.values() for muscle in muscle_group}
+    unmapped_muscles = set(dataFrame.columns) - all_mapped_muscles
+    
+    # add as Others to mapping
+    muscleMapping['Others'] = []
+    for muscle in unmapped_muscles:
+        muscleMapping['Others'].append(muscle)
+
+    grouped = pd.DataFrame()
+    for group, muscles in muscleMapping.items():
+        if type == 'sum':
+            grouped[group] = dataFrame[muscles].sum(axis=1)
+        elif type == 'mean':
+            grouped[group] = dataFrame[muscles].mean(axis=1)
+            
+    return grouped
+
+def plot(muscleAnalysis_dir, muscleMapping):
     import matplotlib.pyplot as plt
 
     muscle_moments_files = []
@@ -62,13 +82,14 @@ def plot(muscleAnalysis_dir):
     if not muscle_moments_files:
         print("No muscle moments files found")
         return
-
+    
     # Plot each muscle moments file
     for file_path in muscle_moments_files:
         
         df = utils.load_any_data_file(file_path)
-        breakpoint()
         df = utils.time_normalise_df(df)
+
+        df = groups_muscles(df, muscleMapping)
 
         if df is None:
             continue
@@ -83,13 +104,18 @@ def plot(muscleAnalysis_dir):
         plt.xlabel('Time')
         plt.ylabel('Muscle Moment (Nm)')
         plt.title(f'Muscle Moments - {os.path.basename(file_path)}')
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        # Adjust subplot parameters to make room for the legend
+        plt.subplots_adjust(right=0.75)
+        plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0.)
+        
         plt.grid(True)
         plt.tight_layout()
-
-        plt.savefig(os.path.join(root, f"muscle_moments_{filename}.png"))
-
-        print(f"Saved plot for file: {file_path}")
+        
+        output_filename = f"plot_{os.path.splitext(os.path.basename(file_path))[0]}.png"
+        output_filepath = os.path.join(os.path.dirname(file_path), output_filename)
+        plt.savefig(output_filepath)
+        print(f"Saved plot for file: {output_filepath}")
+        plt.close()
 
 if __name__ == '__main__':
    
@@ -101,12 +127,13 @@ if __name__ == '__main__':
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
 
-    musicAnalysis_dir = trial.path
+    musicAnalysis_dir = trial.path + '\\' + trial.outputFiles['MA'].output
     muscleForces_filepath = trial.outputFiles['FORCES_SO'].abspath()
+    muscleMapping = paths.Settings().Muscle_Groups
 
-    if True:
+    if False:
         main(muscleAnalysis_dir=musicAnalysis_dir,
              muscleForces_filepath=muscleForces_filepath)
     
-    if False:
-        plot(muscleAnalysis_dir=musicAnalysis_dir)
+    if True:
+        plot(muscleAnalysis_dir=musicAnalysis_dir, muscleMapping=muscleMapping)
