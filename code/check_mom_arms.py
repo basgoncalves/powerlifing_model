@@ -7,14 +7,14 @@ import paths
 
 if __name__ == '__main__':
     
-    subject = 'Katya_01'
-    session = 'session1'
-    trial_name = 'files_in_run01'
+    subject = 'Athlete_03'
+    session = '22_07_06'
+    trial_name = 'sq_70'
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
-    
-    
+    osim_modelPath = trial.USED_MODEL
+    ik_mot = trial.outputFiles['IK'].abspath()
 
-    utils.print_to_log(f'Checking muscle moment arms for: {paths.SUBJECT} / {paths.TRIAL_NAME} / {osim_modelPath}')
+    utils.print_to_log(f'Checking muscle moment arms for: {trial.subject} / {trial.session} / {trial.name}')
 
     # Run the Inverse Dynamics
     utils.checkMuscleMomentArms(osim_modelPath = osim_modelPath, 
