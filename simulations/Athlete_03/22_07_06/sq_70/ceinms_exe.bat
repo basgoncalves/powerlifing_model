@@ -11,7 +11,7 @@ rem Set CEINMS_EXE_DIR to two directories up plus code\executables
 set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
 
 rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_EXE=%SCRIPT_DIR%..\executables\CEINMS.exe"
+set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMS.exe"
 set "EXE_SETUP=%SCRIPT_DIR%setup_ceinms.xml"
 
 if not exist "%CEINMS_EXE%" (
@@ -62,4 +62,4 @@ else (
     echo Output files should be in the specified output directory: %OUTPUT_DIR%
 )
 
-endlocal
+

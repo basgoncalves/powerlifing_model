@@ -9,7 +9,7 @@ echo Script directory is: "%SCRIPT_DIR%"
 cd /d "%SCRIPT_DIR%"
 
 rem Set CEINMS_EXE_DIR to two directories up plus code\executables
-set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
+set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\code\executables"
 
 rem Paths to CEINMS calibration executable and setup file
 set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMS.exe"
