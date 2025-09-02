@@ -8,9 +8,8 @@ import utils
 def validate_markers_used(ikTool,markers_path):
     task_set = ikTool.get_IKTaskSet()
     markers = utils.load_trc(markers_path)
-    
-    markers_list = [col for col in markers.columns if col.strip()]
-    
+    markers_list = markers.columns.get_level_values(0).unique().tolist()
+
     for task in task_set:
         if task.getName() in markers_list:
             task.setApply(True)
@@ -48,6 +47,8 @@ def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resu
     ikTool.setModel(model)
     # Set the marker data file and time range
     ikTool.setMarkerDataFileName(marker_trc)
+    ikTool.set_report_marker_locations(True)
+    ikTool.set_report_errors(True)
     
     # set the time range for the IK calculation
     if time_range is not None:
