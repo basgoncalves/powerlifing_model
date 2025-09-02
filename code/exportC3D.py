@@ -17,7 +17,6 @@ import pandas as pd
 import c3d
 import numpy as np
 
-
 def write_mot(analog_df, labels, mot_file):
     """
     Write analog data (samples, n_channels) to MOT.
@@ -236,7 +235,7 @@ def define_time_range(trc_filepath, markers, algorithm):
         
         start_time = data['Time'].iloc[start_frame]
         end_time = data['Time'].iloc[end_frame]
-
+        
     # write events.csv file
     data = [['start', start_time],
             ['end', end_time]]
@@ -246,9 +245,9 @@ def define_time_range(trc_filepath, markers, algorithm):
     return start_time, end_time
 
 def main(c3d_filepath, plot=False):
-    trc_filepath = os.path.dirname(c3d_filepath) + '/task.trc'
-    define_time_range(trc_filepath, markers=['SACROL'], algorithm='deadlift')
-    exit()
+    # trc_filepath = os.path.dirname(c3d_filepath) + '/markers_experimental.trc'
+    # define_time_range(trc_filepath, markers=['SACROL'], algorithm='deadlift')
+    # exit()
     # OpenSim data adapters
     export_markers(c3d_filepath, strings_to_remove = ['Bar:', 'Athlete_3:'])
 
@@ -261,21 +260,21 @@ def main(c3d_filepath, plot=False):
 if __name__ == "__main__":
 
 
-    c3d_dir = input("Enter the path to the static.c3d file: ")
+    c3d_filepath = input("Enter the path to the .c3d file: ").strip().strip('"')
     # make a path readable
-    c3d_dir = os.path.abspath(c3d_dir.strip().strip('"').strip("'"))
+    c3d_filepath = os.path.abspath(c3d_filepath)
     
     # Check if file exists
-    if not os.path.exists(c3d_dir):
-        print(f"Error: File not found at {c3d_dir}")
+    if not os.path.exists(c3d_filepath):
+        print(f"Error: File not found at {c3d_filepath}")
         exit(1)
     
     # Check if it's a .c3d file
-    if not c3d_dir.lower().endswith('.c3d'):
-        print(f"Error: File must be a .c3d file, got {c3d_dir}")
+    if not c3d_filepath.lower().endswith('.c3d'):
+        print(f"Error: File must be a .c3d file, got {c3d_filepath}")
         exit(1)
     
-    print(f"Processing {c3d_dir}")
-    main(c3d_dir, plot=False)
+    print(f"Processing {c3d_filepath}")
+    main(c3d_filepath, plot=False)
 
 # END

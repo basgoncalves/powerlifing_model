@@ -6,101 +6,7 @@ import numpy as np
 import re
 import utils
     
-def load_trc(path=None, output=0):
-
-    # find line with '#Frame' to skip the header
-    try:
-        with open(path, 'r') as file:
-            for i, line in enumerate(file):
-                if 'Frame#' in line:
-                        break
-    except:
-        print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        return None
-        
-    # read headers in line i
-    try:
-        with open(path, 'r') as file:
-            headers = file.readlines()[i].strip().split('\t')
-    except:
-        print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        return None
-
-    # read data headers and merge 2 rows of header and sub header
-    try:
-        with open(path, 'r') as file:
-            headers = file.readlines()[i].strip().split('\t')
-
-        with open(path, 'r') as file:
-            sub_headers = file.readlines()[i+1].strip().split('\t')
-    except:
-        print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        return None
-
-    # Keep first two empty for Frame# and Time
-    sub_headers = [''] * 2 + sub_headers[2:]  
-
-    # Combine header 
-    for _,idx in zip(headers, range(len(headers))):
-        if headers[idx] == '':
-            headers[idx] = headers[idx-1]
-
-    for _,idx in zip(headers, range(len(headers))):
-        if sub_headers[idx] != '':
-            headers[idx] = f"{headers[idx]}_{sub_headers[idx]}"
-
-
-    # read the file into a pandas DataFrame, skipping the header
-    try:
-        data = pd.read_csv(path, sep= '\s+', header=i+1, index_col=False)
-        # add the headers to the DataFrame above the data
-        data.columns = headers
-        
-    except Exception as e:
-        print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
-        print(f"Details: {e}")
-        return None
-
-    if output == 1: print(data.columns)
-
-    return data
-
-
-
-def load_sto_file(filepath):
-    """
-    Loads a .sto file into a pandas DataFrame.
-    Assumes the file format from OpenSim.
-    """
-    with open(filepath, 'r') as f:
-        # Find the line 'endheader'
-        for i, line in enumerate(f):
-            if 'endheader' in line:
-                header_line = i + 1
-                break
-        else:
-            raise ValueError("STO file 'endheader' not found.")
-
-    # Read the data, skipping metadata
-    df = pd.read_csv(filepath, sep='\t', header=header_line)
-    # The first column is often 'time'
-    df = df.rename(columns={'time': 'Time'})
-    return df
-
-def write_sto_file(data_df, filename):
-    """
-    Writes a pandas DataFrame to an OpenSim .sto file.
-    """
-    with open(filename, 'w') as f:
-        f.write(f"{os.path.basename(filename)}\n")
-        f.write(f"version=1\n")
-        f.write(f"nRows={data_df.shape[0]}\n")
-        f.write(f"nColumns={data_df.shape[1]}\n")
-        f.write("inDegrees=yes\n")
-        f.write("endheader\n")
-        data_df.to_csv(f, sep='\t', index=False, lineterminator='\n')
-
-def calculate_all_marker_errors(marker_experimental_path=None, marker_virtual_path=None):
+def main(marker_experimental_path=None, marker_virtual_path=None):
     """
     Calculates the root mean square error between experimental and virtual markers.
 
@@ -121,23 +27,21 @@ def calculate_all_marker_errors(marker_experimental_path=None, marker_virtual_pa
         marker_virtual_path = filedialog.askopenfilename(title='Select virtual .sto markers file', filetypes=[("STO files", "*.sto")])
         if not marker_virtual_path: return # User cancelled
 
-    virtual_markers_df = load_sto_file(marker_virtual_path)
-    experimental_markers_df = load_trc(marker_experimental_path)
+    virtual_markers_df = utils.load_sto(marker_virtual_path)
+    experimental_markers_df = utils.load_trc(marker_experimental_path,
+                                combine_headers=True)
 
-    marker_names = list([col.split('_')[0] for col in experimental_markers_df.columns if col != 'Time' and col != 'Frame#'])
-
-    # Remove duplicates but keep same order
-    marker_names = list(dict.fromkeys(marker_names))
-
+    exp_marker_names = experimental_markers_df.columns.get_level_values(0).unique().tolist()
+    
     # Find frames to plot in the experimental data
-    time = virtual_markers_df['Time']
+    time = virtual_markers_df['time']
     
     # Find the closest indices in experimental time to the start and end of virtual time
-    exp_time = experimental_markers_df['Time']
+    exp_time = experimental_markers_df['time']
     initial_index = (exp_time - time.iloc[0]).abs().idxmin()
     final_index = (exp_time - time.iloc[-1]).abs().idxmin()
 
-    distances = pd.DataFrame({'Time': time.values})
+    distances = pd.DataFrame({'time': time.values})
     
     output_dir = os.path.dirname(marker_experimental_path)
     mean_errors_filename = os.path.join(output_dir, '_ik_marker_errors_mean.txt')
@@ -146,18 +50,24 @@ def calculate_all_marker_errors(marker_experimental_path=None, marker_virtual_pa
     with open(mean_errors_filename, 'w') as f_mean_errors:
         f_mean_errors.write('mean errors for each marker (m)\n\n')
 
-        for marker_name in marker_names:
+        for marker_name in exp_marker_names:
+
+            if 'time' in marker_name.lower() or 'frame' in marker_name.lower():
+                continue
+
             try:
-                
-                marker_name = marker_name.split('_')[0]  # In case of multi-index, take the first part
-                exp_cols = [col for col in experimental_markers_df.columns if col.split('_')[0] == marker_name]
+                marker_name = marker_name.split('_')[0]
+                exp_cols = [col for col in exp_marker_names if col.split('_')[0] == marker_name]
                 virtual_cols = [col for col in virtual_markers_df.columns if col.split('_')[0] == marker_name]
-                
+
+                if not exp_cols or not virtual_cols:
+                    continue
+
                 # Get experimental data for the current time range and convert mm to m
                 exp_slice = experimental_markers_df.iloc[initial_index:final_index + 1]
-                x1 = exp_slice[exp_cols[0]].values / 1000.0
-                y1 = exp_slice[exp_cols[1]].values / 1000.0
-                z1 = exp_slice[exp_cols[2]].values / 1000.0
+                x1 = pd.to_numeric(exp_slice[exp_cols[0]], errors='coerce').values / 1000.0
+                y1 = pd.to_numeric(exp_slice[exp_cols[1]], errors='coerce').values / 1000.0
+                z1 = pd.to_numeric(exp_slice[exp_cols[2]], errors='coerce').values / 1000.0
 
                 # Get virtual data
                 x2 = virtual_markers_df[virtual_cols[0]].values
@@ -182,11 +92,30 @@ def calculate_all_marker_errors(marker_experimental_path=None, marker_virtual_pa
 
     # Write all distance data to a .sto file
     all_errors_filename = os.path.join(output_dir, '_ik_marker_errors_all.sto')
-    write_sto_file(distances.dropna(axis=1, how='all'), all_errors_filename)
+    utils.write_sto_file(distances.dropna(axis=1, how='all'), all_errors_filename)
     print(f"Mean errors saved to: {mean_errors_filename}")
     print(f"All error data saved to: {all_errors_filename}")
+    
+    
+    # plot marker errors
+    import matplotlib.pyplot as plt
+    
+    plt.figure(figsize=(12, 6))
+    for marker_name in distances.columns:
+        if marker_name != 'time':
+            plt.plot(distances['time'], distances[marker_name], label=marker_name)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Marker Error (m)')
+    plt.title('Marker Errors Over Time')
+    plt.legend()
+    plt.grid()
+    
+    # save fig
+    plt.savefig(os.path.join(output_dir, '_ik_marker_errors_plot.png'))
+    plt.close()
+    print(f"Marker errors plot saved to: {os.path.join(output_dir, '_ik_marker_errors_plot.png')}")
 
 if __name__ == '__main__':
     # Example of how to run the function.
     # If paths are not provided, file dialogs will open.
-    calculate_all_marker_errors()
+    main()

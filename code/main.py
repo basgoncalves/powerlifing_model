@@ -5,11 +5,20 @@ import shutil
 import utils
 import run_ik, run_id, run_so, run_ma, run_jra, copy_setups_to_trial, check_mom_arms
 import run_emg_normalise
+import exportC3D, compare_marker_locations
 
 def main(trial: paths.Trial, replace: bool = False):
 
+    # 1. Export c3d file
+    if True:
+        subject_without_zero = trial.subject.replace('0', '')
+        exportC3D.export_markers(trial.inputFiles['C3D'].abspath(),
+                                strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
+        exportC3D.export_grf(trial.inputFiles['C3D'].abspath())
+        exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
+   
     # 2. Run IK
-    if False:
+    if True:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -28,8 +37,15 @@ def main(trial: paths.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
 
+        try:
+            virtual_marker_locations = trial.path + '\\' + '_ik_model_marker_locations.sto'
+            compare_marker_locations.main(marker_experimental_path=trial.inputFiles['MARKERS'].abspath(),
+                                          marker_virtual_path=virtual_marker_locations)
+            utils.print_to_log(f'[Success] Marker location comparison completed.')
+        except:
+            utils.print_to_log(f'[Error] during marker location comparison')
     # 3. Run ID
-    if False:
+    if True:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -51,7 +67,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if False:
+    if True:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -67,22 +83,25 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4b Check moment arms
-    if False:
+    if True:
+        try:
+            utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
+                                        ik_output=trial.outputFiles['IK'].abspath(),
+                                        leg='l',
+                                        threshold=0.005)
+            
+            utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
+                                        ik_output=trial.outputFiles['IK'].abspath(),
+                                        leg='r',
+                                        threshold=0.005)
 
-        utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
-                                    ik_output=trial.outputFiles['IK'].abspath(),
-                                    leg='l',
-                                    threshold=0.005)
-        utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
-                                    ik_output=trial.outputFiles['IK'].abspath(),
-                                    leg='r',
-                                    threshold=0.005)
-
-        ouput_files = trial.outputFiles['MA'].abspath()
-        utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
+            ouput_files = trial.outputFiles['MA'].abspath()
+            utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {ouput_files}')
+        except Exception as e:
+            utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
 
     # 5. Run Static Optimization
-    if False:
+    if True:
 
         try:
             # Check if the Static Optimization output file exists
@@ -99,12 +118,11 @@ def main(trial: paths.Trial, replace: bool = False):
                 
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
-            exit()
+            
 
     # 6 run Joint Reaction Analysis
-    if False:
+    if True:
         if True:
-
             try:
                 utils.print_to_log(f'Running JRA on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
                 # breakpoint()
@@ -146,7 +164,7 @@ def main(trial: paths.Trial, replace: bool = False):
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
     # Create excitation generator file
-    if True:
+    if False:
         utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
         try:
             #breakpoint()  # This will pause the execution for debugging
@@ -158,8 +176,6 @@ def main(trial: paths.Trial, replace: bool = False):
             
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
-    
-    
     
     # 6. Run CEINMS calibration and optimization
     if False:
@@ -183,9 +199,9 @@ if __name__ == "__main__":
     trial_list = settings.TRIAL_TO_ANALYSE
 
     sessions_to_skip = ['25_03_31']
-    analysis.subject_list = settings.SUBJECTS_TO_ANALYSE
+    subject_list = settings.SUBJECTS_TO_ANALYSE
 
-    for subject in analysis.subject_list:
+    for subject in subject_list:
         session_list = analysis.get_subject(subject).SESSIONS
 
         for session in session_list:
@@ -210,4 +226,4 @@ if __name__ == "__main__":
     end_time = time.time()
     elapsed_time = end_time - start_time
     utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds \n \n")
-    exit()
+    
