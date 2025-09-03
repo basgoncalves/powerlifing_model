@@ -1,281 +1,434 @@
-# Conversation of .c3d files to OpenSim marker.trc and ground reaction forces
-# grf.mot for the Sinergia data set. This script can be used for other data sets
-# as well, however, the column names and transformation conventions may be
-# different. Also, note that here we do not distinguish between left and right
-# foot, therefore the setup_grf.xml file has to be manually updated.
-#
-# author: Dimitar Stanev <jimstanev@gmail.com>
-# contributors: Celine Provins, George Papoulias
-##
 import os
-import re
-import opensim
-import utils
-from utils import rotate_data_table, mm_to_m, plot_sto_file
-from utils import refine_ground_reaction_wrench, create_opensim_storage
-import pandas as pd
-import c3d
+import time
+from matplotlib import pyplot as plt
 import numpy as np
+import opensim as osim
+
+import pandas as pd
+
+try:
+    import utils
+    import paths
+except ImportError:
+    from . import utils
+    from . import paths
 
 
-def write_mot(analog_df, labels, mot_file):
-    """
-    Write analog data (samples, n_channels) to MOT.
+def coordinates_per_muscle(osimModel, muscle_name):
+    coords = []
+    muscle = osimModel.getMuscles().get(muscle_name)
+    coord_set = osimModel.getCoordinateSet()
+    state = osimModel.initSystem()
+    osimModel.realizePosition(state)
     
-    inputs:
-        labels: The labels for the analog channels.
-        analog_df: The DataFrame containing the analog data.
-        
-    """
-    
-    # make sure labels include time
-    labels = ['time'] + labels
-
-    # Crop dataframe to include only labels
-    analog_df = analog_df[labels]
-    num_samples, num_columns = analog_df.shape
-    
-    # create writer
-    with open(mot_file, "w") as writer:
-        # Header
-        writer.write(f"{os.path.basename(writer.name)}\n")
-        writer.write("version=1\n")
-        writer.write(f"nRows={num_samples}\n")
-        writer.write(f"nColumns={num_columns + 1}\n")  # +1 for time
-        writer.write("in_degrees=yes\n")
-        writer.write("endheader\n")
-
-        # Column labels
-        writer.write("\t".join(labels) + "\n")
-    
-        # Data rows
-        for i, row in analog_df.iterrows():
-            # breakpoint()
-            writer.write(f"{row['time']:.6f}\t" + "\t".join([f"{val:.6f}" for val in row[1:]]) + "\n")
-
-def export_emg(c3d_filepath):
-    print(f"Reading C3D file: {c3d_filepath}")
-    try:
-        reader = c3d.Reader(open(c3d_filepath, "rb"))
-    except Exception as e:
-        print(f"Error: Could not open or read the C3D file. {e}")
-        return 1
-
-    # Rates and frames
-    marker_rate = float(reader.header.frame_rate)
-    first_frame = int(reader.header.first_frame)
-    num_frames = int(reader.frame_count)
-    
-    # Units (fallback to 'mm' if not available)
-    units = "mm"
-
-    # Labels, clamped to available columns to avoid index errors
-    marker_labels = [str(l or "").strip() for l in reader.point_labels]
-    analog_labels = [str(l or "").strip() for l in reader.analog_labels]
-
-    # create time vector
-    initial_time = first_frame / marker_rate
-    final_time = (first_frame + num_frames-1) / marker_rate
-    time = np.linspace(initial_time, final_time, num_frames)
-    
-    analog_df = pd.DataFrame(index=range(num_frames),columns=analog_labels)
-    analog_df['time'] = time
-
-    # move time to first column
-    cols = analog_df.columns.tolist()
-    cols = cols[-1:] + cols[:-1]
-    analog_df = analog_df[cols]
-    
-    # Collect frames
-    for frame_no, points, analog in reader.read_frames():
-        # get row number and print loading bar
-        i_row = frame_no - first_frame
-        # convert analog data to list
-        analog_list  = analog.data.tolist()
-
-        # loop through analog channels and add to dataframe
-        for i_channel in range(len(analog_list)):
-            channel_name = analog_labels[i_channel]
+    for i in range(coord_set.getSize()):
+        coord = coord_set.get(i)
+        if abs(muscle.computeMomentArm(state, coord)) > 1e-4:
+            coords.append(coord.getName())
             
-            # add channel to dataframe
-            analog_df.loc[i_row, channel_name] = analog[i_channel][0]
+    return coords
+
+def muscles_per_coordinate(osimModel, coord_name):
+    muscles = []
+    coord = osimModel.getCoordinateSet().get(coord_name)
+    state = osimModel.initSystem()
+    osimModel.realizePosition(state)
+
+    for i in range(osimModel.getMuscles().getSize()):
+        muscle = osimModel.getMuscles().get(i)
+        if abs(muscle.computeMomentArm(state, coord)) > 1e-4:
+            muscles.append(muscle.getName())
+
+    return muscles
+
+def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.005):
+
+    def get_model_coord(model, coord_name):
+        try:
+            index = model.getCoordinateSet().getIndex(coord_name)
+            coord = model.updCoordinateSet().get(index)
+        except:
+            index = None
+            coord = None
+            print(f'Coordinate {coord_name} not found in model')
+        
+        return index, coord
+
+    def muscle_crosses_coordinate(osimModel, muscle_name, coord_name):
+        
+        coord_list = coordinates_per_muscle(osimModel, muscle_name)
+        if coord_name in coord_list:
+            return True
+        
+        return False
+
+    def set_model_state(model, motion,state, frame):
+
+        # coordinate set
+        coordSet = model.getCoordinateSet()
+        state = model.initSystem()
+        pose = {}
+        for coord in coordSet:
+            index = coordSet.getIndex(coord)
+            angle = motion.getStateVector(frame).getData().get(index) / 180 * np.pi
+            coordSet = model.updCoordinateSet()
+            coordSet.get(index).setValue(state, angle)
+            pose[coord.getName()] = angle
+        
+        # Realize the state to compute dependent quantities
+        model.computeStateVariableDerivatives(state)
+        model.realizeVelocity(state)
+
+        return state, model, coordSet, pose
+    
+    # Load motions and model
+    motion = osim.Storage(ik_output)
+    model = osim.Model(osim_modelPath)
+
+    # Initialize system and state
+    model.initSystem()
+    state = model.initSystem()
+
+    coordinate = 'hip_flexion_' + leg
+    
+    # get names of muscles
+    Index, Coord = get_model_coord(model, coordinate)
+    muscle_names = muscles_per_coordinate(osimModel, Coord.getName())
+    # compute moment arms for each muscle and create time vector
+    time_vector = []
+    moment_arms = {}    
+    for i in range(1, motion.getSize()):
+        initial_time = time.time()
+        state, model, coordSet, pose = set_model_state(model, motion, state, i-1)
+        
+        time_vector.append(motion.getStateVector(i-1).getTime())
+        
+        for j, muscle_name in enumerate(muscle_names):
+            moment_arm = model.getMuscles().get(muscle_name).computeMomentArm(state, coordSet.get(Index))
+            moment_arms[muscle_name] = moment_arms.get(muscle_name, []) + [moment_arm]
+
+        print(f'frame {i} took {time.time() - initial_time:.6f} seconds')
+        
+    # make a dataframe
+    df = pd.DataFrame(moment_arms, index=time_vector)
+    df.index.name = 'Time'
+    df.columns.name = 'Muscles'
+    breakpoint()
+
+    # compute moment arms for each muscle and create time vector
+    time_vector = []
+    for i in range(1, motion.getSize()):
+        
+        flexAngleL = motion.getStateVector(i-1).getData().get(flexIndexL) / 180 * np.pi
+        rotAngleL = motion.getStateVector(i-1).getData().get(rotIndexL) / 180 * np.pi
+        addAngleL = motion.getStateVector(i-1).getData().get(addIndexL) / 180 * np.pi
+        flexAngleLknee = motion.getStateVector(i-1).getData().get(flexIndexLknee) / 180 * np.pi
+        flexAngleLank = motion.getStateVector(i-1).getData().get(flexIndexLank) / 180 * np.pi
+
+        time_vector.append(motion.getStateVector(i-1).getTime())
+        # Update the state with the joint angle
+        coordSet = model.updCoordinateSet()
+        coordSet.get(flexIndexL).setValue(state, flexAngleL)
+        coordSet.get(rotIndexL).setValue(state, rotAngleL)
+        coordSet.get(addIndexL).setValue(state, addAngleL)
+        coordSet.get(flexIndexLknee).setValue(state, flexAngleLknee)
+        coordSet.get(flexIndexLank).setValue(state, flexAngleLank)
+
+        # Realize the state to compute dependent quantities
+        model.computeStateVariableDerivatives(state)
+        model.realizeVelocity(state)
+
+        # Compute the moment arm hip
+        for j in range(len(muscleIndices_hip)):
+            muscleIndex = muscleIndices_hip[j]
+            if muscleNames_hip[j][-1] == leg:
+                flexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordL)
+                flexMomentArms[i, j] = flexMomentArm
+
+                rotMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, rotCoordL)
+                rotMomentArms[i, j] = rotMomentArm
+
+                addMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, addCoordL)
+                addMomentArms[i, j] = addMomentArm
+
+        # Compute the moment arm knee
+        for j in range(len(muscleNames_knee)):
+            muscleIndex = muscleIndices_knee[j]
+            if muscleNames_knee[j][-1] == leg:
+                kneeFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLknee)
+                kneeFlexMomentArms[i, j] = kneeFlexMomentArm
+
+        # Compute the moment arm ankle
+        for j in range(len(muscleNames_ankle)):
+            muscleIndex = muscleIndices_ankle[j]
+            if muscleNames_ankle[j][-1] == leg:
+                ankleFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLank)
+                ankleFlexMomentArms[i, j] = ankleFlexMomentArm
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # coordinate names
+    flexIndexL, flexCoordL = get_model_coord(model, 'hip_flexion_' + leg)
+    rotIndexL, rotCoordL = get_model_coord(model, 'hip_rotation_' + leg)
+    addIndexL, addCoordL = get_model_coord(model, 'hip_adduction_' + leg)
+    flexIndexLknee, flexCoordLknee = get_model_coord(model, 'knee_angle_' + leg)
+    addIndexLknee, addCoordLknee = get_model_coord(model, 'knee_adduction_' + leg)
+    flexIndexLank, flexCoordLank = get_model_coord(model, 'ankle_angle_' + leg)
+
+    # get names of the hip muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_hip = []
+    muscleNames_hip = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        breakpoint()
+        muscle = model.getMuscles().get(i)
+        if muscle_crosses_coordinate(osimModel, tmp_muscleName, flexCoordL.getName()) and ('_' + leg in tmp_muscleName):
+            muscleIndices_hip.append(i)
+            muscleNames_hip.append(tmp_muscleName)
+
+    flexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+    addMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+    rotMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+
+    # get names of the knee muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_knee = []
+    muscleNames_knee = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        if ('bf' in tmp_muscleName or 'gas' in tmp_muscleName or 'grac' in tmp_muscleName or 'sart' in tmp_muscleName or
+                'semim' in tmp_muscleName or 'semit' in tmp_muscleName or 'rec' in tmp_muscleName or 'vas' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
+            muscleIndices_knee.append(i)
+            muscleNames_knee.append(tmp_muscleName)
+
+    kneeFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_knee)))
+
+    # get names of the ankle muscles
+    numMuscles = model.getMuscles().getSize()
+    muscleIndices_ankle = []
+    muscleNames_ankle = []
+    for i in range(numMuscles):
+        tmp_muscleName = str(model.getMuscles().get(i).getName())
+        print(tmp_muscleName)
+        if ('edl' in tmp_muscleName or 'ehl' in tmp_muscleName or 'tibant' in tmp_muscleName or 'gas' in tmp_muscleName or
+                'fdl' in tmp_muscleName or 'fhl' in tmp_muscleName or 'perb' in tmp_muscleName or 'perl' in tmp_muscleName or
+                'sole' in tmp_muscleName or 'tibpos' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
+            muscleIndices_ankle.append(i)
+            muscleNames_ankle.append(tmp_muscleName)
+
+    ankleFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_ankle)))
+
+    # compute moment arms for each muscle and create time vector
+    time_vector = []
+    for i in range(1, motion.getSize()):
+        flexAngleL = motion.getStateVector(i-1).getData().get(flexIndexL) / 180 * np.pi
+        rotAngleL = motion.getStateVector(i-1).getData().get(rotIndexL) / 180 * np.pi
+        addAngleL = motion.getStateVector(i-1).getData().get(addIndexL) / 180 * np.pi
+        flexAngleLknee = motion.getStateVector(i-1).getData().get(flexIndexLknee) / 180 * np.pi
+        flexAngleLank = motion.getStateVector(i-1).getData().get(flexIndexLank) / 180 * np.pi
+
+        time_vector.append(motion.getStateVector(i-1).getTime())
+        # Update the state with the joint angle
+        coordSet = model.updCoordinateSet()
+        coordSet.get(flexIndexL).setValue(state, flexAngleL)
+        coordSet.get(rotIndexL).setValue(state, rotAngleL)
+        coordSet.get(addIndexL).setValue(state, addAngleL)
+        coordSet.get(flexIndexLknee).setValue(state, flexAngleLknee)
+        coordSet.get(flexIndexLank).setValue(state, flexAngleLank)
+
+        # Realize the state to compute dependent quantities
+        model.computeStateVariableDerivatives(state)
+        model.realizeVelocity(state)
+
+        # Compute the moment arm hip
+        for j in range(len(muscleIndices_hip)):
+            muscleIndex = muscleIndices_hip[j]
+            if muscleNames_hip[j][-1] == leg:
+                flexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordL)
+                flexMomentArms[i, j] = flexMomentArm
+
+                rotMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, rotCoordL)
+                rotMomentArms[i, j] = rotMomentArm
+
+                addMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, addCoordL)
+                addMomentArms[i, j] = addMomentArm
+
+        # Compute the moment arm knee
+        for j in range(len(muscleNames_knee)):
+            muscleIndex = muscleIndices_knee[j]
+            if muscleNames_knee[j][-1] == leg:
+                kneeFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLknee)
+                kneeFlexMomentArms[i, j] = kneeFlexMomentArm
+
+        # Compute the moment arm ankle
+        for j in range(len(muscleNames_ankle)):
+            muscleIndex = muscleIndices_ankle[j]
+            if muscleNames_ankle[j][-1] == leg:
+                ankleFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLank)
+                ankleFlexMomentArms[i, j] = ankleFlexMomentArm
+
+    # check discontinuities
+    discontinuity = []
+    muscle_action = []
+    time_discontinuity = []
+
+    fDistC = plt.figure('Discontinuity', figsize=(8, 8))
+    plt.title(ik_output)
+
+    save_folder = os.path.join(os.path.dirname(ik_output),'momentArmsCheck')
+
+    def find_discontinuities(momArms, threshold, muscleNames, action, discontinuity, muscle_action, time_discontinuity):
+        for i in range(momArms.shape[1]):
+            dy = np.diff(momArms[:, i])
+            discontinuity_indices = np.where(np.abs(dy) > threshold)[0]
+            if discontinuity_indices.size > 0:
+                print('Discontinuity detected at', muscleNames[i], 'at ', action, ' moment arm')
+                plt.plot(momArms[:, i])
+                plt.plot(discontinuity_indices, momArms[discontinuity_indices, i], 'rx')
+                discontinuity.append(i)
+                muscle_action.append(str(muscleNames[i] + ' ' + action + ' at frames: ' + str(discontinuity_indices)))
+                time_discontinuity.append([time_vector[index] for index in discontinuity_indices])
 
 
-    # save analog to csv
-    analog_path = os.path.join(os.path.dirname(c3d_filepath), "analog.csv")
-    analog_df.to_csv(analog_path, index=False)
-    print(f"Successfully exported {analog_path}")
+        return discontinuity, muscle_action, time_discontinuity
 
+    # hip flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        flexMomentArms, threshold, muscleNames_hip, 'flexion', discontinuity, muscle_action, time_discontinuity)
 
-    # Write EMG MOT
-    emg_indices = [i for i, lbl in enumerate(analog_labels) if "emg" in lbl.lower()]
-    if emg_indices:
-        emg_mot_path = os.path.join(os.path.dirname(c3d_filepath), "emg.mot")
-        emg_labels = [analog_labels[i] for i in emg_indices]
-        write_mot(analog_df, emg_labels, emg_mot_path)
-        print(f"Successfully exported {emg_mot_path}")
+    # hip adduction
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        addMomentArms, threshold, muscleNames_hip, 'adduction', discontinuity, muscle_action, time_discontinuity)
+    
+    # hip rotation
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        rotMomentArms, threshold, muscleNames_hip, 'rotation', discontinuity, muscle_action, time_discontinuity)
+    
+    # knee flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        kneeFlexMomentArms, threshold, muscleNames_knee, 'flexion', discontinuity, muscle_action, time_discontinuity)
+    
+    # ankle flexion
+    discontinuity, muscle_action, time_discontinuity = find_discontinuities(
+        ankleFlexMomentArms, threshold, muscleNames_ankle, 'dorsiflexion', discontinuity, muscle_action, time_discontinuity)
+    
+    # plot discontinuities
+    if len(discontinuity) > 0:
+        plt.legend(muscle_action)
+        plt.ylabel('Muscle Moment Arms with discontinuities (m)')
+        plt.xlabel('Frame (after start time)')
+        save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'discontinuities_' + leg + '.png'))
+        print('\n\nYou should alter the model - most probably you have to reduce the radius of corresponding wrap objects for the identified muscles\n\n\n')
+
+        # save txt file with discontinuities
+        with open(os.path.join(save_folder, 'discontinuities_' + leg + '.txt'), 'w') as f:
+            f.write(f"model file = {osim_modelPath}\n")
+            f.write(f"motion file = {ik_output}\n")
+            f.write(f"leg checked = {leg}\n")
+            
+            f.write("\n muscles with discontinuities \n", ) 
+            
+            for i in range(len(muscle_action)):
+                try:
+                    f.write("%s : time %s \n" % (muscle_action[i], time_discontinuity[i]))
+                except:
+                    print('no discontinuities detected')
+
+        momentArmsAreWrong = 1
     else:
-        print("Warning: No EMG channels found among available analog channels.")
+        plt.close(fDistC)
+        print('No discontinuities detected')
+        momentArmsAreWrong = 0
 
-def transform_labels(labels):
-    """
-    Transforms a list of labels from a compact format to a more descriptive format.
-    Example: 'f1x' -> 'ground_force_1_vx'
-    """
-    transformed = []
-    # Define a mapping for the prefixes and their corresponding replacements.
-    # The key is the original prefix (e.g., 'f'), and the value is a tuple
-    # containing the new prefix (e.g., 'ground_force') and the new suffix (e.g., 'v').
-    mapping = {
-        'f': ('ground_force', 'v'),
-        'p': ('ground_force', 'p'),
-        'm': ('ground_moment', 'm'),
-    }
+    # plot hip flexion
+    plt.figure('flexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(flexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_output)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Flexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    utils.save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_flex_MomentArms_' + leg + '.png'))
 
-    for label in labels:
-        # Check if the label is at least 3 characters long and matches the pattern
-        if len(label) >= 3 and label[0] in mapping and label[-1] in 'xyz':
-            # Extract the original prefix (e.g., 'f'), number (e.g., '1'), and axis (e.g., 'x')
-            original_prefix = label[0]
-            number = label[1:-1]
-            axis = label[-1]
+    # hip adduction
+    plt.figure('addMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(addMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_output)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Adduction Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    utils.save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_add_MomentArms_' + leg + '.png'))
 
-            # Get the new prefix and suffix from the mapping
-            new_prefix, new_suffix = mapping[original_prefix]
+    # hip rotation
+    plt.figure('rotMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(rotMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_output)
+    plt.legend(muscleNames_hip, loc='best')
+    plt.ylabel('Hip Rotation Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    utils.save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_rot_MomentArms_' + leg + '.png'))
 
-            # Construct the new label
-            new_label = f'{new_prefix}_{number}_{new_suffix}{axis}'
-            transformed.append(new_label)
-        else:
-            # If the label doesn't match the expected pattern, add it as is
-            transformed.append(label)
+    # knee flexion
+    plt.figure('kneeFlexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(kneeFlexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_output)
+    plt.legend(muscleNames_knee, loc='best')
+    plt.ylabel('Knee Flexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    utils.save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'knee_MomentArms_' + leg + '.png'))
 
-    return transformed
+    # ankle flexion
+    plt.figure('ankleFlexMomentArms_' + leg, figsize=(8, 8))
+    plt.plot(ankleFlexMomentArms)
+    plt.title('All muscle moment arms in motion ' + ik_output)
+    plt.legend(muscleNames_ankle, loc='best')
+    plt.ylabel('Ankle Dorsiflexion Moment Arm (m)')
+    plt.xlabel('Frame (after start time)')
+    utils.save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'ankle_MomentArms_' + leg + '.png'))
 
-def rotate_data_table(table, axis, deg):
-    """Rotate OpenSim::TimeSeriesTableVec3 entries using an axis and angle.
+    print('Moment arms checked for ' + ik_output)
+    print('Results saved in ' + save_folder + ' \n\n' )
 
-    Parameters
-    ----------
-    table: OpenSim.common.TimeSeriesTableVec3
-
-    axis: 3x1 vector
-
-    deg: angle in degrees
-
-    """
-    R = opensim.Rotation(np.deg2rad(deg),
-                         opensim.Vec3(axis[0], axis[1], axis[2]))
-    for i in range(table.getNumRows()):
-        vec = table.getRowAtIndex(i)
-        vec_rotated = R.multiply(vec)
-        table.setRowAtIndex(i, vec_rotated)
-
-def export_markers(c3d_filepath, strings_to_remove=[]):
-    print(f"Exporting markers for {c3d_filepath}")
-    
-    # OpenSim data adapters
-    adapter = opensim.C3DFileAdapter()
-    adapter.setLocationForForceExpression(
-        opensim.C3DFileAdapter.ForceLocation_CenterOfPressure)
-    trc_adapter = opensim.TRCFileAdapter()
-
-    # get markers 
-    task = adapter.read(c3d_filepath)
-    markers_task = adapter.getMarkersTable(task)
-    output_dir = os.path.dirname(c3d_filepath)
-
-    # process markers of task and save to .trc file
-    rotate_data_table(markers_task, [1, 0, 0], -90)
-
-    # remove unwanted strings from labels
-    labels = list(markers_task.getColumnLabels())
-    for s in strings_to_remove:
-        labels = [re.sub(s, '', lbl) for lbl in labels]
-    
-    markers_task.setColumnLabels(labels)
-
-    trc_adapter = opensim.TRCFileAdapter()
-    trc_adapter.write(markers_task, os.path.join(output_dir, 'markers_experimental.trc'))
-    print(f"Successfully exported {os.path.join(output_dir, 'markers_experimental.trc')}")
-    
-def export_grf(c3d_filepath):
-    print(f"Exporting ground reaction forces for {c3d_filepath}")
-    adapter = opensim.C3DFileAdapter()
-    adapter.setLocationForForceExpression(opensim.C3DFileAdapter.ForceLocation_CenterOfPressure)
-    
-    c3d_data = adapter.read(c3d_filepath)
-    forces_table = adapter.getForcesTable(c3d_data)
-    rotate_data_table(forces_table, [1, 0, 0], -90)
-    time = forces_table.getIndependentColumn()
-    forces_table = forces_table.flatten(['x', 'y', 'z'])
-    
-    # replace f,p,m for ground_force_v, ground_force_p, ground_torque
-    labels = transform_labels(list(forces_table.getColumnLabels()))
-    
-    force_sto = create_opensim_storage(time, forces_table.getMatrix(), labels)
-    force_sto.setName('grf')
-    output_dir = os.path.dirname(c3d_filepath)
-    force_sto.printResult(force_sto, 'grf', output_dir, 0.01, '.mot')
-    print(f"Successfully exported {os.path.join(output_dir, 'grf.mot')}")
-
-def define_time_range(trc_filepath, markers, algorithm):
-    
-    data = utils.load_any_data_file(trc_filepath)
-
-    # Define time range based on markers and algorithm
-    if algorithm == 'min-max':
-        start_time = data['time'].min()
-        end_time = data['time'].max()
-    elif algorithm == 'deadlift':
-        
-        start_frame = int(data[markers].idxmin())
-        
-        # end frame is the first frame with minimal derivative after the start frame
-        end_frame = int(data[markers].iloc[start_frame:].diff().idxmin())
-        
-        start_time = data['Time'].iloc[start_frame]
-        end_time = data['Time'].iloc[end_frame]
-
-    # write events.csv file
-    data = [['start', start_time],
-            ['end', end_time]]
-    events = pd.DataFrame(data)
-    events.to_csv(os.path.dirname(trc_filepath) + '/events.csv', index=False, header=False)
-    print(f"Successfully exported {os.path.dirname(trc_filepath) + '/events.csv'}")
-    return start_time, end_time
-
-def main(c3d_filepath, plot=False):
-    trc_filepath = os.path.dirname(c3d_filepath) + '/task.trc'
-    define_time_range(trc_filepath, markers=['SACROL'], algorithm='deadlift')
-    exit()
-    # OpenSim data adapters
-    export_markers(c3d_filepath, strings_to_remove = ['Bar:', 'Athlete_3:'])
-
-    export_grf(c3d_filepath)
-    
-    # export_emg(c3d_filepath)
-
-    
-
-if __name__ == "__main__":
+    return momentArmsAreWrong,  discontinuity, muscle_action
 
 
-    c3d_dir = input("Enter the path to the static.c3d file: ")
-    # make a path readable
-    c3d_dir = os.path.abspath(c3d_dir.strip().strip('"').strip("'"))
-    
-    # Check if file exists
-    if not os.path.exists(c3d_dir):
-        print(f"Error: File not found at {c3d_dir}")
-        exit(1)
-    
-    # Check if it's a .c3d file
-    if not c3d_dir.lower().endswith('.c3d'):
-        print(f"Error: File must be a .c3d file, got {c3d_dir}")
-        exit(1)
-    
-    print(f"Processing {c3d_dir}")
-    main(c3d_dir, plot=False)
 
-# END
+base_dir = paths.SIMULATION_DIR
+subject = 'Athlete_03'  # Replace with actual subject name
+session = '22_07_06'  # Replace with actual session name
+trial = 'sq_70'  # Replace with actual trial name
+
+# create a trial instance
+trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+
+osimModel = osim.Model(trial.USED_MODEL)
+muscles = osimModel.getMuscles()
+joint_angles = osim.Storage(trial.outputFiles['IK'].abspath())
+
+muscles = muscles_per_coordinate(osimModel, coord_name='hip_flexion_l')
+print(f"Muscles crossing hip_flexion_l: {muscles}")
+
+checkMuscleMomentArms(osim_modelPath=osimModel,
+                      ik_output=trial.outputFiles['IK'].abspath(),
+                      leg='l',
+                      threshold=0.005)
+exit()
+for muscle in muscles:
+    muscle_name = muscle.getName()
+    coordinates = coordinates_per_muscle(osimModel, muscle_name)
+    print(f"Coordinates for muscle {muscle_name}: {coordinates}")
+
+    moment_arms = checkMuscleMomentArms(osim_modelPath=osimModel,
+                                        ik_output=trial.outputFiles['IK'].abspath(),
+                                        leg='l',
+                                        threshold=0.005)
+    save_path = os.path.join(trial.path,'moment_arms' ,f"{muscle_name}.sto")
+    utils.write_sto_file(moment_arms, save_path)
+    print(f"Moment arms for muscle {muscle_name} saved to {save_path}")
