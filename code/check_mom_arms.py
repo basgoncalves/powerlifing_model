@@ -27,4 +27,4 @@ if __name__ == '__main__':
                                 leg = 'r', 
                                 threshold = 0.005)
     
-    utils.print_to_log(f'Muscle moment saved to: {os.path.dirname(paths.IK_OUTPUT)}')
+    

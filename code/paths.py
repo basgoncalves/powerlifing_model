@@ -2,8 +2,12 @@ import os
 import shutil
 import time
 import pandas as pd
-import utils
 import opensim as osim
+
+try:
+    import utils
+except ImportError:
+    from . import utils
 
 #%% Folder stuctures should be: 
 # powerlifitng_model
@@ -53,7 +57,7 @@ class Settings():
     def __init__(self):
         
         self.SUBJECTS_TO_ANALYSE =  ['Athlete_03']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-        self.TRIAL_TO_ANALYSE =  ['dl_70_test']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        self.TRIAL_TO_ANALYSE =  ['dl_70_test' ]#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
         self.C3D_FILE = 'c3dfile.c3d'
         self.EMG = 'emg.mot'
@@ -61,7 +65,7 @@ class Settings():
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
         self.GRF_XML = 'externalloads.xml'
-        self.MARKER_FILE = 'task.trc'
+        self.MARKER_FILE = 'markers_experimental.trc'
         self.EVENTS_FILE = 'events.csv'
         self.ACTUATORS_SO = 'actuators_so.xml'
         
@@ -86,14 +90,22 @@ class Settings():
                      'knee_angle_l', 'knee_angle_r',
                      'ankle_angle_l', 'ankle_angle_r']
         
-        self.Muscle_Groups = { 'Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
-            'Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
-            'Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
-            'Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
-            'Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
-            'Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
-            'Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
-            'Vasti':['vasint_r','vaslat_r','vasmed_r']
+        self.Muscle_Groups = { 'R Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
+            'R Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
+            'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+            'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+            'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
+            'R Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
+            'R Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
+            'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+            'L Adductors': ['addbrev_l','addlong_l','addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l','grac_l'],
+            'L Hamstrings': ['bflh_l','semimem_l','semiten_l','bfsh_l'],
+            'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
+            'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
+            'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
+            'L Hip flexors':['sart_l','recfem_l','tfl_l','iliacus_l','psoas_l'],
+            'L Triceps Surae':['soleus_l','gaslat_l','gasmed_l'],
+            'L Vasti':['vasint_l','vaslat_l','vasmed_l']
             }
 
         self.JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
@@ -222,7 +234,6 @@ class Analysis():
         else:
             for subj in self.SUBJECTS:
                 if subj.name == subject_name:
-                    breakpoint()
                     return subj
             
             return None  # Subject not found
@@ -230,14 +241,11 @@ class Analysis():
 class Models(Analysis):
     def __init__(self, subject_name='Athlete_03'):
                 
-        self.SCALED_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled.osim')        
-        self.MRI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_mri_scaled.osim')
+        self.SCALED_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_scaled.osim')        
         
         self.SCALED_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.SCALED_MODEL.replace('.osim', '_scaledMasses.osim'))
-        self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
-        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_10.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_10.00.osim')
+        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_10.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
@@ -272,10 +280,7 @@ class Trial():
         settings = Settings()
         
         # Edit model paths below
-        if subject_name.lower().__contains__('mri'):  
-            self.USED_MODEL = models.MRI_MODEL_INCREASED_FORCE
-        else:
-            self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
+        self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
         
         self.inputFiles = {
             'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),

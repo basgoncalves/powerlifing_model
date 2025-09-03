@@ -800,8 +800,8 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
 
     return momentArmsAreWrong,  discontinuity, muscle_action
 
-# User selects a factor to increase the max isometric force of muscles
 def get_factor():
+    '''Prompt the user to enter a factor to increase muscle force.'''
     root = tk.Tk()
     root.withdraw()
     factor = simpledialog.askfloat(
@@ -813,6 +813,7 @@ def get_factor():
     return factor
 
 def increase_muscle_force(osim_file=None, factor=None, save_path=None):
+    '''Increase the max isometric force of muscles in the given osim file.'''
     root = tk.Tk() # prevent the main window from appearing
     root.withdraw()
     if osim_file is None:
@@ -843,6 +844,22 @@ def increase_muscle_force(osim_file=None, factor=None, save_path=None):
         
     model.printToXML(new_file)
     messagebox.showinfo("Done", f"Saved new model to:\n{new_file}")
+
+def get_muscle_params(osimModelPath, muscleList):
+    """Get the parameters of the specified muscles from the OpenSim model."""
+    params = {}
+    osimModel = osim.Model(osimModelPath)
+    muscleSet = osimModel.getMuscles()
+    for muscleName in muscleList:
+        muscle = muscleSet.get(muscleName)
+        if muscle:
+            params[muscleName] = {
+                "max_isometric_force": muscle.getMaxIsometricForce(),
+                "optimal_fiber_length": muscle.getOptimalFiberLength(),
+                "tendon_slack_length": muscle.getTendonSlackLength()
+            }
+            breakpoint()
+    return params
 
 # plotting
 def save_fig(fig, save_path):
