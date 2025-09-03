@@ -20,12 +20,21 @@ def validate_markers_used(ikTool,markers_path):
     
     return ikTool
 
-def main(osim_modelPath, marker_trc, ik_output, setup_xml, time_range=None, resultsDir=None):
-    
-    os.chdir(resultsDir)
+def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
+
+
+    # check paths
+    osim_modelPath = utils.check_arg(osim_modelPath,'osim_modelPath')
+    marker_trc = utils.check_arg(marker_trc,'marker_trc')
+    ik_output = utils.check_arg(ik_output,'ik_output')
+    setup_xml = utils.check_arg(setup_xml,'setup_xml')
+    resultsDir = utils.check_arg(resultsDir,'resultsDir')
+
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
-
+    
+    os.chdir(resultsDir)
+    
     if not os.path.exists(osim_modelPath):
         utils.print_to_log(f"OpenSim model file not found: {osim_modelPath}")
     
@@ -89,13 +98,19 @@ if __name__ == '__main__':
     osim_modelPath = trial.USED_MODEL
     ik_mot = trial.outputFiles['IK'].abspath()
     setup_xml = trial.path + '\\' + trial.outputFiles['IK'].setup
-    
-    main(osim_modelPath=osim_modelPath,
-            marker_trc=trial.inputFiles['MARKERS'].abspath(),
+    markers = trial.inputFiles['MARKERS'].abspath()
+    time_range = trial.TIME_RANGE
+
+    if False:
+        main()
+        
+    if True:
+        main(osim_modelPath=osim_modelPath,
+            marker_trc=markers,
             ik_output=ik_mot,
             setup_xml=setup_xml,
-            time_range=trial.TIME_RANGE,
-            resultsDir=trial.path)
+            time_range=time_range,
+            resultsDir=os.path.dirname(ik_mot))
     
     
   

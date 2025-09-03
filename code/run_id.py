@@ -1,10 +1,19 @@
+import inspect
 import os
 import shutil
+import sys
 import opensim as osim
 import paths
 import utils
 
-def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDir: str):
+
+def check_arg(arg=None,name=None):
+    if arg is None:
+        arg = input(f"Please provide a value for {name}: ").strip('"')
+
+    return arg
+
+def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=None, resultsDir=None):
     """
     Example usage:
     main(osim_modelPath='path/to/model.osim', 
@@ -14,61 +23,67 @@ def main(osim_modelPath, ik_output: str, grf_xml: str, setup_xml: str, resultsDi
          resultsDir='path/to/results')
     
     """
+    # check if any input is empty and if so ask for input
+    osimModelPath = check_arg(osimModelPath,'osimModelPath')
+    ikOutputPath = check_arg(ikOutputPath,'ikOutputPath')
+    grfXmlPath = check_arg(grfXmlPath,'grfXmlPath')
+    setupXmlPath = check_arg(setupXmlPath,'setupXmlPath')
+    resultsDir = check_arg(resultsDir,'resultsDir')
 
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
 
-    if not os.path.exists(osim_modelPath):
-        raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
+    if not os.path.exists(osimModelPath):
+        raise FileNotFoundError(f"OpenSim model file not found: {osimModelPath}")
     
-    if not os.path.exists(ik_output):
-        raise FileNotFoundError(f"Inverse Kinematics motion file not found: {ik_output}")
+    if not os.path.exists(ikOutputPath):
+        raise FileNotFoundError(f"Inverse Kinematics motion file not found: {ikOutputPath}")
 
-    if not os.path.exists(grf_xml):
-        raise FileNotFoundError(f"Ground Reaction Forces XML file not found: {grf_xml}")
+    if not os.path.exists(grfXmlPath):
+        raise FileNotFoundError(f"Ground Reaction Forces XML file not found: {grfXmlPath}")
 
     # Load the model
-    print(f"Loading OpenSim model from {osim_modelPath}")
-    model = osim.Model(osim_modelPath)
+    print(f"Loading OpenSim model from {osimModelPath}")
+    model = osim.Model(osimModelPath)
     model.initSystem()
 
     # Load the motion data
-    motion = osim.Storage(ik_output)
+    motion = osim.Storage(ikOutputPath)
 
     # Create the Inverse Dynamics tool
     idTool = osim.InverseDynamicsTool()
     idTool.setModel(model)
     idTool.setOutputGenForceFileName("inverse_dynamics.sto") # Output file name for the forces
-    idTool.setModelFileName(os.path.relpath(osim_modelPath, start=os.path.dirname(setup_xml)))
-    idTool.setCoordinatesFileName(os.path.relpath(ik_output, start=os.path.dirname(setup_xml)))
+    idTool.setModelFileName(os.path.relpath(osimModelPath, start=os.path.dirname(setupXmlPath)))
+    idTool.setCoordinatesFileName(os.path.relpath(ikOutputPath, start=os.path.dirname(setupXmlPath)))
     idTool.setStartTime(motion.getFirstTime()) # Start time
     idTool.setEndTime(motion.getLastTime()) # end time
-    idTool.setExternalLoadsFileName(os.path.relpath(grf_xml, start=os.path.dirname(setup_xml)))
+    idTool.setExternalLoadsFileName(os.path.relpath(grfXmlPath, start=os.path.dirname(setupXmlPath)))
     idTool.setResultsDir(resultsDir) # results directory 
     
     # Set lowpass filter frequency
     idTool.setLowpassCutoffFrequency(6)
     
     # Print the setup to XML
-    idTool.printToXML(setup_xml)
-    print(f"Inverse Dynamics setup saved to {setup_xml}")
+    idTool.printToXML(setupXmlPath)
+    print(f"Inverse Dynamics setup saved to {setupXmlPath}")
     
     # Load xml and edit forces to exclude
-    xml = utils.read_xml(setup_xml)
+    xml = utils.read_xml(setupXmlPath)
     xml.find('.//forces_to_exclude').text = 'Muscles'
-    utils.save_pretty_xml(xml, setup_xml)
+    utils.save_pretty_xml(xml, setupXmlPath)
 
     # Reload tool from xml
-    idTool = osim.InverseDynamicsTool(setup_xml)   
-    idTool.printToXML(setup_xml)  # Print to XML again to ensure changes are saved
+    idTool = osim.InverseDynamicsTool(setupXmlPath)   
+    idTool.printToXML(setupXmlPath)  # Print to XML again to ensure changes are saved
     
     # breakpoint()  # Optional: pause execution for debugging 
     # Run the inverse dynamics calculation
     os.chdir(resultsDir)
     idTool.run()
     idTool.setModel(model)  # Set the model again after running
-    
-    print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}")
+
+    print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}\\inverse_dynamics.sto")
 
 if __name__ == '__main__':
    
@@ -86,18 +101,23 @@ if __name__ == '__main__':
                         dst=setup_xml)
         
     osim_modelPath = trial.USED_MODEL
-    ik_mot = trial.outputFiles['IK'].abspath()
+    ik_output = trial.outputFiles['IK'].abspath()
     setup_id = trial.path + '\\' + trial.outputFiles['ID'].setup
     grf_xml = trial.inputFiles['GRF_XML'].abspath()
 
     if not os.path.exists(grf_xml):
         shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.inputFiles['GRF_XML'].output), 
                         dst=grf_xml)
+
+    if True:
+        main()
+        
+    if False:
+        main(osimModelPath=osim_modelPath,
+            ikOutputPath=ik_output,
+            grfXmlPath=grf_xml,
+            setupXmlPath=setup_xml,
+            resultsDir=os.path.dirname(ik_output))
     
-    main(osim_modelPath=osim_modelPath,
-            ik_output=ik_mot,
-            grf_xml=grf_xml,
-            setup_xml=setup_id,
-            resultsDir=trial.path)
     
-    
+
