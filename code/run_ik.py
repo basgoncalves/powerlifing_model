@@ -28,6 +28,7 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     marker_trc = utils.check_arg(marker_trc,'marker_trc')
     ik_output = utils.check_arg(ik_output,'ik_output')
     setup_xml = utils.check_arg(setup_xml,'setup_xml')
+    time_range = utils.check_arg(time_range,'time_range')
     resultsDir = utils.check_arg(resultsDir,'resultsDir')
 
     if not os.path.exists(resultsDir):
@@ -45,6 +46,9 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     print(f"Loading OpenSim model from {osim_modelPath}")
     model = osim.Model(osim_modelPath)
     model.initSystem()
+    
+    # Load markers
+    markers = osim.Storage(marker_trc)
 
     # Create the Inverse Kinematics tool
     ikTool = osim.InverseKinematicsTool(setup_xml)
@@ -63,6 +67,9 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     if time_range is not None:
         ikTool.setStartTime(time_range[0])  # Set start time
         ikTool.setEndTime(time_range[1])    # Set end time
+    else:
+        ikTool.setStartTime(markers.getFirstTime())  # Default start time
+        ikTool.setEndTime(markers.getLastTime())    # Default end time
     
     # Set the output motion file name relative to the results directory
     ikTool.setResultsDir('./')
@@ -101,10 +108,10 @@ if __name__ == '__main__':
     markers = trial.inputFiles['MARKERS'].abspath()
     time_range = trial.TIME_RANGE
 
-    if False:
+    if True:
         main()
         
-    if True:
+    if False:
         main(osim_modelPath=osim_modelPath,
             marker_trc=markers,
             ik_output=ik_mot,

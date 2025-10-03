@@ -11,11 +11,10 @@ import os
 import re
 import opensim
 import utils
-from utils import rotate_data_table, mm_to_m, plot_sto_file
-from utils import refine_ground_reaction_wrench, create_opensim_storage
 import pandas as pd
 import c3d
 import numpy as np
+
 
 def write_mot(analog_df, labels, mot_file):
     """
@@ -115,6 +114,10 @@ def export_emg(c3d_filepath):
         print(f"Successfully exported {emg_mot_path}")
     else:
         print("Warning: No EMG channels found among available analog channels.")
+        
+    # Write GRF MOT
+    breakpoint()    
+    grf_indices = [i for i, lbl in enumerate(analog_labels) if re.match(r'^[fpm]\d[xyz]$', lbl.lower())]
 
 def transform_labels(labels):
     """
@@ -205,18 +208,18 @@ def export_grf(c3d_filepath):
     
     c3d_data = adapter.read(c3d_filepath)
     forces_table = adapter.getForcesTable(c3d_data)
-    rotate_data_table(forces_table, [1, 0, 0], -90)
+    rotate_data_table(forces_table, [1, 0, 0], 180)
     time = forces_table.getIndependentColumn()
     forces_table = forces_table.flatten(['x', 'y', 'z'])
     
     # replace f,p,m for ground_force_v, ground_force_p, ground_torque
     labels = transform_labels(list(forces_table.getColumnLabels()))
-    
-    force_sto = create_opensim_storage(time, forces_table.getMatrix(), labels)
+    osimTools = utils.osimTools()
+    force_sto = osimTools._create_opensim_storage(time, forces_table.getMatrix(), labels)
     force_sto.setName('grf')
     output_dir = os.path.dirname(c3d_filepath)
     force_sto.printResult(force_sto, 'grf', output_dir, 0.01, '.mot')
-    print(f"Successfully exported {os.path.join(output_dir, 'grf.mot')}")
+    print(f"Successfully exported {os.path.join(output_dir, 'grf_180.mot')}")
 
 def define_time_range(trc_filepath, markers, algorithm):
     
@@ -249,25 +252,19 @@ def main(c3d_filepath, plot=False):
     # define_time_range(trc_filepath, markers=['SACROL'], algorithm='deadlift')
     # exit()
     # OpenSim data adapters
-    export_markers(c3d_filepath, strings_to_remove = ['Bar:', 'Athlete_3:'])
-
+    export_markers(c3d_filepath, strings_to_remove = [])
     export_grf(c3d_filepath)
     
     # export_emg(c3d_filepath)
 
-    
-
 if __name__ == "__main__":
 
-
     c3d_filepath = input("Enter the path to the .c3d file: ").strip().strip('"')
-    # make a path readable
-    c3d_filepath = os.path.abspath(c3d_filepath)
     
     # Check if file exists
     if not os.path.exists(c3d_filepath):
         print(f"Error: File not found at {c3d_filepath}")
-        exit(1)
+        exit(1)    
     
     # Check if it's a .c3d file
     if not c3d_filepath.lower().endswith('.c3d'):
@@ -275,6 +272,7 @@ if __name__ == "__main__":
         exit(1)
     
     print(f"Processing {c3d_filepath}")
+    
     main(c3d_filepath, plot=False)
 
 # END

@@ -7,12 +7,6 @@ import paths
 import utils
 
 
-def check_arg(arg=None,name=None):
-    if arg is None:
-        arg = input(f"Please provide a value for {name}: ").strip('"')
-
-    return arg
-
 def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=None, resultsDir=None):
     """
     Example usage:
@@ -24,11 +18,11 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
     
     """
     # check if any input is empty and if so ask for input
-    osimModelPath = check_arg(osimModelPath,'osimModelPath')
-    ikOutputPath = check_arg(ikOutputPath,'ikOutputPath')
-    grfXmlPath = check_arg(grfXmlPath,'grfXmlPath')
-    setupXmlPath = check_arg(setupXmlPath,'setupXmlPath')
-    resultsDir = check_arg(resultsDir,'resultsDir')
+    osimModelPath = utils.check_arg(osimModelPath,'osimModelPath')
+    ikOutputPath = utils.check_arg(ikOutputPath,'ikOutputPath')
+    grfXmlPath = utils.check_arg(grfXmlPath,'grfXmlPath')
+    setupXmlPath = utils.check_arg(setupXmlPath,'setupXmlPath')
+    resultsDir = utils.check_arg(resultsDir,'resultsDir')
 
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
