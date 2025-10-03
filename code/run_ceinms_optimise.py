@@ -42,29 +42,62 @@ def main(ceinms_exe, optimise_setup=None):
     # Run the CEINMS optimise executable
     command = [ceinms_exe, "-S", optimise_setup]
     print(f" \n Running command: {' '.join(command)} \n \n")
-    breakpoint()
+    
+    trial_path = os.path.dirname(optimise_setup)
+    exe_dir = os.path.dirname(ceinms_exe)
+    log_file_path = os.path.join(trial_path, "ceinms.log")
+    
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        for line in result.stdout.splitlines():
-            print(line)
+        print("Running CEINMS optimization...")
+        print(f"Executable: {ceinms_exe}")
+        print(f"Setup file: {optimise_setup}")
+
+        # PowerShell script that adds exe dir to PATH, then runs from trial dir
+        ps_script = f'''
+            $ErrorActionPreference = "Continue"
+            $env:PATH = "{exe_dir};$env:PATH"
+            Set-Location "{trial_path}"
+            & "{ceinms_exe}" -S "{optimise_setup}"
+            exit $LASTEXITCODE
+            '''
+
+        cmd = ["powershell", "-ExecutionPolicy", "Bypass", "-Command", ps_script]
+
+        with open(log_file_path, "w", encoding="utf-8") as log_file:
+            process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+
+            # Stream output
+            if process.stdout:
+                for line in process.stdout:
+                    # print(line, end="")
+                    log_file.write(line)
+                    log_file.flush()
+
+            process.wait()
+
+        print(f"\nOptimization complete. Log saved to: {log_file_path}")
+
+    except FileNotFoundError:
+        raise RuntimeError(
+            f"Could not execute {ceinms_exe}. Check if file exists and is executable."
+        )
+    except Exception as e:
+        raise RuntimeError(f"Error running CEINMS: {e}")
     except Exception as e:
         utils.print_to_log(f"Error running CEINMS optimise: {e}")
         
-        
-    if result.returncode != 0:
-        print("Error running CEINMS optimise.")
-        print(result.stdout)
-        print(result.stderr)
-        utils.print_to_log(f'Error running CEINMS optimise: {result.stdout}')
-        raise RuntimeError(f"CEINMS optimise failed with exit code {result.returncode}")
-    else:
-        print("CEINMS optimise completed successfully.")
-    
+
+   
 if __name__ == "__main__":
     
     start_time = time.time()
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    ceinms_exe = os.path.join(current_dir, 'CEINMSoptimise.exe')
+    ceinms_exe = os.path.join(current_dir, 'executables', 'CEINMSoptimise.exe')
     ceinms_setup = os.path.dirname(current_dir) + '\\simulations\\Running_009\\session1\\runA1\\setup_optimise_ceinms.xml'
 
     # Run CEINMS optimise
