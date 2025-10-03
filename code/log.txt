@@ -2100,3 +2100,100 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 14.08.2025_13:52:24:459: CEINMS optimise executable not found at c:\Git\1_current_projects\powerlifing_model\code\CEINMSoptimise.exe
 28.08.2025_16:54:47:823: Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
 28.08.2025_17:14:26:657: Marker TRC file not found: c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\markers_experimental.trc
+01.09.2025_13:17:29:359: Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_70\muscleAnalysis
+01.09.2025_13:20:20:179: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_13:27:29:132: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_17:47:34:741: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_17:47:46:141: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:34:58:788: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:44:42:790: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:45:13:391: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:46:17:187: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:46:47:243: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:55:09:842: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:56:48:192: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:57:21:145: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+01.09.2025_18:57:53:535: Checking muscle moment arms for: Athlete_03 / 22_07_06 / sq_70
+02.09.2025_11:58:49:042: Starting analysis...
+02.09.2025_11:59:11:384: Starting analysis...
+02.09.2025_11:59:11:392: Total analysis time: 0.01 seconds 
+ 
+
+02.09.2025_11:59:37:311: Starting analysis...
+02.09.2025_11:59:37:331: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_11:59:38:043: Marker TRC file not found: experimental_markers.trc
+02.09.2025_11:59:38:192: [Error] during Inverse Kinematics: 'NoneType' object has no attribute 'columns'
+02.09.2025_11:59:39:181: [Success] Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\inverse_dynamics.sto
+02.09.2025_12:01:18:939: [Success] Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
+02.09.2025_12:01:18:940: Analysis completed for: Athlete_03 / dl_70_test
+02.09.2025_12:01:18:940: Total analysis time: 101.63 seconds 
+ 
+
+02.09.2025_12:33:36:268: Starting analysis...
+02.09.2025_12:33:36:294: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_12:34:34:054: Starting analysis...
+02.09.2025_12:34:34:064: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_12:34:45:990: [Error] during Inverse Kinematics: std::exception in 'bool OpenSim::InverseKinematicsTool::run()': InverseKinematicsTool Failed, please see messages window for details...
+02.09.2025_12:34:47:132: [Success] Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\inverse_dynamics.sto
+02.09.2025_12:36:19:830: [Success] Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
+02.09.2025_12:36:21:184: [Error] during Static Optimization : std::exception in 'OpenSim::AnalyzeTool::AnalyzeTool(std::string const &)': SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'actuators_so.xml' with error 'Error reading end tag. (line=137, col=7)'.
+  (Required condition 'loadOK' was not met.)
+
+02.09.2025_12:38:15:764: Starting analysis...
+02.09.2025_12:38:15:773: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_12:38:37:440: Analysis completed for: Athlete_03 / dl_70_test
+02.09.2025_12:38:37:441: Total analysis time: 21.68 seconds 
+ 
+
+02.09.2025_12:38:50:393: Starting analysis...
+02.09.2025_12:38:50:398: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_12:39:49:940: Starting analysis...
+02.09.2025_12:39:49:948: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_12:40:41:257: [Success] Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\joint_angles.mot
+02.09.2025_12:40:42:501: [Success] Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\inverse_dynamics.sto
+02.09.2025_12:42:28:210: [Success] Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
+02.09.2025_12:42:28:211: Analysis completed for: Athlete_03 / dl_70_test
+02.09.2025_12:42:28:212: Total analysis time: 158.27 seconds 
+ 
+
+02.09.2025_15:14:23:393: Starting analysis...
+02.09.2025_15:14:23:413: Running analysis for: Athlete_03 / dl_70_test
+02.09.2025_15:15:18:309: [Success] Inverse Kinematics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\joint_angles.mot
+02.09.2025_15:15:19:350: [Success] Marker location comparison completed.
+02.09.2025_15:15:20:647: [Success] Inverse Dynamics completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\inverse_dynamics.sto
+02.09.2025_15:17:18:442: [Success] Muscle Analysis completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
+02.09.2025_15:19:13:625: [Success] Muscle moment arms checked. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\muscleAnalysis
+02.09.2025_15:19:15:018: [Error] during Static Optimization : std::exception in 'OpenSim::AnalyzeTool::AnalyzeTool(std::string const &)': SimTK Exception thrown at Xml.cpp:108:
+  Error detected by Simbody method Xml::readFromFile(): Failed to load the Xml file 'actuators_so.xml' with error 'Error reading end tag. (line=137, col=7)'.
+  (Required condition 'loadOK' was not met.)
+
+02.09.2025_15:19:15:027: Running JRA on: Athlete_03 / dl_70_test / c:\Git\1_current_projects\powerlifing_model\models\Athlete_03_scaled_scaledMasses_increased_10.00.osim
+02.09.2025_15:19:37:958: Error during Joint Reaction Analysis: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\SO_StaticOptimization_force.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+02.09.2025_15:19:37:964: Analysis completed for: Athlete_03 / dl_70_test
+02.09.2025_15:19:37:971: Total analysis time: 314.58 seconds 
+ 
+
+02.09.2025_15:39:16:031: [Success] Static Optimization completed. Results are saved in c:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\dl_70_test\
+25.09.2025_12:20:25:942: Starting analysis...
+25.09.2025_12:21:04:713: Starting analysis...
+25.09.2025_12:34:25:536: Starting analysis...
+25.09.2025_12:39:10:566: Starting analysis...
+01.10.2025_16:25:46:186: CEINMS optimise executable not found at c:\Git\1_current_projects\powerlifing_model\code\CEINMSoptimise.exe
+02.10.2025_11:40:13:692: Starting analysis...
+02.10.2025_11:41:00:635: Starting analysis...
+02.10.2025_12:21:14:989: Starting analysis...
+02.10.2025_12:23:02:828: Starting analysis...
+02.10.2025_12:23:31:093: Starting analysis...
+02.10.2025_12:24:42:402: Starting analysis...
+02.10.2025_12:25:20:873: Starting analysis...
+02.10.2025_12:26:32:244: Starting analysis...
+02.10.2025_12:26:47:409: Starting analysis...
+02.10.2025_12:26:47:887: Running analysis for: Athlete_03 / calibrate_hybrid_sq_70_EMG
+02.10.2025_12:26:47:888: Analysis completed for: Athlete_03 / calibrate_hybrid_sq_70_EMG
+02.10.2025_12:27:07:067: Starting analysis...
+02.10.2025_12:27:07:241: Running analysis for: Athlete_03 / calibrate_hybrid_sq_70_EMG
+02.10.2025_12:27:07:241: Analysis completed for: Athlete_03 / calibrate_hybrid_sq_70_EMG
+03.10.2025_11:55:02:552: CEINMS optimise executable not found at c:\Git\1_current_projects\powerlifing_model\code\CEINMSoptimise.exe
+03.10.2025_11:55:57:020: CEINMS optimise executable not found at c:\Git\1_current_projects\powerlifing_model\code\excutables\CEINMSoptimise.exe

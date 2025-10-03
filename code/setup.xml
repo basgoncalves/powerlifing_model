@@ -1,14 +1,7 @@
 <configuration>
-    <generic_files>..\..\setupFiles\Purzel</generic_files>
-    <time_range>0 2</time_range>
-    <inputs>
-        <path>..\simulations\Running_009</path>
-        <c3d>.\c3dfile.c3d</c3d>
-        <markers>.\marker_experimental.trc</markers>
-        <grf>.\grf.mot</grf>
-        <emg_mot>.\filtered_emg.mot</emg_mot>
-    </inputs>
-    <setups>
+    
+    <generic_files>
+        <path>.\setupFiles\Purzel</path>
         <grf>.\grf.xml</grf>
         <ik>.\setup_ik.xml</ik>
         <id>.\setup_id.xml</id>
@@ -19,14 +12,19 @@
         <ceinms_cal_cfg>.\ceinms_calibration_cfg.xml</ceinms_cal_cfg>
         <ceinms_optimse>.\setup_ceinms_optimse.xml</ceinms_optimse>
         <ceinms_optimise_cfg>.\ceinms_optimise_cfg.xml</ceinms_optimise_cfg>
-
-    </setups>
-    <outputs>
-        <muscleAnalysis>.\muscleAnalysis</muscleAnalysis>
-    </outputs> 
-    
-    <ceinms>
-
-        <start_stop_time>2.075 2.547</start_stop_time>
-    </ceinms>
+    </generic_files>
+    <subject>
+        <path>C:\Git\1_current_projects\Fatigue-prediction-MSC-Thesis\data\simulations\012\pre\Run_baselineA1</path>
+        <trial name ="Running_baselineA1">
+            <subject>012</subject>
+            <session>pre</session>
+            <time_range>Running_baselineA1</time_range>
+            <markers>.\markers_Trial_009.trc</markers>
+            <ik>.\ik.mot</ik>
+            <id>.\id.sto</id>
+            <so>.\so_Trial_009.sto</so>
+            <emg_mot>.\filtered_emg_Trial_009.mot</emg_mot>
+            <excitation>.\excitation_Trial_009.sto</excitation>
+        </trial>
+    </subject>
 </configuration>
