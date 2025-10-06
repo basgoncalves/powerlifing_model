@@ -45,3 +45,16 @@ if not os.path.exists(path_to_model):
 output_scale_file = os.path.join(path_to_model, 'output_scale_file.txt')
 output_model_file = os.path.join(path_to_model, f'scaled_model.osim')  
 output_scaling_settings = os.path.join(path_to_model, f'scaling_setting.xml')
+
+# 4_update_generic_model_with_mri_data.ipynb
+new_model_name = f'tps_transformed.osim'
+scaled_model = os.path.join(path_to_model, 'scaled_model_joints.osim')
+
+tps_folder = os.path.join(root_dir, 'final_results')
+personalised_model_folder = os.path.join(root_dir, 'final_results', 'personalized')
+if not os.path.exists(personalised_model_folder):
+    os.makedirs(personalised_model_folder)
+    print(f'Created directory: {personalised_model_folder}')
+    
+path_to_personalized_model = os.path.join(personalised_model_folder, new_model_name)
+
