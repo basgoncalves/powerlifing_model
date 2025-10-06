@@ -41,7 +41,6 @@ def muscles_per_coordinate(osimModel, coord_name):
 
     return muscles
 
-
 def checkMuscleMomentArms(osim_modelPath, ik_output,  coordinate_list, threshold = 0.005):
 
     def get_model_coord(model, coord_name):
@@ -128,25 +127,65 @@ def checkMuscleMomentArms(osim_modelPath, ik_output,  coordinate_list, threshold
         df.columns.name = 'Muscles'
         
         utils.write_sto_file(df, os.path.join(os.path.dirname(ik_output),'moment_arms' ,f'{coordinate.getName()}.sto'))
+   
+def create_nice_figure(n_subplots, figsize=(10, 5)):
+    '''function to make a nice figure with subplots that are nicely arranged without 
+    extra axes unused'''
+    
+    # make a square of subplots
+    n_cols = int(np.ceil(np.sqrt(n_subplots)))
+    n_rows = int(np.ceil(n_subplots / n_cols))
 
+    fig, axs = plt.subplots(n_rows, n_cols, figsize=figsize)
+    fig.tight_layout(pad=5.0)
+    return fig, axs
 
-base_dir = paths.SIMULATION_DIR
-subject = 'Athlete_03'  # Replace with actual subject name
-session = '22_07_06'  # Replace with actual session name
-trial = 'sq_70'  # Replace with actual trial name
+def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list):
+    model1 = osim.Model(osimModelPath1)
+    model2 = osim.Model(osimModelPath2)
+    
+    # create subplot for each coordinate
+    fig, axs = plt.subplots(len(coordinate_list), 1, figsize=(10, 5 * len(coordinate_list)))
+    fig.tight_layout(pad=5.0)
 
-# create a trial instance
-trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    for coord_name in coordinate_list:
+        
+        muscles1 = muscles_per_coordinate(model1, coord_name)
+        muscles2 = muscles_per_coordinate(model2, coord_name)
 
-osimModel = osim.Model(trial.USED_MODEL)
-muscles = osimModel.getMuscles()
-joint_angles = osim.Storage(trial.outputFiles['IK'].abspath())
+        breakpoint()
 
-muscles = muscles_per_coordinate(osimModel, coord_name='hip_flexion_l')
+        print(f'Coordinate: {coord_name}')
+        print(f'Model 1 has {len(muscles1)} muscles crossing: {muscles1}')
+        print(f'Model 2 has {len(muscles2)} muscles crossing: {muscles2}')
+     
+if __name__ == "__main__":
+    base_dir = paths.SIMULATION_DIR
+    subject = 'Athlete_03'  # Replace with actual subject name
+    session = '22_07_06'  # Replace with actual session name
+    trial = 'sq_70'  # Replace with actual trial name
 
-coordinates_to_check = ['hip_flexion_l', 'hip_flexion_r']
+    # create a trial instance
+    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    
+    coordinates_to_check = ['hip_flexion_l', 'hip_flexion_r',
+                            'knee_angle_l', 'knee_angle_r',
+                            'ankle_angle_l', 'ankle_angle_r']
 
-checkMuscleMomentArms(osim_modelPath=osimModel,
-                      ik_output=trial.outputFiles['IK'].abspath(),
-                      threshold=0.005, 
-                      coordinate_list=coordinates_to_check)
+    if False:    
+        osimModel = osim.Model(trial.USED_MODEL)
+        muscles = osimModel.getMuscles()
+        joint_angles = osim.Storage(trial.outputFiles['IK'].abspath())
+
+        muscles = muscles_per_coordinate(osimModel, coord_name='hip_flexion_l')
+        checkMuscleMomentArms(osim_modelPath=osimModel,
+                        ik_output=trial.outputFiles['IK'].abspath(),
+                        threshold=0.005, 
+                        coordinate_list=coordinates_to_check)
+
+    if True:
+        osimModelPath1 = input('Path to generic model: ')
+        osimModelPath2 = input('Path to personalized model: ')
+        compareModels_rest(osimModelPath1=osimModelPath1,
+                        osimModelPath2=osimModelPath2,
+                        coordinate_list=coordinates_to_check)
