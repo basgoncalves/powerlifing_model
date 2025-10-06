@@ -7,7 +7,7 @@ mri_dir = os.path.abspath('../mri/results')
 path_to_json = os.path.join(mri_dir, 'orientation.mrk.json')
 
 xml_path = os.path.join(root_dir,"templates/markers_and_bone_markers_in_bodies.xml")
-osim_path = os.path.join(root_dir,'templates/Catelli-V4.0.osim')
+osim_path = os.path.join(root_dir,'templates/Catelli-V4.0_Nu.osim')
 
 working_dir = os.getcwd()
 vtp_path = os.path.join(working_dir, 'Geometry')
