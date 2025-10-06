@@ -15,6 +15,15 @@ import xml.dom.minidom
 import os
 import opensim as osim
 import tkinter as tk
+import re
+import os
+import opensim
+import pandas as pd
+from scipy import signal
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.offsetbox import AnchoredText
+
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -533,6 +542,15 @@ def save_pretty_xml(tree, save_path):
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
 
+# cmd easy commands
+def activate_cmd_env():
+    path = input("Please provide the path to the environment: ")
+    for root, dirs, files in os.walk(path):
+        for filename in files:
+            if filename.startswith('activate') and filename.endswith('.bat'):
+                cmd_file = os.path.join(root, filename)
+                os.startfile(cmd_file)
+
 # opensim 
 def select_osim_file():
     root = tk.Tk()
@@ -800,6 +818,23 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
 
     return momentArmsAreWrong,  discontinuity, muscle_action
 
+def compareMomentArms(osimModelPath1, osimModelPath2, m, ikPath2, coord_name):
+
+    osimModel1 = osim.Model(osimModelPath1)
+    osimModel2 = osim.Model(osimModelPath2)
+    
+    muscles1, indexes1 = muscles_per_coordinate(osimModel1, coord_name)
+    muscles2, indexes2 = muscles_per_coordinate(osimModel2, coord_name)
+
+    common_muscles = set(muscles1).intersection(set(muscles2))
+    unique_to_model1 = set(muscles1) - common_muscles
+    unique_to_model2 = set(muscles2) - common_muscles
+    
+    for muscle in unique_to_model1:
+        print(f"Muscle {muscle} is only in model 1")
+
+    return common_muscles, unique_to_model1, unique_to_model2
+
 def get_factor():
     '''Prompt the user to enter a factor to increase muscle force.'''
     root = tk.Tk()
@@ -845,21 +880,47 @@ def increase_muscle_force(osim_file=None, factor=None, save_path=None):
     model.printToXML(new_file)
     messagebox.showinfo("Done", f"Saved new model to:\n{new_file}")
 
-def get_muscle_params(osimModelPath, muscleList):
+def get_muscle_params(osimModelPath, muscleNamesList, printOutput=False):
     """Get the parameters of the specified muscles from the OpenSim model."""
-    params = {}
+    
     osimModel = osim.Model(osimModelPath)
     muscleSet = osimModel.getMuscles()
-    for muscleName in muscleList:
+    musclesList = []
+
+    for i, muscleName in enumerate(muscleNamesList):
         muscle = muscleSet.get(muscleName)
         if muscle:
-            params[muscleName] = {
-                "max_isometric_force": muscle.getMaxIsometricForce(),
-                "optimal_fiber_length": muscle.getOptimalFiberLength(),
-                "tendon_slack_length": muscle.getTendonSlackLength()
-            }
-            breakpoint()
-    return params
+            muscle.max_isometric_force = muscle.getMaxIsometricForce()
+            muscle.optimal_fiber_length = muscle.getOptimalFiberLength()
+            muscle.tendon_slack_length = muscle.getTendonSlackLength()
+            muscle.specific_tension_N_cm2 = 15  # 150 and 155 kN/m2 DOI 10.1152/jappl.2001.90.3.865
+            muscle.pennation_angle_rad = muscle.getPennationAngleAtOptimalFiberLength()
+            muscle.physiological_cross_sectional_area_cm2 = muscle.getMaxIsometricForce() / muscle.specific_tension_N_cm2
+
+            musclesList.append(muscle)
+        
+    print(f'[WARNING] for this muscle set, specific tension was assumed as {muscle.specific_tension_N_cm2} N/cm2')
+    
+    if printOutput:
+        for i, muscleName in enumerate(muscleNamesList): 
+            muscle = musclesList[i]
+            print(f"Muscle parameters for {muscleName}: {muscle.getName()}")
+            print(f"  Max Isometric Force: {muscle.getMaxIsometricForce()} N")
+            print(f"  Optimal Fiber Length: {muscle.getOptimalFiberLength()} m")
+            print(f"  Tendon Slack Length: {muscle.getTendonSlackLength()} m")
+            print(f"  Physiological Cross-Sectional Area: {muscle.physiological_cross_sectional_area_cm2} cm^2")
+    
+    # return both model and muscleList so muscles keep attributes
+    return osimModel, musclesList
+
+def check_arg(arg=None,name=None):
+    if arg is None:
+        arg = input(f"Please provide a value for {name}: ").strip('"')
+    
+    if arg.startswith('[') and arg.endswith(']'):
+        arg = [float(x.strip()) for x in arg.strip('[]').split(',')]
+
+    return arg
 
 # plotting
 def save_fig(fig, save_path):
@@ -1001,595 +1062,617 @@ def rename_all_files_in_dir(dir_path, old_str, new_str):
             except Exception as e:
                 print(f"Error renaming '{filename}': {e}")
 
-# katya
-# Utility functions.
-#
-# author: Dimitar Stanev <jimstanev@gmail.com>
-##
-import re
-import os
-import opensim
-import numpy as np
-import pandas as pd
-from scipy import signal
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
-from matplotlib.offsetbox import AnchoredText
 
-
-def calculate_emg_linear_envelope(x, f_sampling=1000, f_band_low=30,
-                                  f_band_high=300, f_env=6, to_normalize=True):
-    """Calculates the EMG linear envelope by applying the following
-    transformations to the raw signal:
-
-    1) Remove mean
-    2) Band-pass 4th order Butterworth filter to remove low and high frequencies
-    3) Full rectification (use of abs)
-    4) Normalization based on max value (if to_normalize=True)
-    5) Low-pass filter to calculate the envelope
-
+class osimTools():
+    """A collection of utility functions for OpenSim and data processing.
+    
+    functions with '_' the object to be created first because they refer to self
+    Example:
+        tools = osimTools()
+        tools._printHello()
+        
+        osimTools.calculate_emg_linear_envelope(x)
+        # katya
+        # Utility functions.
+        #
+        # author: Dimitar Stanev <jimstanev@gmail.com>
+        ##
+    
     """
-    f_nyq = f_sampling / 2
-    # 1) remove mean
-    y = x - x.mean()
-    # 2) band-pass
-    b, a = signal.butter(4, [f_band_low / f_nyq, f_band_high / f_nyq], 'band')
-    y = signal.filtfilt(b, a, y)
-    # 3) rectify
-    y = np.abs(y)
-    # 4) normalize
-    if to_normalize:
-        y = y / y.max()
-
-    # 5) low-pass
-    b, a = signal.butter(2, f_env / f_nyq, 'low')
-    env = signal.filtfilt(b, a, y)
-    # # plot
-    # plt.figure()
-    # plt.plot(y, label='raw')
-    # plt.plot(env, label='envelop')
-    # plt.legend()
-    # return
-    return env
-
-
-def normalize_interpolate_dataframe(df, interp_column='time', method='linear'):
-    """Normalizes time between [0, 1] and then re-samples data frame at
-    constant interval.
-
-    """
-    # normalize between 0, 1
-    time_old = df.time.to_numpy()
-    time_new = (time_old - time_old[0]) / (time_old[-1] - time_old[0])
-    df.loc[:, 'time'] = time_new
-    # re-sample time with specific interval
-    df = df.set_index(interp_column)
-    at = np.arange(0, 1.01, 0.01)
-    df = df.reindex(df.index | at)
-    df = df.interpolate(method=method).loc[at]
-    df = df.reset_index()
-    df = df.rename(columns={'index': interp_column})
-    return df
-
-def osim_vector_to_list(array):
-    """Convert SimTK::Vector to Python list.
-    """
-    temp = []
-    for i in range(array.size()):
-        temp.append(array[i])
-
-    return temp
-
-
-def vector_vec3_to_nparray(vector):
-    temp = []
-    for i in range(vector.size()):
-        temp.append([vector[i][0], vector[i][1], vector[i][2]])
-
-    return np.array(temp)
-
-
-def osim_array_to_list(array):
-    """Convert OpenSim::Array<T> to Python list.
-    """
-    temp = []
-    for i in range(array.getSize()):
-        temp.append(array.get(i))
-
-    return temp
-
-
-def list_to_osim_array_str(list_str):
-    """Convert Python list of strings to OpenSim::Array<string>."""
-    arr = opensim.ArrayStr()
-    for element in list_str:
-        arr.append(element)
+    
+    def __init__(self, filepath=None):
+        self.filepath = filepath
+
+    def _printHello(self):
+        print("Hello from osimTools!")
+
+    def calculate_emg_linear_envelope(x, f_sampling=1000, f_band_low=30,
+                                    f_band_high=300, f_env=6, to_normalize=True,
+                                    plot=False):
+        """Calculates the EMG linear envelope by applying the following
+        transformations to the raw signal:
+
+        1) Remove mean
+        2) Band-pass 4th order Butterworth filter to remove low and high frequencies
+        3) Full rectification (use of abs)
+        4) Normalization based on max value (if to_normalize=True)
+        5) Low-pass filter to calculate the envelope
+        6) (optional) plot the raw and envelop signals (if plot=True); does not show plot just in the background
+
+        """
+        f_nyq = f_sampling / 2
+        # 1) remove mean
+        y = x - x.mean()
+        # 2) band-pass
+        b, a = signal.butter(4, [f_band_low / f_nyq, f_band_high / f_nyq], 'band')
+        y = signal.filtfilt(b, a, y)
+        # 3) rectify
+        y = np.abs(y)
+        # 4) normalize
+        if to_normalize:
+            y = y / y.max()
+
+        # 5) low-pass
+        b, a = signal.butter(2, f_env / f_nyq, 'low')
+        env = signal.filtfilt(b, a, y)
+        if plot:
+            plt.figure()
+            plt.plot(y, label='raw')
+            plt.plot(env, label='envelop')
+            plt.legend()
+            
+        return env
+
+
+    def normalize_interpolate_dataframe(df, interp_column='time', method='linear'):
+        """Normalizes time between [0, 1] and then re-samples data frame at
+        constant interval.
+
+        """
+        # normalize between 0, 1
+        time_old = df.time.to_numpy()
+        time_new = (time_old - time_old[0]) / (time_old[-1] - time_old[0])
+        df.loc[:, 'time'] = time_new
+        # re-sample time with specific interval
+        df = df.set_index(interp_column)
+        at = np.arange(0, 1.01, 0.01)
+        df = df.reindex(df.index | at)
+        df = df.interpolate(method=method).loc[at]
+        df = df.reset_index()
+        df = df.rename(columns={'index': interp_column})
+        return df
+
+    def osim_vector_to_list(array):
+        """Convert SimTK::Vector to Python list.
+        """
+        temp = []
+        for i in range(array.size()):
+            temp.append(array[i])
+
+        return temp
+
+
+    def vector_vec3_to_nparray(vector):
+        temp = []
+        for i in range(vector.size()):
+            temp.append([vector[i][0], vector[i][1], vector[i][2]])
+
+        return np.array(temp)
+
+
+    def osim_array_to_list(array):
+        """Convert OpenSim::Array<T> to Python list.
+        """
+        temp = []
+        for i in range(array.getSize()):
+            temp.append(array.get(i))
+
+        return temp
+
+
+    def list_to_osim_array_str(self, list_str):
+        """Convert Python list of strings to OpenSim::Array<string>."""
+        arr = opensim.ArrayStr()
+        for element in list_str:
+            arr.append(element)
+
+        return arr
+
+
+    def np_array_to_simtk_matrix(array):
+        """Convert numpy array to SimTK::Matrix"""
+        n, m = array.shape
+        M = opensim.Matrix(n, m)
+        for i in range(n):
+            for j in range(m):
+                M.set(i, j, array[i, j])
 
-    return arr
-
-
-def np_array_to_simtk_matrix(array):
-    """Convert numpy array to SimTK::Matrix"""
-    n, m = array.shape
-    M = opensim.Matrix(n, m)
-    for i in range(n):
-        for j in range(m):
-            M.set(i, j, array[i, j])
-
-    return M
-
-
-def rotate_data_table(table, axis, deg):
-    """Rotate OpenSim::TimeSeriesTableVec3 entries using an axis and angle.
-
-    Parameters
-    ----------
-    table: OpenSim.common.TimeSeriesTableVec3
-
-    axis: 3x1 vector
-
-    deg: angle in degrees
-
-    """
-    R = opensim.Rotation(np.deg2rad(deg),
-                         opensim.Vec3(axis[0], axis[1], axis[2]))
-    for i in range(table.getNumRows()):
-        vec = table.getRowAtIndex(i)
-        vec_rotated = R.multiply(vec)
-        table.setRowAtIndex(i, vec_rotated)
-
-
-def mm_to_m(table, label):
-    """Scale from units in mm for units in m.
-
-    Parameters
-    ----------
-    label: string containing the name of the column you want to convert
-
-    """
-    c = table.updDependentColumn(label)
-    for i in range(c.size()):
-        c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
-
-
-def mirror_z(table, label):
-    """Mirror the z-component of the vector.
-
-    Parameters
-    ----------
-    label: string containing the name of the column you want to convert
-
-    """
-    c = table.updDependentColumn(label)
-    for i in range(c.size()):
-        c[i] = opensim.Vec3(c[i][0], c[i][1], -c[i][2])
-
-
-def lowess_bell_shape_kern(x, y, tau=0.0005):
-    """lowess_bell_shape_kern(x, y, tau = .005) -> y_est Locally weighted
-    regression: fits a nonparametric regression curve to a scatterplot. The
-    arrays x and y contain an equal number of elements; each pair (x[i], y[i])
-    defines a data point in the scatterplot. The function returns the estimated
-    (smooth) values of y.  The kernel function is the bell shaped function with
-    parameter tau. Larger tau will result in a smoother curve.
-
-    """
-    n = len(x)
-    y_est = np.zeros(n)
-
-    # initializing all weights from the bell shape kernel function
-    w = np.array([np.exp(- (x - x[i]) ** 2 / (2 * tau)) for i in range(n)])
-
-    # looping through all x-points
-    for i in range(n):
-        weights = w[:, i]
-        b = np.array([np.sum(weights * y), np.sum(weights * y * x)])
-        A = np.array([[np.sum(weights), np.sum(weights * x)],
-                      [np.sum(weights * x), np.sum(weights * x * x)]])
-        theta = np.linalg.solve(A, b)
-        y_est[i] = theta[0] + theta[1] * x[i]
-
-    return y_est
-
-
-def create_opensim_storage(time, data, column_names):
-    """Creates a OpenSim::Storage.
-
-    Parameters
-    ----------
-    time: SimTK::Vector
-
-    data: SimTK::Matrix
-
-    column_names: list of strings
-
-    Returns
-    -------
-    sto: OpenSim::Storage
-
-    """
-    sto = opensim.Storage()
-    sto.setColumnLabels(list_to_osim_array_str(['time'] + column_names))
-    for i in range(data.nrow()):
-        row = opensim.ArrayDouble()
-        for j in range(data.ncol()):
-            row.append(data.getElt(i, j))
-
-        sto.append(time[i], row)
-
-    return sto
-
-
-def annotate_plot(ax, text):
-    """Annotate a figure by adding a text.
-    """
-    at = AnchoredText(text, frameon=True, loc='upper left')
-    at.patch.set_boxstyle('round, pad=0, rounding_size=0.2')
-    ax.add_artist(at)
-
-
-def rmse_metric(s1, s2):
-    """Root mean squared error between two time series.
-
-    """
-    # Signals are sampled with the same sampling frequency. Here time
-    # series are first aligned.
-    # if s1.index[0] < 0:
-    #     s1.index = s1.index - s1.index[0]
-
-    # if s2.index[0] < 0:
-    #     s2.index = s2.index - s2.index[0]
-
-    t1_0 = s1.index[0]
-    t1_f = s1.index[-1]
-    t2_0 = s2.index[0]
-    t2_f = s2.index[-1]
-    t_0 = np.round(np.max([t1_0, t2_0]), 3)
-    t_f = np.round(np.min([t1_f, t2_f]), 3)
-    x = s1[(s1.index >= t_0) & (s1.index <= t_f)].to_numpy()
-    y = s2[(s2.index >= t_0) & (s2.index <= t_f)].to_numpy()
-    return np.round(np.sqrt(np.mean((x - y) ** 2)), 3)
-
-
-def refine_ground_reaction_wrench(data_table, label_triplet, stance_threshold,
-                                  tau, debug=True):
-    """Clean and filter raw ground reaction forces at a single leg as specified by
-    label triplet. This algorithm checks when the foot is in touch with the
-    ground (stance phase). When the foot is not in touch then the original data
-    contain noise with very small SNR. Therefore, the data is either set to zero
-    or to nan. Then, the data is interpolated in case of nan. Finally, the
-    signals are low pass filtered using lowess_bell_shape_kern.
-
-    Parameters
-    ----------
-
-    data_table: OpenSim::DataTable<Vec3> containing [force, point, moment] for
-    each leg
-
-    label_triplet: column identifiers for the wrench triplet (e.g., ['f1', 'p1', 'm1'])
-
-    stance_threshold: values to consider the foot in touch with the ground
-
-    tau: kernel standard divination (filtering)
-
-    debug: Boolean to visualize filtering result
-
-    Returns
-    -------
-
-    This function mutates the original data_table
-
-    """
-    # get data of single leg
-    t = np.array(data_table.getIndependentColumn())
-    f = data_table.updDependentColumn(label_triplet[0])
-    p = data_table.updDependentColumn(label_triplet[1])
-    m = data_table.updDependentColumn(label_triplet[2])
-    f_l = vector_vec3_to_nparray(f)
-    p_l = vector_vec3_to_nparray(p)
-    m_l = vector_vec3_to_nparray(m)
-
-    # debugging
-    if debug:
-        plt.figure()
-        f1 = plt.gca()
-        f1.plot(t, f_l)
-        plt.figure()
-        f2 = plt.gca()
-        f2.plot(t, p_l)
-        plt.figure()
-        f3 = plt.gca()
-        f3.plot(t, m_l)
-
-    # remove information when the foot is not touching the ground
-    t0 = None
-    tf = None
-    for i in range(len(f_l)):
-        # remove noise
-        if f_l[i, 1] < stance_threshold:
-            for j in range(3):
-                f_l[i, j] = 0
-                p_l[i, j] = np.nan
-                m_l[i, j] = 0
-
-        # detect heel strike
-        if t0 is None and f_l[i, 1] >= stance_threshold:
-            t0 = t[i]
-
-        # detect toe off
-        if tf is None and t0 is not None and f_l[i, 1] <= stance_threshold:
-            tf = t[i]
-
-    # interpolate nan values for points and moments
-    f_l = pd.DataFrame(f_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
-    p_l = pd.DataFrame(p_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
-    m_l = pd.DataFrame(m_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
-
-    # filter data
-    for j in range(3):
-        # f_l[:, j] = signal.medfilt(f_l[:, j], median)
-        f_l[:, j] = lowess_bell_shape_kern(t, f_l[:, j], tau)
-        p_l[:, j] = lowess_bell_shape_kern(t, p_l[:, j], tau)
-        m_l[:, j] = lowess_bell_shape_kern(t, m_l[:, j], tau)
-
-    # debugging
-    if debug:
-        f1.plot(t, f_l)
-        f2.plot(t, p_l)
-        f3.plot(t, m_l)
-
-    # update columns in the original data
-    for i in range(f_l.shape[0]):
-        f[i] = opensim.Vec3(f_l[i, 0], f_l[i, 1], f_l[i, 2])
-        p[i] = opensim.Vec3(p_l[i, 0], p_l[i, 1], p_l[i, 2])
-        m[i] = opensim.Vec3(m_l[i, 0], m_l[i, 1], m_l[i, 2])
-
-    return t0, tf, p_l.mean(axis=0)
-
-def read_from_storage(file_name, sampling_interval=0.01,
-                      to_filter=False):
-    """Read OpenSim.Storage files.
-
-    Parameters
-    ----------
-    file_name: (string) path to file
-
-    sampling_interval: resample the data with a given interval (0.01)
-
-    to_filter: use low pass 4th order FIR filter with 6Hz cut off
-    frequency
-
-    Returns
-    -------
-    df: pandas data frame
-
-    """
-    sto = opensim.Storage(file_name)
-    sto.resampleLinear(sampling_interval)
-    if to_filter:
-        sto.lowpassFIR(4, 6)
-
-    labels = osim_array_to_list(sto.getColumnLabels())
-    time = opensim.ArrayDouble()
-    sto.getTimeColumn(time)
-    time = osim_array_to_list(time)
-    data = []
-    for i in range(sto.getSize()):
-        temp = osim_array_to_list(sto.getStateVector(i).getData())
-        temp.insert(0, time[i])
-        data.append(temp)
-
-    df = pd.DataFrame(data, columns=labels)
-    df.index = df.time
-    return df
-
-
-def index_containing_substring(list_str, pattern):
-    """For a given list of strings finds the index of the element that
-    contains the substring.
-
-    Parameters
-    ----------
-    list_str: list of str
-
-    pattern: str
-         pattern
-
-
-    Returns
-    -------
-    indices: list of int
-         the indices where the pattern matches
-
-    """
-    return [i for i, item in enumerate(list_str)
-            if re.search(pattern, item)]
-
-
-def plot_sto_file(file_name, plot_file, plots_per_row=4, pattern=None,
-                  title_function=lambda x: x):
-    """Plots the .sto file (OpenSim) by constructing a grid of subplots.
-
-    Parameters
-    ----------
-    sto_file: str
-        path to file
-    plot_file: str
-        path to store result
-    plots_per_row: int
-        subplot columns
-    pattern: str, optional, default=None
-        plot based on pattern (e.g. only pelvis coordinates)
-    title_function: lambda
-        callable function f(str) -> str
-    """
-    df = read_from_storage(file_name)
-    labels = df.columns.to_list()
-    data = df.to_numpy()
-
-    if pattern is not None:
-        indices = index_containing_substring(labels, pattern)
-    else:
-        indices = range(1, len(labels))
-
-    n = len(indices)
-    ncols = int(plots_per_row)
-    nrows = int(np.ceil(float(n) / plots_per_row))
-    pages = int(np.ceil(float(nrows) / ncols))
-    if ncols > n:
-        ncols = n
-
-    with PdfPages(plot_file) as pdf:
-        for page in range(0, pages):
-            fig, ax = plt.subplots(nrows=ncols, ncols=ncols,
-                                   figsize=(8, 8))
-            ax = ax.flatten()
-            for pl, col in enumerate(indices[page * ncols ** 2:page *
-                                             ncols ** 2 + ncols ** 2]):
-                ax[pl].plot(data[:, 0], data[:, col])
-                ax[pl].set_title(title_function(labels[col]))
-
-            fig.tight_layout()
-            pdf.savefig(fig)
-            plt.close()
-
-
-def adjust_model_mass(model_file, mass_change):
-    """Given a required mass change adjust all body masses accordingly.
-
-    """
-    rra_model = opensim.Model(model_file)
-    rra_model.setName('model_adjusted')
-    state = rra_model.initSystem()
-    current_mass = rra_model.getTotalMass(state)
-    new_mass = current_mass + mass_change
-    mass_scale_factor = new_mass / current_mass
-    for body in rra_model.updBodySet():
-        body.setMass(mass_scale_factor * body.getMass())
-
-    # save model with adjusted body masses
-    rra_model.printToXML(model_file)
-
-
-def replace_thelen_muscles_with_millard(model_file, target_folder):
-    """Replaces Thelen muscles with Millard muscles so that we can disable
-    tendon compliance and perform MuscleAnalysis to compute normalized
-    fiber length/velocity without spikes.
-
-    """
-    model = opensim.Model(model_file)
-    new_force_set = opensim.ForceSet()
-    force_set = model.getForceSet()
-    for i in range(force_set.getSize()):
-        force = force_set.get(i)
-        muscle = opensim.Muscle.safeDownCast(force)
-        millard_muscle = opensim.Millard2012EquilibriumMuscle.safeDownCast(
-            force)
-        thelen_muscle = opensim.Thelen2003Muscle.safeDownCast(force)
-        if muscle is None:
-            new_force_set.adoptAndAppend(force.clone())
-        elif millard_muscle is not None:
-            millard_muscle = millard_muscle.clone()
-            millard_muscle.set_ignore_tendon_compliance(True)
-            new_force_set.adoptAndAppend(millard_muscle)
-        elif thelen_muscle is not None:
-            millard_muscle = opensim.Millard2012EquilibriumMuscle()
-            # properties
-            millard_muscle.set_default_activation(
-                thelen_muscle.getDefaultActivation())
-            millard_muscle.set_activation_time_constant(
-                thelen_muscle.get_activation_time_constant())
-            millard_muscle.set_deactivation_time_constant(
-                thelen_muscle.get_deactivation_time_constant())
-            # millard_muscle.set_fiber_damping(0)
-            # millard_muscle.set_tendon_strain_at_one_norm_force(
-            #     thelen_muscle.get_FmaxTendonStrain())
-            millard_muscle.setName(thelen_muscle.getName())
-            millard_muscle.set_appliesForce(thelen_muscle.get_appliesForce())
-            millard_muscle.setMinControl(thelen_muscle.getMinControl())
-            millard_muscle.setMaxControl(thelen_muscle.getMaxControl())
-            millard_muscle.setMaxIsometricForce(
-                thelen_muscle.getMaxIsometricForce())
-            millard_muscle.setOptimalFiberLength(
-                thelen_muscle.getOptimalFiberLength())
-            millard_muscle.setTendonSlackLength(
-                thelen_muscle.getTendonSlackLength())
-            millard_muscle.setPennationAngleAtOptimalFiberLength(
-                thelen_muscle.getPennationAngleAtOptimalFiberLength())
-            millard_muscle.setMaxContractionVelocity(
-                thelen_muscle.getMaxContractionVelocity())
-            # millard_muscle.set_ignore_tendon_compliance(
-            #     thelen_muscle.get_ignore_tendon_compliance())
-            millard_muscle.set_ignore_tendon_compliance(True)
-            millard_muscle.set_ignore_activation_dynamics(
-                thelen_muscle.get_ignore_activation_dynamics())
-            # muscle path
-            pathPointSet = thelen_muscle.getGeometryPath().getPathPointSet()
-            geomPath = millard_muscle.updGeometryPath()
-            for j in range(pathPointSet.getSize()):
-                pathPoint = pathPointSet.get(j).clone()
-                geomPath.updPathPointSet().adoptAndAppend(pathPoint)
-
-            # append
-            new_force_set.adoptAndAppend(millard_muscle)
+        return M
+
+
+    def rotate_data_table(table, axis, deg):
+        """Rotate OpenSim::TimeSeriesTableVec3 entries using an axis and angle.
+
+        Parameters
+        ----------
+        table: OpenSim.common.TimeSeriesTableVec3
+
+        axis: 3x1 vector
+
+        deg: angle in degrees
+
+        """
+        R = opensim.Rotation(np.deg2rad(deg),
+                            opensim.Vec3(axis[0], axis[1], axis[2]))
+        for i in range(table.getNumRows()):
+            vec = table.getRowAtIndex(i)
+            vec_rotated = R.multiply(vec)
+            table.setRowAtIndex(i, vec_rotated)
+
+
+    def mm_to_m(table, label):
+        """Scale from units in mm for units in m.
+
+        Parameters
+        ----------
+        label: string containing the name of the column you want to convert
+
+        """
+        c = table.updDependentColumn(label)
+        for i in range(c.size()):
+            c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
+
+
+    def mirror_z(table, label):
+        """Mirror the z-component of the vector.
+
+        Parameters
+        ----------
+        label: string containing the name of the column you want to convert
+
+        """
+        c = table.updDependentColumn(label)
+        for i in range(c.size()):
+            c[i] = opensim.Vec3(c[i][0], c[i][1], -c[i][2])
+
+
+    def lowess_bell_shape_kern(x, y, tau=0.0005):
+        """lowess_bell_shape_kern(x, y, tau = .005) -> y_est Locally weighted
+        regression: fits a nonparametric regression curve to a scatterplot. The
+        arrays x and y contain an equal number of elements; each pair (x[i], y[i])
+        defines a data point in the scatterplot. The function returns the estimated
+        (smooth) values of y.  The kernel function is the bell shaped function with
+        parameter tau. Larger tau will result in a smoother curve.
+
+        """
+        n = len(x)
+        y_est = np.zeros(n)
+
+        # initializing all weights from the bell shape kernel function
+        w = np.array([np.exp(- (x - x[i]) ** 2 / (2 * tau)) for i in range(n)])
+
+        # looping through all x-points
+        for i in range(n):
+            weights = w[:, i]
+            b = np.array([np.sum(weights * y), np.sum(weights * y * x)])
+            A = np.array([[np.sum(weights), np.sum(weights * x)],
+                        [np.sum(weights * x), np.sum(weights * x * x)]])
+            theta = np.linalg.solve(A, b)
+            y_est[i] = theta[0] + theta[1] * x[i]
+
+        return y_est
+
+    def _storage_to_dataframe(self, sto):
+        print('Converting OpenSim Storage to pandas DataFrame')
+        
+        # for i in range(sto.getSize()):print(sto.getStateVector(i).getTime())
+        for i in range(sto.getSize()):print(sto.getData(i))
+        sto.printToFile()
+        
+        breakpoint()
+        
+    def _create_opensim_storage(self, time, data, column_names):
+        """Creates a OpenSim::Storage.
+
+        Parameters
+        ----------
+        time: SimTK::Vector
+
+        data: SimTK::Matrix
+
+        column_names: list of strings
+
+        Returns
+        -------
+        sto: OpenSim::Storage
+
+        """
+        sto = opensim.Storage()
+        sto.setColumnLabels(osimTools().list_to_osim_array_str(['time'] + column_names))
+        for i in range(data.nrow()):
+            row = opensim.ArrayDouble()
+            for j in range(data.ncol()):
+                value = data.getElt(i, j)
+                if np.isnan(value):
+                    value = 0
+                row.append(value)
+            sto.append(time[i], row)
+        
+        # self._storage_to_dataframe(sto)
+        return sto
+
+
+    def annotate_plot(ax, text):
+        """Annotate a figure by adding a text.
+        """
+        at = AnchoredText(text, frameon=True, loc='upper left')
+        at.patch.set_boxstyle('round, pad=0, rounding_size=0.2')
+        ax.add_artist(at)
+
+
+    def rmse_metric(s1, s2):
+        """Root mean squared error between two time series.
+
+        """
+        # Signals are sampled with the same sampling frequency. Here time
+        # series are first aligned.
+        # if s1.index[0] < 0:
+        #     s1.index = s1.index - s1.index[0]
+
+        # if s2.index[0] < 0:
+        #     s2.index = s2.index - s2.index[0]
+
+        t1_0 = s1.index[0]
+        t1_f = s1.index[-1]
+        t2_0 = s2.index[0]
+        t2_f = s2.index[-1]
+        t_0 = np.round(np.max([t1_0, t2_0]), 3)
+        t_f = np.round(np.min([t1_f, t2_f]), 3)
+        x = s1[(s1.index >= t_0) & (s1.index <= t_f)].to_numpy()
+        y = s2[(s2.index >= t_0) & (s2.index <= t_f)].to_numpy()
+        return np.round(np.sqrt(np.mean((x - y) ** 2)), 3)
+
+
+    def refine_ground_reaction_wrench(self,data_table, label_triplet, stance_threshold,
+                                    tau, debug=True):
+        """Clean and filter raw ground reaction forces at a single leg as specified by
+        label triplet. This algorithm checks when the foot is in touch with the
+        ground (stance phase). When the foot is not in touch then the original data
+        contain noise with very small SNR. Therefore, the data is either set to zero
+        or to nan. Then, the data is interpolated in case of nan. Finally, the
+        signals are low pass filtered using lowess_bell_shape_kern.
+
+        Parameters
+        ----------
+
+        data_table: OpenSim::DataTable<Vec3> containing [force, point, moment] for
+        each leg
+
+        label_triplet: column identifiers for the wrench triplet (e.g., ['f1', 'p1', 'm1'])
+
+        stance_threshold: values to consider the foot in touch with the ground
+
+        tau: kernel standard divination (filtering)
+
+        debug: Boolean to visualize filtering result
+
+        Returns
+        -------
+
+        This function mutates the original data_table
+
+        """
+        # get data of single leg
+        t = np.array(data_table.getIndependentColumn())
+        f = data_table.updDependentColumn(label_triplet[0])
+        p = data_table.updDependentColumn(label_triplet[1])
+        m = data_table.updDependentColumn(label_triplet[2])
+        f_l = self.vector_vec3_to_nparray(f)
+        p_l = self.vector_vec3_to_nparray(p)
+        m_l = self.vector_vec3_to_nparray(m)
+
+        # debugging
+        if debug:
+            plt.figure()
+            f1 = plt.gca()
+            f1.plot(t, f_l)
+            plt.figure()
+            f2 = plt.gca()
+            f2.plot(t, p_l)
+            plt.figure()
+            f3 = plt.gca()
+            f3.plot(t, m_l)
+
+        # remove information when the foot is not touching the ground
+        t0 = None
+        tf = None
+        for i in range(len(f_l)):
+            # remove noise
+            if f_l[i, 1] < stance_threshold:
+                for j in range(3):
+                    f_l[i, j] = 0
+                    p_l[i, j] = np.nan
+                    m_l[i, j] = 0
+
+            # detect heel strike
+            if t0 is None and f_l[i, 1] >= stance_threshold:
+                t0 = t[i]
+
+            # detect toe off
+            if tf is None and t0 is not None and f_l[i, 1] <= stance_threshold:
+                tf = t[i]
+
+        # interpolate nan values for points and moments
+        f_l = pd.DataFrame(f_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+        p_l = pd.DataFrame(p_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+        m_l = pd.DataFrame(m_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+
+        # filter data
+        for j in range(3):
+            # f_l[:, j] = signal.medfilt(f_l[:, j], median)
+            f_l[:, j] = lowess_bell_shape_kern(t, f_l[:, j], tau)
+            p_l[:, j] = lowess_bell_shape_kern(t, p_l[:, j], tau)
+            m_l[:, j] = lowess_bell_shape_kern(t, m_l[:, j], tau)
+
+        # debugging
+        if debug:
+            f1.plot(t, f_l)
+            f2.plot(t, p_l)
+            f3.plot(t, m_l)
+
+        # update columns in the original data
+        for i in range(f_l.shape[0]):
+            f[i] = opensim.Vec3(f_l[i, 0], f_l[i, 1], f_l[i, 2])
+            p[i] = opensim.Vec3(p_l[i, 0], p_l[i, 1], p_l[i, 2])
+            m[i] = opensim.Vec3(m_l[i, 0], m_l[i, 1], m_l[i, 2])
+
+        return t0, tf, p_l.mean(axis=0)
+
+    def read_from_storage(self, file_name, sampling_interval=0.01,
+                        to_filter=False):
+        """Read OpenSim.Storage files.
+
+        Parameters
+        ----------
+        file_name: (string) path to file
+
+        sampling_interval: resample the data with a given interval (0.01)
+
+        to_filter: use low pass 4th order FIR filter with 6Hz cut off
+        frequency
+
+        Returns
+        -------
+        df: pandas data frame
+
+        """
+        sto = opensim.Storage(file_name)
+        sto.resampleLinear(sampling_interval)
+        if to_filter:
+            sto.lowpassFIR(4, 6)
+
+        labels = osim_array_to_list(sto.getColumnLabels())
+        time = opensim.ArrayDouble()
+        sto.getTimeColumn(time)
+        time = osim_array_to_list(time)
+        data = []
+        for i in range(sto.getSize()):
+            temp = osim_array_to_list(sto.getStateVector(i).getData())
+            temp.insert(0, time[i])
+            data.append(temp)
+
+        df = pd.DataFrame(data, columns=labels)
+        df.index = df.time
+        return df
+
+
+    def index_containing_substring(list_str, pattern):
+        """For a given list of strings finds the index of the element that
+        contains the substring.
+
+        Parameters
+        ----------
+        list_str: list of str
+
+        pattern: str
+            pattern
+
+
+        Returns
+        -------
+        indices: list of int
+            the indices where the pattern matches
+
+        """
+        return [i for i, item in enumerate(list_str)
+                if re.search(pattern, item)]
+
+
+    def _plot_sto_file(self,file_name, plot_file, plots_per_row=4, pattern=None,
+                    title_function=lambda x: x):
+        """Plots the .sto file (OpenSim) by constructing a grid of subplots.
+
+        Parameters
+        ----------
+        sto_file: str
+            path to file
+        plot_file: str
+            path to store result
+        plots_per_row: int
+            subplot columns
+        pattern: str, optional, default=None
+            plot based on pattern (e.g. only pelvis coordinates)
+        title_function: lambda
+            callable function f(str) -> str
+        """
+        df = osimTools().read_from_storage(file_name)
+        labels = df.columns.to_list()
+        data = df.to_numpy()
+
+        if pattern is not None:
+            indices = index_containing_substring(labels, pattern)
         else:
-            raise RuntimeError(
-                'cannot handle the type of muscle: ' + force.getName())
+            indices = range(1, len(labels))
 
-    new_force_set.printToXML(os.path.join(target_folder, 'muscle_set.xml'))
+        n = len(indices)
+        ncols = int(plots_per_row)
+        nrows = int(np.ceil(float(n) / plots_per_row))
+        pages = int(np.ceil(float(nrows) / ncols))
+        if ncols > n:
+            ncols = n
+
+        with PdfPages(plot_file) as pdf:
+            for page in range(0, pages):
+                fig, ax = plt.subplots(nrows=ncols, ncols=ncols,
+                                    figsize=(8, 8))
+                ax = ax.flatten()
+                for pl, col in enumerate(indices[page * ncols ** 2:page *
+                                                ncols ** 2 + ncols ** 2]):
+                    ax[pl].plot(data[:, 0], data[:, col])
+                    ax[pl].set_title(title_function(labels[col]))
+
+                fig.tight_layout()
+                pdf.savefig(fig)
+                plt.close()
 
 
-def subject_specific_isometric_force(generic_model_file, subject_model_file,
-                                     height_generic, height_subject):
-    """Adjust the max isometric force of the subject-specific model based on results
-    from Handsfield et al. 2014 [1] (equation from Fig. 5A). Function adapted
-    from Rajagopal et al. 2015 [2].
+    def adjust_model_mass(model_file, mass_change):
+        """Given a required mass change adjust all body masses accordingly.
 
-    Given the height and mass of the generic and subject models, we can
-    calculate the total muscle volume [1]:
+        """
+        rra_model = opensim.Model(model_file)
+        rra_model.setName('model_adjusted')
+        state = rra_model.initSystem()
+        current_mass = rra_model.getTotalMass(state)
+        new_mass = current_mass + mass_change
+        mass_scale_factor = new_mass / current_mass
+        for body in rra_model.updBodySet():
+            body.setMass(mass_scale_factor * body.getMass())
 
-    V_total = 47.05 * mass * height + 1289.6
+        # save model with adjusted body masses
+        rra_model.printToXML(model_file)
 
-    Since we can calculate the muscle volume and the optimal fiber length of the
-    generic and subject model, respectively, we can calculate the force scale
-    factor to scale the maximum isometric force of each muscle:
 
-    scale_factor = (V_total_subject / V_total_generic) / (l0_subject / l0_generic)
+    def replace_thelen_muscles_with_millard(model_file, target_folder):
+        """Replaces Thelen muscles with Millard muscles so that we can disable
+        tendon compliance and perform MuscleAnalysis to compute normalized
+        fiber length/velocity without spikes.
 
-    F_max_i = scale_factor * F_max_i
+        """
+        model = opensim.Model(model_file)
+        new_force_set = opensim.ForceSet()
+        force_set = model.getForceSet()
+        for i in range(force_set.getSize()):
+            force = force_set.get(i)
+            muscle = opensim.Muscle.safeDownCast(force)
+            millard_muscle = opensim.Millard2012EquilibriumMuscle.safeDownCast(
+                force)
+            thelen_muscle = opensim.Thelen2003Muscle.safeDownCast(force)
+            if muscle is None:
+                new_force_set.adoptAndAppend(force.clone())
+            elif millard_muscle is not None:
+                millard_muscle = millard_muscle.clone()
+                millard_muscle.set_ignore_tendon_compliance(True)
+                new_force_set.adoptAndAppend(millard_muscle)
+            elif thelen_muscle is not None:
+                millard_muscle = opensim.Millard2012EquilibriumMuscle()
+                # properties
+                millard_muscle.set_default_activation(
+                    thelen_muscle.getDefaultActivation())
+                millard_muscle.set_activation_time_constant(
+                    thelen_muscle.get_activation_time_constant())
+                millard_muscle.set_deactivation_time_constant(
+                    thelen_muscle.get_deactivation_time_constant())
+                # millard_muscle.set_fiber_damping(0)
+                # millard_muscle.set_tendon_strain_at_one_norm_force(
+                #     thelen_muscle.get_FmaxTendonStrain())
+                millard_muscle.setName(thelen_muscle.getName())
+                millard_muscle.set_appliesForce(thelen_muscle.get_appliesForce())
+                millard_muscle.setMinControl(thelen_muscle.getMinControl())
+                millard_muscle.setMaxControl(thelen_muscle.getMaxControl())
+                millard_muscle.setMaxIsometricForce(
+                    thelen_muscle.getMaxIsometricForce())
+                millard_muscle.setOptimalFiberLength(
+                    thelen_muscle.getOptimalFiberLength())
+                millard_muscle.setTendonSlackLength(
+                    thelen_muscle.getTendonSlackLength())
+                millard_muscle.setPennationAngleAtOptimalFiberLength(
+                    thelen_muscle.getPennationAngleAtOptimalFiberLength())
+                millard_muscle.setMaxContractionVelocity(
+                    thelen_muscle.getMaxContractionVelocity())
+                # millard_muscle.set_ignore_tendon_compliance(
+                #     thelen_muscle.get_ignore_tendon_compliance())
+                millard_muscle.set_ignore_tendon_compliance(True)
+                millard_muscle.set_ignore_activation_dynamics(
+                    thelen_muscle.get_ignore_activation_dynamics())
+                # muscle path
+                pathPointSet = thelen_muscle.getGeometryPath().getPathPointSet()
+                geomPath = millard_muscle.updGeometryPath()
+                for j in range(pathPointSet.getSize()):
+                    pathPoint = pathPointSet.get(j).clone()
+                    geomPath.updPathPointSet().adoptAndAppend(pathPoint)
 
-    [1] http://dx.doi.org/10.1016/j.jbiomech.2013.12.002
-    [2] http://dx.doi.org/10.1109/TBME.2016.2586891
+                # append
+                new_force_set.adoptAndAppend(millard_muscle)
+            else:
+                raise RuntimeError(
+                    'cannot handle the type of muscle: ' + force.getName())
 
-    """
-    model_generic = opensim.Model(generic_model_file)
-    state_generic = model_generic.initSystem()
-    mass_generic = model_generic.getTotalMass(state_generic)
+        new_force_set.printToXML(os.path.join(target_folder, 'muscle_set.xml'))
 
-    model_subject = opensim.Model(subject_model_file)
-    state_subject = model_subject.initSystem()
-    mass_subject = model_subject.getTotalMass(state_subject)
 
-    # formula for total muscle volume
-    V_total_generic = 47.05 * mass_generic * height_generic + 1289.6
-    V_total_subject = 47.05 * mass_subject * height_subject + 1289.6
+    def subject_specific_isometric_force(generic_model_file, subject_model_file,
+                                        height_generic, height_subject):
+        """Adjust the max isometric force of the subject-specific model based on results
+        from Handsfield et al. 2014 [1] (equation from Fig. 5A). Function adapted
+        from Rajagopal et al. 2015 [2].
 
-    for i in range(0, model_subject.getMuscles().getSize()):
-        muscle_generic = model_generic.updMuscles().get(i)
-        muscle_subject = model_subject.updMuscles().get(i)
+        Given the height and mass of the generic and subject models, we can
+        calculate the total muscle volume [1]:
 
-        l0_generic = muscle_generic.getOptimalFiberLength()
-        l0_subject = muscle_subject.getOptimalFiberLength()
+        V_total = 47.05 * mass * height + 1289.6
 
-        force_scale_factor = (V_total_subject / V_total_generic) / (l0_subject /
-                                                                    l0_generic)
-        muscle_subject.setMaxIsometricForce(force_scale_factor *
-                                            muscle_subject.getMaxIsometricForce())
+        Since we can calculate the muscle volume and the optimal fiber length of the
+        generic and subject model, respectively, we can calculate the force scale
+        factor to scale the maximum isometric force of each muscle:
 
-    model_subject.printToXML(subject_model_file)
+        scale_factor = (V_total_subject / V_total_generic) / (l0_subject / l0_generic)
 
+        F_max_i = scale_factor * F_max_i
+
+        [1] http://dx.doi.org/10.1016/j.jbiomech.2013.12.002
+        [2] http://dx.doi.org/10.1109/TBME.2016.2586891
+
+        """
+        model_generic = opensim.Model(generic_model_file)
+        state_generic = model_generic.initSystem()
+        mass_generic = model_generic.getTotalMass(state_generic)
+
+        model_subject = opensim.Model(subject_model_file)
+        state_subject = model_subject.initSystem()
+        mass_subject = model_subject.getTotalMass(state_subject)
+
+        # formula for total muscle volume
+        V_total_generic = 47.05 * mass_generic * height_generic + 1289.6
+        V_total_subject = 47.05 * mass_subject * height_subject + 1289.6
+
+        for i in range(0, model_subject.getMuscles().getSize()):
+            muscle_generic = model_generic.updMuscles().get(i)
+            muscle_subject = model_subject.updMuscles().get(i)
+
+            l0_generic = muscle_generic.getOptimalFiberLength()
+            l0_subject = muscle_subject.getOptimalFiberLength()
+
+            force_scale_factor = (V_total_subject / V_total_generic) / (l0_subject /
+                                                                        l0_generic)
+            muscle_subject.setMaxIsometricForce(force_scale_factor *
+                                                muscle_subject.getMaxIsometricForce())
+
+        model_subject.printToXML(subject_model_file)
+
+    ####
+    
 # CEINMS
-
 def read_excitation_generator(file):
     """Reads a CEINMS excitation generator file and returns a dictionary
     containing the osim_muscles that match with each EMG signal
@@ -1611,14 +1694,35 @@ def read_excitation_generator(file):
 
     return emg_to_muscles
 
+# ObjectOrientation
+class Plotter():
+    def __init__(self):
+        self.dataList = []
+    
+    def addDataFrame(self, dataframe):
+        self.dataList.append(dataframe)
+
+    def plotListDataFrames(self, xColumn, yColumns, labels):
+        # Example plotting function
+        for df, label in zip(self.dataList, labels):
+            plt.plot(df[xColumn], df[yColumns], label=label)
+
+        plt.legend()
+        plt.show()
+
+
+
 
 if __name__ == "__main__":
     
     # Command line interface for the utils module
-    if len(sys.argv) > 1:
-        # Use arguments from the command line
-        command = sys.argv[1]
-
+    if len(sys.argv) < 1:
+        command = input("Please provide a command from the list: ")
+    else:
+        command = sys.argv[1] # Use arguments from the command line
+    
+    if command is not None:
+        
         if command == "hello":
             print("hello")
 
@@ -1628,8 +1732,6 @@ if __name__ == "__main__":
                 data = load_trc(path, output=1)
             else:
                 print("Please provide the path to the .trc file. Example: python utils.py load_trc path/to/file.trc")
-        
-        # run the command string as each function if it exists
         elif command == "load_mot":
             if len(sys.argv) > 2:
                 path = sys.argv[2]
@@ -1661,7 +1763,10 @@ if __name__ == "__main__":
             if len(sys.argv) > 3:
                 path = sys.argv[2]
                 data = pd.read_csv(sys.argv[3], sep='\t')
-                    
+
+        elif command == "activate_cmd_env":
+            activate_cmd_env()
+
         elif command == "get_screen_size":
             screen_size = get_screen_size()
             if screen_size:
@@ -1694,6 +1799,10 @@ if __name__ == "__main__":
                 print("Please provide the directory path, old string, and new string. Example: python utils.py rename_all_files_in_dir path/to/dir old_string new_string")
         elif command == "read_excitation_generator":
             read_excitation_generator(sys.argv[2])
+        elif command == 'compareMomentArms':
+            modelpath1 = input("Enter path to first model: ")
+            modelpath2 = input("Enter path to second model: ")
+            joint = input("Enter coordinate name: ")
         else:
             print(f"Unknown command: {command}")
             print("Available commands: ")

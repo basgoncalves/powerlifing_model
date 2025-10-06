@@ -3,14 +3,18 @@ import paths
 import utils
 import pandas as pd
 
-def main(target_emg_path: str, normalise_emg_list: list, save_path: str = None):
+def main(target_emg_path=None, normalise_emg_list=None, save_path=None):
     """
     Normalises EMG data based on a target EMG file.
     The target EMG file is used to scale the other EMG files in the list.
     """
-    
+    target_emg_path = utils.check_arg(target_emg_path, 'target_emg_path')
     target_emg = utils.load_any_data_file(target_emg_path)
     max_values = pd.DataFrame(columns=target_emg.columns)
+    
+    if normalise_emg_list is None or not isinstance(normalise_emg_list, list) or len(normalise_emg_list) == 0:
+        utils.select_fom_list()
+
     # Calculate the max of each EMG channel in normalise_emg_list
     for emg_file in normalise_emg_list:
         if not os.path.exists(emg_file):

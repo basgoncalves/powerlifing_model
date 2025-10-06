@@ -37,14 +37,12 @@ def main(generic_osim_model_path, marker_trc, scale_output, setup_xml, resultsDi
 
     # Set the model and parameters
     scaleTool.setSubjectMass(model.getTotalMass())
-    scaleTool.setSubjectHeight(1.75)  # Example, set as needed
 
     # Set the marker data file and time range
     scaleTool.setMarkerFileName(marker_trc)
 
     # set the time range for the scaling calculation
-    if time_range is not None:
-        scaleTool.setTimeRange(osim.ArrayDouble(time_range, 2))
+    scaleTool.setTimeRange(osim.ArrayDouble(time_range, 2))
 
     # Set the output scaled model file name relative to the results directory
     scaleTool.setOutputModelFileName(scale_output)
