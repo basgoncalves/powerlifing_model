@@ -100,7 +100,7 @@ def checkMuscleMomentArms(osim_modelPath, ik_output,  coordinate_list, threshold
         
         # get names of muscles
         Index, Coord = get_model_coord(model, coordinate)
-        muscle_names = muscles_per_coordinate(osimModel, Coord.getName())
+        muscle_names = muscles_per_coordinate(model, Coord.getName())
         # compute moment arms for each muscle and create time vector
         time_vector = []
         moment_arms = {}    
@@ -144,20 +144,42 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list):
     model1 = osim.Model(osimModelPath1)
     model2 = osim.Model(osimModelPath2)
     
+    state1 = model1.initSystem()
+    state2 = model2.initSystem()
+    
+    coordSet1 = model1.getCoordinateSet()
+    coordSet2 = model2.getCoordinateSet()
+    
     # create subplot for each coordinate
-    fig, axs = plt.subplots(len(coordinate_list), 1, figsize=(10, 5 * len(coordinate_list)))
-    fig.tight_layout(pad=5.0)
+    fig, axs = create_nice_figure(len(coordinate_list), figsize=(15, 10))
 
     for coord_name in coordinate_list:
         
         muscles1 = muscles_per_coordinate(model1, coord_name)
         muscles2 = muscles_per_coordinate(model2, coord_name)
 
-        breakpoint()
+        # calculate moment arms for each muscle in both models
+        muscles_common = set(muscles1).intersection(set(muscles2))
+        for muscle in muscles_common: 
+            moment_arm1 = model1.getMuscles().get(muscle).computeMomentArm(state1, coordSet1.get(coord_name))
+            moment_arm2 = model2.getMuscles().get(muscle).computeMomentArm(state2, coordSet2.get(coord_name))
+            
+            # 2 bar plots
+            ax = axs.flat[coordinate_list.index(coord_name)]
+            ax.bar(muscle + '_model1', moment_arm1, color='b', alpha=0.6)
+            ax.bar(muscle + '_model2', moment_arm2, color='r', alpha=0.6)
 
+        ax.set_title(f'Coordinate: {coord_name}')
+        ax.set_ylabel('Moment Arm (m)')
+        ax.legend([model1.getName(), model2.getName()])
         print(f'Coordinate: {coord_name}')
         print(f'Model 1 has {len(muscles1)} muscles crossing: {muscles1}')
         print(f'Model 2 has {len(muscles2)} muscles crossing: {muscles2}')
+        
+    # ask user where to save
+    save_path = input('Enter path to save figure (including filename, e.g. C:/path/figure.png): ').strip().strip('"')
+    fig.savefig(save_path)
+    print(f'Figure saved to {save_path}')
      
 if __name__ == "__main__":
     base_dir = paths.SIMULATION_DIR
@@ -184,8 +206,8 @@ if __name__ == "__main__":
                         coordinate_list=coordinates_to_check)
 
     if True:
-        osimModelPath1 = input('Path to generic model: ')
-        osimModelPath2 = input('Path to personalized model: ')
+        osimModelPath1 = input('Path to generic model: ').strip().strip('"')
+        osimModelPath2 = input('Path to personalized model: ').strip().strip('"')
         compareModels_rest(osimModelPath1=osimModelPath1,
                         osimModelPath2=osimModelPath2,
                         coordinate_list=coordinates_to_check)
