@@ -139,7 +139,18 @@ def create_nice_figure(n_subplots, figsize=(10, 5)):
     fig, axs = plt.subplots(n_rows, n_cols, figsize=figsize)
     return fig, axs
 
-def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType = 'spider'):
+def mmfn(fig):
+    '''make matplotlib figure nice'''
+    # tight layout
+    fig.tight_layout(pad=3.0)
+    # set background to white
+    fig.patch.set_facecolor('white')
+    
+    # make sure subplots and ticks don't overlap
+    plt.subplots_adjust(hspace=0.4, wspace=0.4)
+    
+
+def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType = 'bar'):
     model1 = osim.Model(osimModelPath1)
     model2 = osim.Model(osimModelPath2)
     
@@ -166,8 +177,29 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType
             # 2 bar plots
             if plotType == 'bar':
                 ax = axs.flat[coord_idx]
-                ax.bar(muscle + '_model1', moment_arm1, color='b', alpha=0.6)
-                ax.bar(muscle + '_model2', moment_arm2, color='r', alpha=0.6)
+                # Get or initialize the muscle position counter
+                if not hasattr(ax, '_muscle_positions'):
+                    ax._muscle_positions = {}
+                    ax._x_pos = 0
+                
+                # Get position for this muscle (or create new one)
+                if muscle not in ax._muscle_positions:
+                    ax._muscle_positions[muscle] = ax._x_pos
+                    ax._x_pos += 1
+                
+                x_pos = ax._muscle_positions[muscle]
+                width = 0.35
+                
+                # Plot bars side by side
+                ax.bar(x_pos - width/2, moment_arm1, width, color='b', alpha=0.6)
+                ax.bar(x_pos + width/2, moment_arm2, width, color='r', alpha=0.6)
+                
+                # Set x-ticks and labels after all muscles are plotted
+                if muscle == list(muscles_common)[-1]:  # Last muscle
+                    positions = [ax._muscle_positions[m] for m in muscles_common]
+                    ax.set_xticks(positions)
+                    ax.set_xticklabels(list(muscles_common))
+
             elif plotType == 'line':
                 ax = axs.flat[coord_idx]
                 ax.plot([muscle + '_model1'], [moment_arm1], color='b', marker='o')
@@ -212,19 +244,23 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType
         ax.set_title(f'Coordinate: {coord_name}')
         ax.set_ylabel('Moment Arm (m)')
         
-        # legend only 2 entries one for red and one for blue (1st and 3rd entry)
-        handles, labels = ax.get_legend_handles_labels()
+        if len(muscles_common) > 5:
+            plt.setp(ax.get_xticklabels(), rotation=75, ha='right')
+    
+    # select only first ax
+    ax = axs.flat[0]
+    
+    if plotType in ['bar', 'line']:
+        ax.legend([model1.getName(), model2.getName()])
+        # rotate xtick labels if too many
         
-        # find first red handle
+    elif plotType == 'spider':# legend only 2 entries one for red and one for blue (1st and 3rd entry)
+        handles, labels = ax.get_legend_handles_labels()
         blue_handle = next((h for h, l in zip(handles, labels) if l == model1.getName()), None)
         red_handle = next((h for h, l in zip(handles, labels) if l == model2.getName()), None)
         ax.legend([blue_handle, red_handle], [labels[0], labels[2]], loc='upper right', bbox_to_anchor=(1.1, 1.1))
 
-
-        print(f'Coordinate: {coord_name}')
-        print(f'Model 1 has {len(muscles1)} muscles crossing: {muscles1}')
-        print(f'Model 2 has {len(muscles2)} muscles crossing: {muscles2}')
-        
+    
     # ask user where to save
     save_path = input('Enter path to save figure (including filename, e.g. C:/path/figure.png): ').strip().strip('"')
     fig.savefig(save_path)
