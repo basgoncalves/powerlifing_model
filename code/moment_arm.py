@@ -137,10 +137,9 @@ def create_nice_figure(n_subplots, figsize=(10, 5)):
     n_rows = int(np.ceil(n_subplots / n_cols))
 
     fig, axs = plt.subplots(n_rows, n_cols, figsize=figsize)
-    fig.tight_layout(pad=5.0)
     return fig, axs
 
-def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list):
+def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType = 'spider'):
     model1 = osim.Model(osimModelPath1)
     model2 = osim.Model(osimModelPath2)
     
@@ -153,7 +152,7 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list):
     # create subplot for each coordinate
     fig, axs = create_nice_figure(len(coordinate_list), figsize=(15, 10))
 
-    for coord_name in coordinate_list:
+    for coord_idx, coord_name in enumerate(coordinate_list):
         
         muscles1 = muscles_per_coordinate(model1, coord_name)
         muscles2 = muscles_per_coordinate(model2, coord_name)
@@ -165,13 +164,63 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list):
             moment_arm2 = model2.getMuscles().get(muscle).computeMomentArm(state2, coordSet2.get(coord_name))
             
             # 2 bar plots
-            ax = axs.flat[coordinate_list.index(coord_name)]
-            ax.bar(muscle + '_model1', moment_arm1, color='b', alpha=0.6)
-            ax.bar(muscle + '_model2', moment_arm2, color='r', alpha=0.6)
+            if plotType == 'bar':
+                ax = axs.flat[coord_idx]
+                ax.bar(muscle + '_model1', moment_arm1, color='b', alpha=0.6)
+                ax.bar(muscle + '_model2', moment_arm2, color='r', alpha=0.6)
+            elif plotType == 'line':
+                ax = axs.flat[coord_idx]
+                ax.plot([muscle + '_model1'], [moment_arm1], color='b', marker='o')
+                ax.plot([muscle + '_model2'], [moment_arm2], color='r', marker='o')
+            elif plotType == 'spider':
+                ax = axs.flat[coord_idx]
+
+                # Create lists to store all muscle data for this coordinate
+                muscle_list = list(muscles_common)
+                model1_values = []
+                model2_values = []
+                
+                # Get moment arms for all muscles
+                for muscle in muscle_list:
+                    ma1 = model1.getMuscles().get(muscle).computeMomentArm(state1, coordSet1.get(coord_name))
+                    ma2 = model2.getMuscles().get(muscle).computeMomentArm(state2, coordSet2.get(coord_name))
+                    model1_values.append(ma1)
+                    model2_values.append(ma2)
+                
+                # Create angles for each muscle
+                angles = np.linspace(0, 2 * np.pi, len(muscle_list), endpoint=False).tolist()
+                
+                # Close the plot by adding first values at the end
+                model1_values += model1_values[:1]
+                model2_values += model2_values[:1]
+                angles += angles[:1]
+                
+                # Create polar subplot
+                ax = plt.subplot(len(coordinate_list)//2 + 1, 2, coord_idx + 1, polar=True)
+                
+                # Plot both models as separate rings
+                ax.fill(angles, model1_values, color='b', alpha=0.25, label=model1.getName())
+                ax.plot(angles, model1_values, color='b', marker='o')
+                
+                ax.fill(angles, model2_values, color='r', alpha=0.25, label=model2.getName())
+                ax.plot(angles, model2_values, color='r', marker='s')
+                
+                # Set labels
+                ax.set_xticks(angles[:-1])
+                ax.set_xticklabels(muscle_list)
 
         ax.set_title(f'Coordinate: {coord_name}')
         ax.set_ylabel('Moment Arm (m)')
-        ax.legend([model1.getName(), model2.getName()])
+        
+        # legend only 2 entries one for red and one for blue (1st and 3rd entry)
+        handles, labels = ax.get_legend_handles_labels()
+        
+        # find first red handle
+        blue_handle = next((h for h, l in zip(handles, labels) if l == model1.getName()), None)
+        red_handle = next((h for h, l in zip(handles, labels) if l == model2.getName()), None)
+        ax.legend([blue_handle, red_handle], [labels[0], labels[2]], loc='upper right', bbox_to_anchor=(1.1, 1.1))
+
+
         print(f'Coordinate: {coord_name}')
         print(f'Model 1 has {len(muscles1)} muscles crossing: {muscles1}')
         print(f'Model 2 has {len(muscles2)} muscles crossing: {muscles2}')
