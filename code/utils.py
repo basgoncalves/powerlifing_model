@@ -1,3 +1,4 @@
+from pyexpat import model
 import shutil
 import time
 from tkinter import filedialog, messagebox, simpledialog
@@ -13,8 +14,16 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import os
 import opensim as osim
+import tkinter as tk
+import re
+import os
+import opensim
+import pandas as pd
+from scipy import signal
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.offsetbox import AnchoredText
 
-import tk
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -82,7 +91,7 @@ def load_c3d(path=None, output=0):
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
         print(f"Details: {e}")
     
-def load_trc(path=None, output=0):
+def load_trc(path=None, output=False, combine_headers=False):
     
     if not check_path(path):
         path = input("Please provide the path to the .trc file: ")
@@ -92,33 +101,40 @@ def load_trc(path=None, output=0):
         with open(path, 'r') as file:
             for i, line in enumerate(file):
                 if 'Frame#' in line:
-                        break
+                    header_start_line = i
+                    break
     except:
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
         return None
+    
+    df = pd.read_csv(path,sep='\t',skiprows=header_start_line,index_col=False)
+    
+    # Create a temporary frame from the multi-index, forward-fill, and get values
+    markers = df.columns.tolist()
+    coordinates = df.iloc[0].to_list()  # First row contains sub-headers
+
+    # replace Unnamed with empty cells
+    for idx, marker in enumerate(markers):
+        if marker.startswith('Unnamed'):
+            markers[idx] = markers[idx-1]
+    
+    coordinates = [coord if not pd.isna(coord) else '' for coord in coordinates]
+
+    # create multi-index dataFrame and delete row 0
+    df.columns = pd.MultiIndex.from_tuples(zip(markers, coordinates), names=['Marker', 'Coordinate'])
+    df = df.iloc[2:]
+    
+    # if needed make 'time' lower case (only)
+    if 'Time' in df.columns:
+        df = df.rename(columns={'Time': 'time'})
         
-    # read headers in line i
-    try:
-        with open(path, 'r') as file:
-            headers = file.readlines()[i].strip().split('\t')
-    except:
-        print(f"Error: Could not read the file at {path}. Please check the path and try again.")
-        return None
+    # if needed combine headers
+    if combine_headers:
+        df.columns = df.columns.map(lambda x: f"{x[0]}_{x[1]}" if x[1] else x[0])
 
-    # read the file into a pandas DataFrame, skipping the header
-    try:
-        data = pd.read_csv(path, sep= '\s+', header=i+1, index_col=False)
-        # add the headers to the DataFrame above the data
-        data.columns = headers
-        
-    except Exception as e:
-        print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
-        print(f"Details: {e}")
-        return None
+    if output == 1: print(df.columns)
 
-    if output == 1: print(data.columns)
-
-    return data
+    return df
 
 def load_sto(path=None, output=0):
     """
@@ -380,21 +396,121 @@ def load_sto_header(file_path):
     
     return header
 
-def write_sto_file(data, file_path, header):
+def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
+    """
+    Write marker data (frames, n_markers, 3) to TRC.
+    """
+    
+    # remove time column
+    time = markers_df["time"]
+    markers_df = markers_df.drop(columns=["time"])
+    
+    num_frames = markers_df.shape[0]
+    marker_labels = markers_df.columns.droplevel(1).to_list()
+    
+    # only unique labels
+    marker_labels = list(dict.fromkeys(marker_labels))
+    n_markers = len(marker_labels)
+
+    with open(trc_file, "w") as writer:
+        # Header
+        writer.write(f"PathFileType\t4\t(X/Y/Z)\t{os.path.basename(writer.name)}\n")
+        writer.write("DataRate\tCameraRate\tNumFrames\tNumMarkers\tUnits\tOrigDataRate\tOrigDataStartFrame\tOrigNumFrames\n")
+        writer.write(f"{frame_rate}\t{frame_rate}\t{num_frames}\t{n_markers}\t{units}\t{frame_rate}\t{first_frame}\t{num_frames}\n")
+
+        # Marker names
+        header = "Frame#\tTime\t" + "\t".join([f"{name}\t\t" for name in marker_labels]) + "\n"
+        writer.write(header)
+
+        # Coordinate labels
+        coord_line = "\t\t" + "\t".join([f"X{i+1}\tY{i+1}\tZ{i+1}" for i in range(n_markers)]) + "\n"
+        writer.write(coord_line)
+
+        # Data rows
+        for i in range(num_frames):
+            frame_num = first_frame + i
+            time_val = time.iloc[i]
+            row = [f"{frame_num}", f"{time_val:.6f}"]
+            row.extend([f"{coord:.6f}" for coord in markers_df.iloc[i].values])
+            writer.write("\t".join(row) + "\n")
+
+def write_mot(analog_df, labels, mot_file):
+    """
+    Write analog data (samples, n_channels) to MOT.
+    
+    inputs:
+        labels: The labels for the analog channels.
+        analog_df: The DataFrame containing the analog data.
+        
+    """
+    
+    # make sure labels include time
+    labels = ['time'] + labels
+
+    # Crop dataframe to include only labels
+    analog_df = analog_df[labels]
+    num_samples, num_columns = analog_df.shape
+    
+    # create writer
+    with open(mot_file, "w") as writer:
+        # Header
+        writer.write(f"{os.path.basename(writer.name)}\n")
+        writer.write("version=1\n")
+        writer.write(f"nRows={num_samples}\n")
+        writer.write(f"nColumns={num_columns}\n") 
+        writer.write("in_degrees=yes\n")
+        writer.write("endheader\n")
+
+        # Column labels
+        writer.write("\t".join(labels) + "\n")
+    
+        # Data rows
+        for i, row in analog_df.iterrows():
+            # breakpoint()
+            writer.write(f"{row['time']:.6f}\t" + "\t".join([f"{val:.6f}" for val in row[1:]]) + "\n")
+
+def write_sto_header(writer, dataFrame):
+    """
+    Writes the header for a .sto file.
+
+    Args:
+        writer (TextIOWrapper): The file writer object.
+        dataFrame (pd.DataFrame): The DataFrame containing the data.
+    """
+    writer.write(f"{os.path.basename(writer.name)}\n")
+    writer.write("version=1\n")
+    writer.write(f"nRows={dataFrame.shape[0]}\n")
+    writer.write(f"nColumns={dataFrame.shape[1]}\n")
+    writer.write("in_degrees=yes\n")
+    writer.write("endheader\n")
+
+def write_sto_file(dataFrame, file_path):
     """
     Writes a pandas DataFrame to a .sto file with a specified header.
 
     Args:
-        data (pd.DataFrame): The DataFrame to write.
+        dataFrame (pd.DataFrame): The DataFrame to write.
         file_path (str): The path where the .sto file will be saved.
         header (list): A list of strings representing the header lines to write.
     """
-    with open(file_path, 'w', newline='') as f:
-        for line in header:
-            f.write(line + '\n')
+    if not os.path.exists(os.path.dirname(file_path)):
+        os.makedirs(os.path.dirname(file_path))
+        print(f"Created directory: {os.path.dirname(file_path)}")
         
+    # make time lowercase
+    if 'Time' in dataFrame.columns:
+        dataFrame = dataFrame.rename(columns={"Time": "time"})
+        
+
+    with open(file_path, 'w', newline='') as f:
+        # Write the header lines
+        write_sto_header(f, dataFrame)
+
+        # bring time column to front
+        dataFrame = dataFrame[['time'] + [col for col in dataFrame.columns if col != 'time']]
+
         # Write the data without extra line spaces
-        data.to_csv(f, sep='\t', index=False, float_format='%.6f')
+        dataFrame.to_csv(f, sep='\t', index=False, float_format='%.6f')
 
 def read_xml(path):
     """
@@ -426,6 +542,15 @@ def save_pretty_xml(tree, save_path):
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
 
+# cmd easy commands
+def activate_cmd_env():
+    path = input("Please provide the path to the environment: ")
+    for root, dirs, files in os.walk(path):
+        for filename in files:
+            if filename.startswith('activate') and filename.endswith('.bat'):
+                cmd_file = os.path.join(root, filename)
+                os.startfile(cmd_file)
+
 # opensim 
 def select_osim_file():
     root = tk.Tk()
@@ -436,6 +561,21 @@ def select_osim_file():
     )
     root.destroy()
     return file_path
+
+def muscles_per_coordinate(osimModel, coord_name):
+    muscles = []
+    indexes = []
+    coord = osimModel.getCoordinateSet().get(coord_name)
+    state = osimModel.initSystem()
+    osimModel.realizePosition(state)
+
+    for i in range(osimModel.getMuscles().getSize()):
+        muscle = osimModel.getMuscles().get(i)
+        if abs(muscle.computeMomentArm(state, coord)) > 1e-4:
+            muscles.append(muscle.getName())
+            indexes.append(i)
+
+    return muscles, indexes
 
 def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.005):
 # Adapted from Willi Koller: https://github.com/WilliKoller/OpenSimMatlabBasic/blob/main/checkMuscleMomentArms.m
@@ -452,8 +592,14 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
         
         return index, coord
 
-
-    # raise Exception('This function is not yet working. Please use the Matlab version for now or fix line containing " time_discontinuity.append(time_vector[discontinuity_indices]) "')
+    def muscle_crosses_coordinate(muscle, coord_name):
+        
+        coord = model.getCoordinateSet().get(coord_name)
+        # Check if the muscle crosses the specified coordinate
+        for path in muscle.getGeometryPath().getAllPoints():
+            if path.getName() == coord_name:
+                return True
+        return False
 
     # Load motions and model
     motion = osim.Storage(ik_output)
@@ -464,71 +610,49 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
     state = model.initSystem()
 
     # coordinate names
-    flexIndexL, flexCoordL = get_model_coord(model, 'hip_flexion_' + leg)
-    rotIndexL, rotCoordL = get_model_coord(model, 'hip_rotation_' + leg)
-    addIndexL, addCoordL = get_model_coord(model, 'hip_adduction_' + leg)
+    HipflexIndex, HipflexCoord = get_model_coord(model, 'hip_flexion_' + leg)
+    HiprotIndex, HipRotCoord = get_model_coord(model, 'hip_rotation_' + leg)
+    HipAddIndex, HipAddCoord = get_model_coord(model, 'hip_adduction_' + leg)
     flexIndexLknee, flexCoordLknee = get_model_coord(model, 'knee_angle_' + leg)
+    addIndexLknee, addCoordLknee = get_model_coord(model, 'knee_adduction_' + leg)
     flexIndexLank, flexCoordLank = get_model_coord(model, 'ankle_angle_' + leg)
 
-    # get names of the hip muscles
-    numMuscles = model.getMuscles().getSize()
-    muscleIndices_hip = []
-    muscleNames_hip = []
-    for i in range(numMuscles):
-        tmp_muscleName = str(model.getMuscles().get(i).getName())
-        if ('add' in tmp_muscleName or 'gl' in tmp_muscleName or 'semi' in tmp_muscleName or 'bf' in tmp_muscleName or
-                'grac' in tmp_muscleName or 'piri' in tmp_muscleName or 'sart' in tmp_muscleName or 'tfl' in tmp_muscleName or
-                'iliacus' in tmp_muscleName or 'psoas' in tmp_muscleName or 'rect' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
-            muscleIndices_hip.append(i)
-            muscleNames_hip.append(tmp_muscleName)
+    # get hip flexion muscles
+    muscleNames_Hipflex, muscleIndices_Hipflex = muscles_per_coordinate(model, HipflexCoord.getName())
+    flexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_Hipflex)))
 
-    flexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
-    addMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
-    rotMomentArms = np.zeros((motion.getSize(), len(muscleIndices_hip)))
+    muscleNames_HipAdd, muscleIndices_HipAdd = muscles_per_coordinate(model, HipAddCoord.getName())
+    addMomentArms = np.zeros((motion.getSize(), len(muscleIndices_HipAdd)))
+
+    # get hip rotation muscles
+    muscleNames_HipRot, muscleIndices_HipRot = muscles_per_coordinate(model, HipRotCoord.getName())
+    rotMomentArms = np.zeros((motion.getSize(), len(muscleIndices_HipRot)))
 
     # get names of the knee muscles
-    numMuscles = model.getMuscles().getSize()
-    muscleIndices_knee = []
-    muscleNames_knee = []
-    for i in range(numMuscles):
-        tmp_muscleName = str(model.getMuscles().get(i).getName())
-        if ('bf' in tmp_muscleName or 'gas' in tmp_muscleName or 'grac' in tmp_muscleName or 'sart' in tmp_muscleName or
-                'semim' in tmp_muscleName or 'semit' in tmp_muscleName or 'rec' in tmp_muscleName or 'vas' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
-            muscleIndices_knee.append(i)
-            muscleNames_knee.append(tmp_muscleName)
-
+    muscleNames_knee, muscleIndices_knee = muscles_per_coordinate(model, flexCoordLknee.getName())
     kneeFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_knee)))
 
     # get names of the ankle muscles
-    numMuscles = model.getMuscles().getSize()
-    muscleIndices_ankle = []
-    muscleNames_ankle = []
-    for i in range(numMuscles):
-        tmp_muscleName = str(model.getMuscles().get(i).getName())
-        print(tmp_muscleName)
-        if ('edl' in tmp_muscleName or 'ehl' in tmp_muscleName or 'tibant' in tmp_muscleName or 'gas' in tmp_muscleName or
-                'fdl' in tmp_muscleName or 'fhl' in tmp_muscleName or 'perb' in tmp_muscleName or 'perl' in tmp_muscleName or
-                'sole' in tmp_muscleName or 'tibpos' in tmp_muscleName) and ('_' + leg in tmp_muscleName):
-            muscleIndices_ankle.append(i)
-            muscleNames_ankle.append(tmp_muscleName)
-
+    muscleNames_ankle, muscleIndices_ankle = muscles_per_coordinate(model, flexCoordLank.getName())
     ankleFlexMomentArms = np.zeros((motion.getSize(), len(muscleIndices_ankle)))
 
     # compute moment arms for each muscle and create time vector
     time_vector = []
+    initial_time = time.time()
     for i in range(1, motion.getSize()):
-        flexAngleL = motion.getStateVector(i-1).getData().get(flexIndexL) / 180 * np.pi
-        rotAngleL = motion.getStateVector(i-1).getData().get(rotIndexL) / 180 * np.pi
-        addAngleL = motion.getStateVector(i-1).getData().get(addIndexL) / 180 * np.pi
+        
+        flexAngleL = motion.getStateVector(i-1).getData().get(HipflexIndex) / 180 * np.pi
+        rotAngleL = motion.getStateVector(i-1).getData().get(HiprotIndex) / 180 * np.pi
+        addAngleL = motion.getStateVector(i-1).getData().get(HipAddIndex) / 180 * np.pi
         flexAngleLknee = motion.getStateVector(i-1).getData().get(flexIndexLknee) / 180 * np.pi
         flexAngleLank = motion.getStateVector(i-1).getData().get(flexIndexLank) / 180 * np.pi
 
         time_vector.append(motion.getStateVector(i-1).getTime())
         # Update the state with the joint angle
         coordSet = model.updCoordinateSet()
-        coordSet.get(flexIndexL).setValue(state, flexAngleL)
-        coordSet.get(rotIndexL).setValue(state, rotAngleL)
-        coordSet.get(addIndexL).setValue(state, addAngleL)
+        coordSet.get(HipflexIndex).setValue(state, flexAngleL)
+        coordSet.get(HiprotIndex).setValue(state, rotAngleL)
+        coordSet.get(HipAddIndex).setValue(state, addAngleL)
         coordSet.get(flexIndexLknee).setValue(state, flexAngleLknee)
         coordSet.get(flexIndexLank).setValue(state, flexAngleLank)
 
@@ -537,16 +661,20 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
         model.realizeVelocity(state)
 
         # Compute the moment arm hip
-        for j in range(len(muscleIndices_hip)):
-            muscleIndex = muscleIndices_hip[j]
-            if muscleNames_hip[j][-1] == leg:
-                flexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordL)
+        for j in range(len(muscleIndices_Hipflex)):
+            muscleIndex = muscleIndices_Hipflex[j]
+            if muscleNames_Hipflex[j][-1] == leg:
+                flexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, HipflexCoord)
                 flexMomentArms[i, j] = flexMomentArm
 
-                rotMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, rotCoordL)
+        # Compute the moment arm hip rotation
+        for j in range(len(muscleIndices_HipRot)):
+            muscleIndex = muscleIndices_HipRot[j]
+            if muscleNames_HipRot[j][-1] == leg:
+                rotMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, HipRotCoord)
                 rotMomentArms[i, j] = rotMomentArm
 
-                addMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, addCoordL)
+                addMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, HipAddCoord)
                 addMomentArms[i, j] = addMomentArm
 
         # Compute the moment arm knee
@@ -563,6 +691,10 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
                 ankleFlexMomentArm = model.getMuscles().get(muscleIndex).computeMomentArm(state, flexCoordLank)
                 ankleFlexMomentArms[i, j] = ankleFlexMomentArm
 
+        # print time to compute one frame
+        if i % 50 == 0:
+            elapsed_time = time.time() - initial_time
+            print(f"Time to compute frame {i}/{motion.getSize()}: {elapsed_time:.6f} seconds")
     # check discontinuities
     discontinuity = []
     muscle_action = []
@@ -590,16 +722,16 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
 
     # hip flexion
     discontinuity, muscle_action, time_discontinuity = find_discontinuities(
-        flexMomentArms, threshold, muscleNames_hip, 'flexion', discontinuity, muscle_action, time_discontinuity)
+        flexMomentArms, threshold, muscleNames_Hipflex, 'flexion', discontinuity, muscle_action, time_discontinuity)
 
     # hip adduction
     discontinuity, muscle_action, time_discontinuity = find_discontinuities(
-        addMomentArms, threshold, muscleNames_hip, 'adduction', discontinuity, muscle_action, time_discontinuity)
-    
+        addMomentArms, threshold, muscleNames_HipAdd, 'adduction', discontinuity, muscle_action, time_discontinuity)
+
     # hip rotation
     discontinuity, muscle_action, time_discontinuity = find_discontinuities(
-        rotMomentArms, threshold, muscleNames_hip, 'rotation', discontinuity, muscle_action, time_discontinuity)
-    
+        rotMomentArms, threshold, muscleNames_HipRot, 'rotation', discontinuity, muscle_action, time_discontinuity)
+
     # knee flexion
     discontinuity, muscle_action, time_discontinuity = find_discontinuities(
         kneeFlexMomentArms, threshold, muscleNames_knee, 'flexion', discontinuity, muscle_action, time_discontinuity)
@@ -640,7 +772,7 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
     plt.figure('flexMomentArms_' + leg, figsize=(8, 8))
     plt.plot(flexMomentArms)
     plt.title('All muscle moment arms in motion ' + ik_output)
-    plt.legend(muscleNames_hip, loc='best')
+    plt.legend(muscleNames_Hipflex, loc='best')
     plt.ylabel('Hip Flexion Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
     save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_flex_MomentArms_' + leg + '.png'))
@@ -649,7 +781,7 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
     plt.figure('addMomentArms_' + leg, figsize=(8, 8))
     plt.plot(addMomentArms)
     plt.title('All muscle moment arms in motion ' + ik_output)
-    plt.legend(muscleNames_hip, loc='best')
+    plt.legend(muscleNames_HipAdd, loc='best')
     plt.ylabel('Hip Adduction Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
     save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_add_MomentArms_' + leg + '.png'))
@@ -658,7 +790,7 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
     plt.figure('rotMomentArms_' + leg, figsize=(8, 8))
     plt.plot(rotMomentArms)
     plt.title('All muscle moment arms in motion ' + ik_output)
-    plt.legend(muscleNames_hip, loc='best')
+    plt.legend(muscleNames_HipRot, loc='best')
     plt.ylabel('Hip Rotation Moment Arm (m)')
     plt.xlabel('Frame (after start time)')
     save_fig(plt.gcf(), save_path=os.path.join(save_folder, 'hip_rot_MomentArms_' + leg + '.png'))
@@ -686,8 +818,25 @@ def checkMuscleMomentArms(osim_modelPath, ik_output, leg = 'l', threshold = 0.00
 
     return momentArmsAreWrong,  discontinuity, muscle_action
 
-# User selects a factor to increase the max isometric force of muscles
+def compareMomentArms(osimModelPath1, osimModelPath2, m, ikPath2, coord_name):
+
+    osimModel1 = osim.Model(osimModelPath1)
+    osimModel2 = osim.Model(osimModelPath2)
+    
+    muscles1, indexes1 = muscles_per_coordinate(osimModel1, coord_name)
+    muscles2, indexes2 = muscles_per_coordinate(osimModel2, coord_name)
+
+    common_muscles = set(muscles1).intersection(set(muscles2))
+    unique_to_model1 = set(muscles1) - common_muscles
+    unique_to_model2 = set(muscles2) - common_muscles
+    
+    for muscle in unique_to_model1:
+        print(f"Muscle {muscle} is only in model 1")
+
+    return common_muscles, unique_to_model1, unique_to_model2
+
 def get_factor():
+    '''Prompt the user to enter a factor to increase muscle force.'''
     root = tk.Tk()
     root.withdraw()
     factor = simpledialog.askfloat(
@@ -699,6 +848,7 @@ def get_factor():
     return factor
 
 def increase_muscle_force(osim_file=None, factor=None, save_path=None):
+    '''Increase the max isometric force of muscles in the given osim file.'''
     root = tk.Tk() # prevent the main window from appearing
     root.withdraw()
     if osim_file is None:
@@ -729,6 +879,48 @@ def increase_muscle_force(osim_file=None, factor=None, save_path=None):
         
     model.printToXML(new_file)
     messagebox.showinfo("Done", f"Saved new model to:\n{new_file}")
+
+def get_muscle_params(osimModelPath, muscleNamesList, printOutput=False):
+    """Get the parameters of the specified muscles from the OpenSim model."""
+    
+    osimModel = osim.Model(osimModelPath)
+    muscleSet = osimModel.getMuscles()
+    musclesList = []
+
+    for i, muscleName in enumerate(muscleNamesList):
+        muscle = muscleSet.get(muscleName)
+        if muscle:
+            muscle.max_isometric_force = muscle.getMaxIsometricForce()
+            muscle.optimal_fiber_length = muscle.getOptimalFiberLength()
+            muscle.tendon_slack_length = muscle.getTendonSlackLength()
+            muscle.specific_tension_N_cm2 = 15  # 150 and 155 kN/m2 DOI 10.1152/jappl.2001.90.3.865
+            muscle.pennation_angle_rad = muscle.getPennationAngleAtOptimalFiberLength()
+            muscle.physiological_cross_sectional_area_cm2 = muscle.getMaxIsometricForce() / muscle.specific_tension_N_cm2
+
+            musclesList.append(muscle)
+        
+    print(f'[WARNING] for this muscle set, specific tension was assumed as {muscle.specific_tension_N_cm2} N/cm2')
+    
+    if printOutput:
+        for i, muscleName in enumerate(muscleNamesList): 
+            muscle = musclesList[i]
+            print(f"Muscle parameters for {muscleName}: {muscle.getName()}")
+            print(f"  Max Isometric Force: {muscle.getMaxIsometricForce()} N")
+            print(f"  Optimal Fiber Length: {muscle.getOptimalFiberLength()} m")
+            print(f"  Tendon Slack Length: {muscle.getTendonSlackLength()} m")
+            print(f"  Physiological Cross-Sectional Area: {muscle.physiological_cross_sectional_area_cm2} cm^2")
+    
+    # return both model and muscleList so muscles keep attributes
+    return osimModel, musclesList
+
+def check_arg(arg=None,name=None):
+    if arg is None:
+        arg = input(f"Please provide a value for {name}: ").strip('"')
+    
+    if arg.startswith('[') and arg.endswith(']'):
+        arg = [float(x.strip()) for x in arg.strip('[]').split(',')]
+
+    return arg
 
 # plotting
 def save_fig(fig, save_path):
@@ -870,13 +1062,667 @@ def rename_all_files_in_dir(dir_path, old_str, new_str):
             except Exception as e:
                 print(f"Error renaming '{filename}': {e}")
 
+
+class osimTools():
+    """A collection of utility functions for OpenSim and data processing.
+    
+    functions with '_' the object to be created first because they refer to self
+    Example:
+        tools = osimTools()
+        tools._printHello()
+        
+        osimTools.calculate_emg_linear_envelope(x)
+        # katya
+        # Utility functions.
+        #
+        # author: Dimitar Stanev <jimstanev@gmail.com>
+        ##
+    
+    """
+    
+    def __init__(self, filepath=None):
+        self.filepath = filepath
+
+    def _printHello(self):
+        print("Hello from osimTools!")
+
+    def calculate_emg_linear_envelope(x, f_sampling=1000, f_band_low=30,
+                                    f_band_high=300, f_env=6, to_normalize=True,
+                                    plot=False):
+        """Calculates the EMG linear envelope by applying the following
+        transformations to the raw signal:
+
+        1) Remove mean
+        2) Band-pass 4th order Butterworth filter to remove low and high frequencies
+        3) Full rectification (use of abs)
+        4) Normalization based on max value (if to_normalize=True)
+        5) Low-pass filter to calculate the envelope
+        6) (optional) plot the raw and envelop signals (if plot=True); does not show plot just in the background
+
+        """
+        f_nyq = f_sampling / 2
+        # 1) remove mean
+        y = x - x.mean()
+        # 2) band-pass
+        b, a = signal.butter(4, [f_band_low / f_nyq, f_band_high / f_nyq], 'band')
+        y = signal.filtfilt(b, a, y)
+        # 3) rectify
+        y = np.abs(y)
+        # 4) normalize
+        if to_normalize:
+            y = y / y.max()
+
+        # 5) low-pass
+        b, a = signal.butter(2, f_env / f_nyq, 'low')
+        env = signal.filtfilt(b, a, y)
+        if plot:
+            plt.figure()
+            plt.plot(y, label='raw')
+            plt.plot(env, label='envelop')
+            plt.legend()
+            
+        return env
+
+
+    def normalize_interpolate_dataframe(df, interp_column='time', method='linear'):
+        """Normalizes time between [0, 1] and then re-samples data frame at
+        constant interval.
+
+        """
+        # normalize between 0, 1
+        time_old = df.time.to_numpy()
+        time_new = (time_old - time_old[0]) / (time_old[-1] - time_old[0])
+        df.loc[:, 'time'] = time_new
+        # re-sample time with specific interval
+        df = df.set_index(interp_column)
+        at = np.arange(0, 1.01, 0.01)
+        df = df.reindex(df.index | at)
+        df = df.interpolate(method=method).loc[at]
+        df = df.reset_index()
+        df = df.rename(columns={'index': interp_column})
+        return df
+
+    def osim_vector_to_list(array):
+        """Convert SimTK::Vector to Python list.
+        """
+        temp = []
+        for i in range(array.size()):
+            temp.append(array[i])
+
+        return temp
+
+
+    def vector_vec3_to_nparray(vector):
+        temp = []
+        for i in range(vector.size()):
+            temp.append([vector[i][0], vector[i][1], vector[i][2]])
+
+        return np.array(temp)
+
+
+    def osim_array_to_list(array):
+        """Convert OpenSim::Array<T> to Python list.
+        """
+        temp = []
+        for i in range(array.getSize()):
+            temp.append(array.get(i))
+
+        return temp
+
+
+    def list_to_osim_array_str(self, list_str):
+        """Convert Python list of strings to OpenSim::Array<string>."""
+        arr = opensim.ArrayStr()
+        for element in list_str:
+            arr.append(element)
+
+        return arr
+
+
+    def np_array_to_simtk_matrix(array):
+        """Convert numpy array to SimTK::Matrix"""
+        n, m = array.shape
+        M = opensim.Matrix(n, m)
+        for i in range(n):
+            for j in range(m):
+                M.set(i, j, array[i, j])
+
+        return M
+
+
+    def rotate_data_table(table, axis, deg):
+        """Rotate OpenSim::TimeSeriesTableVec3 entries using an axis and angle.
+
+        Parameters
+        ----------
+        table: OpenSim.common.TimeSeriesTableVec3
+
+        axis: 3x1 vector
+
+        deg: angle in degrees
+
+        """
+        R = opensim.Rotation(np.deg2rad(deg),
+                            opensim.Vec3(axis[0], axis[1], axis[2]))
+        for i in range(table.getNumRows()):
+            vec = table.getRowAtIndex(i)
+            vec_rotated = R.multiply(vec)
+            table.setRowAtIndex(i, vec_rotated)
+
+
+    def mm_to_m(table, label):
+        """Scale from units in mm for units in m.
+
+        Parameters
+        ----------
+        label: string containing the name of the column you want to convert
+
+        """
+        c = table.updDependentColumn(label)
+        for i in range(c.size()):
+            c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
+
+
+    def mirror_z(table, label):
+        """Mirror the z-component of the vector.
+
+        Parameters
+        ----------
+        label: string containing the name of the column you want to convert
+
+        """
+        c = table.updDependentColumn(label)
+        for i in range(c.size()):
+            c[i] = opensim.Vec3(c[i][0], c[i][1], -c[i][2])
+
+
+    def lowess_bell_shape_kern(x, y, tau=0.0005):
+        """lowess_bell_shape_kern(x, y, tau = .005) -> y_est Locally weighted
+        regression: fits a nonparametric regression curve to a scatterplot. The
+        arrays x and y contain an equal number of elements; each pair (x[i], y[i])
+        defines a data point in the scatterplot. The function returns the estimated
+        (smooth) values of y.  The kernel function is the bell shaped function with
+        parameter tau. Larger tau will result in a smoother curve.
+
+        """
+        n = len(x)
+        y_est = np.zeros(n)
+
+        # initializing all weights from the bell shape kernel function
+        w = np.array([np.exp(- (x - x[i]) ** 2 / (2 * tau)) for i in range(n)])
+
+        # looping through all x-points
+        for i in range(n):
+            weights = w[:, i]
+            b = np.array([np.sum(weights * y), np.sum(weights * y * x)])
+            A = np.array([[np.sum(weights), np.sum(weights * x)],
+                        [np.sum(weights * x), np.sum(weights * x * x)]])
+            theta = np.linalg.solve(A, b)
+            y_est[i] = theta[0] + theta[1] * x[i]
+
+        return y_est
+
+    def _storage_to_dataframe(self, sto):
+        print('Converting OpenSim Storage to pandas DataFrame')
+        
+        # for i in range(sto.getSize()):print(sto.getStateVector(i).getTime())
+        for i in range(sto.getSize()):print(sto.getData(i))
+        sto.printToFile()
+        
+        breakpoint()
+        
+    def _create_opensim_storage(self, time, data, column_names):
+        """Creates a OpenSim::Storage.
+
+        Parameters
+        ----------
+        time: SimTK::Vector
+
+        data: SimTK::Matrix
+
+        column_names: list of strings
+
+        Returns
+        -------
+        sto: OpenSim::Storage
+
+        """
+        sto = opensim.Storage()
+        sto.setColumnLabels(osimTools().list_to_osim_array_str(['time'] + column_names))
+        for i in range(data.nrow()):
+            row = opensim.ArrayDouble()
+            for j in range(data.ncol()):
+                value = data.getElt(i, j)
+                if np.isnan(value):
+                    value = 0
+                row.append(value)
+            sto.append(time[i], row)
+        
+        # self._storage_to_dataframe(sto)
+        return sto
+
+
+    def annotate_plot(ax, text):
+        """Annotate a figure by adding a text.
+        """
+        at = AnchoredText(text, frameon=True, loc='upper left')
+        at.patch.set_boxstyle('round, pad=0, rounding_size=0.2')
+        ax.add_artist(at)
+
+
+    def rmse_metric(s1, s2):
+        """Root mean squared error between two time series.
+
+        """
+        # Signals are sampled with the same sampling frequency. Here time
+        # series are first aligned.
+        # if s1.index[0] < 0:
+        #     s1.index = s1.index - s1.index[0]
+
+        # if s2.index[0] < 0:
+        #     s2.index = s2.index - s2.index[0]
+
+        t1_0 = s1.index[0]
+        t1_f = s1.index[-1]
+        t2_0 = s2.index[0]
+        t2_f = s2.index[-1]
+        t_0 = np.round(np.max([t1_0, t2_0]), 3)
+        t_f = np.round(np.min([t1_f, t2_f]), 3)
+        x = s1[(s1.index >= t_0) & (s1.index <= t_f)].to_numpy()
+        y = s2[(s2.index >= t_0) & (s2.index <= t_f)].to_numpy()
+        return np.round(np.sqrt(np.mean((x - y) ** 2)), 3)
+
+
+    def refine_ground_reaction_wrench(self,data_table, label_triplet, stance_threshold,
+                                    tau, debug=True):
+        """Clean and filter raw ground reaction forces at a single leg as specified by
+        label triplet. This algorithm checks when the foot is in touch with the
+        ground (stance phase). When the foot is not in touch then the original data
+        contain noise with very small SNR. Therefore, the data is either set to zero
+        or to nan. Then, the data is interpolated in case of nan. Finally, the
+        signals are low pass filtered using lowess_bell_shape_kern.
+
+        Parameters
+        ----------
+
+        data_table: OpenSim::DataTable<Vec3> containing [force, point, moment] for
+        each leg
+
+        label_triplet: column identifiers for the wrench triplet (e.g., ['f1', 'p1', 'm1'])
+
+        stance_threshold: values to consider the foot in touch with the ground
+
+        tau: kernel standard divination (filtering)
+
+        debug: Boolean to visualize filtering result
+
+        Returns
+        -------
+
+        This function mutates the original data_table
+
+        """
+        # get data of single leg
+        t = np.array(data_table.getIndependentColumn())
+        f = data_table.updDependentColumn(label_triplet[0])
+        p = data_table.updDependentColumn(label_triplet[1])
+        m = data_table.updDependentColumn(label_triplet[2])
+        f_l = self.vector_vec3_to_nparray(f)
+        p_l = self.vector_vec3_to_nparray(p)
+        m_l = self.vector_vec3_to_nparray(m)
+
+        # debugging
+        if debug:
+            plt.figure()
+            f1 = plt.gca()
+            f1.plot(t, f_l)
+            plt.figure()
+            f2 = plt.gca()
+            f2.plot(t, p_l)
+            plt.figure()
+            f3 = plt.gca()
+            f3.plot(t, m_l)
+
+        # remove information when the foot is not touching the ground
+        t0 = None
+        tf = None
+        for i in range(len(f_l)):
+            # remove noise
+            if f_l[i, 1] < stance_threshold:
+                for j in range(3):
+                    f_l[i, j] = 0
+                    p_l[i, j] = np.nan
+                    m_l[i, j] = 0
+
+            # detect heel strike
+            if t0 is None and f_l[i, 1] >= stance_threshold:
+                t0 = t[i]
+
+            # detect toe off
+            if tf is None and t0 is not None and f_l[i, 1] <= stance_threshold:
+                tf = t[i]
+
+        # interpolate nan values for points and moments
+        f_l = pd.DataFrame(f_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+        p_l = pd.DataFrame(p_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+        m_l = pd.DataFrame(m_l).interpolate(limit_direction="both", kind="cubic").to_numpy()
+
+        # filter data
+        for j in range(3):
+            # f_l[:, j] = signal.medfilt(f_l[:, j], median)
+            f_l[:, j] = lowess_bell_shape_kern(t, f_l[:, j], tau)
+            p_l[:, j] = lowess_bell_shape_kern(t, p_l[:, j], tau)
+            m_l[:, j] = lowess_bell_shape_kern(t, m_l[:, j], tau)
+
+        # debugging
+        if debug:
+            f1.plot(t, f_l)
+            f2.plot(t, p_l)
+            f3.plot(t, m_l)
+
+        # update columns in the original data
+        for i in range(f_l.shape[0]):
+            f[i] = opensim.Vec3(f_l[i, 0], f_l[i, 1], f_l[i, 2])
+            p[i] = opensim.Vec3(p_l[i, 0], p_l[i, 1], p_l[i, 2])
+            m[i] = opensim.Vec3(m_l[i, 0], m_l[i, 1], m_l[i, 2])
+
+        return t0, tf, p_l.mean(axis=0)
+
+    def read_from_storage(self, file_name, sampling_interval=0.01,
+                        to_filter=False):
+        """Read OpenSim.Storage files.
+
+        Parameters
+        ----------
+        file_name: (string) path to file
+
+        sampling_interval: resample the data with a given interval (0.01)
+
+        to_filter: use low pass 4th order FIR filter with 6Hz cut off
+        frequency
+
+        Returns
+        -------
+        df: pandas data frame
+
+        """
+        sto = opensim.Storage(file_name)
+        sto.resampleLinear(sampling_interval)
+        if to_filter:
+            sto.lowpassFIR(4, 6)
+
+        labels = osim_array_to_list(sto.getColumnLabels())
+        time = opensim.ArrayDouble()
+        sto.getTimeColumn(time)
+        time = osim_array_to_list(time)
+        data = []
+        for i in range(sto.getSize()):
+            temp = osim_array_to_list(sto.getStateVector(i).getData())
+            temp.insert(0, time[i])
+            data.append(temp)
+
+        df = pd.DataFrame(data, columns=labels)
+        df.index = df.time
+        return df
+
+
+    def index_containing_substring(list_str, pattern):
+        """For a given list of strings finds the index of the element that
+        contains the substring.
+
+        Parameters
+        ----------
+        list_str: list of str
+
+        pattern: str
+            pattern
+
+
+        Returns
+        -------
+        indices: list of int
+            the indices where the pattern matches
+
+        """
+        return [i for i, item in enumerate(list_str)
+                if re.search(pattern, item)]
+
+
+    def _plot_sto_file(self,file_name, plot_file, plots_per_row=4, pattern=None,
+                    title_function=lambda x: x):
+        """Plots the .sto file (OpenSim) by constructing a grid of subplots.
+
+        Parameters
+        ----------
+        sto_file: str
+            path to file
+        plot_file: str
+            path to store result
+        plots_per_row: int
+            subplot columns
+        pattern: str, optional, default=None
+            plot based on pattern (e.g. only pelvis coordinates)
+        title_function: lambda
+            callable function f(str) -> str
+        """
+        df = osimTools().read_from_storage(file_name)
+        labels = df.columns.to_list()
+        data = df.to_numpy()
+
+        if pattern is not None:
+            indices = index_containing_substring(labels, pattern)
+        else:
+            indices = range(1, len(labels))
+
+        n = len(indices)
+        ncols = int(plots_per_row)
+        nrows = int(np.ceil(float(n) / plots_per_row))
+        pages = int(np.ceil(float(nrows) / ncols))
+        if ncols > n:
+            ncols = n
+
+        with PdfPages(plot_file) as pdf:
+            for page in range(0, pages):
+                fig, ax = plt.subplots(nrows=ncols, ncols=ncols,
+                                    figsize=(8, 8))
+                ax = ax.flatten()
+                for pl, col in enumerate(indices[page * ncols ** 2:page *
+                                                ncols ** 2 + ncols ** 2]):
+                    ax[pl].plot(data[:, 0], data[:, col])
+                    ax[pl].set_title(title_function(labels[col]))
+
+                fig.tight_layout()
+                pdf.savefig(fig)
+                plt.close()
+
+
+    def adjust_model_mass(model_file, mass_change):
+        """Given a required mass change adjust all body masses accordingly.
+
+        """
+        rra_model = opensim.Model(model_file)
+        rra_model.setName('model_adjusted')
+        state = rra_model.initSystem()
+        current_mass = rra_model.getTotalMass(state)
+        new_mass = current_mass + mass_change
+        mass_scale_factor = new_mass / current_mass
+        for body in rra_model.updBodySet():
+            body.setMass(mass_scale_factor * body.getMass())
+
+        # save model with adjusted body masses
+        rra_model.printToXML(model_file)
+
+
+    def replace_thelen_muscles_with_millard(model_file, target_folder):
+        """Replaces Thelen muscles with Millard muscles so that we can disable
+        tendon compliance and perform MuscleAnalysis to compute normalized
+        fiber length/velocity without spikes.
+
+        """
+        model = opensim.Model(model_file)
+        new_force_set = opensim.ForceSet()
+        force_set = model.getForceSet()
+        for i in range(force_set.getSize()):
+            force = force_set.get(i)
+            muscle = opensim.Muscle.safeDownCast(force)
+            millard_muscle = opensim.Millard2012EquilibriumMuscle.safeDownCast(
+                force)
+            thelen_muscle = opensim.Thelen2003Muscle.safeDownCast(force)
+            if muscle is None:
+                new_force_set.adoptAndAppend(force.clone())
+            elif millard_muscle is not None:
+                millard_muscle = millard_muscle.clone()
+                millard_muscle.set_ignore_tendon_compliance(True)
+                new_force_set.adoptAndAppend(millard_muscle)
+            elif thelen_muscle is not None:
+                millard_muscle = opensim.Millard2012EquilibriumMuscle()
+                # properties
+                millard_muscle.set_default_activation(
+                    thelen_muscle.getDefaultActivation())
+                millard_muscle.set_activation_time_constant(
+                    thelen_muscle.get_activation_time_constant())
+                millard_muscle.set_deactivation_time_constant(
+                    thelen_muscle.get_deactivation_time_constant())
+                # millard_muscle.set_fiber_damping(0)
+                # millard_muscle.set_tendon_strain_at_one_norm_force(
+                #     thelen_muscle.get_FmaxTendonStrain())
+                millard_muscle.setName(thelen_muscle.getName())
+                millard_muscle.set_appliesForce(thelen_muscle.get_appliesForce())
+                millard_muscle.setMinControl(thelen_muscle.getMinControl())
+                millard_muscle.setMaxControl(thelen_muscle.getMaxControl())
+                millard_muscle.setMaxIsometricForce(
+                    thelen_muscle.getMaxIsometricForce())
+                millard_muscle.setOptimalFiberLength(
+                    thelen_muscle.getOptimalFiberLength())
+                millard_muscle.setTendonSlackLength(
+                    thelen_muscle.getTendonSlackLength())
+                millard_muscle.setPennationAngleAtOptimalFiberLength(
+                    thelen_muscle.getPennationAngleAtOptimalFiberLength())
+                millard_muscle.setMaxContractionVelocity(
+                    thelen_muscle.getMaxContractionVelocity())
+                # millard_muscle.set_ignore_tendon_compliance(
+                #     thelen_muscle.get_ignore_tendon_compliance())
+                millard_muscle.set_ignore_tendon_compliance(True)
+                millard_muscle.set_ignore_activation_dynamics(
+                    thelen_muscle.get_ignore_activation_dynamics())
+                # muscle path
+                pathPointSet = thelen_muscle.getGeometryPath().getPathPointSet()
+                geomPath = millard_muscle.updGeometryPath()
+                for j in range(pathPointSet.getSize()):
+                    pathPoint = pathPointSet.get(j).clone()
+                    geomPath.updPathPointSet().adoptAndAppend(pathPoint)
+
+                # append
+                new_force_set.adoptAndAppend(millard_muscle)
+            else:
+                raise RuntimeError(
+                    'cannot handle the type of muscle: ' + force.getName())
+
+        new_force_set.printToXML(os.path.join(target_folder, 'muscle_set.xml'))
+
+
+    def subject_specific_isometric_force(generic_model_file, subject_model_file,
+                                        height_generic, height_subject):
+        """Adjust the max isometric force of the subject-specific model based on results
+        from Handsfield et al. 2014 [1] (equation from Fig. 5A). Function adapted
+        from Rajagopal et al. 2015 [2].
+
+        Given the height and mass of the generic and subject models, we can
+        calculate the total muscle volume [1]:
+
+        V_total = 47.05 * mass * height + 1289.6
+
+        Since we can calculate the muscle volume and the optimal fiber length of the
+        generic and subject model, respectively, we can calculate the force scale
+        factor to scale the maximum isometric force of each muscle:
+
+        scale_factor = (V_total_subject / V_total_generic) / (l0_subject / l0_generic)
+
+        F_max_i = scale_factor * F_max_i
+
+        [1] http://dx.doi.org/10.1016/j.jbiomech.2013.12.002
+        [2] http://dx.doi.org/10.1109/TBME.2016.2586891
+
+        """
+        model_generic = opensim.Model(generic_model_file)
+        state_generic = model_generic.initSystem()
+        mass_generic = model_generic.getTotalMass(state_generic)
+
+        model_subject = opensim.Model(subject_model_file)
+        state_subject = model_subject.initSystem()
+        mass_subject = model_subject.getTotalMass(state_subject)
+
+        # formula for total muscle volume
+        V_total_generic = 47.05 * mass_generic * height_generic + 1289.6
+        V_total_subject = 47.05 * mass_subject * height_subject + 1289.6
+
+        for i in range(0, model_subject.getMuscles().getSize()):
+            muscle_generic = model_generic.updMuscles().get(i)
+            muscle_subject = model_subject.updMuscles().get(i)
+
+            l0_generic = muscle_generic.getOptimalFiberLength()
+            l0_subject = muscle_subject.getOptimalFiberLength()
+
+            force_scale_factor = (V_total_subject / V_total_generic) / (l0_subject /
+                                                                        l0_generic)
+            muscle_subject.setMaxIsometricForce(force_scale_factor *
+                                                muscle_subject.getMaxIsometricForce())
+
+        model_subject.printToXML(subject_model_file)
+
+    ####
+    
+# CEINMS
+def read_excitation_generator(file):
+    """Reads a CEINMS excitation generator file and returns a dictionary
+    containing the osim_muscles that match with each EMG signal
+
+    """
+    tree = ET.parse(file)
+    root = tree.getroot()
+
+    # look for '\excitationGenerator\mapping'
+    excitations = root.findall('.//excitation')
+    emg_to_muscles = dict()
+    for excitation in excitations:
+        muscle = excitation.get('id')
+        try:
+            emg_name = excitation.find('.//input').text
+        except:
+            emg_name = None
+        emg_to_muscles[muscle] = emg_name
+
+    return emg_to_muscles
+
+# ObjectOrientation
+class Plotter():
+    def __init__(self):
+        self.dataList = []
+    
+    def addDataFrame(self, dataframe):
+        self.dataList.append(dataframe)
+
+    def plotListDataFrames(self, xColumn, yColumns, labels):
+        # Example plotting function
+        for df, label in zip(self.dataList, labels):
+            plt.plot(df[xColumn], df[yColumns], label=label)
+
+        plt.legend()
+        plt.show()
+
+
+
+
 if __name__ == "__main__":
     
     # Command line interface for the utils module
-    if len(sys.argv) > 1:
-        # Use arguments from the command line
-        command = sys.argv[1]
-
+    if len(sys.argv) < 1:
+        command = input("Please provide a command from the list: ")
+    else:
+        command = sys.argv[1] # Use arguments from the command line
+    
+    if command is not None:
+        
         if command == "hello":
             print("hello")
 
@@ -886,8 +1732,6 @@ if __name__ == "__main__":
                 data = load_trc(path, output=1)
             else:
                 print("Please provide the path to the .trc file. Example: python utils.py load_trc path/to/file.trc")
-        
-        # run the command string as each function if it exists
         elif command == "load_mot":
             if len(sys.argv) > 2:
                 path = sys.argv[2]
@@ -919,7 +1763,10 @@ if __name__ == "__main__":
             if len(sys.argv) > 3:
                 path = sys.argv[2]
                 data = pd.read_csv(sys.argv[3], sep='\t')
-                    
+
+        elif command == "activate_cmd_env":
+            activate_cmd_env()
+
         elif command == "get_screen_size":
             screen_size = get_screen_size()
             if screen_size:
@@ -950,6 +1797,28 @@ if __name__ == "__main__":
                 rename_all_files_in_dir(dir_path, old_str, new_str)
             else:
                 print("Please provide the directory path, old string, and new string. Example: python utils.py rename_all_files_in_dir path/to/dir old_string new_string")
+        elif command == "read_excitation_generator":
+            read_excitation_generator(sys.argv[2])
+        elif command == 'compareMomentArms':
+            modelpath1 = input("Enter path to first model: ")
+            modelpath2 = input("Enter path to second model: ")
+            joint = input("Enter coordinate name: ")
         else:
             print(f"Unknown command: {command}")
+            print("Available commands: ")
+            print("  hello")
+            print("  load_trc")
+            print("  load_mot")
+            print("  load_sto")
+            print("  load_c3d")
+            print("  load_data_file")
+            print("  save_data_file")
+            print("  get_screen_size")
+            print("  calculate_nRows_nCols")
+            print("  increase_muscle_force")
+            print("  rename_all_files_in_dir")
+            print("  read_excitation_generator")
 # END
+
+
+

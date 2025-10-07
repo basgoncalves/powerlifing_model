@@ -72,9 +72,9 @@ if __name__ == '__main__':
     
     sessions_to_skip = ['25_03_31']
     
-    subject = 'KAtya_01'
-    session = 'session1'
-    trial_name = 'files_in_run01'
+    subject = 'Athlete_03'
+    session = '22_07_06'
+    trial_name = 'sq_70_test'
     
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
     trial.copy_inputs_to_trial(replace=False)
@@ -114,10 +114,10 @@ if __name__ == '__main__':
         
         # Try running ID
         try:
-            run_id.main(osim_modelPath=osim_modelPath, 
-                    ik_output=trial.outputFiles['IK'].abspath(), 
-                    grf_xml=trial.inputFiles['GRF_XML'].abspath(), 
-                    setup_xml=trial.path + '\\' + trial.outputFiles['ID'].setup,
+            run_id.main(osimModelPath=osim_modelPath, 
+                    ikOutputPath=trial.outputFiles['IK'].abspath(), 
+                    grfXmlPath=trial.inputFiles['GRF_XML'].abspath(), 
+                    setupXmlPath=trial.path + '\\' + trial.outputFiles['ID'].setup,
                     resultsDir=trial.outputFiles['ID'].abspath())
         except Exception as e:
             print(f"Error during Inverse Dynamics: {e}")
@@ -130,7 +130,7 @@ if __name__ == '__main__':
          setup_xml=trial.path + '\\' + trial.outputFiles['MA'].setup,
          resultsDir= trial.outputFiles['MA'].abspath())
     
-    output_files = trial.outputFiles['MA'].abspath()
-    utils.print_to_log(f'Muscle Analysis completed. Results are saved in {output_files}')
+    outputFilesPath = trial.outputFiles['MA'].abspath()
+    utils.print_to_log(f'Muscle Analysis completed. Results are saved in {outputFilesPath}')
 
 

@@ -64,11 +64,17 @@ def main(calibration_setup=None):
 if __name__ == "__main__":
     
     start_time = time.time()
-     
+
+    subject = 'Running_009'
+    session = 'session1'
+    trial_name = 'runA1'
+
+    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
+
     # Run CEINMS calibration
     try:
-        utils.print_to_log(f'Running CEINMS calibration on {paths.SUBJECT} / {paths.TRIAL_NAME}')
-        main(paths.CEINMS_SETUP_CALIBRATION)    
+        utils.print_to_log(f'Running CEINMS calibration on {trial.subject_name} / {trial.trial_name}')
+        main(calibration_setup=trial.inputFiles['CEINMS_CALIBRATION_SETUP'].abspath())
     except Exception as e:
         print(f"Error during CEINMS calibration: {e}")
         utils.print_to_log(f'{time.time()}: Error during CEINMS calibration: {e}')

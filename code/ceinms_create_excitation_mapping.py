@@ -111,7 +111,7 @@ if __name__ == "__main__":
     # Example usage
     subject_name = 'Katya_01'
     session_name = 'session1'
-    trial_name = 'files_in_run01'
+    trial_name = 'files_in_run01_b'
 
     analysis = paths.Analysis()
     

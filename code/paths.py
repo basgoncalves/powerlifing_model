@@ -1,9 +1,15 @@
 import os
 import shutil
 import time
+from matplotlib import pyplot as plt
 import pandas as pd
-import utils
 import opensim as osim
+
+try:
+    import utils
+except ImportError:
+    from . import utils
+import math
 
 #%% Folder stuctures should be: 
 # powerlifitng_model
@@ -37,8 +43,9 @@ import opensim as osim
 #           grf.mot
 #           EMG_filtered.sto
 #           externalloads.xml
-# %% CODE 
+# %% CODE and settings 
 
+# Load settings from .json file
 CODE, _ = utils.check_path(os.path.dirname(__file__))
 SETUP_DIR, _ = utils.check_path(os.path.join(CODE, 'SetupFiles\Purzel'), isdir=True)
 
@@ -46,29 +53,34 @@ POWERLIFTING_DIR, _ = utils.check_path(os.path.dirname(CODE), isdir=True)
 MODELS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'models'), isdir=True)
 
 SIMULATION_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'simulations'), isdir=True)
+SIMULATION_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'simulations'), isdir=True)
 RESULTS_DIR, _ = utils.check_path(os.path.join(POWERLIFTING_DIR, 'results'), isdir=True)
 
 # Setting for 
 class Settings():
     def __init__(self):
-        
-        self.SUBJECTS_TO_ANALYSE =  ['Katya_01']# ['Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-        self.TRIAL_TO_ANALYSE =  ['files_in_run01']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        self.subject_list = [subject for subject in os.listdir(SIMULATION_DIR) if os.path.isdir(os.path.join(SIMULATION_DIR, subject))]
+ 
+        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+        self.TRIAL_TO_ANALYSE =  ['sq_70' ]#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
         self.C3D_FILE = 'c3dfile.c3d'
-        self.EMG = 'EMG.to'
+        self.EMG = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
         self.GRF_XML = 'externalloads.xml'
-        self.MARKER_FILE = 'marker_experimental.trc'
+        self.MARKER_FILE = 'markers_experimental.trc'
         self.EVENTS_FILE = 'events.csv'
         self.ACTUATORS_SO = 'actuators_so.xml'
-        self.CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
+        
+        self.CEINMS_CALIBRATION_SETUP = 'calibrationSetup_ceinms-nn_hybrid.xml'
+        self.CEINMS_CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
         self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
         self.CEINMS_INPUT_DATA = 'inputData.xml'
         self.CEINMS_RUN_OPTIMISE_BAT = 'run_ceinms_nn_optimise.bat'
         self.CEINMS_RUN_CALIBRATION_BAT = 'run_ceinms_nn_calibrate.bat'
+        
         self.SETUP_IK = 'setup_IK.xml'
         self.SETUP_ID = 'setup_ID.xml'
         self.SETUP_GRF = 'externalloads.xml'
@@ -83,14 +95,22 @@ class Settings():
                      'knee_angle_l', 'knee_angle_r',
                      'ankle_angle_l', 'ankle_angle_r']
         
-        self.Muscle_Groups = { 'Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
-            'Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
-            'Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
-            'Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
-            'Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
-            'Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
-            'Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
-            'Vasti':['vasint_r','vaslat_r','vasmed_r']
+        self.Muscle_Groups = { 'R Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
+            'R Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
+            'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+            'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+            'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
+            'R Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
+            'R Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
+            'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+            'L Adductors': ['addbrev_l','addlong_l','addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l','grac_l'],
+            'L Hamstrings': ['bflh_l','semimem_l','semiten_l','bfsh_l'],
+            'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
+            'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
+            'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
+            'L Hip flexors':['sart_l','recfem_l','tfl_l','iliacus_l','psoas_l'],
+            'L Triceps Surae':['soleus_l','gaslat_l','gasmed_l'],
+            'L Vasti':['vasint_l','vaslat_l','vasmed_l']
             }
 
         self.JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
@@ -164,36 +184,9 @@ class Settings():
             
         else:
             print(f"Excitation generator already exists at {save_path}. No changes made.")
-            
-class Session():
-    def __init__(self, subject_name, session_name):
-        self.subject = subject_name
-        self.name = session_name
-        self.path = os.path.join(SIMULATION_DIR, self.subject, self.name)
-        
-        if not os.path.exists(self.path):
-            print(f"Session path does not exist: {self.path}")
-        
-        self.TRIALS = [trial for trial in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, trial))]
-        
-        # only keep trials that are in the settings
-        settings = Settings()
-        self.TRIALS = [Trial(self.subject, self.name, trial) for trial in self.TRIALS if trial in settings.TRIAL_TO_ANALYSE]
-
-class Subject():
-    def __init__(self, subject_name):
-        self.name = subject_name
-        self.path = os.path.join(SIMULATION_DIR, self.name)
-        
-        if not os.path.exists(self.path):
-            print(f"Subject path does not exist: {self.path}")
-        
-        self.SESSIONS = [Session(self.name, session) for session in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, session))]
-        
-        # sort sessions by date
-        self.SESSIONS.sort(key=lambda x: x.name)
-        
-class Analysis():
+      
+       
+class Analysis(Settings):
     """Class to manage analysis of subjects and their trials.
     
     Usage:
@@ -219,22 +212,18 @@ class Analysis():
         else:
             for subj in self.SUBJECTS:
                 if subj.name == subject_name:
-                    breakpoint()
                     return subj
             
             return None  # Subject not found
-    
+       
 class Models(Analysis):
     def __init__(self, subject_name='Athlete_03'):
                 
-        self.SCALED_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled.osim')        
-        self.MRI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_mri_scaled.osim')
+        self.SCALED_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_scaled.osim')        
         
         self.SCALED_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.SCALED_MODEL.replace('.osim', '_scaledMasses.osim'))
-        self.MRI_MODEL_SCALED_MASSES = os.path.join(MODELS_DIR, self.MRI_MODEL.replace('.osim', '_scaledMasses.osim'))
         
-        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_linearly_scaled_scaledMasses_increased_10.00.osim')
-        self.MRI_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_10.00.osim')
+        self.SCALED_MODEL_INCREASED_FORCE = os.path.join(MODELS_DIR, f'{subject_name}_scaled_scaledMasses_increased_10.00.osim')
         
         self.CATELI_MODEL = os.path.join(MODELS_DIR, f'{subject_name}_Catelli_final.osim')
     
@@ -257,7 +246,6 @@ class Trial():
         self.subject = subject_name
         # handle if session name is int
         if isinstance(session_name, int):
-            breakpoint()
             subject = Analysis().get_subject(subject_name)
             session_name = subject.SESSIONS[session_name].name
              
@@ -269,10 +257,7 @@ class Trial():
         settings = Settings()
         
         # Edit model paths below
-        if subject_name.lower().__contains__('mri'):  
-            self.USED_MODEL = models.MRI_MODEL_INCREASED_FORCE
-        else:
-            self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
+        self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
         
         self.inputFiles = {
             'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),
@@ -283,7 +268,8 @@ class Trial():
             'GRF_XML': Step(function=None, setup=None, output=settings.GRF_XML, parentdir=self.path),
             'EVENTS': Step(function=None, setup=None, output=settings.EVENTS_FILE, parentdir=self.path),
             'ACTUATORS_SO': Step(function=None, setup=None, output=settings.ACTUATORS_SO, parentdir=self.path),
-            'CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CALIBRATION_CFG, parentdir=self.path),
+            'CEINMS_CALIBRATION_SETUP': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_SETUP, parentdir=self.path),
+            'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.path),
             'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.path),
             'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
             'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),
@@ -320,6 +306,30 @@ class Trial():
             print(f"Warning: Events file {self.inputFiles['EVENTS'].output} not found.")
             self.TIME_RANGE = None
 
+    def update_from_settings(self, settings: Settings):
+        """Update trial settings from a Settings instance."""
+        self.SUBJECTS_TO_ANALYSE = settings.SUBJECTS_TO_ANALYSE
+        self.TRIAL_TO_ANALYSE = settings.TRIAL_TO_ANALYSE
+        self.DOFs = settings.DOFs
+        self.Muscle_Groups = settings.Muscle_Groups
+        self.JCF_Groups = settings.JCF_Groups
+        self.EMG_muscle_mapping = settings.EMG_muscle_mapping
+        self.plot = settings.plot
+    
+    def print_settings(self):
+        """Print the paths for debugging."""
+        print("CODE:", CODE)
+        print("POWERLIFTING_DIR:", POWERLIFTING_DIR)
+        
+        print(f"Subject: {self.subject}")
+        print(f"Session: {self.session}")
+        print(f"Trial: {self.name}")
+        print(f"Trial path: {self.path}")
+        
+        print(f"Used model: {self.USED_MODEL}")
+        
+        time.sleep(1)  # Optional: wait for a second before printing
+    
     def copy_inputs_to_trial(self, replace: bool = False):
 
         # copy input files from SETUP_DIR to trial directory
@@ -458,24 +468,140 @@ class Trial():
         ikTool.run()
         
         print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
+    @staticmethod
+    def muscles_per_coordinate(osimModel, coord_name):
+        muscles = []
+        indexes = []
+        coord = osimModel.getCoordinateSet().get(coord_name)
+        state = osimModel.initSystem()
+        osimModel.realizePosition(state)
 
-    def print_settings(self):
-        """Print the paths for debugging."""
-        print("CODE:", CODE)
-        print("POWERLIFTING_DIR:", POWERLIFTING_DIR)
-        
-        print(f"Subject: {self.subject}")
-        print(f"Session: {self.session}")
-        print(f"Trial: {self.name}")
-        print(f"Trial path: {self.path}")
-        
-        print(f"Used model: {self.USED_MODEL}")
-        
-        time.sleep(1)  # Optional: wait for a second before printing
-      
+        for i in range(osimModel.getMuscles().getSize()):
+            muscle = osimModel.getMuscles().get(i)
+            if abs(muscle.computeMomentArm(state, coord)) > 1e-4:
+                muscles.append(muscle.getName())
+                indexes.append(i)
+
+        return muscles, indexes
+
+
     def fullpath(self, filename):
         return os.path.join(self.path, filename)
     
+    def plot(self,trialList,columns_to_plot):
+        
+        if columns_to_plot == 'all':
+
+            columns_to_plot.remove('time')
+        
+        plt.figure(figsize=(10,6))
+        for trial in trialList:
+            plt.plot(trial.joint_angles[columns_to_plot], label=trial.name)
+        plt.legend([trial.name for trial in trialList])
+    
+    def plot_create_subplot(self, n_muscles, fig=None):
+        ncols = int(math.ceil(math.sqrt(n_muscles)))
+        nrows = int(math.ceil(n_muscles / ncols))
+        if fig is None:
+            fig, axes = plt.subplots(nrows, ncols, figsize=(ncols*5, nrows*4), constrained_layout=True)
+            axes = axes.flatten()
+        else:
+            axes = fig.get_axes()
+
+        # Hide any unused subplots
+        for i in range(n_muscles, len(axes)):
+            axes[i].axis('off')
+        
+        return fig, axes
+      
+    def plot_moment_arms(self, coord_name: str = None, fig=None):
+        
+        fileList = os.listdir(self.outputFiles['MA'].abspath())
+        fileList = [file for file in fileList if file.startswith('_MuscleAnalysis_MomentArm') and file.endswith('.sto')]
+        
+        for file in fileList:
+            filepath = self.outputFiles['MA'].abspath() + '\\' + file
+            if coord_name in file:
+                break
+            else:
+                continue
+        
+        dof = file.replace('.sto','').replace('_MuscleAnalysis_MomentArm_','')
+        print(f"Loading moment arms for DOF: {dof} from {file}")
+        moment_arms = utils.load_any_data_file(filepath)
+        muscleList,muscleIdx = self.muscles_per_coordinate(osim.Model(self.USED_MODEL), dof)
+        
+        n_muscles = len(muscleList)
+        if n_muscles == 0:
+            print(f"No muscles found for DOF: {dof}")
+            return None, None
+        
+        ncols = int(math.ceil(math.sqrt(n_muscles)))
+        nrows = int(math.ceil(n_muscles / ncols))
+        if fig is None:
+            fig, axes = self.plot_create_subplot(n_muscles)
+        else:
+            axes = fig.get_axes()
+        
+
+        fig.suptitle(f"Moment Arms for DOF: {dof}", fontsize=16)
+        line_label = f'{self.subject}_{self.session}_{self.name}'
+        for muscle in muscleList:
+            ax = axes[muscleList.index(muscle)]
+            ax.plot(moment_arms[muscle], label=line_label)
+            ax.set_title(f"{muscle}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Moment Arm")
+        
+        axes[0].legend()
+        return fig, axes
+        
+    def compare_with(self, trial):
+        print(f"Comparing {self.name} with {trial.name}")
+        
+        self.joint_angles = utils.load_any_data_file(self.outputFiles['IK'].abspath())
+        trial.joint_angles = utils.load_any_data_file(trial.outputFiles['IK'].abspath())
+        
+        # time normalise
+        self.joint_angles = utils.time_normalize(self.joint_angles)
+        trial.joint_angles = utils.time_normalize(trial.joint_angles)
+
+        print("Comparing joint angles:")
+        self.plot([self, trial], columns_to_plot=['all'])
+
+class Session():
+    def __init__(self, subject_name, session_name):
+        self.subject = subject_name
+        self.name = session_name
+        self.path = os.path.join(SIMULATION_DIR, self.subject, self.name)
+        
+        if not os.path.exists(self.path):
+            print(f"Session path does not exist: {self.path}")
+        
+        self.TRIALS = [trial for trial in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, trial))]
+        
+        for i, trial in enumerate(self.TRIALS):
+            self.TRIALS[i] = Trial(self.subject, self.name, trial)
+        
+class Subject():
+    def __init__(self, subject_name):
+        self.name = subject_name
+        self.path = os.path.join(SIMULATION_DIR, self.name)
+        
+        if not os.path.exists(self.path):
+            print(f"Subject path does not exist: {self.path}")
+        
+        self.SESSIONS = [Session(self.name, session) for session in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, session))]
+        
+        # sort sessions by date
+        self.SESSIONS.sort(key=lambda x: x.name)
+
+    def get_session(self, session_name):
+        for session in self.SESSIONS:
+            if session.name == session_name:
+                return session
+        return None
+
 #%% IF MAIN
 if __name__ == "__main__":
     

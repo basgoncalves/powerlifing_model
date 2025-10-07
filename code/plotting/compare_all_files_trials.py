@@ -2,12 +2,21 @@ import os
 import matplotlib
 import numpy as np
 import pandas as pd
-import utils
-import paths
 import matplotlib.pyplot as plt
 from collections import Counter
 from typing import List, Set
 from matplotlib.lines import Line2D
+
+try:  # Normal package-relative import
+	from .. import utils, paths  # type: ignore
+except ImportError:
+	# Fallback: adjust sys.path when executed without package context
+	import os, sys
+	project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+	if project_root not in sys.path:
+		sys.path.insert(0, project_root)
+	from code import utils, paths  # type: ignore  # noqa: E401
+ 
 
 def get_folders_from_user() -> List[str]:
     """Continuously prompts the user for folder paths until an empty input is given."""
@@ -69,8 +78,6 @@ def main(input_list: List[str] = None):
         
     print(f"\nFound {len(files_to_plot)} files to compare: {sorted(list(files_to_plot))}\n")
     labels = utils.get_unique_names(folder_paths)
-    # labels = [os.path.basename(folder) for folder in folder_paths]
-    
     color_dict = utils.create_color_and_style_dict(labels)
     
     # 3. Process each common file
