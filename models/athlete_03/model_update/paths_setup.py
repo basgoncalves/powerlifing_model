@@ -17,6 +17,7 @@ vtp_path = os.path.join(template_dir, 'Geometry')
 # templates
 generic_model_with_bone_landmarks = os.path.join(template_dir, 'Catelli-V4.0_Nu_with_bone_skin_markers.osim')
 generic_model = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
+scaling_settings_path = os.path.join(template_dir, 'scaling_setting.xml')
 
 # created objects
 bone_markers_in_ground_csv = os.path.join(template_dir, 'bone_markers_in_ground.csv')

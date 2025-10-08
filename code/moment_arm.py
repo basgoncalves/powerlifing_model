@@ -147,8 +147,7 @@ def mmfn(fig):
     fig.patch.set_facecolor('white')
     
     # make sure subplots and ticks don't overlap
-    plt.subplots_adjust(hspace=0.4, wspace=0.4)
-    
+    plt.subplots_adjust(hspace=0.4, wspace=0.4)   
 
 def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType = 'bar'):
     model1 = osim.Model(osimModelPath1)
