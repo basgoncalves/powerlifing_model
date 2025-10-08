@@ -2,16 +2,25 @@ import os
 
 # paths
 root_dir = os.path.abspath('../')
-
 mri_dir = os.path.abspath('../mri/results')
-path_to_json = os.path.join(mri_dir, 'orientation.mrk.json')
-
 template_dir = os.path.abspath('../templates')
 
+path_to_json = os.path.join(mri_dir, 'orientation.mrk.json')
 xml_path = os.path.join(template_dir, 'markers_and_bone_markers_in_bodies.xml')
 osim_path = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
+nrrd_path = os.path.join(mri_dir, 'athlete_03.nrrd') # path to the nrrd file with MRI data
+
+scene_path = os.path.join(mri_dir, '2025-10-07-Scene.mrml')
 
 vtp_path = os.path.join(template_dir, 'Geometry')
+
+# templates
+generic_model_with_bone_landmarks = os.path.join(template_dir, 'Catelli-V4.0_Nu_with_bone_skin_markers.osim')
+generic_model = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
+
+# created objects
+bone_markers_in_ground_csv = os.path.join(template_dir, 'bone_markers_in_ground.csv')
+point_order_csv = os.path.join(template_dir, 'point_order.csv')
 
 # create these if do not exist
 control_path = os.path.join(root_dir, 'mri', 'control')
