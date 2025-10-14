@@ -2,7 +2,6 @@ import os
 import shutil
 from matplotlib import pyplot as plt
 import opensim as osim
-import paths
 import utils
 import time
 
@@ -124,13 +123,13 @@ def plot(forces_path, activation_path):
 
 if __name__ == '__main__':
     
-    base_dir = paths.SIMULATION_DIR
+    base_dir = utils.paths.SIMULATION_DIR
     subject = 'Athlete_03'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
     trial = 'dl_70_test'  # Replace with actual trial name
     
     # create a trial instance
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial)
 
     # Copy from setups 
     trial.copy_inputs_to_trial(replace=False)
@@ -154,7 +153,7 @@ if __name__ == '__main__':
     # Edit pelvis center of mass actuators
     edit_pelvis_com_actuators(used_model, actuators_so)
 
-    # Run the Static Optimization
+    # Run the Static Optimization using the specified files
     if False:
         main(osim_modelPath=used_model,
             ik_output=ik_output,
@@ -162,7 +161,8 @@ if __name__ == '__main__':
             setup_xml=setup_so,
             actuators=actuators_so,
             resultsDir=so_output)
-        
+    
+    # Plot results
     if True:
         plot(forces_path=os.path.join(so_output, 'StaticOptimization_force.sto'),
              activation_path=os.path.join(so_output, 'StaticOptimization_activation.sto'))

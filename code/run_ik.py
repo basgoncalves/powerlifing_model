@@ -22,7 +22,6 @@ def validate_markers_used(ikTool,markers_path):
 
 def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
 
-
     # check paths
     osim_modelPath = utils.check_arg(osim_modelPath,'osim_modelPath')
     marker_trc = utils.check_arg(marker_trc,'marker_trc')
@@ -94,7 +93,7 @@ if __name__ == '__main__':
     trial = 'dl_70_test'  # Replace with actual trial name
     
     # create a trial instance
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial)
     
     setup_xml = os.path.join(trial.path, trial.outputFiles['IK'].setup)
     if not os.path.exists(setup_xml):

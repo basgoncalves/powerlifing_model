@@ -66,8 +66,8 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
 
 if __name__ == '__main__':
     
-    settings = paths.Settings()
-    analysis = paths.Analysis()
+    settings = utils.Settings()
+    analysis = utils.Analysis()
     trial_list = settings.TRIAL_TO_ANALYSE
     
     sessions_to_skip = ['25_03_31']

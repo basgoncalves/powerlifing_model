@@ -1,5 +1,5 @@
 import opensim as osim
-import paths
+import utils
 import scipy.io
 
 # matfile = r"C:\Git\1_current_projects\powerlifing_model\willi_data\Athlete_03\sq_70\settings.mat"
@@ -10,7 +10,7 @@ import scipy.io
 # print(f"Model mass from mat file: {mat_data['model_mass'][0][0]} kg")
 # exit()
 
-# model = osim.Model(paths.USED_MODEL)
+# model = osim.Model(utils.USED_MODEL)
 def scale_body_masses(model_reference_path, model_target_path,save_path=None):
     """
     Scale the body masses of model_target to match the percentages of model_reference.
@@ -90,9 +90,8 @@ def print_body_mass_per_segment(model_path):
 
 if __name__ == "__main__":
     
-    
-    model_reference_path = r"C:\OpenSim 4.5\Models\Rajagopal\generic_unscaled.osim"
-    model_target_path = paths.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].USED_MODEL
+    model_reference_path = utils.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].USED_MODEL
+    model_target_path = utils.Analysis().SUBJECTS[0].SESSIONS[0].TRIALS[0].USED_MODEL
     print(f"Reference model path: {model_reference_path}")
     print(f"Target model path: {model_target_path}")
     

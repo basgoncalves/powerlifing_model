@@ -7,10 +7,34 @@ import run_ik, run_id, run_so, run_ma, run_jra
 import run_emg_normalise
 import exportC3D, compare_marker_locations, calculate_muscle_moments
 
-def main(trial: paths.Trial, replace: bool = False):
 
-    # 1. Export c3d file
-    if False:
+run = {'reset':False,
+       'INCREASE_MUSCLE_FORCE': False,
+       'exportC3D': False,
+       'IK': True,
+       'ID': False,
+       'MA': False,
+       'SO': False,
+       'JRA': False,
+       'EMG_NORMALISE': False,
+       'CREATE_EXCITATION_GENERATOR': False,
+       'CEINMS_CALIBRATION': False,
+       'CEINMS_OPTIMISATION': False,
+       'MOMENT_ARMS': False,}
+
+
+def main(trial: utils.Trial, replace: bool = False):
+
+    # Reset trials to only input files
+    if run['reset']:
+        trial.reset()
+    
+    # Increase muscle force
+    if run['INCREASE_MUSCLE_FORCE']:
+        trial.increase_muscle_force(factor=3, replace=replace)
+    
+    # Export c3d file
+    if run['exportC3D']:
         subject_without_zero = trial.subject.replace('0', '')
         exportC3D.export_markers(trial.inputFiles['C3D'].abspath(),
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
@@ -18,7 +42,7 @@ def main(trial: paths.Trial, replace: bool = False):
         exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
    
     # 2. Run IK
-    if True:
+    if run['IK']:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -30,6 +54,7 @@ def main(trial: paths.Trial, replace: bool = False):
                             setup_xml=trial.path + '\\' + trial.outputFiles['IK'].setup,
                             time_range=trial.TIME_RANGE,
                             resultsDir=trial.path)
+                
 
                 utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
             else:
@@ -46,7 +71,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during marker location comparison')
     
     # 3. Run ID
-    if True:
+    if  run['ID']:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -68,7 +93,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if True:
+    if run['MA']:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -83,8 +108,8 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Muscle Analysis: {e}')
             exit()
 
-    # 4b Check moment arms
-    if False:
+    # 5. Check moment arms
+    if run['MOMENT_ARMS']:
         try:
             utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                         ik_output=trial.outputFiles['IK'].abspath(),
@@ -101,8 +126,8 @@ def main(trial: paths.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
 
-    # 5. Run Static Optimization
-    if True:
+    # 6. Run Static Optimization
+    if run['SO']:
 
         try:
             # Check if the Static Optimization output file exists
@@ -119,9 +144,9 @@ def main(trial: paths.Trial, replace: bool = False):
                 
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
-            
-    # 6 run Joint Reaction Analysis
-    if True:
+
+    # 7. Run Joint Reaction Analysis
+    if run['JRA']:
         if True:
             try:
                 utils.print_to_log(f'Running JRA on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
@@ -144,8 +169,8 @@ def main(trial: paths.Trial, replace: bool = False):
             run_jra.run_jra_setup(modelpath=trial.USED_MODEL,
                                 setupJRA=trial.SETUP_JRA)
 
-    # Normalise EMG data
-    if False:
+    # 8. Normalise EMG data
+    if run['EMG_NORMALISE']:
         
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
@@ -163,8 +188,8 @@ def main(trial: paths.Trial, replace: bool = False):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
-    # Create excitation generator file
-    if False:
+    # 9. Create excitation generator file
+    if run['CREATE_EXCITATION_GENERATOR']:
         utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
         try:
             #breakpoint()  # This will pause the execution for debugging
@@ -177,8 +202,8 @@ def main(trial: paths.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
     
-    # 6. Run CEINMS calibration and optimization
-    if False:
+    # 10. Run CEINMS calibration and optimization
+    if run['CEINMS_CALIBRATION']:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
         try:
             import run_ceinms_calibration
@@ -188,7 +213,18 @@ def main(trial: paths.Trial, replace: bool = False):
             print(f"Error during CEINMS calibration: {e}")
             utils.print_to_log(f'Error during CEINMS calibration: {e}')
 
-def compare_trials(trial1: paths.Trial, trial2: paths.Trial):
+    # 11. Run CEINMS optimization
+    if run['CEINMS_OPTIMISATION']:
+        utils.print_to_log(f'Running CEINMS optimization on: {trial.subject} / {trial.name}')
+        try:
+            import run_ceinms_optimisation
+            run_ceinms_optimisation.main(trial.CEINMS_SETUP_OPTIMISATION)
+            utils.print_to_log(f'CEINMS optimization completed successfully.')
+        except Exception as e:
+            print(f"Error during CEINMS optimization: {e}")
+            utils.print_to_log(f'Error during CEINMS optimization: {e}')
+            
+def compare_trials(trial1: utils.Trial, trial2: utils.Trial):
     
     if True:
         try:
@@ -201,13 +237,18 @@ if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
     
     start_time = time.time()
-    settings = paths.Settings()
+    settings = utils.Settings()
     
-    # settings._print()
+    settings._print()
     
-    analysis = paths.Analysis()
-    
-    trial_list = settings.TRIAL_TO_ANALYSE
+    answer = input("Do you want to proceed? (y/n): ")
+    if answer.lower() != 'y':
+        print("Exiting the program.")
+        exit()
+
+    analysis = utils.Analysis()
+
+    trial_list = settings.TRIALS_TO_ANALYSE
 
     sessions_to_skip = ['25_03_31']
     subject_list = settings.SUBJECTS_TO_ANALYSE
