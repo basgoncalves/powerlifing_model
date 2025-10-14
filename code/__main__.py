@@ -229,7 +229,7 @@ if __name__ == "__main__":
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##
-                breakpoint()  # This will pause the execution for debugging
+                
                 main(trial=trial, replace=True)
                 
                 #############################################

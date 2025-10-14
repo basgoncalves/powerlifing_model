@@ -62,7 +62,7 @@ class Settings():
         self.subject_list = [subject for subject in os.listdir(SIMULATION_DIR) if os.path.isdir(os.path.join(SIMULATION_DIR, subject))]
  
         self.SUBJECTS_TO_ANALYSE =  ['Athlete_03_MRI_Katya']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-        self.TRIAL_TO_ANALYSE =  ['sq_70' ]#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        self.TRIAL_TO_ANALYSE =  ['sq_75' ]#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
         self.C3D_FILE = 'c3dfile.c3d'
         self.EMG = 'emg.mot'
@@ -257,7 +257,7 @@ class Trial():
         settings = Settings()
         
         # Edit model paths below
-        self.USED_MODEL = models.SCALED_MODEL_INCREASED_FORCE
+        self.USED_MODEL = models.SCALED_MODEL
         
         self.inputFiles = {
             'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),

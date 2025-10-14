@@ -2222,3 +2222,23 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 14.10.2025_13:24:41:406: Total analysis time: 397.19 seconds 
  
 
+14.10.2025_14:36:40:244: Starting analysis...
+14.10.2025_14:36:40:343: Running analysis for: Athlete_03_MRI_Katya / sq_75
+14.10.2025_14:37:00:242: Starting analysis...
+14.10.2025_14:37:00:304: Running analysis for: Athlete_03_MRI_Katya / sq_75
+14.10.2025_14:37:00:304: [Error] during Inverse Kinematics: 'list' object has no attribute 'startswith'
+14.10.2025_14:37:00:344: [Error] during marker location comparison
+14.10.2025_14:37:00:344: [Error] during Inverse Dynamics: OpenSim model file not found: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\models\Athlete_03_MRI_Katya_scaled_scaledMasses_increased_10.00.osim
+14.10.2025_14:37:21:411: Starting analysis...
+14.10.2025_14:37:21:474: Running analysis for: Athlete_03_MRI_Katya / sq_75
+14.10.2025_14:37:21:474: [Error] during Inverse Kinematics: 'list' object has no attribute 'startswith'
+14.10.2025_14:37:21:512: [Error] during marker location comparison
+14.10.2025_14:37:22:899: [Success] Inverse Dynamics completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03_MRI_Katya\22_07_06\sq_75\inverse_dynamics.sto
+14.10.2025_14:38:25:932: [Success] Muscle Analysis completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03_MRI_Katya\22_07_06\sq_75\muscleAnalysis
+14.10.2025_14:44:48:539: [Success] Static Optimization completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03_MRI_Katya\22_07_06\sq_75\
+14.10.2025_14:44:48:539: Running JRA on: Athlete_03_MRI_Katya / sq_75 / C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\models\Athlete_03_MRI_Katya_scaled.osim
+14.10.2025_14:44:50:885: [success] Joint Reaction Analysis completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Athlete_03_MRI_Katya\22_07_06\sq_75\Analyse_JRA_ReactionLoads.sto
+14.10.2025_14:44:50:885: Analysis completed for: Athlete_03_MRI_Katya / sq_75
+14.10.2025_14:44:50:885: Total analysis time: 449.47 seconds 
+ 
+
