@@ -169,6 +169,8 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType
 
         # calculate moment arms for each muscle in both models
         muscles_common = set(muscles1).intersection(set(muscles2))
+        # sort muscles alphabetically
+        muscles_common = sorted(muscles_common)
         for muscle in muscles_common: 
             moment_arm1 = model1.getMuscles().get(muscle).computeMomentArm(state1, coordSet1.get(coord_name))
             moment_arm2 = model2.getMuscles().get(muscle).computeMomentArm(state2, coordSet2.get(coord_name))
