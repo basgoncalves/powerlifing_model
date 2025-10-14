@@ -18,7 +18,7 @@ def main(trial: paths.Trial, replace: bool = False):
         exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
    
     # 2. Run IK
-    if False:
+    if True:
         output_file = trial.outputFiles['IK'].abspath()
         try:
 
@@ -46,7 +46,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during marker location comparison')
     
     # 3. Run ID
-    if False:
+    if True:
         output_file = trial.outputFiles['ID'].abspath()
         try:
             
@@ -68,7 +68,7 @@ def main(trial: paths.Trial, replace: bool = False):
             exit()
 
     # 4. Run muscle analysis
-    if False:
+    if True:
         try:
             if not os.path.exists(trial.outputFiles['MA'].abspath()) or replace:
                 run_ma.main(osim_modelPath=trial.USED_MODEL,
@@ -102,7 +102,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
 
     # 5. Run Static Optimization
-    if False:
+    if True:
 
         try:
             # Check if the Static Optimization output file exists
@@ -121,7 +121,7 @@ def main(trial: paths.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
             
     # 6 run Joint Reaction Analysis
-    if False:
+    if True:
         if True:
             try:
                 utils.print_to_log(f'Running JRA on: {trial.subject} / {trial.name} / {trial.USED_MODEL}')
@@ -202,7 +202,8 @@ if __name__ == "__main__":
     
     start_time = time.time()
     settings = paths.Settings()
-    settings._print()
+    
+    # settings._print()
     
     analysis = paths.Analysis()
     
@@ -220,20 +221,23 @@ if __name__ == "__main__":
             if session.name in sessions_to_skip: continue
 
             for trial in session.TRIALS:
+                
+                if trial.name not in trial_list: continue
+                
                 trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##
-                
+                breakpoint()  # This will pause the execution for debugging
                 main(trial=trial, replace=True)
                 
                 #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
 
-                compare_trials(trial1=analysis.get_subject(subject).get_session(session.name).get_trial(trial_list[0]),
-                                 trial2=trial)
+                # compare_trials(trial1=analysis.get_subject(subject).get_session(session.name).get_trial(trial_list[0]),
+                #                  trial2=trial)
 
     end_time = time.time()
     elapsed_time = end_time - start_time
