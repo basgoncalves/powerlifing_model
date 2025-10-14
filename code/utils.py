@@ -664,9 +664,6 @@ class run:
         end_time = time.time()
         print(f"Static Optimization completed in {end_time - start_time:.2f} seconds")
         
-    def path(self):
-        return os.path.join(self.parentdir, self.output) if self.parentdir else self.output
-
 def print_to_log(message):
     """
     Prints a message to the console and logs it to a file.

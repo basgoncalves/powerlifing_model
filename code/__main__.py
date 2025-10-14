@@ -1,4 +1,5 @@
 import os
+import subprocess
 import time
 import paths
 import shutil
@@ -11,11 +12,11 @@ import exportC3D, compare_marker_locations, calculate_muscle_moments
 run = {'reset':False,
        'INCREASE_MUSCLE_FORCE': False,
        'exportC3D': False,
-       'IK': True,
-       'ID': True,
-       'MA': True,
-       'SO': True,
-       'JRA': True,
+       'IK': False,
+       'ID': False,
+       'MA': False,
+       'SO': False,
+       'JRA': False,
        'EMG_NORMALISE': False,
        'CREATE_EXCITATION_GENERATOR': False,
        'CEINMS_CALIBRATION': False,
@@ -28,11 +29,11 @@ def main(trial: utils.Trial, replace: bool = False):
     # Reset trials to only input files
     if run['reset']:
         trial.reset()
-    
+
     # Increase muscle force
     if run['INCREASE_MUSCLE_FORCE']:
         trial.increase_muscle_force(factor=3, replace=replace)
-    
+
     # Export c3d file
     if run['exportC3D']:
         subject_without_zero = trial.subject.replace('0', '')
@@ -40,7 +41,7 @@ def main(trial: utils.Trial, replace: bool = False):
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
         exportC3D.export_grf(trial.inputFiles['C3D'].abspath())
         exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
-   
+
     # 2. Run IK
     if run['IK']:
         output_file = trial.outputFiles['IK'].abspath()
@@ -54,7 +55,7 @@ def main(trial: utils.Trial, replace: bool = False):
                             setup_xml=trial.path + '\\' + trial.outputFiles['IK'].setup,
                             time_range=trial.TIME_RANGE,
                             resultsDir=trial.path)
-                
+
 
                 utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
             else:
@@ -69,14 +70,14 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'[Success] Marker location comparison completed.')
         except:
             utils.print_to_log(f'[Error] during marker location comparison')
-    
+
     # 3. Run ID
-    if  run['ID']:
+    if run['ID']:
         output_file = trial.outputFiles['ID'].abspath()
         try:
-            
+
             # Check if the IK output file exists
-            if not os.path.exists(output_file) or replace:               
+            if not os.path.exists(output_file) or replace:
                 # breakpoint()  # This will pause the execution for debugging
                 run_id.main(osimModelPath=trial.USED_MODEL,
                             ikOutputPath=trial.outputFiles['IK'].abspath(),
@@ -115,7 +116,7 @@ def main(trial: utils.Trial, replace: bool = False):
                                         ik_output=trial.outputFiles['IK'].abspath(),
                                         leg='l',
                                         threshold=0.005)
-            
+
             utils.checkMuscleMomentArms(osim_modelPath=trial.USED_MODEL,
                                         ik_output=trial.outputFiles['IK'].abspath(),
                                         leg='r',
@@ -141,7 +142,7 @@ def main(trial: utils.Trial, replace: bool = False):
                             resultsDir= trial.path + '\\' + trial.outputFiles['SO'].output)
 
                 utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
-                
+
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
 
@@ -171,10 +172,10 @@ def main(trial: utils.Trial, replace: bool = False):
 
     # 8. Normalise EMG data
     if run['EMG_NORMALISE']:
-        
+
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
-        
+
         for name in paths.Settings().TRIAL_TO_ANALYSE:
 
             abs_path_emg = trial.inputFiles['EMG_MOT'].abspath()
@@ -198,10 +199,10 @@ def main(trial: utils.Trial, replace: bool = False):
             settings._create_excitation_generator(save_path=save_path,
                                                     replace=True)
             utils.print_to_log(f'Excitation generator file created successfully: {save_path}')
-            
+
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
-    
+
     # 10. Run CEINMS calibration and optimization
     if run['CEINMS_CALIBRATION']:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
@@ -223,24 +224,44 @@ def main(trial: utils.Trial, replace: bool = False):
         except Exception as e:
             print(f"Error during CEINMS optimization: {e}")
             utils.print_to_log(f'Error during CEINMS optimization: {e}')
-            
+
 def compare_trials(trial1: utils.Trial, trial2: utils.Trial):
-    
+
     if True:
         try:
             trial1.compare_with(trial2)
         except Exception as e:
             print(f"Error during plotting: {e}")
             utils.print_to_log(f'Error during plotting: {e}')
-    
+
+def push_trial_results_to_git(trial: utils.Trial):
+    """Push trial results to git after completion"""
+    try:
+        # Add all changes in the trial directory
+        subprocess.run(['git', 'add', trial.path], check=True, cwd=os.getcwd())
+
+        # Commit with descriptive message
+        commit_message = f"[RESULT] {trial.subject}/{trial.name}"
+        subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
+
+        # Push to remote
+        subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+
+        utils.print_to_log(f'[Success] Results pushed to git for: {trial.subject} / {trial.name}')
+
+    except subprocess.CalledProcessError as e:
+        utils.print_to_log(f'[Warning] Failed to push to git: {e}')
+    except Exception as e:
+        utils.print_to_log(f'[Warning] Git operation failed: {e}')
+
 if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
-    
+
     start_time = time.time()
     settings = utils.Settings()
-    
+
     settings._print()
-    
+
     answer = input("Do you want to proceed? (y/n): ")
     if answer.lower() != 'y':
         print("Exiting the program.")
@@ -254,7 +275,7 @@ if __name__ == "__main__":
     subject_list = settings.SUBJECTS_TO_ANALYSE
 
     for subject in subject_list:
-        
+
         session_list = analysis.get_subject(subject).SESSIONS
 
         for session in session_list:
@@ -262,17 +283,17 @@ if __name__ == "__main__":
             if session.name in sessions_to_skip: continue
 
             for trial in session.TRIALS:
-                
+
                 if trial.name not in trial_list: continue
-                
-                trial.copy_inputs_to_trial(replace=False)
+
+                # trial.copy_inputs_to_trial(replace=False)
 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##
-                
+
                 main(trial=trial, replace=True)
-                
+
                 #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
@@ -280,7 +301,10 @@ if __name__ == "__main__":
                 # compare_trials(trial1=analysis.get_subject(subject).get_session(session.name).get_trial(trial_list[0]),
                 #                  trial2=trial)
 
+                # push results to git
+                push_trial_results_to_git(trial=trial)
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds \n \n")
-    
+
