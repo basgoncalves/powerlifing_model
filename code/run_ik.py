@@ -95,7 +95,7 @@ if __name__ == '__main__':
     
     # create a trial instance
     trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
-
+    
     setup_xml = os.path.join(trial.path, trial.outputFiles['IK'].setup)
     if not os.path.exists(setup_xml):
         shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.outputFiles['IK'].setup), 
