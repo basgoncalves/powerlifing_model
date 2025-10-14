@@ -46,7 +46,7 @@ class Settings():
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
         self.GRF_XML = 'externalloads.xml'
-        self.MARKER_FILE = 'markers_experimental.trc'
+        self.MARKER_FILE = 'marker_experimental.trc'
         self.EVENTS_FILE = 'events.csv'
         self.ACTUATORS_SO = 'actuators_so.xml'
         

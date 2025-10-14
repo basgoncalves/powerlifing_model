@@ -27,9 +27,8 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     marker_trc = utils.check_arg(marker_trc,'marker_trc')
     ik_output = utils.check_arg(ik_output,'ik_output')
     setup_xml = utils.check_arg(setup_xml,'setup_xml')
-    time_range = utils.check_arg(time_range,'time_range')
     resultsDir = utils.check_arg(resultsDir,'resultsDir')
-
+    
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir)
     
