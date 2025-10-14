@@ -1670,6 +1670,24 @@ class osimTools():
 
         model_subject.printToXML(subject_model_file)
 
+    def hide_muscles(self, model_file_path, hide = True):
+        
+        """Hide or show all muscles in the OpenSim model file.
+
+        Parameters
+        ----------
+        model_file_path: str
+            path to the OpenSim model file (.osim)
+        hide: bool
+            True to hide muscles, False to show muscles
+
+        """
+        model = opensim.Model(model_file_path)
+        for i in range(model.getMuscles().getSize()):
+            muscle = model.updMuscles().get(i)
+            breakpoint()
+
+        model.printToXML(model_file_path)    
     ####
     
 # CEINMS
@@ -1803,6 +1821,10 @@ if __name__ == "__main__":
             modelpath1 = input("Enter path to first model: ")
             modelpath2 = input("Enter path to second model: ")
             joint = input("Enter coordinate name: ")
+        elif command == 'hide_muscles':
+            input_model = input("Enter path to model: ").strip('"')
+            osimTools().hide_muscles(input_model, hide=True)
+
         else:
             print(f"Unknown command: {command}")
             print("Available commands: ")

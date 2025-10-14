@@ -5,7 +5,7 @@ root_dir = os.path.abspath('../')
 mri_dir = os.path.abspath('../mri/results')
 template_dir = os.path.abspath('../templates')
 
-path_to_json = os.path.join(mri_dir, 'orientation.mrk.json')
+path_to_json = os.path.join(mri_dir, 'orientation_Katya.mrk.json')
 xml_path = os.path.join(template_dir, 'markers_and_bone_markers_in_bodies.xml')
 osim_path = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
 nrrd_path = os.path.join(mri_dir, 'athlete_03.nrrd') # path to the nrrd file with MRI data
