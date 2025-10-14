@@ -61,7 +61,7 @@ class Settings():
     def __init__(self):
         self.subject_list = [subject for subject in os.listdir(SIMULATION_DIR) if os.path.isdir(os.path.join(SIMULATION_DIR, subject))]
  
-        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03_MRI_Katya']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
         self.TRIAL_TO_ANALYSE =  ['sq_70' ]#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
         self.C3D_FILE = 'c3dfile.c3d'
