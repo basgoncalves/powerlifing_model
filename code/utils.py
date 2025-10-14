@@ -1,31 +1,671 @@
-from pyexpat import model
+import math
+import os
 import shutil
 import time
-from tkinter import filedialog, messagebox, simpledialog
-from matplotlib import pyplot as plt
-import matplotlib
-import numpy as np
-import pandas as pd
 import sys
-import pandas as pd
 import re
-import c3d
-import xml.etree.ElementTree as ET
-import xml.dom.minidom
-import os
-import opensim as osim
-import tkinter as tk
-import re
-import os
-import opensim
-import pandas as pd
-from scipy import signal
+
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.offsetbox import AnchoredText
 
+import tkinter as tk
+from tkinter import filedialog, messagebox, simpledialog
+import customtkinter as ctk
+
+import numpy as np
+import pandas as pd
+
+import xml.etree.ElementTree as ET
+import xml.dom.minidom
+
+import opensim as osim
+
+import c3d
+from scipy import signal
+
+import paths
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Setting for 
+class Settings():
+    def __init__(self):
+        self.subject_list = [subject for subject in os.listdir(paths.SIMULATION_DIR) if os.path.isdir(os.path.join(paths.SIMULATION_DIR, subject))]
+ 
+        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03',
+                                     'Athlete_03_MRI_BG',
+                                     'Athlete_03_MRI_Katya']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+
+        self.TRIALS_TO_ANALYSE =  ['sq_70','sq_80','sq_90']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        
+        self.C3D_FILE = 'c3dfile.c3d'
+        self.EMG = 'emg.mot'
+        self.EMG_FILTERED = 'EMG_filtered.sto'
+        self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
+        self.GRF_MOT = 'grf.mot'
+        self.GRF_XML = 'externalloads.xml'
+        self.MARKER_FILE = 'markers_experimental.trc'
+        self.EVENTS_FILE = 'events.csv'
+        self.ACTUATORS_SO = 'actuators_so.xml'
+        
+        self.CEINMS_CALIBRATION_SETUP = 'calibrationSetup_ceinms-nn_hybrid.xml'
+        self.CEINMS_CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
+        self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
+        self.CEINMS_INPUT_DATA = 'inputData.xml'
+        self.CEINMS_RUN_OPTIMISE_BAT = 'run_ceinms_nn_optimise.bat'
+        self.CEINMS_RUN_CALIBRATION_BAT = 'run_ceinms_nn_calibrate.bat'
+        
+        self.SETUP_IK = 'setup_IK.xml'
+        self.SETUP_ID = 'setup_ID.xml'
+        self.SETUP_GRF = 'externalloads.xml'
+        self.SETUP_MA = 'setup_MA.xml'
+        self.SETUP_SO = 'setup_SO.xml'
+        self.SETUP_JRA = 'setup_JRA.xml'
+        self.SETUP_CEINMS = 'setup_ceinms.xml'
+        
+        self.DOFs = ['hip_flexion_l', 'hip_flexion_r',
+                     'hip_adduction_l', 'hip_adduction_r',
+                     'hip_rotation_l', 'hip_rotation_r',
+                     'knee_angle_l', 'knee_angle_r',
+                     'ankle_angle_l', 'ankle_angle_r']
+        
+        self.Muscle_Groups = { 'R Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
+            'R Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
+            'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+            'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+            'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
+            'R Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
+            'R Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
+            'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+            'L Adductors': ['addbrev_l','addlong_l','addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l','grac_l'],
+            'L Hamstrings': ['bflh_l','semimem_l','semiten_l','bfsh_l'],
+            'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
+            'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
+            'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
+            'L Hip flexors':['sart_l','recfem_l','tfl_l','iliacus_l','psoas_l'],
+            'L Triceps Surae':['soleus_l','gaslat_l','gasmed_l'],
+            'L Vasti':['vasint_l','vaslat_l','vasmed_l']
+            }
+
+        self.JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
+                    'Knee': ['walker_knee_r_on_tibia_r_in_tibia_r_fx', 'walker_knee_r_on_tibia_r_in_tibia_r_fy', 'walker_knee_r_on_tibia_r_in_tibia_r_fz'],
+                    'Ankle': ['ankle_r_on_talus_r_in_talus_r_fx', 'ankle_r_on_talus_r_in_talus_r_fy', 'ankle_r_on_talus_r_in_talus_r_fz']}
+
+        self.EMG_muscle_mapping = {
+            # Left Leg Muscles
+            'Voltage_EMG1_vast_lat_l': ['vasint_l', 'vaslat_l', 'vasmed_l'],
+            'Voltage_EMG3_rect_fem_l': ['iliacus_l', 'psoas_l', 'recfem_l', 'sart_l', 'tfl_l'],
+            'Voltage_EMG5_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+            'Voltage_EMG7_glut_max_l': ['glmax1_l', 'glmax2_l', 'glmax3_l', 'glmed1_l', 'glmed2_l', 'glmed3_l', 'glmin1_l', 'glmin2_l', 'glmin3_l'],
+            'Voltage_EMG9_gast_med_l': ['gaslat_l', 'gasmed_l', 'soleus_l'],
+            'Voltage_EMG13_add_mag_l': ['addbrev_l', 'addlong_l', 'addmagDist_l', 'addmagIsch_l', 'addmagMid_l', 'addmagProx_l', 'grac_l'],
+
+            # Right Leg Muscles
+            'Voltage_EMG2_vast_lat_r': ['vasint_r', 'vaslat_r', 'vasmed_r'],
+            'Voltage_EMG4_rect_fem_r': ['iliacus_r', 'psoas_r', 'recfem_r', 'sart_r', 'tfl_r'],
+            'Voltage_EMG6_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+            'Voltage_EMG8_glut_max_r': ['glmax1_r', 'glmax2_r', 'glmax3_r', 'glmed1_r', 'glmed2_r', 'glmed3_r', 'glmin1_r', 'glmin2_r', 'glmin3_r'],
+            'Voltage_EMG10_gast_med_r': ['gaslat_r', 'gasmed_r', 'soleus_r'],
+            'Voltage_EMG14_add_mag_r': ['addbrev_r', 'addlong_r', 'addmagDist_r', 'addmagIsch_r', 'addmagMid_r', 'addmagProx_r', 'grac_r']
+        }
+
+        self.plot = {'Groups':
+                            {'SO_StaticOptimization_force': self.Muscle_Groups,
+                            'Analyse_JRA_ReactionLoads': self.JCF_Groups,
+                            'SO_StaticOptimization_force_normalised': self.Muscle_Groups,
+                            'SO_StaticOptimization_activation': self.Muscle_Groups,
+                            'MuscleForces_inputData': self.Muscle_Groups},
+                    'Summary': 
+                            {'SO_StaticOptimization_force': 'Sum', 
+                             'SO_StaticOptimization_force_normalised': 'mean',
+                            'SO_StaticOptimization_activation': 'mean', 
+                            'Analyse_JRA_ReactionLoads': '3dsum',
+                            'MuscleForces_inputData': 'Sum'}
+                        }
+
+    def _print(self):
+        print("Settings:")
+        print(f"Subjects to analyse: {self.SUBJECTS_TO_ANALYSE}")
+        print(f"Trials to analyse: {self.TRIALS_TO_ANALYSE}")
+        print(f"DOFs: {self.DOFs}")
+        print(f"Muscle Groups:")
+        for group, muscles in self.Muscle_Groups.items():
+            print(f"  {group}: {muscles}")
+        print(f"JCF Groups:")
+        for joint, components in self.JCF_Groups.items():
+            print(f"  {joint}: {components}")
+        print(f"EMG Muscle Mapping:")
+        for emg_channel, muscles in self.EMG_muscle_mapping.items():
+            print(f"  {emg_channel}: {muscles}")
+
+    def _create_excitation_generator(self, save_path=None, replace: bool = False):
+        """Create the excitation generator file for CEINMS."""
+        if save_path is None:
+            print("No save path provided for excitation generator.")
+            return
+        
+        if not os.path.exists(save_path) or replace:
+            print(f"Creating excitation generator at {save_path}")
+            muscle_list = self.EMG_muscle_mapping.keys()
+            # Create the excitation generator file
+            with open(save_path, 'w') as f:
+                f.write('<?xml version="1.0" ?>\n')
+                f.write('<excitationGenerator>\n')
+                f.write('   <inputSignals type="EMG">')
+                f.write(' '.join(muscle_list))
+                f.write('</inputSignals>\n')
+                f.write('   <mapping>\n')
+                for muscle in muscle_list:
+                    f.write(f'      <excitation id="{muscle}"/>\n')
+                f.write('   </mapping>\n')
+                f.write('</excitationGenerator>\n')
+
+            print(f"Excitation generator created at {save_path}")
+            
+        else:
+            print(f"Excitation generator already exists at {save_path}. No changes made.")
+    
+    def edit(self):
+        '''Open a simple dialog to edit settings.'''
+        root = ctk.CTk()
+        root.title("Edit Settings")
+        root.geometry("400x600")
+        root.resizable(False, False)
+        root.eval('tk::PlaceWindow . center')
+        frame = ctk.CTkFrame(root)
+        frame.pack(padx=10, pady=10, fill='both', expand=True)
+        
+        # Add widgets to the frame
+        label = ctk.CTkLabel(frame, text="Edit Settings")
+        label.pack(pady=10)
+
+        button = ctk.CTkButton(frame, text="Save", command=root.destroy)
+        button.pack(pady=10)
+
+        root.mainloop()
+
+class Analysis(Settings):
+    """Class to manage analysis of subjects and their trials.
+    
+    Usage:
+    analysis = Analysis()
+    subject = analysis.get_subject('Athlete_03')  # Get subject by name
+    subject = analysis.get_subject(0)  # Get subject by index"""
+    def __init__(self):
+        super().__init__()
+
+        self.subject_list = [subject for subject in os.listdir(paths.SIMULATION_DIR) if os.path.isdir(os.path.join(paths.SIMULATION_DIR, subject))]
+        self.SUBJECTS = [Subject(subject) for subject in self.subject_list if subject in self.SUBJECTS_TO_ANALYSE]   
+        self.SUBJECTS.sort(key=lambda x: x.name)  
+        
+        if not self.SUBJECTS:
+            print("Warning: No subjects found in the analysis. Check SUBJECTS_TO_ANALYSE and SIMULATION_DIR.")
+        
+    def get_subject(self, subject_name):
+        """
+        Returns the Subject object by name or index.
+        If subject_name is int, returns the subject at that index.
+        """
+        if isinstance(subject_name, int):
+            if 0 <= subject_name < len(self.SUBJECTS):
+                return self.SUBJECTS[subject_name]
+            else:
+                print("Subject index out of range.")
+                return None
+        else:
+            for subj in self.SUBJECTS:
+                if subj.name == subject_name:
+                    return subj
+            
+            return None  # Subject not found
+    
+class Step():
+    def __init__(self, function=None, setup=None, output=None, parentdir=None):
+        self.function = function
+        self.setup = setup
+        self.output = output
+        self.parentdir = parentdir
+        
+    def abspath(self):
+        return os.path.join(self.parentdir, self.output)
+    
+    def path(self):
+        return os.path.join(self.parentdir, self.output) if self.parentdir else self.output
+
+class Trial():
+    def __init__(self, subject_name, session_name, trial_name):
+        
+        self.subject = subject_name
+        # handle if session name is int
+        if isinstance(session_name, int):
+            subject = Analysis().get_subject(subject_name)
+            session_name = subject.SESSIONS[session_name].name
+             
+        self.session = session_name
+        self.name = trial_name
+        self.path = os.path.join(paths.SIMULATION_DIR, self.subject, self.session, self.name)
+        
+        settings = Settings()
+        
+        # Edit model paths below
+        self.USED_MODEL = os.path.join(paths.MODELS_DIR, f'{subject_name}_scaled_increased_3.00.osim')        
+        
+        self.inputFiles = {
+            'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),
+            'MARKERS': Step(function=None, setup=None, output=settings.MARKER_FILE, parentdir=self.path),
+            'EMG_MOT': Step(function=None, setup=None, output=settings.EMG_FILTERED, parentdir=self.path),
+            'EMG_MOT_NORMALISED': Step(function=None, setup=None, output=settings.EMG_NORMALISED, parentdir=self.path),
+            'GRF_MOT': Step(function=None, setup=None, output=settings.GRF_MOT, parentdir=self.path),
+            'GRF_XML': Step(function=None, setup=None, output=settings.GRF_XML, parentdir=self.path),
+            'EVENTS': Step(function=None, setup=None, output=settings.EVENTS_FILE, parentdir=self.path),
+            'ACTUATORS_SO': Step(function=None, setup=None, output=settings.ACTUATORS_SO, parentdir=self.path),
+            'CEINMS_CALIBRATION_SETUP': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_SETUP, parentdir=self.path),
+            'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.path),
+            'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.path),
+            'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
+            'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),
+        }
+
+        self.outputFiles = {
+            'IK': Step(function='run_ik.main', setup='setup_IK.xml', output='joint_angles.mot', parentdir=self.path),
+            'ID': Step(function='run_id.main', setup='setup_ID.xml', output='inverse_dynamics.sto', parentdir=self.path),
+            'MA': Step(function='run_ma.main', setup='setup_MA.xml', output='muscleAnalysis', parentdir=self.path),
+            'SO': Step(function='run_so.main', setup='setup_SO.xml', output='', parentdir=self.path),
+            'FORCES_SO': Step(function=None, setup=None, output='SO_StaticOptimization_force.sto', parentdir=self.path),
+            'ACTIVATIONS_SO': Step(function=None, setup=None, output='SO_StaticOptimization_activation.sto', parentdir=self.path),
+            'JRA': Step(function='run_jra.main', setup='setup_JRA.xml', output='Analyse_JRA_ReactionLoads.sto', parentdir=self.path),
+            'CEINMS_CALIBRATION': Step(function='run_ceinms_calibration.main', 
+                                       setup='../calibrationSetup_ceinms-nn_hybrid.xml', 
+                                       output='../ceinms_calibration_results',
+                                       parentdir=self.path),
+            
+            'CEINMS_OPTIMISE': Step(function='run_ceinms_optimise.main',
+                                        setup='optimiseSetup_ceinms-nn_hybrid.xml', 
+                                        output='ceinms_optimise_results',
+                                        parentdir=self.path),
+        }
+        
+        # Try getting events from csv file
+        self.TIME_RANGE = None
+        try:
+            events_path = os.path.join(self.path, self.inputFiles['EVENTS'].output)
+            events = pd.read_csv(events_path, index_col=0, header=None)
+            self.TIME_RANGE = [events.iloc[0, 0], events.iloc[1, 0]]
+            if any(pd.isna(self.TIME_RANGE)):
+                print(f"Warning: Time range in {self.inputFiles['EVENTS']} is not set. {self.path}")
+                self.TIME_RANGE = None
+        except Exception as e:
+            print(f"Warning: Events file {self.inputFiles['EVENTS'].output} not found. {self.path}")
+            self.TIME_RANGE = None
+            
+        if self.TIME_RANGE == None:
+            
+            if not os.path.exists(self.inputFiles['C3D'].abspath()):
+                print(f"Warning: C3D file {self.inputFiles['C3D'].abspath()} not found. Cannot determine TIME_RANGE.")
+                self.TIME_RANGE = None
+            else:
+                c3dData = load_c3d(self.inputFiles['C3D'].abspath())
+                breakpoint()
+                self.TIME_RANGE = [c3dData['first_frame'] / c3dData['point_rate'], c3dData['last_frame'] / c3dData['point_rate']]
+    
+    def reset(self):
+       # loop through output files and delete them if they exist
+        for key, step in self.outputFiles.items():
+            if step.output:
+                output_path = os.path.join(self.path, step.output)
+                if os.path.exists(output_path):
+                    if os.path.isfile(output_path):
+                        os.remove(output_path)
+                        print(f"Deleted file: {output_path}")
+                    elif os.path.isdir(output_path):
+                        shutil.rmtree(output_path)
+                        print(f"Deleted directory: {output_path}")
+                else:
+                    print(f"Output file does not exist, nothing to delete: {output_path}")
+        
+    def update_from_settings(self, settings: Settings):
+        """Update trial settings from a Settings instance."""
+        self.SUBJECTS_TO_ANALYSE = settings.SUBJECTS_TO_ANALYSE
+        self.TRIAL_TO_ANALYSE = settings.TRIAL_TO_ANALYSE
+        self.DOFs = settings.DOFs
+        self.Muscle_Groups = settings.Muscle_Groups
+        self.JCF_Groups = settings.JCF_Groups
+        self.EMG_muscle_mapping = settings.EMG_muscle_mapping
+        self.plot = settings.plot
+    
+    def print_settings(self):
+        """Print the paths for debugging."""
+        print("CODE:", paths.CODE)
+        print("POWERLIFTING_DIR:", paths.POWERLIFTING_DIR)
+        
+        print(f"Subject: {self.subject}")
+        print(f"Session: {self.session}")
+        print(f"Trial: {self.name}")
+        print(f"Trial path: {self.path}")
+        
+        print(f"Used model: {self.USED_MODEL}")
+        
+        time.sleep(1)  # Optional: wait for a second before printing
+    
+    def copy_inputs_to_trial(self, replace: bool = False):
+
+        # copy input files from SETUP_DIR to trial directory
+        for key, step in self.inputFiles.items():
+            if step.output:
+                source = os.path.join(paths.SETUP_DIR, step.output)
+                target = os.path.join(self.path, step.output)
+                
+                # check if target exists and replace if needed
+                if not os.path.exists(target) or replace:
+                    if os.path.exists(source):
+                        # create target directory if it does not exist
+                        shutil.copy(source, target)
+                        print(f"Copied {source} to {target}")
+                        
+                    else:
+                        print(f"Source file does not exist: {source}")
+                        
+                else:
+                    print(f"Target file already exists: {target}")
+        
+        # copy setups from the outputFiles to the trial directory
+        for key, step in self.outputFiles.items():
+            if step.setup:
+                source = os.path.join(paths.SETUP_DIR, step.setup)
+                target = os.path.join(self.path, step.setup)
+                
+                # check if target exists and replace if needed
+                if not os.path.exists(target) or replace:
+                    if os.path.exists(source):
+                        # create target directory if it does not exist
+                        shutil.copy(source, target)
+                        print(f"Copied {source} to {target}")
+                        
+                    else:
+                        print(f"Source setup file does not exist: {source}")
+                        
+                else:
+                    print(f"Target setup file already exists: {target}")
+    
+    def check_paths(self):
+        """Loop through all subjects sessions and trials and run_ik 
+        for each trial. or print error to log if could not run."""
+        for subject in self.subjects:
+            for session in subject.sessions:
+                for trial in session.trials:
+                    try:
+                        self.run_ik(trial)
+                    except Exception as e:
+                        print_to_log(f"Error running IK for {trial}: {e}")
+
+    def validate_markers_used(ikTool: osim.InverseKinematicsTool, markers_path: str):
+        task_set = ikTool.get_IKTaskSet()
+        markers = load_trc(markers_path)
+        
+        markers_list = [col for col in markers.columns if col.strip()]
+        
+        for task in task_set:
+            if task.getName() in markers_list:
+                task.setApply(True)
+                task.setWeight(1.0)
+            else:
+                task.setApply(False)
+            print(f"Task: {task.getName()}, Apply: {task.getApply()}, Weight: {task.getWeight()}")
+        
+        return ikTool
+
+    def increase_muscle_force(self, factor=1, replace: bool = False):
+        """Increase muscle force in the scaled model by a given factor.
+        
+        Args:
+            factor (float): Factor to increase muscle force by. Default is 1.5.
+            replace (bool): Whether to replace existing modified model. Default is False.
+        """
+        if not os.path.exists(self.USED_MODEL):
+            print(f"Scaled model not found: {self.USED_MODEL}")
+            return
+        
+        new_model_path = self.USED_MODEL.replace('.osim', f'_increased_{factor:.2f}.osim')
+        
+        if os.path.exists(new_model_path) and not replace:
+            print(f"Modified model already exists: {new_model_path}")
+            self.USED_MODEL = new_model_path
+            return
+        
+        # Load the model
+        model = osim.Model(self.USED_MODEL)
+        state = model.initSystem()
+        
+        # Increase max isometric force for each muscle
+        for i in range(model.getMuscles().getSize()):
+            muscle = model.getMuscles().get(i)
+            original_force = muscle.getMaxIsometricForce()
+            new_force = original_force * factor
+            muscle.setMaxIsometricForce(new_force)
+            print(f"Muscle: {muscle.getName()}, Original Force: {original_force:.2f}, New Force: {new_force:.2f}")
+        
+        # Save the modified model
+        model.printToXML(new_model_path)
+        print(f"Modified model saved to: {new_model_path}")
+        
+        # Update the used model path
+        self.USED_MODEL = new_model_path
+    
+    def export_c3d(self):
+        pass
+
+    def run_ik(self):
+
+        osim_modelPath = self.USED_MODEL
+
+        marker_trc = self.inputFiles['MARKERS'].path()
+
+        ik_output = self.outputFiles['IK'].abspath()
+        setup_xml = self.outputFiles['IK'].path()
+        resultsDir = self.path
+
+        os.chdir(resultsDir)
+        if not os.path.exists(resultsDir):
+            os.makedirs(resultsDir)
+
+        if not os.path.exists(osim_modelPath):
+            print_to_log(f"OpenSim model file not found: {osim_modelPath}")
+        
+        if not os.path.exists(marker_trc):
+            print_to_log(f"Marker TRC file not found: {marker_trc}")
+
+        # Load the model
+        print(f"Loading OpenSim model from {osim_modelPath}")
+        model = osim.Model(osim_modelPath)
+        model.initSystem()
+
+        # Create the Inverse Kinematics tool
+        ikTool = osim.InverseKinematicsTool(setup_xml)
+        
+        # simple function to validate the markers used in the IK setup
+        ikTool = self.validate_markers_used(ikTool, marker_trc)
+        
+        # Set the model and parameters
+        ikTool.setModel(model)
+        # Set the marker data file and time range
+        ikTool.setMarkerDataFileName(marker_trc)
+        
+        # set the time range for the IK calculation
+        if self.TIME_RANGE is not None:
+            ikTool.setStartTime(self.TIME_RANGE[0])  # Set start time
+            ikTool.setEndTime(self.TIME_RANGE[1])    # Set end time
+
+        # Set the output motion file name relative to the results directory
+        ikTool.setResultsDir('./')
+        ikTool.setOutputMotionFileName(ik_output)
+        ikTool.printToXML(setup_xml)
+        print(f"Inverse Kinematics setup saved to {setup_xml}")
+        time.sleep(1)  # Optional: wait for a second before running the tool
+        
+        # Reload tool from xml
+        ikTool = osim.InverseKinematicsTool(setup_xml)
+        ikTool.setModel(model)
+        
+        # Run the inverse kinematics calculation
+        os.chdir(os.path.dirname(setup_xml))
+        ikTool.run()
+        
+        print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
+    
+    @staticmethod
+    def muscles_per_coordinate(osimModel, coord_name):
+        muscles = []
+        indexes = []
+        coord = osimModel.getCoordinateSet().get(coord_name)
+        state = osimModel.initSystem()
+        osimModel.realizePosition(state)
+
+        for i in range(osimModel.getMuscles().getSize()):
+            muscle = osimModel.getMuscles().get(i)
+            if abs(muscle.computeMomentArm(state, coord)) > 1e-4:
+                muscles.append(muscle.getName())
+                indexes.append(i)
+
+        return muscles, indexes
+
+    def fullpath(self, filename):
+        return os.path.join(self.path, filename)
+    
+    def plot(self,trialList,columns_to_plot):
+        
+        if columns_to_plot == 'all':
+
+            columns_to_plot.remove('time')
+        
+        plt.figure(figsize=(10,6))
+        for trial in trialList:
+            plt.plot(trial.joint_angles[columns_to_plot], label=trial.name)
+        plt.legend([trial.name for trial in trialList])
+    
+    def plot_create_subplot(self, n_muscles, fig=None):
+        ncols = int(math.ceil(math.sqrt(n_muscles)))
+        nrows = int(math.ceil(n_muscles / ncols))
+        if fig is None:
+            fig, axes = plt.subplots(nrows, ncols, figsize=(ncols*5, nrows*4), constrained_layout=True)
+            axes = axes.flatten()
+        else:
+            axes = fig.get_axes()
+
+        # Hide any unused subplots
+        for i in range(n_muscles, len(axes)):
+            axes[i].axis('off')
+        
+        return fig, axes
+      
+    def plot_moment_arms(self, coord_name: str = None, fig=None):
+        
+        fileList = os.listdir(self.outputFiles['MA'].abspath())
+        fileList = [file for file in fileList if file.startswith('_MuscleAnalysis_MomentArm') and file.endswith('.sto')]
+        
+        for file in fileList:
+            filepath = self.outputFiles['MA'].abspath() + '\\' + file
+            if coord_name in file:
+                break
+            else:
+                continue
+        
+        dof = file.replace('.sto','').replace('_MuscleAnalysis_MomentArm_','')
+        print(f"Loading moment arms for DOF: {dof} from {file}")
+        moment_arms = load_any_data_file(filepath)
+        muscleList,muscleIdx = self.muscles_per_coordinate(osim.Model(self.USED_MODEL), dof)
+        
+        n_muscles = len(muscleList)
+        if n_muscles == 0:
+            print(f"No muscles found for DOF: {dof}")
+            return None, None
+        
+        ncols = int(math.ceil(math.sqrt(n_muscles)))
+        nrows = int(math.ceil(n_muscles / ncols))
+        if fig is None:
+            fig, axes = self.plot_create_subplot(n_muscles)
+        else:
+            axes = fig.get_axes()
+        
+
+        fig.suptitle(f"Moment Arms for DOF: {dof}", fontsize=16)
+        line_label = f'{self.subject}_{self.session}_{self.name}'
+        for muscle in muscleList:
+            ax = axes[muscleList.index(muscle)]
+            ax.plot(moment_arms[muscle], label=line_label)
+            ax.set_title(f"{muscle}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Moment Arm")
+        
+        axes[0].legend()
+        return fig, axes
+        
+    def compare_with(self, trial):
+        print(f"Comparing {self.name} with {trial.name}")
+        
+        self.joint_angles = load_any_data_file(self.outputFiles['IK'].abspath())
+        trial.joint_angles = load_any_data_file(trial.outputFiles['IK'].abspath())
+        
+
+        print("Comparing joint angles:")
+        self.plot([self, trial], columns_to_plot=['all'])
+
+class Session():
+    def __init__(self, subject_name, session_name):
+        self.subject = subject_name
+        self.name = session_name
+        self.path = os.path.join(paths.SIMULATION_DIR, self.subject, self.name)
+        
+        if not os.path.exists(self.path):
+            print(f"Session path does not exist: {self.path}")
+
+        # select only trials in TRIALS_TO_ANALYSE
+        self.TRIALS = [trial for trial in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, trial)) if trial in Settings().TRIALS_TO_ANALYSE]
+
+        for i, trial in enumerate(self.TRIALS):
+            self.TRIALS[i] = Trial(self.subject, self.name, trial)
+        
+class Subject():
+    def __init__(self, subject_name):
+        self.name = subject_name
+        self.path = os.path.join(paths.SIMULATION_DIR, self.name)
+        
+        if not os.path.exists(self.path):
+            print(f"Subject path does not exist: {self.path}")
+        
+        self.SESSIONS = [Session(self.name, session) for session in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, session))]
+        
+        # sort sessions by date
+        self.SESSIONS.sort(key=lambda x: x.name)
+
+    def get_session(self, session_name):
+        for session in self.SESSIONS:
+            if session.name == session_name:
+                return session
+        return None
+
+class run:
+    def __init__(self):
+        pass
+        
+    def inverseKinematics(self):
+        print("Running Inverse Kinematics")
+        start_time = time.time()
+        # Perform inverse kinematics calculations here
+
+        end_time = time.time()
+        print(f"Inverse Kinematics completed in {end_time - start_time:.2f} seconds")
+
+    def staticOptimization(self):
+        print("Running Static Optimization")
+        start_time = time.time()
+        # Perform static optimization calculations here
+        end_time = time.time()
+        print(f"Static Optimization completed in {end_time - start_time:.2f} seconds")
+        
+    def path(self):
+        return os.path.join(self.parentdir, self.output) if self.parentdir else self.output
 
 def print_to_log(message):
     """
@@ -1172,7 +1812,7 @@ class osimTools():
 
     def list_to_osim_array_str(self, list_str):
         """Convert Python list of strings to OpenSim::Array<string>."""
-        arr = opensim.ArrayStr()
+        arr = osim.ArrayStr()
         for element in list_str:
             arr.append(element)
 
@@ -1182,7 +1822,7 @@ class osimTools():
     def np_array_to_simtk_matrix(array):
         """Convert numpy array to SimTK::Matrix"""
         n, m = array.shape
-        M = opensim.Matrix(n, m)
+        M = osim.Matrix(n, m)
         for i in range(n):
             for j in range(m):
                 M.set(i, j, array[i, j])
@@ -1202,8 +1842,8 @@ class osimTools():
         deg: angle in degrees
 
         """
-        R = opensim.Rotation(np.deg2rad(deg),
-                            opensim.Vec3(axis[0], axis[1], axis[2]))
+        R = osim.Rotation(np.deg2rad(deg),
+                          osim.Vec3(axis[0], axis[1], axis[2]))
         for i in range(table.getNumRows()):
             vec = table.getRowAtIndex(i)
             vec_rotated = R.multiply(vec)
@@ -1220,7 +1860,7 @@ class osimTools():
         """
         c = table.updDependentColumn(label)
         for i in range(c.size()):
-            c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
+            c[i] = osim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
 
 
     def mirror_z(table, label):
@@ -1233,7 +1873,7 @@ class osimTools():
         """
         c = table.updDependentColumn(label)
         for i in range(c.size()):
-            c[i] = opensim.Vec3(c[i][0], c[i][1], -c[i][2])
+            c[i] = osim.Vec3(c[i][0], c[i][1], -c[i][2])
 
 
     def lowess_bell_shape_kern(x, y, tau=0.0005):
@@ -1287,10 +1927,10 @@ class osimTools():
         sto: OpenSim::Storage
 
         """
-        sto = opensim.Storage()
+        sto = osim.Storage()
         sto.setColumnLabels(osimTools().list_to_osim_array_str(['time'] + column_names))
         for i in range(data.nrow()):
-            row = opensim.ArrayDouble()
+            row = osim.ArrayDouble()
             for j in range(data.ncol()):
                 value = data.getElt(i, j)
                 if np.isnan(value):
@@ -1410,9 +2050,9 @@ class osimTools():
         # filter data
         for j in range(3):
             # f_l[:, j] = signal.medfilt(f_l[:, j], median)
-            f_l[:, j] = lowess_bell_shape_kern(t, f_l[:, j], tau)
-            p_l[:, j] = lowess_bell_shape_kern(t, p_l[:, j], tau)
-            m_l[:, j] = lowess_bell_shape_kern(t, m_l[:, j], tau)
+            f_l[:, j] = self.lowess_bell_shape_kern(t, f_l[:, j], tau)
+            p_l[:, j] = self.lowess_bell_shape_kern(t, p_l[:, j], tau)
+            m_l[:, j] = self.lowess_bell_shape_kern(t, m_l[:, j], tau)
 
         # debugging
         if debug:
@@ -1422,9 +2062,9 @@ class osimTools():
 
         # update columns in the original data
         for i in range(f_l.shape[0]):
-            f[i] = opensim.Vec3(f_l[i, 0], f_l[i, 1], f_l[i, 2])
-            p[i] = opensim.Vec3(p_l[i, 0], p_l[i, 1], p_l[i, 2])
-            m[i] = opensim.Vec3(m_l[i, 0], m_l[i, 1], m_l[i, 2])
+            f[i] = osim.Vec3(f_l[i, 0], f_l[i, 1], f_l[i, 2])
+            p[i] = osim.Vec3(p_l[i, 0], p_l[i, 1], p_l[i, 2])
+            m[i] = osim.Vec3(m_l[i, 0], m_l[i, 1], m_l[i, 2])
 
         return t0, tf, p_l.mean(axis=0)
 
@@ -1442,22 +2082,22 @@ class osimTools():
         frequency
 
         Returns
-        -------
+        ------- 
         df: pandas data frame
 
         """
-        sto = opensim.Storage(file_name)
+        sto = osim.Storage(file_name)
         sto.resampleLinear(sampling_interval)
         if to_filter:
             sto.lowpassFIR(4, 6)
 
-        labels = osim_array_to_list(sto.getColumnLabels())
-        time = opensim.ArrayDouble()
+        labels = self.osim_array_to_list(sto.getColumnLabels())
+        time = osim.ArrayDouble()
         sto.getTimeColumn(time)
-        time = osim_array_to_list(time)
+        time = self.osim_array_to_list(time)
         data = []
         for i in range(sto.getSize()):
-            temp = osim_array_to_list(sto.getStateVector(i).getData())
+            temp = self.osim_array_to_list(sto.getStateVector(i).getData())
             temp.insert(0, time[i])
             data.append(temp)
 
@@ -1488,7 +2128,7 @@ class osimTools():
                 if re.search(pattern, item)]
 
 
-    def _plot_sto_file(self,file_name, plot_file, plots_per_row=4, pattern=None,
+    def _plot_sto_file(self, file_name, plot_file, plots_per_row=4, pattern=None,
                     title_function=lambda x: x):
         """Plots the .sto file (OpenSim) by constructing a grid of subplots.
 
@@ -1510,7 +2150,7 @@ class osimTools():
         data = df.to_numpy()
 
         if pattern is not None:
-            indices = index_containing_substring(labels, pattern)
+            indices = self.index_containing_substring(labels, pattern)
         else:
             indices = range(1, len(labels))
 
@@ -1540,7 +2180,7 @@ class osimTools():
         """Given a required mass change adjust all body masses accordingly.
 
         """
-        rra_model = opensim.Model(model_file)
+        rra_model = osim.Model(model_file)
         rra_model.setName('model_adjusted')
         state = rra_model.initSystem()
         current_mass = rra_model.getTotalMass(state)
@@ -1559,15 +2199,15 @@ class osimTools():
         fiber length/velocity without spikes.
 
         """
-        model = opensim.Model(model_file)
-        new_force_set = opensim.ForceSet()
+        model = osim.Model(model_file)
+        new_force_set = osim.ForceSet()
         force_set = model.getForceSet()
         for i in range(force_set.getSize()):
             force = force_set.get(i)
-            muscle = opensim.Muscle.safeDownCast(force)
-            millard_muscle = opensim.Millard2012EquilibriumMuscle.safeDownCast(
+            muscle = osim.Muscle.safeDownCast(force)
+            millard_muscle = osim.Millard2012EquilibriumMuscle.safeDownCast(
                 force)
-            thelen_muscle = opensim.Thelen2003Muscle.safeDownCast(force)
+            thelen_muscle = osim.Thelen2003Muscle.safeDownCast(force)
             if muscle is None:
                 new_force_set.adoptAndAppend(force.clone())
             elif millard_muscle is not None:
@@ -1575,7 +2215,7 @@ class osimTools():
                 millard_muscle.set_ignore_tendon_compliance(True)
                 new_force_set.adoptAndAppend(millard_muscle)
             elif thelen_muscle is not None:
-                millard_muscle = opensim.Millard2012EquilibriumMuscle()
+                millard_muscle = osim.Millard2012EquilibriumMuscle()
                 # properties
                 millard_muscle.set_default_activation(
                     thelen_muscle.getDefaultActivation())
@@ -1644,11 +2284,11 @@ class osimTools():
         [2] http://dx.doi.org/10.1109/TBME.2016.2586891
 
         """
-        model_generic = opensim.Model(generic_model_file)
+        model_generic = osim.Model(generic_model_file)
         state_generic = model_generic.initSystem()
         mass_generic = model_generic.getTotalMass(state_generic)
 
-        model_subject = opensim.Model(subject_model_file)
+        model_subject = osim.Model(subject_model_file)
         state_subject = model_subject.initSystem()
         mass_subject = model_subject.getTotalMass(state_subject)
 
@@ -1682,7 +2322,7 @@ class osimTools():
             True to hide muscles, False to show muscles
 
         """
-        model = opensim.Model(model_file_path)
+        model = osim.Model(model_file_path)
         for i in range(model.getMuscles().getSize()):
             muscle = model.updMuscles().get(i)
             breakpoint()
@@ -1734,13 +2374,21 @@ class Plotter():
 if __name__ == "__main__":
     
     # Command line interface for the utils module
-    if len(sys.argv) < 1:
+    
+    all_functions = [func for func in dir() if callable(getattr(sys.modules[__name__], func)) and not func.startswith("_")]
+    
+    if len(sys.argv) < 2:
         command = input("Please provide a command from the list: ")
     else:
-        command = sys.argv[1] # Use arguments from the command line
+        command = sys.argv[2] # Use arguments from the command line
     
     if command is not None:
         
+        if any(command == func for func in all_functions): 
+            print('yes')
+            func = getattr(sys.modules[__name__], command)
+            func()
+            
         if command == "hello":
             print("hello")
 
@@ -1750,6 +2398,7 @@ if __name__ == "__main__":
                 data = load_trc(path, output=1)
             else:
                 print("Please provide the path to the .trc file. Example: python utils.py load_trc path/to/file.trc")
+                
         elif command == "load_mot":
             if len(sys.argv) > 2:
                 path = sys.argv[2]
@@ -1824,6 +2473,10 @@ if __name__ == "__main__":
         elif command == 'hide_muscles':
             input_model = input("Enter path to model: ").strip('"')
             osimTools().hide_muscles(input_model, hide=True)
+        elif command == 'edit_settings':
+            settings = Settings()
+            print("Settings loaded successfully.")
+            settings.edit()
 
         else:
             print(f"Unknown command: {command}")
