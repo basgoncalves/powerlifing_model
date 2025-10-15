@@ -59,8 +59,8 @@ first_file = file_paths[0]
 # 2. Load plot settings based on the *first* file
 try:
     file_basename = os.path.splitext(os.path.basename(first_file))[0]
-    groups = paths.Settings().plot['Groups'][file_basename]
-    summary = paths.Settings().plot['Summary'][file_basename]
+    groups = utils.Settings().plot['Groups'][file_basename]
+    summary = utils.Settings().plot['Summary'][file_basename]
     print(f"Using plot settings for '{file_basename}' with summary method: '{summary}'.")
 except KeyError:
     print(f"No specific plot settings found for: {first_file}. Using default columns.")

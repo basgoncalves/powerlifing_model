@@ -88,6 +88,29 @@ class Settings():
             'L Triceps Surae':['soleus_l','gaslat_l','gasmed_l'],
             'L Vasti':['vasint_l','vaslat_l','vasmed_l']
             }
+        
+        self.Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+                                'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+                                'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'], 
+                                'R Adductor Magnus': ['addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r'],
+                                'R Biceps Femoris': ['bflh_r','bfsh_r'],
+                                'R Semimembranosus': ['semimem_r'],
+                                'R Semitendinosus': ['semiten_r'],
+                                'R Rectus Femoris': ['recfem_r'],
+                                'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+                                'R Gastrocnemius': ['gaslat_r','gasmed_r'],
+                                'R Soleus': ['soleus_r'],
+                                'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
+                                'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
+                                'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
+                                'L Adductor Magnus': ['addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l'],
+                                'L Biceps Femoris': ['bflh_l','bfsh_l'],
+                                'L Semimembranosus': ['semimem_l'],
+                                'L Semitendinosus': ['semiten_l'],
+                                'L Rectus Femoris': ['recfem_l'],
+                                'L Vasti':['vasint_l','vaslat_l','vasmed_l'],
+                                'L Gastrocnemius': ['gaslat_l','gasmed_l'],
+                                'L Soleus': ['soleus_l']}
 
         self.JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
                     'Knee': ['walker_knee_r_on_tibia_r_in_tibia_r_fx', 'walker_knee_r_on_tibia_r_in_tibia_r_fy', 'walker_knee_r_on_tibia_r_in_tibia_r_fz'],
