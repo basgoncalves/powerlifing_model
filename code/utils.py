@@ -34,7 +34,7 @@ class Settings():
     def __init__(self):
         self.subject_list = [subject for subject in os.listdir(paths.SIMULATION_DIR) if os.path.isdir(os.path.join(paths.SIMULATION_DIR, subject))]
  
-        self.SUBJECTS_TO_ANALYSE =  [
+        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03',
                                      'Athlete_03_MRI_BG',
                                      'Athlete_03_MRI_Katya']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
@@ -53,6 +53,8 @@ class Settings():
         self.CEINMS_CALIBRATION_SETUP = 'calibrationSetup_ceinms-nn_hybrid.xml'
         self.CEINMS_CALIBRATION_CFG = 'calibrationCfg_ceinms-nn_hybrid.xml'
         self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
+        self.CEINMS_OPTIMISE_SETUP = 'setup_ceinms_optimise.xml'
+        self.CEINMS_OPTIMISE_CFG = 'ceinms_cfg_optimise.xml'
         self.CEINMS_INPUT_DATA = 'inputData.xml'
         self.CEINMS_RUN_OPTIMISE_BAT = 'run_ceinms_nn_optimise.bat'
         self.CEINMS_RUN_CALIBRATION_BAT = 'run_ceinms_nn_calibrate.bat'
@@ -289,7 +291,7 @@ class Trial():
             'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.parentdir),
             'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.parentdir),
             'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
-            'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),
+            'CEINMS_OPTIMISE_SETUP': Step(function=None, setup=None, output=settings.CEINMS_OPTIMISE_SETUP, parentdir=self.path),
         }
 
         self.outputFiles = {

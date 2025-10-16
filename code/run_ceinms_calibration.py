@@ -68,15 +68,18 @@ if __name__ == "__main__":
     
     start_time = time.time()
 
-    subject = 'Running_009'
-    session = 'session1'
-    trial_name = 'runA1'
+    analysis = utils.Analysis()
 
-    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
+    id = 0
+    subjectName = analysis.SUBJECTS[id].name
+    sessionName = analysis.SUBJECTS[id].SESSIONS[0].name
+    trialName = analysis.SUBJECTS[id].SESSIONS[0].TRIALS[0].name
+
+    trial = utils.Trial(subject_name=subjectName, session_name=sessionName, trial_name=trialName)
 
     # Run CEINMS calibration
     try:
-        utils.print_to_log(f'Running CEINMS calibration on {trial.subject_name} / {trial.trial_name}')
+        utils.print_to_log(f'Running CEINMS calibration on {subjectName} / {trialName}')
         main(calibration_setup=trial.inputFiles['CEINMS_CALIBRATION_SETUP'].abspath())
     except Exception as e:
         print(f"Error during CEINMS calibration: {e}")

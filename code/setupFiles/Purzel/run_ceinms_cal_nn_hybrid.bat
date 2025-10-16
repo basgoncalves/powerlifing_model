@@ -28,6 +28,9 @@ for /f "tokens=3 delims=<>" %%a in ('findstr /i "<outputDirectory>" "%CALIBRATIO
     set "OUTPUT_DIR=%%a"
 )
 
+rem Change working directory to the directory containing the calibration setup file
+pushd "%SCRIPT_DIR%"
+
 rem If OUTPUT_DIR was found, check if it exists and create it if not
 if defined OUTPUT_DIR (
     echo Found output directory: %OUTPUT_DIR%
@@ -45,10 +48,11 @@ if defined OUTPUT_DIR (
 
 rem Construct and display the command
 set "COMMAND="%CEINMS_CAL_EXE%" -S "%CALIBRATION_SETUP%""
+set "LOG_FILE=%SCRIPT_DIR%ceinms_calibration.log"
 echo Running command: %COMMAND%
 
 rem Run the command
-%COMMAND%
+%COMMAND% > "%LOG_FILE%" 2>&1
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (
