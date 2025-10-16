@@ -6,7 +6,7 @@ import time
 import subprocess
 import xml.etree.ElementTree as ET
 import paths
-import msk_modelling_python 
+
 print(osim.__version__)
 
 def main(calibration_setup=None):
@@ -42,24 +42,27 @@ def main(calibration_setup=None):
         print(f"Warning: Could not find <outputDirectory> tag in {calibration_setup}.")
 
     # Run the CEINMS calibration executable
-    command = [ceinms_calibration_exe, "-S", calibration_setup]
-    print(f"Running command: {' '.join(command)}")
+    command = f"{str(ceinms_calibration_exe)} -S {str(calibration_setup)}"
+    
+    log_file_path = os.path.join(os.path.abspath(output_dir), 'ceinms_calibration_log.txt')
+
+    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
+
+    batFile = os.path.join(os.path.abspath(output_dir), 'run_ceinms_cal_nn_hybrid.bat')
+    
+    print(f"Running command: {command}")
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        for line in result.stdout.splitlines():
-            print(line)
+        
+        process = subprocess.Popen(
+            ["powershell", "-NoExit", "-ExecutionPolicy", "Bypass", "-Command", cmd_with_redirect],
+            creationflags=subprocess.CREATE_NEW_CONSOLE)
+        
+        process.wait()
+        print(f"CEINMS calibration process finished!")
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
         exit()
-        
-    if result.returncode != 0:
-        print("Error running CEINMS calibration.")
-        print(result.stdout)
-        print(result.stderr)
-        utils.print_to_log(f'Error running CEINMS calibration: {result.stdout}')
-        raise RuntimeError(f"CEINMS calibration failed with exit code {result.returncode}")
-    else:
-        print("CEINMS calibration completed successfully.")
+
     
 if __name__ == "__main__":
     
@@ -69,7 +72,7 @@ if __name__ == "__main__":
     session = 'session1'
     trial_name = 'runA1'
 
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
+    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
 
     # Run CEINMS calibration
     try:

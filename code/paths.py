@@ -54,6 +54,11 @@ MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 SIMULATION_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
 RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results')
 
+CEINMS_DIR = os.path.join(CODE, 'executables')
+CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
+CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
+CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')    
+
 
 #%% IF MAIN
 if __name__ == "__main__":

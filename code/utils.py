@@ -34,11 +34,11 @@ class Settings():
     def __init__(self):
         self.subject_list = [subject for subject in os.listdir(paths.SIMULATION_DIR) if os.path.isdir(os.path.join(paths.SIMULATION_DIR, subject))]
  
-        self.SUBJECTS_TO_ANALYSE =  ['Athlete_03',
+        self.SUBJECTS_TO_ANALYSE =  [
                                      'Athlete_03_MRI_BG',
                                      'Athlete_03_MRI_Katya']# ['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
-        self.TRIALS_TO_ANALYSE =  ['sq_70','sq_80','sq_90']#['dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+        self.TRIALS_TO_ANALYSE =  ['sq_70']#[,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
         
         self.C3D_FILE = 'c3dfile.c3d'
         self.EMG = 'emg.mot'
@@ -269,6 +269,7 @@ class Trial():
         self.session = session_name
         self.name = trial_name
         self.path = os.path.join(paths.SIMULATION_DIR, self.subject, self.session, self.name)
+        self.parentdir = os.path.dirname(self.path)
         
         settings = Settings()
         
@@ -284,9 +285,9 @@ class Trial():
             'GRF_XML': Step(function=None, setup=None, output=settings.GRF_XML, parentdir=self.path),
             'EVENTS': Step(function=None, setup=None, output=settings.EVENTS_FILE, parentdir=self.path),
             'ACTUATORS_SO': Step(function=None, setup=None, output=settings.ACTUATORS_SO, parentdir=self.path),
-            'CEINMS_CALIBRATION_SETUP': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_SETUP, parentdir=self.path),
-            'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.path),
-            'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.path),
+            'CEINMS_CALIBRATION_SETUP': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_SETUP, parentdir=self.parentdir),
+            'CEINMS_CALIBRATION_CFG': Step(function=None, setup=None, output=settings.CEINMS_CALIBRATION_CFG, parentdir=self.parentdir),
+            'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.parentdir),
             'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
             'CEINMS_RUN_OPTIMISE_BAT': Step(function=None, setup=None, output='run_ceinms_nn_optimise.bat', parentdir=self.path),
         }
@@ -634,6 +635,152 @@ class Trial():
         print("Comparing joint angles:")
         self.plot([self, trial], columns_to_plot=['all'])
 
+    # ceinms
+    def create_ceinms_model(self):
+        """
+        Create a CEINMS subject XML file with muscle parameters extracted from the OpenSim model.
+        """
+        import xml.etree.ElementTree as ET
+        import xml.dom.minidom
+        import opensim as osim
+        
+        # Load the OpenSim model
+        model = osim.Model(self.USED_MODEL)
+        model.initSystem()
+        
+        # Create the root element
+        root = ET.Element("subject")
+        
+        # Add mtuDefault section with default curves and parameters
+        mtu_default = ET.SubElement(root, "mtuDefault")
+        
+        # Add default parameters
+        ET.SubElement(mtu_default, "emDelay").text = "0.015"
+        ET.SubElement(mtu_default, "percentageChange").text = "0.15"
+        ET.SubElement(mtu_default, "damping").text = "0.1"
+        
+        # Add default curves (using the curves from your example)
+        curves_data = {
+            "activeForceLength": {
+                "xPoints": "-5 0 0.401 0.402 0.4035 0.52725 0.62875 0.71875 0.86125 1.045 1.2175 1.4387 1.6187 1.62 1.621 2.2 5",
+                "yPoints": "0 0 0 0 0 0.22667 0.63667 0.85667 0.95 0.99333 0.77 0.24667 0 0 0 0 0"
+            },
+            "passiveForceLength": {
+                "xPoints": "-5 0.998 0.999 1 1.1 1.2 1.3 1.4 1.5 1.6 1.601 1.602 5",
+                "yPoints": "0 0 0 0 0.035 0.12 0.26 0.55 1.17 2 2 2 2"
+            },
+            "forceVelocity": {
+                "xPoints": "-10 -1 -0.6 -0.3 -0.1 0 0.1 0.3 0.6 0.8 10",
+                "yPoints": "0 0 0.08 0.2 0.55 1 1.4 1.6 1.7 1.75 1.75"
+            },
+            "tendonForceStrain": {
+                "xPoints": " ".join([str(i/1000) for i in range(0, 101)]),
+                "yPoints": "0 0.0012652 0.0073169 0.016319 0.026613 0.037604 0.049078 0.060973 0.073315 0.086183 0.099678 0.11386 0.12864 0.14386 0.15928 0.17477 0.19041 0.20658 0.22365 0.24179 0.26094 0.28089 0.30148 0.32254 0.34399 0.36576 0.38783 0.41019 0.43287 0.45591 0.4794 0.50344 0.52818 0.55376 0.58022 0.60747 0.63525 0.66327 0.69133 0.71939 0.74745 0.77551 0.80357 0.83163 0.85969 0.88776 0.91582 0.94388 0.97194 1 1.0281 1.0561 1.0842 1.1122 1.1403 1.1684 1.1964 1.2245 1.2526 1.2806 1.3087 1.3367 1.3648 1.3929 1.4209 1.449 1.477 1.5051 1.5332 1.5612 1.5893 1.6173 1.6454 1.6735 1.7015 1.7296 1.7577 1.7857 1.8138 1.8418 1.8699 1.898 1.926 1.9541 1.9821 2.0102 2.0383 2.0663 2.0944 2.1224 2.1505 2.1786 2.2066 2.2347 2.2628 2.2908 2.3189 2.3469 2.375 2.4031 2.4311"
+            }
+        }
+        
+        for curve_name, points in curves_data.items():
+            curve = ET.SubElement(mtu_default, "curve")
+            ET.SubElement(curve, "name").text = curve_name
+            ET.SubElement(curve, "xPoints").text = points["xPoints"]
+            ET.SubElement(curve, "yPoints").text = points["yPoints"]
+        
+        # Add mtuSet section
+        mtu_set = ET.SubElement(root, "mtuSet")
+        
+        # Extract muscle parameters from OpenSim model
+        muscle_set = model.getMuscles()
+        for i in range(muscle_set.getSize()):
+            muscle = muscle_set.get(i)
+            
+            # Create mtu element for each muscle
+            mtu = ET.SubElement(mtu_set, "mtu")
+            
+            # Add muscle parameters
+            ET.SubElement(mtu, "name").text = muscle.getName()
+            ET.SubElement(mtu, "c1").text = "-0.5"
+            ET.SubElement(mtu, "c2").text = "-0.5"
+            ET.SubElement(mtu, "shapeFactor").text = "0.1"
+            ET.SubElement(mtu, "optimalFibreLength").text = str(muscle.getOptimalFiberLength())
+            ET.SubElement(mtu, "pennationAngle").text = str(muscle.getPennationAngleAtOptimalFiberLength())
+            ET.SubElement(mtu, "tendonSlackLength").text = str(muscle.getTendonSlackLength())
+            ET.SubElement(mtu, "maxIsometricForce").text = str(muscle.getMaxIsometricForce())
+            ET.SubElement(mtu, "strengthCoefficient").text = "1"
+        
+        # Add dofSet section
+        dof_set = ET.SubElement(root, "dofSet")
+        
+        # Define DOFs and their associated muscles
+        dof_muscles = {}
+        coordinates = model.getCoordinateSet()
+        
+        for i in range(coordinates.getSize()):
+            coord = coordinates.get(i)
+            coord_name = coord.getName()
+            
+            # Get muscles that cross this coordinate
+            muscles_for_coord = []
+            for j in range(muscle_set.getSize()):
+                muscle = muscle_set.get(j)
+                state = model.initSystem()
+                model.realizePosition(state)
+                
+                try:
+                    moment_arm = muscle.computeMomentArm(state, coord)
+                    if abs(moment_arm) > 1e-6:  # Small threshold for numerical precision
+                        muscles_for_coord.append(muscle.getName())
+                except:
+                    continue
+                    
+            if muscles_for_coord:
+                dof_muscles[coord_name] = muscles_for_coord
+        
+        # Create DOF elements
+        for dof_name, muscle_names in dof_muscles.items():
+            dof = ET.SubElement(dof_set, "dof")
+            ET.SubElement(dof, "name").text = dof_name
+            ET.SubElement(dof, "mtuNameSet").text = " ".join(muscle_names)
+        
+        # Add calibrationInfo section
+        calibration_info = ET.SubElement(root, "calibrationInfo")
+        uncalibrated = ET.SubElement(calibration_info, "uncalibrated")
+        ET.SubElement(uncalibrated, "subjectID").text = f"{self.subject}_lowerBody_final"
+        ET.SubElement(uncalibrated, "additionalInfo").text = "TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese"
+        
+        # Add opensimModelFile reference
+        ET.SubElement(root, "opensimModelFile").text = f"..\\..\\..\\models\\{self.subject}_linearly_scaled.osim"
+        
+        # Create the XML tree and save
+        tree = ET.ElementTree(root)
+        
+        # Create output path
+        output_path = os.path.join(self.path, f"subjectUncalibrated.xml")
+        
+        # Save with pretty formatting
+        rough_string = ET.tostring(root, 'utf-8')
+        reparsed = xml.dom.minidom.parseString(rough_string)
+        pretty_xml = reparsed.toprettyxml(indent="   ")
+        
+        # Remove blank lines
+        pretty_xml_lines = [line for line in pretty_xml.splitlines() if line.strip()]
+        pretty_xml_clean = "\n".join(pretty_xml_lines)
+        
+        with open(output_path, 'w') as f:
+            f.write(pretty_xml_clean)
+        
+        print(f"CEINMS subject file created: {output_path}")
+        return output_path
+    
+    def run_ceinms_calibration(self):
+        print_to_log(f"Running CEINMS calibration for {self.subject}, {self.session}, {self.name}")
+        
+        import run_ceinms_calibration
+        
+        calibrationSetupPath = self.inputFiles['CEINMS_CALIBRATION_SETUP'].abspath()
+        run_ceinms_calibration.main(calibrationSetupPath)
+        
+        
+    
 class Session():
     def __init__(self, subject_name, session_name):
         self.subject = subject_name
@@ -2388,6 +2535,19 @@ class Plotter():
         plt.legend()
         plt.show()
 
+    def summaryTrials(self, trialList, xColumn, yColumns, labels):
+        
+        print("Creating summary plot...")
+        print('Script not finished yet - work in progress')
+        
+        return
+        
+        # Example summary function
+        for trial, label in zip(trialList, labels):
+            mean_y = trial[yColumns].mean()
+            plt.bar(label, mean_y)
+
+        plt.show()
 
 
 

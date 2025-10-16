@@ -104,7 +104,9 @@ normalized_data_list = []
 for df in data_list:
     if not df.empty:
         normalized_df = utils.time_normalise_df(df)
+        normalized_df = normalized_df / 980
         normalized_data_list.append(normalized_df)
+        
     else:
         print(f"Warning: DataFrame for '{os.path.basename(file_paths[data_list.index(df)])}' is empty. Skipping normalization.")
         normalized_data_list.append(pd.DataFrame())  # Append an empty DataFrame for consistency

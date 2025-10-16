@@ -14,6 +14,9 @@ except ImportError:
     from . import paths
 
 
+run = {'checkMuscleMomentArms': True,
+        'compareModels_rest': False}
+
 def coordinates_per_muscle(osimModel, muscle_name):
     coords = []
     muscle = osimModel.getMuscles().get(muscle_name)
@@ -269,18 +272,18 @@ def compareModels_rest(osimModelPath1, osimModelPath2, coordinate_list, plotType
      
 if __name__ == "__main__":
     base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03'  # Replace with actual subject name
+    subject = 'Athlete_03_MRI_BG'  # Replace with actual subject name
     session = '22_07_06'  # Replace with actual session name
-    trial = 'sq_70'  # Replace with actual trial name
+    trial = 'sq_90'  # Replace with actual trial name
 
     # create a trial instance
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial)
     
     coordinates_to_check = ['hip_flexion_l', 'hip_flexion_r',
                             'knee_angle_l', 'knee_angle_r',
                             'ankle_angle_l', 'ankle_angle_r']
 
-    if False:    
+    if run['checkMuscleMomentArms']:    
         osimModel = osim.Model(trial.USED_MODEL)
         muscles = osimModel.getMuscles()
         joint_angles = osim.Storage(trial.outputFiles['IK'].abspath())
@@ -291,7 +294,7 @@ if __name__ == "__main__":
                         threshold=0.005, 
                         coordinate_list=coordinates_to_check)
 
-    if True:
+    if run['compareModels_rest']:
         osimModelPath1 = input('Path to generic model: ').strip().strip('"')
         osimModelPath2 = input('Path to personalized model: ').strip().strip('"')
         compareModels_rest(osimModelPath1=osimModelPath1,

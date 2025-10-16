@@ -7,10 +7,10 @@ import paths
 
 if __name__ == '__main__':
     
-    subject = 'Athlete_03'
+    subject = 'Athlete_03_MRI_BG'
     session = '22_07_06'
-    trial_name = 'sq_70'
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
+    trial_name = 'sq_80'
+    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
     osim_modelPath = trial.USED_MODEL
     ik_mot = trial.outputFiles['IK'].abspath()
 

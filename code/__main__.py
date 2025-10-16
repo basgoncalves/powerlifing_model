@@ -18,8 +18,9 @@ run = {'reset':False,
        'SO': False,
        'JRA': False,
        'EMG_NORMALISE': False,
+       'CREATE_CEINMS_MODEL': False,
        'CREATE_EXCITATION_GENERATOR': False,
-       'CEINMS_CALIBRATION': False,
+       'CEINMS_CALIBRATION': True,
        'CEINMS_OPTIMISATION': False,
        'MOMENT_ARMS': False,}
 
@@ -189,6 +190,17 @@ def main(trial: utils.Trial, replace: bool = False):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
+    # 9. Create CEINMS model file
+    if run['CREATE_CEINMS_MODEL']:
+        utils.print_to_log(f'Creating CEINMS model file for: {trial.subject} / {trial.name}')
+        try:
+            #breakpoint()  # This will pause the execution for debugging
+            trial.create_ceinms_model()
+            utils.print_to_log(f'CEINMS model file created successfully: {save_path}')
+
+        except Exception as e:
+            utils.print_to_log(f'Error creating CEINMS model file: {e}')
+            
     # 9. Create excitation generator file
     if run['CREATE_EXCITATION_GENERATOR']:
         utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
@@ -208,7 +220,7 @@ def main(trial: utils.Trial, replace: bool = False):
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
         try:
             import run_ceinms_calibration
-            run_ceinms_calibration.main(trial.CEINMS_SETUP_CALIBRATION)
+            trial.run_ceinms_calibration()
             utils.print_to_log(f'CEINMS calibration completed successfully.')
         except Exception as e:
             print(f"Error during CEINMS calibration: {e}")

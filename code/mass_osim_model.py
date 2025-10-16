@@ -2,15 +2,11 @@ import opensim as osim
 import utils
 import scipy.io
 
-# matfile = r"C:\Git\1_current_projects\powerlifing_model\willi_data\Athlete_03\sq_70\settings.mat"
-# # open matfile
 
-# mat_data = scipy.io.loadmat(matfile)
-# mat_data['model_mass']
-# print(f"Model mass from mat file: {mat_data['model_mass'][0][0]} kg")
-# exit()
+run = {'scale_body_masses': False,
+       'add_mass_to_body': True
+       }
 
-# model = osim.Model(utils.USED_MODEL)
 def scale_body_masses(model_reference_path, model_target_path,save_path=None):
     """
     Scale the body masses of model_target to match the percentages of model_reference.
@@ -106,7 +102,7 @@ if __name__ == "__main__":
     print_body_mass_per_segment(model_target_path)
 
     exit()
-    
+
     scale_body_masses(model_reference_path=model_reference_path,
                       model_target_path=model_target_path,
                       save_path=model_target_path.replace('.osim', '_scaledMasses.osim')
