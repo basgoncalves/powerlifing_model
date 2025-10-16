@@ -45,7 +45,7 @@ if defined OUTPUT_DIR (
 
 rem Construct and display the command
 set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
-set "LOG_FILE=%SCRIPT_DIR%\ceinms.log"
+set "LOG_FILE=%OUTPUT_DIR%\optimise.log"
 echo Running command: %COMMAND%
 
 rem Run the command
