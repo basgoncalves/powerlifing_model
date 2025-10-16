@@ -6,6 +6,7 @@ import shutil
 import utils
 import run_ik, run_id, run_so, run_ma, run_jra
 import run_emg_normalise
+import run_ceinms_optimise
 import exportC3D, compare_marker_locations, calculate_muscle_moments
 
 
@@ -241,8 +242,7 @@ def main(trial: utils.Trial, replace: bool = False):
     if run['CEINMS_OPTIMISATION']:
         utils.print_to_log(f'Running CEINMS optimization on: {trial.subject} / {trial.name}')
         try:
-            import run_ceinms_optimise
-            run_ceinms_optimise.main(trial.CEINMS_SETUP_OPTIMISATION)
+            run_ceinms_optimise.main(trial.inputFiles['CEINMS_OPTIMISE_SETUP'].abspath())
             utils.print_to_log(f'CEINMS optimization completed successfully.')
         except Exception as e:
             print(f"Error during CEINMS optimization: {e}")
