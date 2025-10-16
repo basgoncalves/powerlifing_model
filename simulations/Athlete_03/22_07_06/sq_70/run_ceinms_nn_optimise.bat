@@ -3,16 +3,14 @@ setlocal
 
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
+set "CODE_DIR=%SCRIPT_DIR%..\..\..\..\code"
+set "EXECUTABLES_DIR=%CODE_DIR%\executables"
 
-echo Script directory is: "%SCRIPT_DIR%"
-
-cd /d "%SCRIPT_DIR%"
-
-rem Set CEINMS_EXE_DIR to two directories up plus code\executables
-set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
+rem Change working directory to the directory containing the calibration setup file
+pushd "%SCRIPT_DIR%"
 
 rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMSoptimise.exe"
+set "CEINMS_EXE=%EXECUTABLES_DIR%\CEINMSoptimise.exe"
 set "SETUP_XML=%SCRIPT_DIR%setup_ceinms_optimise.xml"
 
 if not exist "%CEINMS_EXE%" (
@@ -47,10 +45,11 @@ if defined OUTPUT_DIR (
 
 rem Construct and display the command
 set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
+set "LOG_FILE=%SCRIPT_DIR%\ceinms.log"
 echo Running command: %COMMAND%
 
-rem Run the command without printing any output
-%COMMAND% >nul 2>&1
+rem Run the command
+%COMMAND% > "%LOG_FILE%" 2>&1
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (

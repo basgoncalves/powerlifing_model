@@ -940,12 +940,16 @@
          <name>knee_angle_l</name>
          <mtuNameSet>bflh_l bfsh_l gaslat_l gasmed_l grac_l recfem_l sart_l semimem_l semiten_l tfl_l vasint_l vaslat_l vasmed_l</mtuNameSet>
       </dof>
+      <dof>
+         <name>ankle_angle_l</name>
+         <mtuNameSet>edl_l ehl_l fdl_l fhl_l gaslat_l gasmed_l perbrev_l perlong_l soleus_l tibant_l tibpost_l</mtuNameSet>
+      </dof>
    </dofSet>
    <calibrationInfo>
       <uncalibrated>
-         <subjectID>Athlete_03_lowerBody_final</subjectID>
+         <subjectID>Athlete_03</subjectID>
          <additionalInfo>TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese</additionalInfo>
       </uncalibrated>
    </calibrationInfo>
-   <opensimModelFile>..\..\..\models\Athlete_03_linearly_scaled.osim</opensimModelFile>
+   <opensimModelFile>..\..\..\models\Athlete_03_MRI_BG_scaled_increased_3.00.osim</opensimModelFile>
 </subject>

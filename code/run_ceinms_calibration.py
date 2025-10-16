@@ -44,7 +44,7 @@ def main(calibration_setup=None):
     # Run the CEINMS calibration executable
     command = f"{str(ceinms_calibration_exe)} -S {str(calibration_setup)}"
     
-    log_file_path = os.path.join(os.path.abspath(output_dir), 'ceinms_calibration_log.txt')
+    log_file_path = os.path.join(os.path.abspath(output_dir), 'calibration.log')
 
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
 

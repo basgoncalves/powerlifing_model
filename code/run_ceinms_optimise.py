@@ -40,45 +40,28 @@ def main(ceinms_exe, optimise_setup=None):
         utils.print_to_log(f"Warning: Could not find <outputDirectory> tag in {optimise_setup}.")
 
     # Run the CEINMS optimise executable
-    command = [ceinms_exe, "-S", optimise_setup]
-    print(f" \n Running command: {' '.join(command)} \n \n")
-    
+    command = f"{str(ceinms_exe)} -S {str(optimise_setup)}"
+    print(f" \n Running command: {command} \n \n")
+
     trial_path = os.path.dirname(optimise_setup)
     exe_dir = os.path.dirname(ceinms_exe)
     log_file_path = os.path.join(trial_path, "ceinms.log")
-    
+
+    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
+
     try:
-        print("Running CEINMS optimization...")
-        print(f"Executable: {ceinms_exe}")
-        print(f"Setup file: {optimise_setup}")
-
-        # PowerShell script that adds exe dir to PATH, then runs from trial dir
-        ps_script = f'''
-            $ErrorActionPreference = "Continue"
-            $env:PATH = "{exe_dir};$env:PATH"
-            Set-Location "{trial_path}"
-            & "{ceinms_exe}" -S "{optimise_setup}"
-            exit $LASTEXITCODE
-            '''
-
-        cmd = ["powershell", "-ExecutionPolicy", "Bypass", "-Command", ps_script]
-
-        with open(log_file_path, "w", encoding="utf-8") as log_file:
-            process = subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-            )
-
-            # Stream output
-            if process.stdout:
-                for line in process.stdout:
-                    # print(line, end="")
-                    log_file.write(line)
-                    log_file.flush()
-
-            process.wait()
+        process = subprocess.Popen(
+            [
+                "powershell",
+                "-NoExit",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                cmd_with_redirect,
+            ],
+            creationflags=subprocess.CREATE_NEW_CONSOLE,
+        )
+        process.wait()
 
         print(f"\nOptimization complete. Log saved to: {log_file_path}")
 
@@ -97,8 +80,18 @@ if __name__ == "__main__":
     
     start_time = time.time()
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    ceinms_exe = os.path.join(current_dir, 'executables', 'CEINMSoptimise.exe')
-    ceinms_setup = os.path.dirname(current_dir) + '\\simulations\\Running_009\\session1\\runA1\\setup_optimise_ceinms.xml'
+    ceinms_exe = paths.CEINMS_OPTIMISE_EXE
+    
+    analysis = utils.Analysis()
+    
+    id = 0
+    subjectName = analysis.SUBJECTS[id].name
+    sessionName = analysis.SUBJECTS[id].SESSIONS[0].name
+    trialName = analysis.SUBJECTS[id].SESSIONS[0].TRIALS[0].name
+    
+    trial = utils.Trial(subject_name=subjectName, session_name=sessionName, trial_name=trialName)
+    
+    ceinms_setup = trial.inputFiles['CEINMS_OPTIMISE_SETUP'].abspath()
 
     # Run CEINMS optimise
     try:
