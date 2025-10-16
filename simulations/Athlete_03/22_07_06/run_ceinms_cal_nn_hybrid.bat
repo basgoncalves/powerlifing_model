@@ -48,7 +48,7 @@ if defined OUTPUT_DIR (
 
 rem Construct and display the command
 set "COMMAND="%CEINMS_CAL_EXE%" -S "%CALIBRATION_SETUP%""
-set "LOG_FILE=%SCRIPT_DIR%ceinms_calibration.log"
+set "LOG_FILE=%OUTPUT_DIR%calibration.log"
 echo Running command: %COMMAND%
 
 rem Run the command

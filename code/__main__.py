@@ -20,8 +20,9 @@ run = {'reset':False,
        'EMG_NORMALISE': False,
        'CREATE_CEINMS_MODEL': False,
        'CREATE_EXCITATION_GENERATOR': False,
-       'CEINMS_CALIBRATION': True,
-       'CEINMS_OPTIMISATION': False,
+       'CREATE_CFG_OPTIMISE': False,
+       'CEINMS_CALIBRATION': False,
+       'CEINMS_OPTIMISATION': True,
        'MOMENT_ARMS': False,}
 
 
@@ -215,6 +216,16 @@ def main(trial: utils.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
 
+    if run['CREATE_CFG_OPTIMISE']:
+        utils.print_to_log(f'Creating CEINMS optimisation config file for: {trial.subject} / {trial.name}')
+        try:
+            #breakpoint()  # This will pause the execution for debugging            
+            trial.create_ceinms_cfg_from_excitation_generator()
+            utils.print_to_log(f'CEINMS optimisation config file created successfully: {trial.path}')
+
+        except Exception as e:
+            utils.print_to_log(f'Error creating CEINMS optimisation config file: {e}')
+    
     # 10. Run CEINMS calibration and optimization
     if run['CEINMS_CALIBRATION']:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
@@ -230,8 +241,8 @@ def main(trial: utils.Trial, replace: bool = False):
     if run['CEINMS_OPTIMISATION']:
         utils.print_to_log(f'Running CEINMS optimization on: {trial.subject} / {trial.name}')
         try:
-            import run_ceinms_optimisation
-            run_ceinms_optimisation.main(trial.CEINMS_SETUP_OPTIMISATION)
+            import run_ceinms_optimise
+            run_ceinms_optimise.main(trial.CEINMS_SETUP_OPTIMISATION)
             utils.print_to_log(f'CEINMS optimization completed successfully.')
         except Exception as e:
             print(f"Error during CEINMS optimization: {e}")
@@ -314,7 +325,7 @@ if __name__ == "__main__":
                 #                  trial2=trial)
 
                 # push results to git
-                push_trial_results_to_git(trial=trial)
+                # push_trial_results_to_git(trial=trial)
 
     end_time = time.time()
     elapsed_time = end_time - start_time

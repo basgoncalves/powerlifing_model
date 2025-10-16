@@ -921,6 +921,10 @@
          <mtuNameSet>addbrev_r addlong_r addmagDist_r addmagIsch_r addmagMid_r addmagProx_r bflh_r glmax1_r glmax2_r glmax3_r glmed1_r glmed2_r glmed3_r glmin1_r glmin2_r glmin3_r grac_r iliacus_r piri_r psoas_r recfem_r sart_r semimem_r semiten_r tfl_r</mtuNameSet>
       </dof>
       <dof>
+			<name>knee_angle_r</name>
+			<mtuNameSet>bflh_r bfsh_r gaslat_r gasmed_r grac_r recfem_r sart_r semimem_r semiten_r tfl_r vasint_r vaslat_r vasmed_r</mtuNameSet>
+		</dof>
+      <dof>
          <name>ankle_angle_r</name>
          <mtuNameSet>edl_r ehl_r fdl_r fhl_r gaslat_r gasmed_r perbrev_r perlong_r soleus_r tibant_r tibpost_r</mtuNameSet>
       </dof>

@@ -277,7 +277,9 @@ class Trial():
         
         # Edit model paths below
         self.USED_MODEL = os.path.join(paths.MODELS_DIR, f'{subject_name}_scaled_increased_3.00.osim')        
-        
+
+
+        # Dictionaries to hold input and output files with multiple analysis "Steps"
         self.inputFiles = {
             'C3D': Step(function=None, setup=None, output=settings.C3D_FILE, parentdir=self.path),
             'MARKERS': Step(function=None, setup=None, output=settings.MARKER_FILE, parentdir=self.path),
@@ -292,6 +294,7 @@ class Trial():
             'CEINMS_EXCITATION_GENERATOR': Step(function=None, setup=None, output=settings.CEINMS_EXCITATION_GENERATOR, parentdir=self.parentdir),
             'CEINMS_INPUT_DATA': Step(function=None, setup=None, output=settings.CEINMS_INPUT_DATA, parentdir=self.path),
             'CEINMS_OPTIMISE_SETUP': Step(function=None, setup=None, output=settings.CEINMS_OPTIMISE_SETUP, parentdir=self.path),
+            'CEINMS_OPTIMISE_CFG': Step(function=None, setup=None, output=settings.CEINMS_OPTIMISE_CFG, parentdir=self.path),
         }
 
         self.outputFiles = {
@@ -773,6 +776,100 @@ class Trial():
         print(f"CEINMS subject file created: {output_path}")
         return output_path
     
+    def create_ceinms_cfg_from_excitation_generator(self):
+        """
+        Create ceinms_cfg_optimise.xml based on excitationGenerator.xml
+        
+        Args:
+            excitation_file: Path to excitationGenerator.xml
+            output_file: Path for output ceinms_cfg_optimise.xml
+        """
+        excitation_file = self.inputFiles['CEINMS_EXCITATION_GENERATOR'].abspath()
+        output_file = self.inputFiles['CEINMS_OPTIMISE_CFG'].abspath()
+        
+        # Parse the excitation generator XML
+        tree = ET.parse(excitation_file)
+        root = tree.getroot()
+        
+        # Lists to store muscle names
+        synth_mtus = []
+        adjust_mtus = []
+        
+        # Find all excitation elements
+        mapping = root.find('mapping')
+        if mapping is not None:
+            for excitation in mapping.findall('excitation'):
+                muscle_id = excitation.get('id')
+                
+                # Check if excitation has input elements (non-empty)
+                inputs = excitation.findall('input')
+                if inputs and len(inputs) > 0:
+                    # Has EMG input - add to adjustMTUs
+                    adjust_mtus.append(muscle_id)
+                else:
+                    # No EMG input - add to synthMTUs
+                    synth_mtus.append(muscle_id)
+        
+        # Sort the lists for consistent output
+        synth_mtus.sort()
+        adjust_mtus.sort()
+        
+        # Create the XML structure
+        execution = ET.Element('execution')
+        
+        # Add XML declaration attributes
+        execution.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+        
+        nms_model = ET.SubElement(execution, 'NMSmodel')
+        type_elem = ET.SubElement(nms_model, 'type')
+        hybrid = ET.SubElement(type_elem, 'hybrid')
+        
+        # Add hybrid parameters
+        ET.SubElement(hybrid, 'alpha').text = '1'
+        ET.SubElement(hybrid, 'beta').text = '4'
+        ET.SubElement(hybrid, 'gamma').text = '120'
+        
+        # Add DOF set (you may need to adjust this based on your model)
+        dof_set = ET.SubElement(hybrid, 'dofSet')
+        dof_set.text = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l '
+        
+        # Add synthMTUs
+        synth_mtus_elem = ET.SubElement(hybrid, 'synthMTUs')
+        synth_mtus_elem.text = ' '.join(synth_mtus)
+        
+        # Add adjustMTUs
+        adjust_mtus_elem = ET.SubElement(hybrid, 'adjustMTUs')
+        adjust_mtus_elem.text = ' '.join(adjust_mtus)
+        
+        # Add algorithm section
+        algorithm = ET.SubElement(hybrid, 'algorithm')
+        sim_annealing = ET.SubElement(algorithm, 'simulatedAnnealing')
+        ET.SubElement(sim_annealing, 'noEpsilon').text = '4'
+        ET.SubElement(sim_annealing, 'rt').text = '0.3'
+        ET.SubElement(sim_annealing, 'T').text = '20000'
+        ET.SubElement(sim_annealing, 'NS').text = '15'
+        ET.SubElement(sim_annealing, 'NT').text = '5'
+        ET.SubElement(sim_annealing, 'epsilon').text = '0.001'
+        ET.SubElement(sim_annealing, 'maxNoEval').text = '200000'
+        
+        # Add tendon section
+        tendon = ET.SubElement(nms_model, 'tendon')
+        equilibrium = ET.SubElement(tendon, 'equilibriumElastic')
+        ET.SubElement(equilibrium, 'tolerance').text = '1e-09'
+        
+        # Add activation section
+        activation = ET.SubElement(nms_model, 'activation')
+        ET.SubElement(activation, 'exponential')
+        
+        # Create tree and write to file
+        tree = ET.ElementTree(execution)
+        save_pretty_xml(tree, output_file)
+        
+        print(f"Created {output_file}")
+        print(f"synthMTUs: {len(synth_mtus)} muscles")
+        print(f"adjustMTUs: {len(adjust_mtus)} muscles")
+        
+        
     def run_ceinms_calibration(self):
         print_to_log(f"Running CEINMS calibration for {self.subject}, {self.session}, {self.name}")
         
