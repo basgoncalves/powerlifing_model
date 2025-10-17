@@ -5,6 +5,13 @@ import paths
 import utils
 
 def create_subject_uncalibrated(save_path=None, osimModelFile=None, leg='r'):
+    '''
+    Create an uncalibrated CEINMS model XML file from an OpenSim model.
+    
+    Parameters:
+    - save_path: Path to save the generated XML file.
+    - osimModelFile: Path to the OpenSim model file (.osim).
+    '''
     if osimModelFile == None:
         print("\033[93mNo OpenSim model not file provided. FAILED!!\033[0m")
         return None
@@ -87,7 +94,7 @@ def create_subject_uncalibrated(save_path=None, osimModelFile=None, leg='r'):
         ET.SubElement(mtu_element, "strengthCoefficient").text = mtu["strengthCoefficient"]
     
     dof_set = ET.SubElement(root, "dofSet")
-
+    breakpoint()
     dofs = [
                 {"name": f"hip_adduction_{leg}", 
                     "mtuNameSet": f"add_brev_{leg} add_long_{leg} add_mag1_{leg} add_mag2_{leg} add_mag3_{leg} bifemlh_{leg} grac_{leg} pect_{leg} semimem_{leg} semiten_{leg} glut_max1_{leg} glut_med1_{leg} glut_med2_{leg} glut_med3_{leg} glut_min1_{leg} glut_min2_{leg} glut_min3_{leg} peri_{leg} sar_{leg} tfl_{leg}"},
@@ -123,11 +130,23 @@ def create_subject_uncalibrated(save_path=None, osimModelFile=None, leg='r'):
 
 if __name__ == "__main__":
 
-    save_path = paths.UNCALIBRATED_MODEL_PATH
-    osim_model_file = paths.USED_MODEL
+    analysis = utils.Analysis()
+    
+    subject = analysis.SUBJECTS[0]
+    session = subject.SESSIONS[0]
+    trial = session.TRIALS[0]
+    
+    trial = utils.Trial(subject_name=subject.name,
+                        session_name=session.name,
+                        trial_name=trial.name)
+
+    osim_model_file = trial.USED_MODEL
+    save_path = trial.path + os.sep + "ceinms_uncalibrated_model.xml"
+    
     leg = 'r'  # or 'l' for left leg
     
-    tree = create_subject_uncalibrated(save_path=save_path, osimModelFile=osim_model_file, leg=leg)
+    tree = create_subject_uncalibrated(save_path=save_path, 
+                                       osimModelFile=osim_model_file, leg=leg)
     
     if tree is not None:
         print("Uncalibrated CEINMS model XML created successfully.")

@@ -1,17 +1,35 @@
-@echo off
+echo off
 setlocal
 
 rem Get the directory of the current script
 set "SCRIPT_DIR=%~dp0"
+set "CODE_DIR=%SCRIPT_DIR%"
+set "EXECUTABLES_DIR=%CODE_DIR%\executables"
+set "CEINMS_EXE=%EXECUTABLES_DIR%\CEINMSoptimise.exe"
 
-echo Script directory is: "%SCRIPT_DIR%"
+set "SUBJECT=Athlete_03_MRI_Katya"
+set "SESSION=22_07_06"
+set "TRIAL=sq_70"
 
-rem Set CEINMS_EXE_DIR to two directories up plus code\executables
-set "CEINMS_EXE_DIR=%SCRIPT_DIR%..\..\..\..\code\executables"
+rem Ask user for setup XML path
+set "DEFAULT_SETUP_XML=%CODE_DIR%\..\simulations\%SUBJECT%\%SESSION%\%TRIAL%\ceinms_cfg_optimise.xml"
 
-rem Paths to CEINMS calibration executable and setup file
-set "CEINMS_EXE=%CEINMS_EXE_DIR%\CEINMSoptimise.exe"
-set "SETUP_XML=%SCRIPT_DIR%setup_ceinms_optimise.xml"
+rem Ask user for confirmation
+echo About to run CEINMS optimise with the following settings:
+echo   CEINMS Executable: %CEINMS_EXE%
+echo   Setup XML: %SETUP_XML%
+echo.
+set /p USER_CONFIRM=Do you want to proceed? (Y/N):
+if /i not "%USER_CONFIRM%"=="Y" (
+    echo Operation cancelled by user.
+    popd
+    exit /b 0
+)
+
+
+
+rem Print the current working directory
+echo Current working directory: %CD%
 
 if not exist "%CEINMS_EXE%" (
     echo Error: executable not found at "%CEINMS_EXE%"
@@ -45,10 +63,11 @@ if defined OUTPUT_DIR (
 
 rem Construct and display the command
 set "COMMAND="%CEINMS_EXE%" -S "%SETUP_XML%""
+set "LOG_FILE=%OUTPUT_DIR%\optimise.log"
 echo Running command: %COMMAND%
 
 rem Run the command
-%COMMAND%
+%COMMAND% > "%LOG_FILE%" 2>&1
 
 rem Check the exit code of the last command
 if %errorlevel% neq 0 (
