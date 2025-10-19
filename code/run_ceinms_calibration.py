@@ -1,17 +1,16 @@
 import os
 import opensim as osim
+from sklearn import tree
 import paths
 import utils
 import time
 import subprocess
 import xml.etree.ElementTree as ET
 import paths
-
-print(osim.__version__)
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
-def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
+def create_ceinms_subject_file(osimModel_path, subject_id, output_path):
     """
     Create a CEINMS subject XML file with muscle-tendon unit parameters and DOF mappings.
     
@@ -21,7 +20,7 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
         output_path: Path where the subject XML file will be saved
     """
     
-    osimModel = osim.Model(osim_model_path)
+    osimModel = osim.Model(osimModel_path)
     state = osimModel.initSystem()  
     
     # Create root element
@@ -70,6 +69,7 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
         x_points.text = curve_data["xPoints"]
         y_points = ET.SubElement(curve, "yPoints")
         y_points.text = curve_data["yPoints"]
+       
     
     # Add MTU parameters from osimModel (you'll need to populate this with actual muscle data)
     mtu_set = ET.SubElement(root, "mtuSet")
@@ -78,20 +78,27 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
         mtu = ET.SubElement(mtu_set, "mtu")
         name = ET.SubElement(mtu, "name")
         name.text = muscle.getName()
-        breakpoint()
-        c1 = ET.SubElement(mtu, "c1").text = '-0.5'
         
-        optimal_fibre_length = ET.SubElement(mtu, "optimalFibreLength")
-        optimal_fibre_length.text = str(muscle.getOptimalFibreLength())
+        c1 = ET.SubElement(mtu, "c1")
+        c1.text = '-0.5'
         
-        tendon_slack_length = ET.SubElement(mtu, "tendonSlackLength")
-        tendon_slack_length.text = str(muscle.getTendonSlackLength())
+        c2 = ET.SubElement(mtu, "c2")
+        c2.text = '-0.5'
+                
+        optimalFibreLength = ET.SubElement(mtu, "optimalFibreLength")
+        optimalFibreLength.text = str(muscle.get_optimal_fiber_length())
         
-        pennation_angle = ET.SubElement(mtu, "pennationAngle")
-        pennation_angle.text = str(muscle.getPennationAngleAtOptimalFibreLength())
+        pennationAngle = ET.SubElement(mtu, "pennationAngle")
+        pennationAngle.text = str(muscle.get_pennation_angle_at_optimal())
+        
+        tendonSlackLength = ET.SubElement(mtu, "tendonSlackLength")
+        tendonSlackLength.text = str(muscle.get_tendon_slack_length())
 
-        max_isometric_force = ET.SubElement(mtu, "maxIsometricForce")
-        max_isometric_force.text = str(muscle.getMaxIsometricForce())
+        maxIsometricForce = ET.SubElement(mtu, "maxIsometricForce")
+        maxIsometricForce.text = str(muscle.get_max_isometric_force())
+
+        strengthCoefficient = ET.SubElement(mtu, "strengthCoefficient")
+        strengthCoefficient.text = str(1)
 
     # Add dofSet section
     dof_set = ET.SubElement(root, "dofSet")
@@ -100,12 +107,17 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
     n_dofs = dofSet_osim.getSize()
     dof_mappings = {}
     for i in range(n_dofs):
+        
         dof_name = dofSet_osim.get(i).getName()
         
         # Find muscles that span this DOF
-        spanning_muscles = utils.muscles_per_coordinate(osimModel, dof_name)
-        muscle_names = " ".join([muscle.getName() for muscle in spanning_muscles])
+        spanning_muscles, spanning_muscles_index = utils.muscles_per_coordinate(osimModel, dof_name)
+        muscle_names = " ".join(spanning_muscles)
         dof_mappings[dof_name] = muscle_names
+        
+        if len(spanning_muscles) == 0:
+            print(f"Warning: No muscles found spanning DOF '{dof_name}'")
+            continue
         
         # Add to dofSet
         dof = ET.SubElement(dof_set, "dof")
@@ -113,13 +125,10 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
         name.text = dof_name
         mtu_name_set = ET.SubElement(dof, "mtuNameSet")
         mtu_name_set.text = muscle_names
+        print(f"Mapped DOF '{dof_name}' to muscles: {muscle_names}")
         
-    print("DOF to Muscle mappings:")
-    for dof, muscles in dof_mappings.items():
-        print(f"  {dof}: {muscles}")
+    time.sleep(1)
     
-    time.sleep(2)
-
     # Add calibration info
     calibration_info = ET.SubElement(root, "calibrationInfo")
     uncalibrated = ET.SubElement(calibration_info, "uncalibrated")
@@ -128,45 +137,25 @@ def create_ceinms_subject_file(osim_model_path, subject_id, output_path):
     subjectID.text = subject_id
     
     additional_info = ET.SubElement(uncalibrated, "additionalInfo")
-    additional_info.text = subject_data.get("additionalInfo", "Generated automatically")
+    additional_info.text = "TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese"
     
     # Add OpenSim model file reference
     opensim_model_file = ET.SubElement(root, "opensimModelFile")
-    opensim_model_file.text = osim_model_path
+    opensim_model_file.text = osimModel_path
     
-    # Pretty print and save
-    rough_string = ET.tostring(root, encoding='unicode')
-    reparsed = minidom.parseString(rough_string)
-    pretty_xml = reparsed.toprettyxml(indent="   ")
-    
-    # Remove empty lines
-    pretty_xml = '\n'.join([line for line in pretty_xml.split('\n') if line.strip()])
-    
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(pretty_xml)
-    
+    tree = ET.ElementTree(root)
+    utils.save_pretty_xml(tree, output_path)
     print(f"CEINMS subject file created: {output_path}")
-
-def create_ceinms_model(osimModel_path, ceinms_model_path):
-    # This function can now call create_ceinms_subject_file
-    # You'll need to extract muscle parameters from the OpenSim model
-    # or provide them as input data
     
-    # Example subject data structure
-    subject_data = {
-        "subjectID": "Athlete_03_lowerBody_final",
-        "additionalInfo": "TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese",
-        "muscles": {
-            # You would populate this with actual muscle parameters
-            # extracted from the OpenSim model or provided separately
-        }
-    }
-    
-    create_ceinms_subject_file(osimModel_path, subject_data, ceinms_model_path)
+    time.sleep(2)
 
-def main(calibration_setup=None, replace_existing=False):
+def main(calibration_setup=None, osimModel_path=None, update_setupFiles=True):
     
     print('Running CEINMS calibration...')
+    print(f'OpenSim version: {osim.__version__}')
+    
+    time.sleep(1)
+    
     # Prepare CEINMS calibration executable and setup file paths
     ceinms_calibration_exe = paths.CEINMS_CALIBRATION_EXE
 
@@ -178,6 +167,23 @@ def main(calibration_setup=None, replace_existing=False):
 
     # change working directory to the session directory
     os.chdir(os.path.dirname(calibration_setup))
+
+    # create uncalibrated subject file if it does not exist
+    subject_id = osimModel_path.split(os.sep)[-1].replace('.osim', '')
+
+    # read <subjectFile> from calibration setup XML
+    root = ET.parse(calibration_setup).getroot()
+    subject_file_elem = root.find('subjectFile')
+    
+    # if empty, raise error that tag was not found
+    if subject_file_elem is None:
+        raise ValueError(f"<subjectFile> tag not found in {calibration_setup}")
+    
+    uncalibratedSubject_path = subject_file_elem.text.strip()
+    
+    create_ceinms_subject_file(osimModel_path=osimModel_path, 
+                               subject_id=subject_id, 
+                               output_path=uncalibratedSubject_path)
 
     # Parse the outputDirectory from the calibration setup XML
     tree = ET.parse(calibration_setup)
@@ -221,17 +227,22 @@ if __name__ == "__main__":
     
     start_time = time.time()
 
+    # Ask user inputs
     calibration_setup = input("Enter full path to CEINMS calibration setup XML file: ").strip()
+    osimModel_path = input("Enter full path to OpenSim model file (.osim): ").strip()
+    
     
     # Run CEINMS calibration
     try:
         utils.print_to_log(f'Running CEINMS calibration on {calibration_setup}')
-        main(calibration_setup=calibration_setup)
+        main(calibration_setup=calibration_setup, osimModel_path=osimModel_path)
+        
     except Exception as e:
         print(f"Error during CEINMS calibration: {e}")
         utils.print_to_log(f'{time.time()}: Error during CEINMS calibration: {e}')
         exit(1)
     
-    print("CEINMS calibration completed successfully.")
+    
+    # print success message and update log
     message = f"Execution time: {time.time() - start_time:.2f} seconds"
     utils.print_to_log(f'CEINMS calibration completed successfully. {message}')
