@@ -8,11 +8,11 @@
 		<!--List of xml files used to construct a force set for the model.-->
 		<force_set_files />
 		<!--Directory used for writing results.-->
-		<results_directory>.</results_directory>
+		<results_directory>muscleAnalysis</results_directory>
 		<!--Output precision.  It is 8 by default.-->
 		<output_precision>8</output_precision>
 		<!--Initial time for the simulation.-->
-		<initial_time>0</initial_time>
+		<initial_time>1.7050000000000001</initial_time>
 		<!--Final time for the simulation.-->
 		<final_time>3.5350000000000001</final_time>
 		<!--Flag indicating whether or not to compute equilibrium values for states other than the coordinates or speeds.  For example, equilibrium muscle fiber lengths or muscle forces.-->
@@ -32,7 +32,7 @@
 					<!--Flag (true or false) specifying whether on. True by default.-->
 					<on>true</on>
 					<!--Start time.-->
-					<start_time>0</start_time>
+					<start_time>1.7050000000000001</start_time>
 					<!--End time.-->
 					<end_time>3.5350000000000001</end_time>
 					<!--Specifies how often to store results during a simulation. More specifically, the interval (a positive integer) specifies how many successful integration steps should be taken before results are recorded again.-->
@@ -55,7 +55,7 @@
 			<groups />
 		</ControllerSet>
 		<!--XML file (.xml) containing the forces applied to the model as ExternalLoads.-->
-		<external_loads_file>externalloads.xml</external_loads_file>
+		<external_loads_file>GRF.xml</external_loads_file>
 		<!--Storage file (.sto) containing the time history of states for the model. This file often contains multiple rows of data, each row being a time-stamped array of states. The first column contains the time.  The rest of the columns contain the states in the order appropriate for the model. In a storage file, unlike a motion file (.mot), non-uniform time spacing is allowed.  If the user-specified initial time for a simulation does not correspond exactly to one of the time stamps in this file, interpolation is NOT used because it is sometimes necessary to use an exact set of states for analyses.  Instead, the closest earlier set of states is used.-->
 		<states_file />
 		<!--Motion file (.mot) or storage file (.sto) containing the time history of the generalized coordinates for the model. These can be specified in place of the states file.-->
