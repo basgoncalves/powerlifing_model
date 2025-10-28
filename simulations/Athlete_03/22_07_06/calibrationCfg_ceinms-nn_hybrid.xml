@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<calibration>
+<calibration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <optimiser>
       <debug>true</debug>
       <hybridCalibration>true</hybridCalibration>
@@ -69,7 +69,7 @@
             <targetType>tendonStrain</targetType>
             <weight>1000</weight>
             <exponent>2</exponent>
-            <range>0. 0.5</range>
+            <range>0 0.5</range>
          </objectiveFunction>
          <objectiveFunction>
             <name>ExcitationsSquared</name>
@@ -78,7 +78,7 @@
          <objectiveFunction>
             <name>SynergyExtraction</name>
             <mseWeight>100</mseWeight>
-            <range>0. 1.</range>
+            <range>0 1</range>
             <rangeExponent>2</rangeExponent>
             <rangeWeight>1000</rangeWeight>
          </objectiveFunction>

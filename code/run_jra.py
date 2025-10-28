@@ -1,6 +1,6 @@
 import shutil
 import opensim as osim
-import paths
+import settings
 import utils
 import os
 
@@ -151,26 +151,20 @@ def run_jra_setup(modelpath, setupJRA):
     
 if __name__ == '__main__':
    
-    basedir = paths.SIMULATION_DIR
-    subject = 'Athlete_03'  # Replace with actual subject name
-    session = '22_07_06'  # Replace with actual session name
-    trial_name = 'sq_80'  # Replace with actual trial name
-
-    trial = paths.Trial(subject_name=subject,
-                        session_name=session,
-                        trial_name=trial_name)
+    trial = utils.Trial(subject_name=settings.subject,
+                        session_name=settings.session,
+                        trial_name=settings.trial)
     
     try:
-        main(
-            modelpath=trial.USED_MODEL,
-            coordinates_file=trial.outputFiles['IK'].abspath(),
-            externalloadsfile=trial.inputFiles['GRF_XML'].abspath(),
-            setupJRA=trial.path + '\\' + trial.outputFiles['JRA'].setup,
+        main(modelpath=str(trial.inputFiles.osimModel),
+            coordinates_file=str(trial.outputFiles.IK),
+            externalloadsfile=str(trial.setupFiles.GRF),
+            setupJRA=str(trial.setupFiles.JRA),
             actuators=None,
-            muscle_force_path=trial.outputFiles['FORCES_SO'].abspath(),
-            results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath())
-        )
-        output_files = trial.outputFiles['JRA'].abspath()
+            muscle_force_path=str(trial.inputFiles.JRA_FORCES),
+            results_directory=trial.path)
+        
+        output_files = str(trial.outputFiles.JRA)
         utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {output_files}')
     except Exception as e:
         utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')

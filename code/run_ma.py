@@ -1,7 +1,7 @@
 import os
 import time
 import opensim as osim
-import paths
+import settings
 import utils
 
 def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
@@ -66,71 +66,27 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
 
 if __name__ == '__main__':
     
-    settings = utils.Settings()
-    analysis = utils.Analysis()
-    trial_list = settings.TRIAL_TO_ANALYSE
     
-    sessions_to_skip = ['25_03_31']
+    trial = utils.Trial(subject_name=settings.subject,
+                        session_name=settings.session,
+                        trial_name=settings.trial)
     
-    subject = 'Athlete_03'
-    session = '22_07_06'
-    trial_name = 'sq_70_test'
-    
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
     trial.copy_inputs_to_trial(replace=False)
-    osim_modelPath = trial.USED_MODEL
+    
+    osim_modelPath = str(trial.inputFiles.osimModel)
     
     print(f'osim version: {osim.__version__}')
     print(f'Running Muscle Analysis on model: {osim_modelPath}')
     time.sleep(1)  # Optional: wait for a second before running the analysis
     
-    # if OpenSim model file does not exist, raise an error
-    if not os.path.exists(osim_modelPath):
-        raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
-
-    # if Inverse Kinematics motion file does not exist, run IK
-    if not os.path.exists(trial.outputFiles['IK'].abspath()):
-        print(f"Inverse Kinematics motion file not found: {trial.outputFiles['IK'].abspath()}")
-        time.sleep(1)
-        
-        # Try running IK
-        try:
-            import run_ik
-            run_ik.main(osim_modelPath=osim_modelPath, 
-                    marker_trc=trial.inputFiles['MARKERS'].abspath(), 
-                    ik_output=trial.outputFiles['IK'].abspath(),
-                    setup_xml=trial.path + '\\' + trial.outputFiles['IK'].setup, 
-                    time_range=trial.TIME_RANGE,
-                    resultsDir=trial.path)
-        except Exception as e:
-            print(f"Error during Inverse Kinematics: {e}")
-            exit()
-    
-    # if InverseDynamics is not run, run ID ()
-    if not os.path.exists(trial.outputFiles['ID'].abspath()):
-        print(f"Inverse Dynamics motion file not found: {trial.outputFiles['ID'].abspath()}")
-        time.sleep(1)
-        import run_id
-        
-        # Try running ID
-        try:
-            run_id.main(osimModelPath=osim_modelPath, 
-                    ikOutputPath=trial.outputFiles['IK'].abspath(), 
-                    grfXmlPath=trial.inputFiles['GRF_XML'].abspath(), 
-                    setupXmlPath=trial.path + '\\' + trial.outputFiles['ID'].setup,
-                    resultsDir=trial.outputFiles['ID'].abspath())
-        except Exception as e:
-            print(f"Error during Inverse Dynamics: {e}")
-            exit()
-    
     ####################################### Run the Muscle Analysis #####################################
     main(osim_modelPath, 
-         ik_output=trial.outputFiles['IK'].abspath(), 
-         grf_xml=trial.inputFiles['GRF_XML'].abspath(), 
-         setup_xml=trial.path + '\\' + trial.outputFiles['MA'].setup,
-         resultsDir= trial.outputFiles['MA'].abspath())
+         ik_output=str(trial.outputFiles.IK), 
+         grf_xml=str(trial.setupFiles.GRF), 
+         setup_xml=str(trial.setupFiles.MA),
+         resultsDir= str(trial.outputFiles.MA))
     
-    outputFilesPath = trial.outputFiles['MA'].abspath()
+    outputFilesPath = os.path.join(trial.path, 'MuscleAnalysis')
     utils.print_to_log(f'Muscle Analysis completed. Results are saved in {outputFilesPath}')
 
 

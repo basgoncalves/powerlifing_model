@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 import opensim as osim
 import utils
 import time
+import settings
 
 
 def edit_pelvis_com_actuators(modelFilePath, actuatorsFilePath):
@@ -123,23 +124,19 @@ def plot(forces_path, activation_path):
 
 if __name__ == '__main__':
     
-    base_dir = utils.paths.SIMULATION_DIR
-    subject = 'Athlete_03'  # Replace with actual subject name
-    session = '22_07_06'  # Replace with actual session name
-    trial = 'dl_70_test'  # Replace with actual trial name
-    
-    # create a trial instance
-    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    trial = utils.Trial(subject_name=settings.subject, 
+                        session_name=settings.session, 
+                        trial_name=settings.trial)
 
     # Copy from setups 
     trial.copy_inputs_to_trial(replace=False)
 
-    ik_output =  trial.outputFiles['IK'].abspath()
-    grf_xml = trial.inputFiles['GRF_XML'].abspath()
-    setup_so = trial.path + '//' + trial.outputFiles['SO'].setup
-    actuators_so = trial.inputFiles['ACTUATORS_SO'].abspath()
-    so_output = trial.outputFiles['SO'].abspath()
-    used_model = trial.USED_MODEL
+    ik_output =  str(trial.outputFiles.IK)
+    grf_xml = str(trial.setupFiles.GRF)
+    setup_so = str(trial.setupFiles.SO)
+    so_output = os.path.join(trial.path, settings.Outputs().SO)
+    used_model = str(trial.inputFiles.osimModel)
+    actuators_so = str(trial.setupFiles.ACTUATORS_SO)
 
     trial.copy_inputs_to_trial(replace=False)
     
@@ -154,7 +151,7 @@ if __name__ == '__main__':
     edit_pelvis_com_actuators(used_model, actuators_so)
 
     # Run the Static Optimization using the specified files
-    if False:
+    if settings.Execute().SO:
         main(osim_modelPath=used_model,
             ik_output=ik_output,
             grf_xml=grf_xml,
@@ -163,7 +160,7 @@ if __name__ == '__main__':
             resultsDir=so_output)
     
     # Plot results
-    if True:
+    if settings.Execute().SO_PLOT:
         plot(forces_path=os.path.join(so_output, 'StaticOptimization_force.sto'),
              activation_path=os.path.join(so_output, 'StaticOptimization_activation.sto'))
 

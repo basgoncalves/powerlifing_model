@@ -5,6 +5,7 @@ import sys
 import opensim as osim
 import paths
 import utils
+import settings
 
 
 def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=None, resultsDir=None):
@@ -80,38 +81,30 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
     print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}\\inverse_dynamics.sto")
 
 if __name__ == '__main__':
-   
-    base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03'  # Replace with actual subject name
-    session = '22_07_06'  # Replace with actual session name
-    trial = 'dl_70_test'  # Replace with actual trial name
-    
-    # create a trial instance
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial)
 
-    setup_xml = os.path.join(trial.path, trial.outputFiles['ID'].setup)
-    if not os.path.exists(setup_xml):
-        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.outputFiles['ID'].setup), 
-                        dst=setup_xml)
+    # create a trial instance
+    trial = utils.Trial(subject_name=settings.subject,
+                        session_name=settings.session,
+                        trial_name=settings.trial)
         
-    osim_modelPath = trial.USED_MODEL
-    ik_output = trial.outputFiles['IK'].abspath()
-    setup_id = trial.path + '\\' + trial.outputFiles['ID'].setup
-    grf_xml = trial.inputFiles['GRF_XML'].abspath()
+    osim_modelPath = str(settings.osimModelPath)
+    ik_output = str(trial.outputFiles.IK)
+    setup_id = str(trial.setupFiles.ID)
+    grf_xml = str(trial.setupFiles.GRF)
+    
+    if not os.path.exists(setup_id):    
+        shutil.copyfile(src=os.path.join(settings.SETUP_DIR, settings.SetupFiles().ID), 
+                        dst=setup_id)
 
     if not os.path.exists(grf_xml):
-        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.inputFiles['GRF_XML'].output), 
+        shutil.copyfile(src= os.path.join(settings.SETUP_DIR, settings.SetupFiles().GRF), 
                         dst=grf_xml)
 
-    if True:
-        main()
-        
-    if False:
-        main(osimModelPath=osim_modelPath,
+    main(osimModelPath=osim_modelPath,
             ikOutputPath=ik_output,
             grfXmlPath=grf_xml,
-            setupXmlPath=setup_xml,
-            resultsDir=os.path.dirname(ik_output))
+            setupXmlPath=setup_id,
+            resultsDir=os.path.dirname(setup_id))
     
     
 

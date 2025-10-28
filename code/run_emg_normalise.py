@@ -2,18 +2,16 @@ import os
 import paths
 import utils
 import pandas as pd
+import xml.etree.ElementTree as ET
+import settings
 
-def main(target_emg_path=None, normalise_emg_list=None, save_path=None):
+def main(target_emg_path=None, normalise_emg_list=None):
     """
     Normalises EMG data based on a target EMG file.
     The target EMG file is used to scale the other EMG files in the list.
     """
-    target_emg_path = utils.check_arg(target_emg_path, 'target_emg_path')
     target_emg = utils.load_any_data_file(target_emg_path)
     max_values = pd.DataFrame(columns=target_emg.columns)
-    
-    if normalise_emg_list is None or not isinstance(normalise_emg_list, list) or len(normalise_emg_list) == 0:
-        utils.select_fom_list()
 
     # Calculate the max of each EMG channel in normalise_emg_list
     for emg_file in normalise_emg_list:
@@ -38,41 +36,27 @@ def main(target_emg_path=None, normalise_emg_list=None, save_path=None):
     max_per_column = max_values.max(axis=0)
     target_emg_norm = target_emg.divide(max_per_column, axis=1)
     
-    # get header
-    header = utils.load_sto_header(target_emg_path)
-    
     # Save the normalised target EMG
     ext = os.path.splitext(target_emg_path)[1]
-    utils.write_sto_file(data=target_emg_norm, 
-                         file_path=target_emg_path.replace(ext, f'_normalised{ext}'),
-                         header=header)
+    utils.write_sto_file(dataFrame=target_emg_norm, 
+                         file_path=target_emg_path.replace(ext, f'_normalised{ext}'))
     
     utils.print_to_log(f"Normalised EMG data saved to: {target_emg_path.replace(ext, f'_normalised{ext}')}")
     
 if __name__ == "__main__":
     
     emg_normalise_list = []
-    subject = 1
-    for trial_name in paths.Settings().TRIAL_TO_ANALYSE:
-        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[subject].name,
-                            session_name=paths.Analysis().SUBJECTS[subject].SESSIONS[0].name,
-                            trial_name=trial_name)
-        
-        filepath = trial.inputFiles['EMG_MOT'].abspath()
-        if os.path.exists(filepath):
-            emg_normalise_list.append(filepath)
-        else:
-            print(f"EMG file not found: {filepath}")
     
-    # loop through all the trials and normalise EMG data
-    for  i, trial_name in enumerate(paths.Settings().TRIAL_TO_ANALYSE):
-        trial = paths.Trial(subject_name=paths.Analysis().SUBJECTS[subject].name,
-                            session_name=paths.Analysis().SUBJECTS[subject].SESSIONS[0].name,
-                            trial_name=trial_name)
-        
-        try:
-            main(target_emg_path= trial.inputFiles['EMG_MOT'].abspath(),
-                 normalise_emg_list=emg_normalise_list)
-        except Exception as e:
-            print(f"Error normalising EMG data for trial {trial.name}: {e}")
-    utils.print_to_log(f"EMG data normalised for all trials in subject {paths.Analysis().SUBJECTS[subject].name}")
+    trial = utils.Trial(subject_name=settings.subject,
+                        session_name=settings.session,
+                        trial_name=settings.trial)   
+    
+    for trialName in os.listdir(trial.parentdir):
+        emgPath = os.path.join(trial.parentdir, trialName, settings.Inputs().EMG_FILTERED)
+        if os.path.exists(emgPath):
+            emg_normalise_list.append(emgPath)
+    
+    main(target_emg_path= str(trial.inputFiles.EMG_FILTERED),
+            normalise_emg_list=emg_normalise_list)
+
+    

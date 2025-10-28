@@ -59,6 +59,10 @@ CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')    
 
+# Single trial paths
+TRIAL = os.path.join(SIMULATION_DIR, 'Athlete_03', '22_07_06', 'sq_70')
+C3D_FILE = os.path.join(TRIAL, 'c3dfile.c3d')
+
 
 #%% IF MAIN
 if __name__ == "__main__":

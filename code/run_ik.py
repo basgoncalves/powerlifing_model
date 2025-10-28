@@ -2,8 +2,8 @@ import os
 import shutil
 import time
 import opensim as osim
-import paths
 import utils
+import settings
 
 def validate_markers_used(ikTool,markers_path):
     task_set = ikTool.get_IKTaskSet()
@@ -21,16 +21,9 @@ def validate_markers_used(ikTool,markers_path):
     return ikTool
 
 def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
-
-    # check paths
-    osim_modelPath = utils.check_arg(osim_modelPath,'osim_modelPath')
-    marker_trc = utils.check_arg(marker_trc,'marker_trc')
-    ik_output = utils.check_arg(ik_output,'ik_output')
-    setup_xml = utils.check_arg(setup_xml,'setup_xml')
-    resultsDir = utils.check_arg(resultsDir,'resultsDir')
     
     if not os.path.exists(resultsDir):
-        os.makedirs(resultsDir)
+        os.makedirs(resultsDir, exist_ok=True)
     
     os.chdir(resultsDir)
     
@@ -86,36 +79,34 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
 if __name__ == '__main__':
-    base_dir = paths.SIMULATION_DIR
-    subject = 'Athlete_03'  # Replace with actual subject name
-    session = '22_07_06'  # Replace with actual session name
-    trial = 'dl_70_test'  # Replace with actual trial name
     
     # create a trial instance
-    trial = utils.Trial(subject_name=subject, session_name=session, trial_name=trial)
+    trial = utils.Trial(subject_name=settings.subject, 
+                        session_name=settings.session, 
+                        trial_name=settings.trial)
     
-    setup_xml = os.path.join(trial.path, trial.outputFiles['IK'].setup)
+    setup_xml = os.path.join(trial.path, settings.SetupFiles().IK)
+    
     if not os.path.exists(setup_xml):
-        shutil.copyfile(src= os.path.join(paths.SETUP_DIR, trial.outputFiles['IK'].setup), 
+        shutil.copyfile(src=os.path.join(settings.SETUP_DIR, settings.SetupFiles().IK), 
                         dst=setup_xml)
 
     # copy setup 
-    osim_modelPath = trial.USED_MODEL
-    ik_mot = trial.outputFiles['IK'].abspath()
-    setup_xml = trial.path + '\\' + trial.outputFiles['IK'].setup
-    markers = trial.inputFiles['MARKERS'].abspath()
+    osim_modelPath = str(trial.inputFiles.osimModel)
+    ik_mot = str(trial.outputFiles.IK)
+    setup_xml = str(trial.setupFiles.IK)
+    markers = str(trial.inputFiles.MARKERS)
     time_range = trial.TIME_RANGE
 
-    if True:
-        main()
+    if settings.Execute().IK:
+        main(osim_modelPath=osim_modelPath, 
+             marker_trc=markers, 
+             ik_output=ik_mot, 
+             setup_xml=setup_xml, 
+             time_range=time_range, 
+             resultsDir=trial.path)
         
-    if False:
-        main(osim_modelPath=osim_modelPath,
-            marker_trc=markers,
-            ik_output=ik_mot,
-            setup_xml=setup_xml,
-            time_range=time_range,
-            resultsDir=os.path.dirname(ik_mot))
+
     
     
   
