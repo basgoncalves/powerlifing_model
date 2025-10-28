@@ -10,40 +10,22 @@ import run_ceinms_optimise
 import ceinms
 import exportC3D, compare_marker_locations, calculate_muscle_moments
 
-class run:
-    def __init__(self):
-        self.reset = False
-        self.INCREASE_MUSCLE_FORCE = False
-        self.exportC3D = False
-        self.IK = False
-        self.ID = False
-        self.MA = False
-        self.MOMENT_ARMS = False
-        self.SO = False
-        self.JRA = False
-        self.EMG_NORMALISE = False
-        self.CREATE_CEINMS_FILES = False
-        self.CREATE_CEINMS_CALIBRATION_CFG = False
-        self.CREATE_EXCITATION_GENERATOR = False
-        self.CREATE_CFG_OPTIMISE = False
-        self.CHANGE_TIME_INPUT_CEINMS = False
-        self.CEINMS_CALIBRATION = True
-        self.CEINMS_OPTIMISATION = False
-
-        
-
 def main(trial: utils.Trial, replace: bool = False):
 
     # Reset trials to only input files
-    if run().reset:
+    if settings.Execute().reset:
         trial.reset()
 
+    # create settings xml in trial folder
+    if settings.Execute().create_settings_xml:
+        trial._to_xml()
+    
     # Increase muscle force
-    if run().INCREASE_MUSCLE_FORCE:
+    if settings.Execute().INCREASE_MUSCLE_FORCE:
         trial.increase_muscle_force(factor=3, replace=replace)
 
     # Export c3d file
-    if run().exportC3D:
+    if settings.Execute().exportC3D:
         subject_without_zero = trial.subject.replace('0', '')
         exportC3D.export_markers(trial.inputFiles['C3D'].abspath(),
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
@@ -51,7 +33,7 @@ def main(trial: utils.Trial, replace: bool = False):
         exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
 
     # Run IK
-    if run().IK:
+    if settings.Execute().IK:
         output_file = str(trial.outputFiles.IK)
         try:
 
@@ -81,7 +63,7 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during marker location comparison')
 
     # Run ID
-    if run().ID:
+    if settings.Execute().ID:
         output_file = str(trial.outputFiles.ID)
         try:
 
@@ -103,7 +85,7 @@ def main(trial: utils.Trial, replace: bool = False):
             exit()
 
     # Run muscle analysis
-    if run().MA:
+    if settings.Execute().MA:
 
         try:
             if not os.path.exists(trial.outputFiles.MA) or replace:
@@ -120,7 +102,7 @@ def main(trial: utils.Trial, replace: bool = False):
             exit()
 
     # Check moment arms
-    if run().MOMENT_ARMS:
+    if settings.Execute().MOMENT_ARMS:
         try:
             utils.checkMuscleMomentArms(osim_modelPath=str(trial.inputFiles.osimModel),
                                         ik_output=str(trial.outputFiles.IK),
@@ -138,7 +120,7 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
 
     # Run Static Optimization
-    if run().SO:
+    if settings.Execute().SO:
 
         try:
             # Check if the Static Optimization output file exists
@@ -157,7 +139,7 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
 
     # Run Joint Reaction Analysis
-    if run().JRA:
+    if settings.Execute().JRA:
         if True:
             try:
                 
@@ -180,7 +162,7 @@ def main(trial: utils.Trial, replace: bool = False):
                                 setupJRA=trial.SETUP_JRA)
 
     # Normalise EMG data
-    if run().EMG_NORMALISE:
+    if settings.Execute().EMG_NORMALISE:
 
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
@@ -198,93 +180,61 @@ def main(trial: utils.Trial, replace: bool = False):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
 
-    # Create CEINMS model XML file
-    if run().CREATE_CEINMS_MODEL:
-        utils.print_to_log(f'Creating CEINMS model file for: {trial.subject} / {trial.name}')
+    # Create CEINMS setup files
+    if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(trial.inputFiles.CEINMS_CALIBRATED_MODEL) or replace):
+        
+        # create CEINMS model file
         try:
-            #breakpoint()  # This will pause the execution for debugging
-            trial.create_ceinms_model()
-            utils.print_to_log(f'CEINMS model file created successfully: {save_path}')
+            ceinms.create_ceinms_model(osimModelPath=trial.modelPath,
+                                       savePath=trial.setupFiles.CEINMS_UNCALIBRATED_MODEL)
 
+            utils.print_to_log(f'CEINMS model file created successfully: {trial.setupFiles.CEINMS_UNCALIBRATED_MODEL}')
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS model file: {e}')
-            
-    # Create CEINMS calibration cfg XML file (under development)
-    if run().CREATE_CEINMS_CALIBRATION_CFG:
-        utils.print_to_log(f'Creating CEINMS calibration cfg file for: {trial.subject} / {trial.name}')
+        
+        # create CEINMS input data XML file
+        try:
+            trial.create_ceinms_input_data()
+        except Exception as e:
+            utils.print_to_log(f'Error creating CEINMS input data file: {e}')
+          
+        # create CEINMS calibration cfg XML file
         try:
             input_paths = []
             for trial in settings.CEINMSParameters().calibration_trials:
-                input_paths.append(trial + os.path.sep + settings.SetupFiles().CEINMS_INPUT_DATA)
+                input_paths.append(trial + os.path.sep + settings.Inputs().CEINMS_INPUT_DATA)
             
-            ceinms.create_calibrationCfg(osimModelPath=trial.inputFiles.osimModel,
+            ceinms.create_calibrationCfg(osimModelPath=trial.modelPath,
                                         inputPaths=input_paths,
-                                        outputPath=trial.setupFiles.CEINMS_CALIBRATION_CFG)
+                                        outputPath=trial.inputFiles.CEINMS_CALIBRATION_CFG)
             
             utils.print_to_log(f'CEINMS calibration cfg file created successfully: {save_path}')
-
         except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')        
-    
-    # Create excitation generator file
-    if run().CREATE_EXCITATION_GENERATOR:
-        utils.print_to_log(f'Creating excitation generator file for: {trial.subject} / {trial.name}')
+            utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')
+
+        # create CEINMS excitation generator XML file
         try:
-            #breakpoint()  # This will pause the execution for debugging
-            save_path = trial.path + '\\' + 'excitationGenerator.xml'
+            save_path = os.path.join(os.path.dirname(trial.path), settings.Inputs().CEINMS_EXCITATION_GENERATOR)
             
             ceinms.create_excitation_mapping(
-                osim_model_path=trial.inputFiles.osimModel,
-                emg_path=trial.inputFiles['EMG_MOT_NORMALISED'].abspath(),
+                osim_model_path=trial.modelPath,
+                emg_path=trial.inputFiles.CEINMS_EXCITATIONS,
                 save_path=save_path
             )
             utils.print_to_log(f'Excitation generator file created successfully: {save_path}')
-
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
-
-    # create CEINMS configuration files
-    if run().CREATE_CFG_OPTIMISE:
-        utils.print_to_log(f'Creating CEINMS optimisation config file for: {trial.subject} / {trial.name}')
-        try:
-            #breakpoint()  # This will pause the execution for debugging            
-            trial.create_ceinms_cfg_from_excitation_generator()
-            utils.print_to_log(f'CEINMS optimisation config file created successfully: {trial.path}')
-
+            
+        # Create CEINMS calibration setup XML file
+        try:       
+            trial.create_ceinms_calibration_setup()
+            utils.print_to_log(f'CEINMS calibration setup file created successfully: {trial.path}')
         except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS optimisation config file: {e}')
-    
-    if run().CHANGE_TIME_INPUT_CEINMS:
-        
-        root = ET.Element("inputData")
-        muscle_length_elem = ET.SubElement(root, "muscleTendonLengthFile")
-        muscle_length_elem.text = str(trial.outputFiles.MA) + os.path.sep + '_MuscleAnalysis_Length.sto'
+            utils.print_to_log(f'Error creating CEINMS calibration setup file: {e}')
 
-        excitations_elem = ET.SubElement(root, "excitationsFile")
-        excitations_elem.text = settings.Inputs().CEINMS_EXCITATIONS
-        
-        # Add moment arms files
-        moment_arms = ET.SubElement(root, "momentArmsFiles")
-        
-        for dof in settings.DOFs:
-            dof_elem = ET.SubElement(moment_arms, "momentArmFile")
-            dof_elem.set("dofName", dof)
-            dof_elem.text = str(trial.outputFiles.MA) + os.path.sep + f'_MuscleAnalysis_MomentArm_{dof}.sto'
-
-        external_torques_elem = ET.SubElement(root, "externalTorquesFile")
-        external_torques_elem.text = settings.Outputs().ID
-        
-        motion_elem = ET.SubElement(root, "motionFile")
-        motion_elem.text = settings.Outputs().IK
-        
-        startStop_elem = ET.SubElement(root, "startStopTime")
-        startStop_elem.text = f"{trial.get_time_range()[0]} {trial.get_time_range()[1]}"
-        
-        tree = ET.ElementTree(root)
-        utils.save_pretty_xml(tree, trial.setupFiles.CEINMS_INPUT_DATA)
-    
+           
     # CEINMS calibration and optimization
-    if run().CEINMS_CALIBRATION:
+    if settings.Execute().CEINMS_CALIBRATION:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
         try:
             ceinms.calibrate(setupXML_path=trial.setupFiles.CEINMS_CALIBRATION_SETUP)
@@ -293,7 +243,7 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'Error during CEINMS calibration: {e}')
 
     # CEINMS optimization
-    if run().CEINMS_OPTIMISATION:
+    if settings.Execute().CEINMS_OPTIMISATION:
         utils.print_to_log(f'Running CEINMS optimization on: {trial.subject} / {trial.name}')
         try:
             run_ceinms_optimise.main(trial.inputFiles['CEINMS_OPTIMISE_SETUP'].abspath())
@@ -350,8 +300,6 @@ if __name__ == "__main__":
                                     session_name=session, 
                                     trial_name=trial_name) 
 
-                trial.copy_inputs_to_trial(replace=False)
-
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##
@@ -365,8 +313,8 @@ if __name__ == "__main__":
                 # compare_trials(trial1=analysis.get_subject(subject).get_session(session.name).get_trial(trial_list[0]),
                 #                  trial2=trial)
 
-                # push results to git
-                push_trial_results_to_git(trial=trial)
+                if settings.Execute().push_to_git:
+                    push_trial_results_to_git(trial=trial)
 
     end_time = time.time()
     elapsed_time = end_time - start_time

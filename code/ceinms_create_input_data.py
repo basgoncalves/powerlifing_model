@@ -18,7 +18,6 @@ def create_input_data_xml(setup_xml):
     """
 
     setup = ET.parse(setup_xml).getroot()
-    breakpoint()
     trial_path = setup.find('trial').text
     muscle_analysis_path = setup.find('outputs/ma').text
     excitations_file = setup.find('emg_mot').text

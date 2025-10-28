@@ -1,6 +1,6 @@
 import opensim as osim
 import numpy as np
-import paths
+import settings
 import os
 import utils
 import time
@@ -8,12 +8,12 @@ import time
 start_time = time.time()
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-model_path = r"C:\Git\1_current_projects\powerlifing_model\simulations\Katya_01\session1\P01_pers.osim"
-calibration_cfg_file = r"C:\Git\1_current_projects\powerlifing_model\simulations\Katya_01\session1\calibrationCfg_ceinms-nn_hybrid.xml"
+model_path = input("Enter full path to OpenSim model file (.osim): ").strip('"')
+calibration_cfg_file = input("Enter full path to CEINMS calibration cfg XML file: ").strip('"')
 
 number_of_values = 2 # values for the mom arm check 
 
-dofs = paths.Settings().DOFs
+dofs = settings.DOFs
 
 # Load the model
 model = osim.Model(model_path)
