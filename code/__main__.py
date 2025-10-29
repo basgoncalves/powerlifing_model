@@ -186,9 +186,9 @@ def main(trial: utils.Trial, replace: bool = False):
         # create CEINMS model file
         try:
             ceinms.create_ceinms_model(osimModelPath=trial.modelPath,
-                                       savePath=trial.setupFiles.CEINMS_UNCALIBRATED_MODEL)
+                                       savePath=trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)
 
-            utils.print_to_log(f'CEINMS model file created successfully: {trial.setupFiles.CEINMS_UNCALIBRATED_MODEL}')
+            utils.print_to_log(f'CEINMS model file created successfully: {trial.inputFiles.CEINMS_UNCALIBRATED_MODEL}')
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS model file: {e}')
         
@@ -231,8 +231,7 @@ def main(trial: utils.Trial, replace: bool = False):
             utils.print_to_log(f'CEINMS calibration setup file created successfully: {trial.path}')
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS calibration setup file: {e}')
-
-           
+ 
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION:
         utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')

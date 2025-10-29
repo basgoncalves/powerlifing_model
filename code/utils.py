@@ -351,7 +351,7 @@ class Trial():
                                   excitationsFile=self.inputFiles.CEINMS_EXCITATIONS,
                                   motionFile=self.outputFiles.IK,
                                   externalTorquesFile=self.outputFiles.ID,
-                                  externalLoadsFile=self.inputFiles.GRF,
+                                  externalLoadsFile=self.inputFiles.GRF_MOT,
                                   startStopTime=self.TIME_RANGE)
     
     def create_ceinms_calibration_gfc(self):

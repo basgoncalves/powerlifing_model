@@ -2988,3 +2988,25 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 27.10.2025_13:31:48:734: Total analysis time: 334.20 seconds 
  
 
+28.10.2025_12:06:42:738: Starting analysis...
+28.10.2025_12:06:45:519: Running analysis for: Athlete_03 / sq_70
+28.10.2025_12:06:45:519: Error creating CEINMS model file: 'Trial' object has no attribute 'setupFiles'
+28.10.2025_12:06:45:519: Error creating CEINMS input data file: 'Inputs' object has no attribute 'GRF'
+28.10.2025_12:06:45:519: Error creating CEINMS calibration cfg file: 'str' object has no attribute 'modelPath'
+28.10.2025_12:06:45:519: Error creating excitation generator file: 'str' object has no attribute 'path'
+28.10.2025_12:06:45:519: Error creating CEINMS calibration setup file: 'str' object has no attribute 'create_ceinms_calibration_setup'
+28.10.2025_12:06:45:524: Analysis completed for: Athlete_03 / sq_70
+28.10.2025_12:06:45:524: Total analysis time: 2.79 seconds 
+ 
+
+28.10.2025_12:08:17:771: Starting analysis...
+28.10.2025_12:08:19:702: Running analysis for: Athlete_03 / sq_70
+28.10.2025_12:08:19:702: Error creating CEINMS model file: create_ceinms_model() got an unexpected keyword argument 'savePath'
+28.10.2025_12:08:19:709: Error creating CEINMS input data file: name 'timeRange' is not defined
+28.10.2025_12:08:19:710: Error creating CEINMS calibration cfg file: 'str' object has no attribute 'modelPath'
+28.10.2025_12:08:19:711: Error creating excitation generator file: 'str' object has no attribute 'path'
+28.10.2025_12:08:19:711: Error creating CEINMS calibration setup file: 'str' object has no attribute 'create_ceinms_calibration_setup'
+28.10.2025_12:08:19:712: Analysis completed for: Athlete_03 / sq_70
+28.10.2025_12:08:19:712: Total analysis time: 1.94 seconds 
+ 
+

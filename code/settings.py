@@ -116,6 +116,8 @@ class Execute:
         self.CREATE_CEINMS_FILES = True
         self.CEINMS_CALIBRATION = False
         self.CEINMS_OPTIMISATION = False
+        
+        self.push_to_git = False
 
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',
