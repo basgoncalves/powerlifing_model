@@ -21,7 +21,7 @@
       </curve>
       <curve>
          <name>tendonForceStrain</name>
-         <xPoints>0.0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009000000000000001 0.01 0.011 0.012 0.013000000000000001 0.014 0.015 0.016 0.017 0.018000000000000002 0.019 0.02 0.021 0.022 0.023 0.024 0.025 0.026000000000000002 0.027 0.028 0.029 0.03 0.031 0.032 0.033 0.034 0.035 0.036000000000000004 0.037 0.038 0.039 0.04 0.041 0.042 0.043000000000000003 0.044 0.045 0.046 0.047 0.048 0.049 0.05 0.051000000000000004 0.052000000000000005 0.053 0.054 0.055 0.056 0.057 0.058 0.059000000000000004 0.06 0.061 0.062 0.063 0.064 0.065 0.066 0.067 0.068 0.069 0.07 0.07100000000000001 0.07200000000000001 0.073 0.074 0.075 0.076 0.077 0.078 0.079 0.08 0.081 0.082 0.083 0.084 0.085 0.08600000000000001 0.08700000000000001 0.088 0.089 0.09 0.091 0.092 0.093 0.094 0.095 0.096 0.097 0.098 0.099 0.1</xPoints>
+         <xPoints>0.0 0.001 0.002 0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.01 0.011 0.012 0.013 0.014 0.015 0.016 0.017 0.018 0.019 0.02 0.021 0.022 0.023 0.024 0.025 0.026 0.027 0.028 0.029 0.03 0.031 0.032 0.033 0.034 0.035 0.036 0.037 0.038 0.039 0.04 0.041 0.042 0.043 0.044 0.045 0.046 0.047 0.048 0.049 0.05 0.051 0.052 0.053 0.054 0.055 0.056 0.057 0.058 0.059 0.06 0.061 0.062 0.063 0.064 0.065 0.066 0.067 0.068 0.069 0.07 0.071 0.072 0.073 0.074 0.075 0.076 0.077 0.078 0.079 0.08 0.081 0.082 0.083 0.084 0.085 0.086 0.087 0.088 0.089 0.09 0.091 0.092 0.093 0.094 0.095 0.096 0.097 0.098 0.099 0.1</xPoints>
          <yPoints>0 0.0012652 0.0073169 0.016319 0.026613 0.037604 0.049078 0.060973 0.073315 0.086183 0.099678 0.11386 0.12864 0.14386 0.15928 0.17477 0.19041 0.20658 0.22365 0.24179 0.26094 0.28089 0.30148 0.32254 0.34399 0.36576 0.38783 0.41019 0.43287 0.45591 0.4794 0.50344 0.52818 0.55376 0.58022 0.60747 0.63525 0.66327 0.69133 0.71939 0.74745 0.77551 0.80357 0.83163 0.85969 0.88776 0.91582 0.94388 0.97194 1 1.0281 1.0561 1.0842 1.1122 1.1403 1.1684 1.1964 1.2245 1.2526 1.2806 1.3087 1.3367 1.3648 1.3929 1.4209 1.449 1.477 1.5051 1.5332 1.5612 1.5893 1.6173 1.6454 1.6735 1.7015 1.7296 1.7577 1.7857 1.8138 1.8418 1.8699 1.898 1.926 1.9541 1.9821 2.0102 2.0383 2.0663 2.0944 2.1224 2.1505 2.1786 2.2066 2.2347 2.2628 2.2908 2.3189 2.3469 2.375 2.4031 2.4311</yPoints>
       </curve>
    </mtuDefault>
@@ -30,6 +30,7 @@
          <name>addbrev_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10423934885428432</optimalFibreLength>
          <pennationAngle>0.11478092</pennationAngle>
          <tendonSlackLength>0.03584204931502338</tendonSlackLength>
@@ -40,6 +41,7 @@
          <name>addlong_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.1085636397484234</optimalFibreLength>
          <pennationAngle>0.13777039</pennationAngle>
          <tendonSlackLength>0.13224231608997478</tendonSlackLength>
@@ -50,6 +52,7 @@
          <name>addmagDist_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.17749312253338215</optimalFibreLength>
          <pennationAngle>0.19470502</pennationAngle>
          <tendonSlackLength>0.08752523976663978</tendonSlackLength>
@@ -60,6 +63,7 @@
          <name>addmagIsch_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.15625481917398729</optimalFibreLength>
          <pennationAngle>0.16804429</pennationAngle>
          <tendonSlackLength>0.21641895012427692</tendonSlackLength>
@@ -70,6 +74,7 @@
          <name>addmagMid_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.13850651845585737</optimalFibreLength>
          <pennationAngle>0.20730759</pennationAngle>
          <tendonSlackLength>0.04690080158118738</tendonSlackLength>
@@ -80,6 +85,7 @@
          <name>addmagProx_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10735933887050879</optimalFibreLength>
          <pennationAngle>0.31148326</pennationAngle>
          <tendonSlackLength>0.04099591376507249</tendonSlackLength>
@@ -90,6 +96,7 @@
          <name>bflh_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.09763361048589553</optimalFibreLength>
          <pennationAngle>0.17591823</pennationAngle>
          <tendonSlackLength>0.33261450293606826</tendonSlackLength>
@@ -100,6 +107,7 @@
          <name>bfsh_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.1103</optimalFibreLength>
          <pennationAngle>0.26422317</pennationAngle>
          <tendonSlackLength>0.105817218589115</tendonSlackLength>
@@ -110,6 +118,7 @@
          <name>edl_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06941875856167973</optimalFibreLength>
          <pennationAngle>0.21825825</pennationAngle>
          <tendonSlackLength>0.3695073824578759</tendonSlackLength>
@@ -120,6 +129,7 @@
          <name>ehl_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.0749494388341331</optimalFibreLength>
          <pennationAngle>0.19726811</pennationAngle>
          <tendonSlackLength>0.32744816597534526</tendonSlackLength>
@@ -130,6 +140,7 @@
          <name>fdl_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.04469877380450333</optimalFibreLength>
          <pennationAngle>0.22483915</pennationAngle>
          <tendonSlackLength>0.37961170962137836</tendonSlackLength>
@@ -140,6 +151,7 @@
          <name>fhl_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.05282957996386764</optimalFibreLength>
          <pennationAngle>0.25802551</pennationAngle>
          <tendonSlackLength>0.3552109353286849</tendonSlackLength>
@@ -150,6 +162,7 @@
          <name>gaslat_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06899977847816277</optimalFibreLength>
          <pennationAngle>0.21022682</pennationAngle>
          <tendonSlackLength>0.3739987992874329</tendonSlackLength>
@@ -160,6 +173,7 @@
          <name>gasmed_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.05899911895941601</optimalFibreLength>
          <pennationAngle>0.16568155</pennationAngle>
          <tendonSlackLength>0.38699422097108466</tendonSlackLength>
@@ -170,6 +184,7 @@
          <name>glmax1_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.14764091442922944</optimalFibreLength>
          <pennationAngle>0.35401178</pennationAngle>
          <tendonSlackLength>0.08768062469164443</tendonSlackLength>
@@ -180,6 +195,7 @@
          <name>glmax2_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.15804950325632008</optimalFibreLength>
          <pennationAngle>0.36738206</pennationAngle>
          <tendonSlackLength>0.10972863601871904</tendonSlackLength>
@@ -190,6 +206,7 @@
          <name>glmax3_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.16859365390349135</optimalFibreLength>
          <pennationAngle>0.38241613</pennationAngle>
          <tendonSlackLength>0.10398291228778209</tendonSlackLength>
@@ -200,6 +217,7 @@
          <name>glmed1_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07296849031414411</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.055792739192422315</tendonSlackLength>
@@ -210,6 +228,7 @@
          <name>glmed2_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07309395185502761</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.06533278718348842</tendonSlackLength>
@@ -220,6 +239,7 @@
          <name>glmed3_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07366604500201684</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.045645543730230824</tendonSlackLength>
@@ -230,6 +250,7 @@
          <name>glmin1_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06780467123134976</optimalFibreLength>
          <pennationAngle>0.17453293</pennationAngle>
          <tendonSlackLength>0.016091426887322527</tendonSlackLength>
@@ -240,6 +261,7 @@
          <name>glmin2_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.05581205854864462</optimalFibreLength>
          <pennationAngle>0.0</pennationAngle>
          <tendonSlackLength>0.0260114614493626</tendonSlackLength>
@@ -250,6 +272,7 @@
          <name>glmin3_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.03801231043625039</optimalFibreLength>
          <pennationAngle>0.01745329</pennationAngle>
          <tendonSlackLength>0.050888980596530214</tendonSlackLength>
@@ -260,6 +283,7 @@
          <name>grac_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.227852803589395</optimalFibreLength>
          <pennationAngle>0.17200156</pennationAngle>
          <tendonSlackLength>0.17205368302540597</tendonSlackLength>
@@ -270,6 +294,7 @@
          <name>iliacus_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10724818180583966</optimalFibreLength>
          <pennationAngle>0.27991397</pennationAngle>
          <tendonSlackLength>0.09670517082185502</tendonSlackLength>
@@ -280,6 +305,7 @@
          <name>perbrev_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.04543466028376329</optimalFibreLength>
          <pennationAngle>0.20523612</pennationAngle>
          <tendonSlackLength>0.14764016272723915</tendonSlackLength>
@@ -290,6 +316,7 @@
          <name>perlong_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.050865281228783914</optimalFibreLength>
          <pennationAngle>0.24795247</pennationAngle>
          <tendonSlackLength>0.33264768743350037</tendonSlackLength>
@@ -300,6 +327,7 @@
          <name>piri_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.02642099717092449</optimalFibreLength>
          <pennationAngle>0.17453293</pennationAngle>
          <tendonSlackLength>0.11676682300678069</tendonSlackLength>
@@ -310,6 +338,7 @@
          <name>psoas_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.1175107763650515</optimalFibreLength>
          <pennationAngle>0.21552513</pennationAngle>
          <tendonSlackLength>0.10006325664256516</tendonSlackLength>
@@ -320,6 +349,7 @@
          <name>recfem_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07589496091962353</optimalFibreLength>
          <pennationAngle>0.2170149</pennationAngle>
          <tendonSlackLength>0.4503700974729702</tendonSlackLength>
@@ -330,6 +360,7 @@
          <name>sart_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.40317711317758204</optimalFibreLength>
          <pennationAngle>0.02613542</pennationAngle>
          <tendonSlackLength>0.12405432648210761</tendonSlackLength>
@@ -340,6 +371,7 @@
          <name>semimem_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.08600816410080185</optimalFibreLength>
          <pennationAngle>0.25456146</pennationAngle>
          <tendonSlackLength>0.3350318020205654</tendonSlackLength>
@@ -350,6 +382,7 @@
          <name>semiten_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.19302028937540375</optimalFibreLength>
          <pennationAngle>0.241295</pennationAngle>
          <tendonSlackLength>0.2472249321473301</tendonSlackLength>
@@ -360,6 +393,7 @@
          <name>soleus_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.04400441090043525</optimalFibreLength>
          <pennationAngle>0.38142888</pennationAngle>
          <tendonSlackLength>0.2813782047008513</tendonSlackLength>
@@ -370,6 +404,7 @@
          <name>tfl_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.09498187399516939</optimalFibreLength>
          <pennationAngle>0.05235988</pennationAngle>
          <tendonSlackLength>0.4494112897447056</tendonSlackLength>
@@ -380,6 +415,7 @@
          <name>tibant_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06834244042141338</optimalFibreLength>
          <pennationAngle>0.19518281</pennationAngle>
          <tendonSlackLength>0.24061044467136272</tendonSlackLength>
@@ -390,6 +426,7 @@
          <name>tibpost_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.03782008290418574</optimalFibreLength>
          <pennationAngle>0.22648907</pennationAngle>
          <tendonSlackLength>0.28092879034117463</tendonSlackLength>
@@ -400,6 +437,7 @@
          <name>vasint_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.117</optimalFibreLength>
          <pennationAngle>0.06309973</pennationAngle>
          <tendonSlackLength>0.205</tendonSlackLength>
@@ -410,6 +448,7 @@
          <name>vaslat_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.117</optimalFibreLength>
          <pennationAngle>0.25286729</pennationAngle>
          <tendonSlackLength>0.221</tendonSlackLength>
@@ -420,6 +459,7 @@
          <name>vasmed_r</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.11</optimalFibreLength>
          <pennationAngle>0.42222253</pennationAngle>
          <tendonSlackLength>0.208</tendonSlackLength>
@@ -430,6 +470,7 @@
          <name>addbrev_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10423934885428428</optimalFibreLength>
          <pennationAngle>0.11478092</pennationAngle>
          <tendonSlackLength>0.03584204931502337</tendonSlackLength>
@@ -440,6 +481,7 @@
          <name>addlong_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.1085636397484234</optimalFibreLength>
          <pennationAngle>0.13777039</pennationAngle>
          <tendonSlackLength>0.13224231608997478</tendonSlackLength>
@@ -450,6 +492,7 @@
          <name>addmagDist_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.17749312253338242</optimalFibreLength>
          <pennationAngle>0.19470502</pennationAngle>
          <tendonSlackLength>0.08752523976663992</tendonSlackLength>
@@ -460,6 +503,7 @@
          <name>addmagIsch_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.15625481917398737</optimalFibreLength>
          <pennationAngle>0.16804429</pennationAngle>
          <tendonSlackLength>0.21641895012427703</tendonSlackLength>
@@ -470,6 +514,7 @@
          <name>addmagMid_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.13850651845585735</optimalFibreLength>
          <pennationAngle>0.20730759</pennationAngle>
          <tendonSlackLength>0.04690080158118737</tendonSlackLength>
@@ -480,6 +525,7 @@
          <name>addmagProx_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10735933887050879</optimalFibreLength>
          <pennationAngle>0.31148326</pennationAngle>
          <tendonSlackLength>0.04099591376507249</tendonSlackLength>
@@ -490,6 +536,7 @@
          <name>bflh_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.09763361048587131</optimalFibreLength>
          <pennationAngle>0.17591823</pennationAngle>
          <tendonSlackLength>0.33261450293598577</tendonSlackLength>
@@ -500,6 +547,7 @@
          <name>bfsh_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.1103</optimalFibreLength>
          <pennationAngle>0.26422317</pennationAngle>
          <tendonSlackLength>0.105817218589115</tendonSlackLength>
@@ -510,6 +558,7 @@
          <name>edl_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.0695314649690221</optimalFibreLength>
          <pennationAngle>0.21825825</pennationAngle>
          <tendonSlackLength>0.3701073045888127</tendonSlackLength>
@@ -520,6 +569,7 @@
          <name>ehl_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07509124956300742</optimalFibreLength>
          <pennationAngle>0.19726811</pennationAngle>
          <tendonSlackLength>0.3280677258253967</tendonSlackLength>
@@ -530,6 +580,7 @@
          <name>fdl_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.04479239255786578</optimalFibreLength>
          <pennationAngle>0.22483915</pennationAngle>
          <tendonSlackLength>0.3804067823267724</tendonSlackLength>
@@ -540,6 +591,7 @@
          <name>fhl_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.052952381885577354</optimalFibreLength>
          <pennationAngle>0.25802551</pennationAngle>
          <tendonSlackLength>0.3560366202101567</tendonSlackLength>
@@ -550,6 +602,7 @@
          <name>gaslat_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06899953335452193</optimalFibreLength>
          <pennationAngle>0.21022682</pennationAngle>
          <tendonSlackLength>0.3739974706462493</tendonSlackLength>
@@ -560,6 +613,7 @@
          <name>gasmed_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.05899826643439535</optimalFibreLength>
          <pennationAngle>0.16568155</pennationAngle>
          <tendonSlackLength>0.3869886289849322</tendonSlackLength>
@@ -570,6 +624,7 @@
          <name>glmax1_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.14764091442922944</optimalFibreLength>
          <pennationAngle>0.35401178</pennationAngle>
          <tendonSlackLength>0.08768062469164443</tendonSlackLength>
@@ -580,6 +635,7 @@
          <name>glmax2_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.15804950325632008</optimalFibreLength>
          <pennationAngle>0.36738206</pennationAngle>
          <tendonSlackLength>0.10972863601871904</tendonSlackLength>
@@ -590,6 +646,7 @@
          <name>glmax3_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.16859365390349135</optimalFibreLength>
          <pennationAngle>0.38241613</pennationAngle>
          <tendonSlackLength>0.10398291228778209</tendonSlackLength>
@@ -600,6 +657,7 @@
          <name>glmed1_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07296849031414411</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.055792739192422315</tendonSlackLength>
@@ -610,6 +668,7 @@
          <name>glmed2_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07309395185502761</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.06533278718348842</tendonSlackLength>
@@ -620,6 +679,7 @@
          <name>glmed3_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07366604500201684</optimalFibreLength>
          <pennationAngle>0.31655591</pennationAngle>
          <tendonSlackLength>0.045645543730230824</tendonSlackLength>
@@ -630,6 +690,7 @@
          <name>glmin1_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06780467123134976</optimalFibreLength>
          <pennationAngle>0.17453293</pennationAngle>
          <tendonSlackLength>0.016091426887322527</tendonSlackLength>
@@ -640,6 +701,7 @@
          <name>glmin2_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.05581205854864462</optimalFibreLength>
          <pennationAngle>0.0</pennationAngle>
          <tendonSlackLength>0.0260114614493626</tendonSlackLength>
@@ -650,6 +712,7 @@
          <name>glmin3_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.03801231043625039</optimalFibreLength>
          <pennationAngle>0.01745329</pennationAngle>
          <tendonSlackLength>0.050888980596530214</tendonSlackLength>
@@ -660,6 +723,7 @@
          <name>grac_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.22785280358954657</optimalFibreLength>
          <pennationAngle>0.17200156</pennationAngle>
          <tendonSlackLength>0.17205368302552043</tendonSlackLength>
@@ -670,6 +734,7 @@
          <name>iliacus_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.10724818180583966</optimalFibreLength>
          <pennationAngle>0.27991397</pennationAngle>
          <tendonSlackLength>0.09670517082185502</tendonSlackLength>
@@ -680,6 +745,7 @@
          <name>perbrev_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.04546772241204501</optimalFibreLength>
          <pennationAngle>0.20523612</pennationAngle>
          <tendonSlackLength>0.14774759828346729</tendonSlackLength>
@@ -690,6 +756,7 @@
          <name>perlong_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.050927263181789355</optimalFibreLength>
          <pennationAngle>0.24795247</pennationAngle>
          <tendonSlackLength>0.33305303569525746</tendonSlackLength>
@@ -700,6 +767,7 @@
          <name>piri_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.02642099717092449</optimalFibreLength>
          <pennationAngle>0.17453293</pennationAngle>
          <tendonSlackLength>0.11676682300678069</tendonSlackLength>
@@ -710,6 +778,7 @@
          <name>psoas_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.11751077636505147</optimalFibreLength>
          <pennationAngle>0.21552513</pennationAngle>
          <tendonSlackLength>0.10006325664256513</tendonSlackLength>
@@ -720,6 +789,7 @@
          <name>recfem_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.07589496091966409</optimalFibreLength>
          <pennationAngle>0.2170149</pennationAngle>
          <tendonSlackLength>0.450370097473211</tendonSlackLength>
@@ -730,6 +800,7 @@
          <name>sart_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.40317711317759497</optimalFibreLength>
          <pennationAngle>0.02613542</pennationAngle>
          <tendonSlackLength>0.12405432648211158</tendonSlackLength>
@@ -740,6 +811,7 @@
          <name>semimem_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.08600816410077051</optimalFibreLength>
          <pennationAngle>0.25456146</pennationAngle>
          <tendonSlackLength>0.3350318020204433</tendonSlackLength>
@@ -750,6 +822,7 @@
          <name>semiten_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.19302028937533883</optimalFibreLength>
          <pennationAngle>0.241295</pennationAngle>
          <tendonSlackLength>0.24722493214724692</tendonSlackLength>
@@ -760,6 +833,7 @@
          <name>soleus_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.044008608709448456</optimalFibreLength>
          <pennationAngle>0.38142888</pennationAngle>
          <tendonSlackLength>0.28140504682734824</tendonSlackLength>
@@ -770,6 +844,7 @@
          <name>tfl_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.09498187399517093</optimalFibreLength>
          <pennationAngle>0.05235988</pennationAngle>
          <tendonSlackLength>0.4494112897447129</tendonSlackLength>
@@ -780,6 +855,7 @@
          <name>tibant_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.06838292955095049</optimalFibreLength>
          <pennationAngle>0.19518281</pennationAngle>
          <tendonSlackLength>0.24075299309957526</tendonSlackLength>
@@ -790,6 +866,7 @@
          <name>tibpost_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.0378391555115759</optimalFibreLength>
          <pennationAngle>0.22648907</pennationAngle>
          <tendonSlackLength>0.28107046228135374</tendonSlackLength>
@@ -800,6 +877,7 @@
          <name>vasint_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.117</optimalFibreLength>
          <pennationAngle>0.06309973</pennationAngle>
          <tendonSlackLength>0.205</tendonSlackLength>
@@ -810,6 +888,7 @@
          <name>vaslat_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.117</optimalFibreLength>
          <pennationAngle>0.25286729</pennationAngle>
          <tendonSlackLength>0.221</tendonSlackLength>
@@ -820,6 +899,7 @@
          <name>vasmed_l</name>
          <c1>-0.5</c1>
          <c2>-0.5</c2>
+         <shapeFactor>0.1</shapeFactor>
          <optimalFibreLength>0.11</optimalFibreLength>
          <pennationAngle>0.42222253</pennationAngle>
          <tendonSlackLength>0.208</tendonSlackLength>
@@ -871,9 +951,9 @@
    </dofSet>
    <calibrationInfo>
       <uncalibrated>
-         <subjectID>Athlete_03_scaled_increased_3.00</subjectID>
+         <subjectID>scaled_increased_3.00</subjectID>
          <additionalInfo>TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese</additionalInfo>
       </uncalibrated>
    </calibrationInfo>
-   <opensimModelFile>..\..\..\Athlete_03\22_07_06\Athlete_03_scaled_increased_3.00.osim</opensimModelFile>
+   <opensimModelFile>C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\22_07_06\scaled_increased_3.00.osim</opensimModelFile>
 </subject>
