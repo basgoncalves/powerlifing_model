@@ -5,7 +5,7 @@ SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katy
 SESSIONS_TO_ANALYSE = ['22_07_06'] # '22_07_06' \25_03_31 
 TRIALS_TO_ANALYSE =  ['sq_70'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
-CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0]
+CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
 MODEL_NAME = 'scaled_increased_3.00.osim'
 
@@ -43,7 +43,9 @@ class Inputs:
         self.CEINMS_CALIBRATION_CFG = '..\calibrationCfg_ceinms-nn_hybrid.xml'
         self.CEINMS_CALIBRATION_SETUP = '..\calibrationSetup_ceinms-nn_hybrid.xml'
         self.CEINMS_INPUT_DATA = 'inputData.xml'
-        self.CEINMS_EXCITATION_GENERATOR = 'excitationGenerator.xml'
+        self.CEINMS_EXCITATION_GENERATOR = '..\excitationGenerator.xml'
+        
+        self.CEINMS_OPTIMISATION_SETUP = 'optimisationSetup.xml'
         
         
         # setups 
@@ -57,7 +59,7 @@ class Inputs:
         
         if parentdir:
             for attr, filename in self.__dict__.items():
-                setattr(self, attr, Path(parentdir) / filename)
+                setattr(self, attr, os.path.join(parentdir, filename))
 
     def check(self, parentdir):
         fileExist = {}
@@ -80,6 +82,7 @@ class Outputs:
         self.SO_forces = 'SO_StaticOptimization_force.sto'
         self.SO_activations = 'SO_StaticOptimization_activation.sto'
         self.JRA = 'Analyse_JRA_ReactionLoads.sto'
+        self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
 
         if parentdir:
             for attr, filename in self.__dict__.items():
@@ -87,17 +90,8 @@ class Outputs:
                       
 class CEINMSParameters:
     def __init__(self):
-        self.optimiser = 'ceinms-nn-optimiser'
-        self.hybridCalibration = True
-        self.numberOfSynergies = 6
-        self.maxIterations = 1000
-        self.learningRate = 0.02
-        self.learningRateDecay = 0.99
-        self.minLearningRate = 0.0001
-        self.earlyStopping_minImprovement = 0.1
-        self.earlyStopping_patience = 20
-        self.tendon_type = 'elastic'
-        self.calibration_trials = CEINMS_CALIBRATION_TRIALS
+        self.hybridCalibration = 'true'
+        self.numberOfSynergies = 8
                
 class Execute:
     def __init__(self):
@@ -113,12 +107,17 @@ class Execute:
         self.SO = False
         self.JRA = False
         self.EMG_NORMALISE = False
+        
         self.CREATE_CEINMS_FILES = True
-        self.CEINMS_CALIBRATION = False
+        self.CREATE_CEINMS_MODEL = False
+        
+        self.CEINMS_CALIBRATION = True
         self.CEINMS_OPTIMISATION = False
         
+        self.CREATE_PLOTS = False
+        
         self.push_to_git = False
-
+        
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',
                 'hip_rotation_l', 'hip_rotation_r',
@@ -177,7 +176,7 @@ EMG_muscle_mapping = {
     'Voltage_EMG3_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
     'Voltage_EMG5_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
     'Voltage_EMG7_glut_max_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
-    'Voltage_EMG9_gast_med_l': ['gaslat_l', 'gasmed_l', 'soleus_l'],
+    'Voltage_EMG9_gast_med_l': [],
     'Voltage_EMG13_add_mag_l': [],
 
     # Right Leg Muscles
@@ -185,7 +184,7 @@ EMG_muscle_mapping = {
     'Voltage_EMG4_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
     'Voltage_EMG6_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
     'Voltage_EMG8_glut_max_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
-    'Voltage_EMG10_gast_med_r': ['gaslat_r', 'gasmed_r', 'soleus_r'],
+    'Voltage_EMG10_gast_med_r': [],
     'Voltage_EMG14_add_mag_r': []
 }
 

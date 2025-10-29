@@ -140,26 +140,20 @@ def main(trial: utils.Trial, replace: bool = False):
 
     # Run Joint Reaction Analysis
     if settings.Execute().JRA:
-        if True:
-            try:
-                
-                run_jra.main(modelpath=str(trial.inputFiles.osimModel),
-                             coordinates_file=str(trial.outputFiles.IK),
-                             externalloadsfile=str(trial.setupFiles.GRF),
-                             setupJRA=str(trial.setupFiles.JRA),
-                             actuators=None,
-                             muscle_force_path=str(trial.outputFiles['FORCES_SO'].abspath()),
-                             results_directory=os.path.dirname(trial.outputFiles['JRA'].abspath()))
+        try:
+            run_jra.main(modelpath=str(trial.modelPath),
+                            coordinates_file=str(trial.outputFiles.IK),
+                            externalloadsfile=str(trial.inputFiles.setupGRF),
+                            setupJRA=str(trial.inputFiles.setupJRA),
+                            actuators=None,
+                            muscle_force_path=str(trial.outputFiles.SO_forces),
+                            results_directory=os.path.dirname(trial.outputFiles.JRA))  
 
-                ouput_files = trial.outputFiles['JRA'].abspath()
-                utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {ouput_files}')
+            output_files = trial.outputFiles.JRA
+            utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {output_files}')
 
-            except Exception as e:
-                utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
-
-        if False:
-            run_jra.run_jra_setup(modelpath=trial.USED_MODEL,
-                                setupJRA=trial.SETUP_JRA)
+        except Exception as e:
+            utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
 
     # Normalise EMG data
     if settings.Execute().EMG_NORMALISE:
@@ -184,44 +178,28 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(trial.inputFiles.CEINMS_CALIBRATED_MODEL) or replace):
         
         # create CEINMS model file
-        try:
-            ceinms.create_ceinms_model(osimModelPath=trial.modelPath,
-                                       savePath=trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)
-
-            utils.print_to_log(f'CEINMS model file created successfully: {trial.inputFiles.CEINMS_UNCALIBRATED_MODEL}')
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS model file: {e}')
-        
+        if settings.Execute().CREATE_CEINMS_MODEL:
+            try:
+                trial.create_ceinms_model()
+            except Exception as e:
+                utils.print_to_log(f'Error creating CEINMS model file: {e}')
+            
         # create CEINMS input data XML file
         try:
             trial.create_ceinms_input_data()
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS input data file: {e}')
-          
+        
         # create CEINMS calibration cfg XML file
         try:
-            input_paths = []
-            for trial in settings.CEINMSParameters().calibration_trials:
-                input_paths.append(trial + os.path.sep + settings.Inputs().CEINMS_INPUT_DATA)
-            
-            ceinms.create_calibrationCfg(osimModelPath=trial.modelPath,
-                                        inputPaths=input_paths,
-                                        outputPath=trial.inputFiles.CEINMS_CALIBRATION_CFG)
-            
-            utils.print_to_log(f'CEINMS calibration cfg file created successfully: {save_path}')
+            trial.create_ceinms_calibration_gfc()
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')
 
         # create CEINMS excitation generator XML file
         try:
-            save_path = os.path.join(os.path.dirname(trial.path), settings.Inputs().CEINMS_EXCITATION_GENERATOR)
-            
-            ceinms.create_excitation_mapping(
-                osim_model_path=trial.modelPath,
-                emg_path=trial.inputFiles.CEINMS_EXCITATIONS,
-                save_path=save_path
-            )
-            utils.print_to_log(f'Excitation generator file created successfully: {save_path}')
+            trial.create_excitation_generator()
+            utils.print_to_log(f'Excitation generator file created successfully: {trial.inputFiles.CEINMS_EXCITATION_GENERATOR}')
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
             
@@ -234,23 +212,41 @@ def main(trial: utils.Trial, replace: bool = False):
  
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION:
-        utils.print_to_log(f'Running CEINMS calibration on: {trial.subject} / {trial.name}')
+        
         try:
-            ceinms.calibrate(setupXML_path=trial.setupFiles.CEINMS_CALIBRATION_SETUP)
+            start_time = time.time()
+            ceinms.calibrate(setupXML_path=trial.inputFiles.CEINMS_CALIBRATION_SETUP)
+            
+            # if date modified of calibrated model is after start time, assume success
+            mod_time = os.path.getmtime(trial.inputFiles.CEINMS_CALIBRATED_MODEL)
+            if mod_time >= start_time:
+                utils.print_to_log(f'CEINMS calibration completed successfully in {end_time - start_time:.2f} seconds.')
+            else:
+                utils.print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
+                
         except Exception as e:
             print(f"Error during CEINMS calibration: {e}")
             utils.print_to_log(f'Error during CEINMS calibration: {e}')
 
-    # CEINMS optimization
+    # CEINMS optimisation
     if settings.Execute().CEINMS_OPTIMISATION:
-        utils.print_to_log(f'Running CEINMS optimization on: {trial.subject} / {trial.name}')
+        utils.print_to_log(f'Running CEINMS optimisation on: {trial.subject} / {trial.name}')
         try:
-            run_ceinms_optimise.main(trial.inputFiles['CEINMS_OPTIMISE_SETUP'].abspath())
-            utils.print_to_log(f'CEINMS optimization completed successfully.')
+            ceinms.optimise(setupXML_path=trial.inputFiles.CEINMS_OPTIMISATION_SETUP)
+            utils.print_to_log(f'CEINMS optimisation completed successfully.')
         except Exception as e:
-            print(f"Error during CEINMS optimization: {e}")
-            utils.print_to_log(f'Error during CEINMS optimization: {e}')
+            print(f"Error during CEINMS optimisation: {e}")
+            utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 
+    if settings.Execute().CREATE_PLOTS:
+        try:
+            print('To be implemented: plotting function')
+            utils.print_to_log(f'Plots created successfully for: {trial.subject} / {trial.name}')
+        except Exception as e:
+            print(f"Error during plotting: {e}")
+            utils.print_to_log(f'Error during plotting: {e}')
+        
+        
 def compare_trials(trial1: utils.Trial, trial2: utils.Trial):
 
     if True:

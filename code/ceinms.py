@@ -21,7 +21,8 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     """
     if not osimModelPath:
         osimModelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
-        
+    
+    print(f"Creating CEINMS model from OpenSim model")
     # Load the OpenSim model
     model = osim.Model(osimModelPath)
     model.initSystem()
@@ -136,12 +137,12 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     
     if not outputCEINMSModelPath:
         outputCEINMSModelPath = osimModelPath.replace('.osim', '.xml')
-        
+
     utils.save_pretty_xml(tree, outputCEINMSModelPath)
 
     print(f"CEINMS subject file created: {outputCEINMSModelPath}")
 
-def create_excitation_mapping(osim_model_path=None, emg_path=None, save_path=None):
+def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=None):
     """
     Create an excitation mapping from OpenSim model muscles to EMG data.
     
@@ -154,13 +155,13 @@ def create_excitation_mapping(osim_model_path=None, emg_path=None, save_path=Non
     """
     import settings
     if not osim_model_path:
-        osim_model_path = settings.osimModelPath
+        osim_model_path = input("Enter path to OpenSim model (.osim): ").strip('"')
         
     if not emg_path:
-        emg_path = settings.emgPath
+        emg_path = input("Enter path to EMG data file (.sto/.csv): ").strip('"')
         
     if not save_path:
-        save_path = settings.excitationGeneratorPath
+        save_path = input("Enter path to save the excitation mapping XML file: ").strip('"')
     
     osim_model = osim.Model(osim_model_path)
     muscles = osim_model.getMuscles()
@@ -220,147 +221,106 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     Returns:
         ET.Element: Root XML element
     """
-    
+    import settings
     if not osimModelPath: 
-        osimModelPath = settings.osimModelPath
-        
+        osimModelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
+    
     if not inputPaths:
-        inputPaths = settings.inputPaths
+        inputPaths = settings.CEINMS_CALIBRATION_TRIALS
 
     if not outputPath:
         outputPath = input("Enter path to save the calibration configuration XML file: ")
-        
-    # make paths relative to outputPath
-    outputPathParent = os.path.dirname(outputPath)
-    inputPaths = [os.path.relpath(p, outputPathParent) for p in inputPaths]
-
-    # Create root element
-    root = ET.Element("calibration")
-        
-    optimiser_types = {'earlyStopping': {
-        'minImprovement': 0.1,
-        'patience': 20
-    }, 'learningRateDecay': {
-        'enabled': True,    
-        'patience': 50,
-        'minDelta': 1e-6
-    }}
     
-    model = osim.Model(osimModelPath)
-    muscles = model.getMuscles()
-    muscle_names = [muscles.get(i).getName() for i in range(muscles.getSize())]
+    template_cfg = os.path.join(settings.SETUP_DIR, os.path.basename(settings.Inputs().CEINMS_CALIBRATION_CFG))
     
-    forceSet = model.getForceSet()
+    # read template to get structure
+    tree = ET.parse(template_cfg)
+    root = tree.getroot()
     
-    muscleGroups = {}
-    for i in range(forceSet.getNumGroups()):
-        group = forceSet.getGroup(i)
-        group_name = group.getName()
-        members = group.getMembers()
-        breakpoint()
-        for j in range(members.getSize()):
-            breakpoint()
-            muscles = members.get(j)
-    
-    # Merge with provided config
-    settings = {'optimiser': {
-                          'hybridCalibration': True,
-                          'learningRate': 0.02,
-                          'maxIterations': 1000,
-                          'numberOfSynergies': 6,
-                          'earlyStopping': optimiser_types['earlyStopping'],
-                          'tendon': 'elastic',
-                          'numberOfSynergies': 6
-               },
-                'calibrationTargets': {
-                    'parametersToCalibrate': {
-                        'c1': '-0.95 -0.05',
-                        'c2': '-0.95 -0.05',
-                        'shapefactor': '-2.999 -0.001',
-                        'optimalFiberLength': '0.95 1.05',
-                        'tendonSlackLength': '0.95 1.05',
-                        'strengthCoefficient': '0.5 3.5',
-                        'muscleGroups': muscles
-                    },
-                    'objectiveFunctions': {
-                        'MomentError': {
-                            'targets': 'all',
-                            'weight': '1'
-                        },
-                        'Penalty': {
-                            'targetType': 'normalisedFibreLength',
-                            'weight': '1000',
-                            'exponent': '2',
-                            'range': [0.5, 1.5]
-                        },
-                        'Penalty': {
-                            'targetType': 'tendonStrain',
-                            'weight': '1000',
-                            'exponent': '2',
-                            'range': [0.0, 0.5]
-                        },
-                        'ExcitationsSquared': {
-                            'weight': '1'
-                        },
-                        'SynergyExtraction': {
-                            'mseWeight': '100',
-                            'range': [0.0, 1.0],
-                            'rangeExponent': '2',
-                            'rangeWeight': '1000'
-                        }
-                    },
-                    'muscles': 'all'
-                },
-                'trialSet': ' '.join(inputPaths)
-    }
-    
-    for key, value in settings.items():
-        elem = ET.SubElement(root, key)
-        if isinstance(value, dict):
-            for subkey, subvalue in value.items():
-                subelem = ET.SubElement(elem, subkey)
-                subelem.text = str(subvalue)
-        else:
+    for param in settings.CEINMSParameters().__dict__.items():
+        tag, value = param
+        for elem in root.findall(f'.//{tag}'):
             elem.text = str(value)
+
+    # trialSet
+    trialSet = root.find('trialSet')
+    trialSet.text = ' '.join(inputPaths) 
     
+    # edit muscleGroups
+    muscleGroups = root.find('calibrationTargets').find('parametersToCalibrate').find('muscleGroups')
+    muscleGroups.clear()
+    for group, muscles in settings.Muscle_Groups.items():
+        muscleGroup = ET.SubElement(muscleGroups, 'muscles')
+        muscleGroup.text = ' '.join(muscles)
+
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, outputPath)
+    print(f"Calibration configuration XML saved to: {outputPath}")
 
     return root
 
-def create_calibrationSetupXML(calibrationCfgPath=None, outputPath=None):
-
+def create_calibrationSetupXML(uncalibratedCEINMSModelPath=None, 
+                               excitationGeneratorFile=None,
+                               calibrationCfgPath=None,
+                               outputSubjectFile =None, 
+                               outputDirectory=None,
+                               setupXMLPath=None):
+    
+    if not uncalibratedCEINMSModelPath:
+        uncalibratedCEINMSModelPath = input("Enter path to uncalibrated CEINMS model file: ").strip('"')
+    
     if not calibrationCfgPath:
         calibrationCfgPath = input("Enter path to calibration config file: ").strip('"')
-
+    
+    if not excitationGeneratorFile:
+        excitationGeneratorFile = input("Enter path to excitation generator file: ").strip('"')
+    
+    if not outputSubjectFile:
+        outputSubjectFile = uncalibratedCEINMSModelPath.replace('.xml', '_calibrated.xml')
+        
+    if not outputDirectory:
+        outputDirectory = os.path.join(os.path.dirname(calibrationCfgPath), 'calibrationOutput')
+    
     root = ET.Element("ceinmsCalibration")
 
+    setupXMLPathDir = os.path.dirname(setupXMLPath)
+    
     subjectFile = ET.SubElement(root, "subjectFile")
-    subjectFile.text = settings.Outputs().CEINMS_UNCALIBRATED_MODEL
+    subjectFile.text = os.path.relpath(uncalibratedCEINMSModelPath, setupXMLPathDir)
     
-    excitationGeneratorFile = ET.SubElement(root, "excitationGeneratorFile")
-    excitationGeneratorFile.text = settings.excitationGeneratorPath
-    
+    excitationGeneratorFileTag = ET.SubElement(root, "excitationGeneratorFile")
+    excitationGeneratorFileTag.text = os.path.relpath(excitationGeneratorFile, setupXMLPathDir)
+
     calibrationFile = ET.SubElement(root, "calibrationFile")
-    calibrationFile.text = settings.SetupFiles().CEINMS_CALIBRATION_CFG
-    
-    outputSubjectFile = ET.SubElement(root, "outputSubjectFile")
-    outputSubjectFile.text = settings.Outputs().CEINMS_CALIBRATED_MODEL
-    
-    outputDirectory = ET.SubElement(root, "outputDirectory")
-    outputDirectory.text = settings.Outputs().CEINMS_CALIBRATION_OUTPUT
+    calibrationFile.text = os.path.relpath(calibrationCfgPath, setupXMLPathDir)
 
+    outputSubjectFileTag = ET.SubElement(root, "outputSubjectFile")
+    outputSubjectFileTag.text = os.path.relpath(outputSubjectFile, setupXMLPathDir)
+
+    outputDirectoryTag = ET.SubElement(root, "outputDirectory")
+    outputDirectoryTag.text = os.path.relpath(outputDirectory, setupXMLPathDir)
+    
     tree = ET.ElementTree(root)
-    utils.save_pretty_xml(tree, outputPath)
+    utils.save_pretty_xml(tree, setupXMLPath)
 
-def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, externalTorquesFile=None, 
-                      externalLoadsFile=None, startStopTime=None):
+def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, externalTorquesFile=None, startStopTime=None):
     
     if not MAFolder:
-        MAFolder = settings.Outputs().MA
-        
+        MAFolder = input("Enter path to Muscle Analysis folder: ").strip('"')
+
     if not excitationsFile:
-        excitationsFile = settings.Inputs().CEINMS_EXCITATIONS
+        excitationsFile = input("Enter path to excitations file: ").strip('"')
+    
+    if not motionFile:
+        motionFile = input("Enter path to motion file: ").strip('"')
+        
+    if not externalTorquesFile:
+        externalTorquesFile = input("Enter path to external torques file: ").strip('"')
+        
+    if not startStopTime:
+        start_time = float(input("Enter start time: ").strip())
+        stop_time = float(input("Enter stop time: ").strip())
+        startStopTime = (start_time, stop_time) 
     
     fp = os.path.sep
 
@@ -369,7 +329,7 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
     muscle_length_elem.text = str(MAFolder) + fp + '_MuscleAnalysis_Length.sto'
 
     excitations_elem = ET.SubElement(root, "excitationsFile")
-    excitations_elem.text = excitationsFile
+    excitations_elem.text = (excitationsFile)
     
     # Add moment arms files 
     moment_arms = ET.SubElement(root, "momentArmsFiles")
@@ -380,15 +340,15 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
         dof_elem.text = str(MAFolder) + fp + f'_MuscleAnalysis_MomentArm_{dof}.sto'
 
     external_torques_elem = ET.SubElement(root, "externalTorquesFile")
-    external_torques_elem.text = settings.Outputs().ID
+    external_torques_elem.text = externalTorquesFile
     
     motion_elem = ET.SubElement(root, "motionFile")
-    motion_elem.text = settings.Outputs().IK
+    motion_elem.text = motionFile
     
     startStop_elem = ET.SubElement(root, "startStopTime")
-    startStop_elem.text = f"{timeRange[0]} {timeRange[1]}"
+    startStop_elem.text = f"{startStopTime[0]} {startStopTime[1]}"
     
-    savePath = os.path.join(trialPath, 'inputData.xml')
+    savePath = os.path.join(os.path.dirname(MAFolder), 'inputData.xml')
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, savePath)
 
@@ -467,9 +427,8 @@ if __name__ == "__main__":
     
     LocalFuncs = [f for f in dir() if callable(globals()[f])]
     print("Available commands:", LocalFuncs)
-    
-    os.chdir(settings.trialPath)
 
+    # Command loop
     while True:
         command = input("Enter command: ")
 
@@ -477,9 +436,9 @@ if __name__ == "__main__":
             print("Invalid command. Please try again.")
             continue
 
-        for func_name in LocalFuncs:
-            if command == func_name:
-                globals()[func_name]()
-                break
+        try:
+            globals()[command]()
+        except Exception as e:
+            print(f"Error executing {command}: {e}")
         
         

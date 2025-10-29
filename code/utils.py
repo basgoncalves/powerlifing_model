@@ -30,9 +30,21 @@ import settings
 import ceinms
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
- 
+
 class Trial():
-    def __init__(self, subject_name, session_name, trial_name):
+    '''
+    Contains paths from the user settings and functions to implement in the OpenSim/Ceinms analysis
+    
+    subject_name: Name of the subject (or the trial path if session_name and trial_name are None)
+    '''
+    def __init__(self, subject_name, session_name=None, trial_name=None):
+
+        if not os.path.exists(subject_name) and (session_name is None or trial_name is None):
+            raise ValueError("Both session_name and trial_name must be provided or a valid trial path.")
+        elif os.path.exists(subject_name):
+            trial_name = os.path.basename(subject_name)
+            session_name = os.path.basename(os.path.dirname(subject_name))
+            subject_name = os.path.basename(os.path.dirname(os.path.dirname(subject_name)))
           
         self.subject = subject_name 
         self.session = session_name
@@ -46,9 +58,9 @@ class Trial():
         
         self.inputFiles = settings.Inputs(parentdir=self.path)
         self.outputFiles = settings.Outputs(parentdir=self.path)
-               
+           
     def reset(self):
-       # loop through output files and delete them if they exist
+        '''Delete all output files for the trial. Outputs set in settings.Outputs() '''
         for key, step in self.outputFiles.items():
             if step.output:
                 output_path = os.path.join(self.path, step.output)
@@ -62,6 +74,35 @@ class Trial():
                 else:
                     print(f"Output file does not exist, nothing to delete: {output_path}")
     
+    def load_inputs(self):
+        """Load all input files for the trial into dataframes."""
+        for key, step in self.inputFiles.items():
+            input_path = os.path.join(self.path, step)
+            if os.path.exists(input_path):
+                try:
+                    data = pd.read_csv(input_path, delim_whitespace=True)
+                    setattr(self, key.lower(), data)
+                    print(f"Loaded input file: {input_path}")
+                except Exception as e:
+                    print(f"Error loading input file {input_path}: {e}")
+            else:
+                print(f"Input file does not exist: {input_path}")
+    
+    def load_outputs(self):
+        """Load all output files for the trial into dataframes."""
+        for key, step in self.outputFiles.__dict__.items():
+        
+            output_path = os.path.join(self.path, step)
+            if os.path.exists(output_path):
+                try:
+                    data = load_any_data_file(output_path)
+                    setattr(self, key.lower(), data)
+                    print(f"Loaded output file: {output_path}")
+                except Exception as e:
+                    print(f"Error loading output file {output_path}: {e}")
+            else:
+                print(f"Output file does not exist: {output_path}")
+
     def print_settings(self):
         """Print the paths for debugging."""
         print("CODE:", paths.CODE)
@@ -119,15 +160,18 @@ class Trial():
             return self.TIME_RANGE
         
     def check_paths(self):
-        """Loop through all subjects sessions and trials and run_ik 
-        for each trial. or print error to log if could not run."""
-        for subject in self.subjects:
-            for session in subject.sessions:
-                for trial in session.trials:
-                    try:
-                        self.run_ik(trial)
-                    except Exception as e:
-                        print_to_log(f"Error running IK for {trial}: {e}")
+        """Check if all input and output file paths exist."""
+        for key, step in self.inputFiles.items():
+            if step.input:
+                input_path = os.path.join(self.path, step.input)
+                if not os.path.exists(input_path):
+                    print(f"Input file does not exist: {input_path}")
+        
+        for key, step in self.outputFiles.items():
+            if step.output:
+                output_path = os.path.join(self.path, step.output)
+                if not os.path.exists(output_path):
+                    print(f"Output file does not exist: {output_path}")
 
     def validate_markers_used(ikTool: osim.InverseKinematicsTool, markers_path: str):
         task_set = ikTool.get_IKTaskSet()
@@ -152,12 +196,12 @@ class Trial():
             factor (float): Factor to increase muscle force by. Default is 1.5.
             replace (bool): Whether to replace existing modified model. Default is False.
         """
-        if not os.path.exists(self.USED_MODEL):
-            print(f"Scaled model not found: {self.USED_MODEL}")
+        if not os.path.exists(self.modelPath):
+            print(f"Scaled model not found: {self.modelPath}")
             return
-        
-        new_model_path = self.USED_MODEL.replace('.osim', f'_increased_{factor:.2f}.osim')
-        
+
+        new_model_path = self.modelPath.replace('.osim', f'_increased_{factor:.2f}.osim')
+
         if os.path.exists(new_model_path) and not replace:
             print(f"Modified model already exists: {new_model_path}")
             self.USED_MODEL = new_model_path
@@ -346,48 +390,32 @@ class Trial():
                                    outputCEINMSModelPath=settings.outputCEINMSModelPath)
     
     def create_ceinms_input_data(self):
-        
         ceinms.create_input_data(MAFolder=self.outputFiles.MA,
                                   excitationsFile=self.inputFiles.CEINMS_EXCITATIONS,
                                   motionFile=self.outputFiles.IK,
                                   externalTorquesFile=self.outputFiles.ID,
-                                  externalLoadsFile=self.inputFiles.GRF_MOT,
                                   startStopTime=self.TIME_RANGE)
     
     def create_ceinms_calibration_gfc(self):
         """
         Create ceinms_cfg_calibration.xml for CEINMS calibration.
         """
-        import xml.etree.ElementTree as ET
         
-        output_file = self.inputFiles['CEINMS_CALIBRATION_CFG'].abspath()
+        inputPaths = []
+        for trial_name in settings.CEINMS_CALIBRATION_TRIALS:
+            filepath = os.path.join(self.parentdir, trial_name, settings.Inputs().CEINMS_INPUT_DATA)
+            inputPaths.append(os.path.relpath(filepath, self.parentdir))
         
-        # Create the XML structure
-        execution = ET.Element('execution')
+        ceinms.create_calibrationCfg(osimModelPath=self.modelPath,
+                                     inputPaths=inputPaths,
+                                     outputPath=self.inputFiles.CEINMS_CALIBRATION_CFG)
+
+    def create_excitation_generator(self):
         
-        nms_model = ET.SubElement(execution, 'NMSmodel')
-        type_elem = ET.SubElement(nms_model, 'type')
-        hybrid = ET.SubElement(type_elem, 'hybrid')
-        
-        # Add hybrid parameters
-        ET.SubElement(hybrid, 'alpha').text = '1'
-        ET.SubElement(hybrid, 'beta').text = '4'
-        ET.SubElement(hybrid, 'gamma').text = '120'
-        
-        # Add tendon section
-        tendon = ET.SubElement(nms_model, 'tendon')
-        equilibrium = ET.SubElement(tendon, 'equilibriumElastic')
-        ET.SubElement(equilibrium, 'tolerance').text = '1e-09'
-        
-        # Add activation section
-        activation = ET.SubElement(nms_model, 'activation')
-        ET.SubElement(activation, 'exponential')
-        
-        # Create tree and write to file
-        tree = ET.ElementTree(execution)
-        save_pretty_xml(tree, output_file)
-        
-        print(f"Created {output_file}")
+        ceinms.create_excitation_generator(osim_model_path=self.modelPath,
+                                           emg_path=self.inputFiles.CEINMS_EXCITATIONS,
+                                           save_path=self.inputFiles.CEINMS_EXCITATION_GENERATOR
+        )
     
     def create_ceinms_cfg_from_excitation_generator(self):
         """
@@ -483,10 +511,14 @@ class Trial():
         print(f"adjustMTUs: {len(adjust_mtus)} muscles")
     
     def create_ceinms_calibration_setup(self):
-        ceinms.create_calibrationSetupXML(calibrationCfgPath=self.inputFiles.CEINMS_CALIBRATION_CFG,
-                                          outputPath=self.inputFiles.CEINMS_CALIBRATION_SETUP)
-                                          
-    
+        
+        ceinms.create_calibrationSetupXML(uncalibratedCEINMSModelPath=self.inputFiles.CEINMS_UNCALIBRATED_MODEL,
+                                           excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR,
+                                           calibrationCfgPath=self.inputFiles.CEINMS_CALIBRATION_CFG,
+                                           outputSubjectFile=self.inputFiles.CEINMS_CALIBRATED_MODEL,
+                                           outputDirectory=self.outputFiles.CEINMS_CALIBRATION_DIR,
+                                           setupXMLPath=self.inputFiles.CEINMS_CALIBRATION_SETUP)
+
     def run_ceinms_calibration(self):
         print_to_log(f"Running CEINMS calibration for {self.subject}, {self.session}, {self.name}")
         
@@ -530,7 +562,6 @@ class Subject():
             if session.name == session_name:
                 return session
         return None
-
 
 def print_to_log(message):
     """
@@ -1039,6 +1070,29 @@ def read_xml(path):
     except Exception as e:
         print(f"Error reading the file at {path}: {e}")
         return None
+
+def dict_to_xml(parent_elem, data_dict):
+    """
+    Convert nested dictionary to XML elements recursively.
+    Each dictionary key becomes an XML tag, handles unlimited nesting depth.
+    """
+    for key, value in data_dict.items():
+        elem = ET.SubElement(parent_elem, key)
+
+        if isinstance(value, dict):
+            # Recursive call for nested dictionaries
+            dict_to_xml(elem, value)
+        elif isinstance(value, list):
+            # Handle lists - each item becomes a separate element with same tag
+            for item in value:
+                if isinstance(item, dict):
+                    dict_to_xml(elem, item)
+                else:
+                    item_elem = ET.SubElement(elem, "item")
+                    item_elem.text = str(item)
+        else:
+            # If value is not a dict or list, set it as text content
+            elem.text = str(value)
 
 def save_pretty_xml(tree, save_path):
             """Saves the XML tree to a file with proper indentation and no blank lines."""
