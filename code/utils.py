@@ -394,6 +394,7 @@ class Trial():
                                   excitationsFile=self.inputFiles.CEINMS_EXCITATIONS,
                                   motionFile=self.outputFiles.IK,
                                   externalTorquesFile=self.outputFiles.ID,
+                                  externalLoadsFile=self.inputFiles.setupGRF,
                                   startStopTime=self.TIME_RANGE)
     
     def create_ceinms_calibration_gfc(self):
@@ -528,10 +529,22 @@ class Trial():
         run_ceinms_calibration.main(calibration_setup=calibrationSetupPath,
                                     osimModel_path=self.USED_MODEL,
                                     update_setupFiles=True)
-              
+    
+    def create_ceinms_optimise_setup(self):
+        ceinms.create_optimise_setupXML(ceinmsModelPath=self.inputFiles.CEINMS_CALIBRATED_MODEL, 
+                            inputDataFile=self.inputFiles.CEINMS_INPUT_DATA,
+                             calibrationCfgPath=self.inputFiles.CEINMS_OPTIMISE_CFG,
+                             excitationGeneratorFilePath=self.inputFiles.CEINMS_EXCITATION_GENERATOR,
+                             outputDirectory=self.outputFiles.CEINMS_OPTIMISATION_DIR,
+                             setupXMLPath=self.inputFiles.CEINMS_OPTIMISE_SETUP)
+
+    def create_ceinms_optimise_cfg(self):
+
+        ceinms.create_optimise_cfg(outputXML_path=self.inputFiles.CEINMS_OPTIMISE_CFG,
+                                   excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR)
 class Session():
     def __init__(self, subject_name, session_name):
-        self.subject = subject_name
+        self.subject = subject_name 
         self.name = session_name
         self.path = os.path.join(paths.SIMULATION_DIR, self.subject, self.name)
         

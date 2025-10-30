@@ -303,7 +303,9 @@ def create_calibrationSetupXML(uncalibratedCEINMSModelPath=None,
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, setupXMLPath)
 
-def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, externalTorquesFile=None, startStopTime=None):
+def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, 
+                      externalTorquesFile=None, externalLoadsFile=None,
+                      startStopTime=None):
     
     if not MAFolder:
         MAFolder = input("Enter path to Muscle Analysis folder: ").strip('"')
@@ -316,6 +318,9 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
         
     if not externalTorquesFile:
         externalTorquesFile = input("Enter path to external torques file: ").strip('"')
+    
+    if not externalLoadsFile:
+        externalLoadsFile = input("Enter path to external loads file: ").strip('"')
         
     if not startStopTime:
         start_time = float(input("Enter start time: ").strip())
@@ -335,7 +340,7 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
     moment_arms = ET.SubElement(root, "momentArmsFiles")
     
     for dof in settings.DOFs:
-        dof_elem = ET.SubElement(moment_arms, "momentArmFile")
+        dof_elem = ET.SubElement(moment_arms, "momentArmsFile")
         dof_elem.set("dofName", dof)
         dof_elem.text = str(MAFolder) + fp + f'_MuscleAnalysis_MomentArm_{dof}.sto'
 
@@ -345,6 +350,9 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
     motion_elem = ET.SubElement(root, "motionFile")
     motion_elem.text = motionFile
     
+    external_loads_elem = ET.SubElement(root, "externalLoadsFile")
+    external_loads_elem.text = externalLoadsFile
+    
     startStop_elem = ET.SubElement(root, "startStopTime")
     startStop_elem.text = f"{startStopTime[0]} {startStopTime[1]}"
     
@@ -352,6 +360,7 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None, exte
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, savePath)
 
+# CEINMS calibration functions
 def calibrate(setupXML_path=None):
     
     if not setupXML_path:
@@ -390,6 +399,164 @@ def calibrate(setupXML_path=None):
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
 
+def plot_calibration_results(uncalibratedModelPath=None, calibratedModelPath=None):
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    
+    if not uncalibratedModelPath:
+        uncalibratedModelPath = input("Enter path to uncalibrated CEINMS model file: ").strip('"')
+
+    if not calibratedModelPath:
+        calibratedModelPath = input("Enter path to calibrated CEINMS model file: ").strip('"')
+
+
+    def load_muscle_forces(modelPath):
+        root = ET.parse(modelPath).getroot()
+        mtus = root.find('mtuSet').findall('mtu')
+        
+        # turn into DataFrame
+        columns  = mtus[0].items()
+        data = {}
+        for mtu in mtus:    
+            name = mtu.find('name').text
+            data[name] = {}
+            for col in columns:
+                data[name][col[0]] = mtu.find(col[0]).text
+        df = pd.DataFrame.from_dict(data, orient='index')
+        return df
+
+    uncalibrated_forces = load_muscle_forces(uncalibratedModelPath)
+    calibrated_forces = load_muscle_forces(calibratedModelPath)
+    
+    muscle_names = uncalibrated_forces.index.tolist()
+    breakpoint()
+    for muscle in muscle_names:
+        plt.figure()
+        plt.plot(uncalibrated_forces['time'], uncalibrated_forces[muscle], label='Uncalibrated')
+        plt.plot(calibrated_forces['time'], calibrated_forces[muscle], label='Calibrated')
+        plt.title(f'Muscle Force: {muscle}')
+        plt.xlabel('Time (s)')
+        plt.ylabel('Force (N)')
+        plt.legend()
+        plt.show()
+        
+# Optimisation functions
+def create_optimise_setupXML(ceinmsModelPath=None, 
+                            inputDataFile=None,
+                             calibrationCfgPath=None,
+                             excitationGeneratorFilePath=None,
+                             outputDirectory=None,
+                             setupXMLPath=None):
+
+    if not ceinmsModelPath:
+        ceinmsModelPath = input("Enter path to CEINMS model file: ").strip('"')
+
+    if not inputDataFile:
+        inputDataFile = input("Enter path to input data file: ").strip('"')
+
+    if not calibrationCfgPath:
+        calibrationCfgPath = input("Enter path to calibration configuration file: ").strip('"')
+
+    if not outputDirectory:
+        outputDirectory = input("Enter path to output directory: ").strip('"')
+
+    baseDir = os.path.dirname(calibrationCfgPath)
+    root = ET.Element("ceinms")
+    
+    subjectFile = ET.SubElement(root, "subjectFile")
+    subjectFile.text =  os.path.relpath(ceinmsModelPath, baseDir)
+    
+    inputData = ET.SubElement(root, "inputDataFile")
+    inputData.text = os.path.relpath(inputDataFile, baseDir)
+    
+    executionFileTag = ET.SubElement(root, "executionFile")
+    executionFileTag.text = os.path.relpath(calibrationCfgPath, baseDir)
+    
+    excitationGeneratorFile = ET.SubElement(root, "excitationGeneratorFile")
+    excitationGeneratorFile.text = os.path.relpath(excitationGeneratorFilePath, baseDir)
+    
+    outputDirectoryTag = ET.SubElement(root, "outputDirectory")
+    outputDirectoryTag.text = os.path.relpath(outputDirectory, baseDir)
+    
+    betaMinTag = ET.SubElement(root, "betaMin")
+    betaMinTag.text = str(settings.CEINMSParameters().betaMin)
+        
+    betaMaxTag = ET.SubElement(root, "betaMax")
+    betaMaxTag.text = str(settings.CEINMSParameters().betaMax)
+
+    betaDeltaTag = ET.SubElement(root, "betaDelta")
+    betaDeltaTag.text = str(settings.CEINMSParameters().betaDelta)
+
+    gammaMinTag = ET.SubElement(root, "gammaMin")
+    gammaMinTag.text = str(settings.CEINMSParameters().gammaMin)
+
+    gammaMaxTag = ET.SubElement(root, "gammaMax")
+    gammaMaxTag.text = str(settings.CEINMSParameters().gammaMax)
+
+    gammaDeltaTag = ET.SubElement(root, "gammaDelta")
+    gammaDeltaTag.text = str(settings.CEINMSParameters().gammaDelta)
+
+
+    tree = ET.ElementTree(root)
+    utils.save_pretty_xml(tree, setupXMLPath)
+    
+    print(f"Optimization setup XML saved to: {setupXMLPath}")
+
+def create_optimise_cfg(outputXML_path=None,
+                        excitationGeneratorFile=None):
+    """
+    Create a CEINMS optimisation configuration XML file.
+    """
+    import settings
+    if not outputXML_path:
+        outputXML_path = input("Enter path to save the optimisation configuration XML file: ").strip('"')
+    
+    if not excitationGeneratorFile:
+        excitationGeneratorFile = input("Enter path to excitation generator file: ").strip('"')
+    
+    template_cfg = os.path.join(settings.SETUP_DIR, os.path.basename(settings.Inputs().CEINMS_OPTIMISE_CFG))
+    
+    # read template to get structure
+    tree = ET.parse(template_cfg)
+    root = tree.getroot()
+    
+    dofSet = root.findall('.//dofSet')[0]
+    dofSet.text = ' '.join(settings.DOFs)
+    
+    # Lists to store muscle names
+    synth_mtus = []
+    adjust_mtus = []
+    
+    # Find all excitation elements
+    exc_root = ET.parse(excitationGeneratorFile).getroot()
+    mapping = exc_root.find('mapping')
+    if mapping is not None:
+        for excitation in mapping.findall('excitation'):
+            muscle_id = excitation.get('id')
+            
+            # Check if excitation has input elements (non-empty)
+            inputs = excitation.findall('input')
+            if inputs and len(inputs) > 0:
+                # Has EMG input - add to adjustMTUs
+                adjust_mtus.append(muscle_id)
+            else:
+                # No EMG input - add to synthMTUs
+                synth_mtus.append(muscle_id)
+    
+    # Sort the lists for consistent output
+    synth_mtus.sort()
+    adjust_mtus.sort()
+    
+    synthMTUsTag = root.find('synthMTUs')
+    synthMTUsTag.text = ' '.join(synth_mtus)
+    
+    adjustMTUsTag = root.find('adjustMTUs')
+    adjustMTUsTag.text = ' '.join(adjust_mtus)
+
+    tree = ET.ElementTree(root)
+    utils.save_pretty_xml(tree, outputXML_path)
+    print(f"Optimisation configuration XML saved to: {outputXML_path}")
+    
 def optimise(setupXML_path=None):
 
     if not setupXML_path:
@@ -407,7 +574,7 @@ def optimise(setupXML_path=None):
 
     command = f"{str(settings.CEINMS_OPTIMISE_EXE)} -S {str(setupXML_path)}"
 
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'calibration.log')
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.log')
 
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
     
@@ -422,6 +589,8 @@ def optimise(setupXML_path=None):
         print(f"CEINMS optimise process finished!")
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
+        
+    print(f"Log file saved to: {log_file_path}")
 
 if __name__ == "__main__":
     

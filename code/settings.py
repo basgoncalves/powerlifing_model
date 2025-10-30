@@ -45,7 +45,8 @@ class Inputs:
         self.CEINMS_INPUT_DATA = 'inputData.xml'
         self.CEINMS_EXCITATION_GENERATOR = '..\excitationGenerator.xml'
         
-        self.CEINMS_OPTIMISATION_SETUP = 'optimisationSetup.xml'
+        self.CEINMS_OPTIMISE_SETUP = 'ceinms_setup_optimise.xml'
+        self.CEINMS_OPTIMISE_CFG = 'ceinms_cfg_optimise.xml'
         
         
         # setups 
@@ -83,7 +84,7 @@ class Outputs:
         self.SO_activations = 'SO_StaticOptimization_activation.sto'
         self.JRA = 'Analyse_JRA_ReactionLoads.sto'
         self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
-
+        self.CEINMS_OPTIMISATION_DIR = 'Optimised'
         if parentdir:
             for attr, filename in self.__dict__.items():
                 setattr(self, attr, os.path.join(parentdir, filename))
@@ -92,7 +93,13 @@ class CEINMSParameters:
     def __init__(self):
         self.hybridCalibration = 'true'
         self.numberOfSynergies = 8
-               
+        self.betaMin = 1
+        self.betaMax = 10
+        self.betaDelta = 2
+        self.gammaMin = 1
+        self.gammaMax = 300
+        self.gammaDelta = 50
+        
 class Execute:
     def __init__(self):
                
@@ -111,8 +118,8 @@ class Execute:
         self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
-        self.CEINMS_CALIBRATION = True
-        self.CEINMS_OPTIMISATION = False
+        self.CEINMS_CALIBRATION = False
+        self.CEINMS_OPTIMISATION = True
         
         self.CREATE_PLOTS = False
         

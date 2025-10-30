@@ -199,17 +199,27 @@ def main(trial: utils.Trial, replace: bool = False):
         # create CEINMS excitation generator XML file
         try:
             trial.create_excitation_generator()
-            utils.print_to_log(f'Excitation generator file created successfully: {trial.inputFiles.CEINMS_EXCITATION_GENERATOR}')
         except Exception as e:
             utils.print_to_log(f'Error creating excitation generator file: {e}')
             
         # Create CEINMS calibration setup XML file
         try:       
             trial.create_ceinms_calibration_setup()
-            utils.print_to_log(f'CEINMS calibration setup file created successfully: {trial.path}')
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS calibration setup file: {e}')
- 
+
+        # Create CEINMS optimisation setup XML file
+        try:       
+            trial.create_ceinms_optimise_setup()
+        except Exception as e:
+            utils.print_to_log(f'Error creating CEINMS optimisation setup file: {e}')
+            
+        # Create CEINMS optimisation cfg XML file
+        try:       
+            trial.create_ceinms_optimise_cfg()
+        except Exception as e:
+            utils.print_to_log(f'Error creating CEINMS optimisation cfg file: {e}')    
+        
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION:
         
@@ -230,12 +240,9 @@ def main(trial: utils.Trial, replace: bool = False):
 
     # CEINMS optimisation
     if settings.Execute().CEINMS_OPTIMISATION:
-        utils.print_to_log(f'Running CEINMS optimisation on: {trial.subject} / {trial.name}')
         try:
-            ceinms.optimise(setupXML_path=trial.inputFiles.CEINMS_OPTIMISATION_SETUP)
-            utils.print_to_log(f'CEINMS optimisation completed successfully.')
+            ceinms.optimise(setupXML_path=trial.inputFiles.CEINMS_OPTIMISE_SETUP)
         except Exception as e:
-            print(f"Error during CEINMS optimisation: {e}")
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 
     if settings.Execute().CREATE_PLOTS:
