@@ -399,47 +399,6 @@ def calibrate(setupXML_path=None):
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
 
-def plot_calibration_results(uncalibratedModelPath=None, calibratedModelPath=None):
-    import matplotlib.pyplot as plt
-    import pandas as pd
-    
-    if not uncalibratedModelPath:
-        uncalibratedModelPath = input("Enter path to uncalibrated CEINMS model file: ").strip('"')
-
-    if not calibratedModelPath:
-        calibratedModelPath = input("Enter path to calibrated CEINMS model file: ").strip('"')
-
-
-    def load_muscle_forces(modelPath):
-        root = ET.parse(modelPath).getroot()
-        mtus = root.find('mtuSet').findall('mtu')
-        
-        # turn into DataFrame
-        columns  = mtus[0].items()
-        data = {}
-        for mtu in mtus:    
-            name = mtu.find('name').text
-            data[name] = {}
-            for col in columns:
-                data[name][col[0]] = mtu.find(col[0]).text
-        df = pd.DataFrame.from_dict(data, orient='index')
-        return df
-
-    uncalibrated_forces = load_muscle_forces(uncalibratedModelPath)
-    calibrated_forces = load_muscle_forces(calibratedModelPath)
-    
-    muscle_names = uncalibrated_forces.index.tolist()
-    breakpoint()
-    for muscle in muscle_names:
-        plt.figure()
-        plt.plot(uncalibrated_forces['time'], uncalibrated_forces[muscle], label='Uncalibrated')
-        plt.plot(calibrated_forces['time'], calibrated_forces[muscle], label='Calibrated')
-        plt.title(f'Muscle Force: {muscle}')
-        plt.xlabel('Time (s)')
-        plt.ylabel('Force (N)')
-        plt.legend()
-        plt.show()
-        
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 
                             inputDataFile=None,
@@ -529,14 +488,15 @@ def create_optimise_cfg(outputXML_path=None,
     
     # Find all excitation elements
     exc_root = ET.parse(excitationGeneratorFile).getroot()
+    
     mapping = exc_root.find('mapping')
     if mapping is not None:
         for excitation in mapping.findall('excitation'):
             muscle_id = excitation.get('id')
-            
+
             # Check if excitation has input elements (non-empty)
             inputs = excitation.findall('input')
-            if inputs and len(inputs) > 0:
+            if len(inputs) > 0:
                 # Has EMG input - add to adjustMTUs
                 adjust_mtus.append(muscle_id)
             else:
@@ -547,10 +507,10 @@ def create_optimise_cfg(outputXML_path=None,
     synth_mtus.sort()
     adjust_mtus.sort()
     
-    synthMTUsTag = root.find('synthMTUs')
+    synthMTUsTag = root.findall('.//synthMTUs')[0]
     synthMTUsTag.text = ' '.join(synth_mtus)
-    
-    adjustMTUsTag = root.find('adjustMTUs')
+
+    adjustMTUsTag = root.findall('.//adjustMTUs')[0]
     adjustMTUsTag.text = ' '.join(adjust_mtus)
 
     tree = ET.ElementTree(root)
@@ -567,6 +527,7 @@ def optimise(setupXML_path=None):
     root = ET.parse(setupXML_path).getroot()
     outputDirectory = root.find("outputDirectory").text
 
+    # create output directory if it doesn't exist
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Optimizing CEINMS model...")
@@ -575,6 +536,9 @@ def optimise(setupXML_path=None):
     command = f"{str(settings.CEINMS_OPTIMISE_EXE)} -S {str(setupXML_path)}"
 
     log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.log')
+    
+    # delete log file if it exists
+    
 
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
     
@@ -591,6 +555,70 @@ def optimise(setupXML_path=None):
         print(f"Error running CEINMS calibration: {e}")
         
     print(f"Log file saved to: {log_file_path}")
+
+def plot_calibration_results(optimisedModelPath=None):
+    import matplotlib.pyplot as plt
+    import pandas as pd
+
+    if not optimisedModelPath:
+        optimisedModelPath = input("Enter path to optimised CEINMS model file: ").strip('"')
+
+    def load_mtuSet(modelPath):
+        root = ET.parse(modelPath).getroot()
+        mtus = root.find('mtuSet').findall('mtu')
+        
+        # turn into DataFrame
+        columns  = []
+        for col in mtus[0].findall('*'): columns.append(col.tag)
+        
+        df = pd.DataFrame()
+        for mtu in mtus:    
+            name = mtu.find('name').text
+            for col in columns:
+                if col == 'name': continue
+                if col not in df.columns:
+                    df[col] = []
+            for col in columns:
+                if col == 'name': continue
+                df.at[name, col] = float(mtu.find(col).text)
+        
+        return df
+
+    optimised_forces = load_mtuSet(optimisedModelPath)
+    muscle_names = optimised_forces.index.tolist()
+    parameters = optimised_forces.columns.tolist()
+    
+    n_cols = 5
+    n_rows = (len(parameters) + n_cols - 1) // n_cols
+    fig, axs = plt.subplots(n_rows, n_cols, figsize=(10, n_rows*3))
+    plt.suptitle(f'Optimised Muscle Parameters: {optimisedModelPath}', fontsize=16)
+    axs = axs.flatten()
+
+    for i, param in enumerate(parameters):
+        
+        # convert to numeric
+        optimised_forces[param] = pd.to_numeric(optimised_forces[param], errors='coerce')   
+        
+        # plot bars left leg in red and right leg in blue
+        colors = ['red' if name.endswith('_l') else 'blue' for name in muscle_names]
+        axs[i].bar(muscle_names, optimised_forces[param], color=colors)
+        axs[i].set_title(param)
+        axs[i].set_xticklabels(muscle_names, rotation=90)
+        
+    # set legend left leg on top right leg on bottom
+    red_patch = plt.Line2D([0], [0], color='red', lw=4, label='Left Leg')
+    blue_patch = plt.Line2D([0], [0], color='blue', lw=4, label='Right Leg')
+    plt.legend(handles=[red_patch, blue_patch], loc='upper right')
+
+    # make figure fullsize and tight layout
+    plt.gcf().set_size_inches(18, 10)
+    plt.tight_layout()
+    
+    # save figure
+    fig_path = optimisedModelPath.replace('.xml', '_optimised_parameters.png')
+    plt.savefig(fig_path)
+    print(f"Optimised parameters plot saved to: {fig_path}")
+    
 
 if __name__ == "__main__":
     

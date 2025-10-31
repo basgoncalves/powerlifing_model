@@ -542,6 +542,7 @@ class Trial():
 
         ceinms.create_optimise_cfg(outputXML_path=self.inputFiles.CEINMS_OPTIMISE_CFG,
                                    excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR)
+
 class Session():
     def __init__(self, subject_name, session_name):
         self.subject = subject_name 

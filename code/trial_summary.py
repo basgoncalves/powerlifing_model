@@ -3,38 +3,25 @@ import utils
 import settings
 import matplotlib.pyplot as plt
 
-def trialSummary(trialPathsList, variable):
+def trialSummary(trial: utils.Trial, variable):
      """Summarizes trials based on predefined settings."""
      summary = {}
-     for trialPath   in trialPathsList:
-         sep = os.path.sep
-         # load data files
-         ik = utils.load_any_data_file(trialPath + sep + settings.Outputs().IK)
-         id = utils.load_any_data_file(trialPath + sep + settings.Outputs().ID)
-         muscleActivations = utils.load_any_data_file(trialPath + sep + settings.Outputs().SO_activations)
-         muscleForces = utils.load_any_data_file(trialPath + sep + settings.Outputs().SO_forces)
-         jrl = utils.load_any_data_file(trialPath + sep + settings.Outputs().JRA)
-
-         # summarize data
-         summary[trialPath] = {
-             "IK": utils.time_normalise_df(ik),
-             "ID": utils.time_normalise_df(id),
-             "Muscle Activations": utils.time_normalise_df(muscleActivations),
-             "Muscle Forces": utils.time_normalise_df(muscleForces),
-             "Joint Reaction Loads": utils.time_normalise_df(jrl)
-         }
-
+     trial.load_outputs()
+     breakpoint()
      return summary
 
 if __name__ == "__main__":
     trial_List = []
     while True:
-        user_input = input("Enter trial name (or 'enter' to continue): ").strip('"')
+        user_input = input("Enter trial path (or 'enter' to continue): ").strip('"')
         if user_input == "":
             break
         trial_List.append(user_input)
 
-    summary = trialSummary(trial_List, variable)
+    for trial_path in trial_List:
+        trial = utils.Trial(subject_name=trial_path)
+        breakpoint()
+        summary = trialSummary(trial)
     
     # plot each variable in summary
     for variable, data in summary.items():

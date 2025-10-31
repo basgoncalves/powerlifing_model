@@ -7,7 +7,8 @@ class Execute:
         pass
         self.scale_body_masses = False
         self.add_mass_to_body = False
-        self.increase_isometric_force = True
+        self.increase_isometric_force = False
+        self.animate = True
 
 class TOOLBOX(settings):
     def __init__(self):

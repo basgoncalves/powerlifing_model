@@ -247,13 +247,12 @@ def main(trial: utils.Trial, replace: bool = False):
 
     if settings.Execute().CREATE_PLOTS:
         try:
-            print('To be implemented: plotting function')
+            ceinms.plot_calibration_results()
             utils.print_to_log(f'Plots created successfully for: {trial.subject} / {trial.name}')
         except Exception as e:
             print(f"Error during plotting: {e}")
             utils.print_to_log(f'Error during plotting: {e}')
-        
-        
+             
 def compare_trials(trial1: utils.Trial, trial2: utils.Trial):
 
     if True:
