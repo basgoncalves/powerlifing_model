@@ -1,5 +1,7 @@
 import os
+import shutil
 import subprocess
+import time
 import settings
 import xml.etree.ElementTree as ET
 import opensim as osim
@@ -368,8 +370,8 @@ def calibrate(setupXML_path=None):
     
     os.chdir(os.path.dirname(setupXML_path)) # change wd to parent dir of setupXML (needed for CEINMS)
     
-    root = ET.parse(setupXML_path).getroot()
-    outputDirectory = root.find("outputDirectory").text
+    setupXML = ET.parse(setupXML_path).getroot()
+    outputDirectory = setupXML.find("outputDirectory").text
     
     os.makedirs(outputDirectory, exist_ok=True)
     
@@ -398,6 +400,87 @@ def calibrate(setupXML_path=None):
         print(f"Log file saved to: {log_file_path}")
     except Exception as e:
         print(f"Error running CEINMS calibration: {e}")
+
+    # check if new calibrated model was created recently
+    calibratedModelPath = setupXML.find('outputSubjectFile').text
+    time_updated = os.path.getmtime(calibratedModelPath)
+    if time_updated < os.path.getmtime(log_file_path):
+        return False
+    else:
+        return True
+
+def calibrate_synergy_compare(setupXML_path=None, synergy_numbers: list = [3, 4, 5, 6]):
+    if not setupXML_path:
+        setupXML_path = input("Enter path to setup XML file: ").strip('"')
+    
+    base_dir = os.path.dirname(setupXML_path)
+    
+    for n in synergy_numbers:
+        print(f"Calibrating with {n} synergies...")
+        
+        # Create a new setup XML with modified calibration config
+        root = ET.parse(setupXML_path).getroot()
+
+        outputDirectory = root.find("outputDirectory")
+        outputDirectory.text = os.path.join(base_dir, f'calibrationOutput_synergies_{n}')
+        
+        utils.save_pretty_xml(ET.ElementTree(root), setupXML_path)
+
+        # Load and modify calibration config and overwite cfg file
+        calibrationFileTag = root.find('calibrationFile')
+        calibrationCfgPath = calibrationFileTag.text
+        calibrationCfgFullPath = os.path.join(base_dir, calibrationCfgPath)
+        
+        root_cfg = ET.parse(calibrationCfgFullPath).getroot()
+        synergyTag = root_cfg.find('.//numberOfSynergies')
+        synergyTag.text = str(n)
+
+        tree = ET.ElementTree(root_cfg)
+        utils.save_pretty_xml(tree, calibrationCfgFullPath)
+        
+        # Run calibration
+        outputCalibration = calibrate(setupXML_path)
+        
+        # if new calibrated model is created, copy to outputDirectory with synergy number in filename
+        calibratedModelPath = root.find('outputSubjectFile').text
+        if outputCalibration:
+            newCalibratedModelPath = os.path.join(outputDirectory, f"calibratedModel_synergies_{n}.xml")
+            shutil.copy(calibratedModelPath, newCalibratedModelPath)
+
+# CEINMS base exe function
+def executable(setupXML_path=None):
+    
+    if not setupXML_path:
+        setupXML_path = input("Enter path to setup XML file: ").strip('"')
+
+    os.chdir(os.path.dirname(setupXML_path)) # change wd to parent dir of setupXML (needed for CEINMS)
+    
+    root = ET.parse(setupXML_path).getroot()
+    outputDirectory = root.find("outputDirectory").text
+
+    os.makedirs(outputDirectory, exist_ok=True)
+    
+    print("Running CEINMS executable...")
+    print("Setup XML path:", setupXML_path)
+
+    command = f"{str(settings.CEINMS_EXE)} -S {str(setupXML_path)}"
+
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.log')
+    
+    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
+    
+    print(f"Running command: {command}")
+    try:
+        
+        process = subprocess.Popen(
+            ["powershell", "-NoExit", "-ExecutionPolicy", "Bypass", "-Command  ", cmd_with_redirect],
+            creationflags=subprocess.CREATE_NEW_CONSOLE)
+        process.wait()
+
+        if process.returncode == 0:
+            print(f"CEINMS process finished successfully!")
+    except Exception as e:
+        print(f"Error running CEINMS executable: {e}")
 
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 
@@ -556,6 +639,7 @@ def optimise(setupXML_path=None):
         
     print(f"Log file saved to: {log_file_path}")
 
+# Plotting
 def plot_calibration_results(optimisedModelPath=None):
     import matplotlib.pyplot as plt
     import pandas as pd

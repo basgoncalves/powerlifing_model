@@ -37,6 +37,7 @@ class Inputs:
         self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
         self.JRA_FORCES = 'SO_StaticOptimization_force.sto'
+        
         self.CEINMS_EXCITATIONS = self.EMG_NORMALISED
         self.CEINMS_UNCALIBRATED_MODEL= '..\subjectUncalibrated.xml'
         self.CEINMS_CALIBRATED_MODEL = '..\subjectCalibrated_hybrid.xml'
