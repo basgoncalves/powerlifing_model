@@ -2,12 +2,12 @@ import os
 from pathlib import Path
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-SESSIONS_TO_ANALYSE = ['22_07_06'] # '22_07_06' \25_03_31 
-TRIALS_TO_ANALYSE =  ['sq_70'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
+TRIALS_TO_ANALYSE =  ['Squat_bar_01','Squat_bw_01', 'Walking_01'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
-MODEL_NAME = 'scaled_increased_3.00.osim'
+MODEL_NAME = 'scaled_increasedForce3.osim'
 
 # Check local location of this module
 MODULE_DIR = os.path.dirname(__file__)
@@ -55,7 +55,7 @@ class Inputs:
         self.setupGRF = 'GRF.xml'   
         self.setupID = 'setup_ID.xml'
         self.setupMA = 'setup_MA.xml'
-        self.setupACTUATORS_SO = 'actuators_so.xml' 
+        self.ACTUATORS_SO = 'actuators_so.xml' 
         self.setupSO = 'setup_SO.xml'
         self.setupJRA = 'setup_JRA.xml'
         
@@ -105,12 +105,13 @@ class Execute:
     def __init__(self):
                
         self.reset = False
-        self.create_settings_xml = False
+        self.create_settings_xml = True
         self.INCREASE_MUSCLE_FORCE = False
+        self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = False
-        self.ID = False
-        self.MA = False
+        self.IK = True
+        self.ID = True
+        self.MA = True
         self.MOMENT_ARMS = False
         self.SO = False
         self.JRA = False
@@ -120,7 +121,7 @@ class Execute:
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
-        self.CEINMS_OPTIMISATION = True
+        self.CEINMS_OPTIMISATION = False
         
         self.CREATE_PLOTS = False
         

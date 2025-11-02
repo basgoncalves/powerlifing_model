@@ -25,7 +25,6 @@ import opensim as osim
 import c3d
 from scipy import signal
 
-import paths
 import settings
 import ceinms
 
@@ -230,62 +229,44 @@ class Trial():
         pass
 
     def run_ik(self):
+        import run_ik
+        
+        if not os.path.exists(self.inputFiles.setupIK):            
+            template_ik_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupIK)
+            shutil.copyfile(template_ik_path, self.inputFiles.setupIK)
 
-        osim_modelPath = self.USED_MODEL
-
-        marker_trc = self.inputFiles.MARKERS.resolve()
+        run_ik.main(osim_modelPath=self.modelPath,
+                    marker_trc=self.inputFiles.MARKERS,
+                    ik_output=self.outputFiles.IK,
+                    setup_xml=self.inputFiles.setupIK,
+                    time_range=self.TIME_RANGE,
+                    resultsDir=self.path)
     
-        ik_output = self.outputFiles['IK'].abspath()
-        setup_xml = self.outputFiles['IK'].path()
-        resultsDir = self.path
+    def run_id(self):
+        import run_id
+        
+        if not os.path.exists(self.inputFiles.setupID):            
+            template_id_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupID)
+            shutil.copyfile(template_id_path, self.inputFiles.setupID)
 
-        os.chdir(resultsDir)
-        if not os.path.exists(resultsDir):
-            os.makedirs(resultsDir)
+        run_id.main(osimModelPath=self.USED_MODEL,
+                    ikOutputPath=self.outputFiles.IK,
+                    grfXmlPath=self.inputFiles.setupGRF,
+                    setupXmlPath=self.inputFiles.setupID,
+                    resultsDir=self.outputFiles.ID)
+    
+    def run_ma(self):
+        import run_ma
+        
+        if not os.path.exists(self.inputFiles.setupMA):            
+            template_ma_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupMA)
+            shutil.copyfile(template_ma_path, self.inputFiles.setupMA)
 
-        if not os.path.exists(osim_modelPath):
-            print_to_log(f"OpenSim model file not found: {osim_modelPath}")
-        
-        if not os.path.exists(marker_trc):
-            print_to_log(f"Marker TRC file not found: {marker_trc}")
-
-        # Load the model
-        print(f"Loading OpenSim model from {osim_modelPath}")
-        model = osim.Model(osim_modelPath)
-        model.initSystem()
-
-        # Create the Inverse Kinematics tool
-        ikTool = osim.InverseKinematicsTool(setup_xml)
-        
-        # simple function to validate the markers used in the IK setup
-        ikTool = self.validate_markers_used(ikTool, marker_trc)
-        
-        # Set the model and parameters
-        ikTool.setModel(model)
-        # Set the marker data file and time range
-        ikTool.setMarkerDataFileName(marker_trc)
-        
-        # set the time range for the IK calculation
-        if self.TIME_RANGE is not None:
-            ikTool.setStartTime(self.TIME_RANGE[0])  # Set start time
-            ikTool.setEndTime(self.TIME_RANGE[1])    # Set end time
-
-        # Set the output motion file name relative to the results directory
-        ikTool.setResultsDir('./')
-        ikTool.setOutputMotionFileName(ik_output)
-        ikTool.printToXML(setup_xml)
-        print(f"Inverse Kinematics setup saved to {setup_xml}")
-        time.sleep(1)  # Optional: wait for a second before running the tool
-        
-        # Reload tool from xml
-        ikTool = osim.InverseKinematicsTool(setup_xml)
-        ikTool.setModel(model)
-        
-        # Run the inverse kinematics calculation
-        os.chdir(os.path.dirname(setup_xml))
-        ikTool.run()
-        
-        print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
+        run_ma.main(osim_modelPath=self.USED_MODEL,
+                    ik_output=self.outputFiles.IK,
+                    grf_xml=self.inputFiles.setupGRF,
+                    setup_xml=self.inputFiles.setupMA,
+                    resultsDir=self.outputFiles.MA)
     
     @staticmethod
     def muscles_per_coordinate(osimModel, coord_name):
@@ -1117,15 +1098,6 @@ def save_pretty_xml(tree, save_path):
             pretty_xml_no_blanks = "\n".join([line for line in pretty_xml.splitlines() if line.strip()])
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
-
-# cmd easy commands
-def activate_cmd_env():
-    path = input("Please provide the path to the environment: ")
-    for root, dirs, files in os.walk(path):
-        for filename in files:
-            if filename.startswith('activate') and filename.endswith('.bat'):
-                cmd_file = os.path.join(root, filename)
-                os.startfile(cmd_file)
 
 # opensim 
 def select_osim_file():
@@ -2321,127 +2293,20 @@ class Plotter():
 
 if __name__ == "__main__":
     
-    # Command line interface for the utils module
-    
-    all_functions = [func for func in dir() if callable(getattr(sys.modules[__name__], func)) and not func.startswith("_")]
-    
-    if len(sys.argv) < 2:
-        command = input("Please provide a command from the list: ")
-    else:
-        command = sys.argv[2] # Use arguments from the command line
-    
-    if command is not None:
+    LocalFuncs = [f for f in dir() if callable(globals()[f])]
+    print("Available commands:", LocalFuncs)
+
+    # Command loop
+    while True:
+        command = input("Enter command: ")
+
+        if not command in LocalFuncs:
+            print("Invalid command. Please try again.")
+            continue
+
+        try:
+            globals()[command]()
+        except Exception as e:
+            print(f"Error executing {command}: {e}")
         
-        if any(command == func for func in all_functions): 
-            print('yes')
-            func = getattr(sys.modules[__name__], command)
-            func()
-            
-        if command == "hello":
-            print("hello")
-
-        elif command == "load_trc":
-            if len(sys.argv) > 2:
-                path = sys.argv[2]
-                data = load_trc(path, output=1)
-            else:
-                print("Please provide the path to the .trc file. Example: python utils.py load_trc path/to/file.trc")
-                
-        elif command == "load_mot":
-            if len(sys.argv) > 2:
-                path = sys.argv[2]
-                data = load_mot(path, output=1)
-            else:
-                print("Please provide the path to the .mot file. Example: python utils.py load_mot path/to/file.mot")
-        elif command == "load_sto":
-            if len(sys.argv) > 2:
-                path = sys.argv[2]
-                data = load_sto(path, output=1)
-            else:
-                print("Please provide the path to the .sto file. Example: python utils.py load_sto path/to/file.sto")
-        elif command == "load_c3d":
-            if len(sys.argv) > 2:
-                path = sys.argv[2]
-                data = load_c3d(path, output=1)
-            else:
-                print("Please provide the path to the .c3d file. Example: python utils.py load_c3d path/to/file.c3d")
-        elif command == "load_data_file":
-            if len(sys.argv) > 2:
-                path = sys.argv[2]
-                data, metadata = load_data_file(path)
-                print("Data loaded successfully.")
-                print("Metadata:", metadata)
-            else:
-                print("Please provide the path to the data file. Example: python utils.py load_data_file path/to/file.txt")
-                
-        elif command == "save_data_file":
-            if len(sys.argv) > 3:
-                path = sys.argv[2]
-                data = pd.read_csv(sys.argv[3], sep='\t')
-
-        elif command == "activate_cmd_env":
-            activate_cmd_env()
-
-        elif command == "get_screen_size":
-            screen_size = get_screen_size()
-            if screen_size:
-                print(f"Screen size: {screen_size[0]}x{screen_size[1]}")
-            else:
-                print("Could not determine screen size.")      
-        
-        elif command == "calculate_nRows_nCols":
-            if len(sys.argv) > 2:
-                n_subplots = int(sys.argv[2])
-                nrows, ncols = calculate_nRows_nCold(n_subplots)
-                print(f"Calculated rows: {nrows}, columns: {ncols} for {n_subplots} subplots.")
-            else:
-                print("Please provide the number of subplots. Example: python utils.py calculate_nRows_nCols 9")
-        elif command == "increase_muscle_force":
-            if len(sys.argv) > 2:
-                osim_file = sys.argv[2]
-                factor = float(sys.argv[3]) if len(sys.argv) > 3 else None
-                save_path = sys.argv[4] if len(sys.argv) > 4 else None
-                increase_muscle_force(osim_file, factor, save_path)
-            else:
-                print("Please provide the OpenSim model file path and optionally a factor and save path. Example: python utils.py increase_muscle_force path/to/model.osim 1.2 path/to/save.osim")
-        elif command == "rename_all_files_in_dir":
-            if len(sys.argv) > 4:
-                dir_path = sys.argv[2]
-                old_str = sys.argv[3]
-                new_str = sys.argv[4]
-                rename_all_files_in_dir(dir_path, old_str, new_str)
-            else:
-                print("Please provide the directory path, old string, and new string. Example: python utils.py rename_all_files_in_dir path/to/dir old_string new_string")
-        elif command == "read_excitation_generator":
-            read_excitation_generator(sys.argv[2])
-        elif command == 'compareMomentArms':
-            modelpath1 = input("Enter path to first model: ")
-            modelpath2 = input("Enter path to second model: ")
-            joint = input("Enter coordinate name: ")
-        elif command == 'hide_muscles':
-            input_model = input("Enter path to model: ").strip('"')
-            osimTools().hide_muscles(input_model, hide=True)
-        elif command == 'edit_settings':
-            settings = Settings()
-            print("Settings loaded successfully.")
-            settings.edit()
-
-        else:
-            print(f"Unknown command: {command}")
-            print("Available commands: ")
-            print("  hello")
-            print("  load_trc")
-            print("  load_mot")
-            print("  load_sto")
-            print("  load_c3d")
-            print("  load_data_file")
-            print("  save_data_file")
-            print("  get_screen_size")
-            print("  calculate_nRows_nCols")
-            print("  increase_muscle_force")
-            print("  rename_all_files_in_dir")
-            print("  read_excitation_generator")
 # END
-
-
-

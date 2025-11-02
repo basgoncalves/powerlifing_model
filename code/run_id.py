@@ -3,7 +3,6 @@ import os
 import shutil
 import sys
 import opensim as osim
-import paths
 import utils
 import settings
 

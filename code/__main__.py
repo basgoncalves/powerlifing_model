@@ -6,7 +6,6 @@ import settings
 import utils
 import run_ik, run_id, run_so, run_ma, run_jra
 import run_emg_normalise
-import run_ceinms_optimise
 import ceinms
 import exportC3D, compare_marker_locations, calculate_muscle_moments
 
@@ -21,9 +20,10 @@ def main(trial: utils.Trial, replace: bool = False):
         trial._to_xml()
     
     # Increase muscle force
-    if settings.Execute().INCREASE_MUSCLE_FORCE:
-        trial.increase_muscle_force(factor=3, replace=replace)
-
+    if settings.Execute().INCREASE_MUSCLE_FORCE: 
+        scale_factor = settings.Execute().SCALE_FACTOR
+        trial.increase_muscle_force(factor=scale_factor, replace=replace)
+        
     # Export c3d file
     if settings.Execute().exportC3D:
         subject_without_zero = trial.subject.replace('0', '')
@@ -36,18 +36,8 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().IK:
         output_file = str(trial.outputFiles.IK)
         try:
-
             if not os.path.exists(output_file) or replace:
-                os.chdir(trial.path)
-
-                run_ik.main(osim_modelPath=settings.Inputs().osimModel,
-                            marker_trc=settings.Inputs().MARKERS,
-                            ik_output=output_file,
-                            setup_xml=settings.SetupFiles().IK,
-                            time_range=trial.get_time_range(),
-                            resultsDir=trial.path)
-
-
+                trial.run_ik()
                 utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
             else:
                 utils.print_to_log(f'[Info] Inverse Kinematics results already exist. Skipping computation. {output_file}')
@@ -56,7 +46,7 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             virtual_marker_locations = trial.path + '\\' + '_ik_model_marker_locations.sto'
-            compare_marker_locations.main(marker_experimental_path=trial.inputFiles['MARKERS'].abspath(),
+            compare_marker_locations.main(marker_experimental_path=trial.inputFiles.MARKERS,
                                           marker_virtual_path=virtual_marker_locations)
             utils.print_to_log(f'[Success] Marker location comparison completed.')
         except:
@@ -69,52 +59,44 @@ def main(trial: utils.Trial, replace: bool = False):
 
             # Check if the IK output file exists
             if not os.path.exists(output_file) or replace:
-                os.chdir(trial.path)
-                run_id.main(osimModelPath=settings.Inputs().osimModel,
-                            ikOutputPath=settings.Outputs().IK,
-                            grfXmlPath=settings.Inputs().GRF,
-                            setupXmlPath=settings.SetupFiles().ID,
-                            resultsDir=trial.path)
-
+                trial.run_id()
                 utils.print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {output_file}')
             else:
                 utils.print_to_log(f'[Info] Inverse Dynamics results already exist. Skipping computation. {output_file}')
 
         except Exception as e:
             utils.print_to_log(f'[Error] during Inverse Dynamics: {e}')
-            exit()
 
     # Run muscle analysis
     if settings.Execute().MA:
 
         try:
             if not os.path.exists(trial.outputFiles.MA) or replace:
-                run_ma.main(osim_modelPath=trial.inputFiles.osimModel,
+                run_ma.main(osim_modelPath=trial.modelPath,
                             ik_output=trial.outputFiles.IK,
-                            grf_xml=trial.setupFiles.GRF,
-                            setup_xml=trial.setupFiles.MA,
+                            grf_xml=trial.inputFiles.setupGRF,
+                            setup_xml=trial.inputFiles.setupMA,
                             resultsDir=trial.outputFiles.MA)
 
                 output_files = trial.outputFiles.MA
                 utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {output_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle Analysis: {e}')
-            exit()
 
     # Check moment arms
     if settings.Execute().MOMENT_ARMS:
         try:
-            utils.checkMuscleMomentArms(osim_modelPath=str(trial.inputFiles.osimModel),
-                                        ik_output=str(trial.outputFiles.IK),
+            utils.checkMuscleMomentArms(osim_modelPath=trial.modelPath,
+                                        ik_output=trial.outputFiles.IK,
                                         leg='l',
                                         threshold=0.005)
 
-            utils.checkMuscleMomentArms(osim_modelPath=str(trial.inputFiles.osimModel),
-                                        ik_output=str(trial.outputFiles.IK),
+            utils.checkMuscleMomentArms(osim_modelPath=trial.modelPath,
+                                        ik_output=trial.outputFiles.IK,
                                         leg='r',
                                         threshold=0.005)
 
-            output_files = str(trial.outputFiles.MA)
+            output_files = trial.outputFiles.MA
             utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {output_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
@@ -124,14 +106,14 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             # Check if the Static Optimization output file exists
-            if not os.path.exists(str(trial.outputFiles.SO)) or replace:
+            if not os.path.exists(trial.outputFiles.SO_forces) or replace:
 
-                run_so.main(osim_modelPath=str(trial.inputFiles.osimModel),
-                            ik_output=str(trial.outputFiles.IK),
-                            grf_xml=str(trial.setupFiles.GRF),  
-                            setup_xml=str(trial.setupFiles.SO),
-                            actuators=str(trial.inputFiles.ACTUATORS_SO),
-                            resultsDir=trial.outputFiles.SO)
+                run_so.main(osim_modelPath=trial.modelPath,
+                            ik_output=trial.outputFiles.IK,
+                            grf_xml=trial.inputFiles.setupGRF,
+                            setup_xml=trial.inputFiles.setupSO,
+                            actuators=trial.inputFiles.ACTUATORS_SO,
+                            resultsDir=trial.path)
 
                 utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
 
@@ -286,7 +268,8 @@ if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
 
     start_time = time.time()
-    settings._print()
+    
+    print(f'Check settings in {settings.__file__}')
 
     answer = input("Do you want to proceed? (y/n): ")
     if answer.lower() != 'y':
@@ -300,7 +283,7 @@ if __name__ == "__main__":
                 trial = utils.Trial(subject_name=subject, 
                                     session_name=session, 
                                     trial_name=trial_name) 
-
+                
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##

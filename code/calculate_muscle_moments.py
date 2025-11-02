@@ -1,5 +1,4 @@
 from matplotlib import pyplot as plt
-import paths
 import os
 import shutil
 import utils
@@ -274,21 +273,15 @@ if __name__ == '__main__':
     trial_name = 'sq_75'  # Replace with actual trial name
     
     # create a trial instance
-    trial = paths.Trial(subject_name=subject, session_name=session, trial_name=trial_name)
-
-    muscleAnalysis_dir = trial.path + '\\' + trial.outputFiles['MA'].output
-    muscleForces_filepath = trial.outputFiles['FORCES_SO'].abspath()
-    muscleMapping = paths.Settings().Muscle_Groups
-    idOutput = trial.outputFiles['ID'].abspath()
+    trial = utils.Trial(subject=subject, session=session, trial_name=trial_name)
 
     if True:
-        main(muscleAnalysis_dir=muscleAnalysis_dir,
-             muscleForces_filepath=muscleForces_filepath)
-    
+        main(muscleAnalysis_dir=trial.path + '\\' + trial.outputFiles.MA,
+             muscleForces_filepath=trial.outputFiles.SO_forces)
     if True:
-        plot(muscleAnalysis_dir=muscleAnalysis_dir, 
-             jointMomentsPath=idOutput,
-             muscleMapping=muscleMapping)
+        plot(muscleAnalysis_dir=trial.path + '\\' + trial.outputFiles.MA, 
+             jointMomentsPath=trial.outputFiles.ID,
+             muscleMapping=trial.muscleMapping)
         
     if True:
         savePath = os.path.join(paths.RESULTS_DIR, subject, session, trial_name)
