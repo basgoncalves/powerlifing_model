@@ -4087,3 +4087,45 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 30.10.2025_17:10:19:769: Total analysis time: 124.37 seconds 
  
 
+02.11.2025_19:35:49:945: Starting analysis...
+02.11.2025_19:35:52:959: Running analysis for: Athlete_03 / Squat_bar_01
+02.11.2025_19:35:52:979: [Error] during Inverse Kinematics: 'Inputs' object has no attribute 'osimModel'
+02.11.2025_19:35:52:980: [Error] during marker location comparison
+02.11.2025_19:35:52:981: [Error] during Inverse Dynamics: 'Inputs' object has no attribute 'osimModel'
+02.11.2025_19:48:13:984: Starting analysis...
+02.11.2025_19:48:20:285: Running analysis for: Athlete_03 / Squat_bar_01
+02.11.2025_19:48:20:292: [Error] during Inverse Kinematics: 'Inputs' object has no attribute 'osimModel'
+02.11.2025_19:48:20:292: [Error] during marker location comparison
+02.11.2025_19:48:20:301: [Error] during Inverse Dynamics: 'Inputs' object has no attribute 'osimModel'
+02.11.2025_19:53:14:497: Starting analysis...
+02.11.2025_19:53:17:024: Running analysis for: Athlete_03 / Squat_bar_01
+02.11.2025_19:53:17:075: [Error] during Inverse Kinematics: 'Trial' object has no attribute 'USED_MODEL'
+02.11.2025_19:53:17:075: [Error] during marker location comparison
+02.11.2025_19:53:17:075: [Error] during Inverse Dynamics: 'Trial' object has no attribute 'USED_MODEL'
+02.11.2025_19:57:39:458: Starting analysis...
+02.11.2025_19:57:41:416: Running analysis for: Athlete_03 / Squat_bar_01
+02.11.2025_19:57:41:909: [Error] during Inverse Kinematics: std::exception in 'OpenSim::InverseKinematicsTool::InverseKinematicsTool(std::string const &)': Object: Cannot open file C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bar_01\setup_IK.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+02.11.2025_19:57:41:930: [Error] during marker location comparison
+02.11.2025_19:57:41:930: [Error] during Inverse Dynamics: Inverse Kinematics motion file not found: C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bar_01\joint_angles.mot
+02.11.2025_20:07:29:078: Starting analysis...
+02.11.2025_20:07:34:361: Running analysis for: Athlete_03 / Squat_bar_01
+02.11.2025_20:08:12:014: [Success] Inverse Kinematics completed. Results are saved in C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bar_01\joint_angles.mot
+02.11.2025_20:08:13:900: [Success] Marker location comparison completed.
+02.11.2025_20:08:13:916: [Error] during Inverse Dynamics: 'Trial' object has no attribute 'USED_MODEL'
+02.11.2025_20:08:14:080: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+02.11.2025_20:08:21:934: Analysis completed for: Athlete_03 / Squat_bar_01
+02.11.2025_20:08:21:969: Running analysis for: Athlete_03 / Squat_bw_01
+02.11.2025_20:08:54:258: [Success] Inverse Kinematics completed. Results are saved in C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01\joint_angles.mot
+02.11.2025_20:08:55:313: [Success] Marker location comparison completed.
+02.11.2025_20:08:55:313: [Error] during Inverse Dynamics: 'Trial' object has no attribute 'USED_MODEL'
+02.11.2025_20:09:00:256: Analysis completed for: Athlete_03 / Squat_bw_01
+02.11.2025_20:09:00:383: Running analysis for: Athlete_03 / Walking_01
+02.11.2025_20:09:14:971: [Success] Inverse Kinematics completed. Results are saved in C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot
+02.11.2025_20:09:15:687: [Success] Marker location comparison completed.
+02.11.2025_20:09:15:697: [Error] during Inverse Dynamics: 'Trial' object has no attribute 'USED_MODEL'
+02.11.2025_20:09:15:900: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+02.11.2025_20:09:20:408: Analysis completed for: Athlete_03 / Walking_01
+02.11.2025_20:09:20:408: Total analysis time: 111.33 seconds 
+ 
+
