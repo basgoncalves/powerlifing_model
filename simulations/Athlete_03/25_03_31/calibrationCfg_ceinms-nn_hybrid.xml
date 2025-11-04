@@ -54,14 +54,14 @@
          <objectiveFunction>
             <name>Penalty</name>
             <targetType>normalisedFibreLength</targetType>
-            <weight>100</weight>
+            <weight>10</weight>
             <exponent>2</exponent>
             <range>0.5 1.5</range>
          </objectiveFunction>
          <objectiveFunction>
             <name>Penalty</name>
             <targetType>tendonStrain</targetType>
-            <weight>100</weight>
+            <weight>1000</weight>
             <exponent>2</exponent>
             <range>0. 0.5</range>
          </objectiveFunction>

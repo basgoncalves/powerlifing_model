@@ -129,7 +129,7 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     calibration_info = ET.SubElement(root, "calibrationInfo")
     uncalibrated = ET.SubElement(calibration_info, "uncalibrated")
     ET.SubElement(uncalibrated, "subjectID").text = os.path.basename(osimModelPath).replace('.osim', '')
-    ET.SubElement(uncalibrated, "additionalInfo").text = "TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese"
+    ET.SubElement(uncalibrated, "additionalInfo").text = ''
     
     # Add opensimModelFile reference
     ET.SubElement(root, "opensimModelFile").text = os.path.relpath(osimModelPath, os.path.dirname(outputCEINMSModelPath))
