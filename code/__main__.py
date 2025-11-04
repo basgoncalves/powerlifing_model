@@ -72,11 +72,7 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             if not os.path.exists(trial.outputFiles.MA) or replace:
-                run_ma.main(osim_modelPath=trial.modelPath,
-                            ik_output=trial.outputFiles.IK,
-                            grf_xml=trial.inputFiles.setupGRF,
-                            setup_xml=trial.inputFiles.setupMA,
-                            resultsDir=trial.outputFiles.MA)
+                trial.run_ma()
 
                 output_files = trial.outputFiles.MA
                 utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {output_files}')
@@ -107,14 +103,7 @@ def main(trial: utils.Trial, replace: bool = False):
         try:
             # Check if the Static Optimization output file exists
             if not os.path.exists(trial.outputFiles.SO_forces) or replace:
-
-                run_so.main(osim_modelPath=trial.modelPath,
-                            ik_output=trial.outputFiles.IK,
-                            grf_xml=trial.inputFiles.setupGRF,
-                            setup_xml=trial.inputFiles.setupSO,
-                            actuators=trial.inputFiles.ACTUATORS_SO,
-                            resultsDir=trial.path)
-
+                trial.run_so()
                 utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
 
         except Exception as e:
@@ -123,14 +112,7 @@ def main(trial: utils.Trial, replace: bool = False):
     # Run Joint Reaction Analysis
     if settings.Execute().JRA:
         try:
-            run_jra.main(modelpath=str(trial.modelPath),
-                            coordinates_file=str(trial.outputFiles.IK),
-                            externalloadsfile=str(trial.inputFiles.setupGRF),
-                            setupJRA=str(trial.inputFiles.setupJRA),
-                            actuators=None,
-                            muscle_force_path=str(trial.outputFiles.SO_forces),
-                            results_directory=os.path.dirname(trial.outputFiles.JRA))  
-
+            trial.run_jra()
             output_files = trial.outputFiles.JRA
             utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {output_files}')
 
@@ -143,7 +125,7 @@ def main(trial: utils.Trial, replace: bool = False):
         utils.print_to_log(f'Normalising EMG data for: {trial.subject} / {trial.name}')
         emg_normalise_list = []
 
-        for name in settings.TRIAL_TO_ANALYSE:
+        for name in settings.TRIALS_TO_ANALYSE:
 
             abs_path_emg = str(trial.inputFiles.EMG_FILTERED)
             if os.path.exists(abs_path_emg):
@@ -154,13 +136,13 @@ def main(trial: utils.Trial, replace: bool = False):
         run_emg_normalise.main(target_emg_path=str(trial.inputFiles.EMG_FILTERED),
                     normalise_emg_list=emg_normalise_list)
 
-        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles["EMG_MOT_NORMALISED"].abspath()}')
+        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles.EMG_NORMALISED}')
 
     # Create CEINMS setup files
     if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(trial.inputFiles.CEINMS_CALIBRATED_MODEL) or replace):
         
         # create CEINMS model file
-        if settings.Execute().CREATE_CEINMS_MODEL:
+        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)):
             try:
                 trial.create_ceinms_model()
             except Exception as e:
@@ -207,7 +189,7 @@ def main(trial: utils.Trial, replace: bool = False):
         
         try:
             start_time = time.time()
-            ceinms.calibrate(setupXML_path=trial.inputFiles.CEINMS_CALIBRATION_SETUP)
+            trial.run_ceinms_calibration()
             
             # if date modified of calibrated model is after start time, assume success
             mod_time = os.path.getmtime(trial.inputFiles.CEINMS_CALIBRATED_MODEL)

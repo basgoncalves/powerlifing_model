@@ -37,18 +37,19 @@ def main(target_emg_path=None, normalise_emg_list=None):
     
     # Save the normalised target EMG
     ext = os.path.splitext(target_emg_path)[1]
+    savePath = os.path.abspath(target_emg_path.replace(ext, f'_normalised{ext}'))   
     utils.write_sto_file(dataFrame=target_emg_norm, 
-                         file_path=target_emg_path.replace(ext, f'_normalised{ext}'))
-    
-    utils.print_to_log(f"Normalised EMG data saved to: {target_emg_path.replace(ext, f'_normalised{ext}')}")
-    
+                         file_path=savePath)
+
+    utils.print_to_log(f"Normalised EMG data saved to: {savePath}")
+
 if __name__ == "__main__":
     
     emg_normalise_list = []
     
-    trial = utils.Trial(subject_name=settings.subject,
-                        session_name=settings.session,
-                        trial_name=settings.trial)   
+    trial = utils.Trial(subject_name='Athlete_03',
+                        session_name='22_07_06',
+                        trial_name='sq_85')   
     
     for trialName in os.listdir(trial.parentdir):
         emgPath = os.path.join(trial.parentdir, trialName, settings.Inputs().EMG_FILTERED)

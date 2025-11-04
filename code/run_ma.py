@@ -4,11 +4,20 @@ import opensim as osim
 import settings
 import utils
 
-def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
-    
-    if not os.path.exists(resultsDir):
-        os.makedirs(resultsDir)
-    
+def main(osim_modelPath=None, ik_output=None, 
+         grf_xml=None, setup_xml=None, resultsDir=None):
+
+    if osim_modelPath is None:
+        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+    if ik_output is None:
+        ik_output = input("Enter the desired output path for the IK results (.mot): ").strip('"')
+    if grf_xml is None:
+        grf_xml = input("Enter the path to the GRF XML file (.xml): ").strip('"')
+    if setup_xml is None:
+        setup_xml = input("Enter the path to the setup XML file (.xml): ").strip('"')
+    if resultsDir is None:
+        resultsDir = os.path.dirname(ik_output)
+
     if not os.path.exists(osim_modelPath):
         raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
     
@@ -17,6 +26,12 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
     
     if not os.path.exists(grf_xml):
         raise FileNotFoundError(f"Ground Reaction Forces XML file not found: {grf_xml}")
+    
+    if not resultsDir:
+        resultsDir = os.path.dirname(ik_output)
+    
+    if not os.path.exists(resultsDir):
+        os.makedirs(resultsDir, exist_ok=True)
     
     # Load the model
     print(f"Loading OpenSim model from {osim_modelPath}")
@@ -67,26 +82,4 @@ def main(osim_modelPath, ik_output, grf_xml, setup_xml, resultsDir):
 if __name__ == '__main__':
     
     
-    trial = utils.Trial(subject_name=settings.subject,
-                        session_name=settings.session,
-                        trial_name=settings.trial)
-    
-    trial.copy_inputs_to_trial(replace=False)
-    
-    osim_modelPath = str(trial.inputFiles.osimModel)
-    
-    print(f'osim version: {osim.__version__}')
-    print(f'Running Muscle Analysis on model: {osim_modelPath}')
-    time.sleep(1)  # Optional: wait for a second before running the analysis
-    
-    ####################################### Run the Muscle Analysis #####################################
-    main(osim_modelPath, 
-         ik_output=str(trial.outputFiles.IK), 
-         grf_xml=str(trial.setupFiles.GRF), 
-         setup_xml=str(trial.setupFiles.MA),
-         resultsDir= str(trial.outputFiles.MA))
-    
-    outputFilesPath = os.path.join(trial.path, 'MuscleAnalysis')
-    utils.print_to_log(f'Muscle Analysis completed. Results are saved in {outputFilesPath}')
-
-
+    main()

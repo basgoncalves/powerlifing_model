@@ -44,13 +44,15 @@ class Trial():
             trial_name = os.path.basename(subject_name)
             session_name = os.path.basename(os.path.dirname(subject_name))
             subject_name = os.path.basename(os.path.dirname(os.path.dirname(subject_name)))
-          
-        self.subject = subject_name 
+
+    
+        self.subject = subject_name
         self.session = session_name
         self.name = trial_name
         self.path = os.path.join(settings.SIMULATION_DIR, self.subject, self.session, self.name)
         self.parentdir = os.path.dirname(self.path)
         
+        self.trial_settings = os.path.join(self.path, 'trial_settings.xml')       
         self.TIME_RANGE = self.get_time_range()
         
         self.modelPath = os.path.join(settings.MODELS_DIR, subject_name, session_name, settings.MODEL_NAME)
@@ -104,15 +106,15 @@ class Trial():
 
     def print_settings(self):
         """Print the paths for debugging."""
-        print("CODE:", paths.CODE)
-        print("POWERLIFTING_DIR:", paths.POWERLIFTING_DIR)
-        
+        print("CODE:", settings.MODULE_DIR)
+        print("POWERLIFTING_DIR:", settings.POWERLIFTING_DIR)
+
         print(f"Subject: {self.subject}")
         print(f"Session: {self.session}")
         print(f"Trial: {self.name}")
         print(f"Trial path: {self.path}")
         
-        print(f"Used model: {self.USED_MODEL}")
+        print(f"Used model: {self.modelPath}")
         
         time.sleep(1)  # Optional: wait for a second before printing
     
@@ -137,9 +139,27 @@ class Trial():
                         child.text = str(sub_value)
                 
             
-                
         tree = ET.ElementTree(root)
-        save_pretty_xml(tree, os.path.join(self.path, 'trial_settings.xml'))
+        save_pretty_xml(tree, self.trial_settings)
+    
+    def load_settings(self):
+        '''Load all settings for the trial from an xml in trial.path'''
+        tree = ET.parse(self.trial_settings)
+        root = tree.getroot()
+        
+        for child in root:
+            if hasattr(self, child.tag):
+                attr = getattr(self, child.tag)
+                if isinstance(attr, (str, int, float, bool, list, dict)):
+                    setattr(self, child.tag, child.text)
+                else:
+                    for sub_child in child:
+                        if hasattr(attr, sub_child.tag):
+                            sub_attr = getattr(attr, sub_child.tag)
+                            if isinstance(sub_attr, (str, int, float, bool, list, dict)):
+                                setattr(attr, sub_child.tag, sub_child.text)
+            else:
+                print(f"Warning: Attribute {child.tag} not found in Trial class.")
     
     def get_time_range(self):
         os.chdir(self.path)
@@ -249,11 +269,15 @@ class Trial():
             template_id_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupID)
             shutil.copyfile(template_id_path, self.inputFiles.setupID)
 
-        run_id.main(osimModelPath=self.USED_MODEL,
+        if not os.path.exists(self.inputFiles.setupGRF):            
+            template_grf_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupGRF)
+            shutil.copyfile(template_grf_path, self.inputFiles.setupGRF)
+        
+        run_id.main(osimModelPath=self.modelPath,
                     ikOutputPath=self.outputFiles.IK,
                     grfXmlPath=self.inputFiles.setupGRF,
                     setupXmlPath=self.inputFiles.setupID,
-                    resultsDir=self.outputFiles.ID)
+                    resultsDir=self.path)
     
     def run_ma(self):
         import run_ma
@@ -262,11 +286,46 @@ class Trial():
             template_ma_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupMA)
             shutil.copyfile(template_ma_path, self.inputFiles.setupMA)
 
-        run_ma.main(osim_modelPath=self.USED_MODEL,
+        run_ma.main(osim_modelPath=self.modelPath,
                     ik_output=self.outputFiles.IK,
                     grf_xml=self.inputFiles.setupGRF,
                     setup_xml=self.inputFiles.setupMA,
                     resultsDir=self.outputFiles.MA)
+    
+    def run_so(self):
+        import run_so
+        
+        if not os.path.exists(self.inputFiles.setupSO):            
+            template_so_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupSO)
+            shutil.copyfile(template_so_path, self.inputFiles.setupSO)
+
+        if not os.path.exists(self.inputFiles.ACTUATORS_SO):            
+            template_actuators_path = os.path.join(settings.SETUP_DIR, settings.Inputs().ACTUATORS_SO)
+            shutil.copyfile(template_actuators_path, self.inputFiles.ACTUATORS_SO)
+        
+        run_so.main(osim_modelPath=self.modelPath,
+                    ik_output=self.outputFiles.IK,
+                    grf_xml=self.inputFiles.setupGRF,
+                    setup_xml=self.inputFiles.setupSO,
+                    actuators=self.inputFiles.ACTUATORS_SO,
+                    resultsDir=self.path)
+        
+    def run_jra(self):
+        import run_jra
+        
+        if not os.path.exists(self.inputFiles.setupJRA):            
+            template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
+            shutil.copyfile(template_jra_path, self.inputFiles.setupJRA)
+            
+        os.chdir(self.path)
+        run_jra.main(osim_modelPath=self.modelPath,
+                     ik_output=self.outputFiles.IK,
+                     grf_xml=self.inputFiles.setupGRF,
+                     setup_xml=self.inputFiles.setupJRA,
+                     actuators=None,
+                     muscle_force_path=self.outputFiles.SO_forces,
+                     resultsDir=self.path)
+        
     
     @staticmethod
     def muscles_per_coordinate(osimModel, coord_name):
@@ -365,10 +424,181 @@ class Trial():
         print("Comparing joint angles:")
         self.plot([self, trial], columns_to_plot=['all'])
     
+    def plot_ik(self, columns_to_plot='all'):
+        self.joint_angles = load_any_data_file(self.outputFiles.IK)
+        
+        if columns_to_plot == 'all':
+            columns_to_plot = list(self.joint_angles.columns)
+            columns_to_plot.remove('time')
+        
+        n_vars = len(columns_to_plot)
+        fig, axes = self.plot_create_subplot(n_vars)
+        
+        fig.suptitle(f"Inverse Kinematics Joint Angles: {self.name}", fontsize=16)
+        for var in columns_to_plot:
+            ax = axes[columns_to_plot.index(var)]
+            ax.plot(self.joint_angles['time'], self.joint_angles[var], label=self.name)
+            ax.set_title(f"{var}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Angle (degrees)")
+        
+        axes[0].legend()
+        
+        # save figure and return
+        plt.savefig(os.path.join(self.path, f"{self.name}_IK_Joint_Angles.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_IK_Joint_Angles.png")}')
+        
+        return fig, axes
+    
+    def plot_id(self, columns_to_plot='all'):
+        self.inverse_dynamics = load_any_data_file(self.outputFiles.ID)
+        
+        if columns_to_plot == 'all':
+            columns_to_plot = list(self.inverse_dynamics.columns)
+            columns_to_plot.remove('time')
+        
+        n_vars = len(columns_to_plot)
+        fig, axes = self.plot_create_subplot(n_vars)
+        
+        fig.suptitle(f"Inverse Dynamics Joint Moments: {self.name}", fontsize=16)
+        for var in columns_to_plot:
+            ax = axes[columns_to_plot.index(var)]
+            ax.plot(self.inverse_dynamics['time'], self.inverse_dynamics[var], label=self.name)
+            ax.set_title(f"{var}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Moment (Nm)")
+        
+        axes[0].legend()
+        
+        # save figure and return
+        plt.savefig(os.path.join(self.path, f"{self.name}_ID_Joint_Moments.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_ID_Joint_Moments.png")}')
+        
+        return fig, axes
+    
+    def plot_so(self):
+        self.so_forces = load_any_data_file(self.outputFiles.SO_forces)
+        self.so_activations = load_any_data_file(self.outputFiles.SO_activations)
+        
+        muscleGroups = settings.Muscle_Groups
+        
+        n_vars = len(muscleGroups)
+        fig, axes = self.plot_create_subplot(n_vars)
+        
+        fig.suptitle(f"Static Optimization Muscle Forces: {self.name}", fontsize=16)
+        for i, (group, muscles) in enumerate(muscleGroups.items()):
+            ax = axes[i]
+            muscleForces = self.so_forces[muscles].sum(axis=1)
+            line1 = ax.plot(self.so_forces['time'], muscleForces, label='Force')
+            # on a secondary y-axis plot activations
+            activations = self.so_activations[muscles].mean(axis=1)
+            ax2 = ax.twinx()
+            line2 = ax2.plot(self.so_activations['time'], activations, color='orange', linestyle='--', label='Activation')
+
+            ax.set_title(f"{group}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Force (N)")
+            ax2.set_ylabel("Activation")
+            
+            if i == 0:
+                # Combine lines from both axes
+                lines = line1 + line2
+                labels = [l.get_label() for l in lines]
+                ax.legend(lines, labels, loc='upper right')
+        
+        # save figure and return
+        plt.savefig(os.path.join(self.path, f"{self.name}_SO_Muscle_Forces.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_SO_Muscle_Forces.png")}')
+        
+        return fig, axes
+    
+    def plot_jra(self):
+        self.jra_results = load_any_data_file(self.outputFiles.JRA)
+        
+        joints = settings.JCF_Groups
+
+        n_vars = len(joints)
+        fig, axes = self.plot_create_subplot(n_vars*4)
+        
+        fig.suptitle(f"Joint Reaction Analysis: {self.name}", fontsize=16)
+        i_subplot = -1
+        for row, (joint, components) in enumerate(joints.items()):
+                        
+            # 3d sum of reaction forces
+            x = self.jra_results[components[0]]
+            y = self.jra_results[components[1]]
+            z = self.jra_results[components[2]]
+            resultant = np.sqrt(x**2 + y**2 + z**2)
+            
+            i_subplot += 1  
+            ax = axes[i_subplot]
+            ax.plot(self.jra_results['time'], x, label='X')
+            ax.set_title(f"{joint} - X Reaction Force")
+            ax.set_ylabel("Reaction Force (N)")
+            
+            i_subplot += 1
+            ax = axes[i_subplot]
+            ax.plot(self.jra_results['time'], y, label='Y')
+            ax.set_title(f"{joint} - Y Reaction Force")
+            
+            i_subplot += 1
+            ax = axes[i_subplot]
+            ax.plot(self.jra_results['time'], z, label='Z')
+            ax.set_title(f"{joint} - Z Reaction Force")
+            
+            i_subplot += 1
+            ax = axes[i_subplot]
+            ax.plot(self.jra_results['time'], resultant, label='Resultant')
+            ax.set_title(f"{joint} - Resultant Reaction Force")
+
+            ax.set_ylabel("Reaction Force (N)")
+
+            if row == 0:
+                ax.legend(loc='upper right')
+                
+            if row == n_vars - 1:
+                ax.set_xlabel("Time")
+        
+        # save figure and return
+        savePath = os.path.join(self.path, f"{self.name}_JRA_Results.png")
+        plt.savefig(savePath)
+        print(f'Figure saved to {savePath}')
+
+        return fig, axes
+    
+    def plot_emg(self):
+        self.emg_data = load_any_data_file(self.inputFiles.EMG_NORMALISED)
+        
+        muscles = self.emg_data.columns
+
+        n_vars = len(muscles)
+        fig, axes = self.plot_create_subplot(n_vars)
+        
+        fig.suptitle(f"EMG Excitations: {self.name}", fontsize=16)
+        for i, muscle in enumerate(muscles):
+            ax = axes[i]
+            ax.plot(self.emg_data['time'], self.emg_data[muscle], label=muscle)
+
+            ax.set_title(f"{muscle}")
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Excitation")
+            ax.set_ylim([0, 1])
+            
+            if i == 0:
+                ax.legend(loc='upper right')
+        
+        # save figure and return
+        savePath = os.path.join(self.inputFiles.EMG_NORMALISED.replace('.sto','.png'))
+        plt.savefig(savePath)
+        print(f'Figure saved to {savePath}')
+
+        return fig, axes
+    
     # ceinms
     def create_ceinms_model(self):
-        ceinms.create_ceinms_model(osimModelPath=self.USED_MODEL, 
-                                   outputCEINMSModelPath=settings.outputCEINMSModelPath)
+        os.chdir(self.path)
+        ceinms.create_ceinms_model(osimModelPath=self.modelPath, 
+                                   outputCEINMSModelPath=self.inputFiles.CEINMS_UNCALIBRATED_MODEL)
     
     def create_ceinms_input_data(self):
         ceinms.create_input_data(MAFolder=self.outputFiles.MA,
@@ -501,15 +731,11 @@ class Trial():
                                            outputDirectory=self.outputFiles.CEINMS_CALIBRATION_DIR,
                                            setupXMLPath=self.inputFiles.CEINMS_CALIBRATION_SETUP)
 
-    def run_ceinms_calibration(self):
-        print_to_log(f"Running CEINMS calibration for {self.subject}, {self.session}, {self.name}")
-        
-        import run_ceinms_calibration
-        
-        calibrationSetupPath = self.inputFiles['CEINMS_CALIBRATION_SETUP'].abspath()
-        run_ceinms_calibration.main(calibration_setup=calibrationSetupPath,
-                                    osimModel_path=self.USED_MODEL,
-                                    update_setupFiles=True)
+    def run_ceinms_calibration(self):        
+        import ceinms
+        os.chdir(self.path)
+        calibrationSetupPath = self.inputFiles.CEINMS_CALIBRATION_SETUP
+        ceinms.calibrate(setupXML_path=calibrationSetupPath)
     
     def create_ceinms_optimise_setup(self):
         ceinms.create_optimise_setupXML(ceinmsModelPath=self.inputFiles.CEINMS_CALIBRATED_MODEL, 
@@ -1540,6 +1766,19 @@ def time_normalise_df(df, fs=''):
         normalised_df[column] = np.interp(Tnorm, timeTrial, currentData)
     
     return normalised_df
+
+def time_normalise_file(filepath=None, fs=None):
+    
+    if filepath is None:
+        filepath = input("Please provide the path to the file to be time-normalised: ").strip('"')
+    
+    df = load_any_data_file(filepath)
+    if fs is None:
+        fs = 1/(df['time'][1]-df['time'][0])
+    normalised_df = time_normalise_df(df, fs)
+    # save normalised file
+    normalised_filepath = filepath.replace('.sto', '_timeNormalised.sto')
+    write_sto_file(normalised_df, normalised_filepath)
 
 def get_unique_names(paths):
     # Split each path into parts

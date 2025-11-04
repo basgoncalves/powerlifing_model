@@ -17,16 +17,18 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
          resultsDir='path/to/results')
     
     """
-    # check if any input is empty and if so ask for input
-    osimModelPath = utils.check_arg(osimModelPath,'osimModelPath')
-    ikOutputPath = utils.check_arg(ikOutputPath,'ikOutputPath')
-    grfXmlPath = utils.check_arg(grfXmlPath,'grfXmlPath')
-    setupXmlPath = utils.check_arg(setupXmlPath,'setupXmlPath')
-    resultsDir = utils.check_arg(resultsDir,'resultsDir')
+    if not osimModelPath:
+        osimModelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+    if not ikOutputPath:
+        ikOutputPath = input("Enter the path to the Inverse Kinematics output file (.mot): ").strip('"')
+    if not grfXmlPath:
+        grfXmlPath = input("Enter the path to the Ground Reaction Forces XML file (.xml): ").strip('"')
+    if not setupXmlPath:
+        setupXmlPath = input("Enter the path to save the Inverse Dynamics setup XML file (.xml): ").strip('"')
 
-    if not os.path.exists(resultsDir):
-        os.makedirs(resultsDir)
-
+    if not resultsDir:
+        resultsDir = os.path.dirname(setupXmlPath)
+    
     if not os.path.exists(osimModelPath):
         raise FileNotFoundError(f"OpenSim model file not found: {osimModelPath}")
     
@@ -35,7 +37,10 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
 
     if not os.path.exists(grfXmlPath):
         raise FileNotFoundError(f"Ground Reaction Forces XML file not found: {grfXmlPath}")
-
+    
+    if not os.path.exists(resultsDir):
+        os.makedirs(resultsDir)
+    
     # Load the model
     print(f"Loading OpenSim model from {osimModelPath}")
     model = osim.Model(osimModelPath)
@@ -53,7 +58,7 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
     idTool.setStartTime(motion.getFirstTime()) # Start time
     idTool.setEndTime(motion.getLastTime()) # end time
     idTool.setExternalLoadsFileName(os.path.relpath(grfXmlPath, start=os.path.dirname(setupXmlPath)))
-    idTool.setResultsDir(resultsDir) # results directory 
+    idTool.setResultsDir(os.path.relpath(resultsDir, start=os.path.dirname(setupXmlPath)))
     
     # Set lowpass filter frequency
     idTool.setLowpassCutoffFrequency(6)
@@ -81,29 +86,7 @@ def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=No
 
 if __name__ == '__main__':
 
-    # create a trial instance
-    trial = utils.Trial(subject_name=settings.subject,
-                        session_name=settings.session,
-                        trial_name=settings.trial)
-        
-    osim_modelPath = str(settings.osimModelPath)
-    ik_output = str(trial.outputFiles.IK)
-    setup_id = str(trial.setupFiles.ID)
-    grf_xml = str(trial.setupFiles.GRF)
-    
-    if not os.path.exists(setup_id):    
-        shutil.copyfile(src=os.path.join(settings.SETUP_DIR, settings.SetupFiles().ID), 
-                        dst=setup_id)
-
-    if not os.path.exists(grf_xml):
-        shutil.copyfile(src= os.path.join(settings.SETUP_DIR, settings.SetupFiles().GRF), 
-                        dst=grf_xml)
-
-    main(osimModelPath=osim_modelPath,
-            ikOutputPath=ik_output,
-            grfXmlPath=grf_xml,
-            setupXmlPath=setup_id,
-            resultsDir=os.path.dirname(setup_id))
+    main()
     
     
 

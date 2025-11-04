@@ -4,7 +4,8 @@ import settings
 import utils
 import os
 
-def create_analysis_tool(coordinates_file, externalloadsfile, model_path, results_directory, actuators=None):
+def create_analysis_tool(coordinates_file, externalloadsfile, model_path, 
+                         results_directory, actuators=None):
     """Creates and configures an OpenSim AnalyzeTool object.
 
     Args:
@@ -82,22 +83,40 @@ def create_analysis_tool(coordinates_file, externalloadsfile, model_path, result
     return analyze_tool
 
 
-def main(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators, muscle_force_path, results_directory):
+def main(osim_modelPath=None, ik_output=None, 
+         grf_xml=None, setup_xml=None, actuators=None, 
+         muscle_force_path=None, resultsDir=None):
+    
+    if not osim_modelPath:
+        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+    if not ik_output:
+        ik_output = input("Enter the path to the coordinates motion file (.mot or .trc): ").strip('"')
+    if not grf_xml:
+        grf_xml = input("Enter the path to the external loads file (.xml): ").strip('"')
+    if not setup_xml:
+        setup_xml = input("Enter the path to save the JRA setup XML file (.xml): ").strip('"')
+    
+    if not muscle_force_path:
+        muscle_force_path = input("Enter the path to the muscle forces file (.sto): ").strip('"')
+    
+    if not resultsDir:
+        resultsDir = os.path.dirname(ik_output)
+    
+    
     # start model
-    osimModel = osim.Model(modelpath)
+    osimModel = osim.Model(osim_modelPath)
 
     # Get mot data to determine time range
-    motData = osim.Storage(coordinates_file)
+    motData = osim.Storage(ik_output)
 
     # Get initial and intial time
     initial_time = motData.getFirstTime()
     final_time = motData.getLastTime()
     
     # start joint reaction analysis
-    jr = osim.JointReaction(setupJRA)
+    jr = osim.JointReaction(setup_xml)
     jr.setName('JRA')
-    # jr.setModel(osimModel)
-
+    
     inFrame = osim.ArrayStr()
     onBody = osim.ArrayStr()
     jointNames = osim.ArrayStr()
@@ -112,13 +131,13 @@ def main(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators, mu
     # Set other parameters as needed
     jr.setStartTime(initial_time)
     jr.setEndTime(final_time)
-    jr.setForcesFileName(muscle_force_path) # Has to be absolute path
+    jr.setForcesFileName(os.path.relpath(muscle_force_path, start=os.path.dirname(os.path.abspath(setup_xml)))) # Has to be absolute path
 
     # add to analysis tool
-    analyzeTool_JR = create_analysis_tool(coordinates_file = coordinates_file,
-                                          externalloadsfile = externalloadsfile,
-                                          model_path = modelpath, 
-                                          results_directory = results_directory, 
+    analyzeTool_JR = create_analysis_tool(coordinates_file = ik_output,
+                                          externalloadsfile = grf_xml,
+                                          model_path = osim_modelPath, 
+                                          results_directory = resultsDir, 
                                           actuators=actuators)
     
     analyzeTool_JR.setName('Analyse')
@@ -126,21 +145,20 @@ def main(modelpath, coordinates_file, externalloadsfile, setupJRA, actuators, mu
     osimModel.addAnalysis(jr)
 
     # save setup file and run
-    os.chdir(os.path.dirname(setupJRA))
-    analyzeTool_JR.printToXML(setupJRA)
-    analyzeTool_JR = osim.AnalyzeTool(setupJRA)
-    print('jra for', results_directory)
+    analyzeTool_JR.printToXML(setup_xml)
+    analyzeTool_JR = osim.AnalyzeTool(setup_xml)
+    print('jra for', resultsDir)
     analyzeTool_JR.run()
     
-def run_jra_setup(modelpath, setupJRA):
+def run_jra_setup(osim_modelPath, setupJRA):
     """Creates a Joint Reaction Analysis setup file."""
     if not os.path.exists(setupJRA):
         raise FileNotFoundError(f"Setup file not found: {setupJRA}")
     
     # Create the Joint Reaction Analysis tool
     jraTool = osim.AnalyzeTool(setupJRA)
-    jraTool.setModel(osim.Model(modelpath))
-    jraTool.setModelFilename(os.path.relpath(modelpath, start=os.path.dirname(setupJRA)))
+    jraTool.setModel(osim.Model(osim_modelPath))
+    jraTool.setModelFilename(os.path.relpath(osim_modelPath, start=os.path.dirname(setupJRA)))
     
     jraTool.printToXML(setupJRA)
     print(f"Joint Reaction Analysis setup saved to {setupJRA}")
@@ -151,21 +169,9 @@ def run_jra_setup(modelpath, setupJRA):
     
 if __name__ == '__main__':
    
-    trial = utils.Trial(subject_name=settings.subject,
-                        session_name=settings.session,
-                        trial_name=settings.trial)
     
     try:
-        main(modelpath=str(trial.inputFiles.osimModel),
-            coordinates_file=str(trial.outputFiles.IK),
-            externalloadsfile=str(trial.setupFiles.GRF),
-            setupJRA=str(trial.setupFiles.JRA),
-            actuators=None,
-            muscle_force_path=str(trial.inputFiles.JRA_FORCES),
-            results_directory=trial.path)
-        
-        output_files = str(trial.outputFiles.JRA)
-        utils.print_to_log(f'Joint Reaction Analysis completed. Results are saved in {output_files}')
+        main()
     except Exception as e:
         utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
         exit()

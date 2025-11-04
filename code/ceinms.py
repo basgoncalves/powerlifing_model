@@ -132,7 +132,7 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     ET.SubElement(uncalibrated, "additionalInfo").text = "TendonSlackLength and OptimalFibreLength scaled with Winby-Modenese"
     
     # Add opensimModelFile reference
-    ET.SubElement(root, "opensimModelFile").text = osimModelPath
+    ET.SubElement(root, "opensimModelFile").text = os.path.relpath(osimModelPath, os.path.dirname(outputCEINMSModelPath))
 
     # Create the XML tree and save
     tree = ET.ElementTree(root)
@@ -185,7 +185,8 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
 
     # Add mapping element
     mapping = ET.SubElement(root, 'mapping')
-    mapping_dict = settings.EMG_muscle_mapping       
+    mapping_dict = settings.EMG_muscle_mapping    
+    
     for muscle in muscleList:
         used = False
         for emg_input, items in mapping_dict.items(): 
@@ -202,6 +203,7 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
             
     # Write to XML file
     tree = ET.ElementTree(root)
+    breakpoint()
     utils.save_pretty_xml(tree, save_path)
     print(f"XML saved to {save_path}")
 

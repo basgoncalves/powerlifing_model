@@ -7,7 +7,6 @@ summarize groups of columns, and visualize the data in a grid layout.
 import os
 import numpy as np
 import utils
-import paths
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import filedialog

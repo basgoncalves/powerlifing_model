@@ -3,7 +3,7 @@ from pathlib import Path
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
-TRIALS_TO_ANALYSE =  ['Squat_bar_01','Squat_bw_01', 'Walking_01'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Walking_01'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
@@ -34,7 +34,7 @@ class Inputs:
         self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
-        self.MARKERS = 'marker_experimental.trc'
+        self.MARKERS = 'c3dfile.trc'
         self.EVENTS = 'events.csv'
         self.JRA_FORCES = 'SO_StaticOptimization_force.sto'
         
@@ -61,7 +61,10 @@ class Inputs:
         
         if parentdir:
             for attr, filename in self.__dict__.items():
-                setattr(self, attr, os.path.join(parentdir, filename))
+                filepath = os.path.join(parentdir, filename)
+                relpath = os.path.relpath(filepath, parentdir)
+                setattr(self, attr, relpath)
+                
 
     def check(self, parentdir):
         fileExist = {}
@@ -105,19 +108,20 @@ class Execute:
     def __init__(self):
                
         self.reset = False
-        self.create_settings_xml = True
+        self.create_settings_xml = False
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
-        self.ID = True
-        self.MA = True
+        self.IK = False
+        self.ID = False
+        self.MA = False
         self.MOMENT_ARMS = False
         self.SO = False
-        self.JRA = False
+        self.JRA = True
+        
         self.EMG_NORMALISE = False
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
@@ -195,6 +199,23 @@ EMG_muscle_mapping = {
     'Voltage_EMG8_glut_max_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
     'Voltage_EMG10_gast_med_r': [],
     'Voltage_EMG14_add_mag_r': []
+}
+
+# session 2
+EMG_muscle_mapping = {
+    # Left Leg Muscles
+    'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'],
+    'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
+    'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+    'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
+    'EMG_Channels_EMG09_gast_med_l': [],
+
+    # Right Leg Muscles
+    'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'],
+    'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
+    'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+    'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
+    'EMG_Channels_EMG10_gast_med_r': []
 }
 
 plot = {'Groups':

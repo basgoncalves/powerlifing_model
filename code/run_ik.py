@@ -22,17 +22,40 @@ def validate_markers_used(ikTool,markers_path):
 
 def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
     
-    if not os.path.exists(resultsDir):
-        os.makedirs(resultsDir, exist_ok=True)
-    
-    os.chdir(resultsDir)
-    
+    if osim_modelPath is None:
+        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+    if marker_trc is None:
+        marker_trc = input("Enter the path to the marker TRC file (.trc): ").strip('"')
+    if ik_output is None:
+        ik_output = input("Enter the desired output path for the IK results (.mot): ").strip('"')
+    if setup_xml is None:
+        setup_xml = input("Enter the path to save the IK setup XML file (.xml): ").strip('"')
+    if resultsDir is None:
+        resultsDir = os.path.dirname(ik_output)
+        
+    if time_range is None:
+        time_range_input = input("Enter the time range for IK calculation as 'start,end' (or press Enter to use full range): ").strip('"')
+        if time_range_input:
+            try:
+                start_str, end_str = time_range_input.split(',')
+                time_range = (float(start_str), float(end_str))
+            except ValueError:
+                print("Invalid time range format. Using full range.")
+                time_range = None
+        else:
+            time_range = None
+        
     if not os.path.exists(osim_modelPath):
         utils.print_to_log(f"OpenSim model file not found: {osim_modelPath}")
     
     if not os.path.exists(marker_trc):
         utils.print_to_log(f"Marker TRC file not found: {marker_trc}")
 
+    if not os.path.exists(resultsDir):
+        os.makedirs(resultsDir, exist_ok=True)
+    
+    os.chdir(resultsDir)
+    
     # Load the model
     print(f"Loading OpenSim model from {osim_modelPath}")
     model = osim.Model(osim_modelPath)
@@ -80,31 +103,7 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
 
 if __name__ == '__main__':
     
-    # create a trial instance
-    trial = utils.Trial(subject_name=settings.subject, 
-                        session_name=settings.session, 
-                        trial_name=settings.trial)
-    
-    setup_xml = os.path.join(trial.path, settings.SetupFiles().IK)
-    
-    if not os.path.exists(setup_xml):
-        shutil.copyfile(src=os.path.join(settings.SETUP_DIR, settings.SetupFiles().IK), 
-                        dst=setup_xml)
-
-    # copy setup 
-    osim_modelPath = str(trial.inputFiles.osimModel)
-    ik_mot = str(trial.outputFiles.IK)
-    setup_xml = str(trial.setupFiles.IK)
-    markers = str(trial.inputFiles.MARKERS)
-    time_range = trial.TIME_RANGE
-
-    if settings.Execute().IK:
-        main(osim_modelPath=osim_modelPath, 
-             marker_trc=markers, 
-             ik_output=ik_mot, 
-             setup_xml=setup_xml, 
-             time_range=time_range, 
-             resultsDir=trial.path)
+    main()
         
 
     
