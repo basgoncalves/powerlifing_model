@@ -3,7 +3,7 @@ from pathlib import Path
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
-TRIALS_TO_ANALYSE =  ['Walking_02', 'Walking_03'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Squat_bw_01', 'Squat_bw_02'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
@@ -156,11 +156,11 @@ class Execute:
         
         self.EMG_NORMALISE = False
         
-        self.CREATE_CEINMS_FILES = False
+        self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
-        self.CEINMS_OPTIMISATION = False
+        self.CEINMS_OPTIMISATION = True
         
         self.CREATE_PLOTS = False
         
