@@ -26,7 +26,10 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     """
     if not osimModelPath:
         osimModelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
-    
+
+    if not outputCEINMSModelPath:
+        outputCEINMSModelPath = input("Enter path to output CEINMS model (.xml): ").strip('"')
+
     print(f"Creating CEINMS model from OpenSim model")
     # Load the OpenSim model
     model = osim.Model(osimModelPath)
@@ -139,10 +142,6 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
 
     # Create the XML tree and save
     tree = ET.ElementTree(root)
-    
-    if not outputCEINMSModelPath:
-        outputCEINMSModelPath = osimModelPath.replace('.osim', '.xml')
-
     utils.save_pretty_xml(tree, outputCEINMSModelPath)
 
     print(f"CEINMS subject file created: {outputCEINMSModelPath}")
@@ -206,9 +205,8 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
             
     # Write to XML file
     tree = ET.ElementTree(root)
-    breakpoint()
-    utils.save_pretty_xml(tree, save_path)
-    print(f"XML saved to {save_path}")
+    utils.save_pretty_xml(tree, os.path.abspath(save_path))
+    print(f"XML saved to {os.path.abspath(save_path)}")
 
     return mapping_dict, emg_labels
 
@@ -648,10 +646,10 @@ def optimise(setupXML_path=None):
     print(f"Log file saved to: {log_file_path}")
 
 # Plotting
-def plot_calibration_results(optimisedModelPath=None):
+def plot_ceinms_model_parameters(ceinmsModelPath=None):
 
-    if not optimisedModelPath:
-        optimisedModelPath = input("Enter path to optimised CEINMS model file: ").strip('"')
+    if not ceinmsModelPath:
+        ceinmsModelPath = input("Enter path to optimised CEINMS model file: ").strip('"')
 
     def load_mtuSet(modelPath):
         root = ET.parse(modelPath).getroot()
@@ -674,14 +672,14 @@ def plot_calibration_results(optimisedModelPath=None):
         
         return df
 
-    optimised_forces = load_mtuSet(optimisedModelPath)
+    optimised_forces = load_mtuSet(ceinmsModelPath)
     muscle_names = optimised_forces.index.tolist()
     parameters = optimised_forces.columns.tolist()
     
-    n_cols = 5
+    n_cols = 4
     n_rows = (len(parameters) + n_cols - 1) // n_cols
     fig, axs = plt.subplots(n_rows, n_cols, figsize=(10, n_rows*3))
-    plt.suptitle(f'Optimised Muscle Parameters: {optimisedModelPath}', fontsize=16)
+    plt.suptitle(f'Optimised Muscle Parameters: {ceinmsModelPath}', fontsize=16)
     axs = axs.flatten()
 
     for i, param in enumerate(parameters):
@@ -705,7 +703,7 @@ def plot_calibration_results(optimisedModelPath=None):
     plt.tight_layout()
     
     # save figure
-    fig_path = optimisedModelPath.replace('.xml', '_optimised_parameters.png')
+    fig_path = ceinmsModelPath.replace('.xml', '_parameters.png')
     plt.savefig(fig_path)
     print(f"Optimised parameters plot saved to: {fig_path}")
 

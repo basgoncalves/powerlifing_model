@@ -40,9 +40,9 @@ class Inputs:
         
         self.CEINMS_EXCITATIONS = self.EMG_NORMALISED
         self.CEINMS_UNCALIBRATED_MODEL= '..\subjectUncalibrated.xml'
-        self.CEINMS_CALIBRATED_MODEL = '..\subjectCalibrated_hybrid.xml'
-        self.CEINMS_CALIBRATION_CFG = '..\calibrationCfg_ceinms-nn_hybrid.xml'
-        self.CEINMS_CALIBRATION_SETUP = '..\calibrationSetup_ceinms-nn_hybrid.xml'
+        self.CEINMS_CALIBRATED_MODEL = '..\subjectCalibrated.xml'
+        self.CEINMS_CALIBRATION_CFG = '..\calibrationCfg.xml'
+        self.CEINMS_CALIBRATION_SETUP = '..\calibrationSetup.xml'
         self.CEINMS_INPUT_DATA = 'inputData.xml'
         self.CEINMS_EXCITATION_GENERATOR = '..\excitationGenerator.xml'
         
@@ -121,7 +121,7 @@ class Execute:
         
         self.EMG_NORMALISE = False
         
-        self.CREATE_CEINMS_FILES = False
+        self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
