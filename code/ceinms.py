@@ -6,6 +6,9 @@ import settings
 import xml.etree.ElementTree as ET
 import opensim as osim
 import utils
+import matplotlib.pyplot as plt
+import pandas as pd
+import glob
 
 def upWorkingDirectory():
     current_dir = os.getcwd()
@@ -646,8 +649,6 @@ def optimise(setupXML_path=None):
 
 # Plotting
 def plot_calibration_results(optimisedModelPath=None):
-    import matplotlib.pyplot as plt
-    import pandas as pd
 
     if not optimisedModelPath:
         optimisedModelPath = input("Enter path to optimised CEINMS model file: ").strip('"')
@@ -707,7 +708,83 @@ def plot_calibration_results(optimisedModelPath=None):
     fig_path = optimisedModelPath.replace('.xml', '_optimised_parameters.png')
     plt.savefig(fig_path)
     print(f"Optimised parameters plot saved to: {fig_path}")
+
+def plot_optimisation_results(optimisationOutputDir=None):
+
+    if not optimisationOutputDir:
+        optimisationOutputDir = input("Enter path to optimisation output directory: ").strip('"')
+
+    # find all files ending with _optimisationResults.sto
+    result_files = os.listdir(optimisationOutputDir)
+    result_files = [os.path.join(optimisationOutputDir, f) for f in result_files if f.endswith('.sto')]
+    Muscle_Groups = settings.Muscle_Groups
+    for result_file in result_files:
+        data = utils.load_any_data_file(result_file)
+        
+        muscle_names = [col for col in data.columns if col != 'time']
+
+        n_muscle_groups = len(Muscle_Groups)
+        fig, axs = plt.subplots(n_muscle_groups, 1, figsize=(10, n_muscle_groups*3))
+        plt.suptitle(f'Optimisation Results: {os.path.basename(result_file)}', fontsize=16)
+        for i, (muscle_group, muscles) in enumerate(Muscle_Groups.items()):
+            ax = axs[i] if n_muscle_groups > 1 else axs
+            for muscle in muscles:
+                if muscle in muscle_names:
+                    ax.plot(data['time'], data[muscle], label=muscle)
+            ax.set_title(f'Optimisation Results for Muscle Group: {muscle_group}')
+            
+            # if not last subplot, remove x labels
+            if i < n_muscle_groups - 1:
+                ax.set_xticklabels([])
+            else:
+                ax.set_xlabel('Time (%)')
+                
+            ax.legend()
+            
+        
+        # save figure
+        fig_path = result_file.replace('.sto', '.png')
+        plt.savefig(fig_path)
+        print(f"Optimisation results plot saved to: {fig_path}")
+        plt.close()
+
+def plot_emg_vs_ceimns(emgFile=None, ceinmsExcitationsFile=None):
+
+    if not emgFile:
+        emgFile = input("Enter path to EMG data file: ").strip('"')
+
+    if not ceinmsExcitationsFile:
+        ceinmsExcitationsFile = input("Enter path to CEINMS excitations file: ").strip('"')
+
+    emg_data = utils.load_any_data_file(emgFile)
+    ceinms_data = utils.load_any_data_file(ceinmsExcitationsFile)
+
+    muscle_names = [col for col in emg_data.columns if col != 'time']
     
+    emg_mapping = settings.EMG_muscle_mapping
+
+    n_muscles = len(muscle_names)
+    fig, axs = plt.subplots(n_muscles, 1, figsize=(10, n_muscles*3))
+    plt.suptitle(f'EMG vs CEINMS Excitations', fontsize=16)
+    
+    for i, (signal, muscles) in enumerate(emg_mapping.items()):
+        ax = axs[i] if n_muscles > 1 else axs
+        for muscle in muscles:
+            if muscle in ceinms_data.columns:
+                ax.plot(emg_data['time'], emg_data[muscle], label='EMG', color='blue')
+                ax.plot(ceinms_data['time'], ceinms_data[muscle], label='CEINMS Excitation', color='red')
+                ax.set_title(f'Muscle: {muscle}')
+            ax.set_xlabel('Time (s)')
+            ax.set_ylabel('Excitation')
+            ax.legend()
+        else:
+            print(f"Muscle {muscle} not found in CEINMS excitations data.")
+    
+    # save figure
+    fig_path = os.path.join(os.path.dirname(emgFile), 'emg_vs_ceinms_excitations.png')
+    plt.savefig(fig_path)
+    print(f"EMG vs CEINMS excitations plot saved to: {fig_path}")
+    plt.close()
 
 if __name__ == "__main__":
     
@@ -727,4 +804,5 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Error executing {command}: {e}")
         
+        break
         
