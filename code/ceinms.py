@@ -758,33 +758,90 @@ def plot_emg_vs_ceimns(emgFile=None, ceinmsExcitationsFile=None):
 
     emg_data = utils.load_any_data_file(emgFile)
     ceinms_data = utils.load_any_data_file(ceinmsExcitationsFile)
+    
+    # time normalise both datasets to the same length
+    emg_data = utils.time_normalise_df(emg_data)
+    ceinms_data = utils.time_normalise_df(ceinms_data)
 
     muscle_names = [col for col in emg_data.columns if col != 'time']
     
     emg_mapping = settings.EMG_muscle_mapping
 
-    n_muscles = len(muscle_names)
+    n_muscles = len(emg_mapping)
     fig, axs = plt.subplots(n_muscles, 1, figsize=(10, n_muscles*3))
     plt.suptitle(f'EMG vs CEINMS Excitations', fontsize=16)
     
     for i, (signal, muscles) in enumerate(emg_mapping.items()):
         ax = axs[i] if n_muscles > 1 else axs
+        line_emg = ax.plot(emg_data[signal], label=signal, color='blue')
+        lines_ceinms = []
         for muscle in muscles:
             if muscle in ceinms_data.columns:
-                ax.plot(emg_data['time'], emg_data[muscle], label='EMG', color='blue')
-                ax.plot(ceinms_data['time'], ceinms_data[muscle], label='CEINMS Excitation', color='red')
-                ax.set_title(f'Muscle: {muscle}')
-            ax.set_xlabel('Time (s)')
-            ax.set_ylabel('Excitation')
-            ax.legend()
-        else:
-            print(f"Muscle {muscle} not found in CEINMS excitations data.")
+                r2 = utils.rsquared(emg_data[signal], ceinms_data[muscle])
+                rmse = utils.rmse(emg_data[signal], ceinms_data[muscle])
+                lines_ceinms.append(ax.plot(ceinms_data[muscle], label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red'))
+                ax.set_ylabel('Excitation')
+                if i < n_muscles - 1:
+                    ax.set_xticklabels([])
+                else:
+                    ax.set_xlabel('Time (%)')
+            else:
+                print(f"Muscle {muscle} not found in CEINMS excitations data.")
+        
+        # legend with all lines
+        handles = [line_emg[0]] + [line[0] for line in lines_ceinms]
+        labels = [signal] + [f'{muscle} (R²: {utils.rsquared(emg_data[signal], ceinms_data[muscle]):.2f}, RMSE: {utils.rmse(emg_data[signal], ceinms_data[muscle]):.2f})' for muscle in muscles if muscle in ceinms_data.columns]
+        ax.legend(handles, labels)
     
     # save figure
-    fig_path = os.path.join(os.path.dirname(emgFile), 'emg_vs_ceinms_excitations.png')
+    ext = os.path.splitext(ceinmsExcitationsFile)[1]
+    fig_path = ceinmsExcitationsFile.replace(ext, 'vs_emg.png')
     plt.savefig(fig_path)
     print(f"EMG vs CEINMS excitations plot saved to: {fig_path}")
     plt.close()
+
+def plot_moments_vs_ceinms(externalMomentsFile=None, ceinmsTorquesFile=None):
+
+    if not externalMomentsFile:
+        externalMomentsFile = input("Enter path to external moments data file: ").strip('"')
+
+    if not ceinmsTorquesFile:
+        ceinmsTorquesFile = input("Enter path to CEINMS torques data file: ").strip('"')
+
+    ext_moments_data = utils.load_any_data_file(externalMomentsFile)
+    ceinms_torques_data = utils.load_any_data_file(ceinmsTorquesFile)
+
+    # time normalise both datasets to the same length
+    ext_moments_data = utils.time_normalise_df(ext_moments_data)
+    ceinms_torques_data = utils.time_normalise_df(ceinms_torques_data)
+
+    dof_names = [col for col in ceinms_torques_data.columns if col != 'time']
+    
+    n_dofs = len(dof_names)
+    fig, axs = plt.subplots(n_dofs, 1, figsize=(10, n_dofs*3))
+    plt.suptitle(f'External Torques vs CEINMS Torques', fontsize=16)
+
+    for i, dof in enumerate(dof_names):
+        ax = axs[i] if n_dofs > 1 else axs
+        r2 = utils.rsquared(ext_moments_data[dof + '_moment'], ceinms_torques_data[dof])
+        rmse = utils.rmse(ext_moments_data[dof + '_moment'], ceinms_torques_data[dof])
+        line_ext = ax.plot(ext_moments_data[dof + '_moment'], label=f'External Moment', color='blue')
+        line_cei = ax.plot(ceinms_torques_data[dof], label=f'CEINMS Torque (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red')
+        ax.set_title(f'{dof}')
+        ax.set_ylabel('Moment (Nm)')
+        if i < n_dofs - 1:
+            ax.set_xticklabels([])
+        else:
+            ax.set_xlabel('Time (%)')
+        ax.legend()
+    
+    # save figure
+    ext = os.path.splitext(ceinmsTorquesFile)[1]
+    fig_path = ceinmsTorquesFile.replace(ext, 'vs_external_torques.png')
+    plt.savefig(fig_path)
+    print(f"External torques vs CEINMS torques plot saved to: {fig_path}")
+    plt.close()
+
 
 if __name__ == "__main__":
     
@@ -804,5 +861,4 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Error executing {command}: {e}")
         
-        break
         

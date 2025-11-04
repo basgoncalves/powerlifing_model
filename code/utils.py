@@ -1743,7 +1743,8 @@ def time_normalise_df(df, fs=''):
     
     if not fs:
         try:
-            fs = 1/(df['time'][1]-df['time'][0])
+            # mean sampling frequency over the time column
+            fs = 1/((df['time'].iloc[-1]-df['time'].iloc[0])/(len(df)-1))
         except  KeyError as e:
             raise Exception('Input DataFrame must contain a column named "time"')
     
@@ -1826,6 +1827,27 @@ def create_color_and_style_dict(labels):
         else:
             style_dict[label] = '-'
     return color_dict, style_dict
+
+def rsquared(y_true, y_pred):
+    """Calculate the R-squared value between true and predicted values.
+    
+    Args:
+        y_true (array-like): The true values.
+        y_pred (array-like): The predicted values.
+    """
+    ss_res = np.sum((y_true - y_pred) ** 2)
+    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+    r2 = 1 - (ss_res / ss_tot)
+    return r2
+
+def rmse(y_true, y_pred):
+    """Calculate the Root Mean Square Error (RMSE) between true and predicted values.
+    
+    Args:
+        y_true (array-like): The true values.
+        y_pred (array-like): The predicted values.
+    """
+    return np.sqrt(np.mean((y_true - y_pred) ** 2))    
 
 # dir manipulation
 def rename_all_files_in_dir(dir_path, old_str, new_str):

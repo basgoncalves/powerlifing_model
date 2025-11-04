@@ -7,7 +7,7 @@ TRIALS_TO_ANALYSE =  ['Walking_01'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_7
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
-MODEL_NAME = 'scaled_increasedForce3.osim'
+MODEL_NAME = 'scaled.osim'
 
 # Check local location of this module
 MODULE_DIR = os.path.dirname(__file__)
