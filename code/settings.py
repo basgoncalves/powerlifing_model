@@ -3,7 +3,7 @@ from pathlib import Path
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
-TRIALS_TO_ANALYSE =  ['Walking_01'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Walking_02', 'Walking_03'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
@@ -34,7 +34,7 @@ class Inputs:
         self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
-        self.MARKERS = 'c3dfile.trc'
+        self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
         self.JRA_FORCES = 'SO_StaticOptimization_force.sto'
         
@@ -48,7 +48,6 @@ class Inputs:
         
         self.CEINMS_OPTIMISE_SETUP = 'ceinms_setup_optimise.xml'
         self.CEINMS_OPTIMISE_CFG = 'ceinms_cfg_optimise.xml'
-        
         
         # setups 
         self.setupIK = 'setup_IK.xml'
@@ -91,7 +90,9 @@ class Outputs:
         self.CEINMS_OPTIMISATION_DIR = 'Optimised'
         if parentdir:
             for attr, filename in self.__dict__.items():
-                setattr(self, attr, os.path.join(parentdir, filename))
+                filepath = os.path.join(parentdir, filename)
+                relpath = os.path.relpath(filepath, parentdir)
+                setattr(self, attr, relpath)
                       
 class CEINMSParameters:
     def __init__(self):
@@ -104,32 +105,66 @@ class CEINMSParameters:
         self.gammaMax = 300
         self.gammaDelta = 50
         
+        self.Target_Muscles = ['all']  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
+        
+        self.Objective_Functions = []
+        self.Objective_Functions.append({
+            'name': 'MomentError',
+            'targets': 'all',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'normalisedFibreLength',
+            'weight': 10,
+            'exponent': 2,
+            'range': '0.5 1.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'tendonStrain',
+            'weight': 1000,
+            'exponent': 2,
+            'range': '0. 0.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'ExcitationsSquared',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'SynergyExtraction',
+            'mseWeight': 100,
+            'range': '0. 1.',
+            'rangeExponent': 2,
+            'rangeWeight': 1000
+        })
+        
 class Execute:
     def __init__(self):
                
         self.reset = False
-        self.create_settings_xml = False
+        self.create_settings_xml = True
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = False
-        self.ID = False
-        self.MA = False
-        self.MOMENT_ARMS = False
-        self.SO = False
-        self.JRA = False
+        self.IK = True
+        self.ID = True
+        self.MA = True
+        self.MOMENT_ARMS = True
+        self.SO = True
+        self.JRA = True
         
-        self.EMG_NORMALISE = False
+        self.EMG_NORMALISE = True
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
         self.CEINMS_OPTIMISATION = False
         
-        self.CREATE_PLOTS = False
+        self.CREATE_PLOTS = True
         
-        self.push_to_git = False
+        self.push_to_git = True
         
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',

@@ -258,9 +258,24 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
         muscleGroup = ET.SubElement(muscleGroups, 'muscles')
         muscleGroup.text = ' '.join(muscles)
 
+    # edit objectiveFunctions
+    objectiveFunctions = root.find('calibrationTargets').find('objectiveFunctions')
+    objectiveFunctions.clear()
+    for func in settings.CEINMSParameters().Objective_Functions:
+        objFunc = ET.SubElement(objectiveFunctions, 'objectiveFunction')
+        for key, value in func.items():
+            elem = ET.SubElement(objFunc, key)
+            elem.text = str(value)
+            
+    targetMuscles = root.find('calibrationTargets').find('muscles')
+    targetMuscles.clear()
+    for muscle in settings.CEINMSParameters().Target_Muscles:
+        muscleElem = ET.SubElement(targetMuscles, 'muscle')
+        muscleElem.text = muscle
+
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, outputPath)
-    print(f"Calibration configuration XML saved to: {outputPath}")
+    print(f"Calibration configuration XML saved to: {os.path.abspath(outputPath)}")
 
     return root
 
@@ -390,7 +405,8 @@ def calibrate(setupXML_path=None):
     if not os.path.exists(settings.CEINMS_CALIBRATION_EXE):
         raise FileNotFoundError(f"CEINMS calibration executable not found at {settings.CEINMS_CALIBRATION_EXE}")
 
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'calibration.log')
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
+    if os.path.exists(log_file_path): os.remove(log_file_path)
 
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
     
@@ -471,8 +487,10 @@ def executable(setupXML_path=None):
 
     command = f"{str(settings.CEINMS_EXE)} -S {str(setupXML_path)}"
 
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.log')
-    
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
+
+    if os.path.exists(log_file_path): os.remove(log_file_path)
+
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
     
     print(f"Running command: {command}")
@@ -624,10 +642,9 @@ def optimise(setupXML_path=None):
 
     command = f"{str(settings.CEINMS_OPTIMISE_EXE)} -S {str(setupXML_path)}"
 
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.log')
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
     
-    # delete log file if it exists
-    
+    if os.path.exists(log_file_path): os.remove(log_file_path)
 
     cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
     

@@ -1071,6 +1071,7 @@ def load_any_data_file(file_path):
             return pd.DataFrame([elem.attrib for elem in tree.findall('.//')])
         else:
             raise ValueError(f"Could not read XML file: {file_path}")
+    
     else:
         try:
             # Try to read as a generic text file

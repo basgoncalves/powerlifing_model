@@ -7,7 +7,8 @@ import utils
 import settings
 
 
-def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, setupXmlPath=None, resultsDir=None):
+def main(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, 
+         setupXmlPath=None, resultsDir=None):
     """
     Example usage:
     main(osim_modelPath='path/to/model.osim', 

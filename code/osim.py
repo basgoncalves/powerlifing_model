@@ -136,6 +136,19 @@ def increase_isometric_force(modelPath=None, muscleList='all', factor=3):
 
     model.printToXML(modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
 
+def create_grf_xml(markerTrcPath=None, grfMotFile=None, grfXmlPath=None):
+    """
+    Create a Ground Reaction Forces (GRF) XML file from marker TRC data.
+    """
+    if not markerTrcPath:
+        markerTrcPath = input("Enter path to marker TRC file: ").strip('"')
+    if not grfXmlPath:
+        grfXmlPath = input("Enter path to save GRF XML file: ").strip('"')
+    
+    utils.generate_grf_xml_from_trc(markerTrcPath, grfXmlPath)
+    print(f"GRF XML file created at: {grfXmlPath}")
+    
+
 if __name__ == "__main__":
     
     LocalFuncs = [f for f in dir() if callable(globals()[f])]

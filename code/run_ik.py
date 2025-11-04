@@ -4,19 +4,49 @@ import time
 import opensim as osim
 import utils
 import settings
+import xml.etree.ElementTree as ET
 
-def validate_markers_used(ikTool,markers_path):
-    task_set = ikTool.get_IKTaskSet()
-    markers = utils.load_trc(markers_path)
-    markers_list = markers.columns.get_level_values(0).unique().tolist()
 
-    for task in task_set:
-        if task.getName() in markers_list:
-            task.setApply(True)
-            task.setWeight(task.getWeight())
+def validate_markers_used(osim_modelPath, ikTool, markers_path):
+    
+    model =  osim.Model(osim_modelPath)
+    markerSet = model.get_MarkerSet() 
+    markers_model = [marker.getName() for marker in markerSet]
+
+    task_set_template = ikTool.get_IKTaskSet()
+    markers_df = utils.load_trc(markers_path)
+    markers_trc = markers_df.columns.get_level_values(0).unique().tolist()
+    
+    for marker_name in markers_model:
+        if marker_name not in markers_df.columns:
+            print(f"Warning: Marker '{marker_name}' not found in TRC file.")
+            time.sleep(0.05)
+
+    markers_in_task = [task.getName() for task in task_set_template if isinstance(task, osim.IKMarkerTask)]
+
+    for marker_name in markers_model:
+        if marker_name in markers_in_task:
+            if marker_name in markers_trc:
+                task = task_set_template.get(marker_name)
+                task.setApply(True)
+                breakpoint()
+            else:
+                task = task_set_template.get(marker_name)
+                task.setApply(False)
+                print(f"Marker '{marker_name}' not found in TRC file. Disabling task.")
         else:
-            task.setApply(False)
-        print(f"Task: {task.getName()}, Apply: {task.getApply()}, Weight: {task.getWeight()}")
+            newTask = osim.IKMarkerTask()
+            newTask.setName(marker_name)
+            newTask.setWeight(1.0)
+            if marker_name in markers_trc:
+                newTask.setApply(True)
+                print(f"Marker '{marker_name}' found in TRC file. Adding and applying with weight 1.0.")
+            else:
+                newTask.setApply(False)
+                print(f"Marker '{marker_name}' in Model not found in TRC file. Disabling task.")
+                
+            ikTool.get_IKTaskSet().adoptAndAppend(newTask)
+
     
     return ikTool
 
@@ -68,7 +98,7 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     ikTool = osim.InverseKinematicsTool(setup_xml)
     
     # simple function to validate the markers used in the IK setup
-    ikTool = validate_markers_used(ikTool, marker_trc)
+    ikTool = validate_markers_used(osim_modelPath, ikTool, marker_trc)
     
     # Set the model and parameters
     ikTool.setModel(model)
@@ -79,6 +109,12 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     
     # set the time range for the IK calculation
     if time_range is not None:
+        
+        # check time range is valid
+        if time_range[0] < markers.getFirstTime() or time_range[1] > markers.getLastTime():
+            print("Warning: Specified time range is outside the bounds of the marker data. Using full range instead.")
+            time_range = [markers.getFirstTime(), markers.getLastTime()]
+        
         ikTool.setStartTime(time_range[0])  # Set start time
         ikTool.setEndTime(time_range[1])    # Set end time
     else:
@@ -89,7 +125,7 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     ikTool.setResultsDir('./')
     ikTool.setOutputMotionFileName(os.path.relpath(ik_output, resultsDir))
     ikTool.printToXML(setup_xml)
-    print(f"Inverse Kinematics setup saved to {setup_xml}")
+    print(f"Inverse Kinematics setup saved to {os.path.abspath(setup_xml)}")
     time.sleep(1)  # Optional: wait for a second before running the tool
     
     # Reload tool from xml
@@ -100,6 +136,14 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     ikTool.run()
     
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
+
+def optimise_ik_weights(osim_modelPath, setup_xml):
+    """
+    Function to optimise IK marker weights based on marker errors.
+    """
+    
+    
+    
 
 if __name__ == '__main__':
     

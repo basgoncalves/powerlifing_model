@@ -211,7 +211,10 @@ def main(trial: utils.Trial, replace: bool = False):
 
     if settings.Execute().CREATE_PLOTS:
         try:
-            ceinms.plot_calibration_results()
+            trial.plot_ik()
+            trial.plot_id()
+            trial.plot_so()
+            trial.plot_emg()
             utils.print_to_log(f'Plots created successfully for: {trial.subject} / {trial.name}')
         except Exception as e:
             print(f"Error during plotting: {e}")
