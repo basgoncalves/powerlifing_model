@@ -334,29 +334,32 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None,
     fp = os.path.sep
 
     root = ET.Element("inputData")
+    length_path = os.path.join(MAFolder, '_MuscleAnalysis_Length.sto')
     muscle_length_elem = ET.SubElement(root, "muscleTendonLengthFile")
-    muscle_length_elem.text = str(MAFolder) + fp + '_MuscleAnalysis_Length.sto'
+    muscle_length_elem.text = os.path.relpath(length_path, start=os.path.dirname(MAFolder))
 
     excitations_elem = ET.SubElement(root, "excitationsFile")
-    excitations_elem.text = (excitationsFile)
+    excitations_elem.text = os.path.relpath(excitationsFile, start=os.path.dirname(MAFolder))
     
     # Add moment arms files 
     moment_arms = ET.SubElement(root, "momentArmsFiles")
     
     for dof in settings.DOFs:
+
+        dof_path = os.path.join(MAFolder, f'_MuscleAnalysis_MomentArm_{dof}.sto')
         dof_elem = ET.SubElement(moment_arms, "momentArmsFile")
         dof_elem.set("dofName", dof)
-        dof_elem.text = str(MAFolder) + fp + f'_MuscleAnalysis_MomentArm_{dof}.sto'
+        dof_elem.text = os.path.relpath(dof_path, start=os.path.dirname(MAFolder))  
 
     external_torques_elem = ET.SubElement(root, "externalTorquesFile")
-    external_torques_elem.text = externalTorquesFile
-    
+    external_torques_elem.text = os.path.relpath(externalTorquesFile, start=os.path.dirname(MAFolder))
+
     motion_elem = ET.SubElement(root, "motionFile")
-    motion_elem.text = motionFile
-    
+    motion_elem.text = os.path.relpath(motionFile, start=os.path.dirname(MAFolder))
+
     external_loads_elem = ET.SubElement(root, "externalLoadsFile")
-    external_loads_elem.text = externalLoadsFile
-    
+    external_loads_elem.text = os.path.relpath(externalLoadsFile, start=os.path.dirname(MAFolder))
+
     startStop_elem = ET.SubElement(root, "startStopTime")
     startStop_elem.text = f"{startStopTime[0]} {startStopTime[1]}"
     

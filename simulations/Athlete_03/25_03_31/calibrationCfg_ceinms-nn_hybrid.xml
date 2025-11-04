@@ -9,7 +9,7 @@
          <minImprovement>0.1</minImprovement>
          <patience>20</patience>
       </earlyStopping>
-      <numberOfSynergies>10</numberOfSynergies>
+      <numberOfSynergies>8</numberOfSynergies>
    </optimiser>
    <tendon>elastic</tendon>
    <calibrationTargets>
@@ -79,5 +79,5 @@
       </objectiveFunctions>
       <muscles>all</muscles>
    </calibrationTargets>
-   <trialSet>Squat_bar_01\inputData.xml</trialSet>
+   <trialSet>Walking_01\inputData.xml</trialSet>
 </calibration>
