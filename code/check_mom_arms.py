@@ -3,7 +3,6 @@ import opensim as osim
 import utils
 import os
 import matplotlib.pyplot as plt
-import paths
 
 if __name__ == '__main__':
     
