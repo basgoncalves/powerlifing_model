@@ -207,7 +207,9 @@ def main(trial: utils.Trial, replace: bool = False):
     # CEINMS optimisation
     if settings.Execute().CEINMS_OPTIMISATION:
         try:
-            ceinms.optimise(setupXML_path=trial.inputFiles.CEINMS_OPTIMISE_SETUP)
+
+            setupAbsPath = os.path.abspath(trial.inputFiles.CEINMS_OPTIMISE_SETUP)
+            ceinms.optimise(setupXML_path=setupAbsPath)
 
             adjustedEMG_path = os.path.join(trial.outputFiles.CEINMS_OPTIMISATION_DIR, 'adjustedEMG.sto')
             ceinms.plot_emg_vs_ceimns(emgFile=trial.inputFiles.EMG_NORMALISED,
