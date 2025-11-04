@@ -137,10 +137,49 @@ def main(osim_modelPath=None, marker_trc=None, ik_output=None, setup_xml=None, t
     
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
-def optimise_ik_weights(osim_modelPath, setup_xml):
+def optimise_ik_weights(osim_modelPath, setup_xml, threshold=0.03):
     """
-    Function to optimise IK marker weights based on marker errors.
+    Run the IK until all marker errors are below a threshold by optimising the marker weights.
     """
+    # Load the model
+    print(f"Loading OpenSim model from {osim_modelPath}")
+    model = osim.Model(osim_modelPath)
+    model.initSystem()
+    
+    # Load the Inverse Kinematics tool
+    
+    max_iterations = 10
+    iteration = 0
+    all_below_threshold = False
+    
+    while not all_below_threshold and iteration < max_iterations:
+        ikTool = osim.InverseKinematicsTool(setup_xml)
+        ikTool.setModel(model)
+        print(f"IK Optimization Iteration: {iteration + 1}")
+        ikTool.run()
+        
+        # Load the results to check marker errors
+        results_path = os.path.join(ikTool.getResultsDir(), ikTool.getOutputMotionFileName())
+        marker_distances = utils.compare_marker_locations(osim_modelPath, results_path, ikTool.getMarkerDataFileName())
+        breakpoint()
+        
+        all_below_threshold = True
+        for marker_name, distance in marker_distances.items():
+            if distance > threshold:
+                all_below_threshold = False
+                print(f"Marker '{marker_name}' distance {distance:.4f} exceeds threshold {threshold}. Increasing weight.")
+                task_set = ikTool.get_IKTaskSet()
+                task = task_set.get(marker_name)
+                current_weight = task.getWeight()
+                task.setWeight(current_weight * 1.5)  # Increase weight by 50%
+        
+        iteration += 1
+    
+    if all_below_threshold:
+        print("All marker errors are below the threshold.")
+    else:
+        print("Maximum iterations reached. Some marker errors may still exceed the threshold.")
+    
     
     
     

@@ -143,18 +143,18 @@ class Execute:
     def __init__(self):
                
         self.reset = False
-        self.create_settings_xml = True
+        self.create_settings_xml = False
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
         self.IK = True
-        self.ID = True
-        self.MA = True
-        self.MOMENT_ARMS = True
-        self.SO = True
-        self.JRA = True
+        self.ID = False
+        self.MA = False
+        self.MOMENT_ARMS = False
+        self.SO = False
+        self.JRA = False
         
-        self.EMG_NORMALISE = True
+        self.EMG_NORMALISE = False
         
         self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
@@ -162,9 +162,9 @@ class Execute:
         self.CEINMS_CALIBRATION = False
         self.CEINMS_OPTIMISATION = False
         
-        self.CREATE_PLOTS = True
+        self.CREATE_PLOTS = False
         
-        self.push_to_git = True
+        self.push_to_git = False
         
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',

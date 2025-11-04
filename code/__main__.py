@@ -46,7 +46,7 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             virtual_marker_locations = trial.path + '\\' + '_ik_model_marker_locations.sto'
-            compare_marker_locations.main(marker_experimental_path=trial.inputFiles.MARKERS,
+            compare_marker_locations.main(marker_experimental_path=os.path.abspath(trial.inputFiles.MARKERS),
                                           marker_virtual_path=virtual_marker_locations)
             utils.print_to_log(f'[Success] Marker location comparison completed.')
         except:
@@ -214,7 +214,9 @@ def main(trial: utils.Trial, replace: bool = False):
             trial.plot_ik()
             trial.plot_id()
             trial.plot_so()
+            trial.plot_jra()
             trial.plot_emg()
+            
             utils.print_to_log(f'Plots created successfully for: {trial.subject} / {trial.name}')
         except Exception as e:
             print(f"Error during plotting: {e}")
