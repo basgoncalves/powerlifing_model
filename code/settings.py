@@ -121,7 +121,7 @@ class Execute:
         
         self.EMG_NORMALISE = False
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
