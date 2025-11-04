@@ -756,3 +756,46 @@ Assembly error tolerance achieved: 9.8385145171826047e-09 required: 1e-10..Model
 [2025-11-04 08:23:52.213] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
 [2025-11-04 08:23:52.253] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
 [2025-11-04 08:23:52.331] [info] Adding force object set from a
+[2025-11-04 09:06:07.856] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:06:07.943] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:06:07.954] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:06:07.998] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:06:08.079] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:06:08.119] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:06:08.196] [info] Adding force object set from a
+[2025-11-04 09:07:36.364] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:07:36.442] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:07:43.877] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:07:43.928] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:07:54.508] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:07:54.556] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:07:54.638] [info] Adding force object set from a
+[2025-11-04 09:12:04.842] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:12:04.912] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:12:15.932] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:12:15.981] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:12:16.067] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:12:16.111] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim
+[2025-11-04 09:12:16.288] [info] Storage: read data file = C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_01\c3dfile.mot (nr=2390 nc=46)
+[2025-11-04 09:12:16.329] [info] ExternalForce::grf_r_2 Data source being set to c3dfile
+[2025-11-04 09:12:16.330] [info] ExternalForce::grf_l_3 Data source being set to c3dfile
+[2025-11-04 09:12:16.330] [info] ExternalForce::grf_l_4 Data source being set to c3dfile
+[2025-11-04 09:12:16.367] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-04 09:12:16.368] [info] Storage: read data file = joint_angles.mot (nr=131 nc=40)
+[2025-11-04 09:12:16.371] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-04 09:12:16.636] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.8385145170651483e-09 required: 1e-10.
+[2025-11-04 09:12:16.649] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.8385145171826047e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-04 09:12:16.911] [info] Found 261 state vectors with time stamps ranging from 3.215 to 4.515.
+[2025-11-04 09:12:16.912] [info] Executing the analyses from 3.54 to 4.19...
+[2025-11-04 09:12:16.915] [info] Loading actuator forces from file SO_StaticOptimization_force.sto.
+[2025-11-04 09:12:16.915] [info] Storage: read data file = SO_StaticOptimization_force.sto (nr=131 nc=141)
+[2025-11-04 09:12:16.926] [info] Found 140 actuator forces with time stamps ranging from 3.54to 4.19.
+[2025-11-04 09:12:16.926] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-11-04 09:12:16.927] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
+[2025-11-04 09:12:18.009] [info] Printing results of investigation Analyse to .
