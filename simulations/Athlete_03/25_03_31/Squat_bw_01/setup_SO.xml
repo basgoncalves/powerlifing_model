@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
-<OpenSimDocument Version="40000">
+<OpenSimDocument Version="40600">
    <AnalyzeTool name="SO">
-      <model_file>..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim</model_file>
+      <model_file>..\..\..\..\models\Athlete_03\25_03_31\scaled.osim</model_file>
       <replace_force_set>false</replace_force_set>
       <force_set_files> actuators_so.xml</force_set_files>
       <results_directory>.</results_directory>
       <output_precision>8</output_precision>
-      <initial_time>1.7050000000000001</initial_time>
+      <initial_time>0</initial_time>
       <final_time>3.5350000000000001</final_time>
       <solve_for_equilibrium_for_auxiliary_states>false</solve_for_equilibrium_for_auxiliary_states>
       <maximum_number_of_integrator_steps>20000</maximum_number_of_integrator_steps>
@@ -17,7 +17,7 @@
          <objects>
             <StaticOptimization name="StaticOptimization">
                <on>true</on>
-               <start_time>1.7050000000000001</start_time>
+               <start_time>0</start_time>
                <end_time>3.5350000000000001</end_time>
                <step_interval>1</step_interval>
                <in_degrees>true</in_degrees>
