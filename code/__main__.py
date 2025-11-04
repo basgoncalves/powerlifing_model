@@ -189,12 +189,14 @@ def main(trial: utils.Trial, replace: bool = False):
         
         try:
             start_time = time.time()
+            ceinms.plot_ceinms_model_parameters(trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)
             trial.run_ceinms_calibration()
             
             # if date modified of calibrated model is after start time, assume success
             mod_time = os.path.getmtime(trial.inputFiles.CEINMS_CALIBRATED_MODEL)
             if mod_time >= start_time:
                 utils.print_to_log(f'CEINMS calibration completed successfully in {end_time - start_time:.2f} seconds.')
+                ceinms.plot_ceinms_model_parameters(trial.inputFiles.CEINMS_CALIBRATED_MODEL)
             else:
                 utils.print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
                 
@@ -206,6 +208,14 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().CEINMS_OPTIMISATION:
         try:
             ceinms.optimise(setupXML_path=trial.inputFiles.CEINMS_OPTIMISE_SETUP)
+
+            adjustedEMG_path = os.path.join(trial.outputFiles.CEINMS_OPTIMISATION_DIR, 'adjustedEMG.sto')
+            ceinms.plot_emg_vs_ceimns(emgFile=trial.inputFiles.EMG_NORMALISED,
+                                      ceinmsExcitationsFile=adjustedEMG_path)
+            
+            torqueCEINMS_path = os.path.join(trial.outputFiles.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
+            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.outputFiles.ID,
+                                          ceinmsMomentsFile=torqueCEINMS_path)
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 
