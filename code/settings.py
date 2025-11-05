@@ -3,7 +3,11 @@ from pathlib import Path
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
-TRIALS_TO_ANALYSE =  ['Squat_bw_01', 'Squat_bw_02'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
+                      'Squat_bw_01', 'Squat_bw_02',
+                      'Squat_bw_03',
+                      'Squat_bar_02', 'Squat_bar_03',
+                      'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
@@ -150,12 +154,12 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = False
-        self.ID = False
-        self.MA = False
-        self.MOMENT_ARMS = False
-        self.SO = False
-        self.JRA = False
+        self.IK = True
+        self.ID = True
+        self.MA = True
+        self.MOMENT_ARMS = True
+        self.SO = True
+        self.JRA = True
         
         self.EMG_NORMALISE = False
         
@@ -164,9 +168,9 @@ class Execute:
         
         self.CEINMS_CALIBRATION = False
         self.CEINMS_OPTIMISATION = False
-        self.CEINMS_EXE = True
+        self.CEINMS_EXE = False
         
-        self.CREATE_PLOTS = False
+        self.CREATE_PLOTS = True
         
         self.push_to_git = True
         
