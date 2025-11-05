@@ -147,7 +147,7 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
+        self.IK = False
         self.ID = False
         self.MA = False
         self.MOMENT_ARMS = False
@@ -164,7 +164,7 @@ class Execute:
         
         self.CREATE_PLOTS = False
         
-        self.push_to_git = False
+        self.push_to_git = True
         
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',
