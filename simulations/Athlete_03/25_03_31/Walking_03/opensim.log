@@ -1,0 +1,55 @@
+[2025-11-05 12:56:18.436] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:56:18.643] [info] Storage: read data file = joint_angles.mot (nr=245 nc=40)
+[2025-11-05 12:56:18.841] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:56:19.084] [cout] [info] 
+               MODEL: Athlete_03
+         coordinates: 39
+              forces: 97
+           actuators: 97
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 22
+              joints: 22
+         constraints: 2
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-11-05 12:56:19.092] [info] Running tool ...
+[2025-11-05 12:56:19.235] [info] Storage: read data file = grf.mot (nr=2460 nc=46)
+[2025-11-05 12:56:19.280] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 12:56:19.280] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 12:56:19.280] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 12:56:19.280] [info] ExternalForce::grf_r_5 Data source being set to grf
+[2025-11-05 12:56:19.315] [info] Storage: read data file = joint_angles.mot (nr=245 nc=40)
+[2025-11-05 12:56:19.330] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 12:56:20.472] [info] InverseDynamicsTool: 245 time frames in 886 millisecond(s).
+[2025-11-05 12:56:20.568] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:56:20.704] [info] Storage: read data file = joint_angles.mot (nr=245 nc=40)
+[2025-11-05 12:56:20.771] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:56:20.874] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:56:21.374] [info] Storage: read data file = grf.mot (nr=2460 nc=46)
+[2025-11-05 12:56:21.507] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 12:56:21.508] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 12:56:21.508] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 12:56:21.508] [info] ExternalForce::grf_r_5 Data source being set to grf
+[2025-11-05 12:56:21.556] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-05 12:56:21.557] [info] Storage: read data file = joint_angles.mot (nr=245 nc=40)
+[2025-11-05 12:56:21.567] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 12:56:22.109] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 4.3874903155375462e-09 required: 1e-10.
+[2025-11-05 12:56:22.142] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 4.3874903496926145e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-05 12:56:22.948] [info] Found 489 state vectors with time stamps ranging from -0.605000 to 1.835.
+[2025-11-05 12:56:22.951] [info] Executing the analyses from 0.00500000 to 1.225...
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate wrist_flex_r is locked and can't be varied.
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate wrist_dev_r is locked and can't be varied.
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate wrist_flex_l is locked and can't be varied.
+[2025-11-05 12:56:22.978] [warning] MuscleAnalysis: coordinate wrist_dev_l is locked and can't be varied.
