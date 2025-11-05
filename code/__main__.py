@@ -221,6 +221,13 @@ def main(trial: utils.Trial, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 
+    if settings.Execute().CEINMS_EXE:
+        try:
+            trial.create_ceinms_exe_setup()
+            ceinms.executable(os.path.abspath(trial.inputFiles.CEINMS_EXE_SETUP))
+        except Exception as e:
+            utils.print_to_log(f'Error during CEINMS executable run: {e}')
+
     if settings.Execute().CREATE_PLOTS:
         try:
             trial.plot_ik()

@@ -594,6 +594,32 @@ class Trial():
 
         return fig, axes
     
+    def plot_summarry(self):
+        '''
+        plot summary of all analyses for the trial
+        
+        row 1 - IK joint angles
+        row 2 - ID joint moments and CEINMS joint moments
+        row 3 - SO muscle forces and CEINMS forces
+        row 4 - EMG excitations, SO activations, CEINMS activations
+        row 5 - Norm Fiber lengths
+        row 6 - Joint Reaction Forces
+        '''
+        # load all data
+        self.joint_angles = load_any_data_file(self.outputFiles.IK)
+        self.inverse_dynamics = load_any_data_file(self.outputFiles.ID)
+        self.so_forces = load_any_data_file(self.outputFiles.SO_forces)
+        self.so_activations = load_any_data_file(self.outputFiles.SO_activations)
+        self.jra_results = load_any_data_file(self.outputFiles.JRA)
+        self.emg_data = load_any_data_file(self.inputFiles.EMG_NORMALISED)
+        
+    
+        self.ceinms_activations = load_any_data_file(os.path.join(self.path, 'CEINMS_activations.sto'))
+        
+        n_rows = 6
+        fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
+        
+    
     # ceinms
     def create_ceinms_model(self):
         os.chdir(self.path)
@@ -749,6 +775,20 @@ class Trial():
 
         ceinms.create_optimise_cfg(outputXML_path=self.inputFiles.CEINMS_OPTIMISE_CFG,
                                    excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR)
+
+    def create_ceinms_exe_setup(self):
+
+        root = ET.Element('ceinms')
+        ET.SubElement(root, 'subjectFile').text = os.path.relpath(self.inputFiles.CEINMS_CALIBRATED_MODEL, self.path)
+        ET.SubElement(root, 'inputDataFile').text = os.path.relpath(self.inputFiles.CEINMS_INPUT_DATA, self.path)
+        ET.SubElement(root, 'executionFile').text = os.path.relpath(self.inputFiles.CEINMS_OPTIMISE_CFG, self.path)
+        ET.SubElement(root, 'excitationGeneratorFile').text = os.path.relpath(self.inputFiles.CEINMS_EXCITATION_GENERATOR, self.path)
+        ET.SubElement(root, 'outputDirectory').text = os.path.relpath(self.outputFiles.CEINMS_EXE_DIR, self.path)
+
+        # Create tree and write to file
+        tree = ET.ElementTree(root)
+        save_pretty_xml(tree, self.inputFiles.CEINMS_EXE_SETUP)
+        print(f"Created {self.inputFiles.CEINMS_EXE_SETUP}")
 
 class Session():
     def __init__(self, subject_name, session_name):

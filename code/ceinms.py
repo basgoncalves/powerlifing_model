@@ -503,6 +503,7 @@ def executable(setupXML_path=None):
 
         if process.returncode == 0:
             print(f"CEINMS process finished successfully!")
+            print(f"Log file saved to: {log_file_path}")
     except Exception as e:
         print(f"Error running CEINMS executable: {e}")
 
