@@ -800,3 +800,737 @@ Assembly error tolerance achieved: 9.8385145171826047e-09 required: 1e-10..Model
 [2025-11-04 09:12:16.927] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
 [2025-11-04 09:12:18.009] [info] Printing results of investigation Analyse to .
 [2025-11-04 20:19:08.686] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:31:02.582] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:31:03.028] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 12:31:05.682] [cout] [info] 
+               MODEL: Athlete_03
+         coordinates: 39
+              forces: 97
+           actuators: 97
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 22
+              joints: 22
+         constraints: 2
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-11-05 12:31:05.685] [info] Running tool .
+[2025-11-05 12:31:06.706] [info] Frame 0 (t = 0.0):	 total squared error = 0.00167100, marker error: RMS = 0.00852362, max = 0.0164086 (XIPH)
+[2025-11-05 12:31:06.728] [info] Frame 1 (t = 0.00500000):	 total squared error = 0.00170854, marker error: RMS = 0.00861883, max = 0.0166528 (XIPH)
+[2025-11-05 12:31:06.792] [info] Frame 2 (t = 0.01):	 total squared error = 0.00172574, marker error: RMS = 0.00866210, max = 0.0165933 (XIPH)
+[2025-11-05 12:31:06.944] [info] Frame 3 (t = 0.015):	 total squared error = 0.00175653, marker error: RMS = 0.00873904, max = 0.0169833 (XIPH)
+[2025-11-05 12:31:06.989] [info] Frame 4 (t = 0.02):	 total squared error = 0.00179554, marker error: RMS = 0.00883556, max = 0.0171505 (XIPH)
+[2025-11-05 12:31:07.075] [info] Frame 5 (t = 0.025):	 total squared error = 0.00181811, marker error: RMS = 0.00889092, max = 0.0176697 (XIPH)
+[2025-11-05 12:31:07.151] [info] Frame 6 (t = 0.03):	 total squared error = 0.00186877, marker error: RMS = 0.00901392, max = 0.0177857 (XIPH)
+[2025-11-05 12:31:07.234] [info] Frame 7 (t = 0.035):	 total squared error = 0.00191951, marker error: RMS = 0.00913548, max = 0.0179373 (XIPH)
+[2025-11-05 12:31:07.280] [info] Frame 8 (t = 0.04):	 total squared error = 0.00196206, marker error: RMS = 0.00923617, max = 0.0181364 (XIPH)
+[2025-11-05 12:31:07.446] [info] Frame 9 (t = 0.045):	 total squared error = 0.00197192, marker error: RMS = 0.00925936, max = 0.0186207 (XIPH)
+[2025-11-05 12:31:07.535] [info] Frame 10 (t = 0.05):	 total squared error = 0.00200728, marker error: RMS = 0.00934201, max = 0.0186744 (XIPH)
+[2025-11-05 12:31:07.624] [info] Frame 11 (t = 0.055):	 total squared error = 0.00202564, marker error: RMS = 0.00938463, max = 0.0187344 (XIPH)
+[2025-11-05 12:31:07.727] [info] Frame 12 (t = 0.06):	 total squared error = 0.00203771, marker error: RMS = 0.00941256, max = 0.018796 (STRN)
+[2025-11-05 12:31:07.809] [info] Frame 13 (t = 0.065):	 total squared error = 0.00203268, marker error: RMS = 0.00940092, max = 0.0189111 (STRN)
+[2025-11-05 12:31:07.970] [info] Frame 14 (t = 0.07):	 total squared error = 0.00198939, marker error: RMS = 0.00930028, max = 0.0195188 (STRN)
+[2025-11-05 12:31:08.054] [info] Frame 15 (t = 0.075):	 total squared error = 0.00196421, marker error: RMS = 0.00924124, max = 0.0194799 (STRN)
+[2025-11-05 12:31:08.158] [info] Frame 16 (t = 0.08):	 total squared error = 0.00193415, marker error: RMS = 0.00917025, max = 0.0194282 (STRN)
+[2025-11-05 12:31:08.223] [info] Frame 17 (t = 0.085):	 total squared error = 0.00189906, marker error: RMS = 0.00908668, max = 0.0193313 (STRN)
+[2025-11-05 12:31:08.282] [info] Frame 18 (t = 0.09):	 total squared error = 0.00187109, marker error: RMS = 0.00901951, max = 0.0192098 (STRN)
+[2025-11-05 12:31:08.376] [info] Frame 19 (t = 0.095):	 total squared error = 0.00188805, marker error: RMS = 0.00906030, max = 0.0193147 (STRN)
+[2025-11-05 12:31:08.421] [info] Frame 20 (t = 0.1):	 total squared error = 0.00187370, marker error: RMS = 0.00902581, max = 0.0189852 (STRN)
+[2025-11-05 12:31:08.500] [info] Frame 21 (t = 0.105000):	 total squared error = 0.00187379, marker error: RMS = 0.00902603, max = 0.018658 (STRN)
+[2025-11-05 12:31:08.600] [info] Frame 22 (t = 0.11):	 total squared error = 0.00196476, marker error: RMS = 0.00924253, max = 0.0184313 (STRN)
+[2025-11-05 12:31:08.677] [info] Frame 23 (t = 0.115):	 total squared error = 0.00198029, marker error: RMS = 0.00927899, max = 0.0179318 (STRN)
+[2025-11-05 12:31:08.791] [info] Frame 24 (t = 0.12):	 total squared error = 0.00210767, marker error: RMS = 0.00957276, max = 0.0175939 (STRN)
+[2025-11-05 12:31:08.871] [info] Frame 25 (t = 0.125):	 total squared error = 0.00219604, marker error: RMS = 0.00977139, max = 0.0177609 (LM5)
+[2025-11-05 12:31:08.921] [info] Frame 26 (t = 0.13):	 total squared error = 0.00220865, marker error: RMS = 0.00979941, max = 0.0171899 (LM5)
+[2025-11-05 12:31:09.030] [info] Frame 27 (t = 0.135):	 total squared error = 0.00238556, marker error: RMS = 0.0101843, max = 0.0180037 (RTHOL)
+[2025-11-05 12:31:09.096] [info] Frame 28 (t = 0.14):	 total squared error = 0.00239668, marker error: RMS = 0.0102080, max = 0.0184494 (RTHOL)
+[2025-11-05 12:31:09.179] [info] Frame 29 (t = 0.145):	 total squared error = 0.00255650, marker error: RMS = 0.0105429, max = 0.0199465 (RTHOL)
+[2025-11-05 12:31:09.269] [info] Frame 30 (t = 0.15):	 total squared error = 0.00263699, marker error: RMS = 0.0107076, max = 0.0208278 (RTHOL)
+[2025-11-05 12:31:09.343] [info] Frame 31 (t = 0.155):	 total squared error = 0.00272294, marker error: RMS = 0.0108807, max = 0.021682 (RTHOL)
+[2025-11-05 12:31:09.398] [info] Frame 32 (t = 0.16):	 total squared error = 0.00281093, marker error: RMS = 0.0110551, max = 0.0224751 (RTHOL)
+[2025-11-05 12:31:09.452] [info] Frame 33 (t = 0.165):	 total squared error = 0.00290691, marker error: RMS = 0.0112422, max = 0.0232441 (RTHOL)
+[2025-11-05 12:31:09.531] [info] Frame 34 (t = 0.17):	 total squared error = 0.00300477, marker error: RMS = 0.0114299, max = 0.0240082 (RTHOL)
+[2025-11-05 12:31:09.600] [info] Frame 35 (t = 0.175):	 total squared error = 0.00308382, marker error: RMS = 0.0115793, max = 0.0245305 (RTHOL)
+[2025-11-05 12:31:09.681] [info] Frame 36 (t = 0.18):	 total squared error = 0.00325216, marker error: RMS = 0.0118911, max = 0.0255588 (RTHOL)
+[2025-11-05 12:31:09.761] [info] Frame 37 (t = 0.185):	 total squared error = 0.00337052, marker error: RMS = 0.0121056, max = 0.0262060 (RTHOL)
+[2025-11-05 12:31:09.923] [info] Frame 38 (t = 0.19):	 total squared error = 0.00353901, marker error: RMS = 0.0124044, max = 0.0271795 (RTHOL)
+[2025-11-05 12:31:10.014] [info] Frame 39 (t = 0.195):	 total squared error = 0.00370010, marker error: RMS = 0.0126836, max = 0.0279723 (RTHOL)
+[2025-11-05 12:31:10.094] [info] Frame 40 (t = 0.2):	 total squared error = 0.00386826, marker error: RMS = 0.0129686, max = 0.0287725 (RTHOL)
+[2025-11-05 12:31:10.150] [info] Frame 41 (t = 0.205000):	 total squared error = 0.00399060, marker error: RMS = 0.0131721, max = 0.0295374 (RTHOL)
+[2025-11-05 12:31:10.253] [info] Frame 42 (t = 0.21):	 total squared error = 0.00419712, marker error: RMS = 0.0135086, max = 0.0302174 (RTHOL)
+[2025-11-05 12:31:10.309] [info] Frame 43 (t = 0.215):	 total squared error = 0.00432799, marker error: RMS = 0.0137176, max = 0.0310201 (RTHOL)
+[2025-11-05 12:31:10.364] [info] Frame 44 (t = 0.22):	 total squared error = 0.00452265, marker error: RMS = 0.0140227, max = 0.0318253 (RTHOL)
+[2025-11-05 12:31:10.413] [info] Frame 45 (t = 0.225):	 total squared error = 0.00464363, marker error: RMS = 0.0142090, max = 0.0324918 (RTHOL)
+[2025-11-05 12:31:10.515] [info] Frame 46 (t = 0.23):	 total squared error = 0.00481234, marker error: RMS = 0.0144649, max = 0.0329829 (RTHOL)
+[2025-11-05 12:31:10.552] [info] Frame 47 (t = 0.235):	 total squared error = 0.00492825, marker error: RMS = 0.014638, max = 0.0335784 (RTHOL)
+[2025-11-05 12:31:10.646] [info] Frame 48 (t = 0.24):	 total squared error = 0.00506785, marker error: RMS = 0.0148439, max = 0.0339758 (RTHOL)
+[2025-11-05 12:31:10.698] [info] Frame 49 (t = 0.245):	 total squared error = 0.00517322, marker error: RMS = 0.0149974, max = 0.0343768 (RTHOL)
+[2025-11-05 12:31:10.774] [info] Frame 50 (t = 0.25):	 total squared error = 0.00527773, marker error: RMS = 0.0151482, max = 0.0346955 (RTHOL)
+[2025-11-05 12:31:10.923] [info] Frame 51 (t = 0.255):	 total squared error = 0.00535832, marker error: RMS = 0.0152634, max = 0.0347080 (RTHOL)
+[2025-11-05 12:31:10.995] [info] Frame 52 (t = 0.26):	 total squared error = 0.00543186, marker error: RMS = 0.0153677, max = 0.0348719 (RTHOL)
+[2025-11-05 12:31:11.069] [info] Frame 53 (t = 0.265):	 total squared error = 0.00548775, marker error: RMS = 0.0154466, max = 0.0349471 (RTHOL)
+[2025-11-05 12:31:11.197] [info] Frame 54 (t = 0.27):	 total squared error = 0.00545238, marker error: RMS = 0.0153968, max = 0.0345232 (RTHOL)
+[2025-11-05 12:31:11.238] [info] Frame 55 (t = 0.275):	 total squared error = 0.00545639, marker error: RMS = 0.0154024, max = 0.0343979 (RTHOL)
+[2025-11-05 12:31:11.358] [info] Frame 56 (t = 0.28):	 total squared error = 0.00537270, marker error: RMS = 0.0152838, max = 0.0338445 (RTHOL)
+[2025-11-05 12:31:11.458] [info] Frame 57 (t = 0.285):	 total squared error = 0.00529837, marker error: RMS = 0.0151777, max = 0.0334547 (RTHOL)
+[2025-11-05 12:31:11.639] [info] Frame 58 (t = 0.29):	 total squared error = 0.00518079, marker error: RMS = 0.0150084, max = 0.0329124 (RTHOL)
+[2025-11-05 12:31:11.763] [info] Frame 59 (t = 0.295):	 total squared error = 0.00499843, marker error: RMS = 0.0147419, max = 0.0318266 (RTHOL)
+[2025-11-05 12:31:11.805] [info] Frame 60 (t = 0.3):	 total squared error = 0.00487531, marker error: RMS = 0.0145592, max = 0.0314191 (RTHOL)
+[2025-11-05 12:31:11.917] [info] Frame 61 (t = 0.305000):	 total squared error = 0.00464008, marker error: RMS = 0.0142036, max = 0.0302762 (RTHOL)
+[2025-11-05 12:31:11.977] [info] Frame 62 (t = 0.31):	 total squared error = 0.00443285, marker error: RMS = 0.0138828, max = 0.0291894 (RTHOL)
+[2025-11-05 12:31:12.016] [info] Frame 63 (t = 0.315):	 total squared error = 0.00429784, marker error: RMS = 0.0136698, max = 0.0287653 (RTHOL)
+[2025-11-05 12:31:12.063] [info] Frame 64 (t = 0.32):	 total squared error = 0.00415935, marker error: RMS = 0.0134477, max = 0.0284295 (RTHOL)
+[2025-11-05 12:31:12.173] [info] Frame 65 (t = 0.325):	 total squared error = 0.00386858, marker error: RMS = 0.0129692, max = 0.0267687 (RTHOL)
+[2025-11-05 12:31:12.260] [info] Frame 66 (t = 0.33):	 total squared error = 0.00369230, marker error: RMS = 0.0126702, max = 0.0255801 (RTHOL)
+[2025-11-05 12:31:12.316] [info] Frame 67 (t = 0.335):	 total squared error = 0.00357898, marker error: RMS = 0.0124743, max = 0.0251275 (RTHOL)
+[2025-11-05 12:31:12.400] [info] Frame 68 (t = 0.34):	 total squared error = 0.00339465, marker error: RMS = 0.0121488, max = 0.0237765 (RTHOL)
+[2025-11-05 12:31:12.449] [info] Frame 69 (t = 0.345):	 total squared error = 0.00331821, marker error: RMS = 0.0120112, max = 0.0234386 (RTHOL)
+[2025-11-05 12:31:12.513] [info] Frame 70 (t = 0.35):	 total squared error = 0.00317846, marker error: RMS = 0.0117556, max = 0.0225154 (RTHOL)
+[2025-11-05 12:31:12.596] [info] Frame 71 (t = 0.355):	 total squared error = 0.00308720, marker error: RMS = 0.0115856, max = 0.0216137 (RTHOL)
+[2025-11-05 12:31:12.662] [info] Frame 72 (t = 0.36):	 total squared error = 0.00305858, marker error: RMS = 0.0115318, max = 0.0213561 (RTHOL)
+[2025-11-05 12:31:12.716] [info] Frame 73 (t = 0.365):	 total squared error = 0.00302936, marker error: RMS = 0.0114766, max = 0.0208972 (RTHOL)
+[2025-11-05 12:31:12.787] [info] Frame 74 (t = 0.37):	 total squared error = 0.00294423, marker error: RMS = 0.0113141, max = 0.0208802 (LM5)
+[2025-11-05 12:31:12.872] [info] Frame 75 (t = 0.375):	 total squared error = 0.00293321, marker error: RMS = 0.011293, max = 0.0208933 (LM5)
+[2025-11-05 12:31:12.938] [info] Frame 76 (t = 0.38):	 total squared error = 0.00295522, marker error: RMS = 0.0113352, max = 0.0212653 (LM5)
+[2025-11-05 12:31:13.064] [info] Frame 77 (t = 0.385):	 total squared error = 0.00293598, marker error: RMS = 0.0112983, max = 0.0212489 (LM5)
+[2025-11-05 12:31:13.176] [info] Frame 78 (t = 0.39):	 total squared error = 0.00296980, marker error: RMS = 0.0113632, max = 0.021451 (LM5)
+[2025-11-05 12:31:13.286] [info] Frame 79 (t = 0.395):	 total squared error = 0.00298562, marker error: RMS = 0.0113934, max = 0.0216423 (LM5)
+[2025-11-05 12:31:13.376] [info] Frame 80 (t = 0.4):	 total squared error = 0.00302161, marker error: RMS = 0.0114619, max = 0.0218009 (LM5)
+[2025-11-05 12:31:13.440] [info] Frame 81 (t = 0.405000):	 total squared error = 0.00306743, marker error: RMS = 0.0115484, max = 0.0219663 (LM5)
+[2025-11-05 12:31:13.509] [info] Frame 82 (t = 0.41):	 total squared error = 0.00310718, marker error: RMS = 0.011623, max = 0.0220478 (LM5)
+[2025-11-05 12:31:13.573] [info] Frame 83 (t = 0.415):	 total squared error = 0.00314712, marker error: RMS = 0.0116975, max = 0.0222453 (LM5)
+[2025-11-05 12:31:13.665] [info] Frame 84 (t = 0.42):	 total squared error = 0.00317588, marker error: RMS = 0.0117508, max = 0.0220718 (LM5)
+[2025-11-05 12:31:13.720] [info] Frame 85 (t = 0.425):	 total squared error = 0.00320631, marker error: RMS = 0.0118070, max = 0.0224233 (LM5)
+[2025-11-05 12:31:13.794] [info] Frame 86 (t = 0.43):	 total squared error = 0.00323050, marker error: RMS = 0.0118514, max = 0.0223083 (LM5)
+[2025-11-05 12:31:13.916] [info] Frame 87 (t = 0.435):	 total squared error = 0.00323040, marker error: RMS = 0.0118513, max = 0.0216494 (LM5)
+[2025-11-05 12:31:13.971] [info] Frame 88 (t = 0.44):	 total squared error = 0.00322498, marker error: RMS = 0.0118413, max = 0.0216508 (LM5)
+[2025-11-05 12:31:14.088] [info] Frame 89 (t = 0.445):	 total squared error = 0.00320199, marker error: RMS = 0.011799, max = 0.0208296 (LM5)
+[2025-11-05 12:31:14.196] [info] Frame 90 (t = 0.45):	 total squared error = 0.00316595, marker error: RMS = 0.0117324, max = 0.0203858 (LM5)
+[2025-11-05 12:31:14.256] [info] Frame 91 (t = 0.455):	 total squared error = 0.00311914, marker error: RMS = 0.0116454, max = 0.0204724 (XIPH)
+[2025-11-05 12:31:14.377] [info] Frame 92 (t = 0.46):	 total squared error = 0.00304755, marker error: RMS = 0.011511, max = 0.0205956 (XIPH)
+[2025-11-05 12:31:14.464] [info] Frame 93 (t = 0.465):	 total squared error = 0.00296517, marker error: RMS = 0.0113543, max = 0.0207506 (XIPH)
+[2025-11-05 12:31:14.520] [info] Frame 94 (t = 0.47):	 total squared error = 0.00288966, marker error: RMS = 0.0112088, max = 0.0209699 (XIPH)
+[2025-11-05 12:31:14.573] [info] Frame 95 (t = 0.475):	 total squared error = 0.00279635, marker error: RMS = 0.0110263, max = 0.0212129 (XIPH)
+[2025-11-05 12:31:14.626] [info] Frame 96 (t = 0.48):	 total squared error = 0.00270172, marker error: RMS = 0.0108382, max = 0.0214576 (XIPH)
+[2025-11-05 12:31:14.700] [info] Frame 97 (t = 0.485):	 total squared error = 0.00260861, marker error: RMS = 0.0106498, max = 0.0216695 (XIPH)
+[2025-11-05 12:31:14.816] [info] Frame 98 (t = 0.49):	 total squared error = 0.00250949, marker error: RMS = 0.0104455, max = 0.0217892 (XIPH)
+[2025-11-05 12:31:14.886] [info] Frame 99 (t = 0.495):	 total squared error = 0.00244108, marker error: RMS = 0.0103021, max = 0.0219622 (XIPH)
+[2025-11-05 12:31:14.956] [info] Frame 100 (t = 0.5):	 total squared error = 0.00237753, marker error: RMS = 0.0101671, max = 0.0221522 (XIPH)
+[2025-11-05 12:31:15.058] [info] Frame 101 (t = 0.505000):	 total squared error = 0.00232413, marker error: RMS = 0.0100523, max = 0.0223505 (XIPH)
+[2025-11-05 12:31:15.121] [info] Frame 102 (t = 0.51):	 total squared error = 0.00230265, marker error: RMS = 0.0100058, max = 0.0224384 (XIPH)
+[2025-11-05 12:31:15.194] [info] Frame 103 (t = 0.515):	 total squared error = 0.00228102, marker error: RMS = 0.00995865, max = 0.0226162 (XIPH)
+[2025-11-05 12:31:15.272] [info] Frame 104 (t = 0.52):	 total squared error = 0.00228902, marker error: RMS = 0.00997610, max = 0.02274 (XIPH)
+[2025-11-05 12:31:15.357] [info] Frame 105 (t = 0.525):	 total squared error = 0.00230086, marker error: RMS = 0.0100019, max = 0.0228913 (XIPH)
+[2025-11-05 12:31:15.430] [info] Frame 106 (t = 0.53):	 total squared error = 0.00232923, marker error: RMS = 0.0100633, max = 0.0229641 (XIPH)
+[2025-11-05 12:31:15.506] [info] Frame 107 (t = 0.535):	 total squared error = 0.00236062, marker error: RMS = 0.0101309, max = 0.0230893 (XIPH)
+[2025-11-05 12:31:15.572] [info] Frame 108 (t = 0.54):	 total squared error = 0.00239429, marker error: RMS = 0.0102029, max = 0.023199 (XIPH)
+[2025-11-05 12:31:15.633] [info] Frame 109 (t = 0.545):	 total squared error = 0.00243265, marker error: RMS = 0.0102843, max = 0.0233521 (XIPH)
+[2025-11-05 12:31:15.671] [info] Frame 110 (t = 0.55):	 total squared error = 0.00244975, marker error: RMS = 0.0103204, max = 0.0232726 (XIPH)
+[2025-11-05 12:31:15.746] [info] Frame 111 (t = 0.555):	 total squared error = 0.00249049, marker error: RMS = 0.0104059, max = 0.0235528 (XIPH)
+[2025-11-05 12:31:15.781] [info] Frame 112 (t = 0.56):	 total squared error = 0.00251157, marker error: RMS = 0.0104498, max = 0.0236099 (XIPH)
+[2025-11-05 12:31:15.837] [info] Frame 113 (t = 0.565):	 total squared error = 0.00254698, marker error: RMS = 0.0105232, max = 0.0238165 (XIPH)
+[2025-11-05 12:31:15.912] [info] Frame 114 (t = 0.57):	 total squared error = 0.00255380, marker error: RMS = 0.0105373, max = 0.0236834 (XIPH)
+[2025-11-05 12:31:15.960] [info] Frame 115 (t = 0.575):	 total squared error = 0.00256529, marker error: RMS = 0.0105610, max = 0.0237849 (XIPH)
+[2025-11-05 12:31:16.090] [info] Frame 116 (t = 0.58):	 total squared error = 0.00259955, marker error: RMS = 0.0106313, max = 0.0237079 (XIPH)
+[2025-11-05 12:31:16.158] [info] Frame 117 (t = 0.585):	 total squared error = 0.00261244, marker error: RMS = 0.0106576, max = 0.0237338 (XIPH)
+[2025-11-05 12:31:16.257] [info] Frame 118 (t = 0.59):	 total squared error = 0.00265583, marker error: RMS = 0.0107457, max = 0.0235851 (XIPH)
+[2025-11-05 12:31:16.352] [info] Frame 119 (t = 0.595):	 total squared error = 0.00270088, marker error: RMS = 0.0108365, max = 0.0234711 (XIPH)
+[2025-11-05 12:31:16.429] [info] Frame 120 (t = 0.6):	 total squared error = 0.00269797, marker error: RMS = 0.0108307, max = 0.0232946 (XIPH)
+[2025-11-05 12:31:16.489] [info] Frame 121 (t = 0.605000):	 total squared error = 0.00271342, marker error: RMS = 0.0108616, max = 0.0230478 (XIPH)
+[2025-11-05 12:31:16.580] [info] Frame 122 (t = 0.61):	 total squared error = 0.00272532, marker error: RMS = 0.0108854, max = 0.0227763 (XIPH)
+[2025-11-05 12:31:16.663] [info] Frame 123 (t = 0.615):	 total squared error = 0.00272903, marker error: RMS = 0.0108928, max = 0.0226261 (RTHOL)
+[2025-11-05 12:31:16.749] [info] Frame 124 (t = 0.62):	 total squared error = 0.00272838, marker error: RMS = 0.0108915, max = 0.0227911 (RTHOL)
+[2025-11-05 12:31:16.857] [info] Frame 125 (t = 0.625):	 total squared error = 0.00276676, marker error: RMS = 0.0109679, max = 0.0233924 (RTHOL)
+[2025-11-05 12:31:16.930] [info] Frame 126 (t = 0.63):	 total squared error = 0.00271248, marker error: RMS = 0.0108597, max = 0.0232772 (RTHOL)
+[2025-11-05 12:31:17.015] [info] Frame 127 (t = 0.635):	 total squared error = 0.00268504, marker error: RMS = 0.0108047, max = 0.0233882 (RTHOL)
+[2025-11-05 12:31:17.090] [info] Frame 128 (t = 0.64):	 total squared error = 0.00263787, marker error: RMS = 0.0107093, max = 0.0234396 (RTHOL)
+[2025-11-05 12:31:17.161] [info] Frame 129 (t = 0.645):	 total squared error = 0.00259144, marker error: RMS = 0.0106147, max = 0.0235327 (RTHOL)
+[2025-11-05 12:31:17.232] [info] Frame 130 (t = 0.65):	 total squared error = 0.00254301, marker error: RMS = 0.0105150, max = 0.0236282 (RTHOL)
+[2025-11-05 12:31:17.309] [info] Frame 131 (t = 0.655):	 total squared error = 0.00253199, marker error: RMS = 0.0104922, max = 0.023963 (RTHOL)
+[2025-11-05 12:31:17.386] [info] Frame 132 (t = 0.66):	 total squared error = 0.00246011, marker error: RMS = 0.0103422, max = 0.023985 (RTHOL)
+[2025-11-05 12:31:17.440] [info] Frame 133 (t = 0.665):	 total squared error = 0.00239304, marker error: RMS = 0.0102003, max = 0.0240913 (RTHOL)
+[2025-11-05 12:31:17.515] [info] Frame 134 (t = 0.67):	 total squared error = 0.00235420, marker error: RMS = 0.0101171, max = 0.024328 (RTHOL)
+[2025-11-05 12:31:17.599] [info] Frame 135 (t = 0.675):	 total squared error = 0.00229661, marker error: RMS = 0.00999262, max = 0.0243967 (RTHOL)
+[2025-11-05 12:31:17.670] [info] Frame 136 (t = 0.68):	 total squared error = 0.00223976, marker error: RMS = 0.00986818, max = 0.0246257 (RTHOL)
+[2025-11-05 12:31:17.781] [info] Frame 137 (t = 0.685):	 total squared error = 0.00221421, marker error: RMS = 0.00981173, max = 0.0246327 (RTHOL)
+[2025-11-05 12:31:17.885] [info] Frame 138 (t = 0.69):	 total squared error = 0.00219634, marker error: RMS = 0.00977206, max = 0.0248871 (RTHOL)
+[2025-11-05 12:31:17.980] [info] Frame 139 (t = 0.695):	 total squared error = 0.00219806, marker error: RMS = 0.00977588, max = 0.0252294 (RTHOL)
+[2025-11-05 12:31:18.087] [info] Frame 140 (t = 0.7):	 total squared error = 0.00221980, marker error: RMS = 0.00982410, max = 0.0253133 (RTHOL)
+[2025-11-05 12:31:18.213] [info] Frame 141 (t = 0.705000):	 total squared error = 0.00223795, marker error: RMS = 0.00986418, max = 0.0251878 (RTHOL)
+[2025-11-05 12:31:18.325] [info] Frame 142 (t = 0.71):	 total squared error = 0.00231235, marker error: RMS = 0.0100268, max = 0.0254409 (RTHOL)
+[2025-11-05 12:31:18.412] [info] Frame 143 (t = 0.715):	 total squared error = 0.00243308, marker error: RMS = 0.0102852, max = 0.0260427 (RTHOL)
+[2025-11-05 12:31:18.583] [info] Frame 144 (t = 0.72):	 total squared error = 0.00244605, marker error: RMS = 0.0103126, max = 0.0250857 (RTHOL)
+[2025-11-05 12:31:18.728] [info] Frame 145 (t = 0.725):	 total squared error = 0.00253814, marker error: RMS = 0.0105050, max = 0.0249243 (RTHOL)
+[2025-11-05 12:31:18.872] [info] Frame 146 (t = 0.73):	 total squared error = 0.00266153, marker error: RMS = 0.0107573, max = 0.0248647 (RTHOL)
+[2025-11-05 12:31:18.996] [info] Frame 147 (t = 0.735):	 total squared error = 0.00278700, marker error: RMS = 0.0110079, max = 0.0255093 (RM5)
+[2025-11-05 12:31:19.097] [info] Frame 148 (t = 0.74):	 total squared error = 0.00295987, marker error: RMS = 0.0113442, max = 0.0273362 (RM5)
+[2025-11-05 12:31:19.241] [info] Frame 149 (t = 0.745):	 total squared error = 0.00300122, marker error: RMS = 0.0114231, max = 0.0284793 (RM5)
+[2025-11-05 12:31:19.332] [info] Frame 150 (t = 0.75):	 total squared error = 0.00316693, marker error: RMS = 0.0117342, max = 0.0297027 (RM5)
+[2025-11-05 12:31:19.496] [info] Frame 151 (t = 0.755):	 total squared error = 0.00324722, marker error: RMS = 0.0118821, max = 0.0306987 (RM5)
+[2025-11-05 12:31:19.627] [info] Frame 152 (t = 0.76):	 total squared error = 0.00338454, marker error: RMS = 0.0121307, max = 0.0314172 (RM5)
+[2025-11-05 12:31:19.729] [info] Frame 153 (t = 0.765):	 total squared error = 0.00350907, marker error: RMS = 0.0123518, max = 0.0318386 (RM5)
+[2025-11-05 12:31:19.823] [info] Frame 154 (t = 0.77):	 total squared error = 0.00363100, marker error: RMS = 0.0125646, max = 0.0321512 (RM5)
+[2025-11-05 12:31:19.926] [info] Frame 155 (t = 0.775):	 total squared error = 0.00373505, marker error: RMS = 0.0127434, max = 0.0321806 (RM5)
+[2025-11-05 12:31:20.018] [info] Frame 156 (t = 0.78):	 total squared error = 0.00384407, marker error: RMS = 0.012928, max = 0.0322598 (RM5)
+[2025-11-05 12:31:20.138] [info] Frame 157 (t = 0.785):	 total squared error = 0.00394881, marker error: RMS = 0.0131029, max = 0.0317929 (RM5)
+[2025-11-05 12:31:20.243] [info] Frame 158 (t = 0.79):	 total squared error = 0.00402478, marker error: RMS = 0.0132284, max = 0.0317451 (RM5)
+[2025-11-05 12:31:20.339] [info] Frame 159 (t = 0.795):	 total squared error = 0.00410265, marker error: RMS = 0.0133558, max = 0.0317703 (RM5)
+[2025-11-05 12:31:20.450] [info] Frame 160 (t = 0.8):	 total squared error = 0.00431968, marker error: RMS = 0.0137045, max = 0.0314479 (RM5)
+[2025-11-05 12:31:20.543] [info] Frame 161 (t = 0.805000):	 total squared error = 0.00433686, marker error: RMS = 0.0137317, max = 0.0313825 (RM5)
+[2025-11-05 12:31:20.622] [info] Frame 162 (t = 0.81):	 total squared error = 0.00433921, marker error: RMS = 0.0137354, max = 0.0311795 (RM5)
+[2025-11-05 12:31:20.721] [info] Frame 163 (t = 0.815):	 total squared error = 0.00432203, marker error: RMS = 0.0137082, max = 0.0303614 (RM5)
+[2025-11-05 12:31:20.821] [info] Frame 164 (t = 0.82):	 total squared error = 0.00426206, marker error: RMS = 0.0136127, max = 0.0304500 (RM5)
+[2025-11-05 12:31:20.905] [info] Frame 165 (t = 0.825):	 total squared error = 0.00417079, marker error: RMS = 0.0134662, max = 0.0302966 (RM5)
+[2025-11-05 12:31:21.046] [info] Frame 166 (t = 0.83):	 total squared error = 0.00415115, marker error: RMS = 0.0134345, max = 0.0295482 (RM5)
+[2025-11-05 12:31:21.089] [info] Frame 167 (t = 0.835):	 total squared error = 0.00399270, marker error: RMS = 0.0131756, max = 0.0294038 (RM5)
+[2025-11-05 12:31:21.187] [info] Frame 168 (t = 0.84):	 total squared error = 0.00380696, marker error: RMS = 0.0128655, max = 0.0284941 (RM5)
+[2025-11-05 12:31:21.266] [info] Frame 169 (t = 0.845):	 total squared error = 0.00362252, marker error: RMS = 0.0125499, max = 0.02822 (RM5)
+[2025-11-05 12:31:21.297] [info] Frame 170 (t = 0.85):	 total squared error = 0.00342776, marker error: RMS = 0.0122079, max = 0.0278841 (RM5)
+[2025-11-05 12:31:21.328] [info] Frame 171 (t = 0.855):	 total squared error = 0.00321880, marker error: RMS = 0.01183, max = 0.0269841 (RM5)
+[2025-11-05 12:31:21.362] [info] Frame 172 (t = 0.86):	 total squared error = 0.00300677, marker error: RMS = 0.0114337, max = 0.026463 (RM5)
+[2025-11-05 12:31:21.439] [info] Frame 173 (t = 0.865):	 total squared error = 0.00281990, marker error: RMS = 0.0110727, max = 0.0255536 (RM5)
+[2025-11-05 12:31:21.481] [info] Frame 174 (t = 0.87):	 total squared error = 0.00265272, marker error: RMS = 0.0107394, max = 0.0253017 (RM5)
+[2025-11-05 12:31:21.524] [info] Frame 175 (t = 0.875):	 total squared error = 0.00250163, marker error: RMS = 0.0104291, max = 0.0249057 (RM5)
+[2025-11-05 12:31:21.588] [info] Frame 176 (t = 0.88):	 total squared error = 0.00236524, marker error: RMS = 0.0101408, max = 0.0244468 (RM5)
+[2025-11-05 12:31:21.704] [info] Frame 177 (t = 0.885):	 total squared error = 0.00224038, marker error: RMS = 0.00986954, max = 0.0234971 (RM5)
+[2025-11-05 12:31:21.786] [info] Frame 178 (t = 0.89):	 total squared error = 0.00215038, marker error: RMS = 0.00966927, max = 0.023264 (RM5)
+[2025-11-05 12:31:21.865] [info] Frame 179 (t = 0.895):	 total squared error = 0.00207781, marker error: RMS = 0.00950470, max = 0.022968 (RM5)
+[2025-11-05 12:31:21.959] [info] Frame 180 (t = 0.9):	 total squared error = 0.00203370, marker error: RMS = 0.00940328, max = 0.0221152 (RM5)
+[2025-11-05 12:31:22.027] [info] Frame 181 (t = 0.905000):	 total squared error = 0.00201107, marker error: RMS = 0.00935082, max = 0.0221015 (RM5)
+[2025-11-05 12:31:22.148] [info] Frame 182 (t = 0.91):	 total squared error = 0.00201418, marker error: RMS = 0.00935804, max = 0.0213282 (RM5)
+[2025-11-05 12:31:22.241] [info] Frame 183 (t = 0.915):	 total squared error = 0.00203340, marker error: RMS = 0.00940258, max = 0.0212070 (RM5)
+[2025-11-05 12:31:22.325] [info] Frame 184 (t = 0.92):	 total squared error = 0.00206434, marker error: RMS = 0.00947384, max = 0.0211741 (RM5)
+[2025-11-05 12:31:22.431] [info] Frame 185 (t = 0.925):	 total squared error = 0.00211299, marker error: RMS = 0.00958483, max = 0.0205393 (RM5)
+[2025-11-05 12:31:22.509] [info] Frame 186 (t = 0.93):	 total squared error = 0.00216672, marker error: RMS = 0.00970594, max = 0.0205554 (RM5)
+[2025-11-05 12:31:22.622] [info] Frame 187 (t = 0.935):	 total squared error = 0.00224118, marker error: RMS = 0.00987129, max = 0.0200857 (RM5)
+[2025-11-05 12:31:22.694] [info] Frame 188 (t = 0.94):	 total squared error = 0.00230665, marker error: RMS = 0.0100145, max = 0.0201847 (RM5)
+[2025-11-05 12:31:22.813] [info] Frame 189 (t = 0.945):	 total squared error = 0.00237836, marker error: RMS = 0.0101689, max = 0.0200582 (RTH3)
+[2025-11-05 12:31:22.906] [info] Frame 190 (t = 0.95):	 total squared error = 0.00244310, marker error: RMS = 0.0103064, max = 0.0204846 (RTH3)
+[2025-11-05 12:31:22.980] [info] Frame 191 (t = 0.955):	 total squared error = 0.00250246, marker error: RMS = 0.0104308, max = 0.0208764 (RTH3)
+[2025-11-05 12:31:23.092] [info] Frame 192 (t = 0.96):	 total squared error = 0.00255111, marker error: RMS = 0.0105318, max = 0.0213894 (RTH3)
+[2025-11-05 12:31:23.146] [info] Frame 193 (t = 0.965):	 total squared error = 0.00257855, marker error: RMS = 0.0105883, max = 0.0214602 (RTH3)
+[2025-11-05 12:31:23.257] [info] Frame 194 (t = 0.97):	 total squared error = 0.00259699, marker error: RMS = 0.0106260, max = 0.0216145 (RTH3)
+[2025-11-05 12:31:23.327] [info] Frame 195 (t = 0.975):	 total squared error = 0.00258712, marker error: RMS = 0.0106058, max = 0.0214205 (RTH3)
+[2025-11-05 12:31:23.391] [info] Frame 196 (t = 0.98):	 total squared error = 0.00256345, marker error: RMS = 0.0105572, max = 0.0212904 (RTH3)
+[2025-11-05 12:31:23.496] [info] Frame 197 (t = 0.985):	 total squared error = 0.00251075, marker error: RMS = 0.0104481, max = 0.0207663 (RTH3)
+[2025-11-05 12:31:23.677] [info] Frame 198 (t = 0.99):	 total squared error = 0.00244174, marker error: RMS = 0.0103035, max = 0.0202952 (RTH3)
+[2025-11-05 12:31:23.803] [info] Frame 199 (t = 0.995):	 total squared error = 0.00234781, marker error: RMS = 0.0101034, max = 0.0195255 (RTH3)
+[2025-11-05 12:31:23.898] [info] Frame 200 (t = 1.0):	 total squared error = 0.00223562, marker error: RMS = 0.00985905, max = 0.0194065 (XIPH)
+[2025-11-05 12:31:24.038] [info] Frame 201 (t = 1.00500):	 total squared error = 0.00211948, marker error: RMS = 0.00959954, max = 0.0195457 (XIPH)
+[2025-11-05 12:31:24.144] [info] Frame 202 (t = 1.01):	 total squared error = 0.00198848, marker error: RMS = 0.00929815, max = 0.0195885 (XIPH)
+[2025-11-05 12:31:24.249] [info] Frame 203 (t = 1.015):	 total squared error = 0.00186421, marker error: RMS = 0.00900292, max = 0.019693 (XIPH)
+[2025-11-05 12:31:24.391] [info] Frame 204 (t = 1.02):	 total squared error = 0.00174291, marker error: RMS = 0.00870510, max = 0.0197927 (XIPH)
+[2025-11-05 12:31:24.507] [info] Frame 205 (t = 1.025):	 total squared error = 0.00163145, marker error: RMS = 0.00842214, max = 0.0198475 (XIPH)
+[2025-11-05 12:31:24.767] [info] Frame 206 (t = 1.03):	 total squared error = 0.00154340, marker error: RMS = 0.00819173, max = 0.0197778 (XIPH)
+[2025-11-05 12:31:24.907] [info] Frame 207 (t = 1.035):	 total squared error = 0.00146188, marker error: RMS = 0.00797245, max = 0.0198265 (XIPH)
+[2025-11-05 12:31:25.027] [info] Frame 208 (t = 1.04):	 total squared error = 0.00140194, marker error: RMS = 0.00780729, max = 0.0198498 (XIPH)
+[2025-11-05 12:31:25.189] [info] Frame 209 (t = 1.045):	 total squared error = 0.00136168, marker error: RMS = 0.00769437, max = 0.0197041 (XIPH)
+[2025-11-05 12:31:25.281] [info] Frame 210 (t = 1.05):	 total squared error = 0.00134485, marker error: RMS = 0.00764668, max = 0.0197573 (XIPH)
+[2025-11-05 12:31:25.374] [info] Frame 211 (t = 1.055):	 total squared error = 0.00133936, marker error: RMS = 0.00763105, max = 0.0197074 (XIPH)
+[2025-11-05 12:31:25.581] [info] Frame 212 (t = 1.06):	 total squared error = 0.00135301, marker error: RMS = 0.00766984, max = 0.0193577 (XIPH)
+[2025-11-05 12:31:25.731] [info] Frame 213 (t = 1.065):	 total squared error = 0.00136624, marker error: RMS = 0.00770725, max = 0.019314 (XIPH)
+[2025-11-05 12:31:25.802] [info] Frame 214 (t = 1.07):	 total squared error = 0.00138473, marker error: RMS = 0.00775924, max = 0.019217 (XIPH)
+[2025-11-05 12:31:26.012] [info] Frame 215 (t = 1.075):	 total squared error = 0.00141879, marker error: RMS = 0.00785407, max = 0.0191773 (XIPH)
+[2025-11-05 12:31:26.108] [info] Frame 216 (t = 1.08):	 total squared error = 0.00144166, marker error: RMS = 0.00791711, max = 0.0191668 (XIPH)
+[2025-11-05 12:31:26.216] [info] Frame 217 (t = 1.085):	 total squared error = 0.00146419, marker error: RMS = 0.00797874, max = 0.0191243 (XIPH)
+[2025-11-05 12:31:26.279] [info] Frame 218 (t = 1.09):	 total squared error = 0.00148114, marker error: RMS = 0.00802480, max = 0.0191009 (XIPH)
+[2025-11-05 12:31:26.355] [info] Frame 219 (t = 1.095):	 total squared error = 0.00150141, marker error: RMS = 0.00807951, max = 0.0191152 (XIPH)
+[2025-11-05 12:31:26.424] [info] Frame 220 (t = 1.1):	 total squared error = 0.00152669, marker error: RMS = 0.00814727, max = 0.0191239 (XIPH)
+[2025-11-05 12:31:26.597] [info] Frame 221 (t = 1.10500):	 total squared error = 0.00154952, marker error: RMS = 0.00820796, max = 0.0195658 (XIPH)
+[2025-11-05 12:31:26.682] [info] Frame 222 (t = 1.11):	 total squared error = 0.00157633, marker error: RMS = 0.00827864, max = 0.0196611 (XIPH)
+[2025-11-05 12:31:26.838] [info] Frame 223 (t = 1.115):	 total squared error = 0.00160999, marker error: RMS = 0.00836658, max = 0.0196082 (XIPH)
+[2025-11-05 12:31:27.052] [info] Frame 224 (t = 1.12):	 total squared error = 0.00161828, marker error: RMS = 0.00838808, max = 0.0200831 (XIPH)
+[2025-11-05 12:31:27.127] [info] Frame 225 (t = 1.125):	 total squared error = 0.00165545, marker error: RMS = 0.00848388, max = 0.0201688 (XIPH)
+[2025-11-05 12:31:27.316] [info] Frame 226 (t = 1.13):	 total squared error = 0.00167912, marker error: RMS = 0.00854430, max = 0.0204303 (XIPH)
+[2025-11-05 12:31:27.432] [info] Frame 227 (t = 1.135):	 total squared error = 0.00172198, marker error: RMS = 0.00865266, max = 0.0204722 (XIPH)
+[2025-11-05 12:31:27.515] [info] Frame 228 (t = 1.14):	 total squared error = 0.00176813, marker error: RMS = 0.00876785, max = 0.0205544 (XIPH)
+[2025-11-05 12:31:27.734] [info] Frame 229 (t = 1.145):	 total squared error = 0.00178597, marker error: RMS = 0.00881197, max = 0.0208490 (XIPH)
+[2025-11-05 12:31:27.863] [info] Frame 230 (t = 1.15):	 total squared error = 0.00181840, marker error: RMS = 0.00889161, max = 0.0209130 (XIPH)
+[2025-11-05 12:31:27.924] [info] Frame 231 (t = 1.155):	 total squared error = 0.00185545, marker error: RMS = 0.00898176, max = 0.0209323 (XIPH)
+[2025-11-05 12:31:28.024] [info] Frame 232 (t = 1.16):	 total squared error = 0.00189384, marker error: RMS = 0.00907418, max = 0.0208861 (XIPH)
+[2025-11-05 12:31:28.089] [info] Frame 233 (t = 1.165):	 total squared error = 0.00191396, marker error: RMS = 0.00912226, max = 0.0209213 (XIPH)
+[2025-11-05 12:31:28.288] [info] Frame 234 (t = 1.17):	 total squared error = 0.00191337, marker error: RMS = 0.00912087, max = 0.0212002 (XIPH)
+[2025-11-05 12:31:28.350] [info] Frame 235 (t = 1.175):	 total squared error = 0.00192007, marker error: RMS = 0.00913680, max = 0.0211796 (XIPH)
+[2025-11-05 12:31:28.425] [info] Frame 236 (t = 1.18):	 total squared error = 0.00193802, marker error: RMS = 0.00917942, max = 0.0212223 (XIPH)
+[2025-11-05 12:31:28.553] [info] Frame 237 (t = 1.185):	 total squared error = 0.00193914, marker error: RMS = 0.00918208, max = 0.0212006 (XIPH)
+[2025-11-05 12:31:28.748] [info] Frame 238 (t = 1.19):	 total squared error = 0.00192985, marker error: RMS = 0.00916005, max = 0.0212197 (XIPH)
+[2025-11-05 12:31:28.777] [info] InverseKinematicsTool completed 239 frames in 22 second(s).
+[2025-11-05 13:52:53.534] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 13:52:53.751] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 13:52:53.960] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 13:52:54.088] [cout] [info] 
+               MODEL: Athlete_03
+         coordinates: 39
+              forces: 97
+           actuators: 97
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 22
+              joints: 22
+         constraints: 2
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-11-05 13:52:54.089] [info] Running tool ...
+[2025-11-05 13:52:54.324] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 13:52:54.453] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 13:52:54.454] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 13:52:54.454] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 13:52:54.454] [warning] Storage grf could not locate data for identifier ground_force2_v.
+[2025-11-05 13:52:54.466] [error] InverseDynamicsTool Failed: ExternalForce: 3 unique force components could not be found, for force identifier: ground_force2_v
+. Please make sure data file contains exactly 3 unique columns with this common prefix.
+[2025-11-05 14:08:44.847] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:08:44.971] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:08:45.050] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:08:45.148] [cout] [info] 
+               MODEL: Athlete_03
+         coordinates: 39
+              forces: 97
+           actuators: 97
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 22
+              joints: 22
+         constraints: 2
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-11-05 14:08:45.149] [info] Running tool ...
+[2025-11-05 14:08:45.263] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:08:45.315] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:08:45.315] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:08:45.315] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:08:45.336] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:08:45.344] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 14:08:45.927] [info] InverseDynamicsTool: 239 time frames in 445 millisecond(s).
+[2025-11-05 14:11:22.029] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:11:22.246] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:11:22.360] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:11:22.517] [cout] [info] 
+               MODEL: Athlete_03
+         coordinates: 39
+              forces: 97
+           actuators: 97
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 22
+              joints: 22
+         constraints: 2
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-11-05 14:11:22.518] [info] Running tool ...
+[2025-11-05 14:11:22.684] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:11:22.753] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:11:22.753] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:11:22.753] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:11:22.790] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:11:22.801] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 14:11:23.677] [info] InverseDynamicsTool: 239 time frames in 684 millisecond(s).
+[2025-11-05 14:13:56.272] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:13:56.442] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:13:56.524] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:13:56.582] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:13:56.866] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:13:56.914] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:13:56.914] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:13:56.914] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:13:56.938] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-05 14:13:56.939] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:13:56.945] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 14:13:57.470] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 2.2901811603529925e-09 required: 1e-10.
+[2025-11-05 14:13:57.489] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 2.2901812257193353e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-05 14:13:58.148] [info] Found 477 state vectors with time stamps ranging from -0.595 to 1.785.
+[2025-11-05 14:13:58.148] [info] Executing the analyses from 0.0 to 1.19...
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate wrist_flex_r is locked and can't be varied.
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate wrist_dev_r is locked and can't be varied.
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate wrist_flex_l is locked and can't be varied.
+[2025-11-05 14:13:58.167] [warning] MuscleAnalysis: coordinate wrist_dev_l is locked and can't be varied.
+[2025-11-05 14:15:53.225] [info] Printing results of investigation  to muscleAnalysis
+[2025-11-05 14:15:58.628] [info] Loaded model Athlete_03 from file C:\Git\1_current_projects\powerlifing_model\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:15:58.854] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:15:58.928] [info] AbstractTool SO loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:15:59.035] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-05 14:15:59.230] [info] Adding force object set from actuators_so.xml
+[2025-11-05 14:15:59.403] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:15:59.482] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:15:59.483] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:15:59.483] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:15:59.501] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-05 14:15:59.501] [info] Storage: read data file = joint_angles.mot (nr=239 nc=40)
+[2025-11-05 14:15:59.515] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-05 14:16:00.403] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 2.2901811603529925e-09 required: 1e-10.
+[2025-11-05 14:16:00.450] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 2.2901812257193353e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-05 14:16:01.685] [info] Found 477 state vectors with time stamps ranging from -0.595 to 1.785.
+[2025-11-05 14:16:01.685] [info] Executing the analyses from 0.0 to 1.19...
+[2025-11-05 14:16:01.875] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:16:01.949] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:16:01.949] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:16:01.949] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:16:02.024] [info] Storage: read data file = grf.mot (nr=2390 nc=46)
+[2025-11-05 14:16:02.098] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-05 14:16:02.098] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-11-05 14:16:02.098] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-11-05 14:16:03.563] [cout] [info] time = 0.0 Performance = 6.4975 Constraint violation = 1.50038e-13
+[2025-11-05 14:16:03.566] [info] Bounds for 'addbrev_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.566] [info] Bounds for 'addlong_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.566] [info] Bounds for 'addmagDist_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.566] [info] Bounds for 'addmagIsch_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.567] [info] Bounds for 'addmagMid_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.567] [info] Bounds for 'addmagProx_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.567] [info] Bounds for 'bflh_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.567] [info] Bounds for 'bfsh_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.567] [info] Bounds for 'edl_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'ehl_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'fdl_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'fhl_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'gaslat_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'gasmed_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmax1_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmax2_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmax3_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmed1_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmed2_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.568] [info] Bounds for 'glmed3_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'glmin1_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'glmin2_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'glmin3_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'grac_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'iliacus_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'perbrev_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'perlong_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'piri_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'psoas_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.569] [info] Bounds for 'recfem_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'sart_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'semimem_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'semiten_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'soleus_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'tfl_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'tibant_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'tibpost_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'vasint_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'vaslat_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'vasmed_r': 0.01 to 1.0.
+[2025-11-05 14:16:03.570] [info] Bounds for 'addbrev_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'addlong_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'addmagDist_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'addmagIsch_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'addmagMid_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'addmagProx_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.571] [info] Bounds for 'bflh_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.572] [info] Bounds for 'bfsh_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.572] [info] Bounds for 'edl_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.572] [info] Bounds for 'ehl_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.572] [info] Bounds for 'fdl_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.572] [info] Bounds for 'fhl_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'gaslat_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'gasmed_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'glmax1_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'glmax2_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'glmax3_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.573] [info] Bounds for 'glmed1_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'glmed2_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'glmed3_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'glmin1_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'glmin2_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'glmin3_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'grac_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'iliacus_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'perbrev_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'perlong_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'piri_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.574] [info] Bounds for 'psoas_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'recfem_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'sart_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'semimem_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'semiten_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'soleus_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'tfl_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'tibant_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'tibpost_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'vasint_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'vaslat_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'vasmed_l': 0.01 to 1.0.
+[2025-11-05 14:16:03.575] [info] Bounds for 'lumbar_ext': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'lumbar_bend': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'lumbar_rot': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_flex_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_add_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_rot_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'elbow_flex_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'pro_sup_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'wrist_flex_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'wrist_dev_r': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_flex_l': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_add_l': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'shoulder_rot_l': -inf to inf.
+[2025-11-05 14:16:03.576] [info] Bounds for 'elbow_flex_l': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'pro_sup_l': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'wrist_flex_l': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'wrist_dev_l': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'FX': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'FY': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'FZ': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'MX': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'MY': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'MZ': -inf to inf.
+[2025-11-05 14:16:03.577] [info] Bounds for 'hip_flexion_r_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.577] [info] Bounds for 'hip_adduction_r_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.577] [info] Bounds for 'hip_rotation_r_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'knee_angle_r_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'ankle_angle_r_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'hip_flexion_l_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'hip_adduction_l_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'hip_rotation_l_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'knee_angle_l_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.578] [info] Bounds for 'ankle_angle_l_reserve': -1.0 to 1.0.
+[2025-11-05 14:16:03.994] [cout] [info] time = 0.00500000 Performance = 18.2878 Constraint violation = 4.38553e-13
+[2025-11-05 14:16:04.384] [cout] [info] time = 0.01 Performance = 37.6808 Constraint violation = 3.43501e-12
+[2025-11-05 14:16:04.804] [cout] [info] time = 0.015 Performance = 62.8597 Constraint violation = 6.98728e-12
+[2025-11-05 14:16:05.176] [cout] [info] time = 0.02 Performance = 91.1259 Constraint violation = 4.0964e-12
+[2025-11-05 14:16:05.679] [cout] [info] time = 0.025 Performance = 119.276 Constraint violation = 8.99336e-11
+[2025-11-05 14:16:06.253] [cout] [info] time = 0.03 Performance = 144.047 Constraint violation = 1.86504e-11
+[2025-11-05 14:16:06.677] [cout] [info] time = 0.035 Performance = 162.541 Constraint violation = 3.92921e-12
+[2025-11-05 14:16:07.148] [cout] [info] time = 0.04 Performance = 172.6 Constraint violation = 2.27518e-11
+[2025-11-05 14:16:07.607] [cout] [info] time = 0.045 Performance = 173.081 Constraint violation = 1.04238e-10
+[2025-11-05 14:16:08.051] [cout] [info] time = 0.05 Performance = 164.004 Constraint violation = 6.77792e-11
+[2025-11-05 14:16:08.535] [cout] [info] time = 0.055 Performance = 146.542 Constraint violation = 3.6598e-11
+[2025-11-05 14:16:09.027] [cout] [info] time = 0.06 Performance = 122.592 Constraint violation = 5.77349e-11
+[2025-11-05 14:16:09.633] [cout] [info] time = 0.065 Performance = 95.6127 Constraint violation = 6.34294e-12
+[2025-11-05 14:16:10.171] [cout] [info] time = 0.07 Performance = 68.9809 Constraint violation = 1.33657e-12
+[2025-11-05 14:16:10.618] [cout] [info] time = 0.075 Performance = 46.2368 Constraint violation = 7.73986e-13
+[2025-11-05 14:16:11.059] [cout] [info] time = 0.08 Performance = 30.5371 Constraint violation = 6.83367e-13
+[2025-11-05 14:16:11.461] [cout] [info] time = 0.085 Performance = 24.2911 Constraint violation = 2.87681e-12
+[2025-11-05 14:16:11.874] [cout] [info] time = 0.09 Performance = 28.8059 Constraint violation = 2.7879e-12
+[2025-11-05 14:16:12.266] [cout] [info] time = 0.095 Performance = 44.074 Constraint violation = 1.94090e-12
+[2025-11-05 14:16:12.815] [cout] [info] time = 0.1 Performance = 68.6865 Constraint violation = 6.95193e-12
+[2025-11-05 14:16:13.756] [cout] [info] time = 0.105000 Performance = 99.9388 Constraint violation = 1.01189e-11
+[2025-11-05 14:16:14.419] [cout] [info] time = 0.11 Performance = 134.128 Constraint violation = 2.93846e-10
+[2025-11-05 14:16:14.921] [cout] [info] time = 0.115 Performance = 167.023 Constraint violation = 5.41811e-11
+[2025-11-05 14:16:15.359] [cout] [info] time = 0.12 Performance = 194.43 Constraint violation = 1.99197e-10
+[2025-11-05 14:16:15.721] [cout] [info] time = 0.125 Performance = 212.793 Constraint violation = 1.12757e-11
+[2025-11-05 14:16:16.110] [cout] [info] time = 0.13 Performance = 219.752 Constraint violation = 1.44525e-10
+[2025-11-05 14:16:16.592] [cout] [info] time = 0.135 Performance = 214.528 Constraint violation = 1.73998e-11
+[2025-11-05 14:16:17.095] [cout] [info] time = 0.14 Performance = 198.057 Constraint violation = 1.78090e-11
+[2025-11-05 14:16:17.695] [cout] [info] time = 0.145 Performance = 172.832 Constraint violation = 4.54137e-11
+[2025-11-05 14:16:18.268] [cout] [info] time = 0.15 Performance = 142.434 Constraint violation = 4.72448e-11
+[2025-11-05 14:16:18.776] [cout] [info] time = 0.155 Performance = 110.877 Constraint violation = 6.47625e-11
+[2025-11-05 14:16:19.199] [cout] [info] time = 0.16 Performance = 81.8843 Constraint violation = 2.40407e-12
+[2025-11-05 14:16:19.642] [cout] [info] time = 0.165 Performance = 58.2733 Constraint violation = 9.95582e-12
+[2025-11-05 14:16:20.043] [cout] [info] time = 0.17 Performance = 41.5775 Constraint violation = 8.51152e-12
+[2025-11-05 14:16:20.452] [cout] [info] time = 0.175 Performance = 31.9637 Constraint violation = 1.06905e-12
+[2025-11-05 14:16:20.834] [cout] [info] time = 0.18 Performance = 28.43 Constraint violation = 1.10620e-12
+[2025-11-05 14:16:21.245] [cout] [info] time = 0.185 Performance = 29.2137 Constraint violation = 2.16086e-12
+[2025-11-05 14:16:21.707] [cout] [info] time = 0.19 Performance = 32.3018 Constraint violation = 1.48786e-12
+[2025-11-05 14:16:22.148] [cout] [info] time = 0.195 Performance = 35.8957 Constraint violation = 2.44848e-11
+[2025-11-05 14:16:22.706] [cout] [info] time = 0.2 Performance = 38.7076 Constraint violation = 6.40215e-12
+[2025-11-05 14:16:23.244] [cout] [info] time = 0.205000 Performance = 40.0713 Constraint violation = 6.25169e-12
+[2025-11-05 14:16:23.723] [cout] [info] time = 0.21 Performance = 39.8789 Constraint violation = 2.61509e-12
+[2025-11-05 14:16:24.194] [cout] [info] time = 0.215 Performance = 38.4033 Constraint violation = 6.71756e-12
+[2025-11-05 14:16:24.730] [cout] [info] time = 0.22 Performance = 36.1016 Constraint violation = 6.44929e-12
+[2025-11-05 14:16:25.170] [cout] [info] time = 0.225 Performance = 33.4554 Constraint violation = 5.28931e-12
+[2025-11-05 14:16:25.543] [cout] [info] time = 0.23 Performance = 30.8354 Constraint violation = 5.73258e-12
+[2025-11-05 14:16:25.942] [cout] [info] time = 0.235 Performance = 28.4646 Constraint violation = 5.4939e-12
+[2025-11-05 14:16:26.352] [cout] [info] time = 0.24 Performance = 26.4314 Constraint violation = 3.04109e-12
+[2025-11-05 14:16:26.734] [cout] [info] time = 0.245 Performance = 24.7124 Constraint violation = 1.5591e-12
+[2025-11-05 14:16:27.079] [cout] [info] time = 0.25 Performance = 23.2102 Constraint violation = 3.98918e-12
+[2025-11-05 14:16:27.429] [cout] [info] time = 0.255 Performance = 21.8025 Constraint violation = 2.49614e-12
+[2025-11-05 14:16:27.815] [cout] [info] time = 0.26 Performance = 20.3848 Constraint violation = 7.83545e-13
+[2025-11-05 14:16:28.148] [cout] [info] time = 0.265 Performance = 18.8946 Constraint violation = 2.00166e-12
+[2025-11-05 14:16:28.602] [cout] [info] time = 0.27 Performance = 17.3438 Constraint violation = 1.80674e-12
+[2025-11-05 14:16:29.016] [cout] [info] time = 0.275 Performance = 15.7162 Constraint violation = 2.7899e-12
+[2025-11-05 14:16:29.423] [cout] [info] time = 0.28 Performance = 14.0945 Constraint violation = 4.31682e-12
+[2025-11-05 14:16:29.830] [cout] [info] time = 0.285 Performance = 12.5554 Constraint violation = 5.02531e-12
+[2025-11-05 14:16:30.229] [cout] [info] time = 0.29 Performance = 11.1724 Constraint violation = 3.17587e-12
+[2025-11-05 14:16:30.746] [cout] [info] time = 0.295 Performance = 10.0004 Constraint violation = 6.60496e-12
+[2025-11-05 14:16:31.239] [cout] [info] time = 0.3 Performance = 9.0691 Constraint violation = 1.07559e-12
+[2025-11-05 14:16:31.750] [cout] [info] time = 0.305000 Performance = 8.38055 Constraint violation = 1.67468e-12
+[2025-11-05 14:16:32.212] [cout] [info] time = 0.31 Performance = 7.91253 Constraint violation = 1.41143e-12
+[2025-11-05 14:16:32.611] [cout] [info] time = 0.315 Performance = 7.62673 Constraint violation = 2.776e-12
+[2025-11-05 14:16:33.024] [cout] [info] time = 0.32 Performance = 7.478 Constraint violation = 2.06696e-12
+[2025-11-05 14:16:33.421] [cout] [info] time = 0.325 Performance = 7.42879 Constraint violation = 9.67005e-11
+[2025-11-05 14:16:33.805] [cout] [info] time = 0.33 Performance = 7.45504 Constraint violation = 7.48369e-11
+[2025-11-05 14:16:34.239] [cout] [info] time = 0.335 Performance = 7.54687 Constraint violation = 2.86346e-12
+[2025-11-05 14:16:34.601] [cout] [info] time = 0.34 Performance = 7.70344 Constraint violation = 1.70810e-12
+[2025-11-05 14:16:34.966] [cout] [info] time = 0.345 Performance = 7.92518 Constraint violation = 6.53981e-12
+[2025-11-05 14:16:35.345] [cout] [info] time = 0.35 Performance = 8.20690 Constraint violation = 1.30995e-10
+[2025-11-05 14:16:35.739] [cout] [info] time = 0.355 Performance = 8.53246 Constraint violation = 2.76338e-12
+[2025-11-05 14:16:36.091] [cout] [info] time = 0.36 Performance = 8.87268 Constraint violation = 2.71595e-12
+[2025-11-05 14:16:36.445] [cout] [info] time = 0.365 Performance = 9.19475 Constraint violation = 7.97339e-13
+[2025-11-05 14:16:36.814] [cout] [info] time = 0.37 Performance = 9.47324 Constraint violation = 1.57372e-12
+[2025-11-05 14:16:37.373] [cout] [info] time = 0.375 Performance = 9.69761 Constraint violation = 1.00952e-12
+[2025-11-05 14:16:37.782] [cout] [info] time = 0.38 Performance = 9.87616 Constraint violation = 3.22653e-12
+[2025-11-05 14:16:38.179] [cout] [info] time = 0.385 Performance = 10.0325 Constraint violation = 2.33834e-12
+[2025-11-05 14:16:38.601] [cout] [info] time = 0.39 Performance = 10.2052 Constraint violation = 1.47872e-12
+[2025-11-05 14:16:39.152] [cout] [info] time = 0.395 Performance = 10.4406 Constraint violation = 7.97027e-13
+[2025-11-05 14:16:39.800] [cout] [info] time = 0.4 Performance = 10.7785 Constraint violation = 3.80228e-12
+[2025-11-05 14:16:40.349] [cout] [info] time = 0.405000 Performance = 11.2402 Constraint violation = 3.69072e-13
+[2025-11-05 14:16:40.859] [cout] [info] time = 0.41 Performance = 11.8217 Constraint violation = 6.44886e-12
+[2025-11-05 14:16:41.371] [cout] [info] time = 0.415 Performance = 12.4915 Constraint violation = 5.94959e-12
+[2025-11-05 14:16:42.180] [cout] [info] time = 0.42 Performance = 13.1889 Constraint violation = 1.71074e-12
+[2025-11-05 14:16:42.741] [cout] [info] time = 0.425 Performance = 13.8246 Constraint violation = 1.89534e-12
+[2025-11-05 14:16:43.255] [cout] [info] time = 0.43 Performance = 14.286 Constraint violation = 4.05258e-12
+[2025-11-05 14:16:43.686] [cout] [info] time = 0.435 Performance = 14.4507 Constraint violation = 2.79186e-12
+[2025-11-05 14:16:44.318] [cout] [info] time = 0.44 Performance = 14.2071 Constraint violation = 1.18575e-12
+[2025-11-05 14:16:44.822] [cout] [info] time = 0.445 Performance = 13.4842 Constraint violation = 4.60011e-12
+[2025-11-05 14:16:45.386] [cout] [info] time = 0.45 Performance = 12.2806 Constraint violation = 9.55769e-13
+[2025-11-05 14:16:45.772] [cout] [info] time = 0.455 Performance = 10.6831 Constraint violation = 4.56323e-12
+[2025-11-05 14:16:46.180] [cout] [info] time = 0.46 Performance = 8.8665 Constraint violation = 3.70637e-12
+[2025-11-05 14:16:46.629] [cout] [info] time = 0.465 Performance = 7.07066 Constraint violation = 1.93451e-12
+[2025-11-05 14:16:47.352] [cout] [info] time = 0.47 Performance = 5.5563 Constraint violation = 1.90244e-12
+[2025-11-05 14:16:47.890] [cout] [info] time = 0.475 Performance = 4.54695 Constraint violation = 2.85243e-12
+[2025-11-05 14:16:48.381] [cout] [info] time = 0.48 Performance = 4.18093 Constraint violation = 3.65040e-12
+[2025-11-05 14:16:49.045] [cout] [info] time = 0.485 Performance = 4.48446 Constraint violation = 3.51725e-13
+[2025-11-05 14:16:50.033] [cout] [info] time = 0.49 Performance = 5.38251 Constraint violation = 5.73494e-13
+[2025-11-05 14:16:50.611] [cout] [info] time = 0.495 Performance = 6.74061 Constraint violation = 4.13928e-13
+[2025-11-05 14:16:51.088] [cout] [info] time = 0.5 Performance = 8.42341 Constraint violation = 6.33821e-13
+[2025-11-05 14:16:51.561] [cout] [info] time = 0.505000 Performance = 10.3458 Constraint violation = 1.10896e-12
+[2025-11-05 14:16:52.067] [cout] [info] time = 0.51 Performance = 12.4954 Constraint violation = 4.5633e-12
+[2025-11-05 14:16:52.660] [cout] [info] time = 0.515 Performance = 14.9129 Constraint violation = 2.77533e-12
+[2025-11-05 14:16:53.216] [cout] [info] time = 0.52 Performance = 17.6284 Constraint violation = 5.28003e-13
+[2025-11-05 14:16:53.843] [cout] [info] time = 0.525 Performance = 20.581 Constraint violation = 2.18418e-12
+[2025-11-05 14:16:54.288] [cout] [info] time = 0.53 Performance = 23.564 Constraint violation = 4.58281e-12
+[2025-11-05 14:16:55.045] [cout] [info] time = 0.535 Performance = 26.2323 Constraint violation = 2.02429e-12
+[2025-11-05 14:16:55.826] [cout] [info] time = 0.54 Performance = 28.1902 Constraint violation = 3.77018e-12
+[2025-11-05 14:16:56.383] [cout] [info] time = 0.545 Performance = 29.1373 Constraint violation = 4.60654e-12
+[2025-11-05 14:16:56.949] [cout] [info] time = 0.55 Performance = 29.0208 Constraint violation = 1.87664e-12
+[2025-11-05 14:16:57.489] [cout] [info] time = 0.555 Performance = 28.1236 Constraint violation = 1.53231e-12
+[2025-11-05 14:16:58.214] [cout] [info] time = 0.56 Performance = 27.0322 Constraint violation = 2.8592e-12
+[2025-11-05 14:16:58.803] [cout] [info] time = 0.565 Performance = 26.4461 Constraint violation = 3.68066e-12
+[2025-11-05 14:16:59.423] [cout] [info] time = 0.57 Performance = 26.9395 Constraint violation = 9.4468e-13
+[2025-11-05 14:16:59.928] [cout] [info] time = 0.575 Performance = 28.7399 Constraint violation = 1.07101e-12
+[2025-11-05 14:17:00.574] [cout] [info] time = 0.58 Performance = 31.6415 Constraint violation = 1.9245e-12
+[2025-11-05 14:17:01.211] [cout] [info] time = 0.585 Performance = 35.0914 Constraint violation = 1.00598e-12
+[2025-11-05 14:17:01.758] [cout] [info] time = 0.59 Performance = 38.3996 Constraint violation = 4.56884e-12
+[2025-11-05 14:17:02.312] [cout] [info] time = 0.595 Performance = 40.9844 Constraint violation = 9.60756e-13
+[2025-11-05 14:17:02.847] [cout] [info] time = 0.6 Performance = 42.5514 Constraint violation = 2.88134e-12
+[2025-11-05 14:17:03.257] [cout] [info] time = 0.605000 Performance = 43.1566 Constraint violation = 5.55878e-12
+[2025-11-05 14:17:03.661] [cout] [info] time = 0.61 Performance = 43.1363 Constraint violation = 1.10057e-12
+[2025-11-05 14:17:04.235] [cout] [info] time = 0.615 Performance = 42.9586 Constraint violation = 1.13456e-12
+[2025-11-05 14:17:04.725] [cout] [info] time = 0.62 Performance = 43.0542 Constraint violation = 3.15591e-12
+[2025-11-05 14:17:05.208] [cout] [info] time = 0.625 Performance = 43.6834 Constraint violation = 1.01984e-12
+[2025-11-05 14:17:05.652] [cout] [info] time = 0.63 Performance = 44.8744 Constraint violation = 2.76713e-12
+[2025-11-05 14:17:06.320] [cout] [info] time = 0.635 Performance = 46.4447 Constraint violation = 2.17557e-12
+[2025-11-05 14:17:06.811] [cout] [info] time = 0.64 Performance = 48.0713 Constraint violation = 1.6216e-11
+[2025-11-05 14:17:07.268] [cout] [info] time = 0.645 Performance = 49.3941 Constraint violation = 2.51761e-12
+[2025-11-05 14:17:07.684] [cout] [info] time = 0.65 Performance = 50.1237 Constraint violation = 1.37338e-12
+[2025-11-05 14:17:08.100] [cout] [info] time = 0.655 Performance = 50.0946 Constraint violation = 1.78838e-11
+[2025-11-05 14:17:08.547] [cout] [info] time = 0.66 Performance = 49.2759 Constraint violation = 3.19125e-12
+[2025-11-05 14:17:08.988] [cout] [info] time = 0.665 Performance = 47.7493 Constraint violation = 4.88699e-12
+[2025-11-05 14:17:09.357] [cout] [info] time = 0.67 Performance = 45.677 Constraint violation = 5.54949e-12
+[2025-11-05 14:17:09.703] [cout] [info] time = 0.675 Performance = 43.2745 Constraint violation = 7.5928e-12
+[2025-11-05 14:17:10.089] [cout] [info] time = 0.68 Performance = 40.7845 Constraint violation = 8.14001e-12
+[2025-11-05 14:17:10.441] [cout] [info] time = 0.685 Performance = 38.4379 Constraint violation = 1.08027e-12
+[2025-11-05 14:17:10.773] [cout] [info] time = 0.69 Performance = 36.4111 Constraint violation = 6.43937e-13
+[2025-11-05 14:17:11.387] [cout] [info] time = 0.695 Performance = 34.7927 Constraint violation = 5.14373e-13
+[2025-11-05 14:17:11.851] [cout] [info] time = 0.7 Performance = 33.5755 Constraint violation = 5.58171e-13
+[2025-11-05 14:17:12.304] [cout] [info] time = 0.705000 Performance = 32.6647 Constraint violation = 6.41908e-13
+[2025-11-05 14:17:12.684] [cout] [info] time = 0.71 Performance = 31.9166 Constraint violation = 3.45674e-12
+[2025-11-05 14:17:13.077] [cout] [info] time = 0.715 Performance = 31.2093 Constraint violation = 6.20833e-13
+[2025-11-05 14:17:13.562] [cout] [info] time = 0.72 Performance = 30.319 Constraint violation = 1.84628e-12
+[2025-11-05 14:17:14.008] [cout] [info] time = 0.725 Performance = 29.1948 Constraint violation = 4.00235e-13
+[2025-11-05 14:17:14.514] [cout] [info] time = 0.73 Performance = 27.7902 Constraint violation = 3.72548e-13
+[2025-11-05 14:17:15.002] [cout] [info] time = 0.735 Performance = 26.1157 Constraint violation = 2.34402e-12
+[2025-11-05 14:17:15.517] [cout] [info] time = 0.74 Performance = 24.2295 Constraint violation = 3.82218e-13
+[2025-11-05 14:17:16.031] [cout] [info] time = 0.745 Performance = 22.2283 Constraint violation = 7.42030e-13
+[2025-11-05 14:17:16.901] [cout] [info] time = 0.75 Performance = 20.2322 Constraint violation = 4.72927e-13
+[2025-11-05 14:17:17.547] [cout] [info] time = 0.755 Performance = 18.3649 Constraint violation = 2.52994e-12
+[2025-11-05 14:17:18.066] [cout] [info] time = 0.76 Performance = 16.717 Constraint violation = 4.02023e-13
+[2025-11-05 14:17:18.694] [cout] [info] time = 0.765 Performance = 15.2974 Constraint violation = 3.33463e-13
+[2025-11-05 14:17:19.202] [cout] [info] time = 0.77 Performance = 14.0025 Constraint violation = 3.44135e-13
+[2025-11-05 14:17:19.654] [cout] [info] time = 0.775 Performance = 12.6286 Constraint violation = 5.39189e-13
+[2025-11-05 14:17:20.052] [cout] [info] time = 0.78 Performance = 10.9439 Constraint violation = 3.86898e-13
+[2025-11-05 14:17:20.429] [cout] [info] time = 0.785 Performance = 8.80953 Constraint violation = 4.50788e-13
+[2025-11-05 14:17:20.790] [cout] [info] time = 0.79 Performance = 6.3153 Constraint violation = 8.01237e-13
+[2025-11-05 14:17:21.141] [cout] [info] time = 0.795 Performance = 3.87124 Constraint violation = 5.4583e-13
+[2025-11-05 14:17:21.501] [cout] [info] time = 0.8 Performance = 2.20321 Constraint violation = 1.46759e-12
+[2025-11-05 14:17:22.018] [cout] [info] time = 0.805000 Performance = 2.22748 Constraint violation = 3.69547e-13
+[2025-11-05 14:17:22.431] [cout] [info] time = 0.81 Performance = 4.85441 Constraint violation = 8.54924e-13
+[2025-11-05 14:17:22.820] [cout] [info] time = 0.815 Performance = 10.7762 Constraint violation = 1.02785e-12
+[2025-11-05 14:17:23.191] [cout] [info] time = 0.82 Performance = 20.284 Constraint violation = 7.62064e-13
+[2025-11-05 14:17:23.550] [cout] [info] time = 0.825 Performance = 33.1319 Constraint violation = 4.52665e-12
+[2025-11-05 14:17:23.905] [cout] [info] time = 0.83 Performance = 48.4996 Constraint violation = 2.27808e-12
+[2025-11-05 14:17:24.264] [cout] [info] time = 0.835 Performance = 65.0784 Constraint violation = 1.33152e-12
+[2025-11-05 14:17:24.650] [cout] [info] time = 0.84 Performance = 81.2928 Constraint violation = 2.18076e-12
+[2025-11-05 14:17:25.061] [cout] [info] time = 0.845 Performance = 95.5738 Constraint violation = 3.88351e-11
+[2025-11-05 14:17:25.475] [cout] [info] time = 0.85 Performance = 106.605 Constraint violation = 7.75647e-13
+[2025-11-05 14:17:25.920] [cout] [info] time = 0.855 Performance = 113.483 Constraint violation = 8.09718e-12
+[2025-11-05 14:17:26.285] [cout] [info] time = 0.86 Performance = 115.796 Constraint violation = 2.45852e-11
+[2025-11-05 14:17:26.648] [cout] [info] time = 0.865 Performance = 113.614 Constraint violation = 3.29434e-11
+[2025-11-05 14:17:27.005] [cout] [info] time = 0.87 Performance = 107.404 Constraint violation = 1.00547e-11
+[2025-11-05 14:17:27.367] [cout] [info] time = 0.875 Performance = 97.9178 Constraint violation = 3.07203e-12
+[2025-11-05 14:17:27.720] [cout] [info] time = 0.88 Performance = 86.0789 Constraint violation = 3.20317e-12
+[2025-11-05 14:17:28.073] [cout] [info] time = 0.885 Performance = 72.8796 Constraint violation = 1.0527e-11
+[2025-11-05 14:17:28.447] [cout] [info] time = 0.89 Performance = 59.2951 Constraint violation = 9.58017e-12
+[2025-11-05 14:17:28.822] [cout] [info] time = 0.895 Performance = 46.2078 Constraint violation = 1.17046e-11
+[2025-11-05 14:17:29.200] [cout] [info] time = 0.9 Performance = 34.3478 Constraint violation = 7.60037e-12
+[2025-11-05 14:17:29.574] [cout] [info] time = 0.905000 Performance = 24.2461 Constraint violation = 2.10208e-12
+[2025-11-05 14:17:29.941] [cout] [info] time = 0.91 Performance = 16.2013 Constraint violation = 1.33148e-12
+[2025-11-05 14:17:30.297] [cout] [info] time = 0.915 Performance = 10.2723 Constraint violation = 2.08117e-12
+[2025-11-05 14:17:30.653] [cout] [info] time = 0.92 Performance = 6.30507 Constraint violation = 1.86634e-12
+[2025-11-05 14:17:31.009] [cout] [info] time = 0.925 Performance = 3.98592 Constraint violation = 6.95269e-13
+[2025-11-05 14:17:31.388] [cout] [info] time = 0.93 Performance = 2.90883 Constraint violation = 2.28836e-12
+[2025-11-05 14:17:31.767] [cout] [info] time = 0.935 Performance = 2.63921 Constraint violation = 1.46177e-12
+[2025-11-05 14:17:32.125] [cout] [info] time = 0.94 Performance = 2.77824 Constraint violation = 4.64213e-12
+[2025-11-05 14:17:32.493] [cout] [info] time = 0.945 Performance = 3.01649 Constraint violation = 1.0416e-12
+[2025-11-05 14:17:32.874] [cout] [info] time = 0.95 Performance = 3.16669 Constraint violation = 2.7748e-12
+[2025-11-05 14:17:33.243] [cout] [info] time = 0.955 Performance = 3.17087 Constraint violation = 3.6765e-12
+[2025-11-05 14:17:33.611] [cout] [info] time = 0.96 Performance = 3.08758 Constraint violation = 2.0397e-12
+[2025-11-05 14:17:33.975] [cout] [info] time = 0.965 Performance = 3.06193 Constraint violation = 4.08389e-12
+[2025-11-05 14:17:34.343] [cout] [info] time = 0.97 Performance = 3.29254 Constraint violation = 3.29507e-12
+[2025-11-05 14:17:34.750] [cout] [info] time = 0.975 Performance = 4.00358 Constraint violation = 2.05736e-12
+[2025-11-05 14:17:35.166] [cout] [info] time = 0.98 Performance = 5.42328 Constraint violation = 3.75503e-12
+[2025-11-05 14:17:35.553] [cout] [info] time = 0.985 Performance = 7.7741 Constraint violation = 2.60309e-12
+[2025-11-05 14:17:35.942] [cout] [info] time = 0.99 Performance = 11.2595 Constraint violation = 2.81737e-12
+[2025-11-05 14:17:36.333] [cout] [info] time = 0.995 Performance = 16.0376 Constraint violation = 2.11784e-12
+[2025-11-05 14:17:36.715] [cout] [info] time = 1.0 Performance = 22.1623 Constraint violation = 7.37339e-12
+[2025-11-05 14:17:37.115] [cout] [info] time = 1.00500 Performance = 29.5154 Constraint violation = 1.38167e-11
+[2025-11-05 14:17:37.551] [cout] [info] time = 1.01 Performance = 37.7393 Constraint violation = 9.54048e-12
+[2025-11-05 14:17:37.913] [cout] [info] time = 1.015 Performance = 46.2025 Constraint violation = 1.56532e-11
+[2025-11-05 14:17:38.282] [cout] [info] time = 1.02 Performance = 54.0256 Constraint violation = 1.79701e-11
+[2025-11-05 14:17:38.658] [cout] [info] time = 1.025 Performance = 60.1896 Constraint violation = 3.05204e-11
+[2025-11-05 14:17:39.058] [cout] [info] time = 1.03 Performance = 63.7106 Constraint violation = 9.25521e-12
+[2025-11-05 14:17:39.508] [cout] [info] time = 1.035 Performance = 63.8475 Constraint violation = 1.24394e-12
+[2025-11-05 14:17:39.908] [cout] [info] time = 1.04 Performance = 60.3049 Constraint violation = 5.38395e-11
+[2025-11-05 14:17:40.276] [cout] [info] time = 1.045 Performance = 53.3907 Constraint violation = 3.01862e-11
+[2025-11-05 14:17:40.655] [cout] [info] time = 1.05 Performance = 44.093 Constraint violation = 7.41592e-12
+[2025-11-05 14:17:41.038] [cout] [info] time = 1.055 Performance = 34.0415 Constraint violation = 1.44022e-12
+[2025-11-05 14:17:41.431] [cout] [info] time = 1.06 Performance = 25.3543 Constraint violation = 2.66028e-12
+[2025-11-05 14:17:41.816] [cout] [info] time = 1.065 Performance = 20.4070 Constraint violation = 3.21314e-13
+[2025-11-05 14:17:42.208] [cout] [info] time = 1.07 Performance = 21.5847 Constraint violation = 3.99009e-12
+[2025-11-05 14:17:42.614] [cout] [info] time = 1.075 Performance = 31.0529 Constraint violation = 1.09613e-12
+[2025-11-05 14:17:43.020] [cout] [info] time = 1.08 Performance = 50.6132 Constraint violation = 2.83578e-12
+[2025-11-05 14:17:43.413] [cout] [info] time = 1.085 Performance = 81.6368 Constraint violation = 1.31996e-11
+[2025-11-05 14:17:43.817] [cout] [info] time = 1.09 Performance = 125.037 Constraint violation = 5.76937e-12
+[2025-11-05 14:17:44.228] [cout] [info] time = 1.095 Performance = 181.208 Constraint violation = 1.7724e-11
+[2025-11-05 14:17:44.614] [cout] [info] time = 1.1 Performance = 249.864 Constraint violation = 2.67673e-11
+[2025-11-05 14:17:45.029] [cout] [info] time = 1.10500 Performance = 329.804 Constraint violation = 1.30914e-11
+[2025-11-05 14:17:45.437] [cout] [info] time = 1.11 Performance = 418.658 Constraint violation = 5.30748e-11
+[2025-11-05 14:17:45.830] [cout] [info] time = 1.115 Performance = 512.728 Constraint violation = 5.0815e-10
+[2025-11-05 14:17:46.229] [cout] [info] time = 1.12 Performance = 606.95 Constraint violation = 3.26142e-11
+[2025-11-05 14:17:46.615] [cout] [info] time = 1.125 Performance = 695.045 Constraint violation = 3.09329e-11
+[2025-11-05 14:17:47.007] [cout] [info] time = 1.13 Performance = 771.29 Constraint violation = 6.10585e-12
