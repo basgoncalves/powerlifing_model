@@ -224,7 +224,7 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().CEINMS_EXE:
         try:
             trial.create_ceinms_exe_setup()
-            ceinms.executable(trial.inputFiles.CEINMS_EXE_SETUP)
+            ceinms.executable(os.path.abspath(trial.inputFiles.CEINMS_EXE_SETUP))
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
 
