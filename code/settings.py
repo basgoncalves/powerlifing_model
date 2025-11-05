@@ -8,7 +8,8 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bw_03',
                       'Squat_bar_02', 'Squat_bar_03',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
-
+TRIALS_TO_ANALYSE = ['Walking_01', 'Walking_02',
+                      'Walking_03', 'Walking_04', 'Walking_05']
 CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
 
 MODEL_NAME = 'scaled.osim'
@@ -154,25 +155,25 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
-        self.ID = True
-        self.MA = True
-        self.MOMENT_ARMS = True
-        self.SO = True
-        self.JRA = True
+        self.IK = False
+        self.ID = False
+        self.MA = False
+        self.MOMENT_ARMS = False
+        self.SO = False
+        self.JRA = False
         
-        self.EMG_NORMALISE = False
+        self.EMG_NORMALISE = True
         
         self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
         self.CEINMS_OPTIMISATION = False
-        self.CEINMS_EXE = False
+        self.CEINMS_EXE = True
         
-        self.CREATE_PLOTS = True
+        self.CREATE_PLOTS = False
         
-        self.push_to_git = True
+        self.push_to_git = False
         
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',

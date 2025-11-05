@@ -225,6 +225,14 @@ def main(trial: utils.Trial, replace: bool = False):
         try:
             trial.create_ceinms_exe_setup()
             ceinms.executable(os.path.abspath(trial.inputFiles.CEINMS_EXE_SETUP))
+            ceinms_output_dir = os.path.abspath(trial.outputFiles.CEINMS_EXE_DIR)
+            ceinms.plot_optimisation_results(ceinms_output_dir)
+            
+            ceinms.plot_emg_vs_ceinms(emgFile=trial.inputFiles.EMG_NORMALISED,
+                                        ceinmsExcitationsFile=os.path.join(ceinms_output_dir, 'AdjustedEmgs.sto'))
+            
+            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.outputFiles.ID,
+                                          ceinmsTorquesFile=os.path.join(ceinms_output_dir, 'Torques.sto'))
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
 

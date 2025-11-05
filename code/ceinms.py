@@ -764,7 +764,7 @@ def plot_optimisation_results(optimisationOutputDir=None):
         print(f"Optimisation results plot saved to: {fig_path}")
         plt.close()
 
-def plot_emg_vs_ceimns(emgFile=None, ceinmsExcitationsFile=None):
+def plot_emg_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None):
 
     if not emgFile:
         emgFile = input("Enter path to EMG data file: ").strip('"')
@@ -790,12 +790,15 @@ def plot_emg_vs_ceimns(emgFile=None, ceinmsExcitationsFile=None):
     for i, (signal, muscles) in enumerate(emg_mapping.items()):
         ax = axs[i] if n_muscles > 1 else axs
         line_emg = ax.plot(emg_data[signal], label=signal, color='blue')
-        lines_ceinms = []
-        for muscle in muscles:
+        lines_ceinms = []   
+        lineStyles = ['-', '--', '-.', ':', 'o', 'x', '^', 's', 'd']
+        for j, muscle in enumerate(muscles):
             if muscle in ceinms_data.columns:
                 r2 = utils.rsquared(emg_data[signal], ceinms_data[muscle])
                 rmse = utils.rmse(emg_data[signal], ceinms_data[muscle])
-                lines_ceinms.append(ax.plot(ceinms_data[muscle], label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red'))
+                lines_ceinms.append(ax.plot(ceinms_data[muscle], 
+                                            linestyle=lineStyles[j % len(lineStyles)],
+                                            label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red'))
                 ax.set_ylabel('Excitation')
                 if i < n_muscles - 1:
                     ax.set_xticklabels([])

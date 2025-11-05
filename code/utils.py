@@ -612,9 +612,9 @@ class Trial():
         self.so_activations = load_any_data_file(self.outputFiles.SO_activations)
         self.jra_results = load_any_data_file(self.outputFiles.JRA)
         self.emg_data = load_any_data_file(self.inputFiles.EMG_NORMALISED)
-        
-    
-        self.ceinms_activations = load_any_data_file(os.path.join(self.path, 'CEINMS_activations.sto'))
+
+        self.ceinms_activations = load_any_data_file(os.path.join(self.inputFiles.CEINMS_EXE_DIR, 'Activations.sto'))
+        self.ceinms_forces = load_any_data_file(os.path.join(self.inputFiles.CEINMS_EXE_DIR, 'MuscleForces.sto'))
         
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
