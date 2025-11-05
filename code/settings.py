@@ -49,6 +49,8 @@ class Inputs:
         self.CEINMS_OPTIMISE_SETUP = 'ceinms_setup_optimise.xml'
         self.CEINMS_OPTIMISE_CFG = 'ceinms_cfg_optimise.xml'
         
+        self.CEINMS_EXE_SETUP = 'ceinms_setup.xml'
+        
         # setups 
         self.setupIK = 'setup_IK.xml'
         self.setupGRF = 'GRF.xml'   
@@ -88,6 +90,7 @@ class Outputs:
         self.JRA = 'Analyse_JRA_ReactionLoads.sto'
         self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
         self.CEINMS_OPTIMISATION_DIR = 'Optimised'
+        self.CEINMS_EXE_DIR = 'Output'
         if parentdir:
             for attr, filename in self.__dict__.items():
                 filepath = os.path.join(parentdir, filename)
@@ -147,7 +150,7 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
+        self.IK = False
         self.ID = False
         self.MA = False
         self.MOMENT_ARMS = False
@@ -160,7 +163,8 @@ class Execute:
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
-        self.CEINMS_OPTIMISATION = True
+        self.CEINMS_OPTIMISATION = False
+        self.CEINMS_EXE = True
         
         self.CREATE_PLOTS = False
         
