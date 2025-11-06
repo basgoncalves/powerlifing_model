@@ -199,17 +199,7 @@ def main(trial: utils.Trial, replace: bool = False):
     # CEINMS optimisation
     if settings.Execute().CEINMS_OPTIMISATION:
         try:
-
-            setupAbsPath = os.path.abspath(trial.CEINMS_OPTIMISE_SETUP)
-            ceinms.optimise(setupXML_path=setupAbsPath)
-
-            adjustedEMG_path = os.path.join(trial.CEINMS_OPTIMISATION_DIR, 'adjustedEMG.sto')
-            ceinms.plot_emg_vs_ceimns(emgFile=trial.EMG_NORMALISED,
-                                      ceinmsExcitationsFile=adjustedEMG_path)
-            
-            torqueCEINMS_path = os.path.join(trial.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
-            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.ID,
-                                          ceinmsMomentsFile=torqueCEINMS_path)
+            trial.run_ceinms_optimise()
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 

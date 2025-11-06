@@ -837,7 +837,6 @@ class Trial():
         else:
             print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
             
-    
     def create_ceinms_optimise_setup(self):
         ceinms.create_optimise_setupXML(ceinmsModelPath=self.CEINMS_CALIBRATED_MODEL, 
                             inputDataFile=self.CEINMS_INPUT_DATA,
@@ -865,6 +864,26 @@ class Trial():
         save_pretty_xml(tree, self.CEINMS_EXE_SETUP)
         print(f"Created {self.CEINMS_EXE_SETUP}")
 
+    def run_ceinms_optimise(self):
+        
+        os.chdir(self.path)
+        setupAbsPath = os.path.abspath(self.CEINMS_OPTIMISE_SETUP)
+        ceinms.optimise(setupXML_path=setupAbsPath)
+
+        try:    
+            adjustedEMG_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'AdjustedEmgs.sto')
+            ceinms.plot_emg_vs_ceinms(emgFile=self.EMG_NORMALISED,
+                                        ceinmsExcitationsFile=adjustedEMG_path)
+        except:
+            print_to_log(f'Could not plot EMG vs CEINMS results {self.path}')
+            
+        try:
+            torqueCEINMS_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
+            ceinms.plot_moments_vs_ceinms(externalMomentsFile=self.ID,
+                                        ceinmsMomentsFile=torqueCEINMS_path)
+        except:
+            print_to_log(f'Could not plot Moments vs CEINMS results {self.path}')
+    
 def print_to_log(message):
     """
     Prints a message to the console and logs it to a file.
