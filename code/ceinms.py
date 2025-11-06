@@ -385,6 +385,56 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None,
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, savePath)
 
+# Base run ceinms function
+def ceinms_terminal(executable_path=None, setupXML_path=None):
+    
+    parentDir = os.path.dirname(setupXML_path)
+    os.chdir(parentDir) # change wd to parent dir of setupXML 
+    
+    setupXML = ET.parse(setupXML_path).getroot()
+    outputDirectory = setupXML.find("outputDirectory").text
+    
+    os.makedirs(outputDirectory, exist_ok=True) 
+    
+    print("Setup XML path:", setupXML_path)
+
+    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
+    if os.path.exists(log_file_path): os.remove(log_file_path)
+    
+    try:
+        ps_script = f'''
+            $ErrorActionPreference = "Continue"
+            $env:PATH = "{executable_path};$env:PATH"
+            Set-Location "{parentDir}"
+            & "{executable_path}" -S "{setupXML_path}"
+            exit $LASTEXITCODE
+            '''
+
+        cmd = ["powershell", "-ExecutionPolicy", "Bypass", "-Command", ps_script]
+
+        with open(log_file_path, "w", encoding="utf-8") as log_file:
+            process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+
+            # Stream output
+            if process.stdout:
+                for line in process.stdout:
+                    print(line, end="")  # Print to terminal
+                    log_file.write(line)
+                    log_file.flush()
+
+            process.wait()
+        print(f"CEINMS optimise process finished!")
+    except Exception as e:
+        print(f"Error running CEINMS calibration: {e}")
+        
+    print(f"Log file saved to: {log_file_path}")
+
+
 # CEINMS calibration functions
 def calibrate(setupXML_path=None):
     
@@ -485,30 +535,8 @@ def executable(setupXML_path=None):
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Running CEINMS executable...")
-    print("Setup XML path:", setupXML_path)
-
-    command = f"{str(settings.CEINMS_EXE)} -S {str(setupXML_path)}"
-
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
-
-    if os.path.exists(log_file_path): os.remove(log_file_path)
-
-    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
+    ceinms_terminal(executable_path=settings.CEINMS_EXE, setupXML_path=setupXML_path)
     
-    print(f"Running command: {command}")
-    try:
-        
-        process = subprocess.Popen(
-            ["powershell", "-NoExit", "-ExecutionPolicy", "Bypass", "-Command  ", cmd_with_redirect],
-            creationflags=subprocess.CREATE_NEW_CONSOLE)
-        process.wait()
-
-        if process.returncode == 0:
-            print(f"CEINMS process finished successfully!")
-            print(f"Log file saved to: {log_file_path}")
-    except Exception as e:
-        print(f"Error running CEINMS executable: {e}")
-
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 
                             inputDataFile=None,
@@ -632,7 +660,8 @@ def optimise(setupXML_path=None):
     if not setupXML_path:
         setupXML_path = input("Enter path to setup XML file: ").strip('"')
 
-    os.chdir(os.path.dirname(setupXML_path)) # change wd to parent dir of setupXML (needed for CEINMS)
+    parentDir = os.path.dirname(setupXML_path)
+    os.chdir(parentDir) # change wd to parent dir of setupXML (needed for CEINMS)
     
     root = ET.parse(setupXML_path).getroot()
     outputDirectory = root.find("outputDirectory").text
@@ -641,29 +670,7 @@ def optimise(setupXML_path=None):
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Optimizing CEINMS model...")
-    print("Setup XML path:", setupXML_path)
-
-    command = f"{str(settings.CEINMS_OPTIMISE_EXE)} -S {str(setupXML_path)}"
-
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
-    
-    if os.path.exists(log_file_path): os.remove(log_file_path)
-
-    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
-    
-    print(f"Running command: {command}")
-    try:
-        
-        process = subprocess.Popen(
-            ["powershell", "-NoExit", "-ExecutionPolicy", "Bypass", "-Command", cmd_with_redirect],
-            creationflags=subprocess.CREATE_NEW_CONSOLE)
-        
-        process.wait()
-        print(f"CEINMS optimise process finished!")
-    except Exception as e:
-        print(f"Error running CEINMS calibration: {e}")
-        
-    print(f"Log file saved to: {log_file_path}")
+    ceinms_terminal(executable_path=settings.CEINMS_OPTIMISE_EXE, setupXML_path=setupXML_path)
 
 # Plotting
 def plot_ceinms_model_parameters(ceinmsModelPath=None):
