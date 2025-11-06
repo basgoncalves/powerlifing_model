@@ -1,16 +1,17 @@
 <?xml version="1.0" ?>
 <TrialSettings>
+   <settingsXML>trial_settings.xml</settingsXML>
    <subject>Athlete_03</subject>
    <session>25_03_31</session>
    <name>Walking_02</name>
    <path>.</path>
    <parentdir>..</parentdir>
    <trial_settings>trial_settings.xml</trial_settings>
-   <TIME_RANGE>[3.495, 4.15]</TIME_RANGE>
+   <TIME_RANGE>[0.175, 1.255]</TIME_RANGE>
    <modelPath>..\..\..\..\models\Athlete_03\25_03_31\scaled.osim</modelPath>
    <C3D>c3dfile.c3d</C3D>
    <EMG_RAW>emg.mot</EMG_RAW>
-   <EMG_FILTERED>EMG_filtered.sto</EMG_FILTERED>
+   <EMG_FILTERED>EMG_filtered_scaled_0.70_scaled_0.70.sto</EMG_FILTERED>
    <EMG_NORMALISED>EMG_filtered_normalised.sto</EMG_NORMALISED>
    <GRF_MOT>grf.mot</GRF_MOT>
    <MARKERS>marker_experimental.trc</MARKERS>
