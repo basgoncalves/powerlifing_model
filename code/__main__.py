@@ -4,10 +4,9 @@ from xml.etree import ElementTree as ET
 import time
 import settings
 import utils
-import run_ik, run_id, run_so, run_ma, run_jra
-import run_emg_normalise
+import pipeline
 import ceinms
-import exportC3D, compare_marker_locations, calculate_muscle_moments
+import exportC3D
 
 def main(trial: utils.Trial, replace: bool = False):
 
@@ -27,14 +26,14 @@ def main(trial: utils.Trial, replace: bool = False):
     # Export c3d file
     if settings.Execute().exportC3D:
         subject_without_zero = trial.subject.replace('0', '')
-        exportC3D.export_markers(trial.inputFiles['C3D'].abspath(),
+        exportC3D.export_markers(trial.C3D,
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
-        exportC3D.export_grf(trial.inputFiles['C3D'].abspath())
-        exportC3D.export_emg(trial.inputFiles['C3D'].abspath())
+        exportC3D.export_grf(trial.C3D)
+        exportC3D.export_emg(trial.C3D)
 
     # Run IK
     if settings.Execute().IK:
-        output_file = str(trial.outputFiles.IK)
+        output_file = str(trial.IK)
         try:
             if not os.path.exists(output_file) or replace:
                 trial.run_ik()
@@ -46,7 +45,8 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             virtual_marker_locations = trial.path + '\\' + '_ik_model_marker_locations.sto'
-            compare_marker_locations.main(marker_experimental_path=os.path.abspath(trial.inputFiles.MARKERS),
+            
+            pipeline.compare_marker_locations(marker_experimental_path=os.path.abspath(trial.MARKERS),
                                           marker_virtual_path=virtual_marker_locations)
             utils.print_to_log(f'[Success] Marker location comparison completed.')
         except:
@@ -54,7 +54,7 @@ def main(trial: utils.Trial, replace: bool = False):
 
     # Run ID
     if settings.Execute().ID:
-        output_file = str(trial.outputFiles.ID)
+        output_file = str(trial.ID)
         try:
 
             # Check if the IK output file exists
@@ -69,12 +69,11 @@ def main(trial: utils.Trial, replace: bool = False):
 
     # Run muscle analysis
     if settings.Execute().MA:
-
         try:
-            if not os.path.exists(trial.outputFiles.MA) or replace:
+            if not os.path.exists(trial.MA) or replace:
                 trial.run_ma()
 
-                output_files = trial.outputFiles.MA
+                output_files = trial.MA
                 utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {output_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle Analysis: {e}')
@@ -83,16 +82,16 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().MOMENT_ARMS:
         try:
             utils.checkMuscleMomentArms(osim_modelPath=trial.modelPath,
-                                        ik_output=trial.outputFiles.IK,
+                                        ik_output=trial.IK,
                                         leg='l',
                                         threshold=0.005)
 
             utils.checkMuscleMomentArms(osim_modelPath=trial.modelPath,
-                                        ik_output=trial.outputFiles.IK,
+                                        ik_output=trial.IK,
                                         leg='r',
                                         threshold=0.005)
 
-            output_files = trial.outputFiles.MA
+            output_files = trial.MA
             utils.print_to_log(f'[Success] Muscle moment arms checked. Results are saved in {output_files}')
         except Exception as e:
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
@@ -102,9 +101,9 @@ def main(trial: utils.Trial, replace: bool = False):
 
         try:
             # Check if the Static Optimization output file exists
-            if not os.path.exists(trial.outputFiles.SO_forces) or replace:
+            if not os.path.exists(trial.SO_forces) or replace:
                 trial.run_so()
-                utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.outputFiles["SO"].abspath()}')
+                utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {trial.path}')
 
         except Exception as e:
             utils.print_to_log(f'[Error] during Static Optimization : {e}')
@@ -113,7 +112,7 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().JRA:
         try:
             trial.run_jra()
-            output_files = trial.outputFiles.JRA
+            output_files = trial.JRA
             utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {output_files}')
 
         except Exception as e:
@@ -127,27 +126,30 @@ def main(trial: utils.Trial, replace: bool = False):
 
         for name in settings.TRIALS_TO_ANALYSE:
 
-            abs_path_emg = str(trial.inputFiles.EMG_FILTERED)
+            abs_path_emg = str(trial.EMG_FILTERED)
             if os.path.exists(abs_path_emg):
                 emg_normalise_list.append(abs_path_emg)
             else:
                 print(f"EMG file not found: {abs_path_emg}")
 
-        run_emg_normalise.main(target_emg_path=str(trial.inputFiles.EMG_FILTERED),
+        pipeline.EMG_normalise(target_emg_path=str(trial.EMG_FILTERED), 
                     normalise_emg_list=emg_normalise_list)
 
-        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.inputFiles.EMG_NORMALISED}')
+        utils.print_to_log(f'EMG data normalised. Results are saved in {trial.EMG_NORMALISED}')
 
+    if settings.Execute().SCALE_EMG:
+        trial.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR,)
+        
     # Create CEINMS setup files
-    if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(trial.inputFiles.CEINMS_CALIBRATED_MODEL) or replace):
+    if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(trial.CEINMS_CALIBRATED_MODEL) or replace):
         
         # create CEINMS model file
-        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)):
+        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(trial.CEINMS_UNCALIBRATED_MODEL)):
             try:
                 trial.create_ceinms_model()
             except Exception as e:
                 utils.print_to_log(f'Error creating CEINMS model file: {e}')
-            
+        
         # create CEINMS input data XML file
         try:
             trial.create_ceinms_input_data()
@@ -187,19 +189,9 @@ def main(trial: utils.Trial, replace: bool = False):
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION:
         
-        try:
-            start_time = time.time()
-            ceinms.plot_ceinms_model_parameters(trial.inputFiles.CEINMS_UNCALIBRATED_MODEL)
+        try:        
             trial.run_ceinms_calibration()
-            
-            # if date modified of calibrated model is after start time, assume success
-            mod_time = os.path.getmtime(trial.inputFiles.CEINMS_CALIBRATED_MODEL)
-            if mod_time >= start_time:
-                utils.print_to_log(f'CEINMS calibration completed successfully in {end_time - start_time:.2f} seconds.')
-                ceinms.plot_ceinms_model_parameters(trial.inputFiles.CEINMS_CALIBRATED_MODEL)
-            else:
-                utils.print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
-                
+        
         except Exception as e:
             print(f"Error during CEINMS calibration: {e}")
             utils.print_to_log(f'Error during CEINMS calibration: {e}')
@@ -208,15 +200,15 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().CEINMS_OPTIMISATION:
         try:
 
-            setupAbsPath = os.path.abspath(trial.inputFiles.CEINMS_OPTIMISE_SETUP)
+            setupAbsPath = os.path.abspath(trial.CEINMS_OPTIMISE_SETUP)
             ceinms.optimise(setupXML_path=setupAbsPath)
 
-            adjustedEMG_path = os.path.join(trial.outputFiles.CEINMS_OPTIMISATION_DIR, 'adjustedEMG.sto')
-            ceinms.plot_emg_vs_ceimns(emgFile=trial.inputFiles.EMG_NORMALISED,
+            adjustedEMG_path = os.path.join(trial.CEINMS_OPTIMISATION_DIR, 'adjustedEMG.sto')
+            ceinms.plot_emg_vs_ceimns(emgFile=trial.EMG_NORMALISED,
                                       ceinmsExcitationsFile=adjustedEMG_path)
             
-            torqueCEINMS_path = os.path.join(trial.outputFiles.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
-            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.outputFiles.ID,
+            torqueCEINMS_path = os.path.join(trial.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
+            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.ID,
                                           ceinmsMomentsFile=torqueCEINMS_path)
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
@@ -224,14 +216,14 @@ def main(trial: utils.Trial, replace: bool = False):
     if settings.Execute().CEINMS_EXE:
         try:
             trial.create_ceinms_exe_setup()
-            ceinms.executable(os.path.abspath(trial.inputFiles.CEINMS_EXE_SETUP))
-            ceinms_output_dir = os.path.abspath(trial.outputFiles.CEINMS_EXE_DIR)
+            ceinms.executable(os.path.abspath(trial.CEINMS_EXE_SETUP))
+            ceinms_output_dir = os.path.abspath(trial.CEINMS_EXE_DIR)
             ceinms.plot_optimisation_results(ceinms_output_dir)
             
-            ceinms.plot_emg_vs_ceinms(emgFile=trial.inputFiles.EMG_NORMALISED,
+            ceinms.plot_emg_vs_ceinms(emgFile=trial.EMG_NORMALISED,
                                         ceinmsExcitationsFile=os.path.join(ceinms_output_dir, 'AdjustedEmgs.sto'))
             
-            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.outputFiles.ID,
+            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.ID,
                                           ceinmsTorquesFile=os.path.join(ceinms_output_dir, 'Torques.sto'))
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
@@ -284,32 +276,28 @@ if __name__ == "__main__":
     start_time = time.time()
     
     print(f'Check settings in {settings.__file__}')
-
-    answer = input("Do you want to proceed? (y/n): ")
-    if answer.lower() != 'y':
-        print("Exiting the program.")
-        exit()
+    time.sleep(1)
 
     for subject in settings.SUBJECTS_TO_ANALYSE:
         for session in settings.SESSIONS_TO_ANALYSE:
             for trial_name in settings.TRIALS_TO_ANALYSE:
                 
-                trial = utils.Trial(subject_name=subject, 
-                                    session_name=session, 
-                                    trial_name=trial_name) 
+                trialPath = os.path.join(settings.SIMULATIONS_DIR,
+                                         subject,
+                                         session,
+                                         trial_name)
+                
+                trial = utils.Trial(trialPath=trialPath) 
                 
                 utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
 
                 ##  Run main analysis function ##
 
-                main(trial=trial, replace=True)
+                main(trial=trial, replace=False)
 
                 #############################################
 
                 utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
-
-                # compare_trials(trial1=analysis.get_subject(subject).get_session(session.name).get_trial(trial_list[0]),
-                #                  trial2=trial)
 
                 if settings.Execute().push_to_git:
                     push_trial_results_to_git(trial=trial)

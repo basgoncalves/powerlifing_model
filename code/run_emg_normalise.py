@@ -9,6 +9,22 @@ def main(target_emg_path=None, normalise_emg_list=None):
     Normalises EMG data based on a target EMG file.
     The target EMG file is used to scale the other EMG files in the list.
     """
+    
+    if not target_emg_path:
+        target_emg_path = input("Enter the path to the target EMG file to normalise: ").strip('"')
+        
+    if not normalise_emg_list:
+        normalise_emg_list = []
+        print("Enter paths to EMG files to use for normalisation (one per line). Enter an empty line to finish:")
+        while True:
+            emg_file = input().strip('"')
+            if emg_file == "":
+                break
+            if os.path.exists(emg_file):
+                normalise_emg_list.append(emg_file)
+            else:
+                print(f"File not found: {emg_file}. Please try again.")
+    
     target_emg = utils.load_any_data_file(target_emg_path)
     max_values = pd.DataFrame(columns=target_emg.columns)
 

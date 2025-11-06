@@ -5,11 +5,7 @@ import matplotlib.pyplot as plt
 
 def trialSummary(trial: utils.Trial):
      """Summarizes trials based on predefined settings."""
-    #  trial.plot_ik()
-    #  trial.plot_id()
-    #  trial.plot_so()
-    #  trial.plot_emg()
-     trial.plot_jra()
+     trial.plot_summary()
      
      
 
@@ -19,7 +15,7 @@ if __name__ == "__main__":
     for subject in settings.SUBJECTS_TO_ANALYSE:
         for session in settings.SESSIONS_TO_ANALYSE:
             for trial in settings.TRIALS_TO_ANALYSE:
-                trial_path = os.path.join(settings.SIMULATION_DIR, subject, session, trial)
+                trial_path = os.path.join(settings.SIMULATIONS_DIR, subject, session, trial)
                 if os.path.exists(trial_path):
                     trial_List.append(trial_path)
 

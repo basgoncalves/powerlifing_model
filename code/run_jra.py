@@ -150,23 +150,7 @@ def main(osim_modelPath=None, ik_output=None,
     print('jra for', resultsDir)
     analyzeTool_JR.run()
     
-def run_jra_setup(osim_modelPath, setupJRA):
-    """Creates a Joint Reaction Analysis setup file."""
-    if not os.path.exists(setupJRA):
-        raise FileNotFoundError(f"Setup file not found: {setupJRA}")
-    
-    # Create the Joint Reaction Analysis tool
-    jraTool = osim.AnalyzeTool(setupJRA)
-    jraTool.setModel(osim.Model(osim_modelPath))
-    jraTool.setModelFilename(os.path.relpath(osim_modelPath, start=os.path.dirname(setupJRA)))
-    
-    jraTool.printToXML(setupJRA)
-    print(f"Joint Reaction Analysis setup saved to {setupJRA}")
-    os.chdir(os.path.dirname(setupJRA))
-    jraTool.run()
-    print(f"Joint Reaction Analysis completed. Results saved to {os.path.dirname(setupJRA)}")
-    
-    
+ 
 if __name__ == '__main__':
    
     

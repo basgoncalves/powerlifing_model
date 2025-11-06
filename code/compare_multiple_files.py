@@ -94,7 +94,8 @@ if groups is not None and summary is not None:
                 df[group_name] = df[member_cols].mean(axis=1)
             elif summary == '3dsum':
                 df[group_name] = np.linalg.norm(df[member_cols].values, axis=1)
-    
+            elif summary == 'None':
+                df[group_name] = df[member_cols]
     # After summarizing, the common columns are the new group keys
     common_columns = groups.keys()
 

@@ -8,9 +8,9 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bw_03',
                       'Squat_bar_02', 'Squat_bar_03',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
-TRIALS_TO_ANALYSE = ['Walking_01', 'Walking_02',
-                      'Walking_03', 'Walking_04', 'Walking_05']
-CEINMS_CALIBRATION_TRIALS = TRIALS_TO_ANALYSE[0:1]
+TRIALS_TO_ANALYSE = ['Walking_01'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+
+CEINMS_CALIBRATION_TRIALS = ['Walking_01']
 
 MODEL_NAME = 'scaled.osim'
 
@@ -22,7 +22,7 @@ SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\Purzel')
 POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
-SIMULATION_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
+SIMULATIONS_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
 RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results')
 
 CEINMS_DIR = os.path.join(MODULE_DIR, 'executables')
@@ -30,7 +30,7 @@ CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')   
 
-SUBJECT_LIST = [subject for subject in os.listdir(SIMULATION_DIR) if os.path.isdir(os.path.join(SIMULATION_DIR, subject))]
+SUBJECT_LIST = [subject for subject in os.listdir(SIMULATIONS_DIR) if os.path.isdir(os.path.join(SIMULATIONS_DIR, subject))]
 
 class Inputs:
     def __init__(self, parentdir=None):
@@ -65,6 +65,17 @@ class Inputs:
         self.setupSO = 'setup_SO.xml'
         self.setupJRA = 'setup_JRA.xml'
         
+        
+        self.IK = 'joint_angles.mot'
+        self.ID = 'inverse_dynamics.sto'
+        self.MA = 'muscleAnalysis'
+        self.SO_forces = 'SO_StaticOptimization_force.sto'
+        self.SO_activations = 'SO_StaticOptimization_activation.sto'
+        self.JRA = 'Analyse_JRA_ReactionLoads.sto'
+        self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
+        self.CEINMS_OPTIMISATION_DIR = 'Optimised'
+        self.CEINMS_EXE_DIR = 'Output'
+        
         if parentdir:
             for attr, filename in self.__dict__.items():
                 filepath = os.path.join(parentdir, filename)
@@ -85,23 +96,6 @@ class Inputs:
         
         return fileExist    
             
-class Outputs:
-    def __init__(self, parentdir=None):
-        self.IK = 'joint_angles.mot'
-        self.ID = 'inverse_dynamics.sto'
-        self.MA = 'muscleAnalysis'
-        self.SO_forces = 'SO_StaticOptimization_force.sto'
-        self.SO_activations = 'SO_StaticOptimization_activation.sto'
-        self.JRA = 'Analyse_JRA_ReactionLoads.sto'
-        self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
-        self.CEINMS_OPTIMISATION_DIR = 'Optimised'
-        self.CEINMS_EXE_DIR = 'Output'
-        if parentdir:
-            for attr, filename in self.__dict__.items():
-                filepath = os.path.join(parentdir, filename)
-                relpath = os.path.relpath(filepath, parentdir)
-                setattr(self, attr, relpath)
-                      
 class CEINMSParameters:
     def __init__(self):
         self.hybridCalibration = 'true'
@@ -162,14 +156,16 @@ class Execute:
         self.SO = False
         self.JRA = False
         
-        self.EMG_NORMALISE = True
+        self.EMG_NORMALISE = False
+        self.SCALE_EMG = False
+        self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
-        self.CEINMS_CALIBRATION = False
+        self.CEINMS_CALIBRATION = True
         self.CEINMS_OPTIMISATION = False
-        self.CEINMS_EXE = True
+        self.CEINMS_EXE = False
         
         self.CREATE_PLOTS = False
         
@@ -180,6 +176,17 @@ DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_rotation_l', 'hip_rotation_r',
                 'knee_angle_l', 'knee_angle_r',
                 'ankle_angle_l', 'ankle_angle_r']
+
+DOFs_moments = {'hip_flexion_r': 'hip_flexion_r_moment',
+                'hip_adduction_r': 'hip_adduction_r_moment',
+                'hip_rotation_r': 'hip_rotation_r_moment',
+                'knee_angle_r': 'knee_angle_r_moment',
+                'ankle_angle_r': 'ankle_angle_r_moment',
+                'hip_flexion_l': 'hip_flexion_l_moment',
+                'hip_adduction_l': 'hip_adduction_l_moment',
+                'hip_rotation_l': 'hip_rotation_l_moment',
+                'knee_angle_l': 'knee_angle_l_moment',
+                'ankle_angle_l': 'ankle_angle_l_moment'}
 
 Muscle_Groups = { 'R Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
     'R Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
@@ -267,13 +274,18 @@ plot = {'Groups':
                     'Analyse_JRA_ReactionLoads': JCF_Groups,
                     'SO_StaticOptimization_force_normalised': Muscle_Groups,
                     'SO_StaticOptimization_activation': Muscle_Groups,
-                    'MuscleForces_inputData': Muscle_Groups},
+                    'MuscleForces_inputData': Muscle_Groups,
+                    'inverse_dynamics': DOFs_moments},
+                    
             'Summary': 
                     {'SO_StaticOptimization_force': 'Sum', 
                         'SO_StaticOptimization_force_normalised': 'mean',
                     'SO_StaticOptimization_activation': 'mean', 
                     'Analyse_JRA_ReactionLoads': '3dsum',
-                    'MuscleForces_inputData': 'Sum'}
+                    'MuscleForces_inputData': 'Sum',
+                    'inverse_dynamics': 'None' 
+                    },
+                    
                 }
 
 def _print():

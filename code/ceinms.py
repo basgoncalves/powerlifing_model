@@ -2,6 +2,8 @@ import os
 import shutil
 import subprocess
 import time
+
+import numpy as np
 import settings
 import xml.etree.ElementTree as ET
 import opensim as osim
@@ -693,8 +695,9 @@ def plot_ceinms_model_parameters(ceinmsModelPath=None):
     optimised_forces = load_mtuSet(ceinmsModelPath)
     muscle_names = optimised_forces.index.tolist()
     parameters = optimised_forces.columns.tolist()
+    if len(parameters) == 10:    n_cols = 5
+    else:                        n_cols = 4
     
-    n_cols = 4
     n_rows = (len(parameters) + n_cols - 1) // n_cols
     fig, axs = plt.subplots(n_rows, n_cols, figsize=(10, n_rows*3))
     plt.suptitle(f'Optimised Muscle Parameters: {ceinmsModelPath}', fontsize=16)
@@ -724,6 +727,110 @@ def plot_ceinms_model_parameters(ceinmsModelPath=None):
     fig_path = ceinmsModelPath.replace('.xml', '_parameters.png')
     plt.savefig(fig_path)
     print(f"Optimised parameters plot saved to: {fig_path}")
+
+def plot_moments_calibration_results(momentResultsCSV=None):
+    
+    if not momentResultsCSV:
+        momentResultsCSV = input("Enter path to moment calibration results CSV file: ").strip('"')
+
+    moments_df = utils.load_any_data_file(momentResultsCSV)
+    columns = moments_df.columns.tolist()
+    data_columns = [col for col in columns if col != 'time']
+    data_columns.sort()
+    
+    # get dof names by removing '_id' from id_columns
+    dof_pairs = []
+    for col in data_columns:
+        moment_col = col + '_id'
+        if moment_col in data_columns:
+            dof_pairs.append((col, moment_col))
+
+    n_dofs = len(dof_pairs)
+    ncols = 2  # 2 columns for better layout
+    nrows = int(np.ceil(n_dofs / ncols))
+    
+    # Create the figure and subplots
+    fig, axes = plt.subplots(nrows, ncols, figsize=(15, 4*nrows))
+    if n_dofs == 1:
+        axes = [axes]
+    elif nrows == 1:
+        axes = axes.reshape(1, -1)
+    axes = axes.flatten()
+    
+    # Plot each DOF pair
+    for i, (dof, dof_id) in enumerate(dof_pairs):
+        ax = axes[i]
+        
+        # Plot the DOF angle
+        line1 = ax.plot(moments_df['time'], moments_df[dof], 'b-', linewidth=2, label=f'ceinms)')
+        line2 = ax.plot(moments_df['time'], moments_df[dof_id], 'r-', linewidth=2, label=f'inverse dynamics')
+
+        # Set labels and title
+        ax.set_xlabel('Time (s)')
+        ax.set_ylabel('Moment (Nm)')
+        ax.set_title(dof)
+        ax.tick_params(axis='y')
+        ax.grid(True, alpha=0.3)
+        
+        # Add legend (only on first subplot to avoid clutter)
+        if i == 0:
+            lines = line1 + line2
+            labels = [l.get_label() for l in lines]
+            ax.legend(lines, labels, loc='upper right')
+    
+    # Hide any unused subplots
+    for i in range(n_dofs, len(axes)):
+        axes[i].set_visible(False)
+    
+    # Adjust layout
+    plt.tight_layout()
+    plt.suptitle('DOF Angles and Moments Comparison', fontsize=16, y=1.02)
+    
+    # Save the figure
+    savePath = momentResultsCSV.replace('.csv', '.png')
+    plt.savefig(savePath, dpi=300, bbox_inches='tight')
+    print(f"DOF comparison plot saved as '{savePath}'")
+
+    return fig, axes, dof_pairs
+  
+def plot_ceinms_calibration_results(calibrationOutputDir=None):
+
+    if not calibrationOutputDir:
+        calibrationOutputDir = input("Enter path to calibration output directory: ").strip('"')
+
+    # find all files ending with _calibrationResults.sto
+    result_files = os.listdir(calibrationOutputDir)
+    result_files = [os.path.join(calibrationOutputDir, f) for f in result_files if f.endswith('.csv')]
+    Muscle_Groups = settings.Muscle_Groups
+    for result_file in result_files:
+        data = utils.load_any_data_file(result_file)
+        
+        muscle_names = [col for col in data.columns if col != 'time']
+
+        n_muscle_groups = len(Muscle_Groups)
+        fig, axs = plt.subplots(n_muscle_groups, 1, figsize=(10, n_muscle_groups*3))
+        plt.suptitle(f'Calibration Results: {os.path.basename(result_file)}', fontsize=16)
+        for i, (muscle_group, muscles) in enumerate(Muscle_Groups.items()):
+            ax = axs[i] if n_muscle_groups > 1 else axs
+            for muscle in muscles:
+                if muscle in muscle_names:
+                    ax.plot(data['time'], data[muscle], label=muscle)
+            ax.set_title(f'Calibration Results for Muscle Group: {muscle_group}')
+            
+            # if not last subplot, remove x labels
+            if i < n_muscle_groups - 1:
+                ax.set_xticklabels([])
+            else:
+                ax.set_xlabel('Time (%)')
+                
+            ax.legend()
+            
+        
+        # save figure
+        fig_path = result_file.replace('.csv', '.png')
+        plt.savefig(fig_path)
+        print(f"Calibration results plot saved to: {fig_path}")
+        plt.close()
 
 def plot_optimisation_results(optimisationOutputDir=None):
 

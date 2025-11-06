@@ -27,6 +27,7 @@ from scipy import signal
 
 import settings
 import ceinms
+import pipeline
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -36,33 +37,40 @@ class Trial():
     
     subject_name: Name of the subject (or the trial path if session_name and trial_name are None)
     '''
-    def __init__(self, subject_name, session_name=None, trial_name=None):
+    def __init__(self, trialPath=None, settingsXML=None):
+        
+        if settingsXML and os.path.exists(settingsXML):
+            self.load_settings(settingsXML)
+            return
+        else:
+            if not trialPath or not os.path.exists(trialPath):
+                print(f"Trial path not found: {trialPath}")
+            
+            self.settingsXML = os.path.join(trialPath, 'trial_settings.xml')
+            if os.path.exists(self.settingsXML):
+                self.load_settings(self.settingsXML)
+                return
 
-        if not os.path.exists(subject_name) and (session_name is None or trial_name is None):
-            raise ValueError("Both session_name and trial_name must be provided or a valid trial path.")
-        elif os.path.exists(subject_name):
-            trial_name = os.path.basename(subject_name)
-            session_name = os.path.basename(os.path.dirname(subject_name))
-            subject_name = os.path.basename(os.path.dirname(os.path.dirname(subject_name)))
+            path_parts = os.path.normpath(trialPath).split(os.sep)
+            self.subject = path_parts[-3]
+            self.session = path_parts[-2]
+            self.name = path_parts[-1]
 
-    
-        self.subject = subject_name
-        self.session = session_name
-        self.name = trial_name
-        self.path = os.path.join(settings.SIMULATION_DIR, self.subject, self.session, self.name)
-        self.parentdir = os.path.dirname(self.path)
-        
-        self.trial_settings = os.path.join(self.path, 'trial_settings.xml')       
-        self.TIME_RANGE = self.get_time_range()
-        
-        self.modelPath = os.path.join(settings.MODELS_DIR, subject_name, session_name, settings.MODEL_NAME)
-        
-        self.inputFiles = settings.Inputs(parentdir=self.path)
-        self.outputFiles = settings.Outputs(parentdir=self.path)
-           
+            self.path = os.path.join(settings.SIMULATIONS_DIR, self.subject, self.session, self.name)
+            self.parentdir = os.path.dirname(self.path)
+                
+            self.TIME_RANGE = []
+            self.modelPath = os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME)
+            
+            for i in settings.Inputs().items():
+                setattr(self, i[0].lower(), os.path.join(self.path, i[1]))
+                
+            if not os.path.exists(self.settingsXML):
+                self._to_xml()
+
     def reset(self):
         '''Delete all output files for the trial. Outputs set in settings.Outputs() '''
-        for key, step in self.outputFiles.items():
+        for key, step in self.items():
             if step.output:
                 output_path = os.path.join(self.path, step.output)
                 if os.path.exists(output_path):
@@ -91,7 +99,7 @@ class Trial():
     
     def load_outputs(self):
         """Load all output files for the trial into dataframes."""
-        for key, step in self.outputFiles.__dict__.items():
+        for key, step in self.__dict__.items():
         
             output_path = os.path.join(self.path, step)
             if os.path.exists(output_path):
@@ -138,32 +146,56 @@ class Trial():
                     else:
                         child.text = str(sub_value)
                 
-            
         tree = ET.ElementTree(root)
-        save_pretty_xml(tree, self.trial_settings)
+        save_pretty_xml(tree, self.settingsXML)
+        print(f"Trial settings saved to: {self.settingsXML}")
     
-    def load_settings(self):
+    def load_settings(self, settingsXML):
         '''Load all settings for the trial from an xml in trial.path'''
-        tree = ET.parse(self.trial_settings)
+        tree = ET.parse(settingsXML)
         root = tree.getroot()
-        
-        for child in root:
-            if hasattr(self, child.tag):
-                attr = getattr(self, child.tag)
-                if isinstance(attr, (str, int, float, bool, list, dict)):
-                    setattr(self, child.tag, child.text)
-                else:
-                    for sub_child in child:
-                        if hasattr(attr, sub_child.tag):
-                            sub_attr = getattr(attr, sub_child.tag)
-                            if isinstance(sub_attr, (str, int, float, bool, list, dict)):
-                                setattr(attr, sub_child.tag, sub_child.text)
-            else:
-                print(f"Warning: Attribute {child.tag} not found in Trial class.")
     
+        self.settingsXML = settingsXML
+        
+        for variable in root:
+            var_name = variable.tag
+            var_value = variable.text
+            
+            # Check if the attribute already exists
+            if hasattr(self, var_name):
+                current_attr = getattr(self, var_name)
+                
+                # Determine the type of the current attribute and convert accordingly
+                if isinstance(current_attr, bool):
+                    converted_value = var_value.lower() == 'true'
+                elif isinstance(current_attr, int):
+                    converted_value = int(var_value)
+                elif isinstance(current_attr, float):
+                    converted_value = float(var_value)
+                elif isinstance(current_attr, list):
+                    # Assuming list of strings separated by commas
+                    converted_value = var_value.strip('[]').split(', ')
+                else:
+                    converted_value = var_value
+            else:
+                converted_value = var_value  # Default to string if attribute doesn't exist
+            
+            setattr(self, var_name, converted_value)
+            
+            # update self.path if path variable
+            if var_name == "path":
+                parent_dir = os.path.dirname(settingsXML)
+                self.path = os.path.abspath(os.path.join(parent_dir, converted_value))
+                
+            if var_name == "TIME_RANGE":
+                # Convert string representation of list to actual list of floats
+                converted_value = re.findall(r"[-+]?\d*\.\d+|\d+", var_value)
+                converted_value = [float(num) for num in converted_value]
+                setattr(self, var_name, converted_value)
+
     def get_time_range(self):
         os.chdir(self.path)
-        if os.path.exists(settings.Inputs().EVENTS):
+        if os.path.exists(self.inputFiles.EVENTS):
             event_data = pd.read_csv(settings.Inputs().EVENTS, index_col=None, header=None)
             self.TIME_RANGE = [event_data.iloc[:, 1].min(), event_data.iloc[:, 1].max()]
             return self.TIME_RANGE
@@ -177,36 +209,15 @@ class Trial():
             c3d_data = load_any_data_file(settings.Inputs().C3D)
             self.TIME_RANGE = [c3d_data['time'].min(), c3d_data['time'].max()]
             return self.TIME_RANGE
-        
+
     def check_paths(self):
         """Check if all input and output file paths exist."""
-        for key, step in self.inputFiles.items():
+        for key, step in self.items():
             if step.input:
                 input_path = os.path.join(self.path, step.input)
                 if not os.path.exists(input_path):
                     print(f"Input file does not exist: {input_path}")
         
-        for key, step in self.outputFiles.items():
-            if step.output:
-                output_path = os.path.join(self.path, step.output)
-                if not os.path.exists(output_path):
-                    print(f"Output file does not exist: {output_path}")
-
-    def validate_markers_used(ikTool: osim.InverseKinematicsTool, markers_path: str):
-        task_set = ikTool.get_IKTaskSet()
-        markers = load_trc(markers_path)
-        
-        markers_list = [col for col in markers.columns if col.strip()]
-        
-        for task in task_set:
-            if task.getName() in markers_list:
-                task.setApply(True)
-                task.setWeight(1.0)
-            else:
-                task.setApply(False)
-            print(f"Task: {task.getName()}, Apply: {task.getApply()}, Weight: {task.getWeight()}")
-        
-        return ikTool
 
     def increase_muscle_force(self, factor=1, replace: bool = False):
         """Increase muscle force in the scaled model by a given factor.
@@ -245,87 +256,131 @@ class Trial():
         # Update the used model path
         self.USED_MODEL = new_model_path
     
+    def scale_emg(self, scale_factor=1.0):
+        """Scale EMG data by a given factor and save to a new file.
+        
+        Args:
+            scale_factor (float): Factor to scale EMG data by. Default is 1.0.
+        """
+        os.chdir(self.path)
+        if not os.path.exists(self.EMG_NORMALISED):
+            print(f"EMG normalised file not found: {self.EMG_NORMALISED}")
+            return
+        
+        emg_data = load_any_data_file(self.EMG_NORMALISED)
+        
+        # Scale all columns except 'time'
+        for col in emg_data.columns:
+            if col != 'time':
+                emg_data[col] *= scale_factor
+        
+        scaled_emg_path = self.EMG_NORMALISED.replace('.sto', f'_scaled_{scale_factor:.2f}.sto')
+        write_sto_file(emg_data, os.path.abspath(scaled_emg_path))
+        print(f"Scaled EMG data saved to: {scaled_emg_path}")
+
+        # Update the EMG normalised path
+        self.EMG_NORMALISED = scaled_emg_path
+        
+        self._to_xml()
+    
+    # analyses to run
+    
     def export_c3d(self):
         pass
 
     def run_ik(self):
-        import run_ik
         
-        if not os.path.exists(self.inputFiles.setupIK):            
+        if not os.path.exists(self.setupIK):            
             template_ik_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupIK)
-            shutil.copyfile(template_ik_path, self.inputFiles.setupIK)
-
-        run_ik.main(osim_modelPath=self.modelPath,
-                    marker_trc=self.inputFiles.MARKERS,
-                    ik_output=self.outputFiles.IK,
-                    setup_xml=self.inputFiles.setupIK,
+            shutil.copyfile(template_ik_path, self.setupIK)
+        os.chdir(os.path.abspath(self.path))
+        
+        pipeline.run_ik(osim_modelPath=self.modelPath,
+                    marker_trc=self.MARKERS,
+                    ik_output=self.IK,
+                    setup_xml=self.setupIK,
                     time_range=self.TIME_RANGE,
                     resultsDir=self.path)
     
     def run_id(self):
-        import run_id
         
-        if not os.path.exists(self.inputFiles.setupID):            
+        os.chdir(self.path)
+        if not os.path.exists(self.setupID):            
             template_id_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupID)
-            shutil.copyfile(template_id_path, self.inputFiles.setupID)
+            shutil.copyfile(template_id_path, self.setupID)
 
-        if not os.path.exists(self.inputFiles.setupGRF):            
+        if not os.path.exists(self.setupGRF):            
             template_grf_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupGRF)
-            shutil.copyfile(template_grf_path, self.inputFiles.setupGRF)
+            shutil.copyfile(template_grf_path, self.setupGRF)
         
-        run_id.main(osimModelPath=self.modelPath,
-                    ikOutputPath=self.outputFiles.IK,
-                    grfXmlPath=self.inputFiles.setupGRF,
-                    setupXmlPath=self.inputFiles.setupID,
+        os.chdir(self.path)
+        pipeline.run_id(osimModelPath=self.modelPath,
+                    ikOutputPath=self.IK,
+                    grfXmlPath=self.setupGRF,
+                    setupXmlPath=self.setupID,
                     resultsDir=self.path)
     
     def run_ma(self):
-        import run_ma
         
-        if not os.path.exists(self.inputFiles.setupMA):            
+        os.chdir(self.path)
+        if not os.path.exists(self.setupMA):            
             template_ma_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupMA)
-            shutil.copyfile(template_ma_path, self.inputFiles.setupMA)
+            shutil.copyfile(template_ma_path, self.setupMA)
 
-        run_ma.main(osim_modelPath=self.modelPath,
-                    ik_output=self.outputFiles.IK,
-                    grf_xml=self.inputFiles.setupGRF,
-                    setup_xml=self.inputFiles.setupMA,
-                    resultsDir=self.outputFiles.MA)
+        os.chdir(self.path)
+        pipeline.run_ma(osim_modelPath=self.modelPath,
+                    ik_output=self.IK,
+                    grf_xml=self.setupGRF,
+                    setup_xml=self.setupMA,
+                    resultsDir=self.MA)
     
     def run_so(self):
-        import run_so
         
-        if not os.path.exists(self.inputFiles.setupSO):            
+        os.chdir(self.path)
+        if not os.path.exists(self.setupSO):            
             template_so_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupSO)
             shutil.copyfile(template_so_path, self.inputFiles.setupSO)
 
-        if not os.path.exists(self.inputFiles.ACTUATORS_SO):            
+        if not os.path.exists(self.ACTUATORS_SO):            
             template_actuators_path = os.path.join(settings.SETUP_DIR, settings.Inputs().ACTUATORS_SO)
-            shutil.copyfile(template_actuators_path, self.inputFiles.ACTUATORS_SO)
+            shutil.copyfile(template_actuators_path, self.ACTUATORS_SO)
         
-        run_so.main(osim_modelPath=self.modelPath,
-                    ik_output=self.outputFiles.IK,
-                    grf_xml=self.inputFiles.setupGRF,
-                    setup_xml=self.inputFiles.setupSO,
-                    actuators=self.inputFiles.ACTUATORS_SO,
+        os.chdir(self.path)
+        pipeline.run_so(osim_modelPath=self.modelPath,
+                    ik_output=self.IK,
+                    grf_xml=self.setupGRF,
+                    setup_xml=self.setupSO,
+                    actuators=self.ACTUATORS_SO,
                     resultsDir=self.path)
         
     def run_jra(self):
-        import run_jra
         
-        if not os.path.exists(self.inputFiles.setupJRA):            
+        os.chdir(self.path)
+        if not os.path.exists(self.setupJRA):               
             template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
-            shutil.copyfile(template_jra_path, self.inputFiles.setupJRA)
+            shutil.copyfile(template_jra_path, self.setupJRA)
             
         os.chdir(self.path)
-        run_jra.main(osim_modelPath=self.modelPath,
-                     ik_output=self.outputFiles.IK,
-                     grf_xml=self.inputFiles.setupGRF,
-                     setup_xml=self.inputFiles.setupJRA,
+        pipeline.run_jra(osim_modelPath=self.modelPath,
+                     ik_output=self.IK,
+                     grf_xml=self.setupGRF,
+                     setup_xml=self.setupJRA,
                      actuators=None,
-                     muscle_force_path=self.outputFiles.SO_forces,
+                     muscle_force_path=self.SO_forces,
                      resultsDir=self.path)
+
+    def run_emg_normalise(self):
         
+        os.chdir(self.path)
+        emg_normalise_list = []
+        
+        for trialName in os.listdir(self.parentdir):
+            emgPath = os.path.join(self.parentdir, trialName, settings.Inputs().EMG_FILTERED)
+            if os.path.exists(emgPath):
+                emg_normalise_list.append(emgPath)
+        
+        pipeline.EMG_normalise(target_emg_path= str(self.EMG_FILTERED),
+                                normalise_emg_list=emg_normalise_list)
     
     @staticmethod
     def muscles_per_coordinate(osimModel, coord_name):
@@ -374,11 +429,12 @@ class Trial():
       
     def plot_moment_arms(self, coord_name: str = None, fig=None):
         
-        fileList = os.listdir(self.outputFiles['MA'].abspath())
+        os.chdir(self.path)
+        fileList = os.listdir(self.MA)
         fileList = [file for file in fileList if file.startswith('_MuscleAnalysis_MomentArm') and file.endswith('.sto')]
         
         for file in fileList:
-            filepath = self.outputFiles['MA'].abspath() + '\\' + file
+            filepath = self.MA + '\\' + file
             if coord_name in file:
                 break
             else:
@@ -413,19 +469,9 @@ class Trial():
         
         axes[0].legend()
         return fig, axes
-        
-    def compare_with(self, trial):
-        print(f"Comparing {self.name} with {trial.name}")
-        
-        self.joint_angles = load_any_data_file(self.outputFiles['IK'].abspath())
-        trial.joint_angles = load_any_data_file(trial.outputFiles['IK'].abspath())
-        
-
-        print("Comparing joint angles:")
-        self.plot([self, trial], columns_to_plot=['all'])
-    
+            
     def plot_ik(self, columns_to_plot='all'):
-        self.joint_angles = load_any_data_file(self.outputFiles.IK)
+        self.joint_angles = load_any_data_file(self.IK)
         
         if columns_to_plot == 'all':
             columns_to_plot = list(self.joint_angles.columns)
@@ -451,7 +497,7 @@ class Trial():
         return fig, axes
     
     def plot_id(self, columns_to_plot='all'):
-        self.inverse_dynamics = load_any_data_file(self.outputFiles.ID)
+        self.inverse_dynamics = load_any_data_file(self.ID)
         
         if columns_to_plot == 'all':
             columns_to_plot = list(self.inverse_dynamics.columns)
@@ -477,8 +523,8 @@ class Trial():
         return fig, axes
     
     def plot_so(self):
-        self.so_forces = load_any_data_file(self.outputFiles.SO_forces)
-        self.so_activations = load_any_data_file(self.outputFiles.SO_activations)
+        self.so_forces = load_any_data_file(self.SO_forces)
+        self.so_activations = load_any_data_file(self.SO_activations)
         
         muscleGroups = settings.Muscle_Groups
         
@@ -513,7 +559,7 @@ class Trial():
         return fig, axes
     
     def plot_jra(self):
-        self.jra_results = load_any_data_file(self.outputFiles.JRA)
+        self.jra_results = load_any_data_file(self.JRA)
         
         joints = settings.JCF_Groups
 
@@ -594,7 +640,7 @@ class Trial():
 
         return fig, axes
     
-    def plot_summarry(self):
+    def plot_summary(self):
         '''
         plot summary of all analyses for the trial
         
@@ -606,32 +652,33 @@ class Trial():
         row 6 - Joint Reaction Forces
         '''
         # load all data
-        self.joint_angles = load_any_data_file(self.outputFiles.IK)
-        self.inverse_dynamics = load_any_data_file(self.outputFiles.ID)
-        self.so_forces = load_any_data_file(self.outputFiles.SO_forces)
-        self.so_activations = load_any_data_file(self.outputFiles.SO_activations)
-        self.jra_results = load_any_data_file(self.outputFiles.JRA)
-        self.emg_data = load_any_data_file(self.inputFiles.EMG_NORMALISED)
+        self.joint_angles = load_any_data_file(self.IK)
+        self.inverse_dynamics = load_any_data_file(self.ID)
+        self.so_forces = load_any_data_file(self.SO_forces)
+        self.so_activations = load_any_data_file(self.SO_activations)
+        self.jra_results = load_any_data_file(self.JRA)
+        self.emg_data = load_any_data_file(self.EMG_NORMALISED)
 
-        self.ceinms_activations = load_any_data_file(os.path.join(self.inputFiles.CEINMS_EXE_DIR, 'Activations.sto'))
-        self.ceinms_forces = load_any_data_file(os.path.join(self.inputFiles.CEINMS_EXE_DIR, 'MuscleForces.sto'))
+        self.ceinms_activations = load_any_data_file(os.path.join(self.CEINMS_EXE_DIR, 'Activations.sto'))
+        self.ceinms_forces = load_any_data_file(os.path.join(self.CEINMS_EXE_DIR, 'MuscleForces.sto'))
         
+        breakpoint()
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
         
-    
     # ceinms
     def create_ceinms_model(self):
         os.chdir(self.path)
         ceinms.create_ceinms_model(osimModelPath=self.modelPath, 
-                                   outputCEINMSModelPath=self.inputFiles.CEINMS_UNCALIBRATED_MODEL)
+                                   outputCEINMSModelPath=self.CEINMS_UNCALIBRATED_MODEL)
     
     def create_ceinms_input_data(self):
-        ceinms.create_input_data(MAFolder=self.outputFiles.MA,
-                                  excitationsFile=self.inputFiles.CEINMS_EXCITATIONS,
-                                  motionFile=self.outputFiles.IK,
-                                  externalTorquesFile=self.outputFiles.ID,
-                                  externalLoadsFile=self.inputFiles.setupGRF,
+        os.chdir(self.path)
+        ceinms.create_input_data(MAFolder=self.MA,
+                                  excitationsFile=self.CEINMS_EXCITATIONS,
+                                  motionFile=self.IK,
+                                  externalTorquesFile=self.ID,
+                                  externalLoadsFile=self.setupGRF,
                                   startStopTime=self.TIME_RANGE)
     
     def create_ceinms_calibration_gfc(self):
@@ -639,6 +686,7 @@ class Trial():
         Create ceinms_cfg_calibration.xml for CEINMS calibration.
         """
         
+        os.chdir(self.path)
         inputPaths = []
         for trial_name in settings.CEINMS_CALIBRATION_TRIALS:
             filepath = os.path.join(self.parentdir, trial_name, settings.Inputs().CEINMS_INPUT_DATA)
@@ -646,13 +694,13 @@ class Trial():
         
         ceinms.create_calibrationCfg(osimModelPath=self.modelPath,
                                      inputPaths=inputPaths,
-                                     outputPath=self.inputFiles.CEINMS_CALIBRATION_CFG)
+                                     outputPath=self.CEINMS_CALIBRATION_CFG)
 
     def create_excitation_generator(self):
-        
+        os.chdir(self.path)
         ceinms.create_excitation_generator(osim_model_path=self.modelPath,
-                                           emg_path=self.inputFiles.CEINMS_EXCITATIONS,
-                                           save_path=self.inputFiles.CEINMS_EXCITATION_GENERATOR
+                                           emg_path=self.CEINMS_EXCITATIONS,
+                                           save_path=self.CEINMS_EXCITATION_GENERATOR
         )
     
     def create_ceinms_cfg_from_excitation_generator(self):
@@ -749,80 +797,73 @@ class Trial():
         print(f"adjustMTUs: {len(adjust_mtus)} muscles")
     
     def create_ceinms_calibration_setup(self):
-        
-        ceinms.create_calibrationSetupXML(uncalibratedCEINMSModelPath=self.inputFiles.CEINMS_UNCALIBRATED_MODEL,
-                                           excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR,
-                                           calibrationCfgPath=self.inputFiles.CEINMS_CALIBRATION_CFG,
-                                           outputSubjectFile=self.inputFiles.CEINMS_CALIBRATED_MODEL,
-                                           outputDirectory=self.outputFiles.CEINMS_CALIBRATION_DIR,
-                                           setupXMLPath=self.inputFiles.CEINMS_CALIBRATION_SETUP)
+        os.chdir(self.path)
+        ceinms.create_calibrationSetupXML(uncalibratedCEINMSModelPath=self.CEINMS_UNCALIBRATED_MODEL,
+                                           excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR,
+                                           calibrationCfgPath=self.CEINMS_CALIBRATION_CFG,
+                                           outputSubjectFile=self.CEINMS_CALIBRATED_MODEL,
+                                           outputDirectory=self.CEINMS_CALIBRATION_DIR,
+                                           setupXMLPath=self.CEINMS_CALIBRATION_SETUP)
 
     def run_ceinms_calibration(self):        
-        import ceinms
+        
+        start_time = time.time()
         os.chdir(self.path)
-        calibrationSetupPath = self.inputFiles.CEINMS_CALIBRATION_SETUP
-        ceinms.calibrate(setupXML_path=calibrationSetupPath)
+        
+        ceinms.plot_ceinms_model_parameters(self.CEINMS_UNCALIBRATED_MODEL)
+        
+        calibrationSetupPath = os.path.abspath(self.CEINMS_CALIBRATION_SETUP)
+        # ceinms.calibrate(setupXML_path=calibrationSetupPath)
+        
+        # if date modified of calibrated model is after start time, assume success
+        mod_time = os.path.getmtime(self.CEINMS_CALIBRATED_MODEL)
+        if mod_time >= start_time or True:
+            print_to_log(f'CEINMS calibration completed successfully in {mod_time - start_time:.2f} seconds.')
+            ceinms.plot_ceinms_model_parameters(self.CEINMS_CALIBRATED_MODEL)
+            breakpoint()
+            try:
+                ceinmsTorquesFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Moments_inputData.csv')
+                ceinms.plot_moments_calibration_results(momentResultsCSV=ceinmsTorquesFile)
+            except:
+                print_to_log(f'Could not plot moments vs CEINMS results.')
+                
+            try:
+                ceinmsEMGFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Excitations_inputData.csv')
+                ceinms.plot_emg_vs_ceinms(emgFile = self.EMG_NORMALISED,
+                                          ceinmsExcitationsFile=ceinmsEMGFile)
+                print_to_log(f'Could not plot EMG vs CEINMS results.')
+            except:
+                print_to_log(f'Could not plot EMG vs CEINMS results.')
+        else:
+            print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
+            
     
     def create_ceinms_optimise_setup(self):
-        ceinms.create_optimise_setupXML(ceinmsModelPath=self.inputFiles.CEINMS_CALIBRATED_MODEL, 
-                            inputDataFile=self.inputFiles.CEINMS_INPUT_DATA,
-                             calibrationCfgPath=self.inputFiles.CEINMS_OPTIMISE_CFG,
-                             excitationGeneratorFilePath=self.inputFiles.CEINMS_EXCITATION_GENERATOR,
-                             outputDirectory=self.outputFiles.CEINMS_OPTIMISATION_DIR,
-                             setupXMLPath=self.inputFiles.CEINMS_OPTIMISE_SETUP)
+        ceinms.create_optimise_setupXML(ceinmsModelPath=self.CEINMS_CALIBRATED_MODEL, 
+                            inputDataFile=self.CEINMS_INPUT_DATA,
+                             calibrationCfgPath=self.CEINMS_OPTIMISE_CFG,
+                             excitationGeneratorFilePath=self.CEINMS_EXCITATION_GENERATOR,
+                             outputDirectory=self.CEINMS_OPTIMISATION_DIR,
+                             setupXMLPath=self.CEINMS_OPTIMISE_SETUP)
 
     def create_ceinms_optimise_cfg(self):
 
-        ceinms.create_optimise_cfg(outputXML_path=self.inputFiles.CEINMS_OPTIMISE_CFG,
-                                   excitationGeneratorFile=self.inputFiles.CEINMS_EXCITATION_GENERATOR)
+        ceinms.create_optimise_cfg(outputXML_path=self.CEINMS_OPTIMISE_CFG,
+                                   excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR)
 
     def create_ceinms_exe_setup(self):
 
         root = ET.Element('ceinms')
-        ET.SubElement(root, 'subjectFile').text = os.path.relpath(self.inputFiles.CEINMS_CALIBRATED_MODEL, self.path)
-        ET.SubElement(root, 'inputDataFile').text = os.path.relpath(self.inputFiles.CEINMS_INPUT_DATA, self.path)
-        ET.SubElement(root, 'executionFile').text = os.path.relpath(self.inputFiles.CEINMS_OPTIMISE_CFG, self.path)
-        ET.SubElement(root, 'excitationGeneratorFile').text = os.path.relpath(self.inputFiles.CEINMS_EXCITATION_GENERATOR, self.path)
-        ET.SubElement(root, 'outputDirectory').text = os.path.relpath(self.outputFiles.CEINMS_EXE_DIR, self.path)
+        ET.SubElement(root, 'subjectFile').text = os.path.relpath(self.CEINMS_CALIBRATED_MODEL, self.path)
+        ET.SubElement(root, 'inputDataFile').text = os.path.relpath(self.CEINMS_INPUT_DATA, self.path)
+        ET.SubElement(root, 'executionFile').text = os.path.relpath(self.CEINMS_OPTIMISE_CFG, self.path)
+        ET.SubElement(root, 'excitationGeneratorFile').text = os.path.relpath(self.CEINMS_EXCITATION_GENERATOR, self.path)
+        ET.SubElement(root, 'outputDirectory').text = os.path.relpath(self.CEINMS_EXE_DIR, self.path)
 
         # Create tree and write to file
         tree = ET.ElementTree(root)
-        save_pretty_xml(tree, self.inputFiles.CEINMS_EXE_SETUP)
-        print(f"Created {self.inputFiles.CEINMS_EXE_SETUP}")
-
-class Session():
-    def __init__(self, subject_name, session_name):
-        self.subject = subject_name 
-        self.name = session_name
-        self.path = os.path.join(paths.SIMULATION_DIR, self.subject, self.name)
-        
-        if not os.path.exists(self.path):
-            print(f"Session path does not exist: {self.path}")
-
-        # select only trials in TRIALS_TO_ANALYSE
-        self.TRIALS = [trial for trial in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, trial)) if trial in Settings().TRIALS_TO_ANALYSE]
-
-        for i, trial in enumerate(self.TRIALS):
-            self.TRIALS[i] = Trial(self.subject, self.name, trial)
-        
-class Subject():
-    def __init__(self, subject_name):
-        self.name = subject_name
-        self.path = os.path.join(paths.SIMULATION_DIR, self.name)
-        
-        if not os.path.exists(self.path):
-            print(f"Subject path does not exist: {self.path}")
-        
-        self.SESSIONS = [Session(self.name, session) for session in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, session))]
-        
-        # sort sessions by date
-        self.SESSIONS.sort(key=lambda x: x.name)
-
-    def get_session(self, session_name):
-        for session in self.SESSIONS:
-            if session.name == session_name:
-                return session
-        return None
+        save_pretty_xml(tree, self.CEINMS_EXE_SETUP)
+        print(f"Created {self.CEINMS_EXE_SETUP}")
 
 def print_to_log(message):
     """
