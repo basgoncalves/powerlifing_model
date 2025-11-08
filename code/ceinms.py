@@ -892,7 +892,7 @@ def plot_emg_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None):
     # time normalise both datasets to the same length
     emg_data = utils.time_normalise_df(emg_data)
     ceinms_data = utils.time_normalise_df(ceinms_data)
-
+    
     muscle_names = [col for col in emg_data.columns if col != 'time']
     
     emg_mapping = settings.EMG_muscle_mapping

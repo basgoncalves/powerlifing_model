@@ -205,27 +205,19 @@ def main(trial: utils.Trial, replace: bool = False):
 
     if settings.Execute().CEINMS_EXE:
         try:
-            trial.create_ceinms_exe_setup()
-            ceinms.executable(os.path.abspath(trial.CEINMS_EXE_SETUP))
-            ceinms_output_dir = os.path.abspath(trial.CEINMS_EXE_DIR)
-            ceinms.plot_optimisation_results(ceinms_output_dir)
-            
-            ceinms.plot_emg_vs_ceinms(emgFile=trial.EMG_NORMALISED,
-                                        ceinmsExcitationsFile=os.path.join(ceinms_output_dir, 'AdjustedEmgs.sto'))
-            
-            ceinms.plot_moments_vs_ceinms(externalMomentsFile=trial.ID,
-                                          ceinmsTorquesFile=os.path.join(ceinms_output_dir, 'Torques.sto'))
+           trial.run_ceinms_exe()
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
 
     if settings.Execute().CREATE_PLOTS:
         try:
-            trial.plot_ik()
-            trial.plot_id()
-            trial.plot_so()
-            trial.plot_jra()
-            trial.plot_emg()
-            
+            if settings.Execute().PLOT_IK: trial.plot_ik()
+            if settings.Execute().PLOT_ID: trial.plot_id()
+            if settings.Execute().PLOT_MA: trial.plot_ma()
+            if settings.Execute().PLOT_SO: trial.plot_so()
+            if settings.Execute().PLOT_JRA: trial.plot_jra()
+            if settings.Execute().PLOT_EMG: trial.plot_emg()
+
             utils.print_to_log(f'Plots created successfully for: {trial.subject} / {trial.name}')
         except Exception as e:
             print(f"Error during plotting: {e}")
