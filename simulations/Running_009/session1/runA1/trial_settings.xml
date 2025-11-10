@@ -7,7 +7,6 @@
    <path>.</path>
    <parentdir>..</parentdir>
    <TIME_RANGE>[]</TIME_RANGE>
-   <modelPath>..\..\..\..\models\Running_009\session1\model_scaled_increasedForce3.osim</modelPath>
    <SetupFiles>..\..\..\..\code\SetupFiles\Purzel</SetupFiles>
    <MODEL>..\..\..\..\models\subject\session\model_scaled_increasedForce3.osim</MODEL>
    <C3D>c3dfile.c3d</C3D>
@@ -54,6 +53,4 @@
    <gammaMin>1</gammaMin>
    <gammaMax>300</gammaMax>
    <gammaDelta>50</gammaDelta>
-   <Target_Muscles>['all']</Target_Muscles>
-   <Objective_Functions>[{'name': 'MomentError', 'targets': 'all', 'weight': 1}, {'name': 'Penalty', 'targetType': 'normalisedFibreLength', 'weight': 10, 'exponent': 2, 'range': '0.5 1.5'}, {'name': 'Penalty', 'targetType': 'tendonStrain', 'weight': 1000, 'exponent': 2, 'range': '0. 0.5'}, {'name': 'ExcitationsSquared', 'weight': 1}, {'name': 'SynergyExtraction', 'mseWeight': 100, 'range': '0. 1.', 'rangeExponent': 2, 'rangeWeight': 1000}]</Objective_Functions>
 </TrialSettings>
