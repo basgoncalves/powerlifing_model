@@ -71,8 +71,6 @@ class Analyse(settings.Inputs):
             self.parentdir = os.path.dirname(self.path)
                 
             self.TIME_RANGE = []
-            self.modelPath = os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME)
-            
             inputs = settings.Inputs(parentdir=self.path)
             for varInput in inputs.__dict__.items():
                 filepath = os.path.join(self.path, varInput[1])
@@ -89,7 +87,6 @@ class Analyse(settings.Inputs):
             if not os.path.exists(self.settingsXML):
                 self._to_xml()
                 
-
     def reset(self):
         '''Delete all output files for the trial. Outputs set in settings.Outputs() '''
         for key, step in self.items():
@@ -233,11 +230,11 @@ class Analyse(settings.Inputs):
             factor (float): Factor to increase muscle force by. Default is 1.5.
             replace (bool): Whether to replace existing modified model. Default is False.
         """
-        if not os.path.exists(self.modelPath):
-            print(f"Scaled model not found: {self.modelPath}")
+        if not os.path.exists(self.MODEL):
+            print(f"Scaled model not found: {self.MODEL}")
             return
 
-        new_model_path = self.modelPath.replace('.osim', f'_increased_{factor:.2f}.osim')
+        new_model_path = self.MODEL.replace('.osim', f'_increased_{factor:.2f}.osim')
 
         if os.path.exists(new_model_path) and not replace:
             print(f"Modified model already exists: {new_model_path}")
@@ -289,16 +286,15 @@ class Analyse(settings.Inputs):
         self.EMG_NORMALISED = scaled_emg_path
         
         self._to_xml()
-    
+        
     # analyses to run
-    
     def export_c3d(self):
         pass
 
     def run_ik(self):
         
         if not os.path.exists(self.setupIK):            
-            openSim.create_setup_IK(osim_modelPath=self.modelPath,
+            openSim.create_setup_IK(osim_modelPath=self.MODEL,
                                 marker_trc=self.MARKERS,
                                 ik_output=self.IK,
                                 taskSetPath=None,
@@ -307,7 +303,7 @@ class Analyse(settings.Inputs):
             
         os.chdir(os.path.abspath(self.path))
         
-        openSim.run_ik(osim_modelPath=self.modelPath,
+        openSim.run_ik(osim_modelPath=self.MODEL,
                     marker_trc=self.MARKERS,
                     ik_output=self.IK,
                     setup_xml=self.setupIK,
@@ -326,7 +322,7 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_grf_path, self.setupGRF)
         
         os.chdir(self.path)
-        openSim.run_id(osimModelPath=self.modelPath,
+        openSim.run_id(osimModelPath=self.MODEL,
                     ikOutputPath=self.IK,
                     grfXmlPath=self.setupGRF,
                     setupXmlPath=self.setupID)
@@ -339,7 +335,7 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_ma_path, self.setupMA)
 
         os.chdir(self.path)
-        openSim.run_ma(osim_modelPath=self.modelPath,
+        openSim.run_ma(osim_modelPath=self.MODEL,
                     ik_output=self.IK,
                     grf_xml=self.setupGRF,
                     setup_xml=self.setupMA,
@@ -357,7 +353,7 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_actuators_path, self.ACTUATORS_SO)
         
         os.chdir(self.path)
-        openSim.run_so(osim_modelPath=self.modelPath,
+        openSim.run_so(osim_modelPath=self.MODEL,
                     ik_output=self.IK,
                     grf_xml=self.setupGRF,
                     setup_xml=self.setupSO,
@@ -373,13 +369,13 @@ class Analyse(settings.Inputs):
             
         os.chdir(self.path)
         
-        openSim.run_jra(osim_modelPath=self.modelPath,
+        openSim.run_jra(osim_modelPath=self.MODEL,
                      ik_output=self.IK,
                      grf_xml=self.setupGRF,
                      setup_xml=self.setupJRA,
                      actuators=None,
                      muscle_force_path=self.JRA_FORCES,
-                     resultsDir=self.path)
+                     saveFileName=self.JRA)
 
         print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA)}")
     
@@ -392,13 +388,13 @@ class Analyse(settings.Inputs):
             
         os.chdir(self.path)
         
-        openSim.run_jra(osim_modelPath=self.modelPath,
+        openSim.run_jra(osim_modelPath=self.MODEL,
                      ik_output=self.IK,
                      grf_xml=self.setupGRF,
                      setup_xml=self.setupJRA,
                      actuators=None,
                      muscle_force_path=self.JRA_FORCES_CEINMS,
-                     resultsDir=self.path)
+                     saveFileName=self.JRA_CEINMS)
 
         print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA_CEINMS)}")
     
@@ -430,10 +426,15 @@ class Analyse(settings.Inputs):
                 indexes.append(i)
 
         return muscles, indexes
-
-    def fullpath(self, filename):
-        return os.path.join(self.path, filename)
     
+    #--- Valid
+    def compare_marker_locations(self):
+            
+        openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.MARKERS),
+                                        marker_virtual_path=os.path.abspath(self.MODEL_MARKERS))
+        
+        print_to_log(f'[Success] Marker location comparison completed.')
+
     def plot(self,trialList,columns_to_plot):
         
         if columns_to_plot == 'all':
@@ -702,7 +703,7 @@ class Analyse(settings.Inputs):
     # ceinms
     def create_ceinms_model(self):
         os.chdir(self.path)
-        ceinms.create_ceinms_model(osimModelPath=self.modelPath, 
+        ceinms.create_ceinms_model(osimModelPath=self.MODEL, 
                                    outputCEINMSModelPath=self.CEINMS_UNCALIBRATED_MODEL)
     
     def create_ceinms_input_data(self):
@@ -725,13 +726,13 @@ class Analyse(settings.Inputs):
             filepath = os.path.join(self.parentdir, trial_name, settings.Inputs().CEINMS_INPUT_DATA)
             inputPaths.append(os.path.relpath(filepath, self.parentdir))
         
-        ceinms.create_calibrationCfg(osimModelPath=self.modelPath,
+        ceinms.create_calibrationCfg(osimModelPath=self.MODEL,
                                      inputPaths=inputPaths,
                                      outputPath=self.CEINMS_CALIBRATION_CFG)
 
     def create_excitation_generator(self):
         os.chdir(self.path)
-        ceinms.create_excitation_generator(osim_model_path=self.modelPath,
+        ceinms.create_excitation_generator(osim_model_path=self.MODEL,
                                            emg_path=self.CEINMS_EXCITATIONS,
                                            save_path=self.CEINMS_EXCITATION_GENERATOR
         )
@@ -923,21 +924,12 @@ def cmd_analysis(trialPath=None):
         trialPath = input("Please provide the path to the trial directory: ")
         
         trial = Analyse(trialPath)
-        options = ['ik', 'id', 'ma', 'so', 'jra', 'plot', 
-                   'new trial', 'exit']
+        options = trial.__dict__.keys()
         while True:
-            command = input("Enter command (ik, id, ma, so, jra, plot, exit): ").strip().lower()
-            if command == 'ik':
-                trial.run_ik()
-            elif command == 'id':
-                trial.run_id()
-            elif command == 'ma':
-                trial.run_ma()
-            elif command == 'so':
-                trial.run_so()
-            elif command == 'jra':
-                trial.run_jra()
-            elif command == 'plot':
+            command = input(f'Enter command ({", ".join(options)}): ').strip().lower()
+            trial = Analyse(trialPath)
+            if command in options:
+                getattr(trial, command)()
                 trial.plot_results()
             elif command == 'new trial':
                 trialPath = input("Please provide the path to the new trial directory: ")
@@ -946,6 +938,8 @@ def cmd_analysis(trialPath=None):
                 break
             else:
                 print(f"Unknown command. Please enter one of the following: {', '.join(options)}")
+
+
 
 def print_to_log(message, terminal=False):
     """

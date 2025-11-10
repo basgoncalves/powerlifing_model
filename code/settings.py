@@ -34,7 +34,7 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 
-TRIALS_TO_ANALYSE = ['runA1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+TRIALS_TO_ANALYSE = ['runA1a'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
 
 CEINMS_CALIBRATION_TRIALS = ['runA1'] 
 
@@ -66,7 +66,7 @@ class Inputs:
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
-        self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
+        self.EMG_NORMALISED = 'emg.sto'
         self.GRF_MOT = 'grf.mot'
         self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
@@ -95,6 +95,7 @@ class Inputs:
         self.CEINMS_EXE_SETUP = 'ceinms_setup.xml'
         
         self.IK = 'joint_angles.mot'
+        self.MODEL_MARKERS = '_ik_model_marker_locations.sto'
         self.ID = 'inverse_dynamics.sto'
         self.MA = 'muscleAnalysis'
         self.SO_forces = 'SO_StaticOptimization_force.sto'
@@ -105,8 +106,7 @@ class Inputs:
         self.CEINMS_OPTIMISATION_DIR = 'Optimised'
         self.CEINMS_EXE_DIR = 'Output'
         
-        self.JRA_FORCES_CEINMS = os.path.join(self.CEINMS_OPTIMISATION_DIR,
-                                              'MuscleForces.sto')
+        self.JRA_FORCES_CEINMS = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'MuscleForces.sto')
         self.JRA_CEINMS = 'Analyse_JRA_ReactionLoads_CEINMS.sto'
         
         if parentdir:
@@ -128,7 +128,7 @@ class Inputs:
                 fileExist[attr] = True
         
         return fileExist    
-            
+
 class CEINMSParameters:
     def __init__(self):
         self.hybridCalibration = 'true'
@@ -140,56 +140,29 @@ class CEINMSParameters:
         self.gammaMax = 300
         self.gammaDelta = 50
         
-        self.Target_Muscles = ['all']  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
+        self.c1 = '-0.99 -0.05'
+        self.c2 = '-0.95 -0.05'
+        self.shapefactor = '-2.999 -0.001'
+        self.optimalFiberLength = '0.5 1.5'
+        self.tendonSlackLength = '0.5 1.5'
+        self.strengthCoefficient = '0.75 3.5'
         
-        self.Objective_Functions = []
-        self.Objective_Functions.append({
-            'name': 'MomentError',
-            'targets': 'all',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'normalisedFibreLength',
-            'weight': 10,
-            'exponent': 2,
-            'range': '0.5 1.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'tendonStrain',
-            'weight': 1000,
-            'exponent': 2,
-            'range': '0. 0.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'ExcitationsSquared',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'SynergyExtraction',
-            'mseWeight': 100,
-            'range': '0. 1.',
-            'rangeExponent': 2,
-            'rangeWeight': 1000
-        })
+        
+
         
 class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
                
-        self.reset = False
-        self.create_settings_xml = False
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = False
-        self.ID = False
-        self.MA = False
-        self.MOMENT_ARMS = False
-        self.SO = False
+        self.IK = True
+        self.ID = True
+        self.MA = True
+        self.MOMENT_ARMS = True
+        self.SO = True
         self.JRA = True
-        self.JRA_CEINMS = True
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
@@ -203,6 +176,7 @@ class Execute:
         
         self.CEINMS_OPTIMISATION = False
         self.CEINMS_EXE = False
+        self.JRA_CEINMS = True
         
         self.CREATE_PLOTS = False
         

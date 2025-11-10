@@ -3,28 +3,17 @@ import opensim as osim
 import pandas as pd
 import utils
 import os
+import settings
 
-# --- Functions for OpenSim model manipulation and analysis ---
-def scaleModel(modelPath): # NOT FINISHED YET USE THE GUI FOR NOW
-    """
-    Scale the OpenSim model to match the subject's anthropometry.
-    """
-    model = osim.Model(modelPath)
-    
-    model.setName(model.getName() + "_scaled")
-    
-    model.printToXML(modelPath.replace('.osim', '_scaled.osim'))
-    
-    return model
 
-def scale_body_masses(modelPath):
+def scale_body_masses(osim_modelPath):
     """ 
     Scale the body masses of model_target to match the percentages of model_reference.
     """
 
-    model_ref = osim.Model(modelPath)
+    model_ref = osim.Model(osim_modelPath)
 
-    model_targ_path = modelPath.replace('.osim', '_scaledMasses.osim')
+    model_targ_path = osim_modelPath.replace('.osim', '_scaledMasses.osim')
     model_targ = osim.Model(model_targ_path)
 
     state1 = model_ref.initSystem()
@@ -66,14 +55,14 @@ def scale_body_masses(modelPath):
         
     return model_targ
 
-def add_mass_to_body(modelPath, body_name, mass_to_add):
+def add_mass_to_body(osim_modelPath, body_name, mass_to_add):
     """
     Add a specific mass to a body in the OpenSim model.
     """
-    model = osim.Model(modelPath)
+    model = osim.Model(osim_modelPath)
     state = model.initSystem()
 
-    save_path = modelPath.replace('.osim', '_updatedMasses.osim')
+    save_path = osim_modelPath.replace('.osim', '_updatedMasses.osim')
 
     body = model.getBodySet().get(body_name)
     
@@ -86,25 +75,25 @@ def add_mass_to_body(modelPath, body_name, mass_to_add):
     else:
         print(f"Body '{body_name}' not found in the model.")
 
-def print_body_mass_per_segment(modelPath):
+def print_body_mass_per_segment(osim_modelPath):
     """
     Print the mass of each body segment in the OpenSim model.
     """
-    model = osim.Model(modelPath)
+    model = osim.Model(osim_modelPath)
     state = model.initSystem()
 
     print("Body Segment Masses:")
     for body in model.getBodySet():
         print(f"{body.getName()}: {body.getMass()} kg ({body.getMass() / model.getTotalMass(state) * 100:.2f}%)")
 
-def increase_isometric_force(modelPath=None, muscleList='all', factor=3):
+def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=3):
     """
     Increase the isometric force of a specified muscle by a given factor.
     """
-    if not modelPath:
-        modelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
+    if not osim_modelPath:
+        osim_modelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
     
-    model = osim.Model(modelPath)
+    model = osim.Model(osim_modelPath)
     
     if muscleList == 'all':
         muscleList = []
@@ -121,7 +110,7 @@ def increase_isometric_force(modelPath=None, muscleList='all', factor=3):
         else:
             print(f"Muscle '{muscle_name}' not found in the model.")
 
-    model.printToXML(modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
+    model.printToXML(osim_modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
 
 # Marker data and inverse kinematics functions    
 def validate_markers_used(osim_modelPath, ikTool, markers_path):
@@ -289,61 +278,6 @@ def create_grf_xml(markerTrcPath=None, grfMotFile=None, grfXmlPath=None):
     print('Under construction...')
 
 
-# EMG data functions
-def EMG_normalise(target_emg_path=None, normalise_emg_list=None):
-    """
-    Normalises EMG data based on a target EMG file.
-    The target EMG file is used to scale the other EMG files in the list.
-    """
-    if not target_emg_path:
-        target_emg_path = input("Enter the path to the target EMG file to normalise: ").strip('"')
-        
-    if not normalise_emg_list:
-        normalise_emg_list = []
-        print("Enter paths to EMG files to use for normalisation (one per line). Enter an empty line to finish:")
-        while True:
-            emg_file = input().strip('"')
-            if emg_file == "":
-                break
-            if os.path.exists(emg_file):
-                normalise_emg_list.append(emg_file)
-            else:
-                print(f"File not found: {emg_file}. Please try again.")
-    
-    target_emg = utils.load_any_data_file(target_emg_path)
-    max_values = pd.DataFrame(columns=target_emg.columns)
-
-    # Calculate the max of each EMG channel in normalise_emg_list
-    for emg_file in normalise_emg_list:
-        if not os.path.exists(emg_file):
-            utils.print_to_log(f"EMG file not found: {emg_file}")
-            continue
-        emg_data = utils.load_any_data_file(emg_file)
-        if emg_data is not None:
-            max_values = pd.concat([max_values, pd.DataFrame([emg_data.max()])], ignore_index=True)
-        else:
-            print(f"Warning: Could not load EMG data from {emg_file}")
-            
-    if max_values.empty:
-        utils.print_to_log("No valid EMG data found in the provided list.")
-    
-    
-    if target_emg is None:
-        utils.print_to_log(f"Target EMG file not found or could not be loaded: {target_emg_path}")
-    
-    
-    # Normalise the target EMG to its own max values
-    max_per_column = max_values.max(axis=0)
-    target_emg_norm = target_emg.divide(max_per_column, axis=1)
-    
-    # Save the normalised target EMG
-    ext = os.path.splitext(target_emg_path)[1]
-    savePath = os.path.abspath(target_emg_path.replace(ext, f'_normalised{ext}'))   
-    utils.write_sto_file(dataFrame=target_emg_norm, 
-                         file_path=savePath)
-
-    utils.print_to_log(f"Normalised EMG data saved to: {savePath}")
-
 # --- Inverse Kinematics ---
 
 def create_setup_IK(osim_modelPath=None, marker_trc=None,
@@ -417,15 +351,39 @@ def create_setup_IK(osim_modelPath=None, marker_trc=None,
         saveXMLPath = ik_output.replace('.mot', '_ik_setup.xml')
     ikTool.printToXML(saveXMLPath)
     print(f"Inverse Kinematics setup saved to {os.path.abspath(saveXMLPath)}")
+
+def run_ik(osim_modelPath=None, marker_trc=None, 
+           ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
     
+    if osim_modelPath is None:
+        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+    if setup_xml is None:
+        setup_xml = input("Enter the path to save the IK setup XML file (.xml): ").strip('"')
+        
+    if not os.path.exists(osim_modelPath):
+        utils.print_to_log(f"OpenSim model file not found: {osim_modelPath}")
+
+    # Load the model
+    model = osim.Model(osim_modelPath)
+    
+    # Reload tool from xml
+    ikTool = osim.InverseKinematicsTool(setup_xml)
+    ikTool.setModel(model)
+    
+    # Run the inverse kinematics calculation
+    ikTool.run()
+    
+    print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
+
+
     
 
 # --- Static optimisation --
-def edit_pelvis_com_actuators(modelFilePath, actuatorsFilePath):
+def edit_pelvis_com_actuators(osim_modelPath, actuatorsFilePath):
     """
     Edit the pelvis center of mass actuator in the OpenSim model.
     """ 
-    model = osim.Model(modelFilePath)
+    model = osim.Model(osim_modelPath)
     model.initSystem()
 
     # Find the pelvis center of mass actuator
@@ -471,7 +429,7 @@ def normalise_muscle(muscle_forces_path, osim_modelPath):
     print(f"Normalized muscle forces saved to {muscle_forces_path.replace('.sto','_normalised.sto')}")
 
 # --- Joint Reaction Analysis ---
-def create_analysis_tool(coordinates_file, externalloadsfile, model_path, 
+def create_analysis_tool(marker_trc, externalloadsfile, osim_modelPath, 
                          results_directory, actuators=None):
     """Creates and configures an OpenSim AnalyzeTool object.
 
@@ -497,24 +455,24 @@ def create_analysis_tool(coordinates_file, externalloadsfile, model_path,
     """
 
     # Load the motion data
-    mot_data = osim.Storage(coordinates_file)
+    mot_data = osim.Storage(marker_trc)
 
     # Get initial and final time
     initial_time = mot_data.getFirstTime()
     final_time = mot_data.getLastTime()
 
     # Create and set model
-    model = osim.Model(model_path)
+    model = osim.Model(osim_modelPath)
     analyze_tool = osim.AnalyzeTool()
     analyze_tool.setModel(model)
 
     # Set other parameters
-    relpath_modelfile = os.path.relpath(model_path, start=os.path.dirname(coordinates_file))
+    relpath_modelfile = os.path.relpath(osim_modelPath, start=os.path.dirname(marker_trc))
     analyze_tool.setModelFilename(relpath_modelfile)
     analyze_tool.setReplaceForceSet(False)
     
     # set results directory
-    relpath_results_directory = os.path.relpath(results_directory, start=os.path.dirname(coordinates_file))
+    relpath_results_directory = os.path.relpath(results_directory, start=os.path.dirname(marker_trc))
     analyze_tool.setResultsDir(relpath_results_directory)
     analyze_tool.setOutputPrecision(8)
 
@@ -537,8 +495,8 @@ def create_analysis_tool(coordinates_file, externalloadsfile, model_path,
     analyze_tool.setErrorTolerance(1e-5)
 
     # Set external loads and coordinates files
-    relpath_externalloadsfile = os.path.relpath(externalloadsfile, start=os.path.dirname(coordinates_file))
-    relpath_coordinates_file = os.path.relpath(coordinates_file, start=os.path.dirname(coordinates_file))
+    relpath_externalloadsfile = os.path.relpath(externalloadsfile, start=os.path.dirname(marker_trc))
+    relpath_coordinates_file = os.path.relpath(marker_trc, start=os.path.dirname(marker_trc))
     analyze_tool.setExternalLoadsFileName(relpath_externalloadsfile)  # Replace with your filename
     analyze_tool.setCoordinatesFileName(relpath_coordinates_file)
 
@@ -552,29 +510,6 @@ def create_analysis_tool(coordinates_file, externalloadsfile, model_path,
 
 
 # --- Main OSIM Analysis ---
-
-def run_ik(osim_modelPath=None, marker_trc=None, 
-           ik_output=None, setup_xml=None, time_range=None, resultsDir=None):
-    
-    if osim_modelPath is None:
-        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
-    if setup_xml is None:
-        setup_xml = input("Enter the path to save the IK setup XML file (.xml): ").strip('"')
-        
-    if not os.path.exists(osim_modelPath):
-        utils.print_to_log(f"OpenSim model file not found: {osim_modelPath}")
-
-    # Load the model
-    model = osim.Model(osim_modelPath)
-    
-    # Reload tool from xml
-    ikTool = osim.InverseKinematicsTool(setup_xml)
-    ikTool.setModel(model)
-    
-    # Run the inverse kinematics calculation
-    ikTool.run()
-    
-    print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
 def run_id(osimModelPath=None, ikOutputPath=None, grfXmlPath=None, 
          setupXmlPath=None):
@@ -814,7 +749,7 @@ def run_so(osim_modelPath=None, ik_output=None, grf_xml=None,
 
 def run_jra(osim_modelPath=None, ik_output=None, 
          grf_xml=None, setup_xml=None, actuators=None, 
-         muscle_force_path=None, resultsDir=None):
+         muscle_force_path=None, saveFileName=None):
     
     if not osim_modelPath:
         osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
@@ -824,12 +759,11 @@ def run_jra(osim_modelPath=None, ik_output=None,
         grf_xml = input("Enter the path to the external loads file (.xml): ").strip('"')
     if not setup_xml:
         setup_xml = input("Enter the path to save the JRA setup XML file (.xml): ").strip('"')
-    
     if not muscle_force_path:
         muscle_force_path = input("Enter the path to the muscle forces file (.sto): ").strip('"')
     
-    if not resultsDir:
-        resultsDir = os.path.dirname(ik_output)
+    
+    setup_xml_parent = os.path.dirname(ik_output)
     
     
     # start model
@@ -844,9 +778,12 @@ def run_jra(osim_modelPath=None, ik_output=None,
     
     # start joint reaction analysis
     jr = osim.JointReaction(setup_xml)
+    
+    # add muscle forces file name to joint reaction analysis
     muscle_force_file = os.path.basename(muscle_force_path)
     jr.setName(muscle_force_file.replace('.sto',''))
     
+    # define JRA 
     inFrame = osim.ArrayStr()
     onBody = osim.ArrayStr()
     jointNames = osim.ArrayStr()
@@ -864,10 +801,10 @@ def run_jra(osim_modelPath=None, ik_output=None,
     jr.setForcesFileName(os.path.relpath(muscle_force_path, start=os.path.dirname(os.path.abspath(setup_xml)))) # Has to be absolute path
 
     # add to analysis tool
-    analyzeTool_JR = create_analysis_tool(coordinates_file = ik_output,
+    analyzeTool_JR = create_analysis_tool(marker_trc = ik_output,
                                           externalloadsfile = grf_xml,
-                                          model_path = osim_modelPath, 
-                                          results_directory = resultsDir, 
+                                          osim_modelPath = osim_modelPath, 
+                                          results_directory = setup_xml_parent, 
                                           actuators=actuators)
     
     analyzeTool_JR.setName('Analyse')
@@ -877,18 +814,85 @@ def run_jra(osim_modelPath=None, ik_output=None,
     # save setup file and run
     analyzeTool_JR.printToXML(setup_xml)
     analyzeTool_JR = osim.AnalyzeTool(setup_xml)
-    print('jra for', resultsDir)
+    print('jra for', setup_xml)
     analyzeTool_JR.run()
-  
+    
+    # rename output file
+    output_jra_file = os.path.join(setup_xml_parent, 'Analyse_JRA_ReactionLoads.sto')
+    if saveFileName:
+        new_jra_file = os.path.abspath(saveFileName)
+        if os.path.exists(output_jra_file):
+            os.rename(output_jra_file, new_jra_file)
+            print(f"Joint Reaction Analysis results saved to: {new_jra_file}")
+    else:
+        if os.path.exists(output_jra_file):
+            print(f"Joint Reaction Analysis results saved to: {output_jra_file}")
+
+def run_emg_normalise(target_emg_path=None, normalise_emg_list=None):
+    """
+    Normalises EMG data based on a target EMG file.
+    The target EMG file is used to scale the other EMG files in the list.
+    """
+    
+    if not target_emg_path:
+        target_emg_path = input("Enter the path to the target EMG file to normalise: ").strip('"')
+        
+    if not normalise_emg_list:
+        normalise_emg_list = []
+        print("Enter paths to EMG files to use for normalisation (one per line). Enter an empty line to finish:")
+        while True:
+            emg_file = input().strip('"')
+            if emg_file == "":
+                break
+            if os.path.exists(emg_file):
+                normalise_emg_list.append(emg_file)
+            else:
+                print(f"File not found: {emg_file}. Please try again.")
+    
+    target_emg = utils.load_any_data_file(target_emg_path)
+    max_values = pd.DataFrame(columns=target_emg.columns)
+
+    # Calculate the max of each EMG channel in normalise_emg_list
+    for emg_file in normalise_emg_list:
+        if not os.path.exists(emg_file):
+            utils.print_to_log(f"EMG file not found: {emg_file}")
+            continue
+        emg_data = utils.load_any_data_file(emg_file)
+        if emg_data is not None:
+            max_values = pd.concat([max_values, pd.DataFrame([emg_data.max()])], ignore_index=True)
+        else:
+            print(f"Warning: Could not load EMG data from {emg_file}")
+            
+    if max_values.empty:
+        utils.print_to_log("No valid EMG data found in the provided list.")
+    
+    
+    if target_emg is None:
+        utils.print_to_log(f"Target EMG file not found or could not be loaded: {target_emg_path}")
+    
+    
+    # Normalise the target EMG to its own max values
+    max_per_column = max_values.max(axis=0)
+    target_emg_norm = target_emg.divide(max_per_column, axis=1)
+    
+    # Save the normalised target EMG
+    ext = os.path.splitext(target_emg_path)[1]
+    savePath = os.path.abspath(target_emg_path.replace(ext, f'_normalised{ext}'))   
+    utils.write_sto_file(dataFrame=target_emg_norm, 
+                         file_path=savePath)
+
+    utils.print_to_log(f"Normalised EMG data saved to: {savePath}")
+
+
  
 
 if __name__ == "__main__":
     
     LocalFuncs = [f for f in dir() if callable(globals()[f])]
-    print("Available commands:", LocalFuncs)
 
     # Command loop
     while True:
+        print("Available commands:", LocalFuncs)
         command = input("Enter command: ")
 
         if not command in LocalFuncs:

@@ -9,14 +9,6 @@ import ceinms
 import exportC3D
 
 def main(analyse: utils.Analyse, replace: bool = False):
-
-    # Reset trials to only input files
-    if settings.Execute().reset:
-        analyse.reset()
-
-    # create settings xml in trial folder
-    if settings.Execute().create_settings_xml:
-        analyse._to_xml()
     
     # Increase muscle force
     if settings.Execute().INCREASE_MUSCLE_FORCE: 
