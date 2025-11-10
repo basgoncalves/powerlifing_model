@@ -1,18 +1,44 @@
 import os
 from pathlib import Path
 
-SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
-SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
+'''
+For this to work folder structure is assumed:
+powerlifing_model/
+    code/
+        settings.py
+    models/
+        subject1/
+            session1/
+                model_name 
+        subject2/
+    simulations/
+        subject1/
+            session1/
+                trial1/
+                trial2/
+            session2/
+        subject2/
+        ...
+    results/
+
+'''
+
+SUBJECTS_TO_ANALYSE =  ['Running_009'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+
+SESSIONS_TO_ANALYSE = ['session1'] # '22_07_06' \25_03_31 
+
 TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bw_01', 'Squat_bw_02',
                       'Squat_bw_03',
                       'Squat_bar_02', 'Squat_bar_03',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
-TRIALS_TO_ANALYSE = ['Walking_01', 'Squat_bw_01'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
 
-CEINMS_CALIBRATION_TRIALS = ['Walking_01']
 
-MODEL_NAME = 'scaled.osim'
+TRIALS_TO_ANALYSE = ['runA1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+
+CEINMS_CALIBRATION_TRIALS = ['runA1'] 
+
+MODEL_NAME = 'model_scaled_increasedForce3.osim'
 
 # Check local location of this module
 MODULE_DIR = os.path.dirname(__file__)
@@ -34,6 +60,9 @@ SUBJECT_LIST = [subject for subject in os.listdir(SIMULATIONS_DIR) if os.path.is
 
 class Inputs:
     def __init__(self, parentdir=None):
+        
+        self.SetupFiles = SETUP_DIR
+        self.MODEL = os.path.join(MODELS_DIR, 'subject', 'session', MODEL_NAME)
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
@@ -41,7 +70,16 @@ class Inputs:
         self.GRF_MOT = 'grf.mot'
         self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
+        
+        # setups 
+        self.setupIK = 'setup_IK.xml'
+        self.setupGRF = 'GRF.xml'   
+        self.setupID = 'setup_ID.xml'
+        self.setupMA = 'setup_MA.xml'
+        self.ACTUATORS_SO = 'actuators_so.xml' 
+        self.setupSO = 'setup_SO.xml'
         self.JRA_FORCES = 'SO_StaticOptimization_force.sto'
+        self.setupJRA = 'setup_JRA.xml'
         
         self.CEINMS_EXCITATIONS = self.EMG_NORMALISED
         self.CEINMS_UNCALIBRATED_MODEL= '..\subjectUncalibrated.xml'
@@ -56,25 +94,20 @@ class Inputs:
         
         self.CEINMS_EXE_SETUP = 'ceinms_setup.xml'
         
-        # setups 
-        self.setupIK = 'setup_IK.xml'
-        self.setupGRF = 'GRF.xml'   
-        self.setupID = 'setup_ID.xml'
-        self.setupMA = 'setup_MA.xml'
-        self.ACTUATORS_SO = 'actuators_so.xml' 
-        self.setupSO = 'setup_SO.xml'
-        self.setupJRA = 'setup_JRA.xml'
-        
-        
         self.IK = 'joint_angles.mot'
         self.ID = 'inverse_dynamics.sto'
         self.MA = 'muscleAnalysis'
         self.SO_forces = 'SO_StaticOptimization_force.sto'
         self.SO_activations = 'SO_StaticOptimization_activation.sto'
         self.JRA = 'Analyse_JRA_ReactionLoads.sto'
+        
         self.CEINMS_CALIBRATION_DIR = '..\calibrationOutput'
         self.CEINMS_OPTIMISATION_DIR = 'Optimised'
         self.CEINMS_EXE_DIR = 'Output'
+        
+        self.JRA_FORCES_CEINMS = os.path.join(self.CEINMS_OPTIMISATION_DIR,
+                                              'MuscleForces.sto')
+        self.JRA_CEINMS = 'Analyse_JRA_ReactionLoads_CEINMS.sto'
         
         if parentdir:
             for attr, filename in self.__dict__.items():
@@ -142,6 +175,7 @@ class CEINMSParameters:
         })
         
 class Execute:
+    ''' Logics for which analyses to execute '''
     def __init__(self):
                
         self.reset = False
@@ -154,7 +188,8 @@ class Execute:
         self.MA = False
         self.MOMENT_ARMS = False
         self.SO = False
-        self.JRA = False
+        self.JRA = True
+        self.JRA_CEINMS = True
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
@@ -164,13 +199,16 @@ class Execute:
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
-        self.CEINMS_OPTIMISATION = True
+        self.CEINMS_CALIBRATION_PLOTS = False
+        
+        self.CEINMS_OPTIMISATION = False
         self.CEINMS_EXE = False
         
         self.CREATE_PLOTS = False
         
         self.push_to_git = False
-        
+               
+
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',
                 'hip_rotation_l', 'hip_rotation_r',
@@ -230,6 +268,18 @@ Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
                         'L Gastrocnemius': ['gaslat_l','gasmed_l'],
                         'L Soleus': ['soleus_l']}
 
+Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+                        'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+                        'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'], 
+                        'R Adductor Magnus': ['addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r'],
+                        'R Biceps Femoris': ['bflh_r','bfsh_r'],
+                        'R Semimembranosus': ['semimem_r'],
+                        'R Semitendinosus': ['semiten_r'],
+                        'R Rectus Femoris': ['recfem_r'],
+                        'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+                        'R Gastrocnemius': ['gaslat_r','gasmed_r'],
+                        'R Soleus': ['soleus_r']}
+
 JCF_Groups = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx', 'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
             'Knee': ['walker_knee_r_on_tibia_r_in_tibia_r_fx', 'walker_knee_r_on_tibia_r_in_tibia_r_fy', 'walker_knee_r_on_tibia_r_in_tibia_r_fz'],
             'Ankle': ['ankle_r_on_talus_r_in_talus_r_fx', 'ankle_r_on_talus_r_in_talus_r_fy', 'ankle_r_on_talus_r_in_talus_r_fz']}
@@ -269,9 +319,23 @@ EMG_muscle_mapping = {
     'EMG_Channels_EMG10_gast_med_r': []
 }
 
+EMG_muscle_mapping = {
+    'VM': ['vasmed_r'],
+    'VL': ['vaslat_r'],
+    'RF': ['recfem_r', 'sart_r', 'tfl_r'],
+    'GRA': ['grac_r'],
+    'ADDLONG': ['addlong_r', 'addbrev_r','addmagDist_r',
+                'addmagIsch_r','addmagMid_r','addmagProx_r'],
+    'SEMIMEM': ['semimem_r', 'semiten_r'],
+    'BF': ['bflh_r', 'bfsh_r'],
+    'GM': ['gasmed_r'],
+    'GL': ['gaslat_r'],
+    'MG': ['soleus_r'],
+}
+
 plot = {'Groups':
                     {'SO_StaticOptimization_force': Muscle_Groups,
-                    'Analyse_JRA_ReactionLoads': JCF_Groups,
+                    'Analyse_SO_StaticOptimization_force_ReactionLoads': JCF_Groups,
                     'SO_StaticOptimization_force_normalised': Muscle_Groups,
                     'SO_StaticOptimization_activation': Muscle_Groups,
                     'MuscleForces_inputData': Muscle_Groups,
@@ -279,9 +343,9 @@ plot = {'Groups':
                     
             'Summary': 
                     {'SO_StaticOptimization_force': 'Sum', 
-                        'SO_StaticOptimization_force_normalised': 'mean',
+                    'SO_StaticOptimization_force_normalised': 'mean',
                     'SO_StaticOptimization_activation': 'mean', 
-                    'Analyse_JRA_ReactionLoads': '3dsum',
+                    'Analyse_SO_StaticOptimization_force_ReactionLoads': '3dsum',
                     'MuscleForces_inputData': 'Sum',
                     'inverse_dynamics': 'None' 
                     },
@@ -305,6 +369,60 @@ def _print():
     for emg_channel, muscles in LOCAL_VARS['EMG_muscle_mapping'].items():
         print(f"  {emg_channel}: {muscles}")
 
+def create_settings(trialPath=None):
+        import xml.etree.ElementTree as ET
+        import xml.dom.minidom
+        
+        if not trialPath:
+            trialPath = input("Enter the trial path: ")
+        
+        settingsXMLPath = os.path.join(trialPath, 'trial_settings.xml')
+        
+        if os.path.exists(settingsXMLPath):
+            print(f"Settings XML already exists at: {settingsXMLPath}")
+            return
+        
+        # --- Add input template names
+        settings = ET.Element('settings')
+        inputs = Inputs(parentdir=trialPath)
+        for varInput in inputs.__dict__.items():
+            filepath = os.path.join(trialPath, varInput[1])
+            
+            if os.path.exists(filepath):
+                ET.SubElement(settings, varInput[0]).text = os.path.relpath(filepath, trialPath)    
+            else:
+                ET.SubElement(settings, varInput[0]).text = varInput[1]
+                
+        # add CEINMS parameters
+        ceinms_params = CEINMSParameters()
+        ceinms_elem = ET.SubElement(settings, 'CEINMSParameters')
+        for attr, value in ceinms_params.__dict__.items():
+            if isinstance(value, list):
+                list_elem = ET.SubElement(ceinms_elem, attr)
+                for item in value:
+                    if isinstance(item, dict):
+                        item_elem = ET.SubElement(list_elem, 'ObjectiveFunction')
+                        for k, v in item.items():
+                            ET.SubElement(item_elem, k).text = str(v)
+                    else:
+                        ET.SubElement(list_elem, 'Item').text = str(item)
+            else:
+                ET.SubElement(ceinms_elem, attr).text = str(value)
+        
+        tree = ET.ElementTree(settings)
+        rough_string = ET.tostring(tree.getroot(), 'utf-8')
+        reparsed = xml.dom.minidom.parseString(rough_string)
+        pretty_xml = reparsed.toprettyxml(indent="   ")
+        # Remove blank lines
+        pretty_xml_no_blanks = "\n".join([line for line in pretty_xml.splitlines() if line.strip()])
+        with open(settingsXMLPath, 'w') as file:
+            file.write(pretty_xml_no_blanks)
+
+        print(f"Settings XML created at: {settingsXMLPath}")
+
+        
 
 if __name__ == "__main__":
-    pass
+    
+    _print()
+    create_settings()

@@ -10,7 +10,7 @@ import opensim as osim
 import utils
 import matplotlib.pyplot as plt
 import pandas as pd
-import glob
+import scipy
 
 def upWorkingDirectory():
     current_dir = os.getcwd()
@@ -434,7 +434,19 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
         
     print(f"Log file saved to: {log_file_path}")
 
-
+    # if Calibration commad
+    # check if new calibrated model was created recently
+    try:
+        calibratedModelPath = setupXML.find('outputSubjectFile').text
+        time_updated = os.path.getmtime(calibratedModelPath)
+        if time_updated < os.path.getmtime(log_file_path):
+            return False
+        else:
+            return True
+    except Exception as e:
+        print(f"Error checking calibrated model: {e}")
+        return False
+    
 # CEINMS calibration functions
 def calibrate(setupXML_path=None):
     
@@ -450,38 +462,8 @@ def calibrate(setupXML_path=None):
     
     print("Calibrating CEINMS model...")
     
-    print("Setup XML path:", setupXML_path)
-
-    command = f"{str(settings.CEINMS_CALIBRATION_EXE)} -S {str(setupXML_path)}"
-    
-    if not os.path.exists(settings.CEINMS_CALIBRATION_EXE):
-        raise FileNotFoundError(f"CEINMS calibration executable not found at {settings.CEINMS_CALIBRATION_EXE}")
-
-    log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
-    if os.path.exists(log_file_path): os.remove(log_file_path)
-
-    cmd_with_redirect = f"{command} 2>&1 | Tee-Object -FilePath '{log_file_path}'; exit"
-    
-    print(f"Running command: {command}")
-    try:
-        
-        process = subprocess.Popen(
-            ["powershell", "-NoExit", "-ExecutionPolicy", "Bypass", "-Command", cmd_with_redirect],
-            creationflags=subprocess.CREATE_NEW_CONSOLE)
-        
-        process.wait()
-        print(f"CEINMS calibration process finished!")
-        print(f"Log file saved to: {log_file_path}")
-    except Exception as e:
-        print(f"Error running CEINMS calibration: {e}")
-
-    # check if new calibrated model was created recently
-    calibratedModelPath = setupXML.find('outputSubjectFile').text
-    time_updated = os.path.getmtime(calibratedModelPath)
-    if time_updated < os.path.getmtime(log_file_path):
-        return False
-    else:
-        return True
+    ceinms_terminal(executable_path=settings.CEINMS_CALIBRATION_EXE, 
+                    setupXML_path=setupXML_path)
 
 def calibrate_synergy_compare(setupXML_path=None, synergy_numbers: list = [3, 4, 5, 6]):
     if not setupXML_path:
@@ -536,7 +518,42 @@ def executable(setupXML_path=None):
     
     print("Running CEINMS executable...")
     ceinms_terminal(executable_path=settings.CEINMS_EXE, setupXML_path=setupXML_path)
+
+def loop_gamma(setupXML_path=None, gammas: list = [1, 10, 100, 1000], ):
+    if not setupXML_path:
+        setupXML_path = input("Enter path to setup XML file: ").strip('"')
     
+    if not loop_parameter:
+        loop_parameter = input("Enter the parameter to loop over (e.g., 'betaMin'): ").strip()
+    
+    if not loop_values:
+        values_str = input("Enter the values to loop over, separated by commas: ").strip()
+        loop_values = [float(val) for val in values_str.split(',')]
+    
+    base_dir = os.path.dirname(setupXML_path)
+    
+    for value in loop_values:
+        print(f"Running CEINMS with {loop_parameter} = {value}...")
+        
+        # Create a new setup XML with modified parameter
+        root = ET.parse(setupXML_path).getroot()
+
+        paramTag = root.find(f'.//{loop_parameter}')
+        if paramTag is not None:
+            paramTag.text = str(value)
+        else:
+            print(f"Parameter '{loop_parameter}' not found in setup XML.")
+            continue
+
+        # Update output directory to reflect current parameter value
+        outputDirectory = root.find("outputDirectory")
+        outputDirectory.text = os.path.join(base_dir, f'output_{loop_parameter}_{value}')
+        
+        new_setupXML_path = os.path.join(base_dir, f'setup_{loop_parameter}_{value}.xml')
+        utils.save_pretty_xml(ET.ElementTree(root), new_setupXML_path)
+
+        # Run CEINMS executable
+        executable(setupXML_path=new_setupXML_path)
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 
                             inputDataFile=None,
@@ -544,6 +561,16 @@ def create_optimise_setupXML(ceinmsModelPath=None,
                              excitationGeneratorFilePath=None,
                              outputDirectory=None,
                              setupXMLPath=None):
+    '''
+    create CEINMS setup and configuration XML files for optimisation
+    
+    ceinmsModelPath: path to CEINMS model file
+    inputDataFile: path to input data file (use create_input_data function to create this)
+    calibrationCfgPath: path to calibration configuration file
+    excitationGeneratorFilePath: path to excitation generator file
+    outputDirectory: path to output directory of the optimisation (folder for multiple files)
+    setupXMLPath: path to save the setup XML file
+    '''
 
     if not ceinmsModelPath:
         ceinmsModelPath = input("Enter path to CEINMS model file: ").strip('"')
@@ -599,26 +626,20 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     
     print(f"Optimization setup XML saved to: {setupXMLPath}")
 
-def create_optimise_cfg(outputXML_path=None,
-                        excitationGeneratorFile=None):
-    """
-    Create a CEINMS optimisation configuration XML file.
-    """
-    import settings
-    if not outputXML_path:
-        outputXML_path = input("Enter path to save the optimisation configuration XML file: ").strip('"')
-    
-    if not excitationGeneratorFile:
-        excitationGeneratorFile = input("Enter path to excitation generator file: ").strip('"')
-    
+    # --- Create cfg file
     template_cfg = os.path.join(settings.SETUP_DIR, os.path.basename(settings.Inputs().CEINMS_OPTIMISE_CFG))
+    cfgTemplate = ET.parse(template_cfg).getroot()
     
-    # read template to get structure
-    tree = ET.parse(template_cfg)
-    root = tree.getroot()
+    # apply DOFs from CEINMS model
+    ceinmsModel = ET.parse(ceinmsModelPath).getroot()
+    dofSet = ceinmsModel.findall('.//dofSet')
+    dofSet_cfg = cfgTemplate.findall('.//dofSet')[0]
+    dofSet_cfg.clear()
+    dof_list = []
+    for dof in dofSet:
+        dof_list.append(dof.find('name').text)
     
-    dofSet = root.findall('.//dofSet')[0]
-    dofSet.text = ' '.join(settings.DOFs)
+    dofSet_cfg.text = ' '.join(dof_list)
     
     # Lists to store muscle names
     synth_mtus = []
@@ -651,9 +672,9 @@ def create_optimise_cfg(outputXML_path=None,
     adjustMTUsTag = root.findall('.//adjustMTUs')[0]
     adjustMTUsTag.text = ' '.join(adjust_mtus)
 
-    tree = ET.ElementTree(root)
-    utils.save_pretty_xml(tree, outputXML_path)
-    print(f"Optimisation configuration XML saved to: {outputXML_path}")
+    tree = ET.ElementTree(cfgTemplate)
+    utils.save_pretty_xml(tree, calibrationCfgPath)
+    print(f"Optimisation configuration XML saved to: {calibrationCfgPath}")
     
 def optimise(setupXML_path=None):
 
@@ -699,9 +720,9 @@ def plot_ceinms_model_parameters(ceinmsModelPath=None):
         
         return df
 
-    optimised_forces = load_mtuSet(ceinmsModelPath)
-    muscle_names = optimised_forces.index.tolist()
-    parameters = optimised_forces.columns.tolist()
+    mtuSet = load_mtuSet(ceinmsModelPath)
+    muscle_names = mtuSet.index.tolist()
+    parameters = mtuSet.columns.tolist()
     if len(parameters) == 10:    n_cols = 5
     else:                        n_cols = 4
     
@@ -713,11 +734,11 @@ def plot_ceinms_model_parameters(ceinmsModelPath=None):
     for i, param in enumerate(parameters):
         
         # convert to numeric
-        optimised_forces[param] = pd.to_numeric(optimised_forces[param], errors='coerce')   
+        mtuSet[param] = pd.to_numeric(mtuSet[param], errors='coerce')   
         
         # plot bars left leg in red and right leg in blue
         colors = ['red' if name.endswith('_l') else 'blue' for name in muscle_names]
-        axs[i].bar(muscle_names, optimised_forces[param], color=colors)
+        axs[i].bar(muscle_names, mtuSet[param], color=colors)
         axs[i].set_title(param)
         axs[i].set_xticklabels(muscle_names, rotation=90)
         
@@ -733,7 +754,89 @@ def plot_ceinms_model_parameters(ceinmsModelPath=None):
     # save figure
     fig_path = ceinmsModelPath.replace('.xml', '_parameters.png')
     plt.savefig(fig_path)
-    print(f"Optimised parameters plot saved to: {fig_path}")
+    print(f"Muscle parameters plot saved to: {fig_path}")
+
+def plot_compare_ceinms_models(uncalibratedModelPath=None,
+                                  calibratedModelPath=None):
+    
+    def load_mtuSet(modelPath):
+        root = ET.parse(modelPath).getroot()
+        mtus = root.find('mtuSet').findall('mtu')
+        
+        # turn into DataFrame
+        columns  = []
+        for col in mtus[0].findall('*'): columns.append(col.tag)
+        
+        df = pd.DataFrame()
+        for mtu in mtus:    
+            name = mtu.find('name').text
+            for col in columns:
+                if col == 'name': continue
+                if col not in df.columns:
+                    df[col] = []
+            for col in columns:
+                if col == 'name': continue
+                df.at[name, col] = float(mtu.find(col).text)
+        
+        return df
+
+    if not uncalibratedModelPath:
+        uncalibratedModelPath = input("Enter path to uncalibrated CEINMS model file: ").strip('"')
+    
+    if not calibratedModelPath:
+        calibratedModelPath = input("Enter path to calibrated CEINMS model file: ").strip('"')
+        
+    
+    mtuSet_uncalibrated = load_mtuSet(uncalibratedModelPath)
+    mtuSet_calibrated = load_mtuSet(calibratedModelPath)
+    
+    muscle_names = mtuSet_uncalibrated.index.tolist()
+    parameters = mtuSet_uncalibrated.columns.tolist()
+    
+    if len(parameters) == 10:    n_cols = 5
+    else:                        n_cols = 4
+    
+    n_rows = (len(parameters) + n_cols - 1) // n_cols
+    fig, axs = plt.subplots(n_rows, n_cols, figsize=(10, n_rows*3))
+    
+    
+    plt.suptitle(f'Compare: uncalibrated vs calibrated', fontsize=16)
+    axs = axs.flatten()
+
+    for i, param in enumerate(parameters):
+        
+        # convert to numeric
+        mtuSet_uncalibrated[param] = pd.to_numeric(mtuSet_uncalibrated[param], errors='coerce')   
+        mtuSet_calibrated[param] = pd.to_numeric(mtuSet_calibrated[param], errors='coerce')
+        
+        # plot bars left leg in red and right leg in blue
+        colors = ['red' if name.endswith('_l') else 'blue' for name in muscle_names]
+        if param in ['optimalFibreLength', 'pennationAngle', 'tendonSlackLength']:
+            diff = mtuSet_calibrated[param] - mtuSet_uncalibrated[param]
+            axs[i].bar(muscle_names, diff, color=colors)
+            axs[i].set_title(f'Difference in {param} (Calibrated - Uncalibrated)')
+            axs[i].set_xticklabels(muscle_names, rotation=90)
+        else:            
+            axs[i].bar(muscle_names, mtuSet_calibrated[param], color=colors)
+            axs[i].set_title(param)
+            axs[i].set_xticklabels(muscle_names, rotation=90)
+            
+    # set legend left leg on top right leg on bottom
+    red_patch = plt.Line2D([0], [0], color='red', lw=4, label='Left Leg')
+    blue_patch = plt.Line2D([0], [0], color='blue', lw=4, label='Right Leg')
+    plt.legend(handles=[red_patch, blue_patch], loc='upper right')
+
+    # make figure fullsize and tight layout
+    plt.gcf().set_size_inches(18, 10)
+    plt.tight_layout()
+    
+    # save figure
+    fig_path = calibratedModelPath.replace('.xml', '_vs_uncalibrated.png')
+    plt.savefig(fig_path)
+    print(f"Muscle parameters plot saved to: {fig_path}")
+    
+    
+    
 
 def plot_moments_calibration_results(momentResultsCSV=None):
     
@@ -878,13 +981,24 @@ def plot_optimisation_results(optimisationOutputDir=None):
         print(f"Optimisation results plot saved to: {fig_path}")
         plt.close()
 
-def plot_emg_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None):
+def plot_experimental_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None,
+                       excitationGeneratorFile=None,
+                       externalMomentsFile=None, ceinmsTorquesFile=None):
 
     if not emgFile:
         emgFile = input("Enter path to EMG data file: ").strip('"')
 
     if not ceinmsExcitationsFile:
         ceinmsExcitationsFile = input("Enter path to CEINMS excitations file: ").strip('"')
+    
+    if not excitationGeneratorFile:
+        excitationGeneratorFile = input("Enter path to excitation generator file: ").strip('"')
+    
+    if not externalMomentsFile:
+        externalMomentsFile = input("Enter path to external moments data file: ").strip('"')
+
+    if not ceinmsTorquesFile:
+        ceinmsTorquesFile = input("Enter path to CEINMS torques data file: ").strip('"')
 
     emg_data = utils.load_any_data_file(emgFile)
     ceinms_data = utils.load_any_data_file(ceinmsExcitationsFile)
@@ -893,26 +1007,36 @@ def plot_emg_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None):
     emg_data = utils.time_normalise_df(emg_data)
     ceinms_data = utils.time_normalise_df(ceinms_data)
     
-    muscle_names = [col for col in emg_data.columns if col != 'time']
-    
-    emg_mapping = settings.EMG_muscle_mapping
+    emg_mapping = ET.parse(excitationGeneratorFile).getroot().find('mapping')
 
-    n_muscles = len(emg_mapping)
+    muscle_mapping = {}
+    for excitation in emg_mapping.findall('excitation'):
+        muscle_id = excitation.get('id')
+        input_elems = excitation.findall('input')
+        if len(input_elems) > 0:
+            for input_elem in input_elems:
+                signal = input_elem.text
+                if signal not in muscle_mapping:
+                    muscle_mapping[signal] = []
+                muscle_mapping[signal].append(muscle_id)
+                    
+    n_muscles = len(muscle_mapping)
     fig, axs = plt.subplots(n_muscles, 1, figsize=(10, n_muscles*3))
     plt.suptitle(f'EMG vs CEINMS Excitations', fontsize=16)
-    
-    for i, (signal, muscles) in enumerate(emg_mapping.items()):
+    for i, (signal, muscles) in enumerate(muscle_mapping.items()):
         ax = axs[i] if n_muscles > 1 else axs
         line_emg = ax.plot(emg_data[signal], label=signal, color='blue')
         lines_ceinms = []   
-        lineStyles = ['-', '--', '-.', ':', 'o', 'x', '^', 's', 'd']
+        lineStyles = ['-', '--', '-.', ':','-', '--', '-.', ':']
         for j, muscle in enumerate(muscles):
             if muscle in ceinms_data.columns:
                 r2 = utils.rsquared(emg_data[signal], ceinms_data[muscle])
+                range_signal = emg_data[signal].max() - emg_data[signal].min()
                 rmse = utils.rmse(emg_data[signal], ceinms_data[muscle])
+                rmse_percent = (rmse / range_signal) * 100 if range_signal != 0 else 0
                 lines_ceinms.append(ax.plot(ceinms_data[muscle], 
                                             linestyle=lineStyles[j % len(lineStyles)],
-                                            label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red'))
+                                            label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f}/{rmse_percent:.0f}%)', color='red'))
                 ax.set_ylabel('Excitation')
                 if i < n_muscles - 1:
                     ax.set_xticklabels([])
@@ -933,18 +1057,11 @@ def plot_emg_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None):
     print(f"EMG vs CEINMS excitations plot saved to: {fig_path}")
     plt.close()
 
-def plot_moments_vs_ceinms(externalMomentsFile=None, ceinmsTorquesFile=None):
-
-    if not externalMomentsFile:
-        externalMomentsFile = input("Enter path to external moments data file: ").strip('"')
-
-    if not ceinmsTorquesFile:
-        ceinmsTorquesFile = input("Enter path to CEINMS torques data file: ").strip('"')
-
+    # -- Plot external moments vs CEINMS torques -- #
+    
     ext_moments_data = utils.load_any_data_file(externalMomentsFile)
     ceinms_torques_data = utils.load_any_data_file(ceinmsTorquesFile)
 
-    # time normalise both datasets to the same length
     ext_moments_data = utils.time_normalise_df(ext_moments_data)
     ceinms_torques_data = utils.time_normalise_df(ceinms_torques_data)
 
@@ -953,13 +1070,15 @@ def plot_moments_vs_ceinms(externalMomentsFile=None, ceinmsTorquesFile=None):
     n_dofs = len(dof_names)
     fig, axs = plt.subplots(n_dofs, 1, figsize=(10, n_dofs*3))
     plt.suptitle(f'External Torques vs CEINMS Torques', fontsize=16)
-
+    
     for i, dof in enumerate(dof_names):
         ax = axs[i] if n_dofs > 1 else axs
         r2 = utils.rsquared(ext_moments_data[dof + '_moment'], ceinms_torques_data[dof])
+        range_moments = ext_moments_data[dof + '_moment'].max() - ext_moments_data[dof + '_moment'].min()        
         rmse = utils.rmse(ext_moments_data[dof + '_moment'], ceinms_torques_data[dof])
+        rmse_percent = (rmse / range_moments) * 100 if range_moments != 0 else 0
         line_ext = ax.plot(ext_moments_data[dof + '_moment'], label=f'External Moment', color='blue')
-        line_cei = ax.plot(ceinms_torques_data[dof], label=f'CEINMS Torque (R²: {r2:.2f}, RMSE: {rmse:.2f})', color='red')
+        line_cei = ax.plot(ceinms_torques_data[dof], label=f'CEINMS Torque (R²: {r2:.2f}, RMSE: {rmse:.2f}/{rmse_percent:.0f}%)', color='red')
         ax.set_title(f'{dof}')
         ax.set_ylabel('Moment (Nm)')
         if i < n_dofs - 1:
@@ -968,12 +1087,12 @@ def plot_moments_vs_ceinms(externalMomentsFile=None, ceinmsTorquesFile=None):
             ax.set_xlabel('Time (%)')
         ax.legend()
     
-    # save figure
     ext = os.path.splitext(ceinmsTorquesFile)[1]
     fig_path = ceinmsTorquesFile.replace(ext, 'vs_external_torques.png')
     plt.savefig(fig_path)
     print(f"External torques vs CEINMS torques plot saved to: {fig_path}")
     plt.close()
+
 
 
 if __name__ == "__main__":

@@ -83,7 +83,6 @@ for i, df in enumerate(data_list):
         print(f"Columns in '{os.path.basename(file_paths[i])}' not in common set: {unmatched_cols}")
 print("----------------------------\n")
 
-
 # 6. If groups are defined, summarize them for each dataframe
 if groups is not None and summary is not None:
     for df in data_list:  # Loop through each dataframe

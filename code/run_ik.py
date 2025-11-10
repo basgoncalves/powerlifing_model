@@ -181,9 +181,6 @@ def optimise_ik_weights(osim_modelPath, setup_xml, threshold=0.03):
         print("Maximum iterations reached. Some marker errors may still exceed the threshold.")
     
     
-    
-    
-
 if __name__ == '__main__':
     
     main()

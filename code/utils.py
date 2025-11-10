@@ -27,30 +27,41 @@ from scipy import signal
 
 import settings
 import ceinms
-import pipeline
+import openSim
+
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-class Trial():
+class Analyse(settings.Inputs):
     '''
     Contains paths from the user settings and functions to implement in the OpenSim/Ceinms analysis
     
     subject_name: Name of the subject (or the trial path if session_name and trial_name are None)
     '''
     def __init__(self, trialPath=None, settingsXML=None):
+        super().__init__()
         
+        if not trialPath and not settingsXML:
+            trialPath = input("Enter the trial path: ")
+        
+        # if settingsXML provided, load settings from there
         if settingsXML and os.path.exists(settingsXML):
             self.load_settings(settingsXML)
             return
         else:
+            
+            # if trialPath does not exist, print error
             if not trialPath or not os.path.exists(trialPath):
                 print(f"Trial path not found: {trialPath}")
+                return
             
+            # check for trial_settings.xml in trialPath
             self.settingsXML = os.path.join(trialPath, 'trial_settings.xml')
             if os.path.exists(self.settingsXML):
                 self.load_settings(self.settingsXML)
                 return
 
+            # Create paths based on trialPath and settings.Inputs()
             path_parts = os.path.normpath(trialPath).split(os.sep)
             self.subject = path_parts[-3]
             self.session = path_parts[-2]
@@ -62,11 +73,22 @@ class Trial():
             self.TIME_RANGE = []
             self.modelPath = os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME)
             
-            for i in settings.Inputs().items():
-                setattr(self, i[0].lower(), os.path.join(self.path, i[1]))
+            inputs = settings.Inputs(parentdir=self.path)
+            for varInput in inputs.__dict__.items():
+                filepath = os.path.join(self.path, varInput[1])
+                if os.path.exists(filepath):
+                    setattr(self, varInput[0], os.path.relpath(filepath, self.path))
+                else:
+                    setattr(self, varInput[0], varInput[1])
                 
+            # add ceinms parameters
+            ceinms_params = settings.CEINMSParameters()
+            for varParam in ceinms_params.__dict__.items():
+                setattr(self, varParam[0], varParam[1])
+            
             if not os.path.exists(self.settingsXML):
                 self._to_xml()
+                
 
     def reset(self):
         '''Delete all output files for the trial. Outputs set in settings.Outputs() '''
@@ -111,20 +133,6 @@ class Trial():
                     print(f"Error loading output file {output_path}: {e}")
             else:
                 print(f"Output file does not exist: {output_path}")
-
-    def print_settings(self):
-        """Print the paths for debugging."""
-        print("CODE:", settings.MODULE_DIR)
-        print("POWERLIFTING_DIR:", settings.POWERLIFTING_DIR)
-
-        print(f"Subject: {self.subject}")
-        print(f"Session: {self.session}")
-        print(f"Trial: {self.name}")
-        print(f"Trial path: {self.path}")
-        
-        print(f"Used model: {self.modelPath}")
-        
-        time.sleep(1)  # Optional: wait for a second before printing
     
     def _to_xml(self):
         '''Print all settings for the trial to an xml in trial.path'''
@@ -195,18 +203,18 @@ class Trial():
 
     def get_time_range(self):
         os.chdir(self.path)
-        if os.path.exists(self.inputFiles.EVENTS):
-            event_data = pd.read_csv(settings.Inputs().EVENTS, index_col=None, header=None)
+        if os.path.exists(self.EVENTS):
+            event_data = pd.read_csv(self.EVENTS, index_col=None, header=None)
             self.TIME_RANGE = [event_data.iloc[:, 1].min(), event_data.iloc[:, 1].max()]
             return self.TIME_RANGE
 
-        if os.path.exists(settings.Inputs().MARKERS):
-            marker_data = load_any_data_file(settings.Inputs().MARKERS)
+        if os.path.exists(self.MARKERS):
+            marker_data = load_any_data_file(self.MARKERS)
             self.TIME_RANGE = [marker_data['time'].min(), marker_data['time'].max()]
             return self.TIME_RANGE
 
-        if os.path.exists(settings.Inputs().C3D):
-            c3d_data = load_any_data_file(settings.Inputs().C3D)
+        if os.path.exists(self.C3D):
+            c3d_data = load_any_data_file(self.C3D)
             self.TIME_RANGE = [c3d_data['time'].min(), c3d_data['time'].max()]
             return self.TIME_RANGE
 
@@ -218,7 +226,6 @@ class Trial():
                 if not os.path.exists(input_path):
                     print(f"Input file does not exist: {input_path}")
         
-
     def increase_muscle_force(self, factor=1, replace: bool = False):
         """Increase muscle force in the scaled model by a given factor.
         
@@ -291,11 +298,16 @@ class Trial():
     def run_ik(self):
         
         if not os.path.exists(self.setupIK):            
-            template_ik_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupIK)
-            shutil.copyfile(template_ik_path, self.setupIK)
+            openSim.create_setup_IK(osim_modelPath=self.modelPath,
+                                marker_trc=self.MARKERS,
+                                ik_output=self.IK,
+                                taskSetPath=None,
+                                time_range=self.TIME_RANGE,
+                                saveXMLPath=self.setupIK)
+            
         os.chdir(os.path.abspath(self.path))
         
-        pipeline.run_ik(osim_modelPath=self.modelPath,
+        openSim.run_ik(osim_modelPath=self.modelPath,
                     marker_trc=self.MARKERS,
                     ik_output=self.IK,
                     setup_xml=self.setupIK,
@@ -314,11 +326,10 @@ class Trial():
             shutil.copyfile(template_grf_path, self.setupGRF)
         
         os.chdir(self.path)
-        pipeline.run_id(osimModelPath=self.modelPath,
+        openSim.run_id(osimModelPath=self.modelPath,
                     ikOutputPath=self.IK,
                     grfXmlPath=self.setupGRF,
-                    setupXmlPath=self.setupID,
-                    resultsDir=self.path)
+                    setupXmlPath=self.setupID)
     
     def run_ma(self):
         
@@ -328,7 +339,7 @@ class Trial():
             shutil.copyfile(template_ma_path, self.setupMA)
 
         os.chdir(self.path)
-        pipeline.run_ma(osim_modelPath=self.modelPath,
+        openSim.run_ma(osim_modelPath=self.modelPath,
                     ik_output=self.IK,
                     grf_xml=self.setupGRF,
                     setup_xml=self.setupMA,
@@ -339,14 +350,14 @@ class Trial():
         os.chdir(self.path)
         if not os.path.exists(self.setupSO):            
             template_so_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupSO)
-            shutil.copyfile(template_so_path, self.inputFiles.setupSO)
+            shutil.copyfile(template_so_path, self.setupSO)
 
         if not os.path.exists(self.ACTUATORS_SO):            
             template_actuators_path = os.path.join(settings.SETUP_DIR, settings.Inputs().ACTUATORS_SO)
             shutil.copyfile(template_actuators_path, self.ACTUATORS_SO)
         
         os.chdir(self.path)
-        pipeline.run_so(osim_modelPath=self.modelPath,
+        openSim.run_so(osim_modelPath=self.modelPath,
                     ik_output=self.IK,
                     grf_xml=self.setupGRF,
                     setup_xml=self.setupSO,
@@ -361,14 +372,36 @@ class Trial():
             shutil.copyfile(template_jra_path, self.setupJRA)
             
         os.chdir(self.path)
-        pipeline.run_jra(osim_modelPath=self.modelPath,
+        
+        openSim.run_jra(osim_modelPath=self.modelPath,
                      ik_output=self.IK,
                      grf_xml=self.setupGRF,
                      setup_xml=self.setupJRA,
                      actuators=None,
-                     muscle_force_path=self.SO_forces,
+                     muscle_force_path=self.JRA_FORCES,
                      resultsDir=self.path)
 
+        print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA)}")
+    
+    def run_jra_ceinms(self):
+        
+        os.chdir(self.path)
+        if not os.path.exists(self.setupJRA):               
+            template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
+            shutil.copyfile(template_jra_path, self.setupJRA)
+            
+        os.chdir(self.path)
+        
+        openSim.run_jra(osim_modelPath=self.modelPath,
+                     ik_output=self.IK,
+                     grf_xml=self.setupGRF,
+                     setup_xml=self.setupJRA,
+                     actuators=None,
+                     muscle_force_path=self.JRA_FORCES_CEINMS,
+                     resultsDir=self.path)
+
+        print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA_CEINMS)}")
+    
     def run_emg_normalise(self):
         
         os.chdir(self.path)
@@ -379,7 +412,7 @@ class Trial():
             if os.path.exists(emgPath):
                 emg_normalise_list.append(emgPath)
         
-        pipeline.EMG_normalise(target_emg_path= str(self.EMG_FILTERED),
+        openSim.EMG_normalise(target_emg_path= str(self.EMG_FILTERED),
                                 normalise_emg_list=emg_normalise_list)
     
     @staticmethod
@@ -813,7 +846,7 @@ class Trial():
         ceinms.plot_ceinms_model_parameters(self.CEINMS_UNCALIBRATED_MODEL)
         
         calibrationSetupPath = os.path.abspath(self.CEINMS_CALIBRATION_SETUP)
-        # ceinms.calibrate(setupXML_path=calibrationSetupPath)
+        ceinms.calibrate(setupXML_path=calibrationSetupPath)
         
         # if date modified of calibrated model is after start time, assume success
         mod_time = os.path.getmtime(self.CEINMS_CALIBRATED_MODEL)
@@ -883,8 +916,38 @@ class Trial():
                                         ceinmsMomentsFile=torqueCEINMS_path)
         except:
             print_to_log(f'Could not plot Moments vs CEINMS results {self.path}')
+
+def cmd_analysis(trialPath=None):
     
-def print_to_log(message):
+    if not trialPath or not os.path.exists(trialPath):
+        trialPath = input("Please provide the path to the trial directory: ")
+        
+        trial = Analyse(trialPath)
+        options = ['ik', 'id', 'ma', 'so', 'jra', 'plot', 
+                   'new trial', 'exit']
+        while True:
+            command = input("Enter command (ik, id, ma, so, jra, plot, exit): ").strip().lower()
+            if command == 'ik':
+                trial.run_ik()
+            elif command == 'id':
+                trial.run_id()
+            elif command == 'ma':
+                trial.run_ma()
+            elif command == 'so':
+                trial.run_so()
+            elif command == 'jra':
+                trial.run_jra()
+            elif command == 'plot':
+                trial.plot_results()
+            elif command == 'new trial':
+                trialPath = input("Please provide the path to the new trial directory: ")
+                trial = Analyse(trialPath)                
+            elif command == 'exit':
+                break
+            else:
+                print(f"Unknown command. Please enter one of the following: {', '.join(options)}")
+
+def print_to_log(message, terminal=False):
     """
     Prints a message to the console and logs it to a file.
     
@@ -895,6 +958,9 @@ def print_to_log(message):
     print(f'{timestamp} {message}')
     with open(MODULE_DIR + '\\log.txt', 'a') as log_file:
         log_file.write(f'{timestamp}: {message}\n')
+        
+    if terminal:
+        print(message)
 
 def rel_path(path, relative_to):
     """
@@ -2047,10 +2113,8 @@ def rsquared(y_true, y_pred):
         y_true (array-like): The true values.
         y_pred (array-like): The predicted values.
     """
-    ss_res = np.sum((y_true - y_pred) ** 2)
-    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
-    r2 = 1 - (ss_res / ss_tot)
-    return r2
+    r = np.corrcoef(y_true, y_pred)[0, 1]
+    return r ** 2
 
 def rmse(y_true, y_pred):
     """Calculate the Root Mean Square Error (RMSE) between true and predicted values.
