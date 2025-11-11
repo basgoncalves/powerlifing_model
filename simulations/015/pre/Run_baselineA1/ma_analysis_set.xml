@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSimDocument Version="40600">
+	<MuscleAnalysis name="MuscleAnalysis">
+		<!--Flag (true or false) specifying whether on. True by default.-->
+		<on>true</on>
+		<!--Start time.-->
+		<start_time>4.2699999999999996</start_time>
+		<!--End time.-->
+		<end_time>4.7599999999999998</end_time>
+		<!--Specifies how often to store results during a simulation. More specifically, the interval (a positive integer) specifies how many successful integration steps should be taken before results are recorded again.-->
+		<step_interval>1</step_interval>
+		<!--Flag (true or false) indicating whether the results are in degrees or not.-->
+		<in_degrees>true</in_degrees>
+		<!--List of muscles for which to perform the analysis. Use 'all' to perform the analysis for all muscles.-->
+		<muscle_list> all</muscle_list>
+		<!--List of generalized coordinates for which to compute moment arms. Use 'all' to compute for all coordinates.-->
+		<moment_arm_coordinate_list> all</moment_arm_coordinate_list>
+		<!--Flag indicating whether moment-arms and/or moments should be computed.-->
+		<compute_moments>true</compute_moments>
+	</MuscleAnalysis>
+</OpenSimDocument>

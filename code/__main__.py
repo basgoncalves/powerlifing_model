@@ -102,7 +102,6 @@ def main(analyse: utils.Analyse):
         
         # create CEINMS calibration cfg XML file
         try:
-            breakpoint()
             analyse.create_ceinms_calibration_gfc()
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')
@@ -120,16 +119,11 @@ def main(analyse: utils.Analyse):
             utils.print_to_log(f'Error creating CEINMS calibration setup file: {e}')
 
         # Create CEINMS optimisation setup XML file
-        try:       
+        try: 
             analyse.create_ceinms_optimise_setup()
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS optimisation setup file: {e}')
-            
-        # Create CEINMS optimisation cfg XML file
-        try:       
-            analyse.create_ceinms_optimise_cfg()
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS optimisation cfg file: {e}')    
+                
         
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION and analyse.trial in settings.CEINMS_CALIBRATION_TRIALS:

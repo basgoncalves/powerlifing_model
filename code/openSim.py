@@ -597,10 +597,10 @@ def run_ma(osim_modelPath=None, ik_output=None,
     if grf_xml is None:
         grf_xml = input("Enter the path to the GRF XML file (.xml): ").strip('"')
     
-    parent_ik = os.path.dirname(os.path.abspath(ik_output))
-    setup_xml = os.path.join(parent_ik, settings.Inputs().setupMA)
+    ikParentDir = os.path.dirname(os.path.abspath(ik_output))
+    resultsDir = os.path.join(ikParentDir, 'MuscleAnalysis')
+    setup_xml = os.path.join(ikParentDir, settings.Inputs().setupMA)
     
-    resultsDir = os.path.dirname(ik_output)
 
     if not os.path.exists(osim_modelPath):
         raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")
@@ -610,10 +610,7 @@ def run_ma(osim_modelPath=None, ik_output=None,
     
     if not os.path.exists(grf_xml):
         raise FileNotFoundError(f"Ground Reaction Forces XML file not found: {grf_xml}")
-    
-    if not resultsDir:
-        resultsDir = os.path.dirname(ik_output)
-    
+        
     if not os.path.exists(resultsDir):
         os.makedirs(resultsDir, exist_ok=True)
     
@@ -763,9 +760,7 @@ def run_jra(osim_modelPath=None, ik_output=None,
     if not muscle_force_path:
         muscle_force_path = input("Enter the path to the muscle forces file (.sto): ").strip('"')
     
-    
-    setup_xml_parent = os.path.dirname(ik_output)
-    
+    setup_xml_parent = os.path.dirname(os.path.abspath(ik_output))
     
     # start model
     osimModel = osim.Model(osim_modelPath)
@@ -781,8 +776,7 @@ def run_jra(osim_modelPath=None, ik_output=None,
     jr = osim.JointReaction(setup_xml)
     
     # add muscle forces file name to joint reaction analysis
-    muscle_force_file = os.path.basename(muscle_force_path)
-    jr.setName(muscle_force_file.replace('.sto',''))
+    jr.setName('JRA')
     
     # define JRA 
     inFrame = osim.ArrayStr()

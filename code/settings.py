@@ -65,8 +65,8 @@ class Inputs:
         self.MODEL = os.path.join(MODELS_DIR, 'subject', 'session', MODEL_NAME)
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
-        self.EMG_FILTERED = 'EMG_filtered.sto'
-        self.EMG_NORMALISED = 'emg.sto'
+        self.EMG_FILTERED = 'None'
+        self.EMG_NORMALISED = 'emg.mot'
         self.GRF_MOT = 'externalloads.mot'
         self.MARKERS = 'markers.trc'
         self.EVENTS = 'events.csv'
@@ -146,6 +146,43 @@ class CEINMSParameters:
         self.optimalFiberLength = '0.5 1.5'
         self.tendonSlackLength = '0.5 1.5'
         self.strengthCoefficient = '0.75 3.5'
+        
+        self.Target_Muscles = ['all']  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
+        
+        self.Objective_Functions = []
+        self.Objective_Functions.append({
+            'name': 'MomentError',
+            'targets': 'all',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'normalisedFibreLength',
+            'weight': 10,
+            'exponent': 2,
+            'range': '0.5 1.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'tendonStrain',
+            'weight': 1000,
+            'exponent': 2,
+            'range': '0. 0.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'ExcitationsSquared',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'SynergyExtraction',
+            'mseWeight': 100,
+            'range': '0. 1.',
+            'rangeExponent': 2,
+            'rangeWeight': 1000
+        })
+
+        
+        
              
 class Execute:
     ''' Logics for which analyses to execute '''
@@ -156,7 +193,7 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
+        self.IK = False
         self.ID = True
         self.MA = True
         self.MOMENT_ARMS = False

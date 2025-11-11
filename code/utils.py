@@ -377,7 +377,11 @@ class Analyse(settings.Inputs):
         
     def run_jra(self):
         
-        os.chdir(self.path)            
+        os.chdir(self.path)
+        if not os.path.exists(self.setupJRA):
+            template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
+            shutil.copyfile(template_jra_path, self.setupJRA)
+             
         if os.path.exists(self.JRA) and not settings.Execute().replace:
             return
         try:
@@ -866,7 +870,7 @@ class Analyse(settings.Inputs):
         
         # if date modified of calibrated model is after start time, assume success
         mod_time = os.path.getmtime(self.CEINMS_CALIBRATED_MODEL)
-        if mod_time >= start_time or True:
+        if mod_time >= start_time:
             print_to_log(f'CEINMS calibration completed successfully in {mod_time - start_time:.2f} seconds.')
             ceinms.plot_ceinms_model_parameters(self.CEINMS_CALIBRATED_MODEL)
             breakpoint()
@@ -878,8 +882,12 @@ class Analyse(settings.Inputs):
                 
             try:
                 ceinmsEMGFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Excitations_inputData.csv')
-                ceinms.plot_emg_vs_ceinms(emgFile = self.EMG_NORMALISED,
-                                          ceinmsExcitationsFile=ceinmsEMGFile)
+                ceinmsMomentsFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Moments_inputData.csv')
+                ceinms.plot_experimental_vs_ceinms(emgFile=self.EMG_NORMALISED,
+                                                   ceinmsExcitationsFile=ceinmsEMGFile,
+                                                   excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR,
+                                                   externalMomentsFile=self.ID, 
+                                                   ceinmsTorquesFile=ceinmsMomentsFile)
                 print_to_log(f'Could not plot EMG vs CEINMS results.')
             except:
                 print_to_log(f'Could not plot EMG vs CEINMS results.')
@@ -887,17 +895,13 @@ class Analyse(settings.Inputs):
             print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
             
     def create_ceinms_optimise_setup(self):
+        os.chdir(self.path)
         ceinms.create_optimise_setupXML(ceinmsModelPath=self.CEINMS_CALIBRATED_MODEL, 
                             inputDataFile=self.CEINMS_INPUT_DATA,
                              calibrationCfgPath=self.CEINMS_OPTIMISE_CFG,
                              excitationGeneratorFilePath=self.CEINMS_EXCITATION_GENERATOR,
                              outputDirectory=self.CEINMS_OPTIMISATION_DIR,
                              setupXMLPath=self.CEINMS_OPTIMISE_SETUP)
-
-    def create_ceinms_optimise_cfg(self):
-
-        ceinms.create_optimise_cfg(outputXML_path=self.CEINMS_OPTIMISE_CFG,
-                                   excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR)
 
     def create_ceinms_exe_setup(self):
 
@@ -917,21 +921,20 @@ class Analyse(settings.Inputs):
         
         os.chdir(self.path)
         setupAbsPath = os.path.abspath(self.CEINMS_OPTIMISE_SETUP)
-        ceinms.optimise(setupXML_path=setupAbsPath)
+        # ceinms.optimise(setupXML_path=setupAbsPath)
 
         try:    
             adjustedEMG_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'AdjustedEmgs.sto')
-            ceinms.plot_emg_vs_ceinms(emgFile=self.EMG_NORMALISED,
-                                        ceinmsExcitationsFile=adjustedEMG_path)
+            torqueCEINMS_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
+            ceinms.plot_experimental_vs_ceinms(emgFile=self.EMG_NORMALISED,
+                                               ceinmsExcitationsFile=adjustedEMG_path,
+                                               excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR,
+                                                externalMomentsFile=self.ID,
+                                                ceinmsTorquesFile=torqueCEINMS_path)
+            print_to_log(f'Plotted Experimental vs CEINMS results {self.path}')
         except:
             print_to_log(f'Could not plot EMG vs CEINMS results {self.path}')
             
-        try:
-            torqueCEINMS_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
-            ceinms.plot_moments_vs_ceinms(externalMomentsFile=self.ID,
-                                        ceinmsMomentsFile=torqueCEINMS_path)
-        except:
-            print_to_log(f'Could not plot Moments vs CEINMS results {self.path}')
 
 def cmd_analysis(trialPath=None):
     
@@ -939,21 +942,25 @@ def cmd_analysis(trialPath=None):
         trialPath = input("Please provide the path to the trial directory: ")
         
         trial = Analyse(trialPath)
-        options = trial.__dict__.keys()
+        options = ['export_c3d', 'run_ik', 'run_id', 'run_ma', 
+                   'run_so', 'run_jra', 'run_jra_ceinms',]
         while True:
             command = input(f'Enter command ({", ".join(options)}): ').strip().lower()
             trial = Analyse(trialPath)
-            if command in options:
-                getattr(trial, command)()
-                trial.plot_results()
-            elif command == 'new trial':
-                trialPath = input("Please provide the path to the new trial directory: ")
-                trial = Analyse(trialPath)                
-            elif command == 'exit':
-                break
-            else:
-                print(f"Unknown command. Please enter one of the following: {', '.join(options)}")
-
+            if command == 'export_c3d':
+                trial.export_c3d()
+            elif command == 'run_ik':
+                trial.run_ik()
+            elif command == 'run_id':
+                trial.run_id()
+            elif command == 'run_ma':
+                trial.run_ma()
+            elif command == 'run_so':
+                trial.run_so()
+            elif command == 'run_jra':
+                trial.run_jra()
+               
+            
 
 
 def print_to_log(message, terminal=False):

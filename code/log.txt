@@ -5777,3 +5777,132 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 11.11.2025_13:37:54:721: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
 11.11.2025_13:37:54:774: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
 	Thrown at Object.cpp:103 in Object().
+11.11.2025_14:02:30:740: Starting analysis...
+11.11.2025_14:02:31:816: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:03:33:298: [Error] during Muscle Analysis: 
+11.11.2025_14:03:33:703: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:03:35:216: Error creating CEINMS calibration cfg file: 
+11.11.2025_14:03:35:560: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:03:35:613: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:03:35:613: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:03:41:131: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:03:41:132: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:03:41:421: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:03:41:434: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:03:41:435: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:03:45:224: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:03:45:225: Total analysis time: 74.48 seconds 
+ 
+
+11.11.2025_14:04:16:823: Starting analysis...
+11.11.2025_14:04:17:879: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:05:02:509: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+11.11.2025_14:05:02:842: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:06:40:783: Error creating CEINMS calibration cfg file: 
+11.11.2025_14:06:40:961: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:06:40:981: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:06:40:983: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:06:49:776: Starting analysis...
+11.11.2025_14:06:50:829: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:07:43:058: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+11.11.2025_14:07:43:231: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:10:20:367: Error creating CEINMS calibration cfg file: 
+11.11.2025_14:10:20:691: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:10:20:717: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:10:20:718: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:10:24:251: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:24:253: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:24:431: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:10:24:443: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:10:24:444: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:30:306: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:10:30:307: Total analysis time: 220.53 seconds 
+ 
+
+11.11.2025_14:10:36:247: Starting analysis...
+11.11.2025_14:10:37:344: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:37:514: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:10:37:716: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:10:37:737: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:10:37:737: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:10:41:589: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:41:591: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:41:901: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:10:41:921: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:10:41:924: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:10:45:493: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:10:45:494: Total analysis time: 9.25 seconds 
+ 
+
+11.11.2025_14:23:52:508: Starting analysis...
+11.11.2025_14:23:53:569: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:23:53:801: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:23:54:074: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:23:54:092: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:23:54:094: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:23:57:205: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:23:57:205: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:23:57:392: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+11.11.2025_14:23:57:409: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:23:57:410: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:24:00:518: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:24:00:519: Total analysis time: 8.01 seconds 
+ 
+
+11.11.2025_14:25:43:855: Starting analysis...
+11.11.2025_14:25:44:914: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:27:24:449: Starting analysis...
+11.11.2025_14:27:25:517: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:28:14:052: Starting analysis...
+11.11.2025_14:28:15:093: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:29:10:194: Starting analysis...
+11.11.2025_14:29:11:252: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:29:11:440: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:29:11:455: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Git\\1_current_projects\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_14:29:11:456: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_14:29:14:529: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:29:14:530: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:29:16:009: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Optimised\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+11.11.2025_14:29:16:030: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:29:16:031: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:29:19:597: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:29:19:598: Total analysis time: 9.40 seconds 
+ 
+
+11.11.2025_14:32:13:378: Starting analysis...
+11.11.2025_14:32:14:450: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:32:14:663: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:32:14:684: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: '..\\subjectCalibrated.xml'
+11.11.2025_14:32:18:549: Could not plot EMG vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:32:18:551: Could not plot Moments vs CEINMS results C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:32:20:141: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Optimised\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+11.11.2025_14:32:20:164: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_14:32:20:165: Analysis completed for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:32:24:064: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_14:32:24:065: Total analysis time: 10.69 seconds 
+ 
+
+11.11.2025_14:33:28:003: Starting analysis...
+11.11.2025_14:33:29:060: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:33:29:254: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:34:15:444: Error creating CEINMS optimisation setup file: 
+11.11.2025_14:34:23:896: Starting analysis...
+11.11.2025_14:34:24:966: Running analysis for: C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_14:34:25:159: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_14:41:45:914: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+11.11.2025_14:58:51:956: Could not plot EMG vs CEINMS results c:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_14:58:51:957: Could not plot Moments vs CEINMS results c:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_15:33:37:276: Could not plot EMG vs CEINMS results c:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_15:33:37:279: Could not plot Moments vs CEINMS results c:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_15:51:47:358: Plotted Experimental vs CEINMS results c:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineA1

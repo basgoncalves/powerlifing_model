@@ -634,9 +634,10 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     ceinmsModel = ET.parse(ceinmsModelPath).getroot()
     dofSet = ceinmsModel.findall('.//dofSet')
     dofSet_cfg = cfgTemplate.findall('.//dofSet')[0]
-    dofSet_cfg.clear()
+    
+    dofs = dofSet[0].findall('dof')
     dof_list = []
-    for dof in dofSet:
+    for dof in dofs:
         dof_list.append(dof.find('name').text)
     
     dofSet_cfg.text = ' '.join(dof_list)
@@ -646,7 +647,7 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     adjust_mtus = []
     
     # Find all excitation elements
-    exc_root = ET.parse(excitationGeneratorFile).getroot()
+    exc_root = ET.parse(excitationGeneratorFilePath).getroot()
     
     mapping = exc_root.find('mapping')
     if mapping is not None:
@@ -666,10 +667,10 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     synth_mtus.sort()
     adjust_mtus.sort()
     
-    synthMTUsTag = root.findall('.//synthMTUs')[0]
+    synthMTUsTag = cfgTemplate.findall('.//synthMTUs')[0]
     synthMTUsTag.text = ' '.join(synth_mtus)
 
-    adjustMTUsTag = root.findall('.//adjustMTUs')[0]
+    adjustMTUsTag = cfgTemplate.findall('.//adjustMTUs')[0]
     adjustMTUsTag.text = ' '.join(adjust_mtus)
 
     tree = ET.ElementTree(cfgTemplate)
@@ -981,9 +982,8 @@ def plot_optimisation_results(optimisationOutputDir=None):
         print(f"Optimisation results plot saved to: {fig_path}")
         plt.close()
 
-def plot_experimental_vs_ceinms(emgFile=None, ceinmsExcitationsFile=None,
-                       excitationGeneratorFile=None,
-                       externalMomentsFile=None, ceinmsTorquesFile=None):
+def plot_experimental_vs_ceinms(emgFile=None,        
+                                ceinmsExcitationsFile=None,excitationGeneratorFile=None,externalMomentsFile=None, ceinmsTorquesFile=None):
 
     if not emgFile:
         emgFile = input("Enter path to EMG data file: ").strip('"')
