@@ -8,12 +8,12 @@ import openSim
 import ceinms
 import exportC3D
 
-def main(analyse: utils.Analyse, replace: bool = False):
+def main(analyse: utils.Analyse):
     
     # Increase muscle force
     if settings.Execute().INCREASE_MUSCLE_FORCE: 
         scale_factor = settings.Execute().SCALE_FACTOR
-        analyse.increase_muscle_force(factor=scale_factor, replace=replace)
+        analyse.increase_muscle_force(factor=scale_factor, replace=True)
         
     # Export c3d file
     if settings.Execute().exportC3D:
@@ -76,16 +76,16 @@ def main(analyse: utils.Analyse, replace: bool = False):
             else:
                 print(f"EMG file not found: {abs_path_emg}")
 
-        openSim.EMG_normalise(target_emg_path=str(analyse.EMG_FILTERED), 
+        openSim.run_emg_normalise(target_emg_path=str(analyse.EMG_FILTERED), 
                     normalise_emg_list=emg_normalise_list)
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {analyse.EMG_NORMALISED}')
 
     if settings.Execute().SCALE_EMG:
-        analyse.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR,)
+        analyse.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR)
         
     # Create CEINMS setup files
-    if settings.Execute().CREATE_CEINMS_FILES and (not os.path.exists(analyse.CEINMS_CALIBRATED_MODEL) or replace):
+    if settings.Execute().CREATE_CEINMS_FILES and not os.path.exists(analyse.CEINMS_CALIBRATED_MODEL):
         
         # create CEINMS model file
         if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.CEINMS_UNCALIBRATED_MODEL)):
@@ -131,7 +131,7 @@ def main(analyse: utils.Analyse, replace: bool = False):
             utils.print_to_log(f'Error creating CEINMS optimisation cfg file: {e}')    
         
     # CEINMS calibration and optimization
-    if settings.Execute().CEINMS_CALIBRATION:
+    if settings.Execute().CEINMS_CALIBRATION and analyse.trial in settings.CEINMS_CALIBRATION_TRIALS:
         
         try:        
             analyse.run_ceinms_calibration()
@@ -173,15 +173,6 @@ def main(analyse: utils.Analyse, replace: bool = False):
             print(f"Error during plotting: {e}")
             utils.print_to_log(f'Error during plotting: {e}')
              
-def compare_trials(trial1: utils.Analyse, trial2: utils.Analyse):
-
-    if True:
-        try:
-            trial1.compare_with(trial2)
-        except Exception as e:
-            print(f"Error during plotting: {e}")
-            utils.print_to_log(f'Error during plotting: {e}')
-
 def push_trial_results_to_git(trial: utils.Analyse):
     """Push trial results to git after completion"""
     try:
@@ -225,20 +216,19 @@ if __name__ == "__main__":
                                          session,
                                          trial_name)
                 
-                trial = utils.Analyse(trialPath=trialPath) 
+                analysis = utils.Analyse(trialPath=trialPath) 
                 
-                utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.trial}')
+                utils.print_to_log(f'Running analysis for: {trialPath}')
 
                 ##  Run main analysis function ##
-
-                main(analyse=trial, replace=False)
+                main(analyse=analysis)
 
                 #############################################
 
-                utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.trial}')
+                utils.print_to_log(f'Analysis completed for: {trialPath}')
 
                 if settings.Execute().push_to_git:
-                    push_trial_results_to_git(trial=trial)
+                    push_trial_results_to_git(trial=analysis)
 
     end_time = time.time()
     elapsed_time = end_time - start_time
