@@ -193,10 +193,10 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = False
+        self.IK = True
         self.ID = True
         self.MA = True
-        self.MOMENT_ARMS = False
+        self.MOMENT_ARMS = True
         self.SO = True
         self.JRA = True
         
@@ -205,7 +205,7 @@ class Execute:
         self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
-        self.CREATE_CEINMS_MODEL = False
+        self.CREATE_CEINMS_MODEL = True
         
         self.CEINMS_CALIBRATION = True
         self.CEINMS_CALIBRATION_PLOTS = True
