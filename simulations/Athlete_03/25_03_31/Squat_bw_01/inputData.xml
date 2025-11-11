@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <inputData>
    <muscleTendonLengthFile>muscleAnalysis\_MuscleAnalysis_Length.sto</muscleTendonLengthFile>
-   <excitationsFile>EMG_filtered_normalised.sto</excitationsFile>
+   <excitationsFile>emg.sto</excitationsFile>
    <momentArmsFiles>
       <momentArmsFile dofName="hip_flexion_l">muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_l.sto</momentArmsFile>
       <momentArmsFile dofName="hip_flexion_r">muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_r.sto</momentArmsFile>
@@ -17,5 +17,5 @@
    <externalTorquesFile>inverse_dynamics.sto</externalTorquesFile>
    <motionFile>joint_angles.mot</motionFile>
    <externalLoadsFile>GRF.xml</externalLoadsFile>
-   <startStopTime>0 3.535</startStopTime>
+   <startStopTime>0.0 3.535</startStopTime>
 </inputData>
