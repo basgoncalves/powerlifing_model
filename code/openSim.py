@@ -588,7 +588,7 @@ def run_id(osimModelPath=None, ikOutputPath=None, grfXmlPath=None,
     print(f"Inverse Dynamics calculation completed. Results saved to {resultsDir}\\inverse_dynamics.sto")
 
 def run_ma(osim_modelPath=None, ik_output=None, 
-         grf_xml=None, setup_xml=None, resultsDir=None):
+         grf_xml=None):
 
     if osim_modelPath is None:
         osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
@@ -596,10 +596,11 @@ def run_ma(osim_modelPath=None, ik_output=None,
         ik_output = input("Enter the desired output path for the IK results (.mot): ").strip('"')
     if grf_xml is None:
         grf_xml = input("Enter the path to the GRF XML file (.xml): ").strip('"')
-    if setup_xml is None:
-        setup_xml = input("Enter the path to the setup XML file (.xml): ").strip('"')
-    if resultsDir is None:
-        resultsDir = os.path.dirname(ik_output)
+    
+    parent_ik = os.path.dirname(os.path.abspath(ik_output))
+    setup_xml = os.path.join(parent_ik, settings.Inputs().setupMA)
+    
+    resultsDir = os.path.dirname(ik_output)
 
     if not os.path.exists(osim_modelPath):
         raise FileNotFoundError(f"OpenSim model file not found: {osim_modelPath}")

@@ -5667,3 +5667,113 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 11.11.2025_01:16:54:583: Total analysis time: 56.92 seconds 
  
 
+11.11.2025_11:18:35:289: Starting analysis...
+11.11.2025_11:19:16:272: Starting analysis...
+11.11.2025_11:19:17:294: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_11:19:20:174: [Error] during Inverse Kinematics: name 'output_file' is not defined
+11.11.2025_11:19:20:581: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_11:20:17:720: Starting analysis...
+11.11.2025_11:20:18:735: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_11:20:21:466: [Success] Inverse Kinematics completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_11:20:21:869: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_11:20:22:133: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+11.11.2025_11:23:55:462: Starting analysis...
+11.11.2025_11:23:56:483: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_11:23:56:872: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_11:27:31:997: Starting analysis...
+11.11.2025_11:27:33:010: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_11:27:33:393: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_11:27:33:394: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_11:27:43:754: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_11:28:42:712: [Success] Static Optimization completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1 and SO_StaticOptimization_activation.sto
+11.11.2025_12:01:03:102: Starting analysis...
+11.11.2025_12:01:04:116: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:04:509: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_12:01:04:510: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_12:01:15:438: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_12:01:15:486: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_12:01:15:492: Error creating CEINMS calibration cfg file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\calibrationCfg.xml'
+11.11.2025_12:01:15:540: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_12:01:15:546: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_12:01:15:546: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_12:01:18:160: Error during CEINMS calibration: [WinError 2] Das System kann die angegebene Datei nicht finden: '..\\subjectCalibrated.xml'
+11.11.2025_12:01:19:122: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:19:122: Could not plot Moments vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:19:171: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_12:01:19:176: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_12:01:19:176: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:22:639: [Success] Results pushed to git for: 012 / Run_baselineA1
+11.11.2025_12:01:22:640: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_12:01:22:965: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_12:01:22:966: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_12:01:34:419: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_12:01:34:465: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_12:01:34:469: Error creating CEINMS calibration cfg file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\calibrationCfg.xml'
+11.11.2025_12:01:34:512: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_12:01:34:517: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_12:01:34:518: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_12:01:36:955: Error during CEINMS calibration: [WinError 2] Das System kann die angegebene Datei nicht finden: '..\\subjectCalibrated.xml'
+11.11.2025_12:01:37:903: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:37:903: Could not plot Moments vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_12:01:37:948: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_12:01:37:951: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_12:01:37:952: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_12:01:40:374: [Success] Results pushed to git for: 012 / Run_baselineA1
+11.11.2025_12:01:40:374: Total analysis time: 37.27 seconds 
+ 
+
+11.11.2025_13:20:37:327: Starting analysis...
+11.11.2025_13:20:38:341: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:20:41:016: [Success] Inverse Kinematics completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:20:41:424: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_13:20:41:686: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+11.11.2025_13:20:41:687: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_13:20:51:686: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_13:22:00:597: [Success] Static Optimization completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1 and SO_StaticOptimization_activation.sto
+11.11.2025_13:22:00:643: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_13:22:00:648: Error creating CEINMS calibration cfg file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\calibrationCfg.xml'
+11.11.2025_13:22:00:692: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_13:22:00:697: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_13:22:00:697: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_13:22:01:766: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:22:01:766: Could not plot Moments vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:22:01:811: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_13:22:01:815: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_13:22:01:815: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:22:05:419: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_13:22:05:419: Total analysis time: 88.09 seconds 
+ 
+
+11.11.2025_13:36:40:034: Starting analysis...
+11.11.2025_13:36:41:046: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:36:41:441: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_13:36:41:442: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_13:36:51:299: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_13:36:51:346: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_13:36:51:354: Error creating CEINMS calibration cfg file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\calibrationCfg.xml'
+11.11.2025_13:36:51:400: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_13:36:51:413: Error creating CEINMS optimisation setup file: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\code\\SetupFiles\\RunningFAI\\ceinms_cfg_optimise.xml'
+11.11.2025_13:36:51:413: Error creating CEINMS optimisation cfg file: module 'ceinms' has no attribute 'create_optimise_cfg'
+11.11.2025_13:36:52:332: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:36:52:333: Could not plot Moments vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:36:52:377: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_13:36:52:382: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_13:36:52:383: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:36:53:669: [Success] Results pushed to git for: 012 / Run_baselineB1
+11.11.2025_13:36:53:669: Total analysis time: 13.63 seconds 
+ 
+
+11.11.2025_13:37:53:318: Starting analysis...
+11.11.2025_13:37:54:329: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineB1
+11.11.2025_13:37:54:721: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+11.11.2025_13:37:54:721: [Error] during Muscle Analysis: [WinError 3] Das System kann den angegebenen Pfad nicht finden: ''
+11.11.2025_13:37:54:774: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().

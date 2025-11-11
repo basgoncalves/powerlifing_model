@@ -34,7 +34,7 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 
-TRIALS_TO_ANALYSE = ['Run_baselineA1','Run_baselineB1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+TRIALS_TO_ANALYSE = ['Run_baselineB1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
 
 CEINMS_CALIBRATION_TRIALS = ['Run_baselineA1'] 
 
@@ -150,14 +150,16 @@ class CEINMSParameters:
 class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
-               
+        
+        self.replace = False
+
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
         self.IK = True
         self.ID = True
         self.MA = True
-        self.MOMENT_ARMS = True
+        self.MOMENT_ARMS = False
         self.SO = True
         self.JRA = True
         
@@ -166,7 +168,7 @@ class Execute:
         self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
-        self.CREATE_CEINMS_MODEL = True
+        self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = True
         self.CEINMS_CALIBRATION_PLOTS = True

@@ -85,7 +85,7 @@ def main(analyse: utils.Analyse):
         analyse.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR)
         
     # Create CEINMS setup files
-    if settings.Execute().CREATE_CEINMS_FILES and not os.path.exists(analyse.CEINMS_CALIBRATED_MODEL):
+    if settings.Execute().CREATE_CEINMS_FILES:
         
         # create CEINMS model file
         if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.CEINMS_UNCALIBRATED_MODEL)):
@@ -102,6 +102,7 @@ def main(analyse: utils.Analyse):
         
         # create CEINMS calibration cfg XML file
         try:
+            breakpoint()
             analyse.create_ceinms_calibration_gfc()
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')

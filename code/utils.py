@@ -56,9 +56,9 @@ class Analyse(settings.Inputs):
                 return
             
             # check for trial_settings.xml in trialPath
-            settingsXML = os.path.relpath(os.path.join(trialPath, 'trial_settings.xml'), trialPath)
-            if os.path.exists(settingsXML):
-                self.load_settings(settingsXML)
+            self.settingsXML = os.path.relpath(os.path.join(trialPath, 'trial_settings.xml'), trialPath)
+            if os.path.exists(self.settingsXML):
+                self.load_settings(self.settingsXML)
                 return
 
             # Create paths based on trialPath and settings.Inputs()
@@ -87,7 +87,7 @@ class Analyse(settings.Inputs):
             self.MODEL = os.path.relpath(os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME), self.path)
             self.TIME_RANGE = self.get_time_range()
             
-            if not os.path.exists(settingsXML):
+            if not os.path.exists(self.settingsXML):
                 self._to_xml()
                 
     def reset(self):
@@ -305,6 +305,9 @@ class Analyse(settings.Inputs):
                                 time_range=self.TIME_RANGE,
                                 saveXMLPath=self.setupIK)
         
+        if os.path.exists(self.IK) and not settings.Execute().replace:
+            return
+        
         try:
             openSim.run_ik(osim_modelPath=self.MODEL,
                     marker_trc=self.MARKERS,
@@ -312,22 +315,20 @@ class Analyse(settings.Inputs):
                     setup_xml=self.setupIK,
                     time_range=self.TIME_RANGE,
                     resultsDir=self.path)
-            print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
+            print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {self.path}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Kinematics: {e}')
             
     def run_id(self):
         
         os.chdir(self.path)
-        if not os.path.exists(self.setupID):            
-            template_id_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupID)
-            shutil.copyfile(template_id_path, self.setupID)
 
         if not os.path.exists(self.setupGRF):            
             template_grf_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupGRF)
             shutil.copyfile(template_grf_path, self.setupGRF)
-        
-        os.chdir(self.path)
+
+        if os.path.exists(self.ID) and not settings.Execute().replace:
+            return
         
         try:
             openSim.run_id(osimModelPath=self.MODEL,
@@ -342,17 +343,13 @@ class Analyse(settings.Inputs):
     def run_ma(self):
         
         os.chdir(self.path)
-        if not os.path.exists(self.setupMA):            
-            template_ma_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupMA)
-            shutil.copyfile(template_ma_path, self.setupMA)
-
-        os.chdir(self.path)
+        if os.path.exists(self.MA) and not settings.Execute().replace:
+            return
+        
         try:
             openSim.run_ma(osim_modelPath=self.MODEL,
                         ik_output=self.IK,
-                        grf_xml=self.setupGRF,
-                        setup_xml=self.setupMA,
-                        resultsDir=self.MA)
+                        grf_xml=self.setupGRF)
             print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {self.MA}')
         except Exception as e:
             print_to_log(f'[Error] during Muscle Analysis: {e}')
@@ -360,15 +357,13 @@ class Analyse(settings.Inputs):
     def run_so(self):
         
         os.chdir(self.path)
-        if not os.path.exists(self.setupSO):            
-            template_so_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupSO)
-            shutil.copyfile(template_so_path, self.setupSO)
 
         if not os.path.exists(self.ACTUATORS_SO):            
             template_actuators_path = os.path.join(settings.SETUP_DIR, settings.Inputs().ACTUATORS_SO)
             shutil.copyfile(template_actuators_path, self.ACTUATORS_SO)
         
-        os.chdir(self.path)
+        if os.path.exists(self.SO_forces) and not settings.Execute().replace:
+            return
         try:
             openSim.run_so(osim_modelPath=self.MODEL,
                     ik_output=self.IK,
@@ -382,12 +377,9 @@ class Analyse(settings.Inputs):
         
     def run_jra(self):
         
-        os.chdir(self.path)
-        if not os.path.exists(self.setupJRA):               
-            template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
-            shutil.copyfile(template_jra_path, self.setupJRA)
-            
-        os.chdir(self.path)
+        os.chdir(self.path)            
+        if os.path.exists(self.JRA) and not settings.Execute().replace:
+            return
         try:
             openSim.run_jra(osim_modelPath=self.MODEL,
                      ik_output=self.IK,
@@ -404,11 +396,8 @@ class Analyse(settings.Inputs):
     def run_jra_ceinms(self):
         
         os.chdir(self.path)
-        if not os.path.exists(self.setupJRA):               
-            template_jra_path = os.path.join(settings.SETUP_DIR, settings.Inputs().setupJRA)
-            shutil.copyfile(template_jra_path, self.setupJRA)
-            
-        os.chdir(self.path)
+        if os.path.exists(self.JRA_CEINMS) and not settings.Execute().replace:
+            return
         
         try:
             openSim.run_jra(osim_modelPath=self.MODEL,
