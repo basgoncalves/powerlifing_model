@@ -23,9 +23,9 @@ powerlifing_model/
 
 '''
 
-SUBJECTS_TO_ANALYSE =  ['Running_009'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+SUBJECTS_TO_ANALYSE =  ['012'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
-SESSIONS_TO_ANALYSE = ['session1'] # '22_07_06' \25_03_31 
+SESSIONS_TO_ANALYSE = ['pre'] # '22_07_06' \25_03_31 
 
 TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bw_01', 'Squat_bw_02',
@@ -34,11 +34,11 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 
-TRIALS_TO_ANALYSE = ['runA1a'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+TRIALS_TO_ANALYSE = ['Run_baselineA1','Run_baselineB1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
 
-CEINMS_CALIBRATION_TRIALS = ['runA1'] 
+CEINMS_CALIBRATION_TRIALS = ['Run_baselineA1'] 
 
-MODEL_NAME = 'model_scaled_increasedForce3.osim'
+MODEL_NAME = 'scaled.osim'
 
 # Check local location of this module
 MODULE_DIR = os.path.dirname(__file__)
@@ -67,13 +67,13 @@ class Inputs:
         self.EMG_RAW = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'emg.sto'
-        self.GRF_MOT = 'grf.mot'
-        self.MARKERS = 'marker_experimental.trc'
+        self.GRF_MOT = 'externalloads.mot'
+        self.MARKERS = 'markers.trc'
         self.EVENTS = 'events.csv'
         
         # setups 
         self.setupIK = 'setup_IK.xml'
-        self.setupGRF = 'GRF.xml'   
+        self.setupGRF = 'externalloads.xml'   
         self.setupID = 'setup_ID.xml'
         self.setupMA = 'setup_MA.xml'
         self.ACTUATORS_SO = 'actuators_so.xml' 
@@ -146,10 +146,7 @@ class CEINMSParameters:
         self.optimalFiberLength = '0.5 1.5'
         self.tendonSlackLength = '0.5 1.5'
         self.strengthCoefficient = '0.75 3.5'
-        
-        
-
-        
+             
 class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
