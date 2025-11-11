@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<calibration>
+   <optimiser>
+      <debug>true</debug>
+      <hybridCalibration>true</hybridCalibration>
+      <learningRate>0.02</learningRate>
+      <maxIterations>1000</maxIterations>
+      <earlyStopping>
+         <minImprovement>0.1</minImprovement>
+         <patience>20</patience>
+      </earlyStopping>
+      <numberOfSynergies>8</numberOfSynergies>
+   </optimiser>
+   <tendon>elastic</tendon>
+   <calibrationTargets>
+      <parametersToCalibrate>
+         <parameter name="c1">-0.99 -0.05</parameter>
+         <parameter name="c2">-0.95 -0.05</parameter>
+         <parameter name="shapefactor">-2.999 -0.001</parameter>
+         <parameter name="optimalFiberLength">0.5 1.5</parameter>
+         <parameter name="tendonSlackLength">0.5 1.5</parameter>
+         <parameter name="strengthCoefficient">0.75 3.5</parameter>
+         <muscleGroups>
+            <muscles>glmax1_r glmax2_r glmax3_r</muscles>
+            <muscles>glmed1_r glmed2_r glmed3_r</muscles>
+            <muscles>glmin1_r glmin2_r glmin3_r</muscles>
+            <muscles>addmagDist_r addmagIsch_r addmagMid_r addmagProx_r</muscles>
+            <muscles>bflh_r bfsh_r</muscles>
+            <muscles>semimem_r</muscles>
+            <muscles>semiten_r</muscles>
+            <muscles>recfem_r</muscles>
+            <muscles>vasint_r vaslat_r vasmed_r</muscles>
+            <muscles>gaslat_r gasmed_r</muscles>
+            <muscles>soleus_r</muscles>
+         </muscleGroups>
+      </parametersToCalibrate>
+      <objectiveFunctions>
+         <objectiveFunction>
+            <name>MomentError</name>
+            <targets>all</targets>
+            <weight>1</weight>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>Penalty</name>
+            <targetType>normalisedFibreLength</targetType>
+            <weight>10</weight>
+            <exponent>2</exponent>
+            <range>0.5 1.5</range>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>Penalty</name>
+            <targetType>tendonStrain</targetType>
+            <weight>1000</weight>
+            <exponent>2</exponent>
+            <range>0. 0.5</range>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>ExcitationsSquared</name>
+            <weight>1</weight>
+         </objectiveFunction>
+         <objectiveFunction>
+            <name>SynergyExtraction</name>
+            <mseWeight>100</mseWeight>
+            <range>0. 1.</range>
+            <rangeExponent>2</rangeExponent>
+            <rangeWeight>1000</rangeWeight>
+         </objectiveFunction>
+      </objectiveFunctions>
+      <muscles>
+         <muscle>all</muscle>
+      </muscles>
+   </calibrationTargets>
+   <trialSet>Run_baselineA1\inputData.xml</trialSet>
+</calibration>

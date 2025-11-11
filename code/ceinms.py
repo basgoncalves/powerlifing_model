@@ -835,9 +835,6 @@ def plot_compare_ceinms_models(uncalibratedModelPath=None,
     fig_path = calibratedModelPath.replace('.xml', '_vs_uncalibrated.png')
     plt.savefig(fig_path)
     print(f"Muscle parameters plot saved to: {fig_path}")
-    
-    
-    
 
 def plot_moments_calibration_results(momentResultsCSV=None):
     

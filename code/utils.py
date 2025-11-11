@@ -869,11 +869,12 @@ class Analyse(settings.Inputs):
         ceinms.calibrate(setupXML_path=calibrationSetupPath)
         
         # if date modified of calibrated model is after start time, assume success
+        os.chdir(self.path)
         mod_time = os.path.getmtime(self.CEINMS_CALIBRATED_MODEL)
         if mod_time >= start_time:
             print_to_log(f'CEINMS calibration completed successfully in {mod_time - start_time:.2f} seconds.')
             ceinms.plot_ceinms_model_parameters(self.CEINMS_CALIBRATED_MODEL)
-            breakpoint()
+            
             try:
                 ceinmsTorquesFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Moments_inputData.csv')
                 ceinms.plot_moments_calibration_results(momentResultsCSV=ceinmsTorquesFile)
