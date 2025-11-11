@@ -56,18 +56,18 @@ class Analyse(settings.Inputs):
                 return
             
             # check for trial_settings.xml in trialPath
-            self.settingsXML = os.path.join(trialPath, 'trial_settings.xml')
-            if os.path.exists(self.settingsXML):
-                self.load_settings(self.settingsXML)
+            settingsXML = os.path.relpath(os.path.join(trialPath, 'trial_settings.xml'), trialPath)
+            if os.path.exists(settingsXML):
+                self.load_settings(settingsXML)
                 return
 
             # Create paths based on trialPath and settings.Inputs()
             path_parts = os.path.normpath(trialPath).split(os.sep)
             self.subject = path_parts[-3]
             self.session = path_parts[-2]
-            self.name = path_parts[-1]
+            self.trial = path_parts[-1]
 
-            self.path = os.path.join(settings.SIMULATIONS_DIR, self.subject, self.session, self.name)
+            self.path = os.path.join(settings.SIMULATIONS_DIR, self.subject, self.session, self.trial)
             self.parentdir = os.path.dirname(self.path)
                 
             self.TIME_RANGE = []
@@ -83,6 +83,9 @@ class Analyse(settings.Inputs):
             ceinms_params = settings.CEINMSParameters()
             for varParam in ceinms_params.__dict__.items():
                 setattr(self, varParam[0], varParam[1])
+            
+            self.MODEL = os.path.relpath(os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME), self.path)
+            self.TIME_RANGE = self.get_time_range()
             
             if not os.path.exists(self.settingsXML):
                 self._to_xml()
@@ -292,6 +295,7 @@ class Analyse(settings.Inputs):
         pass
 
     def run_ik(self):
+        os.chdir(os.path.abspath(self.path))
         
         if not os.path.exists(self.setupIK):            
             openSim.create_setup_IK(osim_modelPath=self.MODEL,
@@ -300,16 +304,18 @@ class Analyse(settings.Inputs):
                                 taskSetPath=None,
                                 time_range=self.TIME_RANGE,
                                 saveXMLPath=self.setupIK)
-            
-        os.chdir(os.path.abspath(self.path))
         
-        openSim.run_ik(osim_modelPath=self.MODEL,
+        try:
+            openSim.run_ik(osim_modelPath=self.MODEL,
                     marker_trc=self.MARKERS,
                     ik_output=self.IK,
                     setup_xml=self.setupIK,
                     time_range=self.TIME_RANGE,
                     resultsDir=self.path)
-    
+            print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
+        except Exception as e:
+            print_to_log(f'[Error] during Inverse Kinematics: {e}')
+            
     def run_id(self):
         
         os.chdir(self.path)
@@ -322,10 +328,16 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_grf_path, self.setupGRF)
         
         os.chdir(self.path)
-        openSim.run_id(osimModelPath=self.MODEL,
+        
+        try:
+            openSim.run_id(osimModelPath=self.MODEL,
                     ikOutputPath=self.IK,
                     grfXmlPath=self.setupGRF,
                     setupXmlPath=self.setupID)
+            
+            print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {self.ID}')
+        except Exception as e:
+            print_to_log(f'[Error] during Inverse Dynamics: {e}')
     
     def run_ma(self):
         
@@ -335,11 +347,15 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_ma_path, self.setupMA)
 
         os.chdir(self.path)
-        openSim.run_ma(osim_modelPath=self.MODEL,
-                    ik_output=self.IK,
-                    grf_xml=self.setupGRF,
-                    setup_xml=self.setupMA,
-                    resultsDir=self.MA)
+        try:
+            openSim.run_ma(osim_modelPath=self.MODEL,
+                        ik_output=self.IK,
+                        grf_xml=self.setupGRF,
+                        setup_xml=self.setupMA,
+                        resultsDir=self.MA)
+            print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {self.MA}')
+        except Exception as e:
+            print_to_log(f'[Error] during Muscle Analysis: {e}')
     
     def run_so(self):
         
@@ -353,12 +369,16 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_actuators_path, self.ACTUATORS_SO)
         
         os.chdir(self.path)
-        openSim.run_so(osim_modelPath=self.MODEL,
+        try:
+            openSim.run_so(osim_modelPath=self.MODEL,
                     ik_output=self.IK,
                     grf_xml=self.setupGRF,
                     setup_xml=self.setupSO,
                     actuators=self.ACTUATORS_SO,
                     resultsDir=self.path)
+            print_to_log(f'[Success] Static Optimization completed. Results are saved in {self.path} and {self.SO_activations}')
+        except Exception as e:
+            print_to_log(f'[Error] during Static Optimization: {e}')
         
     def run_jra(self):
         
@@ -368,17 +388,19 @@ class Analyse(settings.Inputs):
             shutil.copyfile(template_jra_path, self.setupJRA)
             
         os.chdir(self.path)
-        
-        openSim.run_jra(osim_modelPath=self.MODEL,
+        try:
+            openSim.run_jra(osim_modelPath=self.MODEL,
                      ik_output=self.IK,
                      grf_xml=self.setupGRF,
                      setup_xml=self.setupJRA,
                      actuators=None,
                      muscle_force_path=self.JRA_FORCES,
                      saveFileName=self.JRA)
-
-        print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA)}")
-    
+        
+            print_to_log(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA)}")
+        except Exception as e:
+            print_to_log(f'[Error] during Joint Reaction Analysis: {e}')
+            
     def run_jra_ceinms(self):
         
         os.chdir(self.path)
@@ -388,16 +410,18 @@ class Analyse(settings.Inputs):
             
         os.chdir(self.path)
         
-        openSim.run_jra(osim_modelPath=self.MODEL,
+        try:
+            openSim.run_jra(osim_modelPath=self.MODEL,
                      ik_output=self.IK,
                      grf_xml=self.setupGRF,
                      setup_xml=self.setupJRA,
                      actuators=None,
                      muscle_force_path=self.JRA_FORCES_CEINMS,
                      saveFileName=self.JRA_CEINMS)
-
-        print(f"JRA analysis complete. Results saved {os.path.abspath(self.JRA_CEINMS)}")
-    
+            print_to_log(f"JRA CEINMS analysis complete. Results saved {os.path.abspath(self.JRA_CEINMS)}")
+        except Exception as e:
+            print_to_log(f'[Error] during Joint Reaction Analysis CEINMS: {e}')
+        
     def run_emg_normalise(self):
         
         os.chdir(self.path)
@@ -429,11 +453,13 @@ class Analyse(settings.Inputs):
     
     #--- Valid
     def compare_marker_locations(self):
-            
-        openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.MARKERS),
+        try:
+            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.MARKERS),
                                         marker_virtual_path=os.path.abspath(self.MODEL_MARKERS))
         
-        print_to_log(f'[Success] Marker location comparison completed.')
+            print_to_log(f'[Success] Marker location comparison completed: {self.MODEL_MARKERS} vs {self.MARKERS}')
+        except Exception as e:
+            print_to_log(f'[Error] during marker location comparison: {e}')
 
     def plot(self,trialList,columns_to_plot):
         
@@ -493,7 +519,7 @@ class Analyse(settings.Inputs):
         
 
         fig.suptitle(f"Moment Arms for DOF: {dof}", fontsize=16)
-        line_label = f'{self.subject}_{self.session}_{self.name}'
+        line_label = f'{self.subject}_{self.session}_{self.trial}'
         for muscle in muscleList:
             ax = axes[muscleList.index(muscle)]
             ax.plot(moment_arms[muscle], label=line_label)
@@ -514,10 +540,10 @@ class Analyse(settings.Inputs):
         n_vars = len(columns_to_plot)
         fig, axes = self.plot_create_subplot(n_vars)
         
-        fig.suptitle(f"Inverse Kinematics Joint Angles: {self.name}", fontsize=16)
+        fig.suptitle(f"Inverse Kinematics Joint Angles: {self.trial}", fontsize=16)
         for var in columns_to_plot:
             ax = axes[columns_to_plot.index(var)]
-            ax.plot(self.joint_angles['time'], self.joint_angles[var], label=self.name)
+            ax.plot(self.joint_angles['time'], self.joint_angles[var], label=self.trial)
             ax.set_title(f"{var}")
             ax.set_xlabel("Time")
             ax.set_ylabel("Angle (degrees)")
@@ -525,8 +551,8 @@ class Analyse(settings.Inputs):
         axes[0].legend()
         
         # save figure and return
-        plt.savefig(os.path.join(self.path, f"{self.name}_IK_Joint_Angles.png"))
-        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_IK_Joint_Angles.png")}')
+        plt.savefig(os.path.join(self.path, f"{self.trial}_IK_Joint_Angles.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.trial}_IK_Joint_Angles.png")}')
         
         return fig, axes
     
@@ -540,10 +566,10 @@ class Analyse(settings.Inputs):
         n_vars = len(columns_to_plot)
         fig, axes = self.plot_create_subplot(n_vars)
         
-        fig.suptitle(f"Inverse Dynamics Joint Moments: {self.name}", fontsize=16)
+        fig.suptitle(f"Inverse Dynamics Joint Moments: {self.trial}", fontsize=16)
         for var in columns_to_plot:
             ax = axes[columns_to_plot.index(var)]
-            ax.plot(self.inverse_dynamics['time'], self.inverse_dynamics[var], label=self.name)
+            ax.plot(self.inverse_dynamics['time'], self.inverse_dynamics[var], label=self.trial)
             ax.set_title(f"{var}")
             ax.set_xlabel("Time")
             ax.set_ylabel("Moment (Nm)")
@@ -551,8 +577,8 @@ class Analyse(settings.Inputs):
         axes[0].legend()
         
         # save figure and return
-        plt.savefig(os.path.join(self.path, f"{self.name}_ID_Joint_Moments.png"))
-        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_ID_Joint_Moments.png")}')
+        plt.savefig(os.path.join(self.path, f"{self.trial}_ID_Joint_Moments.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.trial}_ID_Joint_Moments.png")}')
         
         return fig, axes
     
@@ -565,7 +591,7 @@ class Analyse(settings.Inputs):
         n_vars = len(muscleGroups)
         fig, axes = self.plot_create_subplot(n_vars)
         
-        fig.suptitle(f"Static Optimization Muscle Forces: {self.name}", fontsize=16)
+        fig.suptitle(f"Static Optimization Muscle Forces: {self.trial}", fontsize=16)
         for i, (group, muscles) in enumerate(muscleGroups.items()):
             ax = axes[i]
             muscleForces = self.so_forces[muscles].sum(axis=1)
@@ -587,8 +613,8 @@ class Analyse(settings.Inputs):
                 ax.legend(lines, labels, loc='upper right')
         
         # save figure and return
-        plt.savefig(os.path.join(self.path, f"{self.name}_SO_Muscle_Forces.png"))
-        print(f'Figure saved to {os.path.join(self.path, f"{self.name}_SO_Muscle_Forces.png")}')
+        plt.savefig(os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png"))
+        print(f'Figure saved to {os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png")}')
         
         return fig, axes
     
@@ -600,7 +626,7 @@ class Analyse(settings.Inputs):
         n_vars = len(joints)
         fig, axes = self.plot_create_subplot(n_vars*4)
         
-        fig.suptitle(f"Joint Reaction Analysis: {self.name}", fontsize=16)
+        fig.suptitle(f"Joint Reaction Analysis: {self.trial}", fontsize=16)
         i_subplot = -1
         for row, (joint, components) in enumerate(joints.items()):
                         
@@ -640,7 +666,7 @@ class Analyse(settings.Inputs):
                 ax.set_xlabel("Time")
         
         # save figure and return
-        savePath = os.path.join(self.path, f"{self.name}_JRA_Results.png")
+        savePath = os.path.join(self.path, f"{self.trial}_JRA_Results.png")
         plt.savefig(savePath)
         print(f'Figure saved to {savePath}')
 
@@ -654,7 +680,7 @@ class Analyse(settings.Inputs):
         n_vars = len(muscles)
         fig, axes = self.plot_create_subplot(n_vars)
         
-        fig.suptitle(f"EMG Excitations: {self.name}", fontsize=16)
+        fig.suptitle(f"EMG Excitations: {self.trial}", fontsize=16)
         for i, muscle in enumerate(muscles):
             ax = axes[i]
             ax.plot(self.emg_data['time'], self.emg_data[muscle], label=muscle)

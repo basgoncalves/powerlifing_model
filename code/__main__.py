@@ -25,60 +25,26 @@ def main(analyse: utils.Analyse, replace: bool = False):
 
     # Run IK
     if settings.Execute().IK:
-        output_file = str(analyse.IK)
-        try:
-            if not os.path.exists(output_file) or replace:
-                analyse.run_ik()
-                utils.print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {output_file}')
-            else:
-                utils.print_to_log(f'[Info] Inverse Kinematics results already exist. Skipping computation. {output_file}')
-        except Exception as e:
-            utils.print_to_log(f'[Error] during Inverse Kinematics: {e}')
-
-        try:
-            virtual_marker_locations = analyse.path + '\\' + '_ik_model_marker_locations.sto'
-            
-            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(analyse.MARKERS),
-                                          marker_virtual_path=virtual_marker_locations)
-            utils.print_to_log(f'[Success] Marker location comparison completed.')
-        except:
-            utils.print_to_log(f'[Error] during marker location comparison')
+        analyse.run_ik()
+        analyse.compare_marker_locations()
 
     # Run ID
-    if settings.Execute().ID:
-        output_file = str(analyse.ID)
-        try:
-
-            # Check if the IK output file exists
-            if not os.path.exists(output_file) or replace:
-                analyse.run_id()
-                utils.print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {output_file}')
-            else:
-                utils.print_to_log(f'[Info] Inverse Dynamics results already exist. Skipping computation. {output_file}')
-
-        except Exception as e:
-            utils.print_to_log(f'[Error] during Inverse Dynamics: {e}')
+    if settings.Execute().ID: 
+        analyse.run_id()
 
     # Run muscle analysis
-    if settings.Execute().MA:
-        try:
-            if not os.path.exists(analyse.MA) or replace:
-                analyse.run_ma()
-
-                output_files = analyse.MA
-                utils.print_to_log(f'[Success] Muscle Analysis completed. Results are saved in {output_files}')
-        except Exception as e:
-            utils.print_to_log(f'[Error] during Muscle Analysis: {e}')
+    if settings.Execute().MA: 
+        analyse.run_ma()
 
     # Check moment arms
     if settings.Execute().MOMENT_ARMS:
         try:
-            utils.checkMuscleMomentArms(osim_modelPath=analyse.modelPath,
+            utils.checkMuscleMomentArms(osim_modelPath=analyse.MODEL,
                                         ik_output=analyse.IK,
                                         leg='l',
                                         threshold=0.005)
 
-            utils.checkMuscleMomentArms(osim_modelPath=analyse.modelPath,
+            utils.checkMuscleMomentArms(osim_modelPath=analyse.MODEL,
                                         ik_output=analyse.IK,
                                         leg='r',
                                         threshold=0.005)
@@ -90,39 +56,16 @@ def main(analyse: utils.Analyse, replace: bool = False):
 
     # Run Static Optimization
     if settings.Execute().SO:
-
-        try:
-            # Check if the Static Optimization output file exists
-            if not os.path.exists(analyse.SO_forces) or replace:
-                analyse.run_so()
-                utils.print_to_log(f'[Success] Static Optimization completed. Results are saved in {analyse.path}')
-
-        except Exception as e:
-            utils.print_to_log(f'[Error] during Static Optimization : {e}')
+        analyse.run_so()
 
     # Run Joint Reaction Analysis
     if settings.Execute().JRA:
-        try:
-            analyse.run_jra()
-            output_files = analyse.JRA
-            utils.print_to_log(f'[success] Joint Reaction Analysis completed. Results are saved in {output_files}')
-
-        except Exception as e:
-            utils.print_to_log(f'Error during Joint Reaction Analysis: {e}')
-    
-    # Run Joint Reaction Analysis for CEINMS
-    if settings.Execute().JRA_CEINMS:
-        try:
-            analyse.run_jra_ceinms()
-            output_files = analyse.JRA_CEINMS
-            utils.print_to_log(f'[success] Joint Reaction Analysis CEINMS completed. Results are saved in {output_files}')
-        except Exception as e:
-            utils.print_to_log(f'Error during Joint Reaction Analysis CEINMS: {e}')
-
+        analyse.run_jra()
+        
     # Normalise EMG data
     if settings.Execute().EMG_NORMALISE:
 
-        utils.print_to_log(f'Normalising EMG data for: {analyse.subject} / {analyse.name}')
+        utils.print_to_log(f'Normalising EMG data for: {analyse.subject} / {analyse.trial}')
         emg_normalise_list = []
 
         for name in settings.TRIALS_TO_ANALYSE:
@@ -210,6 +153,12 @@ def main(analyse: utils.Analyse, replace: bool = False):
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
 
+        # Run Joint Reaction Analysis for CEINMS
+    
+    # Run Joint Reaction Analysis with CEINMS muscle forces
+    if settings.Execute().JRA_CEINMS:
+        analyse.run_jra_ceinms()
+    
     if settings.Execute().CREATE_PLOTS:
         try:
             if settings.Execute().PLOT_IK: analyse.plot_ik()
@@ -219,7 +168,7 @@ def main(analyse: utils.Analyse, replace: bool = False):
             if settings.Execute().PLOT_JRA: analyse.plot_jra()
             if settings.Execute().PLOT_EMG: analyse.plot_emg()
 
-            utils.print_to_log(f'Plots created successfully for: {analyse.subject} / {analyse.name}')
+            utils.print_to_log(f'Plots created successfully for: {analyse.subject} / {analyse.trial}')
         except Exception as e:
             print(f"Error during plotting: {e}")
             utils.print_to_log(f'Error during plotting: {e}')
@@ -240,13 +189,13 @@ def push_trial_results_to_git(trial: utils.Analyse):
         subprocess.run(['git', 'add', trial.path], check=True, cwd=os.getcwd())
 
         # Commit with descriptive message
-        commit_message = f"[RESULT] {trial.subject}/{trial.name}"
+        commit_message = f"[RESULT] {trial.subject}/{trial.trial}"
         subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
 
         # Push to remote
         subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
 
-        utils.print_to_log(f'[Success] Results pushed to git for: {trial.subject} / {trial.name}')
+        utils.print_to_log(f'[Success] Results pushed to git for: {trial.subject} / {trial.trial}')
 
     except subprocess.CalledProcessError as e:
         utils.print_to_log(f'[Warning] Failed to push to git: {e}')
@@ -278,7 +227,7 @@ if __name__ == "__main__":
                 
                 trial = utils.Analyse(trialPath=trialPath) 
                 
-                utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.name}')
+                utils.print_to_log(f'Running analysis for: {trial.subject} / {trial.trial}')
 
                 ##  Run main analysis function ##
 
@@ -286,7 +235,7 @@ if __name__ == "__main__":
 
                 #############################################
 
-                utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.name}')
+                utils.print_to_log(f'Analysis completed for: {trial.subject} / {trial.trial}')
 
                 if settings.Execute().push_to_git:
                     push_trial_results_to_git(trial=trial)

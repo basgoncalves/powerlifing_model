@@ -44,7 +44,7 @@ MODEL_NAME = 'model_scaled_increasedForce3.osim'
 MODULE_DIR = os.path.dirname(__file__)
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\Purzel')
+SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\RunningFAI')
 POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
@@ -158,11 +158,11 @@ class Execute:
         self.SCALE_FACTOR = 3
         self.exportC3D = False
         self.IK = True
-        self.ID = True
-        self.MA = True
-        self.MOMENT_ARMS = True
-        self.SO = True
-        self.JRA = True
+        self.ID = False
+        self.MA = False
+        self.MOMENT_ARMS = False
+        self.SO = False
+        self.JRA = False
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
@@ -176,7 +176,7 @@ class Execute:
         
         self.CEINMS_OPTIMISATION = False
         self.CEINMS_EXE = False
-        self.JRA_CEINMS = True
+        self.JRA_CEINMS = False
         
         self.CREATE_PLOTS = False
         
