@@ -1000,6 +1000,11 @@ def plot_experimental_vs_ceinms(emgFile=None,
     emg_data = utils.load_any_data_file(emgFile)
     ceinms_data = utils.load_any_data_file(ceinmsExcitationsFile)
     
+    ceinms_time_range  = [ceinms_data['time'].iloc[0],ceinms_data['time'].iloc[-1]]
+    emg_data = emg_data[(emg_data['time'] >= ceinms_time_range[0]) & (emg_data['time'] <= ceinms_time_range[1])]
+    
+    emg_time_range  = [emg_data['time'].iloc[0],emg_data['time'].iloc[-1]]
+
     # time normalise both datasets to the same length
     emg_data = utils.time_normalise_df(emg_data)
     ceinms_data = utils.time_normalise_df(ceinms_data)
@@ -1058,6 +1063,10 @@ def plot_experimental_vs_ceinms(emgFile=None,
     
     ext_moments_data = utils.load_any_data_file(externalMomentsFile)
     ceinms_torques_data = utils.load_any_data_file(ceinmsTorquesFile)
+    
+    # allign times and time normalise
+    time_range_torques  = [ceinms_torques_data['time'].iloc[0],ceinms_torques_data['time'].iloc[-1]]
+    ext_moments_data = ext_moments_data[(ext_moments_data['time'] >= time_range_torques[0]) & (ext_moments_data['time'] <= time_range_torques[1])]
 
     ext_moments_data = utils.time_normalise_df(ext_moments_data)
     ceinms_torques_data = utils.time_normalise_df(ceinms_torques_data)

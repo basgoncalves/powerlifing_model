@@ -2,24 +2,12 @@
 <excitationGenerator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="excitationGenerator.xsd">
 <inputSignals type="EMG">VM	VL RF GRA TA ADDLONG SEMIMEM BFLH GM GL TFL GLUTMAX GLUTMED PIRI OBTINT QF</inputSignals>
 <mapping>
-    <excitation id="addbrev_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
-    <excitation id="addlong_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
-    <excitation id="addmagDist_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
-	    <excitation id="addmagIsch_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
-    <excitation id="addmagMid_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
-    <excitation id="addmagProx_l">
-        <input weight="1">ADDLONG</input>
-    </excitation>
+    <excitation id="addbrev_l"/>
+    <excitation id="addlong_l"/>
+    <excitation id="addmagDist_l"/>
+	<excitation id="addmagIsch_l"/>
+    <excitation id="addmagMid_l"/>
+    <excitation id="addmagProx_l"/>
     <excitation id="bflh_l">
         <input weight="1">BFLH</input>
     </excitation>
@@ -52,9 +40,7 @@
     <excitation id="gaslat_l">
         <input weight="1">GL</input>
     </excitation>
-    <excitation id="gasmed_l">
-        <input weight="1">GM</input>
-    </excitation>
+    <excitation id="gasmed_l"/>
     <excitation id="perbrev_l"/>
     <excitation id="perlong_l"/>
     <excitation id="pertert_l"/>
@@ -71,12 +57,9 @@
         <input weight="1">SEMIMEM</input>
     </excitation>
     <excitation id="soleus_l">
-         <input weight="0.5">GM</input>
-		 <input weight="0.5">GL</input>
+		 <input weight="1">GL</input>
     </excitation>
-    <excitation id="tfl_l">
-         <input weight="1">TFL</input>
-    </excitation>
+    <excitation id="tfl_l"/>
     <excitation id="tibant_l">
         <input weight="1">TA</input>
     </excitation>

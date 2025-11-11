@@ -882,13 +882,8 @@ class Analyse(settings.Inputs):
                 print_to_log(f'Could not plot moments vs CEINMS results.')
                 
             try:
-                ceinmsEMGFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Excitations_inputData.csv')
-                ceinmsMomentsFile = os.path.join(self.CEINMS_CALIBRATION_DIR, 'Moments_inputData.csv')
-                ceinms.plot_experimental_vs_ceinms(emgFile=self.EMG_NORMALISED,
-                                                   ceinmsExcitationsFile=ceinmsEMGFile,
-                                                   excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR,
-                                                   externalMomentsFile=self.ID, 
-                                                   ceinmsTorquesFile=ceinmsMomentsFile)
+                ceinms.plot_compare_ceinms_models(uncalibratedModelPath=self.CEINMS_UNCALIBRATED_MODEL,
+                                                 calibratedModelPath=self.CEINMS_CALIBRATED_MODEL)
                 print_to_log(f'Could not plot EMG vs CEINMS results.')
             except:
                 print_to_log(f'Could not plot EMG vs CEINMS results.')
