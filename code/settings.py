@@ -23,7 +23,7 @@ powerlifing_model/
 
 '''
 
-SUBJECTS_TO_ANALYSE =  ['012'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+SUBJECTS_TO_ANALYSE =  ['015'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
 SESSIONS_TO_ANALYSE = ['pre'] # '22_07_06' \25_03_31 
 
@@ -34,7 +34,7 @@ TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
                       'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 
-TRIALS_TO_ANALYSE = ['Run_baselineB1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
+TRIALS_TO_ANALYSE = ['Run_baselineA1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
 
 CEINMS_CALIBRATION_TRIALS = ['Run_baselineA1'] 
 
@@ -134,10 +134,10 @@ class CEINMSParameters:
         self.hybridCalibration = 'true'
         self.numberOfSynergies = 8
         self.betaMin = 1
-        self.betaMax = 10
-        self.betaDelta = 2
+        self.betaMax = 100
+        self.betaDelta = 10
         self.gammaMin = 1
-        self.gammaMax = 300
+        self.gammaMax = 100
         self.gammaDelta = 50
         
         self.c1 = '-0.99 -0.05'
