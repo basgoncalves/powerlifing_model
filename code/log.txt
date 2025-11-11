@@ -5922,3 +5922,25 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 11.11.2025_16:15:43:614: JRA analysis complete. Results saved C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\015\pre\Run_baselineA1\Analyse_JRA_ReactionLoads.sto
 11.11.2025_16:20:34:145: CEINMS calibration completed successfully in 25.35 seconds.
 11.11.2025_16:34:43:262: Plotted Experimental vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\015\pre\Run_baselineA1
+11.11.2025_17:38:17:612: Starting analysis...
+11.11.2025_17:38:18:655: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_17:39:55:236: CEINMS calibration completed successfully in 94.74 seconds.
+11.11.2025_17:40:13:269: Could not plot EMG vs CEINMS results.
+11.11.2025_17:40:23:493: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_17:40:25:121: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_17:40:25:205: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_17:40:25:215: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_17:40:32:618: [Success] Results pushed to git for: 012 / Run_baselineA1
+11.11.2025_17:40:32:651: Running analysis for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\015\pre\Run_baselineA1
+11.11.2025_17:40:33:792: Error creating excitation generator file: 'NoneType' object has no attribute 'columns'
+11.11.2025_17:40:45:171: CEINMS calibration may have failed: calibrated model not updated.
+11.11.2025_17:40:48:175: Could not plot EMG vs CEINMS results C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\012\pre\Run_baselineA1
+11.11.2025_17:40:48:317: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::JointReaction::JointReaction(std::string const &)': Object: Cannot open file setup_JRA.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:103 in Object().
+11.11.2025_17:40:48:329: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_17:40:48:330: Analysis completed for: C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\015\pre\Run_baselineA1
+11.11.2025_17:40:50:492: [Success] Results pushed to git for: 012 / Run_baselineA1
+11.11.2025_17:40:50:493: Total analysis time: 152.88 seconds 
+ 
+
