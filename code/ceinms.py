@@ -564,12 +564,7 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     '''
     create CEINMS setup and configuration XML files for optimisation
     
-    ceinmsModelPath: path to CEINMS model file
-    inputDataFile: path to input data file (use create_input_data function to create this)
-    calibrationCfgPath: path to calibration configuration file
-    excitationGeneratorFilePath: path to excitation generator file
-    outputDirectory: path to output directory of the optimisation (folder for multiple files)
-    setupXMLPath: path to save the setup XML file
+    use settings.CEINMSParameters() for parameter ranges
     '''
 
     if not ceinmsModelPath:
@@ -1021,13 +1016,14 @@ def plot_experimental_vs_ceinms(emgFile=None,
                 if signal not in muscle_mapping:
                     muscle_mapping[signal] = []
                 muscle_mapping[signal].append(muscle_id)
-                    
+    
+    # -- Plot EMG vs CEINMS excitations -- #     
     n_muscles = len(muscle_mapping)
     fig, axs = plt.subplots(n_muscles, 1, figsize=(10, n_muscles*3))
     plt.suptitle(f'EMG vs CEINMS Excitations', fontsize=16)
     for i, (signal, muscles) in enumerate(muscle_mapping.items()):
         ax = axs[i] if n_muscles > 1 else axs
-        line_emg = ax.plot(emg_data[signal], label=signal, color='blue')
+        line_emg = ax.plot(emg_data['time'], emg_data[signal], label=signal, color='blue')
         lines_ceinms = []   
         lineStyles = ['-', '--', '-.', ':','-', '--', '-.', ':']
         for j, muscle in enumerate(muscles):
@@ -1036,7 +1032,7 @@ def plot_experimental_vs_ceinms(emgFile=None,
                 range_signal = emg_data[signal].max() - emg_data[signal].min()
                 rmse = utils.rmse(emg_data[signal], ceinms_data[muscle])
                 rmse_percent = (rmse / range_signal) * 100 if range_signal != 0 else 0
-                lines_ceinms.append(ax.plot(ceinms_data[muscle], 
+                lines_ceinms.append(ax.plot(ceinms_data['time'],ceinms_data[muscle], 
                                             linestyle=lineStyles[j % len(lineStyles)],
                                             label=f'{muscle} (R²: {r2:.2f}, RMSE: {rmse:.2f}/{rmse_percent:.0f}%)', color='red'))
                 ax.set_ylabel('Excitation')

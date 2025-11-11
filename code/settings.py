@@ -23,7 +23,7 @@ powerlifing_model/
 
 '''
 
-SUBJECTS_TO_ANALYSE =  ['015'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+SUBJECTS_TO_ANALYSE =  ['012','015'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
 SESSIONS_TO_ANALYSE = ['pre'] # '22_07_06' \25_03_31 
 

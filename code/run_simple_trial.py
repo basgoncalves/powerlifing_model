@@ -6,8 +6,8 @@ import settings
 
 if __name__ == "__main__":
     
-    # trialPath = input("Please provide the path to the trial directory: ")
-    # trial = utils.Analyse(trialPath)
+    trialPath = input("Please provide the path to the trial directory: ")
+    trial = utils.Analyse(trialPath)
     
     # trial.run_ik()
     # trial.run_id()
@@ -23,11 +23,11 @@ if __name__ == "__main__":
 
     # trial.create_ceinms_optimise_setup()
     
-    act = r"C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1\Execution\AdjustedEmgs.sto"
-    emg = r"C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1\emg.mot"
-    id = r"C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1\inverse_dynamics.sto"
-    troques = r"C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\Run_baselineB1\Execution\Torques.sto"
-    excgen = r"C:\Git\1_current_projects\powerlifing_model\simulations\012\pre\excitationGenerator.xml"
+    act = trial.CEINMS_OPTIMISATION_DIR + os.sep + "AdjustedEmgs.sto"
+    emg = trial.path + os.sep + trial.EMG_NORMALISED
+    id = trial.path + os.sep + trial.ID
+    troques = trial.CEINMS_OPTIMISATION_DIR + os.sep + "Torques.sto"
+    excgen = trial.CEINMS_EXCITATION_GENERATOR
     ceinms.plot_experimental_vs_ceinms(emgFile=emg,
                                     ceinmsExcitationsFile=act,
                                     excitationGeneratorFile=excgen,
