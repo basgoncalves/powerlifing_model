@@ -921,7 +921,7 @@ class Analyse(settings.Inputs):
         
         os.chdir(self.path)
         setupAbsPath = os.path.abspath(self.CEINMS_OPTIMISE_SETUP)
-        # ceinms.optimise(setupXML_path=setupAbsPath)
+        ceinms.optimise(setupXML_path=setupAbsPath)
 
         try:    
             adjustedEMG_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'AdjustedEmgs.sto')
