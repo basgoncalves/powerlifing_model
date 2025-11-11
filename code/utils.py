@@ -87,7 +87,7 @@ class Analyse(settings.Inputs):
             self.MODEL = os.path.relpath(os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME), self.path)
             self.TIME_RANGE = self.get_time_range()
             
-            if not os.path.exists(self.settingsXML):
+            if not os.path.exists(settingsXML):
                 self._to_xml()
                 
     def reset(self):

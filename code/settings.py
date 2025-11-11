@@ -158,29 +158,29 @@ class Execute:
         self.SCALE_FACTOR = 3
         self.exportC3D = False
         self.IK = True
-        self.ID = False
-        self.MA = False
-        self.MOMENT_ARMS = False
-        self.SO = False
-        self.JRA = False
+        self.ID = True
+        self.MA = True
+        self.MOMENT_ARMS = True
+        self.SO = True
+        self.JRA = True
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
-        self.CREATE_CEINMS_FILES = False
-        self.CREATE_CEINMS_MODEL = False
+        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_MODEL = True
         
-        self.CEINMS_CALIBRATION = False
-        self.CEINMS_CALIBRATION_PLOTS = False
+        self.CEINMS_CALIBRATION = True
+        self.CEINMS_CALIBRATION_PLOTS = True
         
-        self.CEINMS_OPTIMISATION = False
+        self.CEINMS_OPTIMISATION = True
         self.CEINMS_EXE = False
-        self.JRA_CEINMS = False
+        self.JRA_CEINMS = True
         
-        self.CREATE_PLOTS = False
+        self.CREATE_PLOTS = True
         
-        self.push_to_git = False
+        self.push_to_git = True
                
 
 DOFs = ['hip_flexion_l', 'hip_flexion_r',

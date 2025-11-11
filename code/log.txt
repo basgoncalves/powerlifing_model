@@ -5648,3 +5648,22 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 10.11.2025_19:28:11:114: Total analysis time: 3.38 seconds 
  
 
+11.11.2025_01:15:37:020: Starting analysis...
+11.11.2025_01:15:57:663: Starting analysis...
+11.11.2025_01:15:58:676: Running analysis for: Running_009 / runA1a
+11.11.2025_01:16:01:318: [Error] during Inverse Kinematics: name 'output_file' is not defined
+11.11.2025_01:16:01:904: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+11.11.2025_01:16:02:182: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+11.11.2025_01:16:14:466: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+11.11.2025_01:16:24:559: [Success] Muscle moment arms checked. Results are saved in muscleAnalysis
+11.11.2025_01:16:35:657: [Success] Static Optimization completed. Results are saved in C:\Users\Biomechanik\Documents\powerlifting_model\powerlifing_model\simulations\Running_009\session1\runA1a and SO_StaticOptimization_activation.sto
+11.11.2025_01:16:35:752: [Error] during Joint Reaction Analysis: no path specified
+11.11.2025_01:16:49:813: Error during CEINMS calibration: [WinError 2] Das System kann die angegebene Datei nicht finden: '..\\subjectCalibrated.xml'
+11.11.2025_01:16:49:813: Error during CEINMS optimisation: [Errno 2] No such file or directory: 'C:\\Users\\Biomechanik\\Documents\\powerlifting_model\\powerlifing_model\\simulations\\Running_009\\session1\\runA1a\\ceinms_setup_optimise.xml'
+11.11.2025_01:16:49:904: [Error] during Joint Reaction Analysis CEINMS: no path specified
+11.11.2025_01:16:49:912: Error during plotting: 'Execute' object has no attribute 'PLOT_IK'
+11.11.2025_01:16:49:913: Analysis completed for: Running_009 / runA1a
+11.11.2025_01:16:54:583: [Success] Results pushed to git for: Running_009 / runA1a
+11.11.2025_01:16:54:583: Total analysis time: 56.92 seconds 
+ 
+
