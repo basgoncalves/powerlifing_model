@@ -596,7 +596,7 @@ def executable(setupXML_path=None):
     
     setupXML = ET.parse(setupXML_path).getroot()
     outputDirectory = setupXML.find("outputDirectory").text
-
+    
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Running CEINMS executable...")
@@ -611,10 +611,10 @@ def executable(setupXML_path=None):
     experimentalMomentsPath = inputData.find('externalTorquesFile').text
     
     plot_experimental_vs_ceinms(emgFile=experimentalEMGPath,
-                                ceinmsExcitationsFile=os.path.join(outputDirectory, 'AdjustedEmgs.sto'),
+                                ceinmsExcitationsFile=os.path.abspath(os.path.join(outputDirectory, 'AdjustedEmgs.sto')),
                                 excitationGeneratorFile=setupXML.find('excitationGeneratorFile').text,
-                                externalMomentsFile=experimentalMomentsPath, 
-                                ceinmsTorquesFile=os.path.join(outputDirectory, 'Torques.sto'))
+                                externalMomentsFile=os.path.abspath(experimentalMomentsPath), 
+                                ceinmsTorquesFile=os.path.abspath(os.path.join(outputDirectory, 'Torques.sto')))
     
 def executable_loop(setupXML_path=None, cfgXML_path=None, 
                     gammas: list = [1, 10, 100, 1000], 

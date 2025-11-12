@@ -23,20 +23,13 @@ powerlifing_model/
 
 '''
 
-SUBJECTS_TO_ANALYSE =  ['012','015'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+SUBJECTS_TO_ANALYSE =  ['Athlete_03_MRI_BG'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
-SESSIONS_TO_ANALYSE = ['pre'] # '22_07_06' \25_03_31 
+SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
 
-TRIALS_TO_ANALYSE =  ['Walking_04', 'Walking_05',
-                      'Squat_bw_01', 'Squat_bw_02',
-                      'Squat_bw_03',
-                      'Squat_bar_02', 'Squat_bar_03',
-                      'Squat_bar_04',] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Walking_02', 'Walking_03', 'Walking_04'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
-
-TRIALS_TO_ANALYSE = ['Run_baselineA1'] # , 'Walking_02','Walking_03', 'Walking_04', 'Walking_05'
-
-CEINMS_CALIBRATION_TRIALS = ['Run_baselineA1'] 
+CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
 MODEL_NAME = 'scaled.osim'
 
@@ -65,7 +58,7 @@ class Inputs:
         self.MODEL = os.path.join(MODELS_DIR, 'subject', 'session', MODEL_NAME)
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
-        self.EMG_FILTERED = 'None'
+        self.EMG_FILTERED = 'EMG_filtered.sto'
         self.EMG_NORMALISED = 'EMG_filtered_normalised_scaled_0.70.sto'
         self.GRF_MOT = 'grf.mot'
         self.MARKERS = 'marker_experimental.trc'
@@ -146,9 +139,9 @@ class CEINMSParameters:
         self.gammaMax = 100
         self.gammaDelta = 50
         
-        self.alphas = [1, 10]
+        self.alphas = [1, 10, 100]
         self.betas = [1, 10]
-        self.gammas = [1, 100, 400, 800, 1000, 1400, 1600, 1800, 2000,
+        self.gammas = [1, 500, 1000, 1500, 2000,
                        2500, 3000, 3500, 4000, 4500, 5000]
         
         self.c1 = '-0.99 -0.05'

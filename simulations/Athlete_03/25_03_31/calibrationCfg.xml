@@ -17,8 +17,8 @@
          <parameter name="c1">-0.99 -0.05</parameter>
          <parameter name="c2">-0.95 -0.05</parameter>
          <parameter name="shapefactor">-2.999 -0.001</parameter>
-         <parameter name="optimalFiberLength">0.5 1.5</parameter>
-         <parameter name="tendonSlackLength">0.5 1.5</parameter>
+         <parameter name="optimalFiberLength">0.5 3</parameter>
+         <parameter name="tendonSlackLength">0.5 3</parameter>
          <parameter name="strengthCoefficient">0.75 3.5</parameter>
          <muscleGroups>
             <muscles>glmax1_r glmax2_r glmax3_r</muscles>
@@ -81,5 +81,5 @@
          <muscle>all</muscle>
       </muscles>
    </calibrationTargets>
-   <trialSet>Walking_01\inputData.xml</trialSet>
+   <trialSet>Walking_02\inputData.xml</trialSet>
 </calibration>

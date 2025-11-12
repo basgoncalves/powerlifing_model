@@ -54,13 +54,13 @@ class Analyse(settings.Inputs):
             if not trialPath or not os.path.exists(trialPath):
                 print(f"Trial path not found: {trialPath}")
                 return
-            
+            os.chdir(trialPath)
             # check for trial_settings.xml in trialPath
             self.settingsXML = os.path.relpath(os.path.join(trialPath, 'trial_settings.xml'), trialPath)
             if os.path.exists(self.settingsXML):
                 self.load_settings(self.settingsXML)
                 return
-
+            
             # Create paths based on trialPath and settings.Inputs()
             path_parts = os.path.normpath(trialPath).split(os.sep)
             self.subject = path_parts[-3]
@@ -270,7 +270,7 @@ class Analyse(settings.Inputs):
             scale_factor (float): Factor to scale EMG data by. Default is 1.0.
         """
         os.chdir(self.path)
-        if not os.path.exists(self.EMG_NORMALISED):
+        if not os.path.exists(os.path.abspath(self.EMG_NORMALISED)):
             print(f"EMG normalised file not found: {self.EMG_NORMALISED}")
             return
         
@@ -2064,11 +2064,19 @@ def time_normalise_df(df, fs=''):
         if currentData.empty:
             currentData = np.zeros(len(df))
         
+        # time trial length of trial
         timeTrial = np.arange(0, len(currentData)/fs, 1/fs)           
+        if len(timeTrial) > len(currentData):
+            timeTrial = np.arange(1/fs, len(currentData)/fs, 1/fs)           
+            
         Tnorm = np.arange(0, timeTrial[-1], timeTrial[-1]/101)
         
         if len(Tnorm) == 102:
             Tnorm = Tnorm[:-1]
+        
+        if len(timeTrial) != len(currentData):
+            breakpoint()
+            
         normalised_df[column] = np.interp(Tnorm, timeTrial, currentData)
     
     return normalised_df
