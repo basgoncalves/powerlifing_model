@@ -683,7 +683,11 @@ def executable_loop_summarise_results(baseDir=None, prefix='Execution'):
         # if folder contains both 'AdjustedEmgs.sto' and 'Torques.sto' files
         if 'AdjustedEmgs.sto' in folder[2] and 'Torques.sto' in folder[2]:
             
-            ceinmsTorques = utils.load_any_data_file(os.path.join(folder[0], 'Torques.sto'))
+            try:
+                ceinmsTorques = utils.load_any_data_file(os.path.join(folder[0], 'Torques.sto'))
+            except Exception as e:
+                print(f"Error loading Torques.sto in {folder[0]}: {e}")
+                continue
             ceinmsTimeRange = (ceinmsTorques['time'].iloc[0], ceinmsTorques['time'].iloc[-1])
             externalMoments = externalMoments[(externalMoments['time'] >= ceinmsTimeRange[0]) & (externalMoments['time'] <= ceinmsTimeRange[1])].reset_index(drop=True)
             id_norm = utils.time_normalise_df(externalMoments).drop(columns=['time'])
@@ -692,7 +696,8 @@ def executable_loop_summarise_results(baseDir=None, prefix='Execution'):
             stats = utils.compare_curves(id_norm, ceinmsTorques_norm)
             rmse_moments, r2_moments = stats['RMSE'], stats['R2'].mean()
             columns = [col for col in rmse_moments.index]
-            rmse_moments = (rmse_moments / (id_norm[columns].max()-id_norm[columns].min()) *100).mean()
+        
+            rmse_moments = (rmse_moments / (id_norm[columns].max()-id_norm[columns].min()) *100).max()
             
             
             ceinmsExcitations = utils.load_any_data_file(os.path.join(folder[0], 'AdjustedEmgs.sto'))
@@ -755,15 +760,16 @@ def plot_loop_results(CSVresultsPath=None):
         ax_rmse = axes[i*2]
         ax_rmse.scatter(cropped_df['Gamma'], cropped_df['RMSE_Moments'], c='blue', label=f'Moments', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
         ax_rmse.scatter(cropped_df['Gamma'], cropped_df['RMSE_Excitations'], c='red', label='Excitations', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
-        ax_rmse.set_ylabel('RMSE')
+        ax_rmse.set_ylabel('RMSE (%)')
         ax_rmse.set_xticklabels([])
         ax_rmse.grid(True, alpha=0.3)
-        ax_rmse.set_xscale('log')   
+        # ax_rmse.set_xscale('log')   
         
         # add text box with alpha and beta values
         textstr = f'Alpha: {alpha}\nBeta: {beta}'
         props = dict(boxstyle='round', facecolor='white', alpha=0.5)
         ax_rmse.text(0.05, 0.95, textstr, transform=ax_rmse.transAxes, fontsize=10, verticalalignment='top', bbox=props)
+        ax_rmse.set_xticks(gammas)
         
         if i == 0:
             ax_rmse.legend()
@@ -771,6 +777,8 @@ def plot_loop_results(CSVresultsPath=None):
         if i == len(combinations) - 1:
             ax_rmse.set_xlabel('Gamma')
             ax_rmse.set_xticklabels(gammas)
+        else:
+            ax_rmse.set_xticklabels([])
             
         
         # Plot R²
@@ -780,16 +788,18 @@ def plot_loop_results(CSVresultsPath=None):
         ax_r2.set_ylabel('R²')
         ax_r2.set_xticklabels([])
         ax_r2.grid(True, alpha=0.3)
-        ax_r2.set_xscale('log')
+        # ax_r2.set_xscale('log')
+        ax_r2.set_ylim(0, 1)
+        ax_r2.set_xticks(gammas)
+        
         
         if i == len(combinations) - 1:
             ax_r2.set_xlabel('Gamma')
             ax_r2.set_xticklabels(gammas)
+        else:
+            ax_r2.set_xticklabels([])
     
     plt.tight_layout()
-    savepath = CSVresultsPath.replace('.csv', '.png')
-    plt.savefig(savepath)
-    print(f"Parameter effects plot saved to: {savepath}")
     
     # Print summary statistics
     print("Parameter Effects Summary:")
@@ -800,13 +810,41 @@ def plot_loop_results(CSVresultsPath=None):
     print(f"Best R2_Excitations: {df['R2_Excitations'].max():.3f} - {df.loc[df['R2_Excitations'].idxmax(), ['Alpha', 'Beta', 'Gamma']].to_dict()}")
     
     # calculate overall best as sum of ranks
-    df['Rank_RMSE_Moments'] = df['RMSE_Moments'].rank()
-    df['Rank_R2_Moments'] = df['R2_Moments'].rank(ascending=False)
-    df['Rank_RMSE_Excitations'] = df['RMSE_Excitations'].rank()
-    df['Rank_R2_Excitations'] = df['R2_Excitations'].rank(ascending=False)
-    df['Total_Rank'] = df[['Rank_RMSE_Moments', 'Rank_R2_Moments', 'Rank_RMSE_Excitations', 'Rank_R2_Excitations']].sum(axis=1)
-    best_overall = df.loc[df['Total_Rank'].idxmin()]
-    print(f"Best over all: {best_overall['Total_Rank']:.1f} - {best_overall[['Alpha', 'Beta', 'Gamma']].to_dict()}")
+    df['RMSE_Sum'] = df['RMSE_Moments'] + df['RMSE_Excitations']
+    df['R2_Sum'] = df['R2_Moments'] + df['R2_Excitations']
+    
+    # 1. Create a rank for RMSE_Sum (lower is better, so rank 1 is the lowest sum)
+    df['Rank_RMSE'] = df['RMSE_Sum'].rank(ascending=True)
+
+    # 2. Create a rank for R2_Sum (higher is better, so rank 1 is the highest sum)
+    df['Rank_R2'] = df['R2_Sum'].rank(ascending=False)
+
+    # 3. Combine ranks. The best row will have the lowest total rank (e.g., 1 + 1 = 2)
+    df['Overall_Rank'] = df['Rank_RMSE'] + df['Rank_R2']
+    df_sorted = df.sort_values(by='Overall_Rank')
+    
+    print("Top 5 best combinations based on low RMSE_Sum and high R2_Sum:\n")
+    print(df_sorted[['Alpha', 'Beta', 'Gamma', 'RMSE_Sum', 'R2_Sum', 'Overall_Rank']].head())
+
+    # Get the single best row
+    best_combination = df_sorted.iloc[0]
+
+    print("\n--------------------------------------------------")
+    print("Best overall combination:")
+    print(f"  Alpha: {best_combination['Alpha']}")
+    print(f"  Beta: {best_combination['Beta']}")
+    print(f"  Gamma: {best_combination['Gamma']}")
+    print(f"  Combined RMSE (Sum): {best_combination['RMSE_Sum']:.2f}")
+    print(f"  Combined R2 (Sum): {best_combination['R2_Sum']:.2f}")
+    print("--------------------------------------------------")
+
+    # add title with best iteration settings
+    fig.suptitle(f"Best Overall - Alpha: {int(best_combination['Alpha'])}, Beta: {int(best_combination['Beta'])}, Gamma: {int(best_combination['Gamma'])}\nCombined RMSE: {best_combination['RMSE_Sum']:.2f}, Combined R²: {best_combination['R2_Sum']:.2f}", fontsize=16)    
+    
+    plt.tight_layout()
+    savepath = CSVresultsPath.replace('.csv', '.png')
+    plt.savefig(savepath)
+    print(f"Parameter effects plot saved to: {savepath}")
 
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 

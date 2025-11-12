@@ -17,13 +17,15 @@ if __name__ == "__main__":
     
     # trial.create_ceinms_calibration_setup()
     # trial.create_ceinms_calibration_gfc()
-    # trial.create_ceinms_input_data()
+    trial.create_ceinms_input_data()
     # trial.run_ceinms_calibration()
     
+    trial.run_ceinms_calibration()
+    # trial.run_ceinms_exe_loop()
+    trial.run_ceinms_exe()
+    
+    
 
-    trial.run_ceinms_exe_loop()
-    
-    
 
             
 

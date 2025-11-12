@@ -66,14 +66,14 @@ class Inputs:
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
         self.EMG_FILTERED = 'None'
-        self.EMG_NORMALISED = 'emg.mot'
-        self.GRF_MOT = 'externalloads.mot'
-        self.MARKERS = 'markers.trc'
+        self.EMG_NORMALISED = 'EMG_filtered_normalised_scaled_0.70.sto'
+        self.GRF_MOT = 'grf.mot'
+        self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
         
         # setups 
         self.setupIK = 'setup_IK.xml'
-        self.setupGRF = 'externalloads.xml'   
+        self.setupGRF = 'GRF.xml'   
         self.setupID = 'setup_ID.xml'
         self.setupMA = 'setup_MA.xml'
         self.ACTUATORS_SO = 'actuators_so.xml' 
@@ -134,6 +134,11 @@ class CEINMSParameters:
     def __init__(self):
         self.hybridCalibration = 'true'
         self.numberOfSynergies = 8
+        
+        self.alpha = 1
+        self.beta = 1
+        self.gamma = 1
+        
         self.betaMin = 1
         self.betaMax = 100
         self.betaDelta = 10
@@ -141,10 +146,9 @@ class CEINMSParameters:
         self.gammaMax = 100
         self.gammaDelta = 50
         
-        self.alphas = [1, 10, 100]
-        self.betas = [1, 10, 100, 1000]
-        self.gammas = [1, 10, 100, 200, 400, 600, 800, 1000,
-                       1200, 1400, 1600, 1800, 2000,
+        self.alphas = [1, 10]
+        self.betas = [1, 10]
+        self.gammas = [1, 100, 400, 800, 1000, 1400, 1600, 1800, 2000,
                        2500, 3000, 3500, 4000, 4500, 5000]
         
         self.c1 = '-0.99 -0.05'

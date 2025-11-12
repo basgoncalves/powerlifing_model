@@ -913,6 +913,11 @@ class Analyse(settings.Inputs):
         save_pretty_xml(tree, self.CEINMS_EXE_SETUP)
         print(f"Created {self.CEINMS_EXE_SETUP}")
 
+    def run_ceinms_exe(self):
+        
+        os.chdir(self.path)
+        ceinms.executable(setupXML_path=os.path.abspath(self.CEINMS_EXE_SETUP))
+    
     def run_ceinms_optimise(self):
         
         os.chdir(self.path)
