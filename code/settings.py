@@ -92,6 +92,7 @@ class Inputs:
         self.CEINMS_OPTIMISE_SETUP = 'ceinms_setup_optimise.xml'
         self.CEINMS_OPTIMISE_CFG = 'ceinms_cfg_optimise.xml'
         
+        self.CEINMS_EXE_CFG = 'ceinms_cfg.xml'
         self.CEINMS_EXE_SETUP = 'ceinms_setup.xml'
         
         self.IK = 'joint_angles.mot'
@@ -140,6 +141,12 @@ class CEINMSParameters:
         self.gammaMax = 100
         self.gammaDelta = 50
         
+        self.alphas = [1, 10, 100]
+        self.betas = [1, 10, 100, 1000]
+        self.gammas = [1, 10, 100, 200, 400, 600, 800, 1000,
+                       1200, 1400, 1600, 1800, 2000,
+                       2500, 3000, 3500, 4000, 4500, 5000]
+        
         self.c1 = '-0.99 -0.05'
         self.c2 = '-0.95 -0.05'
         self.shapefactor = '-2.999 -0.001'
@@ -180,10 +187,7 @@ class CEINMSParameters:
             'rangeExponent': 2,
             'rangeWeight': 1000
         })
-
-        
-        
-             
+          
 class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
@@ -193,19 +197,19 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
-        self.ID = True
-        self.MA = True
-        self.MOMENT_ARMS = True
-        self.SO = True
-        self.JRA = True
+        self.IK = False
+        self.ID = False
+        self.MA = False
+        self.MOMENT_ARMS = False
+        self.SO = False
+        self.JRA = False
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
-        self.CREATE_CEINMS_MODEL = True
+        self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = True
         self.CEINMS_CALIBRATION_PLOTS = True

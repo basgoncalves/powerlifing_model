@@ -28,7 +28,7 @@ from scipy import signal
 import settings
 import ceinms
 import openSim
-
+test = 1
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -930,7 +930,17 @@ class Analyse(settings.Inputs):
             print_to_log(f'Plotted Experimental vs CEINMS results {self.path}')
         except:
             print_to_log(f'Could not plot EMG vs CEINMS results {self.path}')
-            
+    
+    def run_ceinms_exe_loop(self):
+        
+        os.chdir(self.path)
+        ceinms.executable_loop(setupXML_path=os.path.abspath(self.CEINMS_EXE_SETUP),
+                               cfgXML_path=os.path.abspath(self.CEINMS_EXE_CFG),
+                               alphas=settings.CEINMSParameters().alphas,
+                               betas=settings.CEINMSParameters().betas,
+                               gammas=settings.CEINMSParameters().gammas
+                            )
+    
 
 def cmd_analysis(trialPath=None):
     
@@ -2136,6 +2146,31 @@ def rmse(y_true, y_pred):
         y_pred (array-like): The predicted values.
     """
     return np.sqrt(np.mean((y_true - y_pred) ** 2))    
+
+def compare_curves(dataFrame1, dataFrame2, mapping=None):
+    """Calculate RMSE and R-squared the common columns between two dataFrames.
+    
+    mapping: dict
+        A dictionary mapping column names from dataFrame1 to dataFrame2.
+        
+    """
+    
+    if mapping is None:
+        common_columns = dataFrame1.columns.intersection(dataFrame2.columns)
+        mapping = dict(common_columns.to_series())
+    else:
+        common_columns = list(mapping.keys())
+        
+    results = pd.DataFrame(columns=['RMSE', 'R2'], index=common_columns)
+    for col in common_columns:
+        mapped_col = mapping.get(col, col)
+        y_true_col = dataFrame1[mapped_col].values
+        y_pred_col = dataFrame2[col].values
+        rmse_value = rmse(y_true_col, y_pred_col)
+        r2_value = rsquared(y_true_col, y_pred_col)
+        results.loc[col] = [rmse_value, r2_value]
+    
+    return results
 
 # dir manipulation
 def rename_all_files_in_dir(dir_path, old_str, new_str):

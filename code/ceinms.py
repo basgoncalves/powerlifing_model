@@ -504,6 +504,89 @@ def calibrate_synergy_compare(setupXML_path=None, synergy_numbers: list = [3, 4,
             shutil.copy(calibratedModelPath, newCalibratedModelPath)
 
 # CEINMS base exe function
+def create_ceinms_cfg(ceinmsModelPath=None, alpha=1, beta=100, gamma=1000, dofSet=None, 
+                      excitationGeneratorFilePath=None, outputPath=None):
+    
+    if not ceinmsModelPath:
+        ceinmsModelPath = input("Enter path to CEINMS model file: ").strip('"')
+    if not dofSet:
+        dofSet = input("Enter DOF set (space-separated): ").strip()
+    
+    if not excitationGeneratorFilePath:
+        excitationGeneratorFilePath = input("Enter path to excitation generator file: ").strip('"')
+    
+    execution = ET.ElementTree(ET.Element("execution")).getroot()
+    nmsmodel = ET.SubElement(execution, "NMSmodel")
+    type_tag = ET.SubElement(nmsmodel, "type")
+    hybrid = ET.SubElement(type_tag, "hybrid")
+    ET.SubElement(hybrid, "alpha").text = str(alpha)
+    ET.SubElement(hybrid, "beta").text = str(beta)
+    ET.SubElement(hybrid, "gamma").text = str(gamma)
+    ET.SubElement(hybrid, "dofSet").text = dofSet
+    
+    # load CEINMS model and excitation generator to get muscle names
+    model = ET.parse(ceinmsModelPath).getroot()
+    muscle_names = [mtu.find('name').text for mtu in model.find('mtuSet').findall('mtu')]
+    
+    excitationGenerator = ET.parse(excitationGeneratorFilePath).getroot()
+    mapping = excitationGenerator.find('mapping')
+    
+    synthMTUs = []
+    adjustMTUs = []
+    for muscle in muscle_names:    
+        excitation = mapping.find(f".//excitation[@id='{muscle}']")
+        if excitation is not None and excitation.find('input') is not None:
+            synthMTUs.append(muscle)
+        else:
+            adjustMTUs.append(muscle)
+    
+    ET.SubElement(hybrid, "synthMTUs").text = " ".join(synthMTUs)
+    ET.SubElement(hybrid, "adjustMTUs").text = " ".join(adjustMTUs)
+    
+    algorithm = ET.SubElement(hybrid, "algorithm")
+    simulatedAnnealing = ET.SubElement(algorithm, "simulatedAnnealing")
+    ET.SubElement(simulatedAnnealing, "noEpsilon").text = "4"
+    ET.SubElement(simulatedAnnealing, "rt").text = "0.3"
+    ET.SubElement(simulatedAnnealing, "T").text = "20000"
+    ET.SubElement(simulatedAnnealing, "NS").text = "15"
+    ET.SubElement(simulatedAnnealing, "NT").text = "5"
+    ET.SubElement(simulatedAnnealing, "epsilon").text = "0.001"
+    ET.SubElement(simulatedAnnealing, "maxNoEval").text = "200000"
+    
+    tendon = ET.SubElement(nmsmodel, "tendon")
+    equilibriumElastic = ET.SubElement(tendon, "equilibriumElastic")
+    ET.SubElement(equilibriumElastic, "tolerance").text = "1e-09"
+    
+    activation = ET.SubElement(nmsmodel, "activation")
+    ET.SubElement(activation, "exponential")
+    
+    tree = ET.ElementTree(execution)
+    if not outputPath:
+        outputPath = input("Enter path to save CEINMS configuration XML file: ").strip('"')
+    
+    utils.save_pretty_xml(tree, outputPath)
+
+def replace_ceinms_cfg_parameter(cfgXML_path=None, parameter_name=None, new_value=None):
+    if not cfgXML_path:
+        cfgXML_path = input("Enter path to CEINMS configuration XML file: ").strip('"')
+    
+    if not parameter_name:
+        parameter_name = input("Enter parameter name to replace: ").strip()
+    
+    if new_value is None:
+        new_value = input("Enter new value for the parameter: ").strip()
+    
+    tree = ET.parse(cfgXML_path)
+    root = tree.getroot()
+    
+    paramTag = root.find(f'.//{parameter_name}')
+    if paramTag is not None:
+        paramTag.text = str(new_value)
+        utils.save_pretty_xml(tree, cfgXML_path)
+        print(f"Parameter '{parameter_name}' updated to '{new_value}' in {cfgXML_path}.")
+    else:
+        print(f"Parameter '{parameter_name}' not found in {cfgXML_path}.")
+                   
 def executable(setupXML_path=None):
     
     if not setupXML_path:
@@ -511,49 +594,220 @@ def executable(setupXML_path=None):
 
     os.chdir(os.path.dirname(setupXML_path)) # change wd to parent dir of setupXML (needed for CEINMS)
     
-    root = ET.parse(setupXML_path).getroot()
-    outputDirectory = root.find("outputDirectory").text
+    setupXML = ET.parse(setupXML_path).getroot()
+    outputDirectory = setupXML.find("outputDirectory").text
 
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Running CEINMS executable...")
     ceinms_terminal(executable_path=settings.CEINMS_EXE, setupXML_path=setupXML_path)
-
-def loop_gamma(setupXML_path=None, gammas: list = [1, 10, 100, 1000], ):
+    
+    # plot results
+    os.chdir(os.path.dirname(setupXML_path))
+    plot_optimisation_results(outputDirectory)
+    
+    inputData = ET.parse(setupXML.find('inputDataFile').text).getroot()
+    experimentalEMGPath = inputData.find('excitationsFile').text
+    experimentalMomentsPath = inputData.find('externalTorquesFile').text
+    
+    plot_experimental_vs_ceinms(emgFile=experimentalEMGPath,
+                                ceinmsExcitationsFile=os.path.join(outputDirectory, 'AdjustedEmgs.sto'),
+                                excitationGeneratorFile=setupXML.find('excitationGeneratorFile').text,
+                                externalMomentsFile=experimentalMomentsPath, 
+                                ceinmsTorquesFile=os.path.join(outputDirectory, 'Torques.sto'))
+    
+def executable_loop(setupXML_path=None, cfgXML_path=None, 
+                    gammas: list = [1, 10, 100, 1000], 
+                    betas: list = [1, 10, 100, 1000], 
+                    alphas: list = [1, 10]):
+    
     if not setupXML_path:
         setupXML_path = input("Enter path to setup XML file: ").strip('"')
     
-    if not loop_parameter:
-        loop_parameter = input("Enter the parameter to loop over (e.g., 'betaMin'): ").strip()
-    
-    if not loop_values:
-        values_str = input("Enter the values to loop over, separated by commas: ").strip()
-        loop_values = [float(val) for val in values_str.split(',')]
+    if not cfgXML_path:
+        cfgXML_path = input("Enter path to CEINMS configuration XML file: ").strip('"')
+        
+    combinations = [(a, b, g) for a in alphas for b in betas for g in gammas]
     
     base_dir = os.path.dirname(setupXML_path)
+    os.chdir(base_dir) # change wd to parent dir of setupXML (needed for CEINMS)
     
-    for value in loop_values:
-        print(f"Running CEINMS with {loop_parameter} = {value}...")
+    setup = ET.parse(setupXML_path).getroot()
+    ceinmsModelPath = setup.find('subjectFile').text
+    excitationGeneratorFilePath = os.path.abspath(setup.find('excitationGeneratorFile').text)
+    executionOutputDir = setup.find('outputDirectory').text
+    for value in combinations:
+        print(f"Running CEINMS with alpha={value[0]}, beta={value[1]}, gamma={value[2]}...")
         
-        # Create a new setup XML with modified parameter
-        root = ET.parse(setupXML_path).getroot()
-
-        paramTag = root.find(f'.//{loop_parameter}')
-        if paramTag is not None:
-            paramTag.text = str(value)
-        else:
-            print(f"Parameter '{loop_parameter}' not found in setup XML.")
-            continue
-
-        # Update output directory to reflect current parameter value
-        outputDirectory = root.find("outputDirectory")
-        outputDirectory.text = os.path.join(base_dir, f'output_{loop_parameter}_{value}')
+        replace_ceinms_cfg_parameter(cfgXML_path, 'alpha', value[0])
+        replace_ceinms_cfg_parameter(cfgXML_path, 'beta', value[1])
+        replace_ceinms_cfg_parameter(cfgXML_path, 'gamma', value[2])
         
-        new_setupXML_path = os.path.join(base_dir, f'setup_{loop_parameter}_{value}.xml')
-        utils.save_pretty_xml(ET.ElementTree(root), new_setupXML_path)
-
+        outputDirectory = setup.find("outputDirectory")
+        outputDirectory.text = executionOutputDir + f'_a{value[0]}_b{value[1]}_g{value[2]}'
+        
+        utils.save_pretty_xml(ET.ElementTree(setup), setupXML_path)
+        
         # Run CEINMS executable
-        executable(setupXML_path=new_setupXML_path)
+        executable(setupXML_path=setupXML_path)
+        
+    # Summarise results
+    executable_loop_summarise_results(baseDir=base_dir, prefix=executionOutputDir)
+
+def executable_loop_summarise_results(baseDir=None, prefix='Execution'):
+    if not baseDir:
+        baseDir = input("Enter base directory containing CEINMS output folders: ").strip('"')
+    
+    def excitation_dict(excitationGenerator):
+        emgMapping = {}
+        for excitation in excitationGenerator.find('mapping').findall('excitation'):
+            if excitation.find('input') is not None:
+                emgMapping[excitation.get('id')] = excitation.find('input').text
+        return emgMapping
+    
+    os.chdir(baseDir)
+    setupXML = ET.parse(settings.Inputs().CEINMS_EXE_SETUP).getroot()
+    excitationGenerator = ET.parse(setupXML.find('excitationGeneratorFile').text).getroot()
+    
+    emgMapping = excitation_dict(excitationGenerator)
+    
+    externalMoments = utils.load_any_data_file(os.path.join(baseDir, settings.Inputs().ID))
+    externalMoments.columns = [col.replace('_moment', '') for col in externalMoments.columns]
+    
+    emgData = utils.load_any_data_file(os.path.join(baseDir, settings.Inputs().EMG_NORMALISED))
+    results = pd.DataFrame(columns=['Alpha', 'Beta', 'Gamma', 'RMSE_Moments', 'R2_Moments', 'RMSE_Excitations', 'R2_Excitations'])
+    for folder in os.walk(baseDir):
+        
+        if not os.path.basename(folder[0]).startswith(prefix):
+            continue
+        # if folder contains both 'AdjustedEmgs.sto' and 'Torques.sto' files
+        if 'AdjustedEmgs.sto' in folder[2] and 'Torques.sto' in folder[2]:
+            
+            ceinmsTorques = utils.load_any_data_file(os.path.join(folder[0], 'Torques.sto'))
+            ceinmsTimeRange = (ceinmsTorques['time'].iloc[0], ceinmsTorques['time'].iloc[-1])
+            externalMoments = externalMoments[(externalMoments['time'] >= ceinmsTimeRange[0]) & (externalMoments['time'] <= ceinmsTimeRange[1])].reset_index(drop=True)
+            id_norm = utils.time_normalise_df(externalMoments).drop(columns=['time'])
+            ceinmsTorques_norm = utils.time_normalise_df(ceinmsTorques).drop(columns=['time'])
+            
+            stats = utils.compare_curves(id_norm, ceinmsTorques_norm)
+            rmse_moments, r2_moments = stats['RMSE'], stats['R2'].mean()
+            columns = [col for col in rmse_moments.index]
+            rmse_moments = (rmse_moments / (id_norm[columns].max()-id_norm[columns].min()) *100).mean()
+            
+            
+            ceinmsExcitations = utils.load_any_data_file(os.path.join(folder[0], 'AdjustedEmgs.sto'))
+            ceinms_start_time, ceinms_end_time = ceinmsExcitations['time'].iloc[0], ceinmsExcitations['time'].iloc[-1]
+            emgData = emgData[(emgData['time'] >= ceinms_start_time) & (emgData['time'] <= ceinms_end_time)].reset_index(drop=True)
+            
+            ceinmsExcitations_norm = utils.time_normalise_df(ceinmsExcitations).drop(columns=['time'])
+            emgData_norm = utils.time_normalise_df(emgData).drop(columns=['time'])
+            stats = utils.compare_curves(emgData_norm, ceinmsExcitations_norm, emgMapping)
+            
+            rmse_excitations, r2_excitations = stats['RMSE'], stats['R2'].mean()
+            columns = [col for col in rmse_excitations.index]
+            rmse_excitations = (rmse_excitations / (ceinmsExcitations_norm[columns].max()-ceinmsExcitations_norm[columns].min()) *100).mean()
+            
+            # extract alpha, beta, gamma from folder name
+            folder_name = os.path.basename(folder[0])
+            alpha = int(folder_name.split('_a')[1].split('_')[0])
+            beta = int(folder_name.split('_b')[1].split('_')[0])
+            gamma = int(folder_name.split('_g')[1].split('_')[0])
+            
+            results = pd.concat([results, pd.DataFrame({
+                'Alpha': [alpha],
+                'Beta': [beta],
+                'Gamma': [gamma],
+                'RMSE_Moments': [rmse_moments],
+                'R2_Moments': [r2_moments],
+                'RMSE_Excitations': [rmse_excitations],
+                'R2_Excitations': [r2_excitations]
+            })], ignore_index=True)
+            
+    results_path = os.path.join(baseDir, 'CEINMS_Executable_Results_Summary.csv')
+    results.to_csv(results_path, index=False)
+    print(f"Results summary saved to: {results_path}")
+    try:
+        plot_loop_results(results_path)
+    except Exception as e:
+        print(f"Error plotting loop results: {e}")
+   
+def plot_loop_results(CSVresultsPath=None):
+    
+    if not CSVresultsPath:
+        CSVresultsPath = input("Enter path to CEINMS executable results CSV file: ").strip('"')
+        
+    df = pd.read_csv(CSVresultsPath)
+
+    alphas = df['Alpha'].unique()
+    betas = df['Beta'].unique()
+    gammas = df['Gamma'].unique()
+    combinations = [(a, b) for a in alphas for b in betas]
+    
+    # Set up the figure with 2x2 subplots
+    fig, axes = plt.subplots(len(combinations), 2, figsize=(16, 12))
+    fig.suptitle('Effects of Parameters on Model Performance', fontsize=16)
+    axes = axes.flatten()
+    
+    for i, (alpha, beta) in enumerate(combinations): 
+        cropped_df = df[(df['Alpha'] == alpha) & (df['Beta'] == beta)]
+        
+        # Plot RMSE
+        ax_rmse = axes[i*2]
+        ax_rmse.scatter(cropped_df['Gamma'], cropped_df['RMSE_Moments'], c='blue', label=f'Moments', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
+        ax_rmse.scatter(cropped_df['Gamma'], cropped_df['RMSE_Excitations'], c='red', label='Excitations', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
+        ax_rmse.set_ylabel('RMSE')
+        ax_rmse.set_xticklabels([])
+        ax_rmse.grid(True, alpha=0.3)
+        ax_rmse.set_xscale('log')   
+        
+        # add text box with alpha and beta values
+        textstr = f'Alpha: {alpha}\nBeta: {beta}'
+        props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+        ax_rmse.text(0.05, 0.95, textstr, transform=ax_rmse.transAxes, fontsize=10, verticalalignment='top', bbox=props)
+        
+        if i == 0:
+            ax_rmse.legend()
+        
+        if i == len(combinations) - 1:
+            ax_rmse.set_xlabel('Gamma')
+            ax_rmse.set_xticklabels(gammas)
+            
+        
+        # Plot R²
+        ax_r2 = axes[i*2 + 1]
+        ax_r2.scatter(cropped_df['Gamma'], cropped_df['R2_Moments'], c='blue', label='Moments', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
+        ax_r2.scatter(cropped_df['Gamma'], cropped_df['R2_Excitations'], c='red', label='Excitations', s=60, alpha=0.7, edgecolors='black', linewidth=0.5)
+        ax_r2.set_ylabel('R²')
+        ax_r2.set_xticklabels([])
+        ax_r2.grid(True, alpha=0.3)
+        ax_r2.set_xscale('log')
+        
+        if i == len(combinations) - 1:
+            ax_r2.set_xlabel('Gamma')
+            ax_r2.set_xticklabels(gammas)
+    
+    plt.tight_layout()
+    savepath = CSVresultsPath.replace('.csv', '.png')
+    plt.savefig(savepath)
+    print(f"Parameter effects plot saved to: {savepath}")
+    
+    # Print summary statistics
+    print("Parameter Effects Summary:")
+    print("="*50)
+    print(f"Best RMSE_Moments: {df['RMSE_Moments'].min():.3f} - {df.loc[df['RMSE_Moments'].idxmin(), ['Alpha', 'Beta', 'Gamma']].to_dict()}")
+    print(f"Best R2_Moments: {df['R2_Moments'].max():.3f} - {df.loc[df['R2_Moments'].idxmax(), ['Alpha', 'Beta', 'Gamma']].to_dict()}")
+    print(f"Best RMSE_Excitations: {df['RMSE_Excitations'].min():.3f} - {df.loc[df['RMSE_Excitations'].idxmin(), ['Alpha', 'Beta', 'Gamma']].to_dict()}")
+    print(f"Best R2_Excitations: {df['R2_Excitations'].max():.3f} - {df.loc[df['R2_Excitations'].idxmax(), ['Alpha', 'Beta', 'Gamma']].to_dict()}")
+    
+    # calculate overall best as sum of ranks
+    df['Rank_RMSE_Moments'] = df['RMSE_Moments'].rank()
+    df['Rank_R2_Moments'] = df['R2_Moments'].rank(ascending=False)
+    df['Rank_RMSE_Excitations'] = df['RMSE_Excitations'].rank()
+    df['Rank_R2_Excitations'] = df['R2_Excitations'].rank(ascending=False)
+    df['Total_Rank'] = df[['Rank_RMSE_Moments', 'Rank_R2_Moments', 'Rank_RMSE_Excitations', 'Rank_R2_Excitations']].sum(axis=1)
+    best_overall = df.loc[df['Total_Rank'].idxmin()]
+    print(f"Best over all: {best_overall['Total_Rank']:.1f} - {best_overall[['Alpha', 'Beta', 'Gamma']].to_dict()}")
+
 # Optimisation functions
 def create_optimise_setupXML(ceinmsModelPath=None, 
                             inputDataFile=None,
@@ -1114,5 +1368,8 @@ if __name__ == "__main__":
             globals()[command]()
         except Exception as e:
             print(f"Error executing {command}: {e}")
+    
+        break       
+# END
         
         
