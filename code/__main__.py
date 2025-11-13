@@ -88,7 +88,7 @@ def main(analyse: utils.Analyse):
     if settings.Execute().CREATE_CEINMS_FILES:
         
         # create CEINMS model file
-        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.CEINMS_UNCALIBRATED_MODEL)):
+        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.CEINMS_UNCALIBRATED_MODEL) or settings.Execute().replace):
             try:
                 analyse.create_ceinms_model()
             except Exception as e:

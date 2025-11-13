@@ -57,7 +57,7 @@ class Analyse(settings.Inputs):
             os.chdir(trialPath)
             # check for trial_settings.xml in trialPath
             self.settingsXML = os.path.relpath(os.path.join(trialPath, 'trial_settings.xml'), trialPath)
-            if os.path.exists(self.settingsXML):
+            if os.path.exists(self.settingsXML) and not settings.Execute().replace:
                 self.load_settings(self.settingsXML)
                 return
             
@@ -87,7 +87,7 @@ class Analyse(settings.Inputs):
             self.MODEL = os.path.relpath(os.path.join(settings.MODELS_DIR, self.subject, self.session, settings.MODEL_NAME), self.path)
             self.TIME_RANGE = self.get_time_range()
             
-            if not os.path.exists(self.settingsXML):
+            if not os.path.exists(self.settingsXML) or settings.Execute().replace:
                 self._to_xml()
                 
     def reset(self):
@@ -971,9 +971,6 @@ def cmd_analysis(trialPath=None):
             elif command == 'run_jra':
                 trial.run_jra()
                
-            
-
-
 def print_to_log(message, terminal=False):
     """
     Prints a message to the console and logs it to a file.

@@ -23,11 +23,11 @@ powerlifing_model/
 
 '''
 
-SUBJECTS_TO_ANALYSE =  ['Athlete_03_MRI_BG'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
+SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katya'['Katya_01','Athlete_03', 'Athlete_04', 'Athlete_05', 'Athlete_06', 'Athlete_07']
 
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
 
-TRIALS_TO_ANALYSE =  ['Walking_02', 'Walking_03', 'Walking_04'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Walking_03', 'Walking_04', 'Walking_05'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
@@ -37,7 +37,7 @@ MODEL_NAME = 'scaled.osim'
 MODULE_DIR = os.path.dirname(__file__)
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\RunningFAI')
+SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\Purzel')
 POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
@@ -59,7 +59,7 @@ class Inputs:
         self.C3D = 'c3dfile.c3d'
         self.EMG_RAW = 'emg.mot'
         self.EMG_FILTERED = 'EMG_filtered.sto'
-        self.EMG_NORMALISED = 'EMG_filtered_normalised_scaled_0.70.sto'
+        self.EMG_NORMALISED = 'EMG_filtered_normalised.sto'
         self.GRF_MOT = 'grf.mot'
         self.MARKERS = 'marker_experimental.trc'
         self.EVENTS = 'events.csv'
@@ -142,13 +142,13 @@ class CEINMSParameters:
         self.alphas = [1, 10, 100]
         self.betas = [1, 10]
         self.gammas = [1, 500, 1000, 1500, 2000,
-                       2500, 3000, 3500, 4000, 4500, 5000]
+                       2500, 3000]
         
         self.c1 = '-0.99 -0.05'
         self.c2 = '-0.95 -0.05'
         self.shapefactor = '-2.999 -0.001'
-        self.optimalFiberLength = '0.5 1.5'
-        self.tendonSlackLength = '0.5 1.5'
+        self.optimalFiberLength = '0.5 3'
+        self.tendonSlackLength = '0.5 3'
         self.strengthCoefficient = '0.75 3.5'
         
         self.Target_Muscles = ['all']  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
@@ -189,7 +189,7 @@ class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
         
-        self.replace = False
+        self.replace = True
 
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
@@ -202,20 +202,20 @@ class Execute:
         self.JRA = False
         
         self.EMG_NORMALISE = False
-        self.SCALE_EMG = False
+        self.SCALE_EMG = True
         self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
         self.CREATE_CEINMS_MODEL = False
         
-        self.CEINMS_CALIBRATION = True
-        self.CEINMS_CALIBRATION_PLOTS = True
+        self.CEINMS_CALIBRATION = False
+        self.CEINMS_CALIBRATION_PLOTS = False
         
         self.CEINMS_OPTIMISATION = True
         self.CEINMS_EXE = False
         self.JRA_CEINMS = True
         
-        self.CREATE_PLOTS = True
+        self.CREATE_PLOTS = False
         
         self.push_to_git = True
                
