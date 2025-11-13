@@ -124,7 +124,6 @@ def main(analyse: utils.Analyse):
         except Exception as e:
             utils.print_to_log(f'Error creating CEINMS optimisation setup file: {e}')
                 
-        
     # CEINMS calibration and optimization
     if settings.Execute().CEINMS_CALIBRATION and analyse.trial in settings.CEINMS_CALIBRATION_TRIALS:
         
@@ -149,6 +148,12 @@ def main(analyse: utils.Analyse):
             utils.print_to_log(f'Error during CEINMS executable run: {e}')
 
         # Run Joint Reaction Analysis for CEINMS
+    
+    if settings.Execute().CEINMS_EXE_LOOP:
+        try:
+            analyse.run_ceinms_exe_loop()
+        except Exception as e:
+            utils.print_to_log(f'Error during CEINMS executable loop run: {e}')
     
     # Run Joint Reaction Analysis with CEINMS muscle forces
     if settings.Execute().JRA_CEINMS:

@@ -751,10 +751,11 @@ class Analyse(settings.Inputs):
 
     def create_excitation_generator(self):
         os.chdir(self.path)
-        ceinms.create_excitation_generator(osim_model_path=self.MODEL,
-                                           emg_path=self.CEINMS_EXCITATIONS,
-                                           save_path=self.CEINMS_EXCITATION_GENERATOR
-        )
+        if not os.path.exists(self.CEINMS_EXCITATION_GENERATOR) or settings.Execute().replace:
+            ceinms.create_excitation_generator(osim_model_path=self.MODEL,
+                                               emg_path=self.CEINMS_EXCITATIONS,
+                                               save_path=self.CEINMS_EXCITATION_GENERATOR
+            )
     
     def create_ceinms_cfg_from_excitation_generator(self):
         """
@@ -892,6 +893,10 @@ class Analyse(settings.Inputs):
             
     def create_ceinms_optimise_setup(self):
         os.chdir(self.path)
+        
+        if os.path.exists(self.CEINMS_OPTIMISE_SETUP) and not settings.Execute().replace:
+            return
+        
         ceinms.create_optimise_setupXML(ceinmsModelPath=self.CEINMS_CALIBRATED_MODEL, 
                             inputDataFile=self.CEINMS_INPUT_DATA,
                              calibrationCfgPath=self.CEINMS_OPTIMISE_CFG,

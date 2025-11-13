@@ -202,7 +202,7 @@ class Execute:
         self.JRA = False
         
         self.EMG_NORMALISE = False
-        self.SCALE_EMG = True
+        self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
         self.CREATE_CEINMS_FILES = True
@@ -211,8 +211,10 @@ class Execute:
         self.CEINMS_CALIBRATION = False
         self.CEINMS_CALIBRATION_PLOTS = False
         
-        self.CEINMS_OPTIMISATION = True
+        self.CEINMS_OPTIMISATION = False
         self.CEINMS_EXE = False
+        self.CEINMS_EXE_LOOP = True
+        
         self.JRA_CEINMS = True
         
         self.CREATE_PLOTS = False
