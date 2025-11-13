@@ -27,7 +27,7 @@ SUBJECTS_TO_ANALYSE =  ['Athlete_03'] # 'Athlete_03_MRI_BG','Athlete_03_MRI_Katy
 
 SESSIONS_TO_ANALYSE = ['25_03_31'] # '22_07_06' \25_03_31 
 
-TRIALS_TO_ANALYSE =  ['Walking_03', 'Walking_04', 'Walking_05'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
+TRIALS_TO_ANALYSE =  ['Squat_bw_01', 'Squat_bw_02'] # [Squat_bw_01,'sq_80','sq_90','dl_70','dl_75','dl_80','dl_85','dl_90']#['sq_70','sq_75','sq_80','sq_85','sq_90'] #
 
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
@@ -189,7 +189,7 @@ class Execute:
     ''' Logics for which analyses to execute '''
     def __init__(self):
         
-        self.replace = True
+        self.replace = False
 
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3

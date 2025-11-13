@@ -249,6 +249,12 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
         for elem in root.findall(f'.//{tag}'):
             elem.text = str(value)
 
+    # Parameter to calibrate ranges
+    parametersToCalibrate = root.find('calibrationTargets').find('parametersToCalibrate')
+    for param in parametersToCalibrate: 
+        if param.get('name') in settings.CEINMSParameters().__dict__:
+            param.text =  settings.CEINMSParameters().__dict__[param.get('name')]
+
     # trialSet
     trialSet = root.find('trialSet')
     trialSet.text = ' '.join(inputPaths) 
@@ -564,7 +570,7 @@ def create_ceinms_cfg(ceinmsModelPath=None, alpha=1, beta=100, gamma=1000, dofSe
     if not outputPath:
         outputPath = input("Enter path to save CEINMS configuration XML file: ").strip('"')
     
-    utils.save_pretty_xml(tree, outputPath)
+    utils.save_pretty_xml(tree, os.path.abspath(outputPath))
 
 def replace_ceinms_cfg_parameter(cfgXML_path=None, parameter_name=None, new_value=None):
     if not cfgXML_path:

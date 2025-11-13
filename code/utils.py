@@ -425,7 +425,7 @@ class Analyse(settings.Inputs):
             if os.path.exists(emgPath):
                 emg_normalise_list.append(emgPath)
         
-        openSim.EMG_normalise(target_emg_path= str(self.EMG_FILTERED),
+        openSim.run_emg_normalise(target_emg_path= str(self.EMG_FILTERED),
                                 normalise_emg_list=emg_normalise_list)
     
     @staticmethod
@@ -666,7 +666,7 @@ class Analyse(settings.Inputs):
         return fig, axes
     
     def plot_emg(self):
-        self.emg_data = load_any_data_file(self.inputFiles.EMG_NORMALISED)
+        self.emg_data = load_any_data_file(self.EMG_NORMALISED)
         
         muscles = self.emg_data.columns
 
@@ -687,7 +687,7 @@ class Analyse(settings.Inputs):
                 ax.legend(loc='upper right')
         
         # save figure and return
-        savePath = os.path.join(self.inputFiles.EMG_NORMALISED.replace('.sto','.png'))
+        savePath = os.path.join(self.EMG_NORMALISED.replace('.sto','.png'))
         plt.savefig(savePath)
         print(f'Figure saved to {savePath}')
 
@@ -936,9 +936,21 @@ class Analyse(settings.Inputs):
         except:
             print_to_log(f'Could not plot EMG vs CEINMS results {self.path}')
     
-    def run_ceinms_exe_loop(self):
+    def run_ceinms_exe_loop(self):        
         
         os.chdir(self.path)
+        if not os.path.exists(self.CEINMS_EXE_SETUP):
+            self.create_ceinms_exe_setup()
+        
+        if not os.path.exists(self.CEINMS_EXE_CFG):
+            ceinms.create_ceinms_cfg(ceinmsModelPath=self.CEINMS_CALIBRATED_MODEL,
+                                     alpha=settings.CEINMSParameters().alpha,
+                                     beta=settings.CEINMSParameters().beta,
+                                        gamma=settings.CEINMSParameters().gamma,
+                                        dofSet=' '.join(settings.DOFs),
+                                        excitationGeneratorFilePath=self.CEINMS_EXCITATION_GENERATOR,
+                                        outputPath=self.CEINMS_EXE_CFG)
+            
         ceinms.executable_loop(setupXML_path=os.path.abspath(self.CEINMS_EXE_SETUP),
                                cfgXML_path=os.path.abspath(self.CEINMS_EXE_CFG),
                                alphas=settings.CEINMSParameters().alphas,
