@@ -20,7 +20,7 @@
    <setup_so>setup_SO.xml</setup_so>
    <jra_forces>SO_StaticOptimization_force.sto</jra_forces>
    <setup_jra>setup_JRA.xml</setup_jra>
-   <ceinms_excitations>EMG_filtered_normalised.sto</ceinms_excitations>
+   <ceinms_excitations>EMG_filtered_normalised_scaled_0.70.sto</ceinms_excitations>
    <ceinms_uncalibrated_model>..\subjectUncalibrated.xml</ceinms_uncalibrated_model>
    <ceinms_calibrated_model>..\subjectCalibrated.xml</ceinms_calibrated_model>
    <ceinms_calibration_cfg>..\calibrationCfg.xml</ceinms_calibration_cfg>
@@ -52,10 +52,10 @@
    <parentdir>..</parentdir>
    <hybridCalibration>true</hybridCalibration>
    <numberOfSynergies>8</numberOfSynergies>
-   <alpha>1</alpha>
+   <alpha>10</alpha>
    <beta>1</beta>
-   <gamma>1</gamma>
-   <betaMin>1</betaMin>
+   <gamma>1000</gamma>
+   <betaMin>1000</betaMin>
    <betaMax>100</betaMax>
    <betaDelta>10</betaDelta>
    <gammaMin>1</gammaMin>
