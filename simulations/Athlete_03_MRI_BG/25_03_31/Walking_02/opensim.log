@@ -4835,3 +4835,30 @@ Assembly error tolerance achieved: 6.794352176798608e-09 required: 1e-10..Model 
 [2025-11-14 04:14:34.402] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2025-11-14 04:14:34.402] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
 [2025-11-14 04:14:35.437] [info] Printing results of investigation Analyse to .
+[2025-11-14 07:21:20.239] [info] Loaded model tps_transformed from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-11-14 07:21:20.816] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-11-14 07:21:20.855] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-11-14 07:21:20.899] [info] Loaded model tps_transformed from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-11-14 07:21:21.103] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-11-14 07:21:21.183] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-11-14 07:21:21.184] [info] ExternalForce::grf_r_5 Data source being set to grf
+[2025-11-14 07:21:21.207] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-14 07:21:21.207] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-11-14 07:21:21.212] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-14 07:21:21.559] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.79435217825725e-09 required: 1e-10.
+[2025-11-14 07:21:21.566] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.794352176798608e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-14 07:21:21.901] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-11-14 07:21:21.902] [info] Executing the analyses from 0.175 to 1.255...
+[2025-11-14 07:21:21.913] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2025-11-14 07:21:21.913] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2025-11-14 07:21:21.913] [warning] MuscleAnalysis: coordinate wrist_flex_r is locked and can't be varied.
+[2025-11-14 07:21:21.913] [warning] MuscleAnalysis: coordinate wrist_dev_r is locked and can't be varied.
+[2025-11-14 07:21:21.914] [warning] MuscleAnalysis: coordinate wrist_flex_l is locked and can't be varied.
+[2025-11-14 07:21:21.914] [warning] MuscleAnalysis: coordinate wrist_dev_l is locked and can't be varied.
+[2025-11-14 07:22:29.815] [info] Printing results of investigation  to MuscleAnalysis
