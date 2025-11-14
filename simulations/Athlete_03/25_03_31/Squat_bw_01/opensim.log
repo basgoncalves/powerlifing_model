@@ -6832,3 +6832,33 @@ Assembly error tolerance achieved: 3.1241825759244457e-09 required: 1e-10..Model
 [2025-11-13 19:18:47.747] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
 [2025-11-13 19:20:24.129] [info] Storage: read data file = joint_angles.mot (nr=708 nc=40)
 [2025-11-13 19:20:24.212] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-14 06:02:40.312] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-14 06:02:40.374] [info] Storage: read data file = joint_angles.mot (nr=708 nc=40)
+[2025-11-14 06:02:40.411] [info] Storage: read data file = joint_angles.mot (nr=708 nc=40)
+[2025-11-14 06:02:40.471] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-14 06:02:40.546] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-14 06:02:40.588] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-11-14 06:02:40.755] [info] Storage: read data file = grf.mot (nr=7080 nc=46)
+[2025-11-14 06:02:40.882] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-11-14 06:02:40.882] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-11-14 06:02:40.893] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-14 06:02:40.894] [info] Storage: read data file = joint_angles.mot (nr=708 nc=40)
+[2025-11-14 06:02:40.910] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-14 06:02:42.182] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9478121339633432e-09 required: 1e-10.
+[2025-11-14 06:02:42.191] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9478121339588467e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-14 06:02:43.155] [info] Found 1416 state vectors with time stamps ranging from -1.77 to 5.30500.
+[2025-11-14 06:02:43.156] [info] Executing the analyses from -3.52163e-13 to 3.535...
+[2025-11-14 06:02:43.158] [info] Loading actuator forces from file Execution_a10_b1_g1000\MuscleForces.sto.
+[2025-11-14 06:02:43.158] [info] Old version storage/motion file encountered
+[2025-11-14 06:02:43.158] [info] Storage: read data file = Execution_a10_b1_g1000\MuscleForces.sto (nr=708 nc=81)
+[2025-11-14 06:02:43.159] [info] .. assuming rotations in Radians..
+[2025-11-14 06:02:43.187] [info] Found 80 actuator forces with time stamps ranging from 0.015to 3.535.
+[2025-11-14 06:02:43.187] [warning] The forces file does not contain enough actuators.
+[2025-11-14 06:02:43.188] [info] Actuator forces will be constructed from the states.
+[2025-11-14 06:02:45.933] [info] Printing results of investigation Analyse to .
