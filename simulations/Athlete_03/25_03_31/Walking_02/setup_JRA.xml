@@ -12,7 +12,7 @@
 		<!--Output precision.  It is 8 by default.-->
 		<output_precision>8</output_precision>
 		<!--Initial time for the simulation.-->
-		<initial_time>0.17999999999999999</initial_time>
+		<initial_time>0.17499999999999999</initial_time>
 		<!--Final time for the simulation.-->
 		<final_time>1.2549999999999999</final_time>
 		<!--Flag indicating whether or not to compute equilibrium values for states other than the coordinates or speeds.  For example, equilibrium muscle fiber lengths or muscle forces.-->
@@ -32,7 +32,7 @@
 					<!--Flag (true or false) specifying whether on. True by default.-->
 					<on>true</on>
 					<!--Start time.-->
-					<start_time>0.17999999999999999</start_time>
+					<start_time>0.17499999999999999</start_time>
 					<!--End time.-->
 					<end_time>1.2549999999999999</end_time>
 					<!--Specifies how often to store results during a simulation. More specifically, the interval (a positive integer) specifies how many successful integration steps should be taken before results are recorded again.-->
@@ -40,7 +40,7 @@
 					<!--Flag (true or false) indicating whether the results are in degrees or not.-->
 					<in_degrees>true</in_degrees>
 					<!--The name of a file containing forces storage. If a file name is provided, the forces for all actuators will be applied according to values specified in the forces_file instead of being computed from the states. This option should be used to calculate joint reactions from static optimization results.-->
-					<forces_file>SO_StaticOptimization_force.sto</forces_file>
+					<forces_file>Execution_a10_b1_g1000\MuscleForces.sto</forces_file>
 					<!--Names of the joints on which to perform the analysis. The key word 'All' indicates that the analysis should be performed for all joints.-->
 					<joint_names> all</joint_names>
 					<!--Choice of body ('parent' or 'child') for which the reaction loads are calculated. Child body is default. The array must either have one entry or the same number of entries as joints specified above. If the array has one entry only, that selection is applied to all chosen joints.-->
