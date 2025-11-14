@@ -18,10 +18,10 @@ def main(analyse: utils.Analyse):
     # Export c3d file
     if settings.Execute().exportC3D:
         subject_without_zero = analyse.subject.replace('0', '')
-        exportC3D.export_markers(analyse.C3D,
+        exportC3D.export_markers(analyse.c3d,
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
-        exportC3D.export_grf(analyse.C3D)
-        exportC3D.export_emg(analyse.C3D)
+        exportC3D.export_grf(analyse.c3d)
+        exportC3D.export_emg(analyse.c3d)
 
     # Run IK
     if settings.Execute().IK:
@@ -70,16 +70,16 @@ def main(analyse: utils.Analyse):
 
         for name in settings.TRIALS_TO_ANALYSE:
 
-            abs_path_emg = str(analyse.EMG_FILTERED)
+            abs_path_emg = str(analyse.emg_filtered)
             if os.path.exists(abs_path_emg):
                 emg_normalise_list.append(abs_path_emg)
             else:
                 print(f"EMG file not found: {abs_path_emg}")
 
-        openSim.run_emg_normalise(target_emg_path=str(analyse.EMG_FILTERED), 
+        openSim.run_emg_normalise(target_emg_path=str(analyse.emg_filtered), 
                     normalise_emg_list=emg_normalise_list)
 
-        utils.print_to_log(f'EMG data normalised. Results are saved in {analyse.EMG_NORMALISED}')
+        utils.print_to_log(f'EMG data normalised. Results are saved in {analyse.emg_normalised}')
 
     if settings.Execute().SCALE_EMG:
         analyse.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR)
@@ -88,44 +88,30 @@ def main(analyse: utils.Analyse):
     if settings.Execute().CREATE_CEINMS_FILES:
         
         # create CEINMS model file
-        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.CEINMS_UNCALIBRATED_MODEL) or settings.Execute().replace):
+        if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.ceinms_uncalibrated_model) or analyse.replace):
             try:
                 analyse.create_ceinms_model()
             except Exception as e:
                 utils.print_to_log(f'Error creating CEINMS model file: {e}')
         
-        # create CEINMS input data XML file
-        try:
-            analyse.create_ceinms_input_data()
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS input data file: {e}')
+        analyse.replace = False
+
+        analyse.create_ceinms_model()
+
+        analyse.create_ceinms_input_data()
         
-        # create CEINMS calibration cfg XML file
-        try:
-            analyse.create_ceinms_calibration_gfc()
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS calibration cfg file: {e}')
+        analyse.create_ceinms_calibration_cfg()
 
-        # create CEINMS excitation generator XML file
-        try:
-            analyse.create_excitation_generator()
-        except Exception as e:
-            utils.print_to_log(f'Error creating excitation generator file: {e}')
-            
-        # Create CEINMS calibration setup XML file
-        try:       
-            analyse.create_ceinms_calibration_setup()
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS calibration setup file: {e}')
+        analyse.create_ceinms_calibration_setup()
 
-        # Create CEINMS optimisation setup XML file
-        try: 
-            analyse.create_ceinms_optimise_setup()
-        except Exception as e:
-            utils.print_to_log(f'Error creating CEINMS optimisation setup file: {e}')
+        analyse.create_excitation_generator()
+
+        analyse.create_ceinms_exe_cfg()
+
+        analyse.create_ceinms_exe_setup()
                 
     # CEINMS calibration and optimization
-    if settings.Execute().CEINMS_CALIBRATION and analyse.trial in settings.CEINMS_CALIBRATION_TRIALS:
+    if settings.Execute().CEINMS_CALIBRATION and analyse.trial in utils.CEINMS_CALIBRATION_TRIALS:
         
         try:        
             analyse.run_ceinms_calibration()
@@ -163,10 +149,9 @@ def main(analyse: utils.Analyse):
         try:
             if settings.Execute().PLOT_IK: analyse.plot_ik()
             if settings.Execute().PLOT_ID: analyse.plot_id()
-            if settings.Execute().PLOT_MA: analyse.plot_ma()
             if settings.Execute().PLOT_SO: analyse.plot_so()
             if settings.Execute().PLOT_JRA: analyse.plot_jra()
-            if settings.Execute().PLOT_EMG: analyse.plot_emg()
+            
 
             utils.print_to_log(f'Plots created successfully for: {analyse.subject} / {analyse.trial}')
         except Exception as e:
@@ -200,18 +185,17 @@ if __name__ == "__main__":
     
     print(f'Check settings in {settings.__file__}')
     time.sleep(1)
-
-    for subject in settings.SUBJECTS_TO_ANALYSE:
-        for session in settings.SESSIONS_TO_ANALYSE:
-            trial_list = os.listdir(os.path.join(settings.SIMULATIONS_DIR,
+    for subject in utils.SUBJECTS_TO_ANALYSE:
+        for session in utils.SESSIONS_TO_ANALYSE:
+            trial_list = os.listdir(os.path.join(utils.SIMULATIONS_DIR,
                                                  subject,
                                                  session))
             for trial_name in trial_list:
                 
-                if trial_name not in settings.TRIALS_TO_ANALYSE:
+                if trial_name not in utils.TRIALS_TO_ANALYSE:
                     continue
                 
-                trialPath = os.path.join(settings.SIMULATIONS_DIR,
+                trialPath = os.path.join(utils.SIMULATIONS_DIR,
                                          subject,
                                          session,
                                          trial_name)
@@ -227,9 +211,11 @@ if __name__ == "__main__":
 
                 utils.print_to_log(f'Analysis completed for: {trialPath}')
 
-                if settings.Execute().push_to_git:
-                    push_trial_results_to_git(trial=analysis)
+                
+                push_trial_results_to_git(trial=analysis)
 
+        
+    
     end_time = time.time()
     elapsed_time = end_time - start_time
     utils.print_to_log(f"Total analysis time: {elapsed_time:.2f} seconds \n \n")

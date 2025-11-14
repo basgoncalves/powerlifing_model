@@ -23,11 +23,13 @@ import warnings
 from matplotlib import pyplot as plt
 import opensim as osim
 
-def main():
+def main(osim_model_ref_filepath=None, osim_model_targ_filepath=None):
     # ========= USER SETTINGS =======
     # model files with paths
-    osim_model_ref_filepath = input("Please provide the path to the reference model: ").strip('"')
-    osim_model_targ_filepath = input("Please provide the path to the target model: ").strip('"')
+    if osim_model_ref_filepath is None:
+        osim_model_ref_filepath = input("Please provide the path to the reference model: ").strip('"')
+    if osim_model_targ_filepath is None:
+        osim_model_targ_filepath = input("Please provide the path to the target model: ").strip('"')
     optimized_model_folder = os.path.dirname(osim_model_targ_filepath)
     
     # evaluations

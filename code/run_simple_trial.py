@@ -7,35 +7,26 @@ import settings
 if __name__ == "__main__":
     
     trialPath = input("Please provide the path to the trial directory: ")
-    trial = utils.Analyse(trialPath)
     
-    # trial.run_ik()
-    # trial.run_id()
-    # trial.run_ma()
-    # trial.run_so()
-    # trial.run_jra()
+    analysis = utils.Analyse(trialPath)
     
-    # trial.run_emg_normalise()
-    trial.scale_emg(scale_factor=0.70)
-    trial.plot_emg()
-    # trial.create_ceinms_calibration_setup()
-    # trial.create_ceinms_calibration_gfc()
-    # trial.create_ceinms_input_data()
+    analysis.replace = True
+    # analysis.run_ik()
+    # analysis.run_id()
+    # analysis.run_ma()
+    # analysis.run_so()
+    # analysis.run_jra()
+    # analysis.run_emg_normalise()
+    # analysis.scale_emg(scale_factor=0.70)
+    # analysis.create_ceinms_input_data()
+    # analysis.create_ceinms_exe_setup()
+    # analysis.create_ceinms_exe_cfg()
+    # # analysis.run_ceinms_exe_loop()
+    # analysis.run_ceinms_exe()
+    analysis.run_jra_ceinms()
+    analysis.run_jra()
     
-    # trial.run_ceinms_calibration()
-    # trial.create_ceinms_exe_setup()
-    # trial.run_ceinms_exe_loop()
-    # trial.run_ceinms_exe()
-    # trial.run_ceinms_optimise()
-    
-    # os.chdir(trial.path)
-    # ceinms.plot_experimental_vs_ceinms(
-    #     emgFile=trial.EMG_NORMALISED,
-    #     ceinmsExcitationsFile=os.path.join(trial.path, 'Execution', 'AdjustedEmgs.sto'),
-    #     excitationGeneratorFile=trial.CEINMS_EXCITATION_GENERATOR,
-    #     externalMomentsFile=trial.ID,
-    #     ceinmsTorquesFile=os.path.join(trial.path, 'Execution', 'Torques.sto')
-    # )
+    analysis.push_trial_results_to_git()
     
     
 

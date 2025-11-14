@@ -159,7 +159,6 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
     Returns:
         dict: A dictionary mapping muscle names to EMG labels.
     """
-    import settings
     if not osim_model_path:
         osim_model_path = input("Enter path to OpenSim model (.osim): ").strip('"')
         
@@ -189,7 +188,7 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
 
     # Add mapping element
     mapping = ET.SubElement(root, 'mapping')
-    mapping_dict = settings.EMG_muscle_mapping    
+    mapping_dict = utils.CEINMSParameters().EMG_muscle_mapping    
     
     for muscle in muscleList:
         used = False
@@ -228,7 +227,7 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     Returns:
         ET.Element: Root XML element
     """
-    import settings
+
     if not osimModelPath: 
         osimModelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
     
@@ -238,13 +237,13 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     if not outputPath:
         outputPath = input("Enter path to save the calibration configuration XML file: ")
     
-    template_cfg = os.path.join(settings.SETUP_DIR, os.path.basename(settings.Inputs().CEINMS_CALIBRATION_CFG))
+    template_cfg = os.path.join(utils.SETUP_DIR, os.path.basename(utils.Inputs().ceinms_calibration_cfg))
     
     # read template to get structure
     tree = ET.parse(template_cfg)
     root = tree.getroot()
     
-    for param in settings.CEINMSParameters().__dict__.items():
+    for param in utils.CEINMSParameters().__dict__.items():
         tag, value = param
         for elem in root.findall(f'.//{tag}'):
             elem.text = str(value)
@@ -252,8 +251,8 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     # Parameter to calibrate ranges
     parametersToCalibrate = root.find('calibrationTargets').find('parametersToCalibrate')
     for param in parametersToCalibrate: 
-        if param.get('name') in settings.CEINMSParameters().__dict__:
-            param.text =  settings.CEINMSParameters().__dict__[param.get('name')]
+        if param.get('name') in utils.CEINMSParameters().__dict__:
+            param.text =  utils.CEINMSParameters().__dict__[param.get('name')]
 
     # trialSet
     trialSet = root.find('trialSet')
@@ -269,7 +268,7 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     # edit objectiveFunctions
     objectiveFunctions = root.find('calibrationTargets').find('objectiveFunctions')
     objectiveFunctions.clear()
-    for func in settings.CEINMSParameters().Objective_Functions:
+    for func in utils.CEINMSParameters().Objective_Functions:
         objFunc = ET.SubElement(objectiveFunctions, 'objectiveFunction')
         for key, value in func.items():
             elem = ET.SubElement(objFunc, key)
@@ -277,7 +276,7 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
             
     targetMuscles = root.find('calibrationTargets').find('muscles')
     targetMuscles.clear()
-    for muscle in settings.CEINMSParameters().Target_Muscles:
+    for muscle in utils.CEINMSParameters().Target_Muscles:
         muscleElem = ET.SubElement(targetMuscles, 'muscle')
         muscleElem.text = muscle
 
@@ -391,15 +390,85 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None,
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, savePath)
 
+def check_input_times(setupXML_path=None):
+    
+    def load_file_from_tag(setupXML, tag_name):
+        
+        original_dir = os.getcwd()
+        base_dir = os.path.dirname(setupXML_path)
+        os.chdir(base_dir)
+        file_tag = setupXML.find(tag_name)
+        if file_tag is not None:
+            os.chdir(original_dir)
+            return utils.load_any_data_file(os.path.join(base_dir, file_tag.text))
+        else:
+            raise ValueError(f"Tag '{tag_name}' not found in setup XML.")
+         
+    def is_contained(df1, time_range):
+        
+        if df1 is None or not isinstance(df1, pd.DataFrame) or 'time' not in df1.columns:
+            return False
+        
+        df1_start = df1['time'].iloc[0]
+        df1_end = df1['time'].iloc[-1]
+        if df1_start > time_range[0] or df1_end < time_range[1]:
+            return False
+        return True
+    
+    os.chdir(os.path.dirname(setupXML_path))
+    setupXML = ET.parse(setupXML_path).getroot()
+    inputDataPath = setupXML.find('inputDataFile').text 
+    inputData = ET.parse(inputDataPath).getroot()
+    
+    # create output dict to store results logics
+    output = {}
+    
+    # Get startStopTime from inputData -> CEINMS time range
+    input_startStop = inputData.find('startStopTime').text.strip().split()
+    ceinms_time_range = (float(input_startStop[0]), float(input_startStop[1]))   
+    
+    muscleTendonLength = load_file_from_tag(inputData, 'muscleTendonLengthFile')
+    output['muscleTendonLength'] = is_contained(muscleTendonLength, ceinms_time_range)
+    
+    excitations = load_file_from_tag(inputData, 'excitationsFile')
+    output['excitations'] = is_contained(excitations, ceinms_time_range)
+    
+    momentArmFiles = inputData.findall('.//momentArmsFile')
+    for momentArmFile in momentArmFiles:
+        momentArm_path = os.path.join(os.path.join(os.path.dirname(inputDataPath), momentArmFile.text))
+        momentArms = utils.load_any_data_file(momentArm_path)
+        dofName = momentArmFile.get('dofName')
+        output[dofName] = is_contained(momentArms, ceinms_time_range)
+        
+    externalTorques = load_file_from_tag(inputData, 'externalTorquesFile')
+    output['externalTorques'] = is_contained(externalTorques, ceinms_time_range)
+    
+    motion = load_file_from_tag(inputData, 'motionFile')
+    output['motion'] = is_contained(motion, ceinms_time_range)
+    
+    return output
+    
+
 # Base run ceinms function
 def ceinms_terminal(executable_path=None, setupXML_path=None):
     
+    # change wd to parent dir of setupXML 
     parentDir = os.path.dirname(setupXML_path)
-    os.chdir(parentDir) # change wd to parent dir of setupXML 
+    os.chdir(parentDir) 
     
+    # load setupXML to get outputDirectory
     setupXML = ET.parse(setupXML_path).getroot()
     outputDirectory = setupXML.find("outputDirectory").text
     
+    try:
+        outputTimes = check_input_times(setupXML_path=setupXML_path)
+    except Exception as e:
+        outputTimes = {'good': True}
+        
+    for key, value in outputTimes.items():
+        if not value:
+            print(f"Warning: Input data '{key}' does not cover the CEINMS time range!")
+            return False
     os.makedirs(outputDirectory, exist_ok=True) 
     
     print("Setup XML path:", setupXML_path)
@@ -407,6 +476,7 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
     log_file_path = os.path.join(os.path.abspath(outputDirectory), 'out.txt')
     if os.path.exists(log_file_path): os.remove(log_file_path)
     
+    # run main command
     try:
         ps_script = f'''
             $ErrorActionPreference = "Continue"
@@ -436,12 +506,11 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
             process.wait()
         print(f"CEINMS optimise process finished!")
     except Exception as e:
-        print(f"Error running CEINMS calibration: {e}")
+        print(f"Error running CEINMS: {e}")
         
     print(f"Log file saved to: {log_file_path}")
 
-    # if Calibration commad
-    # check if new calibrated model was created recently
+    # if Calibration commad check if new calibrated model was created recently
     try:
         calibratedModelPath = setupXML.find('outputSubjectFile').text
         time_updated = os.path.getmtime(calibratedModelPath)
@@ -468,8 +537,7 @@ def calibrate(setupXML_path=None):
     
     print("Calibrating CEINMS model...")
     
-    ceinms_terminal(executable_path=settings.CEINMS_CALIBRATION_EXE, 
-                    setupXML_path=setupXML_path)
+    ceinms_terminal(executable_path=utils.CEINMS_CALIBRATION_EXE, setupXML_path=setupXML_path)
 
 def calibrate_synergy_compare(setupXML_path=None, synergy_numbers: list = [3, 4, 5, 6]):
     if not setupXML_path:
@@ -606,7 +674,7 @@ def executable(setupXML_path=None):
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Running CEINMS executable...")
-    ceinms_terminal(executable_path=settings.CEINMS_EXE, setupXML_path=setupXML_path)
+    ceinms_terminal(executable_path=utils.CEINMS_EXE, setupXML_path=setupXML_path)
     
     # plot results
     os.chdir(os.path.dirname(setupXML_path))
@@ -616,11 +684,14 @@ def executable(setupXML_path=None):
     experimentalEMGPath = inputData.find('excitationsFile').text
     experimentalMomentsPath = inputData.find('externalTorquesFile').text
     
-    plot_experimental_vs_ceinms(emgFile=experimentalEMGPath,
+    try:
+        plot_experimental_vs_ceinms(emgFile=experimentalEMGPath,
                                 ceinmsExcitationsFile=os.path.abspath(os.path.join(outputDirectory, 'AdjustedEmgs.sto')),
                                 excitationGeneratorFile=setupXML.find('excitationGeneratorFile').text,
                                 externalMomentsFile=os.path.abspath(experimentalMomentsPath), 
                                 ceinmsTorquesFile=os.path.abspath(os.path.join(outputDirectory, 'Torques.sto')))
+    except Exception as e:
+        print(f"Error plotting experimental vs CEINMS results: {e}")
     
 def executable_loop(setupXML_path=None, cfgXML_path=None, 
                     gammas: list = [1, 10, 100, 1000], 
@@ -672,15 +743,15 @@ def executable_loop_summarise_results(baseDir=None, prefix='Execution'):
         return emgMapping
     
     os.chdir(baseDir)
-    setupXML = ET.parse(settings.Inputs().CEINMS_EXE_SETUP).getroot()
+    setupXML = ET.parse(utils.Inputs().ceinms_exe_setup).getroot()
     excitationGenerator = ET.parse(setupXML.find('excitationGeneratorFile').text).getroot()
     
     emgMapping = excitation_dict(excitationGenerator)
     
-    externalMoments = utils.load_any_data_file(os.path.join(baseDir, settings.Inputs().ID))
+    externalMoments = utils.load_any_data_file(os.path.join(baseDir, utils.Inputs().id))
     externalMoments.columns = [col.replace('_moment', '') for col in externalMoments.columns]
     
-    emgData = utils.load_any_data_file(os.path.join(baseDir, settings.Inputs().EMG_NORMALISED))
+    emgData = utils.load_any_data_file(os.path.join(baseDir, utils.Inputs().emg_normalised))
     results = pd.DataFrame(columns=['Alpha', 'Beta', 'Gamma', 'RMSE_Moments', 'R2_Moments', 'RMSE_Excitations', 'R2_Excitations'])
     for folder in os.walk(baseDir):
         

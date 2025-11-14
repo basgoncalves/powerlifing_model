@@ -599,7 +599,7 @@ def run_ma(osim_modelPath=None, ik_output=None,
     
     ikParentDir = os.path.dirname(os.path.abspath(ik_output))
     resultsDir = os.path.join(ikParentDir, 'MuscleAnalysis')
-    setup_xml = os.path.join(ikParentDir, settings.Inputs().setupMA)
+    setup_xml = os.path.join(ikParentDir, 'setup_ma.xml')
     
 
     if not os.path.exists(osim_modelPath):
@@ -869,6 +869,7 @@ def run_emg_normalise(target_emg_path=None, normalise_emg_list=None):
     # Normalise the target EMG to its own max values
     max_per_column = max_values.max(axis=0)
     target_emg_norm = target_emg.divide(max_per_column, axis=1)
+    target_emg_norm['time'] = target_emg['time']  # Ensure time column is preserved
     
     # Save the normalised target EMG
     ext = os.path.splitext(target_emg_path)[1]
