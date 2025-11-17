@@ -33,8 +33,10 @@ test = 1
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+setupXML = ET.parse(os.path.join(MODULE_DIR, 'setup.xml')).getroot()
+
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(MODULE_DIR, 'SetupFiles\Purzel')
+SETUP_DIR = os.path.join(MODULE_DIR, setupXML.find('setupDir').text)
 POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
@@ -48,7 +50,7 @@ CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')
 
 MODEL_NAME = 'scaled.osim'
 
-SUBJECTS_TO_ANALYSE =  ['Athlete_03_MRI_BG'] 
+SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
 SESSIONS_TO_ANALYSE = ['25_03_31'] 
 TRIALS_TO_ANALYSE =  ['Squat_bw_01'] 
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 

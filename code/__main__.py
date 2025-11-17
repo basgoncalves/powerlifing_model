@@ -8,15 +8,55 @@ import openSim
 import ceinms
 import exportC3D
 
-def main(analyse: utils.Analyse):
-    
-    # Increase muscle force
-    if settings.Execute().INCREASE_MUSCLE_FORCE: 
-        scale_factor = settings.Execute().SCALE_FACTOR
-        analyse.increase_muscle_force(factor=scale_factor, replace=True)
+
+class Execute:
+    ''' Logics for which analyses to execute '''
+    def __init__(self):
         
+        self.replace = False
+
+        self.INCREASE_MUSCLE_FORCE = False
+        self.SCALE_FACTOR = 3
+        self.exportC3D = False
+        self.IK = True
+        self.ID = True
+        self.MA = True
+        self.MOMENT_ARMS = True
+        self.SO = True
+        self.JRA = True
+        
+        self.EMG_NORMALISE = True
+        self.SCALE_EMG = False
+        self.EMG_SCALE_FACTOR = 0.7
+        
+        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_MODEL = False
+        
+        self.CEINMS_CALIBRATION = False
+        self.CEINMS_CALIBRATION_PLOTS = False
+        
+        self.CEINMS_OPTIMISATION = False
+        self.CEINMS_EXE = True
+        self.CEINMS_EXE_LOOP = False
+        
+        self.JRA_CEINMS = False
+        
+        self.CREATE_PLOTS = False
+        
+        self.PLOT_IK = True
+        self.PLOT_ID = True
+        self.PLOT_MA = True
+        self.PLOT_SO = True
+        self.PLOT_JRA = True
+        self.PLOT_EMG = True
+          
+        self.push_to_git = True
+
+def run_all_step(analyse: utils.Analyse):
+    
+    
     # Export c3d file
-    if settings.Execute().exportC3D:
+    if Execute().exportC3D:
         subject_without_zero = analyse.subject.replace('0', '')
         exportC3D.export_markers(analyse.c3d,
                                 strings_to_remove = ['Bar:', f'{subject_without_zero}:'])
@@ -24,20 +64,20 @@ def main(analyse: utils.Analyse):
         exportC3D.export_emg(analyse.c3d)
 
     # Run IK
-    if settings.Execute().IK:
+    if Execute().IK:
         analyse.run_ik()
         analyse.compare_marker_locations()
 
     # Run ID
-    if settings.Execute().ID: 
+    if Execute().ID: 
         analyse.run_id()
 
     # Run muscle analysis
-    if settings.Execute().MA: 
+    if Execute().MA: 
         analyse.run_ma()
 
     # Check moment arms
-    if settings.Execute().MOMENT_ARMS:
+    if Execute().MOMENT_ARMS:
         try:
             utils.checkMuscleMomentArms(osim_modelPath=analyse.MODEL,
                                         ik_output=analyse.IK,
@@ -55,7 +95,7 @@ def main(analyse: utils.Analyse):
             utils.print_to_log(f'[Error] during Muscle moment arms check: {e}')
 
     # Run Static Optimization
-    if settings.Execute().SO:
+    if Execute().SO:
         analyse.run_so()
 
     # Run Joint Reaction Analysis
@@ -205,7 +245,7 @@ if __name__ == "__main__":
                 utils.print_to_log(f'Running analysis for: {trialPath}')
 
                 ##  Run main analysis function ##
-                main(analyse=analysis)
+                run_all_step(analyse=analysis)
 
                 #############################################
 

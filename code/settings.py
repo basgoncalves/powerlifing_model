@@ -22,11 +22,6 @@ powerlifing_model/
     results/
 
 '''
-
-SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
-SESSIONS_TO_ANALYSE = ['25_03_31'] 
-TRIALS_TO_ANALYSE =  ['Squat_35kg_01'] 
-CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
     
 class Execute:
     ''' Logics for which analyses to execute '''

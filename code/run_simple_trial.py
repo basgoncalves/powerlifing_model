@@ -10,8 +10,7 @@ if __name__ == "__main__":
     
     analysis = utils.Analyse(trialPath)
     
-    analysis.replace = True
-    # analysis.run_ik()
+    analysis.run_ik()
     # analysis.run_id()
     # analysis.run_ma()
     # analysis.run_so()
