@@ -3,7 +3,6 @@ import opensim as osim
 import pandas as pd
 import utils
 import os
-import settings
 
 
 def scale_body_masses(osim_modelPath):
@@ -377,7 +376,6 @@ def run_ik(osim_modelPath=None, marker_trc=None,
 
 
     
-
 # --- Static optimisation --
 def edit_pelvis_com_actuators(osim_modelPath, actuatorsFilePath):
     """
@@ -724,7 +722,7 @@ def run_so(osim_modelPath=None, ik_output=None, grf_xml=None,
     so_analyze_tool.setFinalTime(motion.getLastTime())
 
     # Set results directory
-    so_analyze_tool.setResultsDir(utils.rel_path(resultsDir, resultsDir))
+    so_analyze_tool.setResultsDir(os.path.relpath(resultsDir, start=os.path.dirname(setup_xml)))
 
     # Print configuration to XML file
     so_analyze_tool.printToXML(setup_xml)

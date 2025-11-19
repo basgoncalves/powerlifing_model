@@ -6501,3 +6501,39 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 14.11.2025_07:55:19:900: JRA CEINMS analysis complete. Results saved C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads_CEINMS.sto
 14.11.2025_07:55:26:428: JRA analysis complete. Results saved C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads.sto
 14.11.2025_07:55:29:684: [Success] Results pushed to git for: Athlete_03_MRI_BG / Squat_35kg_01
+19.11.2025_11:58:30:051: Trial path not found: C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02
+19.11.2025_11:59:02:983: Trial path not found: C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02
+19.11.2025_12:07:48:319: Trial path not found: C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02
+19.11.2025_13:07:13:097: Updated model path to c:\Git\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02
+19.11.2025_13:08:09:320: [Success] Static Optimization completed. Results are saved in c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02 and SO_StaticOptimization_activation.sto
+19.11.2025_13:16:31:990: Updated model path to c:\Git\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_35kg_01
+19.11.2025_13:20:29:762: [Success] Static Optimization completed. Results are saved in c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_35kg_01 and SO_StaticOptimization_activation.sto
+19.11.2025_13:48:35:298: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02\Analyse_JRA_ReactionLoads.sto
+19.11.2025_13:52:46:263: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads.sto
+19.11.2025_13:53:54:217: Updated model path to c:\Git\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01
+19.11.2025_13:55:01:720: Updated model path to c:\Git\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01
+19.11.2025_13:55:01:831: [Error] during Static Optimization: module 'utils' has no attribute 'rel_path'
+19.11.2025_13:55:40:508: Updated model path to c:\Git\powerlifing_model\models\Athlete_03\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01
+19.11.2025_14:00:23:173: [Success] Static Optimization completed. Results are saved in:
+19.11.2025_14:00:23:173:  - Forces: c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01\SO_StaticOptimization_force.sto
+19.11.2025_14:00:23:181:  - Activations: c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01\SO_StaticOptimization_activation.sto
+19.11.2025_14:00:31:942: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Squat_bw_01\Analyse_JRA_ReactionLoads.sto
+19.11.2025_14:09:30:852: Updated model path to c:\Git\powerlifing_model\models\Athlete_03_MRI_BG\25_03_31\scaled_increasedForce3.osim for trial at c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_bw_01
+19.11.2025_14:09:30:859: [Error] during Static Optimization: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increasedForce3.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+19.11.2025_15:16:06:400: [Success] Static Optimization completed. Results are saved in:
+19.11.2025_15:16:06:402:  - Forces: c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_bw_01\SO_StaticOptimization_force.sto
+19.11.2025_15:16:06:402:  - Activations: c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_bw_01\SO_StaticOptimization_activation.sto
+19.11.2025_15:22:33:533: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_bw_01\Analyse_JRA_ReactionLoads.sto
+19.11.2025_15:23:17:348: [Warning] Failed to push to git: Command '['git', 'commit', '-m', '[RESULT] Athlete_03_MRI_BG/Squat_bw_01']' returned non-zero exit status 128.
+19.11.2025_15:30:33:837: [Warning] Failed to push to git: Command '['git', 'commit', '-m', '[RESULT] Athlete_03_MRI_BG/Squat_bw_01']' returned non-zero exit status 128.
+19.11.2025_15:31:43:068: [Warning] Failed to push to git: Command '['git', 'commit', '-m', '[RESULT] Athlete_03_MRI_BG/Squat_bw_01']' returned non-zero exit status 128.
+19.11.2025_15:32:28:491: [Success] Results pushed to git for: Athlete_03_MRI_BG / Squat_bw_01
+19.11.2025_15:36:52:904: [Success] Static Optimization completed. Results are saved in:
+19.11.2025_15:36:52:905:  - Forces: c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_35kg_01\SO_StaticOptimization_force.sto
+19.11.2025_15:36:52:906:  - Activations: c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_35kg_01\SO_StaticOptimization_activation.sto
+19.11.2025_15:36:59:151: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03_MRI_BG\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads.sto
+19.11.2025_15:38:16:848: [Success] Results pushed to git for: Athlete_03_MRI_BG / Squat_35kg_01
+19.11.2025_15:39:33:848: [Success] Results pushed to git for: Athlete_03 / Squat_35kg_01
+19.11.2025_15:40:09:117: [Success] Results pushed to git for: Athlete_03 / Squat_bw_01
+19.11.2025_15:40:23:893: [Success] Results pushed to git for: Athlete_03 / Walking_02

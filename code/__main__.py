@@ -8,6 +8,10 @@ import openSim
 import ceinms
 import exportC3D
 
+SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
+SESSIONS_TO_ANALYSE = ['25_03_31'] 
+TRIALS_TO_ANALYSE =  ['Walking_03'] 
+CEINMS_CALIBRATION_TRIALS = ['Walking_03'] 
 
 class Execute:
     ''' Logics for which analyses to execute '''
@@ -18,14 +22,14 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
-        self.ID = True
-        self.MA = True
-        self.MOMENT_ARMS = True
-        self.SO = True
-        self.JRA = True
+        self.IK = False
+        self.ID = False
+        self.MA = False
+        self.MOMENT_ARMS = False
+        self.SO = False
+        self.JRA = False
         
-        self.EMG_NORMALISE = True
+        self.EMG_NORMALISE = False
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
@@ -36,24 +40,23 @@ class Execute:
         self.CEINMS_CALIBRATION_PLOTS = False
         
         self.CEINMS_OPTIMISATION = False
-        self.CEINMS_EXE = True
+        self.CEINMS_EXE = False
         self.CEINMS_EXE_LOOP = False
         
         self.JRA_CEINMS = False
         
         self.CREATE_PLOTS = False
         
-        self.PLOT_IK = True
-        self.PLOT_ID = True
-        self.PLOT_MA = True
-        self.PLOT_SO = True
-        self.PLOT_JRA = True
-        self.PLOT_EMG = True
+        self.PLOT_IK = False
+        self.PLOT_ID = False
+        self.PLOT_MA = False
+        self.PLOT_SO = False
+        self.PLOT_JRA = False
+        self.PLOT_EMG = False
           
         self.push_to_git = True
 
 def run_all_step(analyse: utils.Analyse):
-    
     
     # Export c3d file
     if Execute().exportC3D:
@@ -99,11 +102,11 @@ def run_all_step(analyse: utils.Analyse):
         analyse.run_so()
 
     # Run Joint Reaction Analysis
-    if settings.Execute().JRA:
+    if Execute().JRA:
         analyse.run_jra()
         
     # Normalise EMG data
-    if settings.Execute().EMG_NORMALISE:
+    if Execute().EMG_NORMALISE:
 
         utils.print_to_log(f'Normalising EMG data for: {analyse.subject} / {analyse.trial}')
         emg_normalise_list = []
@@ -121,11 +124,11 @@ def run_all_step(analyse: utils.Analyse):
 
         utils.print_to_log(f'EMG data normalised. Results are saved in {analyse.emg_normalised}')
 
-    if settings.Execute().SCALE_EMG:
+    if Execute().SCALE_EMG:
         analyse.scale_emg(scale_factor=settings.Execute().EMG_SCALE_FACTOR)
         
     # Create CEINMS setup files
-    if settings.Execute().CREATE_CEINMS_FILES:
+    if Execute().CREATE_CEINMS_FILES:
         
         # create CEINMS model file
         if settings.Execute().CREATE_CEINMS_MODEL and (not os.path.exists(analyse.ceinms_uncalibrated_model) or analyse.replace):
@@ -151,7 +154,7 @@ def run_all_step(analyse: utils.Analyse):
         analyse.create_ceinms_exe_setup()
                 
     # CEINMS calibration and optimization
-    if settings.Execute().CEINMS_CALIBRATION and analyse.trial in utils.CEINMS_CALIBRATION_TRIALS:
+    if Execute().CEINMS_CALIBRATION and analyse.trial in CEINMS_CALIBRATION_TRIALS:
         
         try:        
             analyse.run_ceinms_calibration()
@@ -161,13 +164,13 @@ def run_all_step(analyse: utils.Analyse):
             utils.print_to_log(f'Error during CEINMS calibration: {e}')
 
     # CEINMS optimisation
-    if settings.Execute().CEINMS_OPTIMISATION:
+    if Execute().CEINMS_OPTIMISATION:
         try:
             analyse.run_ceinms_optimise()
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS optimisation: {e}')
 
-    if settings.Execute().CEINMS_EXE:
+    if Execute().CEINMS_EXE:
         try:
            analyse.run_ceinms_exe()
         except Exception as e:
@@ -175,22 +178,22 @@ def run_all_step(analyse: utils.Analyse):
 
         # Run Joint Reaction Analysis for CEINMS
     
-    if settings.Execute().CEINMS_EXE_LOOP:
+    if Execute().CEINMS_EXE_LOOP:
         try:
             analyse.run_ceinms_exe_loop()
         except Exception as e:
             utils.print_to_log(f'Error during CEINMS executable loop run: {e}')
     
     # Run Joint Reaction Analysis with CEINMS muscle forces
-    if settings.Execute().JRA_CEINMS:
+    if Execute().JRA_CEINMS:
         analyse.run_jra_ceinms()
     
-    if settings.Execute().CREATE_PLOTS:
+    if Execute().CREATE_PLOTS:
         try:
-            if settings.Execute().PLOT_IK: analyse.plot_ik()
-            if settings.Execute().PLOT_ID: analyse.plot_id()
-            if settings.Execute().PLOT_SO: analyse.plot_so()
-            if settings.Execute().PLOT_JRA: analyse.plot_jra()
+            if Execute().PLOT_IK: analyse.plot_ik()
+            if Execute().PLOT_ID: analyse.plot_id()
+            if Execute().PLOT_SO: analyse.plot_so()
+            if Execute().PLOT_JRA: analyse.plot_jra()
             
 
             utils.print_to_log(f'Plots created successfully for: {analyse.subject} / {analyse.trial}')
@@ -198,26 +201,6 @@ def run_all_step(analyse: utils.Analyse):
             print(f"Error during plotting: {e}")
             utils.print_to_log(f'Error during plotting: {e}')
              
-def push_trial_results_to_git(trial: utils.Analyse):
-    """Push trial results to git after completion"""
-    try:
-        # Add all changes in the trial directory
-        subprocess.run(['git', 'add', trial.path], check=True, cwd=os.getcwd())
-
-        # Commit with descriptive message
-        commit_message = f"[RESULT] {trial.subject}/{trial.trial}"
-        subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
-
-        # Push to remote
-        subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
-
-        utils.print_to_log(f'[Success] Results pushed to git for: {trial.subject} / {trial.trial}')
-
-    except subprocess.CalledProcessError as e:
-        utils.print_to_log(f'[Warning] Failed to push to git: {e}')
-    except Exception as e:
-        utils.print_to_log(f'[Warning] Git operation failed: {e}')
-
 if __name__ == "__main__":
     utils.print_to_log("Starting analysis...")
 
@@ -227,18 +210,15 @@ if __name__ == "__main__":
     time.sleep(1)
     for subject in utils.SUBJECTS_TO_ANALYSE:
         for session in utils.SESSIONS_TO_ANALYSE:
-            trial_list = os.listdir(os.path.join(utils.SIMULATIONS_DIR,
-                                                 subject,
-                                                 session))
+
+            trial_list = os.listdir(os.path.join(utils.SIMULATIONS_DIR, subject,session))
+
             for trial_name in trial_list:
                 
                 if trial_name not in utils.TRIALS_TO_ANALYSE:
                     continue
                 
-                trialPath = os.path.join(utils.SIMULATIONS_DIR,
-                                         subject,
-                                         session,
-                                         trial_name)
+                trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial_name)
                 
                 analysis = utils.Analyse(trialPath=trialPath) 
                 
@@ -252,7 +232,8 @@ if __name__ == "__main__":
                 utils.print_to_log(f'Analysis completed for: {trialPath}')
 
                 
-                push_trial_results_to_git(trial=analysis)
+                if Execute().push_to_git:
+                    analysis.push_trial_results_to_git()
 
         
     

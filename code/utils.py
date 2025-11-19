@@ -60,7 +60,6 @@ class Inputs:
     def __init__(self, parentdir=None):
         
         self.setup_dir = SETUP_DIR
-        self.model_name = MODEL_NAME
         self.model_dir = ''
         self.time_range = '0.00 1.00'
         self.c3d = 'c3dfile.c3d'
@@ -240,14 +239,14 @@ class Analyse(Inputs):
                   
     def reset_settings_xml(self):
         '''Create a settings xml for the trial at the specified path'''
-        # Create paths based on trialPath and settings.
+        
+        self.path = os.path.join(SIMULATIONS_DIR, self.subject, self.session, self.trial)
+        self.parentdir = os.path.dirname(self.path)
+        
         path_parts = os.path.normpath(self.path).split(os.sep)
         self.subject = path_parts[-3]
         self.session = path_parts[-2]
         self.trial = path_parts[-1]
-
-        self.path = os.path.join(SIMULATIONS_DIR, self.subject, self.session, self.trial)
-        self.parentdir = os.path.dirname(self.path)
             
         inputs = Inputs(parentdir=self.path)
         for varInput in inputs.__dict__.items():
@@ -279,7 +278,7 @@ class Analyse(Inputs):
             if isinstance(value, (str, int, float, bool, list, dict)):
                 child = ET.SubElement(root, attr)
                 if os.path.exists(str(value)):
-                    child.text = rel_path(str(value), self.path)
+                    child.text = os.path.relpath(str(value), self.path)
                 else:
                     child.text = str(value)
             else:
@@ -356,7 +355,7 @@ class Analyse(Inputs):
             
             # update self.path if path variable
             if var_name == "path":
-                parent_dir = os.path.dirname(settingsXML)
+                parent_dir = os.path.dirname(self.settingsXML)
                 self.path = os.path.abspath(os.path.join(parent_dir, converted_value))
                 
 
@@ -385,6 +384,14 @@ class Analyse(Inputs):
         print_to_log(f'Updated {attr_name} to {new_value} for trial at {self.path}')
         self._to_xml()
     
+    def update_model(self, new_model_name):
+        '''Update the model path for the trial and save to XML'''
+        model_path = os.path.join(MODELS_DIR, self.subject, self.session, new_model_name)
+        rel_model_path = os.path.relpath(model_path, self.path)
+        self.model_dir = rel_model_path
+        print_to_log(f'Updated model path to {model_path} for trial at {self.path}')
+        self._to_xml()
+
     def increase_muscle_force(self, factor=1):
         """Increase muscle force in the scaled model by a given factor.
         
@@ -392,13 +399,15 @@ class Analyse(Inputs):
             factor (float): Factor to increase muscle force by. Default is 1.5.
             replace (bool): Whether to replace existing modified model. Default is False.
         """
+        os.chdir(self.path)
+        
         if not os.path.exists(self.model_dir):
             print(f"Scaled model not found: {self.model_dir}")
             return
 
         new_model_path = self.model_dir.replace('.osim', f'_increased_{factor:.2f}.osim')
-
-        if os.path.exists(new_model_path) or self.replace:
+        
+        if os.path.exists(new_model_path) or not self.replace:
             print(f"Modified model already exists: {new_model_path}")
             self.model_dir = new_model_path
             return
@@ -420,7 +429,9 @@ class Analyse(Inputs):
         print(f"Modified model saved to: {new_model_path}")
         
         # Update the used model path
-        self.used_model = new_model_path
+        self.model_dir = new_model_path
+        self._to_xml()
+
     
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
@@ -533,6 +544,7 @@ class Analyse(Inputs):
         if os.path.exists(self.so_forces) and not self.replace:
             print_to_log(f'Static Optimization output already exists: {self.so_forces}')
             return
+        
         try:
             openSim.run_so(osim_modelPath=self.model_dir,
                     ik_output=self.ik,
@@ -540,7 +552,10 @@ class Analyse(Inputs):
                     setup_xml=self.setup_so,
                     actuators=self.actuators_so,
                     resultsDir=self.path)
-            print_to_log(f'[Success] Static Optimization completed. Results are saved in {self.path} and {self.so_activations}')
+            
+            print_to_log(f'[Success] Static Optimization completed. Results are saved in:')
+            print_to_log(f' - Forces: {os.path.abspath(self.so_forces)}')
+            print_to_log(f' - Activations: {os.path.abspath(self.so_activations)}')
         except Exception as e:
             print_to_log(f'[Error] during Static Optimization: {e}')
         
@@ -742,7 +757,7 @@ class Analyse(Inputs):
         self.so_forces = load_any_data_file(self.so_forces)
         self.so_activations = load_any_data_file(self.so_activations)
         
-        muscleGroups = settings.Muscle_Groups
+        muscleGroups = self.Muscle_Groups
         
         n_vars = len(muscleGroups)
         fig, axes = self.plot_create_subplot(n_vars)
@@ -1164,6 +1179,7 @@ class Analyse(Inputs):
     #--- git integration
     def push_trial_results_to_git(self):
         """Push trial results to git after completion"""
+        os.chdir(self.path)
         try:
             # Add all changes in the trial directory
             subprocess.run(['git', 'add', self.path], check=True, cwd=os.getcwd())
@@ -1181,31 +1197,7 @@ class Analyse(Inputs):
             print_to_log(f'[Warning] Failed to push to git: {e}')
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
-
-def cmd_analysis(trialPath=None):
-    
-    if not trialPath or not os.path.exists(trialPath):
-        trialPath = input("Please provide the path to the trial directory: ")
-        
-        trial = Analyse(trialPath)
-        options = ['export_c3d', 'run_ik', 'run_id', 'run_ma', 
-                   'run_so', 'run_jra', 'run_jra_ceinms',]
-        while True:
-            command = input(f'Enter command ({", ".join(options)}): ').strip().lower()
-            trial = Analyse(trialPath)
-            if command == 'export_c3d':
-                trial.export_c3d()
-            elif command == 'run_ik':
-                trial.run_ik()
-            elif command == 'run_id':
-                trial.run_id()
-            elif command == 'run_ma':
-                trial.run_ma()
-            elif command == 'run_so':
-                trial.run_so()
-            elif command == 'run_jra':
-                trial.run_jra()
-               
+             
 def print_to_log(message, terminal=False):
     """
     Prints a message to the console and logs it to a file.
@@ -1221,19 +1213,6 @@ def print_to_log(message, terminal=False):
         
     if terminal:
         print(message)
-
-def rel_path(path, relative_to):
-    """
-    Returns the relative path from the given path to the code directory.
-    
-    Args:
-        path (str): The path to convert.
-        relative_to (str): The base path to which the relative path is calculated.
-        
-    Returns:
-        str: The relative path.
-    """
-    return os.path.relpath(path, relative_to)
 
 def check_path(path, create=False, isdir=False):
     """Check if a path exists and is a directory."""

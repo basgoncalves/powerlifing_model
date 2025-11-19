@@ -18,10 +18,6 @@ def upWorkingDirectory():
     os.chdir(parent_dir)
     print(f"Changed working directory to: {parent_dir}")
 
-def importSettings():
-    import settings
-    settings._print()
-
 def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
     """
     Create a CEINMS subject XML file with muscle parameters extracted from the OpenSim model.
