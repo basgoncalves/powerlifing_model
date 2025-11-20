@@ -5,6 +5,7 @@ import subprocess
 import time
 import sys
 import re
+from pathlib import Path
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -26,17 +27,15 @@ import opensim as osim
 import c3d
 from scipy import signal
 
-import settings
 import ceinms
 import openSim
 test = 1
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-setupXML = ET.parse(os.path.join(MODULE_DIR, 'setup.xml')).getroot()
+MODULE_DIR = str(Path(__file__).cwd())
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(MODULE_DIR, setupXML.find('setupDir').text)
+SETUP_DIR = os.path.join(MODULE_DIR, 'code', 'SetupFiles', 'Purzel')
 POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
@@ -47,19 +46,13 @@ CEINMS_DIR = os.path.join(MODULE_DIR, 'executables')
 CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')   
-
-MODEL_NAME = 'scaled.osim'
-
-SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
-SESSIONS_TO_ANALYSE = ['25_03_31'] 
-TRIALS_TO_ANALYSE =  ['Squat_bw_01'] 
-CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
     
 
 class Inputs:
     def __init__(self, parentdir=None):
         
         self.setup_dir = SETUP_DIR
+        self.model_name = 'scaled.osim'
         self.model_dir = ''
         self.time_range = '0.00 1.00'
         self.c3d = 'c3dfile.c3d'
@@ -68,7 +61,7 @@ class Inputs:
         self.emg_normalised = 'EMG_filtered_normalised.sto'
         self.emg_plot = self.emg_normalised
         self.grf_mot = 'grf.mot'
-        self.markers = 'marker_experimental.trc'
+        self.markers = 'markers.trc'
         self.events = 'events.csv'
         
         # setups 
@@ -112,8 +105,13 @@ class Inputs:
         
         if parentdir:
             for attr, filename in self.__dict__.items():
-                filepath = os.path.join(parentdir, filename)
-                relpath = os.path.relpath(filepath, parentdir)
+                # filepath = os.path.join(parentdir, filename)
+                filepath = Path(parentdir) / filename
+                try:
+                    relpath = os.path.relpath(filepath, parentdir)
+                except Exception as e:
+                    breakpoint()
+                # relpath = os.path.relpath(filepath, parentdir)
                 setattr(self, attr, relpath)
                 
     def check(self, parentdir):
@@ -145,9 +143,9 @@ class CEINMSParameters:
         self.gammaMax = 100
         self.gammaDelta = 50
         
-        self.alphas = [1, 10]
-        self.betas = [1, 10]
-        self.gammas = [1, 500, 1000, 1500, 2000]
+        self.alphas = '1 10 100'
+        self.betas = '1 10'
+        self.gammas = '1 10 100 500 1000 1500 2000 3000 4000 5000'
         
         self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l'
         
@@ -240,13 +238,12 @@ class Analyse(Inputs):
     def reset_settings_xml(self):
         '''Create a settings xml for the trial at the specified path'''
         
-        self.path = os.path.join(SIMULATIONS_DIR, self.subject, self.session, self.trial)
-        self.parentdir = os.path.dirname(self.path)
-        
         path_parts = os.path.normpath(self.path).split(os.sep)
         self.subject = path_parts[-3]
         self.session = path_parts[-2]
         self.trial = path_parts[-1]
+
+        self.parentdir = os.path.dirname(self.path)
             
         inputs = Inputs(parentdir=self.path)
         for varInput in inputs.__dict__.items():
@@ -265,8 +262,6 @@ class Analyse(Inputs):
         
         self.time_range = self.get_time_range()
         
-        
-        
         self._to_xml()
     
     def _to_xml(self):
@@ -282,10 +277,13 @@ class Analyse(Inputs):
                 else:
                     child.text = str(value)
             else:
+                if not hasattr(value, '__dict__'):
+                    continue
+
                 for sub_attr, sub_value in value.__dict__.items():
                     child = ET.SubElement(root, f"{sub_attr}")
                     if os.path.exists(str(sub_value)):
-                        child.text = rel_path(str(sub_value), self.path)
+                        child.text = os.path.relpath(str(sub_value), self.path)
                     else:
                         child.text = str(sub_value)
                 
@@ -432,7 +430,6 @@ class Analyse(Inputs):
         self.model_dir = new_model_path
         self._to_xml()
 
-    
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -664,7 +661,7 @@ class Analyse(Inputs):
         fileList = [file for file in fileList if file.startswith('_MuscleAnalysis_MomentArm') and file.endswith('.sto')]
         
         for file in fileList:
-            filepath = self.MA + '\\' + file
+            filepath = os.path.join(self.ma, file)
             if coord_name in file:
                 break
             else:
@@ -890,17 +887,19 @@ class Analyse(Inputs):
         row 6 - Joint Reaction Forces
         '''
         # load all data
-        self.joint_angles = load_any_data_file(self.IK)
-        self.inverse_dynamics = load_any_data_file(self.ID)
-        self.so_forces = load_any_data_file(self.SO_forces)
-        self.so_activations = load_any_data_file(self.SO_activations)
-        self.jra_results = load_any_data_file(self.JRA)
-        self.emg_data = load_any_data_file(self.EMG_NORMALISED)
+        self.joint_angles = load_any_data_file(self.ik)
+        self.inverse_dynamics = load_any_data_file(self.id)
+        self.so_forces = load_any_data_file(self.so_forces)
+        self.so_activations = load_any_data_file(self.so_activations)
+        self.jra_results = load_any_data_file(self.jra)
+        self.emg_data = load_any_data_file(self.emg_normalised)
 
-        self.ceinms_activations = load_any_data_file(os.path.join(self.CEINMS_EXE_DIR, 'Activations.sto'))
-        self.ceinms_forces = load_any_data_file(os.path.join(self.CEINMS_EXE_DIR, 'MuscleForces.sto'))
+        setupXML = ET.parse(self.ceinms_exe_setup).getroot()
+        ceinms_output_dir = os.path.join(self.path, setupXML.find('outputDirectory').text)
+
+        self.ceinms_activations = load_any_data_file(os.path.join(ceinms_output_dir, 'Activations.sto'))
+        self.ceinms_forces = load_any_data_file(os.path.join(ceinms_output_dir, 'MuscleForces.sto'))
         
-        breakpoint()
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
         
@@ -1066,7 +1065,7 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS optimisation setup already exists: {os.path.abspath(self.ceinms_optimise_setup)}', terminal=True)
             return
         
-        ceinms.create_optimise_setupXML(ceinmsModelPath=self.        
+        ceinms.create_optimise_setupFiles(ceinmsModelPath=self.        
                                         ceinms_calibrated_model, inputDataFile=self.ceinms_input_data,calibrationCfgPath=self.ceinms_optimise_cfg,excitationGeneratorFilePath=self.ceinms_excitation_generator,outputDirectory=self.ceinms_optimisation_dir,setupXMLPath=self.ceinms_optimise_setup)
 
     def create_ceinms_exe_setup(self):
@@ -1107,7 +1106,12 @@ class Analyse(Inputs):
         
         calibrationSetupPath = os.path.abspath(self.ceinms_calibration_setup)
         ceinms.calibrate(setupXML_path=calibrationSetupPath)
-        
+
+        # update calibrated model from setupXML
+        setupXML = ET.parse(calibrationSetupPath).getroot()
+        self.ceinms_calibrated_model = os.path.join(calibrationSetupPath, setupXML.find('outputSubjectFile').text)
+        self._to_xml()
+
         # if date modified of calibrated model is after start time, assume success
         os.chdir(self.path)
         mod_time = os.path.getmtime(self.ceinms_calibrated_model)
@@ -1131,14 +1135,21 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
             
     def run_ceinms_exe(self):
-        
         os.chdir(self.path)
+
+        self.load_settings(settingsXML=self.settingsXML)
+
         cfg = ET.parse(self.ceinms_exe_cfg).getroot()
         setup = ET.parse(self.ceinms_exe_setup).getroot()
 
         setup.find('outputDirectory').text = f'{self.ceinms_exe_dir}_a{self.alpha}_b{self.beta}_g{self.gamma}'
 
         save_pretty_xml(ET.ElementTree(setup), self.ceinms_exe_setup)
+
+        # replace alpha, beta, gamma in cfg from settings file
+        ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='alpha',new_value=str(self.alpha))
+        ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='beta',new_value=str(self.beta))
+        ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='gamma',new_value=str(self.gamma))
         
         try:
             ceinms.executable(setupXML_path=os.path.abspath(self.ceinms_exe_setup))
@@ -1149,16 +1160,16 @@ class Analyse(Inputs):
     def run_ceinms_optimise(self):
         
         os.chdir(self.path)
-        setupAbsPath = os.path.abspath(self.CEINMS_OPTIMISE_SETUP)
+        setupAbsPath = os.path.abspath(self.ceinms_optimise_setup)
         ceinms.optimise(setupXML_path=setupAbsPath)
 
         try:    
-            adjustedEMG_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'AdjustedEmgs.sto')
-            torqueCEINMS_path = os.path.join(self.CEINMS_OPTIMISATION_DIR, 'Torques.sto')
-            ceinms.plot_experimental_vs_ceinms(emgFile=self.EMG_NORMALISED,
+            adjustedEMG_path = os.path.join(self.ceinms_optimisation_dir, 'AdjustedEmgs.sto')
+            torqueCEINMS_path = os.path.join(self.ceinms_optimisation_dir, 'Torques.sto')
+            ceinms.plot_experimental_vs_ceinms(emgFile=self.emg_normalised,
                                                ceinmsExcitationsFile=adjustedEMG_path,
-                                               excitationGeneratorFile=self.CEINMS_EXCITATION_GENERATOR,
-                                                externalMomentsFile=self.ID,
+                                               excitationGeneratorFile=self.ceinms_excitation_generator,
+                                                externalMomentsFile=self.id,
                                                 ceinmsTorquesFile=torqueCEINMS_path)
             print_to_log(f'Plotted Experimental vs CEINMS results {self.path}')
         except:
@@ -1173,9 +1184,23 @@ class Analyse(Inputs):
         if not os.path.exists(self.ceinms_exe_cfg):
             ceinms.create_ceinms_cfg(ceinmsModelPath=self.ceinms_calibrated_model, alpha=self.alpha, beta=self.beta, gamma=self.gamma, dofSet=' '.join(settings.DOFs),excitationGeneratorFilePath=self.ceinms_excitation_generator, outputPath=self.ceinms_exe_cfg)
         
-        ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas = self.alphas, betas=self.betas, gammas=self.gammas)
+        self.load_settings(settingsXML=self.settingsXML)
+        alpha_values = [float(x) for x in self.alphas[0].split(' ')]
+        beta_values = [float(x) for x in self.betas[0].split(' ')]
+        gamma_values = [int(x) for x in self.gammas[0].split(' ')]
+        ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
     
     
+    #--- Plot ceinms
+    def plot_ceinms_calibration_results(self):
+
+        try:
+            ceinmsTorquesFile = os.path.join(self.ceinms_calibration_dir, 'Moments_inputData.csv')
+            ceinms.plot_moments_calibration_results(momentResultsCSV=ceinmsTorquesFile)
+            print_to_log(f'[Success] Plotted CEINMS calibration results for trial: {self.trial}')
+        except Exception as e:
+            print_to_log(f'[Error] during plotting CEINMS calibration results: {e}')
+
     #--- git integration
     def push_trial_results_to_git(self):
         """Push trial results to git after completion"""
