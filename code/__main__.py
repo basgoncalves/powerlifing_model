@@ -9,9 +9,9 @@ import ceinms
 import exportC3D
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
-SESSIONS_TO_ANALYSE = ['25_03_31'] 
-TRIALS_TO_ANALYSE =  ['Walking_03'] 
-CEINMS_CALIBRATION_TRIALS = ['Walking_03'] 
+SESSIONS_TO_ANALYSE = ['25_03_31_calibration_constrained'] 
+TRIALS_TO_ANALYSE =  ['Walking_02'] 
+CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
 class Execute:
     ''' Logics for which analyses to execute '''

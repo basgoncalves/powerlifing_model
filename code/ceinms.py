@@ -452,6 +452,13 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
     parentDir = os.path.dirname(setupXML_path)
     os.chdir(parentDir) 
     
+    # check if torch_cpu.dll exists in executable path
+    if not os.path.exists(os.path.join(os.path.dirname(executable_path), 'torch_cpu.dll')):
+        print(f"WARNING: torch_cpu.dll not found in {parentDir}. CEINMS may not run correctly.")
+        time.sleep(2)
+        
+
+
     # load setupXML to get outputDirectory
     setupXML = ET.parse(setupXML_path).getroot()
     outputDirectory = setupXML.find("outputDirectory").text
@@ -473,6 +480,7 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
     if os.path.exists(log_file_path): os.remove(log_file_path)
     
     # run main command
+    os.chdir(parentDir)
     try:
         ps_script = f'''
             $ErrorActionPreference = "Continue"
@@ -500,7 +508,7 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
                     log_file.flush()
 
             process.wait()
-        print(f"CEINMS optimise process finished!")
+        print(f"CEINMS process finished!")
     except Exception as e:
         print(f"Error running CEINMS: {e}")
         
@@ -920,7 +928,7 @@ def plot_loop_results(CSVresultsPath=None):
     print(f"Parameter effects plot saved to: {savepath}")
 
 # Optimisation functions
-def create_optimise_setupXML(ceinmsModelPath=None, 
+def create_optimise_setupFiles(ceinmsModelPath=None, 
                             inputDataFile=None,
                              calibrationCfgPath=None,
                              excitationGeneratorFilePath=None,
@@ -944,7 +952,7 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     if not outputDirectory:
         outputDirectory = input("Enter path to output directory: ").strip('"')
 
-    baseDir = os.path.dirname(calibrationCfgPath)
+    baseDir = os.path.dirname(setupXMLPath)
     root = ET.Element("ceinms")
     
     subjectFile = ET.SubElement(root, "subjectFile")
@@ -963,23 +971,22 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     outputDirectoryTag.text = os.path.relpath(outputDirectory, baseDir)
     
     betaMinTag = ET.SubElement(root, "betaMin")
-    betaMinTag.text = str(settings.CEINMSParameters().betaMin)
+    betaMinTag.text = str(utils.CEINMSParameters().betaMin)
         
     betaMaxTag = ET.SubElement(root, "betaMax")
-    betaMaxTag.text = str(settings.CEINMSParameters().betaMax)
+    betaMaxTag.text = str(utils.CEINMSParameters().betaMax)
 
     betaDeltaTag = ET.SubElement(root, "betaDelta")
-    betaDeltaTag.text = str(settings.CEINMSParameters().betaDelta)
+    betaDeltaTag.text = str(utils.CEINMSParameters().betaDelta)
 
     gammaMinTag = ET.SubElement(root, "gammaMin")
-    gammaMinTag.text = str(settings.CEINMSParameters().gammaMin)
+    gammaMinTag.text = str(utils.CEINMSParameters().gammaMin)
 
     gammaMaxTag = ET.SubElement(root, "gammaMax")
-    gammaMaxTag.text = str(settings.CEINMSParameters().gammaMax)
+    gammaMaxTag.text = str(utils.CEINMSParameters().gammaMax)
 
     gammaDeltaTag = ET.SubElement(root, "gammaDelta")
-    gammaDeltaTag.text = str(settings.CEINMSParameters().gammaDelta)
-
+    gammaDeltaTag.text = str(utils.CEINMSParameters().gammaDelta)
 
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, setupXMLPath)
@@ -987,7 +994,7 @@ def create_optimise_setupXML(ceinmsModelPath=None,
     print(f"Optimization setup XML saved to: {setupXMLPath}")
 
     # --- Create cfg file
-    template_cfg = os.path.join(settings.SETUP_DIR, os.path.basename(settings.Inputs().CEINMS_OPTIMISE_CFG))
+    template_cfg = os.path.join(utils.SETUP_DIR, os.path.basename(utils.Inputs().ceinms_optimise_cfg))
     cfgTemplate = ET.parse(template_cfg).getroot()
     
     # apply DOFs from CEINMS model
@@ -1052,7 +1059,7 @@ def optimise(setupXML_path=None):
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Optimizing CEINMS model...")
-    ceinms_terminal(executable_path=settings.CEINMS_OPTIMISE_EXE, setupXML_path=setupXML_path)
+    ceinms_terminal(executable_path=utils.CEINMS_OPTIMISE_EXE, setupXML_path=setupXML_path)
 
 # Plotting
 def plot_ceinms_model_parameters(ceinmsModelPath=None):
@@ -1261,10 +1268,14 @@ def plot_moments_calibration_results(momentResultsCSV=None):
 
     return fig, axes, dof_pairs
   
-def plot_ceinms_calibration_results(calibrationOutputDir=None):
+def plot_ceinms_calibration_results(setupXML_path=None):
 
-    if not calibrationOutputDir:
-        calibrationOutputDir = input("Enter path to calibration output directory: ").strip('"')
+    if not setupXML_path:
+        setupXML_path = input("Enter path to calibration setup XML file: ").strip('"')
+
+    setupXML = ET.parse(setupXML_path).getroot()
+    calibrationOutputDir = setupXML.find('outputDirectory').text
+    calibrationOutputDir = os.path.join(os.path.dirname(setupXML_path), calibrationOutputDir)
 
     # find all files ending with _calibrationResults.sto
     result_files = os.listdir(calibrationOutputDir)
