@@ -1691,3 +1691,817 @@ Assembly error tolerance achieved: 9.9482266845199636e-09 required: 1e-10..Model
 [2025-11-14 07:55:23.363] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2025-11-14 07:55:23.363] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
 [2025-11-14 07:55:26.335] [info] Printing results of investigation Analyse to .
+[2025-11-19 15:33:59.616] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:33:59.686] [info] Storage: read data file = joint_angles.mot (nr=645 nc=40)
+[2025-11-19 15:33:59.724] [info] AbstractTool SO loading model ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:33:59.757] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:33:59.825] [info] Adding force object set from actuators_so.xml
+[2025-11-19 15:33:59.923] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2025-11-19 15:34:00.017] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-11-19 15:34:00.017] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-11-19 15:34:00.030] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-19 15:34:00.030] [info] Storage: read data file = joint_angles.mot (nr=645 nc=40)
+[2025-11-19 15:34:00.042] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-19 15:34:00.872] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9482266885880279e-09 required: 1e-10.
+[2025-11-19 15:34:00.879] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9482266845199636e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-19 15:34:01.573] [info] Found 1289 state vectors with time stamps ranging from -1.60500 to 4.835.
+[2025-11-19 15:34:01.573] [info] Executing the analyses from 0.00500000 to 3.225...
+[2025-11-19 15:34:01.684] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2025-11-19 15:34:01.784] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-11-19 15:34:01.784] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-11-19 15:34:01.822] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2025-11-19 15:34:01.913] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-11-19 15:34:01.913] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-11-19 15:34:02.924] [cout] [info] time = 0.00500000 Performance = 5.72658 Constraint violation = 2.36462e-12
+[2025-11-19 15:34:02.926] [info] Bounds for 'addbrev_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.926] [info] Bounds for 'addlong_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.926] [info] Bounds for 'addmagDist_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagIsch_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagMid_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagProx_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'bflh_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'bfsh_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'edl_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'ehl_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'fdl_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'fhl_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'gaslat_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'gasmed_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax1_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax2_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax3_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed1_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed2_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed3_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin1_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin2_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin3_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'grac_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'iliacus_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'perbrev_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'perlong_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'piri_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'psoas_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'recfem_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'sart_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'semimem_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'semiten_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'soleus_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tfl_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tibant_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tibpost_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vasint_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vaslat_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vasmed_r': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addbrev_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addlong_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagDist_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagIsch_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagMid_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'addmagProx_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'bflh_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'bfsh_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'edl_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'ehl_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'fdl_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'fhl_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'gaslat_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'gasmed_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax1_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax2_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmax3_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed1_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed2_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmed3_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin1_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin2_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'glmin3_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'grac_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'iliacus_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'perbrev_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'perlong_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'piri_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'psoas_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'recfem_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'sart_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'semimem_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'semiten_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'soleus_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tfl_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tibant_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'tibpost_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vasint_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vaslat_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'vasmed_l': 0.01 to 1.0.
+[2025-11-19 15:34:02.932] [info] Bounds for 'lumbar_ext': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'lumbar_bend': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'lumbar_rot': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_flex_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_add_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_rot_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'elbow_flex_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'pro_sup_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'wrist_flex_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'wrist_dev_r': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_flex_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_add_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'shoulder_rot_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'elbow_flex_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'pro_sup_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'wrist_flex_l': -inf to inf.
+[2025-11-19 15:34:02.932] [info] Bounds for 'wrist_dev_l': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'FX': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'FY': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'FZ': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'MX': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'MY': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'MZ': -inf to inf.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_flexion_r_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_adduction_r_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_rotation_r_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'knee_angle_r_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'ankle_angle_r_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_flexion_l_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_adduction_l_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'hip_rotation_l_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'knee_angle_l_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:02.933] [info] Bounds for 'ankle_angle_l_reserve': -1.0 to 1.0.
+[2025-11-19 15:34:03.193] [cout] [info] time = 0.01 Performance = 5.74421 Constraint violation = 1.18584e-12
+[2025-11-19 15:34:03.467] [cout] [info] time = 0.015 Performance = 5.77558 Constraint violation = 2.46335e-12
+[2025-11-19 15:34:03.729] [cout] [info] time = 0.02 Performance = 5.82106 Constraint violation = 2.2653e-12
+[2025-11-19 15:34:03.988] [cout] [info] time = 0.025 Performance = 5.87871 Constraint violation = 2.84062e-12
+[2025-11-19 15:34:04.251] [cout] [info] time = 0.03 Performance = 5.94478 Constraint violation = 2.74942e-12
+[2025-11-19 15:34:04.520] [cout] [info] time = 0.035 Performance = 6.01539 Constraint violation = 1.66944e-12
+[2025-11-19 15:34:04.784] [cout] [info] time = 0.04 Performance = 6.08546 Constraint violation = 2.17289e-12
+[2025-11-19 15:34:05.055] [cout] [info] time = 0.045 Performance = 6.15024 Constraint violation = 2.27045e-12
+[2025-11-19 15:34:05.328] [cout] [info] time = 0.05 Performance = 6.20483 Constraint violation = 1.87933e-12
+[2025-11-19 15:34:05.601] [cout] [info] time = 0.055 Performance = 6.24484 Constraint violation = 5.00995e-12
+[2025-11-19 15:34:05.869] [cout] [info] time = 0.06 Performance = 6.26641 Constraint violation = 1.34682e-12
+[2025-11-19 15:34:06.139] [cout] [info] time = 0.065 Performance = 6.26623 Constraint violation = 4.88203e-12
+[2025-11-19 15:34:06.413] [cout] [info] time = 0.07 Performance = 6.24237 Constraint violation = 9.5497e-13
+[2025-11-19 15:34:06.687] [cout] [info] time = 0.075 Performance = 6.19493 Constraint violation = 4.59659e-12
+[2025-11-19 15:34:06.956] [cout] [info] time = 0.08 Performance = 6.12702 Constraint violation = 1.73238e-12
+[2025-11-19 15:34:07.250] [cout] [info] time = 0.085 Performance = 6.0441 Constraint violation = 2.76446e-12
+[2025-11-19 15:34:07.550] [cout] [info] time = 0.09 Performance = 5.95281 Constraint violation = 1.8779e-12
+[2025-11-19 15:34:07.843] [cout] [info] time = 0.095 Performance = 5.85952 Constraint violation = 3.63114e-11
+[2025-11-19 15:34:08.133] [cout] [info] time = 0.1 Performance = 5.77049 Constraint violation = 4.79292e-09
+[2025-11-19 15:34:08.436] [cout] [info] time = 0.105000 Performance = 5.68927 Constraint violation = 2.65996e-12
+[2025-11-19 15:34:08.736] [cout] [info] time = 0.11 Performance = 5.61759 Constraint violation = 3.4414e-12
+[2025-11-19 15:34:09.038] [cout] [info] time = 0.115 Performance = 5.55379 Constraint violation = 2.07985e-12
+[2025-11-19 15:34:09.314] [cout] [info] time = 0.12 Performance = 5.49533 Constraint violation = 2.69007e-12
+[2025-11-19 15:34:09.595] [cout] [info] time = 0.125 Performance = 5.43861 Constraint violation = 8.61158e-13
+[2025-11-19 15:34:09.893] [cout] [info] time = 0.13 Performance = 5.37996 Constraint violation = 2.03144e-12
+[2025-11-19 15:34:10.190] [cout] [info] time = 0.135 Performance = 5.31652 Constraint violation = 1.86908e-12
+[2025-11-19 15:34:10.493] [cout] [info] time = 0.14 Performance = 5.24623 Constraint violation = 3.34386e-12
+[2025-11-19 15:34:10.874] [cout] [info] time = 0.145 Performance = 5.16843 Constraint violation = 1.26325e-12
+[2025-11-19 15:34:11.269] [cout] [info] time = 0.15 Performance = 5.08247 Constraint violation = 7.93432e-12
+[2025-11-19 15:34:11.584] [cout] [info] time = 0.155 Performance = 4.99049 Constraint violation = 2.64666e-12
+[2025-11-19 15:34:11.899] [cout] [info] time = 0.16 Performance = 4.89313 Constraint violation = 4.86152e-12
+[2025-11-19 15:34:12.239] [cout] [info] time = 0.165 Performance = 4.79286 Constraint violation = 7.38401e-12
+[2025-11-19 15:34:12.592] [cout] [info] time = 0.17 Performance = 4.69331 Constraint violation = 3.96945e-11
+[2025-11-19 15:34:12.934] [cout] [info] time = 0.175 Performance = 4.5973 Constraint violation = 4.62345e-12
+[2025-11-19 15:34:13.273] [cout] [info] time = 0.18 Performance = 4.50772 Constraint violation = 1.30866e-11
+[2025-11-19 15:34:13.579] [cout] [info] time = 0.185 Performance = 4.42648 Constraint violation = 1.90109e-12
+[2025-11-19 15:34:13.895] [cout] [info] time = 0.19 Performance = 4.35451 Constraint violation = 2.50117e-11
+[2025-11-19 15:34:14.193] [cout] [info] time = 0.195 Performance = 4.29213 Constraint violation = 5.12082e-11
+[2025-11-19 15:34:14.529] [cout] [info] time = 0.2 Performance = 4.24007 Constraint violation = 2.50276e-12
+[2025-11-19 15:34:14.848] [cout] [info] time = 0.205000 Performance = 4.19921 Constraint violation = 1.26289e-11
+[2025-11-19 15:34:15.136] [cout] [info] time = 0.21 Performance = 4.17009 Constraint violation = 2.94859e-12
+[2025-11-19 15:34:15.469] [cout] [info] time = 0.215 Performance = 4.15306 Constraint violation = 7.76672e-12
+[2025-11-19 15:34:15.785] [cout] [info] time = 0.22 Performance = 4.14769 Constraint violation = 6.93278e-12
+[2025-11-19 15:34:16.077] [cout] [info] time = 0.225 Performance = 4.15363 Constraint violation = 7.6545e-12
+[2025-11-19 15:34:16.352] [cout] [info] time = 0.23 Performance = 4.17069 Constraint violation = 1.95606e-11
+[2025-11-19 15:34:16.631] [cout] [info] time = 0.235 Performance = 4.19913 Constraint violation = 2.14911e-12
+[2025-11-19 15:34:16.895] [cout] [info] time = 0.24 Performance = 4.23971 Constraint violation = 3.70602e-12
+[2025-11-19 15:34:17.160] [cout] [info] time = 0.245 Performance = 4.29373 Constraint violation = 1.45513e-12
+[2025-11-19 15:34:17.440] [cout] [info] time = 0.25 Performance = 4.36366 Constraint violation = 3.13406e-12
+[2025-11-19 15:34:17.721] [cout] [info] time = 0.255 Performance = 4.45101 Constraint violation = 2.34057e-12
+[2025-11-19 15:34:17.998] [cout] [info] time = 0.26 Performance = 4.56032 Constraint violation = 7.26559e-12
+[2025-11-19 15:34:18.275] [cout] [info] time = 0.265 Performance = 4.69284 Constraint violation = 1.62503e-12
+[2025-11-19 15:34:18.547] [cout] [info] time = 0.27 Performance = 4.84858 Constraint violation = 1.30564e-12
+[2025-11-19 15:34:18.828] [cout] [info] time = 0.275 Performance = 5.02848 Constraint violation = 1.151e-11
+[2025-11-19 15:34:19.107] [cout] [info] time = 0.28 Performance = 5.22934 Constraint violation = 4.26682e-12
+[2025-11-19 15:34:19.370] [cout] [info] time = 0.285 Performance = 5.44971 Constraint violation = 6.11135e-12
+[2025-11-19 15:34:19.639] [cout] [info] time = 0.29 Performance = 5.68496 Constraint violation = 1.72153e-12
+[2025-11-19 15:34:19.902] [cout] [info] time = 0.295 Performance = 5.93277 Constraint violation = 2.95194e-12
+[2025-11-19 15:34:20.171] [cout] [info] time = 0.3 Performance = 6.18933 Constraint violation = 9.85194e-13
+[2025-11-19 15:34:20.449] [cout] [info] time = 0.305000 Performance = 6.45045 Constraint violation = 1.4523e-12
+[2025-11-19 15:34:20.710] [cout] [info] time = 0.31 Performance = 6.71286 Constraint violation = 1.47801e-12
+[2025-11-19 15:34:20.974] [cout] [info] time = 0.315 Performance = 6.97257 Constraint violation = 3.46542e-12
+[2025-11-19 15:34:21.248] [cout] [info] time = 0.32 Performance = 7.22575 Constraint violation = 2.20284e-12
+[2025-11-19 15:34:21.532] [cout] [info] time = 0.325 Performance = 7.46863 Constraint violation = 2.3662e-12
+[2025-11-19 15:34:21.819] [cout] [info] time = 0.33 Performance = 7.69728 Constraint violation = 5.75436e-12
+[2025-11-19 15:34:22.106] [cout] [info] time = 0.335 Performance = 7.90718 Constraint violation = 2.34973e-12
+[2025-11-19 15:34:22.387] [cout] [info] time = 0.34 Performance = 8.09296 Constraint violation = 1.28929e-11
+[2025-11-19 15:34:22.658] [cout] [info] time = 0.345 Performance = 8.25072 Constraint violation = 2.314e-11
+[2025-11-19 15:34:22.941] [cout] [info] time = 0.35 Performance = 8.37609 Constraint violation = 2.09772e-11
+[2025-11-19 15:34:23.215] [cout] [info] time = 0.355 Performance = 8.46568 Constraint violation = 1.63104e-12
+[2025-11-19 15:34:23.495] [cout] [info] time = 0.36 Performance = 8.5182 Constraint violation = 9.20062e-12
+[2025-11-19 15:34:23.782] [cout] [info] time = 0.365 Performance = 8.53345 Constraint violation = 1.11249e-11
+[2025-11-19 15:34:24.072] [cout] [info] time = 0.37 Performance = 8.51287 Constraint violation = 1.92514e-11
+[2025-11-19 15:34:24.357] [cout] [info] time = 0.375 Performance = 8.45914 Constraint violation = 2.10681e-11
+[2025-11-19 15:34:24.650] [cout] [info] time = 0.38 Performance = 8.37587 Constraint violation = 9.82807e-12
+[2025-11-19 15:34:24.935] [cout] [info] time = 0.385 Performance = 8.26683 Constraint violation = 1.61181e-11
+[2025-11-19 15:34:25.211] [cout] [info] time = 0.39 Performance = 8.13586 Constraint violation = 2.60052e-12
+[2025-11-19 15:34:25.485] [cout] [info] time = 0.395 Performance = 7.98665 Constraint violation = 1.02366e-11
+[2025-11-19 15:34:25.771] [cout] [info] time = 0.4 Performance = 7.82259 Constraint violation = 1.14654e-11
+[2025-11-19 15:34:26.043] [cout] [info] time = 0.405000 Performance = 7.64694 Constraint violation = 9.5486e-12
+[2025-11-19 15:34:26.364] [cout] [info] time = 0.41 Performance = 7.46321 Constraint violation = 2.55696e-12
+[2025-11-19 15:34:26.636] [cout] [info] time = 0.415 Performance = 7.2754 Constraint violation = 2.35877e-11
+[2025-11-19 15:34:26.925] [cout] [info] time = 0.42 Performance = 7.08761 Constraint violation = 8.49855e-11
+[2025-11-19 15:34:27.210] [cout] [info] time = 0.425 Performance = 6.90362 Constraint violation = 2.91383e-11
+[2025-11-19 15:34:27.499] [cout] [info] time = 0.43 Performance = 6.72639 Constraint violation = 4.65753e-11
+[2025-11-19 15:34:27.783] [cout] [info] time = 0.435 Performance = 6.55705 Constraint violation = 5.29606e-11
+[2025-11-19 15:34:28.057] [cout] [info] time = 0.44 Performance = 6.39533 Constraint violation = 2.55278e-11
+[2025-11-19 15:34:28.337] [cout] [info] time = 0.445 Performance = 6.24127 Constraint violation = 1.44351e-11
+[2025-11-19 15:34:28.618] [cout] [info] time = 0.45 Performance = 6.09499 Constraint violation = 2.12605e-11
+[2025-11-19 15:34:28.895] [cout] [info] time = 0.455 Performance = 5.95637 Constraint violation = 1.38739e-11
+[2025-11-19 15:34:29.175] [cout] [info] time = 0.46 Performance = 5.82563 Constraint violation = 1.20898e-12
+[2025-11-19 15:34:29.444] [cout] [info] time = 0.465 Performance = 5.70387 Constraint violation = 3.47803e-12
+[2025-11-19 15:34:29.721] [cout] [info] time = 0.47 Performance = 5.59166 Constraint violation = 3.12595e-12
+[2025-11-19 15:34:30.003] [cout] [info] time = 0.475 Performance = 5.48991 Constraint violation = 1.39382e-12
+[2025-11-19 15:34:30.264] [cout] [info] time = 0.48 Performance = 5.40050 Constraint violation = 3.25783e-12
+[2025-11-19 15:34:30.535] [cout] [info] time = 0.485 Performance = 5.32477 Constraint violation = 1.9425e-12
+[2025-11-19 15:34:30.813] [cout] [info] time = 0.49 Performance = 5.26565 Constraint violation = 9.69968e-13
+[2025-11-19 15:34:31.099] [cout] [info] time = 0.495 Performance = 5.22507 Constraint violation = 3.59167e-12
+[2025-11-19 15:34:31.392] [cout] [info] time = 0.5 Performance = 5.20389 Constraint violation = 2.82207e-12
+[2025-11-19 15:34:31.682] [cout] [info] time = 0.505000 Performance = 5.20207 Constraint violation = 1.58242e-12
+[2025-11-19 15:34:31.964] [cout] [info] time = 0.51 Performance = 5.21861 Constraint violation = 2.90960e-12
+[2025-11-19 15:34:32.242] [cout] [info] time = 0.515 Performance = 5.25179 Constraint violation = 6.2517e-12
+[2025-11-19 15:34:32.526] [cout] [info] time = 0.52 Performance = 5.29999 Constraint violation = 2.64026e-12
+[2025-11-19 15:34:32.787] [cout] [info] time = 0.525 Performance = 5.36142 Constraint violation = 4.45649e-12
+[2025-11-19 15:34:33.053] [cout] [info] time = 0.53 Performance = 5.43477 Constraint violation = 1.43309e-12
+[2025-11-19 15:34:33.321] [cout] [info] time = 0.535 Performance = 5.51878 Constraint violation = 2.34715e-12
+[2025-11-19 15:34:33.584] [cout] [info] time = 0.54 Performance = 5.61221 Constraint violation = 1.97704e-12
+[2025-11-19 15:34:33.840] [cout] [info] time = 0.545 Performance = 5.7135 Constraint violation = 2.91289e-12
+[2025-11-19 15:34:34.098] [cout] [info] time = 0.55 Performance = 5.82076 Constraint violation = 1.37263e-12
+[2025-11-19 15:34:34.358] [cout] [info] time = 0.555 Performance = 5.93008 Constraint violation = 2.96655e-12
+[2025-11-19 15:34:34.614] [cout] [info] time = 0.56 Performance = 6.03679 Constraint violation = 1.23643e-12
+[2025-11-19 15:34:34.872] [cout] [info] time = 0.565 Performance = 6.13451 Constraint violation = 1.67356e-12
+[2025-11-19 15:34:35.131] [cout] [info] time = 0.57 Performance = 6.21724 Constraint violation = 2.42011e-12
+[2025-11-19 15:34:35.394] [cout] [info] time = 0.575 Performance = 6.27999 Constraint violation = 1.75089e-12
+[2025-11-19 15:34:35.655] [cout] [info] time = 0.58 Performance = 6.31907 Constraint violation = 3.65086e-12
+[2025-11-19 15:34:35.915] [cout] [info] time = 0.585 Performance = 6.3328 Constraint violation = 2.51469e-12
+[2025-11-19 15:34:36.174] [cout] [info] time = 0.59 Performance = 6.32146 Constraint violation = 3.15546e-12
+[2025-11-19 15:34:36.436] [cout] [info] time = 0.595 Performance = 6.28563 Constraint violation = 5.2425e-12
+[2025-11-19 15:34:36.741] [cout] [info] time = 0.6 Performance = 6.22992 Constraint violation = 1.97709e-12
+[2025-11-19 15:34:37.012] [cout] [info] time = 0.605000 Performance = 6.1563 Constraint violation = 3.96058e-12
+[2025-11-19 15:34:37.302] [cout] [info] time = 0.61 Performance = 6.06817 Constraint violation = 1.11142e-12
+[2025-11-19 15:34:37.566] [cout] [info] time = 0.615 Performance = 5.96695 Constraint violation = 1.62565e-12
+[2025-11-19 15:34:37.830] [cout] [info] time = 0.62 Performance = 5.85474 Constraint violation = 1.53291e-12
+[2025-11-19 15:34:38.091] [cout] [info] time = 0.625 Performance = 5.73573 Constraint violation = 2.40974e-12
+[2025-11-19 15:34:38.351] [cout] [info] time = 0.63 Performance = 5.60952 Constraint violation = 2.5662e-12
+[2025-11-19 15:34:38.610] [cout] [info] time = 0.635 Performance = 5.47845 Constraint violation = 1.274e-12
+[2025-11-19 15:34:38.864] [cout] [info] time = 0.64 Performance = 5.3432 Constraint violation = 3.36502e-12
+[2025-11-19 15:34:39.123] [cout] [info] time = 0.645 Performance = 5.20304 Constraint violation = 2.63533e-12
+[2025-11-19 15:34:39.376] [cout] [info] time = 0.65 Performance = 5.05884 Constraint violation = 2.60181e-12
+[2025-11-19 15:34:39.630] [cout] [info] time = 0.655 Performance = 4.90978 Constraint violation = 1.05414e-12
+[2025-11-19 15:34:39.885] [cout] [info] time = 0.66 Performance = 4.75566 Constraint violation = 1.77825e-12
+[2025-11-19 15:34:40.139] [cout] [info] time = 0.665 Performance = 4.59651 Constraint violation = 2.03158e-12
+[2025-11-19 15:34:40.395] [cout] [info] time = 0.67 Performance = 4.433 Constraint violation = 2.05253e-12
+[2025-11-19 15:34:40.648] [cout] [info] time = 0.675 Performance = 4.2659 Constraint violation = 9.82485e-13
+[2025-11-19 15:34:40.905] [cout] [info] time = 0.68 Performance = 4.09627 Constraint violation = 7.45343e-13
+[2025-11-19 15:34:41.167] [cout] [info] time = 0.685 Performance = 3.92551 Constraint violation = 2.08956e-12
+[2025-11-19 15:34:41.425] [cout] [info] time = 0.69 Performance = 3.75464 Constraint violation = 2.32667e-12
+[2025-11-19 15:34:41.678] [cout] [info] time = 0.695 Performance = 3.58448 Constraint violation = 1.19074e-12
+[2025-11-19 15:34:41.933] [cout] [info] time = 0.7 Performance = 3.41587 Constraint violation = 2.40134e-12
+[2025-11-19 15:34:42.185] [cout] [info] time = 0.705000 Performance = 3.24881 Constraint violation = 3.10387e-12
+[2025-11-19 15:34:42.441] [cout] [info] time = 0.71 Performance = 3.08379 Constraint violation = 2.21714e-12
+[2025-11-19 15:34:42.696] [cout] [info] time = 0.715 Performance = 2.92097 Constraint violation = 1.4924e-12
+[2025-11-19 15:34:42.949] [cout] [info] time = 0.72 Performance = 2.76115 Constraint violation = 2.3119e-12
+[2025-11-19 15:34:43.201] [cout] [info] time = 0.725 Performance = 2.60521 Constraint violation = 1.19786e-12
+[2025-11-19 15:34:43.455] [cout] [info] time = 0.73 Performance = 2.4546 Constraint violation = 1.64124e-12
+[2025-11-19 15:34:43.707] [cout] [info] time = 0.735 Performance = 2.31071 Constraint violation = 1.53365e-12
+[2025-11-19 15:34:43.959] [cout] [info] time = 0.74 Performance = 2.17506 Constraint violation = 1.36646e-12
+[2025-11-19 15:34:44.212] [cout] [info] time = 0.745 Performance = 2.04936 Constraint violation = 9.24098e-13
+[2025-11-19 15:34:44.472] [cout] [info] time = 0.75 Performance = 1.93529 Constraint violation = 2.2184e-12
+[2025-11-19 15:34:44.727] [cout] [info] time = 0.755 Performance = 1.83517 Constraint violation = 1.56379e-12
+[2025-11-19 15:34:44.982] [cout] [info] time = 0.76 Performance = 1.75063 Constraint violation = 1.59876e-12
+[2025-11-19 15:34:45.236] [cout] [info] time = 0.765 Performance = 1.68355 Constraint violation = 3.56131e-12
+[2025-11-19 15:34:45.489] [cout] [info] time = 0.77 Performance = 1.6364 Constraint violation = 1.51246e-12
+[2025-11-19 15:34:45.740] [cout] [info] time = 0.775 Performance = 1.61080 Constraint violation = 8.38091e-13
+[2025-11-19 15:34:45.991] [cout] [info] time = 0.78 Performance = 1.61075 Constraint violation = 1.03283e-12
+[2025-11-19 15:34:46.240] [cout] [info] time = 0.785 Performance = 1.64031 Constraint violation = 1.86617e-12
+[2025-11-19 15:34:46.490] [cout] [info] time = 0.79 Performance = 1.70452 Constraint violation = 1.92682e-12
+[2025-11-19 15:34:46.741] [cout] [info] time = 0.795 Performance = 1.80840 Constraint violation = 2.32985e-12
+[2025-11-19 15:34:46.991] [cout] [info] time = 0.8 Performance = 1.95632 Constraint violation = 7.90310e-13
+[2025-11-19 15:34:47.240] [cout] [info] time = 0.805000 Performance = 2.15224 Constraint violation = 1.55239e-12
+[2025-11-19 15:34:47.489] [cout] [info] time = 0.81 Performance = 2.39867 Constraint violation = 1.49615e-12
+[2025-11-19 15:34:47.736] [cout] [info] time = 0.815 Performance = 2.6965 Constraint violation = 1.10423e-12
+[2025-11-19 15:34:47.986] [cout] [info] time = 0.82 Performance = 3.04402 Constraint violation = 1.44621e-12
+[2025-11-19 15:34:48.233] [cout] [info] time = 0.825 Performance = 3.44169 Constraint violation = 1.6865e-12
+[2025-11-19 15:34:48.481] [cout] [info] time = 0.83 Performance = 3.88496 Constraint violation = 1.32831e-12
+[2025-11-19 15:34:48.730] [cout] [info] time = 0.835 Performance = 4.36809 Constraint violation = 1.13043e-12
+[2025-11-19 15:34:48.982] [cout] [info] time = 0.84 Performance = 4.88421 Constraint violation = 1.39136e-12
+[2025-11-19 15:34:49.231] [cout] [info] time = 0.845 Performance = 5.42566 Constraint violation = 1.17341e-12
+[2025-11-19 15:34:49.479] [cout] [info] time = 0.85 Performance = 5.98434 Constraint violation = 2.96685e-12
+[2025-11-19 15:34:49.731] [cout] [info] time = 0.855 Performance = 6.55433 Constraint violation = 9.70365e-13
+[2025-11-19 15:34:49.978] [cout] [info] time = 0.86 Performance = 7.13039 Constraint violation = 6.55333e-12
+[2025-11-19 15:34:50.227] [cout] [info] time = 0.865 Performance = 7.71034 Constraint violation = 2.15508e-12
+[2025-11-19 15:34:50.487] [cout] [info] time = 0.87 Performance = 8.29359 Constraint violation = 5.50782e-11
+[2025-11-19 15:34:50.743] [cout] [info] time = 0.875 Performance = 8.88028 Constraint violation = 1.44231e-12
+[2025-11-19 15:34:50.997] [cout] [info] time = 0.88 Performance = 9.46848 Constraint violation = 1.07743e-11
+[2025-11-19 15:34:51.247] [cout] [info] time = 0.885 Performance = 10.0559 Constraint violation = 4.47978e-12
+[2025-11-19 15:34:51.498] [cout] [info] time = 0.89 Performance = 10.6402 Constraint violation = 1.14157e-12
+[2025-11-19 15:34:51.749] [cout] [info] time = 0.895 Performance = 11.2162 Constraint violation = 1.23639e-12
+[2025-11-19 15:34:51.996] [cout] [info] time = 0.9 Performance = 11.7769 Constraint violation = 2.90410e-11
+[2025-11-19 15:34:52.242] [cout] [info] time = 0.905000 Performance = 12.3205 Constraint violation = 1.12421e-11
+[2025-11-19 15:34:52.486] [cout] [info] time = 0.91 Performance = 12.842 Constraint violation = 6.79317e-12
+[2025-11-19 15:34:52.732] [cout] [info] time = 0.915 Performance = 13.3378 Constraint violation = 1.27736e-11
+[2025-11-19 15:34:52.978] [cout] [info] time = 0.92 Performance = 13.8050 Constraint violation = 1.50623e-11
+[2025-11-19 15:34:53.223] [cout] [info] time = 0.925 Performance = 14.2407 Constraint violation = 2.4799e-12
+[2025-11-19 15:34:53.466] [cout] [info] time = 0.93 Performance = 14.6417 Constraint violation = 7.98612e-11
+[2025-11-19 15:34:53.710] [cout] [info] time = 0.935 Performance = 15.0043 Constraint violation = 4.43458e-11
+[2025-11-19 15:34:53.955] [cout] [info] time = 0.94 Performance = 15.3259 Constraint violation = 3.09269e-11
+[2025-11-19 15:34:54.195] [cout] [info] time = 0.945 Performance = 15.6078 Constraint violation = 9.1661e-13
+[2025-11-19 15:34:54.442] [cout] [info] time = 0.95 Performance = 15.8507 Constraint violation = 7.66696e-12
+[2025-11-19 15:34:54.688] [cout] [info] time = 0.955 Performance = 16.0603 Constraint violation = 3.34389e-12
+[2025-11-19 15:34:54.933] [cout] [info] time = 0.96 Performance = 16.2398 Constraint violation = 1.73579e-11
+[2025-11-19 15:34:55.177] [cout] [info] time = 0.965 Performance = 16.3963 Constraint violation = 4.81647e-12
+[2025-11-19 15:34:55.421] [cout] [info] time = 0.97 Performance = 16.5367 Constraint violation = 1.93722e-11
+[2025-11-19 15:34:55.671] [cout] [info] time = 0.975 Performance = 16.6677 Constraint violation = 5.40846e-11
+[2025-11-19 15:34:55.913] [cout] [info] time = 0.98 Performance = 16.8037 Constraint violation = 1.80463e-12
+[2025-11-19 15:34:56.157] [cout] [info] time = 0.985 Performance = 16.9508 Constraint violation = 2.83005e-11
+[2025-11-19 15:34:56.401] [cout] [info] time = 0.99 Performance = 17.1174 Constraint violation = 1.64572e-11
+[2025-11-19 15:34:56.649] [cout] [info] time = 0.995 Performance = 17.3060 Constraint violation = 8.18124e-12
+[2025-11-19 15:34:56.893] [cout] [info] time = 1.0 Performance = 17.5131 Constraint violation = 1.59945e-11
+[2025-11-19 15:34:57.140] [cout] [info] time = 1.00500 Performance = 17.7401 Constraint violation = 3.42285e-11
+[2025-11-19 15:34:57.386] [cout] [info] time = 1.01 Performance = 17.9849 Constraint violation = 1.05186e-10
+[2025-11-19 15:34:57.632] [cout] [info] time = 1.015 Performance = 18.2494 Constraint violation = 6.95288e-12
+[2025-11-19 15:34:57.880] [cout] [info] time = 1.02 Performance = 18.5363 Constraint violation = 3.22893e-11
+[2025-11-19 15:34:58.126] [cout] [info] time = 1.025 Performance = 18.8488 Constraint violation = 1.6364e-11
+[2025-11-19 15:34:58.371] [cout] [info] time = 1.03 Performance = 19.1874 Constraint violation = 2.69801e-11
+[2025-11-19 15:34:58.616] [cout] [info] time = 1.035 Performance = 19.5545 Constraint violation = 1.02879e-11
+[2025-11-19 15:34:58.864] [cout] [info] time = 1.04 Performance = 19.9499 Constraint violation = 3.33059e-12
+[2025-11-19 15:34:59.111] [cout] [info] time = 1.045 Performance = 20.377 Constraint violation = 9.58448e-11
+[2025-11-19 15:34:59.358] [cout] [info] time = 1.05 Performance = 20.8354 Constraint violation = 1.33053e-12
+[2025-11-19 15:34:59.646] [cout] [info] time = 1.055 Performance = 21.3222 Constraint violation = 1.71414e-12
+[2025-11-19 15:34:59.893] [cout] [info] time = 1.06 Performance = 21.8353 Constraint violation = 5.36041e-12
+[2025-11-19 15:35:00.145] [cout] [info] time = 1.065 Performance = 22.373 Constraint violation = 1.26007e-10
+[2025-11-19 15:35:00.389] [cout] [info] time = 1.07 Performance = 22.9355 Constraint violation = 1.30215e-11
+[2025-11-19 15:35:00.649] [cout] [info] time = 1.075 Performance = 23.5221 Constraint violation = 6.59112e-11
+[2025-11-19 15:35:00.925] [cout] [info] time = 1.08 Performance = 24.1327 Constraint violation = 2.32185e-11
+[2025-11-19 15:35:01.187] [cout] [info] time = 1.085 Performance = 24.7657 Constraint violation = 1.28793e-11
+[2025-11-19 15:35:01.448] [cout] [info] time = 1.09 Performance = 25.4203 Constraint violation = 1.91665e-11
+[2025-11-19 15:35:01.713] [cout] [info] time = 1.095 Performance = 26.098 Constraint violation = 2.64069e-11
+[2025-11-19 15:35:01.979] [cout] [info] time = 1.1 Performance = 26.8022 Constraint violation = 3.00389e-12
+[2025-11-19 15:35:02.243] [cout] [info] time = 1.10500 Performance = 27.5358 Constraint violation = 8.10439e-12
+[2025-11-19 15:35:02.502] [cout] [info] time = 1.11 Performance = 28.3002 Constraint violation = 1.36080e-11
+[2025-11-19 15:35:02.743] [cout] [info] time = 1.115 Performance = 29.0948 Constraint violation = 6.57487e-11
+[2025-11-19 15:35:02.994] [cout] [info] time = 1.12 Performance = 29.9141 Constraint violation = 1.11564e-11
+[2025-11-19 15:35:03.236] [cout] [info] time = 1.125 Performance = 30.7492 Constraint violation = 5.12656e-11
+[2025-11-19 15:35:03.476] [cout] [info] time = 1.13 Performance = 31.5899 Constraint violation = 5.83039e-12
+[2025-11-19 15:35:03.725] [cout] [info] time = 1.135 Performance = 32.426 Constraint violation = 2.62753e-10
+[2025-11-19 15:35:03.972] [cout] [info] time = 1.14 Performance = 33.25 Constraint violation = 1.79399e-10
+[2025-11-19 15:35:04.221] [cout] [info] time = 1.145 Performance = 34.0549 Constraint violation = 2.84817e-11
+[2025-11-19 15:35:04.471] [cout] [info] time = 1.15 Performance = 34.8349 Constraint violation = 5.27124e-10
+[2025-11-19 15:35:04.722] [cout] [info] time = 1.155 Performance = 35.5835 Constraint violation = 7.9485e-11
+[2025-11-19 15:35:04.969] [cout] [info] time = 1.16 Performance = 36.2942 Constraint violation = 3.22819e-12
+[2025-11-19 15:35:05.211] [cout] [info] time = 1.165 Performance = 36.9545 Constraint violation = 3.19978e-12
+[2025-11-19 15:35:05.459] [cout] [info] time = 1.17 Performance = 37.5535 Constraint violation = 4.09993e-11
+[2025-11-19 15:35:05.703] [cout] [info] time = 1.175 Performance = 38.0762 Constraint violation = 1.57546e-11
+[2025-11-19 15:35:05.952] [cout] [info] time = 1.18 Performance = 38.5057 Constraint violation = 1.57021e-11
+[2025-11-19 15:35:06.205] [cout] [info] time = 1.185 Performance = 38.8253 Constraint violation = 8.53218e-10
+[2025-11-19 15:35:06.454] [cout] [info] time = 1.19 Performance = 39.021 Constraint violation = 6.04745e-11
+[2025-11-19 15:35:06.702] [cout] [info] time = 1.195 Performance = 39.0787 Constraint violation = 1.82296e-10
+[2025-11-19 15:35:06.959] [cout] [info] time = 1.2 Performance = 38.9901 Constraint violation = 5.19222e-11
+[2025-11-19 15:35:07.212] [cout] [info] time = 1.20500 Performance = 38.7546 Constraint violation = 1.20762e-10
+[2025-11-19 15:35:07.468] [cout] [info] time = 1.21 Performance = 38.3807 Constraint violation = 4.42374e-11
+[2025-11-19 15:35:07.721] [cout] [info] time = 1.215 Performance = 37.8867 Constraint violation = 6.97575e-11
+[2025-11-19 15:35:07.974] [cout] [info] time = 1.22 Performance = 37.2987 Constraint violation = 2.40178e-10
+[2025-11-19 15:35:08.227] [cout] [info] time = 1.225 Performance = 36.6469 Constraint violation = 2.95637e-11
+[2025-11-19 15:35:08.475] [cout] [info] time = 1.23 Performance = 35.9606 Constraint violation = 3.35996e-11
+[2025-11-19 15:35:08.722] [cout] [info] time = 1.235 Performance = 35.2632 Constraint violation = 1.47542e-10
+[2025-11-19 15:35:08.970] [cout] [info] time = 1.24 Performance = 34.5721 Constraint violation = 7.29917e-11
+[2025-11-19 15:35:09.218] [cout] [info] time = 1.245 Performance = 33.8983 Constraint violation = 3.90901e-11
+[2025-11-19 15:35:09.464] [cout] [info] time = 1.25 Performance = 33.2473 Constraint violation = 8.96435e-11
+[2025-11-19 15:35:09.712] [cout] [info] time = 1.255 Performance = 32.6214 Constraint violation = 3.27663e-11
+[2025-11-19 15:35:09.961] [cout] [info] time = 1.26 Performance = 32.0209 Constraint violation = 1.28107e-11
+[2025-11-19 15:35:10.206] [cout] [info] time = 1.265 Performance = 31.4461 Constraint violation = 7.53332e-12
+[2025-11-19 15:35:10.452] [cout] [info] time = 1.27 Performance = 30.8985 Constraint violation = 4.23134e-11
+[2025-11-19 15:35:10.707] [cout] [info] time = 1.275 Performance = 30.3815 Constraint violation = 9.76366e-11
+[2025-11-19 15:35:10.956] [cout] [info] time = 1.28 Performance = 29.9016 Constraint violation = 6.6535e-11
+[2025-11-19 15:35:11.202] [cout] [info] time = 1.285 Performance = 29.4725 Constraint violation = 6.10804e-11
+[2025-11-19 15:35:11.448] [cout] [info] time = 1.29 Performance = 29.1097 Constraint violation = 1.08957e-10
+[2025-11-19 15:35:11.694] [cout] [info] time = 1.295 Performance = 28.8299 Constraint violation = 8.89917e-11
+[2025-11-19 15:35:11.937] [cout] [info] time = 1.3 Performance = 28.6511 Constraint violation = 1.73401e-12
+[2025-11-19 15:35:12.181] [cout] [info] time = 1.30500 Performance = 28.5907 Constraint violation = 1.06597e-10
+[2025-11-19 15:35:12.431] [cout] [info] time = 1.31 Performance = 28.6578 Constraint violation = 2.63897e-10
+[2025-11-19 15:35:12.677] [cout] [info] time = 1.315 Performance = 28.8548 Constraint violation = 7.13131e-11
+[2025-11-19 15:35:12.925] [cout] [info] time = 1.32 Performance = 29.175 Constraint violation = 7.78001e-11
+[2025-11-19 15:35:13.170] [cout] [info] time = 1.325 Performance = 29.6076 Constraint violation = 1.06656e-10
+[2025-11-19 15:35:13.416] [cout] [info] time = 1.33 Performance = 30.1369 Constraint violation = 8.68948e-11
+[2025-11-19 15:35:13.661] [cout] [info] time = 1.335 Performance = 30.7446 Constraint violation = 1.62767e-10
+[2025-11-19 15:35:13.907] [cout] [info] time = 1.34 Performance = 31.4112 Constraint violation = 5.70094e-11
+[2025-11-19 15:35:14.154] [cout] [info] time = 1.345 Performance = 32.1198 Constraint violation = 5.89789e-11
+[2025-11-19 15:35:14.398] [cout] [info] time = 1.35 Performance = 32.856 Constraint violation = 1.84081e-10
+[2025-11-19 15:35:14.642] [cout] [info] time = 1.355 Performance = 33.6097 Constraint violation = 9.89815e-12
+[2025-11-19 15:35:14.883] [cout] [info] time = 1.36 Performance = 34.3758 Constraint violation = 3.98774e-11
+[2025-11-19 15:35:15.131] [cout] [info] time = 1.365 Performance = 35.1524 Constraint violation = 7.53521e-11
+[2025-11-19 15:35:15.379] [cout] [info] time = 1.37 Performance = 35.94 Constraint violation = 3.0313e-10
+[2025-11-19 15:35:15.627] [cout] [info] time = 1.375 Performance = 36.7358 Constraint violation = 3.63959e-10
+[2025-11-19 15:35:15.874] [cout] [info] time = 1.38 Performance = 37.5352 Constraint violation = 2.41567e-10
+[2025-11-19 15:35:16.121] [cout] [info] time = 1.385 Performance = 38.3319 Constraint violation = 8.95854e-11
+[2025-11-19 15:35:16.372] [cout] [info] time = 1.39 Performance = 39.1181 Constraint violation = 1.72245e-10
+[2025-11-19 15:35:16.620] [cout] [info] time = 1.395 Performance = 39.8869 Constraint violation = 6.22938e-11
+[2025-11-19 15:35:16.867] [cout] [info] time = 1.4 Performance = 40.6319 Constraint violation = 3.39378e-10
+[2025-11-19 15:35:17.115] [cout] [info] time = 1.40500 Performance = 41.3476 Constraint violation = 5.58956e-11
+[2025-11-19 15:35:17.367] [cout] [info] time = 1.41 Performance = 42.0296 Constraint violation = 2.43993e-10
+[2025-11-19 15:35:17.612] [cout] [info] time = 1.415 Performance = 42.6727 Constraint violation = 2.05172e-11
+[2025-11-19 15:35:17.857] [cout] [info] time = 1.42 Performance = 43.2714 Constraint violation = 1.34945e-11
+[2025-11-19 15:35:18.103] [cout] [info] time = 1.425 Performance = 43.8221 Constraint violation = 9.82038e-11
+[2025-11-19 15:35:18.347] [cout] [info] time = 1.43 Performance = 44.3244 Constraint violation = 4.97551e-10
+[2025-11-19 15:35:18.591] [cout] [info] time = 1.435 Performance = 44.7801 Constraint violation = 3.89698e-11
+[2025-11-19 15:35:18.834] [cout] [info] time = 1.44 Performance = 45.1901 Constraint violation = 5.63767e-11
+[2025-11-19 15:35:19.076] [cout] [info] time = 1.445 Performance = 45.553 Constraint violation = 1.79424e-11
+[2025-11-19 15:35:19.320] [cout] [info] time = 1.45 Performance = 45.8615 Constraint violation = 1.63687e-11
+[2025-11-19 15:35:19.563] [cout] [info] time = 1.455 Performance = 46.1126 Constraint violation = 5.59455e-11
+[2025-11-19 15:35:19.807] [cout] [info] time = 1.46 Performance = 46.3005 Constraint violation = 7.94261e-11
+[2025-11-19 15:35:20.052] [cout] [info] time = 1.465 Performance = 46.4223 Constraint violation = 1.76641e-10
+[2025-11-19 15:35:20.301] [cout] [info] time = 1.47 Performance = 46.4772 Constraint violation = 1.31983e-11
+[2025-11-19 15:35:20.547] [cout] [info] time = 1.475 Performance = 46.4672 Constraint violation = 4.7112e-11
+[2025-11-19 15:35:20.795] [cout] [info] time = 1.48 Performance = 46.3961 Constraint violation = 6.26775e-11
+[2025-11-19 15:35:21.039] [cout] [info] time = 1.485 Performance = 46.2683 Constraint violation = 2.97899e-11
+[2025-11-19 15:35:21.285] [cout] [info] time = 1.49 Performance = 46.0872 Constraint violation = 4.06188e-11
+[2025-11-19 15:35:21.534] [cout] [info] time = 1.495 Performance = 45.8561 Constraint violation = 1.63129e-11
+[2025-11-19 15:35:21.780] [cout] [info] time = 1.5 Performance = 45.5824 Constraint violation = 1.00379e-10
+[2025-11-19 15:35:22.029] [cout] [info] time = 1.50500 Performance = 45.2784 Constraint violation = 3.84106e-11
+[2025-11-19 15:35:22.286] [cout] [info] time = 1.51 Performance = 44.957 Constraint violation = 1.17191e-10
+[2025-11-19 15:35:22.538] [cout] [info] time = 1.515 Performance = 44.6285 Constraint violation = 3.84885e-11
+[2025-11-19 15:35:22.789] [cout] [info] time = 1.52 Performance = 44.3016 Constraint violation = 2.98919e-11
+[2025-11-19 15:35:23.041] [cout] [info] time = 1.525 Performance = 43.985 Constraint violation = 9.68977e-11
+[2025-11-19 15:35:23.292] [cout] [info] time = 1.53 Performance = 43.6885 Constraint violation = 6.45495e-11
+[2025-11-19 15:35:23.548] [cout] [info] time = 1.535 Performance = 43.4217 Constraint violation = 5.74971e-11
+[2025-11-19 15:35:23.799] [cout] [info] time = 1.54 Performance = 43.1926 Constraint violation = 6.72097e-11
+[2025-11-19 15:35:24.052] [cout] [info] time = 1.545 Performance = 43.0071 Constraint violation = 3.82293e-11
+[2025-11-19 15:35:24.305] [cout] [info] time = 1.55 Performance = 42.8689 Constraint violation = 6.27909e-11
+[2025-11-19 15:35:24.557] [cout] [info] time = 1.555 Performance = 42.7795 Constraint violation = 5.75183e-11
+[2025-11-19 15:35:24.812] [cout] [info] time = 1.56 Performance = 42.7393 Constraint violation = 3.94737e-11
+[2025-11-19 15:35:25.064] [cout] [info] time = 1.565 Performance = 42.7482 Constraint violation = 1.80106e-10
+[2025-11-19 15:35:25.319] [cout] [info] time = 1.57 Performance = 42.8051 Constraint violation = 2.41989e-11
+[2025-11-19 15:35:25.568] [cout] [info] time = 1.575 Performance = 42.9066 Constraint violation = 6.15615e-12
+[2025-11-19 15:35:25.816] [cout] [info] time = 1.58 Performance = 43.0464 Constraint violation = 9.7575e-11
+[2025-11-19 15:35:26.071] [cout] [info] time = 1.585 Performance = 43.2172 Constraint violation = 4.25941e-11
+[2025-11-19 15:35:26.324] [cout] [info] time = 1.59 Performance = 43.4132 Constraint violation = 2.14704e-10
+[2025-11-19 15:35:26.576] [cout] [info] time = 1.595 Performance = 43.6352 Constraint violation = 5.06375e-12
+[2025-11-19 15:35:26.827] [cout] [info] time = 1.6 Performance = 43.8817 Constraint violation = 8.13145e-12
+[2025-11-19 15:35:27.076] [cout] [info] time = 1.60500 Performance = 44.1541 Constraint violation = 3.52241e-12
+[2025-11-19 15:35:27.330] [cout] [info] time = 1.61 Performance = 44.4531 Constraint violation = 1.14361e-10
+[2025-11-19 15:35:27.581] [cout] [info] time = 1.615 Performance = 44.7803 Constraint violation = 1.31661e-11
+[2025-11-19 15:35:27.833] [cout] [info] time = 1.62 Performance = 45.1384 Constraint violation = 1.1693e-10
+[2025-11-19 15:35:28.086] [cout] [info] time = 1.625 Performance = 45.5278 Constraint violation = 2.54698e-12
+[2025-11-19 15:35:28.341] [cout] [info] time = 1.63 Performance = 45.9454 Constraint violation = 1.30239e-11
+[2025-11-19 15:35:28.592] [cout] [info] time = 1.635 Performance = 46.3858 Constraint violation = 2.37156e-11
+[2025-11-19 15:35:28.844] [cout] [info] time = 1.64 Performance = 46.8429 Constraint violation = 4.05843e-12
+[2025-11-19 15:35:29.095] [cout] [info] time = 1.645 Performance = 47.3115 Constraint violation = 7.20887e-11
+[2025-11-19 15:35:29.347] [cout] [info] time = 1.65 Performance = 47.7863 Constraint violation = 2.05215e-10
+[2025-11-19 15:35:29.599] [cout] [info] time = 1.655 Performance = 48.2633 Constraint violation = 1.30767e-10
+[2025-11-19 15:35:29.854] [cout] [info] time = 1.66 Performance = 48.7389 Constraint violation = 1.41381e-10
+[2025-11-19 15:35:30.106] [cout] [info] time = 1.665 Performance = 49.2103 Constraint violation = 7.04048e-11
+[2025-11-19 15:35:30.360] [cout] [info] time = 1.67 Performance = 49.6751 Constraint violation = 3.60655e-11
+[2025-11-19 15:35:30.623] [cout] [info] time = 1.675 Performance = 50.1317 Constraint violation = 4.22354e-11
+[2025-11-19 15:35:30.896] [cout] [info] time = 1.68 Performance = 50.5786 Constraint violation = 3.20893e-11
+[2025-11-19 15:35:31.183] [cout] [info] time = 1.685 Performance = 51.015 Constraint violation = 4.99121e-11
+[2025-11-19 15:35:31.506] [cout] [info] time = 1.69 Performance = 51.4399 Constraint violation = 8.02951e-11
+[2025-11-19 15:35:31.820] [cout] [info] time = 1.695 Performance = 51.8517 Constraint violation = 3.07979e-11
+[2025-11-19 15:35:32.131] [cout] [info] time = 1.7 Performance = 52.2485 Constraint violation = 2.73905e-11
+[2025-11-19 15:35:32.441] [cout] [info] time = 1.70500 Performance = 52.6282 Constraint violation = 1.15798e-10
+[2025-11-19 15:35:32.728] [cout] [info] time = 1.71 Performance = 52.9889 Constraint violation = 2.45918e-11
+[2025-11-19 15:35:32.996] [cout] [info] time = 1.715 Performance = 53.3288 Constraint violation = 1.26030e-10
+[2025-11-19 15:35:33.258] [cout] [info] time = 1.72 Performance = 53.6452 Constraint violation = 8.81426e-11
+[2025-11-19 15:35:33.521] [cout] [info] time = 1.725 Performance = 53.9347 Constraint violation = 3.27273e-11
+[2025-11-19 15:35:33.782] [cout] [info] time = 1.73 Performance = 54.1938 Constraint violation = 1.31441e-10
+[2025-11-19 15:35:34.044] [cout] [info] time = 1.735 Performance = 54.4196 Constraint violation = 2.77032e-12
+[2025-11-19 15:35:34.307] [cout] [info] time = 1.74 Performance = 54.6112 Constraint violation = 3.72362e-12
+[2025-11-19 15:35:34.572] [cout] [info] time = 1.745 Performance = 54.7688 Constraint violation = 2.96396e-11
+[2025-11-19 15:35:34.834] [cout] [info] time = 1.75 Performance = 54.8932 Constraint violation = 9.15257e-12
+[2025-11-19 15:35:35.097] [cout] [info] time = 1.755 Performance = 54.9861 Constraint violation = 4.49078e-11
+[2025-11-19 15:35:35.360] [cout] [info] time = 1.76 Performance = 55.0501 Constraint violation = 2.17786e-11
+[2025-11-19 15:35:35.626] [cout] [info] time = 1.765 Performance = 55.0859 Constraint violation = 2.27952e-11
+[2025-11-19 15:35:35.889] [cout] [info] time = 1.77 Performance = 55.0952 Constraint violation = 9.35487e-11
+[2025-11-19 15:35:36.153] [cout] [info] time = 1.775 Performance = 55.0809 Constraint violation = 2.52238e-11
+[2025-11-19 15:35:36.419] [cout] [info] time = 1.78 Performance = 55.0473 Constraint violation = 7.28669e-12
+[2025-11-19 15:35:36.679] [cout] [info] time = 1.785 Performance = 55.0018 Constraint violation = 4.64724e-11
+[2025-11-19 15:35:36.944] [cout] [info] time = 1.79 Performance = 54.9546 Constraint violation = 1.00455e-10
+[2025-11-19 15:35:37.205] [cout] [info] time = 1.795 Performance = 54.9168 Constraint violation = 4.1665e-11
+[2025-11-19 15:35:37.467] [cout] [info] time = 1.8 Performance = 54.8977 Constraint violation = 5.80410e-11
+[2025-11-19 15:35:37.726] [cout] [info] time = 1.80500 Performance = 54.9047 Constraint violation = 6.02742e-12
+[2025-11-19 15:35:37.985] [cout] [info] time = 1.81 Performance = 54.9436 Constraint violation = 3.84455e-12
+[2025-11-19 15:35:38.246] [cout] [info] time = 1.815 Performance = 55.0177 Constraint violation = 8.13445e-12
+[2025-11-19 15:35:38.511] [cout] [info] time = 1.82 Performance = 55.1288 Constraint violation = 3.20410e-11
+[2025-11-19 15:35:38.773] [cout] [info] time = 1.825 Performance = 55.2749 Constraint violation = 7.87282e-11
+[2025-11-19 15:35:39.033] [cout] [info] time = 1.83 Performance = 55.4516 Constraint violation = 5.84411e-12
+[2025-11-19 15:35:39.298] [cout] [info] time = 1.835 Performance = 55.6489 Constraint violation = 1.01322e-10
+[2025-11-19 15:35:39.565] [cout] [info] time = 1.84 Performance = 55.854 Constraint violation = 2.09302e-11
+[2025-11-19 15:35:39.828] [cout] [info] time = 1.845 Performance = 56.051 Constraint violation = 5.44578e-11
+[2025-11-19 15:35:40.091] [cout] [info] time = 1.85 Performance = 56.2253 Constraint violation = 2.50470e-11
+[2025-11-19 15:35:40.355] [cout] [info] time = 1.855 Performance = 56.3659 Constraint violation = 4.01005e-11
+[2025-11-19 15:35:40.618] [cout] [info] time = 1.86 Performance = 56.4643 Constraint violation = 4.60080e-12
+[2025-11-19 15:35:40.882] [cout] [info] time = 1.865 Performance = 56.5125 Constraint violation = 3.62144e-11
+[2025-11-19 15:35:41.143] [cout] [info] time = 1.87 Performance = 56.5022 Constraint violation = 6.87501e-11
+[2025-11-19 15:35:41.410] [cout] [info] time = 1.875 Performance = 56.4302 Constraint violation = 5.86451e-12
+[2025-11-19 15:35:41.674] [cout] [info] time = 1.88 Performance = 56.2921 Constraint violation = 9.10928e-12
+[2025-11-19 15:35:41.943] [cout] [info] time = 1.885 Performance = 56.0875 Constraint violation = 7.22898e-11
+[2025-11-19 15:35:42.207] [cout] [info] time = 1.89 Performance = 55.8196 Constraint violation = 6.5757e-11
+[2025-11-19 15:35:42.472] [cout] [info] time = 1.895 Performance = 55.4936 Constraint violation = 5.55251e-11
+[2025-11-19 15:35:42.737] [cout] [info] time = 1.9 Performance = 55.1228 Constraint violation = 1.56033e-11
+[2025-11-19 15:35:42.998] [cout] [info] time = 1.90500 Performance = 54.7304 Constraint violation = 5.79486e-12
+[2025-11-19 15:35:43.263] [cout] [info] time = 1.91 Performance = 54.3409 Constraint violation = 4.21657e-11
+[2025-11-19 15:35:43.526] [cout] [info] time = 1.915 Performance = 53.9837 Constraint violation = 1.77346e-11
+[2025-11-19 15:35:43.796] [cout] [info] time = 1.92 Performance = 53.6782 Constraint violation = 5.46616e-12
+[2025-11-19 15:35:44.062] [cout] [info] time = 1.925 Performance = 53.4443 Constraint violation = 6.27658e-12
+[2025-11-19 15:35:44.326] [cout] [info] time = 1.93 Performance = 53.297 Constraint violation = 1.50057e-11
+[2025-11-19 15:35:44.594] [cout] [info] time = 1.935 Performance = 53.2475 Constraint violation = 4.10097e-11
+[2025-11-19 15:35:44.857] [cout] [info] time = 1.94 Performance = 53.3015 Constraint violation = 6.80226e-11
+[2025-11-19 15:35:45.124] [cout] [info] time = 1.945 Performance = 53.4618 Constraint violation = 3.38963e-11
+[2025-11-19 15:35:45.394] [cout] [info] time = 1.95 Performance = 53.7277 Constraint violation = 1.22081e-11
+[2025-11-19 15:35:45.658] [cout] [info] time = 1.955 Performance = 54.0958 Constraint violation = 3.33259e-11
+[2025-11-19 15:35:45.919] [cout] [info] time = 1.96 Performance = 54.5594 Constraint violation = 4.08633e-12
+[2025-11-19 15:35:46.180] [cout] [info] time = 1.965 Performance = 55.1092 Constraint violation = 1.94351e-11
+[2025-11-19 15:35:46.443] [cout] [info] time = 1.97 Performance = 55.7286 Constraint violation = 1.55067e-11
+[2025-11-19 15:35:46.704] [cout] [info] time = 1.975 Performance = 56.4028 Constraint violation = 2.07245e-11
+[2025-11-19 15:35:46.967] [cout] [info] time = 1.98 Performance = 57.115 Constraint violation = 8.33475e-12
+[2025-11-19 15:35:47.230] [cout] [info] time = 1.985 Performance = 57.8478 Constraint violation = 2.44891e-11
+[2025-11-19 15:35:47.492] [cout] [info] time = 1.99 Performance = 58.5897 Constraint violation = 4.85625e-12
+[2025-11-19 15:35:47.753] [cout] [info] time = 1.995 Performance = 59.325 Constraint violation = 9.16943e-12
+[2025-11-19 15:35:48.014] [cout] [info] time = 2.0 Performance = 60.0446 Constraint violation = 4.22206e-12
+[2025-11-19 15:35:48.276] [cout] [info] time = 2.00500 Performance = 60.7385 Constraint violation = 4.59972e-11
+[2025-11-19 15:35:48.540] [cout] [info] time = 2.01 Performance = 61.397 Constraint violation = 2.15707e-11
+[2025-11-19 15:35:48.805] [cout] [info] time = 2.015 Performance = 62.0129 Constraint violation = 7.72324e-12
+[2025-11-19 15:35:49.072] [cout] [info] time = 2.02 Performance = 62.5798 Constraint violation = 4.92604e-11
+[2025-11-19 15:35:49.339] [cout] [info] time = 2.025 Performance = 63.0963 Constraint violation = 3.40209e-11
+[2025-11-19 15:35:49.607] [cout] [info] time = 2.03 Performance = 63.5626 Constraint violation = 6.76608e-12
+[2025-11-19 15:35:49.875] [cout] [info] time = 2.035 Performance = 63.9884 Constraint violation = 4.50547e-11
+[2025-11-19 15:35:50.143] [cout] [info] time = 2.04 Performance = 64.3884 Constraint violation = 1.31736e-11
+[2025-11-19 15:35:50.412] [cout] [info] time = 2.045 Performance = 64.7782 Constraint violation = 6.08468e-11
+[2025-11-19 15:35:50.682] [cout] [info] time = 2.05 Performance = 65.1724 Constraint violation = 1.29197e-10
+[2025-11-19 15:35:50.948] [cout] [info] time = 2.055 Performance = 65.5826 Constraint violation = 3.29351e-11
+[2025-11-19 15:35:51.218] [cout] [info] time = 2.06 Performance = 66.0164 Constraint violation = 2.61488e-11
+[2025-11-19 15:35:51.484] [cout] [info] time = 2.065 Performance = 66.4779 Constraint violation = 1.09569e-10
+[2025-11-19 15:35:51.753] [cout] [info] time = 2.07 Performance = 66.9674 Constraint violation = 2.56203e-10
+[2025-11-19 15:35:52.020] [cout] [info] time = 2.075 Performance = 67.4834 Constraint violation = 2.56083e-11
+[2025-11-19 15:35:52.289] [cout] [info] time = 2.08 Performance = 68.0232 Constraint violation = 6.8396e-11
+[2025-11-19 15:35:52.555] [cout] [info] time = 2.085 Performance = 68.584 Constraint violation = 1.15609e-11
+[2025-11-19 15:35:52.824] [cout] [info] time = 2.09 Performance = 69.162 Constraint violation = 3.47467e-11
+[2025-11-19 15:35:53.089] [cout] [info] time = 2.095 Performance = 69.7527 Constraint violation = 7.18971e-11
+[2025-11-19 15:35:53.355] [cout] [info] time = 2.1 Performance = 70.3504 Constraint violation = 9.94566e-12
+[2025-11-19 15:35:53.622] [cout] [info] time = 2.10500 Performance = 70.95 Constraint violation = 3.52322e-12
+[2025-11-19 15:35:53.888] [cout] [info] time = 2.11 Performance = 71.5476 Constraint violation = 1.89268e-10
+[2025-11-19 15:35:54.169] [cout] [info] time = 2.115 Performance = 72.1426 Constraint violation = 1.53831e-11
+[2025-11-19 15:35:54.433] [cout] [info] time = 2.12 Performance = 72.7393 Constraint violation = 7.80952e-11
+[2025-11-19 15:35:54.700] [cout] [info] time = 2.125 Performance = 73.346 Constraint violation = 9.06558e-12
+[2025-11-19 15:35:54.968] [cout] [info] time = 2.13 Performance = 73.9733 Constraint violation = 8.88252e-11
+[2025-11-19 15:35:55.236] [cout] [info] time = 2.135 Performance = 74.6333 Constraint violation = 3.13801e-11
+[2025-11-19 15:35:55.505] [cout] [info] time = 2.14 Performance = 75.3398 Constraint violation = 6.23569e-11
+[2025-11-19 15:35:55.777] [cout] [info] time = 2.145 Performance = 76.1079 Constraint violation = 9.75744e-11
+[2025-11-19 15:35:56.050] [cout] [info] time = 2.15 Performance = 76.9504 Constraint violation = 6.61618e-11
+[2025-11-19 15:35:56.318] [cout] [info] time = 2.155 Performance = 77.8754 Constraint violation = 6.37675e-11
+[2025-11-19 15:35:56.583] [cout] [info] time = 2.16 Performance = 78.8864 Constraint violation = 7.24994e-11
+[2025-11-19 15:35:56.857] [cout] [info] time = 2.165 Performance = 79.9836 Constraint violation = 9.27167e-11
+[2025-11-19 15:35:57.124] [cout] [info] time = 2.17 Performance = 81.1643 Constraint violation = 1.69294e-11
+[2025-11-19 15:35:57.392] [cout] [info] time = 2.175 Performance = 82.4209 Constraint violation = 3.12754e-12
+[2025-11-19 15:35:57.680] [cout] [info] time = 2.18 Performance = 83.7373 Constraint violation = 2.94554e-09
+[2025-11-19 15:35:57.947] [cout] [info] time = 2.185 Performance = 85.0908 Constraint violation = 1.46199e-10
+[2025-11-19 15:35:58.213] [cout] [info] time = 2.19 Performance = 86.4505 Constraint violation = 3.89161e-11
+[2025-11-19 15:35:58.479] [cout] [info] time = 2.195 Performance = 87.7842 Constraint violation = 1.07565e-11
+[2025-11-19 15:35:58.744] [cout] [info] time = 2.2 Performance = 89.0671 Constraint violation = 2.86249e-12
+[2025-11-19 15:35:59.012] [cout] [info] time = 2.20500 Performance = 90.2789 Constraint violation = 8.22345e-12
+[2025-11-19 15:35:59.283] [cout] [info] time = 2.21 Performance = 91.3993 Constraint violation = 3.05404e-11
+[2025-11-19 15:35:59.555] [cout] [info] time = 2.215 Performance = 92.4054 Constraint violation = 3.4938e-11
+[2025-11-19 15:35:59.827] [cout] [info] time = 2.22 Performance = 93.2742 Constraint violation = 2.66736e-10
+[2025-11-19 15:36:00.096] [cout] [info] time = 2.225 Performance = 93.9917 Constraint violation = 7.04393e-11
+[2025-11-19 15:36:00.361] [cout] [info] time = 2.23 Performance = 94.5528 Constraint violation = 2.15018e-11
+[2025-11-19 15:36:00.636] [cout] [info] time = 2.235 Performance = 94.9608 Constraint violation = 2.28362e-10
+[2025-11-19 15:36:00.934] [cout] [info] time = 2.24 Performance = 95.2233 Constraint violation = 8.55679e-10
+[2025-11-19 15:36:01.216] [cout] [info] time = 2.245 Performance = 95.3491 Constraint violation = 6.05237e-12
+[2025-11-19 15:36:01.490] [cout] [info] time = 2.25 Performance = 95.3503 Constraint violation = 5.7423e-11
+[2025-11-19 15:36:01.781] [cout] [info] time = 2.255 Performance = 95.2455 Constraint violation = 5.57802e-11
+[2025-11-19 15:36:02.064] [cout] [info] time = 2.26 Performance = 95.0541 Constraint violation = 7.01242e-11
+[2025-11-19 15:36:02.352] [cout] [info] time = 2.265 Performance = 94.7916 Constraint violation = 1.45691e-10
+[2025-11-19 15:36:02.628] [cout] [info] time = 2.27 Performance = 94.4705 Constraint violation = 2.93155e-11
+[2025-11-19 15:36:02.893] [cout] [info] time = 2.275 Performance = 94.0936 Constraint violation = 1.85076e-11
+[2025-11-19 15:36:03.161] [cout] [info] time = 2.28 Performance = 93.6607 Constraint violation = 6.54331e-11
+[2025-11-19 15:36:03.431] [cout] [info] time = 2.285 Performance = 93.1657 Constraint violation = 2.49060e-12
+[2025-11-19 15:36:03.697] [cout] [info] time = 2.29 Performance = 92.6001 Constraint violation = 4.79695e-11
+[2025-11-19 15:36:03.960] [cout] [info] time = 2.295 Performance = 91.9526 Constraint violation = 8.27278e-11
+[2025-11-19 15:36:04.223] [cout] [info] time = 2.3 Performance = 91.215 Constraint violation = 4.37134e-11
+[2025-11-19 15:36:04.484] [cout] [info] time = 2.30500 Performance = 90.3833 Constraint violation = 2.2327e-12
+[2025-11-19 15:36:04.744] [cout] [info] time = 2.31 Performance = 89.4614 Constraint violation = 1.12879e-10
+[2025-11-19 15:36:05.005] [cout] [info] time = 2.315 Performance = 88.4692 Constraint violation = 9.46299e-12
+[2025-11-19 15:36:05.265] [cout] [info] time = 2.32 Performance = 87.4265 Constraint violation = 1.49816e-10
+[2025-11-19 15:36:05.526] [cout] [info] time = 2.325 Performance = 86.3842 Constraint violation = 2.67844e-10
+[2025-11-19 15:36:05.783] [cout] [info] time = 2.33 Performance = 85.4034 Constraint violation = 4.24681e-11
+[2025-11-19 15:36:06.050] [cout] [info] time = 2.335 Performance = 84.5423 Constraint violation = 5.94381e-12
+[2025-11-19 15:36:06.315] [cout] [info] time = 2.34 Performance = 83.8565 Constraint violation = 2.45811e-11
+[2025-11-19 15:36:06.577] [cout] [info] time = 2.345 Performance = 83.3904 Constraint violation = 3.08425e-11
+[2025-11-19 15:36:06.844] [cout] [info] time = 2.35 Performance = 83.1815 Constraint violation = 6.8635e-11
+[2025-11-19 15:36:07.106] [cout] [info] time = 2.355 Performance = 83.2581 Constraint violation = 4.29484e-11
+[2025-11-19 15:36:07.363] [cout] [info] time = 2.36 Performance = 83.6384 Constraint violation = 6.22662e-11
+[2025-11-19 15:36:07.616] [cout] [info] time = 2.365 Performance = 84.3314 Constraint violation = 5.59753e-11
+[2025-11-19 15:36:07.869] [cout] [info] time = 2.37 Performance = 85.3286 Constraint violation = 8.06942e-11
+[2025-11-19 15:36:08.122] [cout] [info] time = 2.375 Performance = 86.6136 Constraint violation = 3.78125e-11
+[2025-11-19 15:36:08.379] [cout] [info] time = 2.38 Performance = 88.1679 Constraint violation = 4.32303e-11
+[2025-11-19 15:36:08.631] [cout] [info] time = 2.385 Performance = 89.9742 Constraint violation = 1.19528e-10
+[2025-11-19 15:36:08.881] [cout] [info] time = 2.39 Performance = 92.0123 Constraint violation = 1.22462e-11
+[2025-11-19 15:36:09.137] [cout] [info] time = 2.395 Performance = 94.2593 Constraint violation = 3.20289e-10
+[2025-11-19 15:36:09.389] [cout] [info] time = 2.4 Performance = 96.6892 Constraint violation = 4.44093e-11
+[2025-11-19 15:36:09.637] [cout] [info] time = 2.40500 Performance = 99.267 Constraint violation = 1.01013e-11
+[2025-11-19 15:36:09.889] [cout] [info] time = 2.41 Performance = 101.949 Constraint violation = 7.60378e-11
+[2025-11-19 15:36:10.141] [cout] [info] time = 2.415 Performance = 104.68 Constraint violation = 5.33725e-10
+[2025-11-19 15:36:10.394] [cout] [info] time = 2.42 Performance = 107.405 Constraint violation = 1.22844e-10
+[2025-11-19 15:36:10.647] [cout] [info] time = 2.425 Performance = 110.069 Constraint violation = 2.04844e-10
+[2025-11-19 15:36:10.900] [cout] [info] time = 2.43 Performance = 112.609 Constraint violation = 1.06878e-10
+[2025-11-19 15:36:11.151] [cout] [info] time = 2.435 Performance = 114.959 Constraint violation = 1.34195e-10
+[2025-11-19 15:36:11.405] [cout] [info] time = 2.44 Performance = 117.052 Constraint violation = 2.172e-11
+[2025-11-19 15:36:11.658] [cout] [info] time = 2.445 Performance = 118.824 Constraint violation = 4.93346e-11
+[2025-11-19 15:36:11.909] [cout] [info] time = 2.45 Performance = 120.222 Constraint violation = 2.7725e-10
+[2025-11-19 15:36:12.161] [cout] [info] time = 2.455 Performance = 121.199 Constraint violation = 4.73416e-11
+[2025-11-19 15:36:12.413] [cout] [info] time = 2.46 Performance = 121.722 Constraint violation = 7.31831e-11
+[2025-11-19 15:36:12.661] [cout] [info] time = 2.465 Performance = 121.769 Constraint violation = 1.12563e-10
+[2025-11-19 15:36:12.910] [cout] [info] time = 2.47 Performance = 121.32 Constraint violation = 1.94226e-10
+[2025-11-19 15:36:13.161] [cout] [info] time = 2.475 Performance = 120.359 Constraint violation = 7.26529e-11
+[2025-11-19 15:36:13.410] [cout] [info] time = 2.48 Performance = 118.873 Constraint violation = 4.99135e-10
+[2025-11-19 15:36:13.657] [cout] [info] time = 2.485 Performance = 116.862 Constraint violation = 1.07183e-10
+[2025-11-19 15:36:13.905] [cout] [info] time = 2.49 Performance = 114.34 Constraint violation = 1.13203e-10
+[2025-11-19 15:36:14.153] [cout] [info] time = 2.495 Performance = 111.33 Constraint violation = 5.28617e-11
+[2025-11-19 15:36:14.405] [cout] [info] time = 2.5 Performance = 107.875 Constraint violation = 5.59261e-10
+[2025-11-19 15:36:14.650] [cout] [info] time = 2.50500 Performance = 104.034 Constraint violation = 4.56595e-11
+[2025-11-19 15:36:14.898] [cout] [info] time = 2.51 Performance = 99.8796 Constraint violation = 1.97109e-10
+[2025-11-19 15:36:15.149] [cout] [info] time = 2.515 Performance = 95.49 Constraint violation = 6.62438e-12
+[2025-11-19 15:36:15.401] [cout] [info] time = 2.52 Performance = 90.9512 Constraint violation = 1.08403e-10
+[2025-11-19 15:36:15.651] [cout] [info] time = 2.525 Performance = 86.3456 Constraint violation = 2.94439e-10
+[2025-11-19 15:36:15.902] [cout] [info] time = 2.53 Performance = 81.7456 Constraint violation = 3.45683e-10
+[2025-11-19 15:36:16.153] [cout] [info] time = 2.535 Performance = 77.2068 Constraint violation = 3.36921e-10
+[2025-11-19 15:36:16.400] [cout] [info] time = 2.54 Performance = 72.7957 Constraint violation = 2.25872e-10
+[2025-11-19 15:36:16.647] [cout] [info] time = 2.545 Performance = 68.5602 Constraint violation = 3.18012e-10
+[2025-11-19 15:36:16.898] [cout] [info] time = 2.55 Performance = 64.5425 Constraint violation = 7.28347e-12
+[2025-11-19 15:36:17.144] [cout] [info] time = 2.555 Performance = 60.7871 Constraint violation = 1.25055e-10
+[2025-11-19 15:36:17.394] [cout] [info] time = 2.56 Performance = 57.3221 Constraint violation = 1.87424e-10
+[2025-11-19 15:36:17.642] [cout] [info] time = 2.565 Performance = 54.1496 Constraint violation = 1.86854e-12
+[2025-11-19 15:36:17.890] [cout] [info] time = 2.57 Performance = 51.2509 Constraint violation = 2.19925e-10
+[2025-11-19 15:36:18.134] [cout] [info] time = 2.575 Performance = 48.5968 Constraint violation = 2.97233e-12
+[2025-11-19 15:36:18.379] [cout] [info] time = 2.58 Performance = 46.1509 Constraint violation = 1.21516e-11
+[2025-11-19 15:36:18.631] [cout] [info] time = 2.585 Performance = 43.8791 Constraint violation = 1.59241e-11
+[2025-11-19 15:36:18.881] [cout] [info] time = 2.59 Performance = 41.7468 Constraint violation = 1.57464e-11
+[2025-11-19 15:36:19.128] [cout] [info] time = 2.595 Performance = 39.7261 Constraint violation = 6.13248e-12
+[2025-11-19 15:36:19.376] [cout] [info] time = 2.6 Performance = 37.7907 Constraint violation = 3.47379e-11
+[2025-11-19 15:36:19.622] [cout] [info] time = 2.60500 Performance = 35.9229 Constraint violation = 8.69491e-12
+[2025-11-19 15:36:19.871] [cout] [info] time = 2.61 Performance = 34.1080 Constraint violation = 7.08935e-12
+[2025-11-19 15:36:20.122] [cout] [info] time = 2.615 Performance = 32.3356 Constraint violation = 1.97443e-12
+[2025-11-19 15:36:20.370] [cout] [info] time = 2.62 Performance = 30.5982 Constraint violation = 1.2942e-11
+[2025-11-19 15:36:20.618] [cout] [info] time = 2.625 Performance = 28.8911 Constraint violation = 2.85143e-12
+[2025-11-19 15:36:20.870] [cout] [info] time = 2.63 Performance = 27.212 Constraint violation = 1.31624e-12
+[2025-11-19 15:36:21.121] [cout] [info] time = 2.635 Performance = 25.5613 Constraint violation = 1.39042e-11
+[2025-11-19 15:36:21.372] [cout] [info] time = 2.64 Performance = 23.9412 Constraint violation = 2.9348e-11
+[2025-11-19 15:36:21.621] [cout] [info] time = 2.645 Performance = 22.3565 Constraint violation = 9.92663e-12
+[2025-11-19 15:36:21.872] [cout] [info] time = 2.65 Performance = 20.8142 Constraint violation = 2.69398e-11
+[2025-11-19 15:36:22.125] [cout] [info] time = 2.655 Performance = 19.322 Constraint violation = 3.07338e-12
+[2025-11-19 15:36:22.376] [cout] [info] time = 2.66 Performance = 17.887 Constraint violation = 9.38545e-13
+[2025-11-19 15:36:22.624] [cout] [info] time = 2.665 Performance = 16.5165 Constraint violation = 6.38489e-12
+[2025-11-19 15:36:22.906] [cout] [info] time = 2.67 Performance = 15.2172 Constraint violation = 2.94701e-12
+[2025-11-19 15:36:23.167] [cout] [info] time = 2.675 Performance = 13.9956 Constraint violation = 3.68504e-12
+[2025-11-19 15:36:23.426] [cout] [info] time = 2.68 Performance = 12.8565 Constraint violation = 1.54783e-10
+[2025-11-19 15:36:23.683] [cout] [info] time = 2.685 Performance = 11.8039 Constraint violation = 2.23281e-11
+[2025-11-19 15:36:23.930] [cout] [info] time = 2.69 Performance = 10.8402 Constraint violation = 1.17138e-12
+[2025-11-19 15:36:24.180] [cout] [info] time = 2.695 Performance = 9.96006 Constraint violation = 1.80364e-12
+[2025-11-19 15:36:24.431] [cout] [info] time = 2.7 Performance = 9.16347 Constraint violation = 3.90681e-12
+[2025-11-19 15:36:24.683] [cout] [info] time = 2.70500 Performance = 8.44231 Constraint violation = 8.8118e-12
+[2025-11-19 15:36:24.936] [cout] [info] time = 2.71 Performance = 7.7881 Constraint violation = 1.60643e-12
+[2025-11-19 15:36:25.184] [cout] [info] time = 2.715 Performance = 7.19261 Constraint violation = 1.33247e-12
+[2025-11-19 15:36:25.438] [cout] [info] time = 2.72 Performance = 6.64844 Constraint violation = 1.87968e-12
+[2025-11-19 15:36:25.693] [cout] [info] time = 2.725 Performance = 6.15030 Constraint violation = 1.0947e-11
+[2025-11-19 15:36:25.947] [cout] [info] time = 2.73 Performance = 5.69275 Constraint violation = 6.35232e-12
+[2025-11-19 15:36:26.203] [cout] [info] time = 2.735 Performance = 5.27107 Constraint violation = 1.07609e-12
+[2025-11-19 15:36:26.458] [cout] [info] time = 2.74 Performance = 4.87973 Constraint violation = 2.11979e-12
+[2025-11-19 15:36:26.712] [cout] [info] time = 2.745 Performance = 4.51453 Constraint violation = 7.49271e-13
+[2025-11-19 15:36:26.967] [cout] [info] time = 2.75 Performance = 4.17187 Constraint violation = 1.7634e-12
+[2025-11-19 15:36:27.222] [cout] [info] time = 2.755 Performance = 3.84885 Constraint violation = 1.5282e-12
+[2025-11-19 15:36:27.480] [cout] [info] time = 2.76 Performance = 3.54333 Constraint violation = 2.05839e-12
+[2025-11-19 15:36:27.737] [cout] [info] time = 2.765 Performance = 3.25449 Constraint violation = 1.53807e-11
+[2025-11-19 15:36:27.994] [cout] [info] time = 2.77 Performance = 2.98153 Constraint violation = 2.96301e-12
+[2025-11-19 15:36:28.252] [cout] [info] time = 2.775 Performance = 2.72448 Constraint violation = 1.62255e-12
+[2025-11-19 15:36:28.508] [cout] [info] time = 2.78 Performance = 2.48454 Constraint violation = 2.18768e-12
+[2025-11-19 15:36:28.765] [cout] [info] time = 2.785 Performance = 2.26357 Constraint violation = 8.34952e-13
+[2025-11-19 15:36:29.024] [cout] [info] time = 2.79 Performance = 2.0621 Constraint violation = 1.41093e-12
+[2025-11-19 15:36:29.281] [cout] [info] time = 2.795 Performance = 1.88303 Constraint violation = 7.30210e-13
+[2025-11-19 15:36:29.542] [cout] [info] time = 2.8 Performance = 1.72613 Constraint violation = 8.49538e-13
+[2025-11-19 15:36:29.800] [cout] [info] time = 2.80500 Performance = 1.59244 Constraint violation = 5.03467e-13
+[2025-11-19 15:36:30.060] [cout] [info] time = 2.81 Performance = 1.47928 Constraint violation = 1.2574e-12
+[2025-11-19 15:36:30.323] [cout] [info] time = 2.815 Performance = 1.38368 Constraint violation = 8.17833e-13
+[2025-11-19 15:36:30.583] [cout] [info] time = 2.82 Performance = 1.30257 Constraint violation = 9.77597e-13
+[2025-11-19 15:36:30.860] [cout] [info] time = 2.825 Performance = 1.23222 Constraint violation = 1.48779e-12
+[2025-11-19 15:36:31.136] [cout] [info] time = 2.83 Performance = 1.16926 Constraint violation = 5.07079e-13
+[2025-11-19 15:36:31.406] [cout] [info] time = 2.835 Performance = 1.11121 Constraint violation = 1.86026e-12
+[2025-11-19 15:36:31.679] [cout] [info] time = 2.84 Performance = 1.05744 Constraint violation = 1.4831e-12
+[2025-11-19 15:36:31.960] [cout] [info] time = 2.845 Performance = 1.00780 Constraint violation = 1.5988e-12
+[2025-11-19 15:36:32.241] [cout] [info] time = 2.85 Performance = 0.96286 Constraint violation = 1.5688e-12
+[2025-11-19 15:36:32.524] [cout] [info] time = 2.855 Performance = 0.924377 Constraint violation = 1.6797e-12
+[2025-11-19 15:36:32.786] [cout] [info] time = 2.86 Performance = 0.895451 Constraint violation = 1.36355e-12
+[2025-11-19 15:36:33.051] [cout] [info] time = 2.865 Performance = 0.880380 Constraint violation = 9.9211e-13
+[2025-11-19 15:36:33.327] [cout] [info] time = 2.87 Performance = 0.88385 Constraint violation = 1.68181e-12
+[2025-11-19 15:36:33.596] [cout] [info] time = 2.875 Performance = 0.910140 Constraint violation = 2.25483e-12
+[2025-11-19 15:36:33.864] [cout] [info] time = 2.88 Performance = 0.962115 Constraint violation = 2.27387e-12
+[2025-11-19 15:36:34.137] [cout] [info] time = 2.885 Performance = 1.0417 Constraint violation = 1.32014e-12
+[2025-11-19 15:36:34.404] [cout] [info] time = 2.89 Performance = 1.14911 Constraint violation = 9.04154e-13
+[2025-11-19 15:36:34.671] [cout] [info] time = 2.895 Performance = 1.28387 Constraint violation = 2.81485e-12
+[2025-11-19 15:36:34.934] [cout] [info] time = 2.9 Performance = 1.44435 Constraint violation = 1.34045e-12
+[2025-11-19 15:36:35.202] [cout] [info] time = 2.90500 Performance = 1.62754 Constraint violation = 1.0442e-12
+[2025-11-19 15:36:35.475] [cout] [info] time = 2.91 Performance = 1.83112 Constraint violation = 1.77669e-12
+[2025-11-19 15:36:35.744] [cout] [info] time = 2.915 Performance = 2.05305 Constraint violation = 9.99848e-13
+[2025-11-19 15:36:36.012] [cout] [info] time = 2.92 Performance = 2.29348 Constraint violation = 1.16563e-12
+[2025-11-19 15:36:36.281] [cout] [info] time = 2.925 Performance = 2.55541 Constraint violation = 1.99713e-12
+[2025-11-19 15:36:36.549] [cout] [info] time = 2.93 Performance = 2.84397 Constraint violation = 3.17297e-12
+[2025-11-19 15:36:36.815] [cout] [info] time = 2.935 Performance = 3.1651 Constraint violation = 1.03503e-12
+[2025-11-19 15:36:37.086] [cout] [info] time = 2.94 Performance = 3.52402 Constraint violation = 7.86854e-12
+[2025-11-19 15:36:37.356] [cout] [info] time = 2.945 Performance = 3.92443 Constraint violation = 6.07136e-12
+[2025-11-19 15:36:37.624] [cout] [info] time = 2.95 Performance = 4.36771 Constraint violation = 8.094e-12
+[2025-11-19 15:36:37.892] [cout] [info] time = 2.955 Performance = 4.8528 Constraint violation = 5.34836e-12
+[2025-11-19 15:36:38.164] [cout] [info] time = 2.96 Performance = 5.37598 Constraint violation = 1.35517e-11
+[2025-11-19 15:36:38.435] [cout] [info] time = 2.965 Performance = 5.93068 Constraint violation = 2.05477e-11
+[2025-11-19 15:36:38.707] [cout] [info] time = 2.97 Performance = 6.50775 Constraint violation = 2.5712e-11
+[2025-11-19 15:36:38.974] [cout] [info] time = 2.975 Performance = 7.09601 Constraint violation = 5.64261e-12
+[2025-11-19 15:36:39.245] [cout] [info] time = 2.98 Performance = 7.68213 Constraint violation = 4.08412e-12
+[2025-11-19 15:36:39.514] [cout] [info] time = 2.985 Performance = 8.25197 Constraint violation = 6.20341e-11
+[2025-11-19 15:36:39.783] [cout] [info] time = 2.99 Performance = 8.79077 Constraint violation = 3.2891e-12
+[2025-11-19 15:36:40.048] [cout] [info] time = 2.995 Performance = 9.28465 Constraint violation = 1.90106e-11
+[2025-11-19 15:36:40.317] [cout] [info] time = 3.0 Performance = 9.72122 Constraint violation = 5.68943e-12
+[2025-11-19 15:36:40.580] [cout] [info] time = 3.00500 Performance = 10.0911 Constraint violation = 2.71354e-12
+[2025-11-19 15:36:40.843] [cout] [info] time = 3.01 Performance = 10.3884 Constraint violation = 1.29546e-10
+[2025-11-19 15:36:41.108] [cout] [info] time = 3.015 Performance = 10.6109 Constraint violation = 5.13094e-11
+[2025-11-19 15:36:41.375] [cout] [info] time = 3.02 Performance = 10.7597 Constraint violation = 1.02241e-11
+[2025-11-19 15:36:41.638] [cout] [info] time = 3.025 Performance = 10.8382 Constraint violation = 1.02181e-10
+[2025-11-19 15:36:41.902] [cout] [info] time = 3.03 Performance = 10.8513 Constraint violation = 1.40019e-10
+[2025-11-19 15:36:42.166] [cout] [info] time = 3.035 Performance = 10.8053 Constraint violation = 2.39931e-12
+[2025-11-19 15:36:42.426] [cout] [info] time = 3.04 Performance = 10.7058 Constraint violation = 8.64775e-12
+[2025-11-19 15:36:42.698] [cout] [info] time = 3.045 Performance = 10.5603 Constraint violation = 7.96848e-11
+[2025-11-19 15:36:42.959] [cout] [info] time = 3.05 Performance = 10.3776 Constraint violation = 4.73881e-12
+[2025-11-19 15:36:43.220] [cout] [info] time = 3.055 Performance = 10.1664 Constraint violation = 2.8557e-12
+[2025-11-19 15:36:43.487] [cout] [info] time = 3.06 Performance = 9.93584 Constraint violation = 5.37501e-12
+[2025-11-19 15:36:43.749] [cout] [info] time = 3.065 Performance = 9.69636 Constraint violation = 5.15091e-12
+[2025-11-19 15:36:44.018] [cout] [info] time = 3.07 Performance = 9.45728 Constraint violation = 6.15087e-12
+[2025-11-19 15:36:44.284] [cout] [info] time = 3.075 Performance = 9.2279 Constraint violation = 4.11084e-12
+[2025-11-19 15:36:44.555] [cout] [info] time = 3.08 Performance = 9.01587 Constraint violation = 4.11513e-12
+[2025-11-19 15:36:44.821] [cout] [info] time = 3.085 Performance = 8.828 Constraint violation = 1.64111e-12
+[2025-11-19 15:36:45.089] [cout] [info] time = 3.09 Performance = 8.66894 Constraint violation = 3.66139e-12
+[2025-11-19 15:36:45.354] [cout] [info] time = 3.095 Performance = 8.54125 Constraint violation = 4.11999e-12
+[2025-11-19 15:36:45.624] [cout] [info] time = 3.1 Performance = 8.44457 Constraint violation = 3.74704e-12
+[2025-11-19 15:36:45.942] [cout] [info] time = 3.10500 Performance = 8.37626 Constraint violation = 3.43928e-12
+[2025-11-19 15:36:46.211] [cout] [info] time = 3.11 Performance = 8.33188 Constraint violation = 4.36106e-12
+[2025-11-19 15:36:46.483] [cout] [info] time = 3.115 Performance = 8.30467 Constraint violation = 6.99721e-12
+[2025-11-19 15:36:46.744] [cout] [info] time = 3.12 Performance = 8.28683 Constraint violation = 5.76641e-12
+[2025-11-19 15:36:47.014] [cout] [info] time = 3.125 Performance = 8.27022 Constraint violation = 3.16377e-12
+[2025-11-19 15:36:47.280] [cout] [info] time = 3.13 Performance = 8.24691 Constraint violation = 3.36207e-12
+[2025-11-19 15:36:47.552] [cout] [info] time = 3.135 Performance = 8.21221 Constraint violation = 2.40990e-12
+[2025-11-19 15:36:47.816] [cout] [info] time = 3.14 Performance = 8.16538 Constraint violation = 2.15372e-12
+[2025-11-19 15:36:48.080] [cout] [info] time = 3.145 Performance = 8.11015 Constraint violation = 5.49533e-12
+[2025-11-19 15:36:48.344] [cout] [info] time = 3.15 Performance = 8.05261 Constraint violation = 1.44213e-12
+[2025-11-19 15:36:48.614] [cout] [info] time = 3.155 Performance = 8.00105 Constraint violation = 2.68185e-12
+[2025-11-19 15:36:48.877] [cout] [info] time = 3.16 Performance = 7.96219 Constraint violation = 2.55154e-12
+[2025-11-19 15:36:49.140] [cout] [info] time = 3.165 Performance = 7.94324 Constraint violation = 1.2591e-11
+[2025-11-19 15:36:49.406] [cout] [info] time = 3.17 Performance = 7.948 Constraint violation = 1.11209e-12
+[2025-11-19 15:36:49.668] [cout] [info] time = 3.175 Performance = 7.97875 Constraint violation = 4.67586e-12
+[2025-11-19 15:36:49.964] [cout] [info] time = 3.18 Performance = 8.03435 Constraint violation = 3.7867e-12
+[2025-11-19 15:36:50.268] [cout] [info] time = 3.185 Performance = 8.1128 Constraint violation = 5.34996e-12
+[2025-11-19 15:36:50.547] [cout] [info] time = 3.19 Performance = 8.21044 Constraint violation = 3.71813e-12
+[2025-11-19 15:36:50.810] [cout] [info] time = 3.195 Performance = 8.32331 Constraint violation = 9.36933e-12
+[2025-11-19 15:36:51.080] [cout] [info] time = 3.2 Performance = 8.44817 Constraint violation = 6.39494e-12
+[2025-11-19 15:36:51.347] [cout] [info] time = 3.20500 Performance = 8.58297 Constraint violation = 7.34289e-12
+[2025-11-19 15:36:51.604] [cout] [info] time = 3.21 Performance = 8.72737 Constraint violation = 1.62451e-12
+[2025-11-19 15:36:51.859] [cout] [info] time = 3.215 Performance = 8.88137 Constraint violation = 2.52196e-12
+[2025-11-19 15:36:52.126] [cout] [info] time = 3.22 Performance = 9.04651 Constraint violation = 8.01486e-12
+[2025-11-19 15:36:52.394] [cout] [info] time = 3.225 Performance = 9.22283 Constraint violation = 3.21135e-12
+[2025-11-19 15:36:52.396] [info] Printing results of investigation SO to .
+[2025-11-19 15:36:55.770] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:36:55.824] [info] Storage: read data file = joint_angles.mot (nr=645 nc=40)
+[2025-11-19 15:36:55.858] [info] Storage: read data file = joint_angles.mot (nr=645 nc=40)
+[2025-11-19 15:36:55.901] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:36:55.974] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:36:56.024] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-11-19 15:36:56.184] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2025-11-19 15:36:56.269] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-11-19 15:36:56.269] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-11-19 15:36:56.279] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-11-19 15:36:56.279] [info] Storage: read data file = joint_angles.mot (nr=645 nc=40)
+[2025-11-19 15:36:56.290] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-11-19 15:36:57.063] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9482266885880279e-09 required: 1e-10.
+[2025-11-19 15:36:57.068] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9482266845199636e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-11-19 15:36:57.667] [info] Found 1289 state vectors with time stamps ranging from -1.60500 to 4.835.
+[2025-11-19 15:36:57.667] [info] Executing the analyses from 0.00500000 to 3.225...
+[2025-11-19 15:36:57.668] [info] Loading actuator forces from file SO_StaticOptimization_force.sto.
+[2025-11-19 15:36:57.679] [info] Storage: read data file = SO_StaticOptimization_force.sto (nr=645 nc=132)
+[2025-11-19 15:36:57.718] [info] Found 131 actuator forces with time stamps ranging from 0.00500000to 3.225.
+[2025-11-19 15:36:57.718] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-11-19 15:36:57.718] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
+[2025-11-19 15:36:59.100] [info] Printing results of investigation Analyse to .
