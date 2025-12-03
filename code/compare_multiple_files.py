@@ -12,6 +12,7 @@ import tkinter as tk
 from tkinter import filedialog
 from typing import List, Dict, Any, Set
 import pandas as pd
+import settings
 
 def get_files_from_user() -> List[str]:
     """Continuously prompts the user for file paths until an empty input is given."""
@@ -58,8 +59,8 @@ first_file = file_paths[0]
 # 2. Load plot settings based on the *first* file
 try:
     file_basename = os.path.splitext(os.path.basename(first_file))[0]
-    groups = utils.settings.plot['Groups'][file_basename]
-    summary = utils.settings.plot['Summary'][file_basename]
+    groups = settings.plot['Groups'][file_basename]
+    summary = settings.plot['Summary'][file_basename]
     print(f"Using plot settings for '{file_basename}' with summary method: '{summary}'.")
 except KeyError:
     print(f"No specific plot settings found for: {first_file}. Using default columns.")

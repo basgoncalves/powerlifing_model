@@ -32,7 +32,6 @@ import openSim
 test = 1
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODULE_DIR = str(Path(__file__).cwd())
 
 # For new projects, create a new folder in SetupFiles and update the path here 
 SETUP_DIR = os.path.join(MODULE_DIR, 'code', 'SetupFiles', 'Purzel')
@@ -1182,12 +1181,14 @@ class Analyse(Inputs):
             self.create_ceinms_exe_setup()
         
         if not os.path.exists(self.ceinms_exe_cfg):
-            ceinms.create_ceinms_cfg(ceinmsModelPath=self.ceinms_calibrated_model, alpha=self.alpha, beta=self.beta, gamma=self.gamma, dofSet=' '.join(settings.DOFs),excitationGeneratorFilePath=self.ceinms_excitation_generator, outputPath=self.ceinms_exe_cfg)
+            ceinms.create_ceinms_cfg(ceinmsModelPath=self.ceinms_calibrated_model, alpha=self.alpha, beta=self.beta, gamma=self.gamma, dofSet=' '.join(self.DofSet),excitationGeneratorFilePath=self.ceinms_excitation_generator, outputPath=self.ceinms_exe_cfg)
         
         self.load_settings(settingsXML=self.settingsXML)
-        alpha_values = [float(x) for x in self.alphas[0].split(' ')]
-        beta_values = [float(x) for x in self.betas[0].split(' ')]
-        gamma_values = [int(x) for x in self.gammas[0].split(' ')]
+        alpha_values = [int(x) for x in self.alphas.split(' ')]
+        beta_values = [int(x) for x in self.betas.split(' ')]
+        gamma_values = [int(x) for x in self.gammas.split(' ')]
+        
+        # run ceinms executable loop
         ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
     
     
@@ -1272,7 +1273,6 @@ def load_c3d(path=None, output=0):
 
     try:
         reader = c3d.Reader(open(path, 'rb'))
-        breakpoint()
         return reader 
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
@@ -1484,7 +1484,6 @@ def load_any_data_file(file_path):
         return load_sto(file_path)
     
     elif file_path.endswith('.c3d'):
-        breakpoint()
         return load_c3d(file_path)
     
     elif file_path.endswith('.csv'):
@@ -1939,6 +1938,13 @@ def compare_curves(dataFrame1, dataFrame2, mapping=None):
         results.loc[col] = [rmse_value, r2_value]
     
     return results
+
+def sum3d(df, columns):
+    x = df[columns[0]]
+    y = df[columns[1]]
+    z = df[columns[2]]
+    sum = np.sqrt(x**2 +  y**2 + z**2)
+    return sum
 
 # dir manipulation
 def rename_all_files_in_dir(dir_path, old_str, new_str):

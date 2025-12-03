@@ -815,6 +815,8 @@ def run_jra(osim_modelPath=None, ik_output=None,
     if saveFileName:
         new_jra_file = os.path.abspath(saveFileName)
         if os.path.exists(output_jra_file):
+            if os.path.exists(new_jra_file):
+                os.remove(new_jra_file)
             os.rename(output_jra_file, new_jra_file)
             print(f"Joint Reaction Analysis results saved to: {new_jra_file}")
     else:

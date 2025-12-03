@@ -9,14 +9,8 @@ import openSim
 import ceinms
 import exportC3D
 
-trialPath = os.path.join(utils.SIMULATIONS_DIR, 'Athlete_03', '25_03_31_calibration_constrained', 'Squat_35kg_01') # Walking_02, Squat_35kg_01
+trialPath = os.path.join(utils.SIMULATIONS_DIR, 'Athlete_03_MRI_', '25_03_31', 'Squat_35kg_01') # Walking_02, Squat_35kg_01, Squat_bw_01
 print(f'Analyzing trial at path: {trialPath}')
-
-analysis = utils.Analyse(trialPath)
-
-trialPath = r"C:\Git\Fatigue-prediction-MSC-Thesis\data\simulations\012\pre\Run_baselineA1"
-print(f'Analyzing trial at path: {trialPath}')
-
 analysis = utils.Analyse(trialPath)
 
 # analysis.reset_settings_xml()
@@ -25,6 +19,13 @@ print("Main inputs:")
 print(f"Model file: {analysis.model_dir}")
 print(f"time range: {analysis.time_range}")
 print(f"IK file: {analysis.ik}")
+
+
+# os.chdir(os.path.abspath(analysis.path))
+# analysis.run_ceinms_exe()
+# # ceinms.executable_loop(setupXML_path=os.path.abspath(analysis.ceinms_exe_setup), cfgXML_path=os.path.abspath(analysis.ceinms_exe_cfg), alphas=[1, 10, 100], betas=[1, 10, 100], gammas=[1, 100, 500, 1000, 3000])
+# analysis.push_trial_results_to_git()
+# exit()
 
 def plot_summary(analysis):
         '''
@@ -75,10 +76,10 @@ def plot_summary(analysis):
 # analysis.run_ceinms_calibration()
 # analysis.create_ceinms_exe_setup()
 # analysis.create_ceinms_exe_cfg()
-# analysis.run_ceinms_exe_loop()
+analysis.run_ceinms_exe_loop()
 # analysis.run_ceinms_exe()
-analysis.create_ceinms_optimise_setup()
-analysis.run_ceinms_optimise()
+# analysis.create_ceinms_optimise_setup()
+# analysis.run_ceinms_optimise()
 # analysis.run_jra_ceinms()
 # analysis.run_jra()
 

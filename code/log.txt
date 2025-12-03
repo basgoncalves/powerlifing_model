@@ -6576,3 +6576,34 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 20.11.2025_14:20:18:496: Settings XML not found or could not be loaded. Creating new settings XML.
 20.11.2025_14:20:57:991: Settings XML not found or could not be loaded. Creating new settings XML.
 20.11.2025_14:22:05:000: Settings XML not found or could not be loaded. Creating new settings XML.
+20.11.2025_19:10:52:134: [Success] Results pushed to git for: Athlete_03 / Squat_bw_01
+21.11.2025_10:50:32:577: CEINMS executable run completed for trial: Walking_02
+21.11.2025_10:50:33:930: CEINMS executable run completed for trial: Squat_bw_01
+21.11.2025_10:50:40:666: [Success] Results pushed to git for: Athlete_03 / Walking_02
+25.11.2025_12:54:34:492: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+25.11.2025_12:54:42:719: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+25.11.2025_12:55:12:905: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03\25_03_31\scaled_increasedForce3.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+25.11.2025_12:55:28:982: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31_calibration_constrained\Squat_bw_01\Analyse_JRA_ReactionLoads.sto
+25.11.2025_12:55:37:206: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a1_b1_g3000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+25.11.2025_12:56:12:048: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a1_b1_g3000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+25.11.2025_12:56:28:459: [Error] during Joint Reaction Analysis CEINMS: [WinError 183] Cannot create a file when that file already exists: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Squat_bw_01\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Squat_bw_01\\Analyse_JRA_ReactionLoads_CEINMS.sto'
+25.11.2025_12:57:02:261: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31_calibration_constrained\Squat_bw_01\Analyse_JRA_ReactionLoads_CEINMS.sto
+25.11.2025_12:57:47:087: JRA analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31_calibration_constrained\Squat_bw_01\Analyse_JRA_ReactionLoads.sto
+25.11.2025_12:58:32:193: [Error] during Joint Reaction Analysis CEINMS: [WinError 183] Cannot create a file when that file already exists: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads_CEINMS.sto'
+25.11.2025_12:59:44:759: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31_calibration_constrained\Walking_02\Analyse_JRA_ReactionLoads_CEINMS.sto
+25.11.2025_12:59:51:111: [Error] during Joint Reaction Analysis: [WinError 2] The system cannot find the file specified: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto'
+02.12.2025_12:09:27:486: Could not plot EMG vs CEINMS results c:\Git\powerlifing_model\simulations\Athlete_03\25_03_31\Walking_02
+02.12.2025_12:09:28:936: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to parse headers of file Optimised\MuscleForces.sto
+	Thrown at Storage.cpp:199 in Storage().
+02.12.2025_12:09:30:441: [Error] during Joint Reaction Analysis: [WinError 2] The system cannot find the file specified: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31\\Walking_02\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31\\Walking_02\\Analyse_JRA_ReactionLoads.sto'
+02.12.2025_12:15:38:730: [Success] Results pushed to git for: Athlete_03_MRI_BG / Walking_02
+02.12.2025_12:43:39:124: [Success] Results pushed to git for: Athlete_03_MRI_BG / Walking_02
+02.12.2025_13:58:59:344: [Success] Results pushed to git for: Athlete_03_MRI_BG / Squat_bw_01
+02.12.2025_17:32:44:747: [Success] Results pushed to git for: Athlete_03_MRI_BG / Squat_35kg_01
+03.12.2025_11:54:46:900: [Error] during Joint Reaction Analysis: [WinError 2] The system cannot find the file specified: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto'
+03.12.2025_11:56:07:103: [Error] during Joint Reaction Analysis: [WinError 2] The system cannot find the file specified: 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto' -> 'c:\\Git\\powerlifing_model\\simulations\\Athlete_03\\25_03_31_calibration_constrained\\Walking_02\\Analyse_JRA_ReactionLoads.sto'
