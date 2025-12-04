@@ -208,15 +208,14 @@ if __name__ == "__main__":
     
     print(f'Check settings in {settings.__file__}')
     time.sleep(1)
-    for subject in utils.SUBJECTS_TO_ANALYSE:
-        for session in utils.SESSIONS_TO_ANALYSE:
+    for subject in SUBJECTS_TO_ANALYSE:
+        for session in SESSIONS_TO_ANALYSE:
 
             trial_list = os.listdir(os.path.join(utils.SIMULATIONS_DIR, subject,session))
 
             for trial_name in trial_list:
                 
-                if trial_name not in utils.TRIALS_TO_ANALYSE:
-                    continue
+                if trial_name not in TRIALS_TO_ANALYSE: continue
                 
                 trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial_name)
                 

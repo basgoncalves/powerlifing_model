@@ -382,6 +382,15 @@ class Analyse(Inputs):
         print_to_log(f'Updated {attr_name} to {new_value} for trial at {self.path}')
         self._to_xml()
     
+    def delete_trial_attribute(self, attr_name):
+        '''Delete a specific attribute of the trial and save to XML'''
+        if hasattr(self, attr_name):
+            delattr(self, attr_name)
+            print_to_log(f'Deleted attribute {attr_name} for trial at {self.path}')
+            self._to_xml()
+        else:
+            print_to_log(f'Attribute {attr_name} not found in trial at {self.path}')
+
     def update_model(self, new_model_name):
         '''Update the model path for the trial and save to XML'''
         model_path = os.path.join(MODELS_DIR, self.subject, self.session, new_model_name)
@@ -2008,6 +2017,19 @@ def rename_all_files_in_dir(dir_path, old_str, new_str):
             except Exception as e:
                 print(f"Error renaming '{filename}': {e}")
 
+
+class gitTools():
+    def __init__(self, local_repo_path):
+        self.local_repo_path = local_repo_path
+        try:
+            self.repo = Repo(local_repo_path)
+        except Exception as e:
+            print(f"Error initializing git repository at {local_repo_path}: {e}")
+            self.repo = None
+
+# ------------------------------------------------
+
+# Katya funtions TPS
 class osimTools():
     """A collection of utility functions for OpenSim and data processing.
     
