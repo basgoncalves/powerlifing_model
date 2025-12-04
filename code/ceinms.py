@@ -457,12 +457,11 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
         print(f"WARNING: torch_cpu.dll not found in {parentDir}. CEINMS may not run correctly.")
         time.sleep(2)
         
-
-
     # load setupXML to get outputDirectory
     setupXML = ET.parse(setupXML_path).getroot()
     outputDirectory = setupXML.find("outputDirectory").text
     
+    # check input data times cover CEINMS time range
     try:
         outputTimes = check_input_times(setupXML_path=setupXML_path)
     except Exception as e:
@@ -472,6 +471,8 @@ def ceinms_terminal(executable_path=None, setupXML_path=None):
         if not value:
             print(f"Warning: Input data '{key}' does not cover the CEINMS time range!")
             return False
+    
+    # create output directory if it doesn't exist
     os.makedirs(outputDirectory, exist_ok=True) 
     
     print("Setup XML path:", setupXML_path)
@@ -537,6 +538,18 @@ def calibrate(setupXML_path=None):
     setupXML = ET.parse(setupXML_path).getroot()
     outputDirectory = setupXML.find("outputDirectory").text
     
+    if os.path.exists(outputDirectory):
+        print(f"Output directory {outputDirectory} already exists. Addting a code to avoid overwriting.")
+        outputDirectory += f"_run_{time.strftime('%y_%m_%d_%H_%M')}"
+        setupXML.find("outputDirectory").text = outputDirectory
+        utils.save_pretty_xml(ET.ElementTree(setupXML), setupXML_path)
+    
+    # Open setup file in default viewer
+    try:
+        os.startfile(setupXML_path)
+    except Exception as e:
+        print(f"Error opening setup XML file: {e}")
+
     os.makedirs(outputDirectory, exist_ok=True)
     
     print("Calibrating CEINMS model...")
@@ -1201,7 +1214,7 @@ def plot_compare_ceinms_models(uncalibratedModelPath=None,
     # save figure
     fig_path = calibratedModelPath.replace('.xml', '_vs_uncalibrated.png')
     plt.savefig(fig_path)
-    print(f"Muscle parameters plot saved to: {fig_path}")
+    print(f"Muscle parameters plot saved to: {os.path.abspath(fig_path)}")
 
 def plot_moments_calibration_results(momentResultsCSV=None):
     
