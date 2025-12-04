@@ -94,7 +94,7 @@ class Inputs:
         self.ma = 'muscleAnalysis'
         self.so_forces = 'SO_StaticOptimization_force.sto'
         self.so_activations = 'SO_StaticOptimization_activation.sto'
-        self.jra = 'Analyse_JRA_ReactionLoads.sto'
+        self.jra = 'Analyse_JRA_ReactionLoads_SO.sto'
         
         self.ceinms_calibration_dir = '..\calibrationOutput'
         self.ceinms_optimisation_dir = 'Optimised'

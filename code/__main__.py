@@ -9,7 +9,7 @@ import ceinms
 import exportC3D
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
-SESSIONS_TO_ANALYSE = ['25_03_31_calibration_constrained'] 
+SESSIONS_TO_ANALYSE = ['25_03_31'] 
 TRIALS_TO_ANALYSE =  ['Walking_02'] 
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
@@ -27,7 +27,7 @@ class Execute:
         self.MA = False
         self.MOMENT_ARMS = False
         self.SO = False
-        self.JRA = False
+        self.JRA = True
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False

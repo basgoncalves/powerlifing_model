@@ -11,7 +11,7 @@ import exportC3D
 
 subject = 'Athlete_03'
 session = '25_03_31'
-trial = 'Walking_03'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
+trial = 'Walking_02'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
 
 
 trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
@@ -51,9 +51,9 @@ if False:  analysis.create_ceinms_exe_cfg()
 if False:  analysis.create_ceinms_exe_setup()
 
 
-if True:  analysis.run_ceinms_calibration()
-if True:  ceinms.plot_ceinms_model_parameters(os.path.join(analysis.path, '..\subjectCalibrated.xml'))
-if True:  ceinms.plot_ceinms_calibration_results(setupXML_path=analysis.ceinms_calibration_setup)
+if False:  analysis.run_ceinms_calibration()
+if False:  ceinms.plot_ceinms_model_parameters(os.path.join(analysis.path, '..\subjectCalibrated.xml'))
+if False:  ceinms.plot_ceinms_calibration_results(setupXML_path=analysis.ceinms_calibration_setup)
 
                                 
 if False:  analysis.create_ceinms_exe_setup()
@@ -64,7 +64,7 @@ if False:  analysis.create_ceinms_optimise_setup()
 if False:  analysis.run_ceinms_optimise()
 
 
-if False:      
+if True:      
         analysis.replace = True
         new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
         analysis.update_model(new_model)
