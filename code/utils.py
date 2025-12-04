@@ -29,19 +29,20 @@ from scipy import signal
 
 import ceinms
 import openSim
-test = 1
 
-MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+CODE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODULE_DIR = os.path.dirname(CODE_DIR)
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(MODULE_DIR, 'code', 'SetupFiles', 'Purzel')
-POWERLIFTING_DIR = os.path.dirname(MODULE_DIR)
+SETUP_DIR = os.path.join(CODE_DIR, 'SetupFiles', 'Purzel')
+POWERLIFTING_DIR = os.path.dirname(CODE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
 SIMULATIONS_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
 RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results')
 
-CEINMS_DIR = os.path.join(MODULE_DIR, 'executables')
+CEINMS_DIR = os.path.join(CODE_DIR, 'executables')
 CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')   
@@ -578,9 +579,11 @@ class Analyse(Inputs):
             print_to_log(f'[Error] during Joint Reaction Analysis: {e}')
             
     def run_jra_ceinms(self):
-        
         os.chdir(self.path)
+        self.load_settings(self.settingsXML)
+
         if os.path.exists(self.jra_ceinms) and not self.replace:
+            print_to_log(f'JRA CEINMS output already exists: {self.jra_ceinms} and replace is set to False.')
             return
         
         try:
@@ -591,6 +594,7 @@ class Analyse(Inputs):
                      actuators=None,
                      muscle_force_path=self.jra_forces_ceinms,
                      saveFileName=self.jra_ceinms)
+            
             print_to_log(f"JRA CEINMS analysis complete. Results saved {os.path.abspath(self.jra_ceinms)}")
         except Exception as e:
             print_to_log(f'[Error] during Joint Reaction Analysis CEINMS: {e}')
@@ -785,10 +789,16 @@ class Analyse(Inputs):
         
         return fig, axes
     
-    def plot_jra(self):
-        self.jra_results = load_any_data_file(self.jra)
+    def plot_jra(self, origin='SO'):
+        os.chdir(self.path)
+        if origin == 'CEINMS':
+            self.jra_results = load_any_data_file(self.jra_ceinms)
+        else:
+            self.jra_results = load_any_data_file(self.jra)
         
-        joints = settings.JCF_Groups
+        joints = {'Hip': ['hip_r_on_femur_r_in_femur_r_fx',         'hip_r_on_femur_r_in_femur_r_fy', 'hip_r_on_femur_r_in_femur_r_fz'],
+            'Knee': ['walker_knee_r_on_tibia_r_in_tibia_r_fx', 'walker_knee_r_on_tibia_r_in_tibia_r_fy', 'walker_knee_r_on_tibia_r_in_tibia_r_fz'],
+            'Ankle': ['ankle_r_on_talus_r_in_talus_r_fx', 'ankle_r_on_talus_r_in_talus_r_fy', 'ankle_r_on_talus_r_in_talus_r_fz']}
 
         n_vars = len(joints)
         fig, axes = self.plot_create_subplot(n_vars*4)
@@ -801,7 +811,7 @@ class Analyse(Inputs):
             x = self.jra_results[components[0]]
             y = self.jra_results[components[1]]
             z = self.jra_results[components[2]]
-            resultant = np.sqrt(x**2 + y**2 + z**2)
+            resultant = sum3d(self.jra_results, components)
             
             i_subplot += 1  
             ax = axes[i_subplot]
@@ -833,7 +843,7 @@ class Analyse(Inputs):
                 ax.set_xlabel("Time")
         
         # save figure and return
-        savePath = os.path.join(self.path, f"{self.trial}_JRA_Results.png")
+        savePath = os.path.join(self.path, f"{self.trial}_JRA_Results_{origin}.png")
         plt.savefig(savePath)
         print(f'Figure saved to {savePath}')
 
@@ -924,14 +934,14 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] Failed to create CEINMS input data: {e}')
     
-    def create_ceinms_calibration_cfg(self):
+    def create_ceinms_calibration_cfg(self, calibration_trial_names=None):
         """
         Create ceinms_cfg_calibration.xml for CEINMS calibration.
         """
         
         os.chdir(self.path)
         inputPaths = []
-        for trial_name in CEINMS_CALIBRATION_TRIALS:
+        for trial_name in calibration_trial_names:
             filepath = os.path.join(self.parentdir, trial_name, Inputs().ceinms_input_data)
             inputPaths.append(os.path.relpath(filepath, self.parentdir))
         
@@ -1108,7 +1118,7 @@ class Analyse(Inputs):
 
         # update calibrated model from setupXML
         setupXML = ET.parse(calibrationSetupPath).getroot()
-        self.ceinms_calibrated_model = os.path.join(calibrationSetupPath, setupXML.find('outputSubjectFile').text)
+        self.ceinms_calibrated_model = os.path.join(os.path.dirname(calibrationSetupPath), setupXML.find('outputSubjectFile').text)
         self._to_xml()
 
         # if date modified of calibrated model is after start time, assume success
@@ -1187,6 +1197,10 @@ class Analyse(Inputs):
         alpha_values = [int(x) for x in self.alphas.split(' ')]
         beta_values = [int(x) for x in self.betas.split(' ')]
         gamma_values = [int(x) for x in self.gammas.split(' ')]
+
+        # change output directory in setup to match base name
+        setup = ET.parse(self.ceinms_exe_setup).getroot()
+        setup.find('outputDirectory').text = self.ceinms_exe_dir
         
         # run ceinms executable loop
         ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
@@ -1273,6 +1287,16 @@ def load_c3d(path=None, output=0):
 
     try:
         reader = c3d.Reader(open(path, 'rb'))
+
+        # turn into pandas DataFrame
+        points = []
+        for frame in reader.read_frames():
+            points.append(frame[1])
+        points = np.array(points)
+        columns = [f'Marker_{i+1}_{coord}' for i in range(points.shape[1]) for coord in ['X', 'Y', 'Z', 'Residual']]
+        reader = pd.DataFrame(points.reshape(points.shape[0], -1), columns=columns)
+        if output == 1: print(reader.columns)
+        
         return reader 
     except Exception as e:
         print(f"Error: Could not read the file at {path}. Please check the file format and try again.")
@@ -1776,7 +1800,7 @@ def get_screen_size():
         print(f"Error getting screen size: {e}")
         return None
 
-def calculate_nRows_nCold(n_subplots):
+def calculate_nRows_nCols(n_subplots):
     """
     Calculate the number of rows and columns for subplots based on the number of subplots.
 
@@ -1793,6 +1817,22 @@ def calculate_nRows_nCold(n_subplots):
     while (nrows - 1) * ncols >= n_subplots:
         nrows -= 1
     return nrows, ncols
+
+def figure_suplots_grid(n_subplots, fig_size=(12, 8)):
+    """
+    Create a figure with subplots arranged in a grid based on the number of subplots.
+
+    Args:
+        n_subplots (int): The total number of subplots.
+        fig_size (tuple): The size of the figure.
+
+    Returns:
+        tuple: (fig, axes) where fig is the figure object and axes is an array of subplot axes.
+    """
+    nrows, ncols = calculate_nRows_nCols(n_subplots)
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=fig_size)
+    axes = axes.flatten()  # Flatten in case of multiple rows/columns
+    return fig, axes
 
 # data manipulation
 def time_normalise_df(df, fs=''):
@@ -2594,59 +2634,6 @@ class osimTools():
 
         model.printToXML(model_file_path)    
     ####
-    
-# CEINMS
-def read_excitation_generator(file):
-    """Reads a CEINMS excitation generator file and returns a dictionary
-    containing the osim_muscles that match with each EMG signal
-
-    """
-    tree = ET.parse(file)
-    root = tree.getroot()
-
-    # look for '\excitationGenerator\mapping'
-    excitations = root.findall('.//excitation')
-    emg_to_muscles = dict()
-    for excitation in excitations:
-        muscle = excitation.get('id')
-        try:
-            emg_name = excitation.find('.//input').text
-        except:
-            emg_name = None
-        emg_to_muscles[muscle] = emg_name
-
-    return emg_to_muscles
-
-# ObjectOrientation
-class Plotter():
-    def __init__(self):
-        self.dataList = []
-    
-    def addDataFrame(self, dataframe):
-        self.dataList.append(dataframe)
-
-    def plotListDataFrames(self, xColumn, yColumns, labels):
-        # Example plotting function
-        for df, label in zip(self.dataList, labels):
-            plt.plot(df[xColumn], df[yColumns], label=label)
-
-        plt.legend()
-        plt.show()
-
-    def summaryTrials(self, trialList, xColumn, yColumns, labels):
-        
-        print("Creating summary plot...")
-        print('Script not finished yet - work in progress')
-        
-        return
-        
-        # Example summary function
-        for trial, label in zip(trialList, labels):
-            mean_y = trial[yColumns].mean()
-            plt.bar(label, mean_y)
-
-        plt.show()
-
 
 
 if __name__ == "__main__":

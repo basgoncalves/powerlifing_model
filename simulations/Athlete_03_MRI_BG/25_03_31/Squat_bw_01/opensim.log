@@ -3227,3 +3227,61 @@ Assembly error tolerance achieved: 9.9488135697188455e-09 required: 1e-10..Model
 [2025-12-03 22:20:51.102] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2025-12-03 22:20:51.135] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
 [2025-12-03 22:20:55.042] [info] Printing results of investigation Analyse to .
+[2025-12-04 10:54:16.477] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-12-04 10:54:16.608] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:16.754] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:16.889] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-12-04 10:54:17.041] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-12-04 10:54:17.137] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled.osim
+[2025-12-04 10:54:17.386] [info] Storage: read data file = grf.mot (nr=7080 nc=46)
+[2025-12-04 10:54:17.526] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-12-04 10:54:17.527] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-12-04 10:54:17.550] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 10:54:17.551] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:17.569] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 10:54:18.716] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9488135697172524e-09 required: 1e-10.
+[2025-12-04 10:54:18.727] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9488135697188091e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 10:54:19.658] [info] Found 1413 state vectors with time stamps ranging from -1.76 to 5.3.
+[2025-12-04 10:54:19.658] [info] Executing the analyses from 0.00500000 to 3.535...
+[2025-12-04 10:54:19.660] [info] Loading actuator forces from file Execution_a100_b1_g1000\MuscleForces.sto.
+[2025-12-04 10:54:19.765] [info] Old version storage/motion file encountered
+[2025-12-04 10:54:19.765] [info] Storage: read data file = Execution_a100_b1_g1000\MuscleForces.sto (nr=707 nc=81)
+[2025-12-04 10:54:19.765] [info] .. assuming rotations in Radians..
+[2025-12-04 10:54:19.794] [info] Found 80 actuator forces with time stamps ranging from 0.015to 3.535.
+[2025-12-04 10:54:19.794] [warning] The forces file does not contain enough actuators.
+[2025-12-04 10:54:19.794] [info] Actuator forces will be constructed from the states.
+[2025-12-04 10:54:22.314] [info] Printing results of investigation Analyse to .
+[2025-12-04 10:54:22.467] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-12-04 10:54:22.543] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:22.564] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:22.631] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-12-04 10:54:22.739] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-12-04 10:54:22.793] [info] Loaded model Athlete_03_MRI_BG from file ..\..\..\..\models\Athlete_03_MRI_BG\25_03_31\scaled_increased_3.00.osim
+[2025-12-04 10:54:23.013] [info] Storage: read data file = grf.mot (nr=7080 nc=46)
+[2025-12-04 10:54:23.137] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2025-12-04 10:54:23.137] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2025-12-04 10:54:23.149] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 10:54:23.149] [info] Storage: read data file = joint_angles.mot (nr=707 nc=40)
+[2025-12-04 10:54:23.167] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 10:54:24.472] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9488135697172524e-09 required: 1e-10.
+[2025-12-04 10:54:24.482] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9488135697188091e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 10:54:25.445] [info] Found 1413 state vectors with time stamps ranging from -1.76 to 5.3.
+[2025-12-04 10:54:25.446] [info] Executing the analyses from 0.00500000 to 3.535...
+[2025-12-04 10:54:25.448] [info] Loading actuator forces from file SO_StaticOptimization_force.sto.
+[2025-12-04 10:54:25.498] [info] Storage: read data file = SO_StaticOptimization_force.sto (nr=707 nc=132)
+[2025-12-04 10:54:25.561] [info] Found 131 actuator forces with time stamps ranging from 0.00500000to 3.535.
+[2025-12-04 10:54:25.561] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-12-04 10:54:25.561] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
+[2025-12-04 10:54:28.316] [info] Printing results of investigation Analyse to .

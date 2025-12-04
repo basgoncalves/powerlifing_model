@@ -814,7 +814,7 @@ def run_jra(osim_modelPath=None, ik_output=None,
     output_jra_file = os.path.join(setup_xml_parent, 'Analyse_JRA_ReactionLoads.sto')
     if saveFileName:
         new_jra_file = os.path.abspath(saveFileName)
-        if os.path.exists(output_jra_file):
+        if os.path.exists(output_jra_file) and new_jra_file != output_jra_file:
             if os.path.exists(new_jra_file):
                 os.remove(new_jra_file)
             os.rename(output_jra_file, new_jra_file)

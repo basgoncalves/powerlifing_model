@@ -991,7 +991,7 @@ def create_optimise_setupFiles(ceinmsModelPath=None,
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, setupXMLPath)
     
-    print(f"Optimization setup XML saved to: {setupXMLPath}")
+    print(f"Optimization setup XML saved to: {os.path.abspath(setupXMLPath)}")
 
     # --- Create cfg file
     template_cfg = os.path.join(utils.SETUP_DIR, os.path.basename(utils.Inputs().ceinms_optimise_cfg))
