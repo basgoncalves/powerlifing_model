@@ -7,12 +7,12 @@ summarize groups of columns, and visualize the data in a grid layout.
 import os
 import numpy as np
 import utils
-import paths
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import filedialog
 from typing import List, Dict, Any, Set
 import pandas as pd
+import settings
 
 def get_files_from_user() -> List[str]:
     """Continuously prompts the user for file paths until an empty input is given."""
@@ -59,8 +59,8 @@ first_file = file_paths[0]
 # 2. Load plot settings based on the *first* file
 try:
     file_basename = os.path.splitext(os.path.basename(first_file))[0]
-    groups = utils.Settings().plot['Groups'][file_basename]
-    summary = utils.Settings().plot['Summary'][file_basename]
+    groups = settings.plot['Groups'][file_basename]
+    summary = settings.plot['Summary'][file_basename]
     print(f"Using plot settings for '{file_basename}' with summary method: '{summary}'.")
 except KeyError:
     print(f"No specific plot settings found for: {first_file}. Using default columns.")
@@ -84,7 +84,6 @@ for i, df in enumerate(data_list):
         print(f"Columns in '{os.path.basename(file_paths[i])}' not in common set: {unmatched_cols}")
 print("----------------------------\n")
 
-
 # 6. If groups are defined, summarize them for each dataframe
 if groups is not None and summary is not None:
     for df in data_list:  # Loop through each dataframe
@@ -95,7 +94,8 @@ if groups is not None and summary is not None:
                 df[group_name] = df[member_cols].mean(axis=1)
             elif summary == '3dsum':
                 df[group_name] = np.linalg.norm(df[member_cols].values, axis=1)
-    
+            elif summary == 'None':
+                df[group_name] = df[member_cols]
     # After summarizing, the common columns are the new group keys
     common_columns = groups.keys()
 
@@ -104,7 +104,7 @@ normalized_data_list = []
 for df in data_list:
     if not df.empty:
         normalized_df = utils.time_normalise_df(df)
-        normalized_df = normalized_df / 980
+        normalized_df = normalized_df
         normalized_data_list.append(normalized_df)
         
     else:

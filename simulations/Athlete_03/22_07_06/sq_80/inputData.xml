@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" ?>
 <inputData>
-   <muscleTendonLengthFile>./muscleAnalysis/_MuscleAnalysis_Length.sto</muscleTendonLengthFile>
-   <excitationsFile>EMG_filtered_normalised.sto</excitationsFile>
+   <muscleTendonLengthFile>C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_Length.sto</muscleTendonLengthFile>
+   <excitationsFile>C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\EMG_filtered_normalised.sto</excitationsFile>
    <momentArmsFiles>
-      <momentArmsFile dofName="ankle_angle_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_l.sto</momentArmsFile>
-      <momentArmsFile dofName="ankle_angle_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_ankle_angle_r.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_adduction_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_adduction_l.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_adduction_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_adduction_r.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_flexion_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_flexion_l.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_flexion_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_flexion_r.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_rotation_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_rotation_l.sto</momentArmsFile>
-      <momentArmsFile dofName="hip_rotation_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_hip_rotation_r.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_angle_l">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_angle_l.sto</momentArmsFile>
-      <momentArmsFile dofName="knee_angle_r">./muscleAnalysis/_MuscleAnalysis_MomentArm_knee_angle_r.sto</momentArmsFile>
+      <momentArmFile dofName="hip_flexion_l">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_l.sto</momentArmFile>
+      <momentArmFile dofName="hip_flexion_r">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_r.sto</momentArmFile>
+      <momentArmFile dofName="hip_adduction_l">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_adduction_l.sto</momentArmFile>
+      <momentArmFile dofName="hip_adduction_r">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_adduction_r.sto</momentArmFile>
+      <momentArmFile dofName="hip_rotation_l">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_rotation_l.sto</momentArmFile>
+      <momentArmFile dofName="hip_rotation_r">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_hip_rotation_r.sto</momentArmFile>
+      <momentArmFile dofName="knee_angle_l">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_knee_angle_l.sto</momentArmFile>
+      <momentArmFile dofName="knee_angle_r">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_knee_angle_r.sto</momentArmFile>
+      <momentArmFile dofName="ankle_angle_l">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_ankle_angle_l.sto</momentArmFile>
+      <momentArmFile dofName="ankle_angle_r">C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\muscleAnalysis\_MuscleAnalysis_MomentArm_ankle_angle_r.sto</momentArmFile>
    </momentArmsFiles>
-   <externalTorquesFile>inverse_dynamics.sto</externalTorquesFile>
-   <motionFile>joint_angles.mot</motionFile>
-   <externalLoadsFile>externalloads.xml</externalLoadsFile>
-   <startStopTime>3.6000000000000001 5.9699999999999998</startStopTime>
+   <externalTorquesFile>C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\inverse_dynamics.sto</externalTorquesFile>
+   <motionFile>C:\Git\1_current_projects\powerlifing_model\simulations\Athlete_03\22_07_06\sq_80\joint_angles.mot</motionFile>
+   <startStopTime>3.255 6.025</startStopTime>
 </inputData>

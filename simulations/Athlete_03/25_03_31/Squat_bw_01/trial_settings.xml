@@ -1,0 +1,214 @@
+<?xml version="1.0" ?>
+<TrialSettings>
+   <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
+   <model_name>scaled.osim</model_name>
+   <model_dir>..\..\..\..\models\Athlete_03\25_03_31\scaled_increased_3.00.osim</model_dir>
+   <time_range>[0.0, 5.535]</time_range>
+   <c3d>c3dfile.c3d</c3d>
+   <emg_raw>emg.mot</emg_raw>
+   <emg_filtered>EMG_filtered.sto</emg_filtered>
+   <emg_normalised>EMG_filtered_normalised_scaled_0.70.sto</emg_normalised>
+   <emg_plot>EMG_filtered_normalised.sto</emg_plot>
+   <grf_mot>grf.mot</grf_mot>
+   <markers>marker_experimental.trc</markers>
+   <events>events.csv</events>
+   <setup_ik>setup_IK.xml</setup_ik>
+   <setup_grf>GRF.xml</setup_grf>
+   <setup_id>setup_ID.xml</setup_id>
+   <setup_ma>setup_MA.xml</setup_ma>
+   <actuators_so>actuators_so.xml</actuators_so>
+   <setup_so>setup_SO.xml</setup_so>
+   <jra_forces>SO_StaticOptimization_force.sto</jra_forces>
+   <setup_jra>setup_JRA.xml</setup_jra>
+   <ceinms_excitations>EMG_filtered_normalised_scaled_0.70.sto</ceinms_excitations>
+   <ceinms_uncalibrated_model>..\subjectUncalibrated.xml</ceinms_uncalibrated_model>
+   <ceinms_calibrated_model>..\subjectCalibrated.xml</ceinms_calibrated_model>
+   <ceinms_calibration_cfg>..\calibrationCfg.xml</ceinms_calibration_cfg>
+   <ceinms_calibration_setup>..\calibrationSetup.xml</ceinms_calibration_setup>
+   <ceinms_input_data>inputData.xml</ceinms_input_data>
+   <ceinms_excitation_generator>..\excitationGenerator.xml</ceinms_excitation_generator>
+   <ceinms_optimise_setup>ceinms_setup_optimise.xml</ceinms_optimise_setup>
+   <ceinms_optimise_cfg>ceinms_cfg_optimise.xml</ceinms_optimise_cfg>
+   <ceinms_exe_cfg>ceinms_cfg.xml</ceinms_exe_cfg>
+   <ceinms_exe_setup>ceinms_setup.xml</ceinms_exe_setup>
+   <ik>joint_angles.mot</ik>
+   <model_markers>_ik_model_marker_locations.sto</model_markers>
+   <id>inverse_dynamics.sto</id>
+   <ma>muscleAnalysis</ma>
+   <so_forces>SO_StaticOptimization_force.sto</so_forces>
+   <so_activations>SO_StaticOptimization_activation.sto</so_activations>
+   <jra>Analyse_JRA_ReactionLoads_SO.sto</jra>
+   <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
+   <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
+   <ceinms_exe_dir>Execution</ceinms_exe_dir>
+   <jra_forces_ceinms>Execution_a1_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
+   <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
+   <replace>True</replace>
+   <path>.</path>
+   <settingsXML>trial_settings.xml</settingsXML>
+   <leon>Good</leon>
+   <subject>Athlete_03</subject>
+   <session>25_03_31</session>
+   <trial>Squat_bw_01</trial>
+   <parentdir>..</parentdir>
+   <hybridCalibration>true</hybridCalibration>
+   <numberOfSynergies>8</numberOfSynergies>
+   <alpha>1</alpha>
+   <beta>1</beta>
+   <gamma>1000</gamma>
+   <betaMin>1</betaMin>
+   <betaMax>100</betaMax>
+   <betaDelta>10</betaDelta>
+   <gammaMin>1</gammaMin>
+   <gammaMax>100</gammaMax>
+   <gammaDelta>50</gammaDelta>
+   <alphas>1 10 100</alphas>
+   <betas>1 10 100</betas>
+   <gammas>1 500 1000 1500 2000</gammas>
+   <DofSet>hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l</DofSet>
+   <c1>-0.99 -0.05</c1>
+   <c2>-0.95 -0.05</c2>
+   <shapefactor>-2.999 -0.001</shapefactor>
+   <optimalFiberLength>0.5 3</optimalFiberLength>
+   <tendonSlackLength>0.5 3</tendonSlackLength>
+   <strengthCoefficient>0.75 3.5</strengthCoefficient>
+   <Target_Muscles>all</Target_Muscles>
+   <_is_copy>None</_is_copy>
+   <_mgr>BlockManager
+Items: Index(['time', 'ground_pelvis_on_pelvis_in_pelvis_fx',
+       'ground_pelvis_on_pelvis_in_pelvis_fy',
+       'ground_pelvis_on_pelvis_in_pelvis_fz',
+       'ground_pelvis_on_pelvis_in_pelvis_mx',
+       'ground_pelvis_on_pelvis_in_pelvis_my',
+       'ground_pelvis_on_pelvis_in_pelvis_mz',
+       'ground_pelvis_on_pelvis_in_pelvis_px',
+       'ground_pelvis_on_pelvis_in_pelvis_py',
+       'ground_pelvis_on_pelvis_in_pelvis_pz',
+       ...
+       'radioulnar_l_on_radius_l_in_radius_l_pz',
+       'radius_hand_l_on_hand_l_in_hand_l_fx',
+       'radius_hand_l_on_hand_l_in_hand_l_fy',
+       'radius_hand_l_on_hand_l_in_hand_l_fz',
+       'radius_hand_l_on_hand_l_in_hand_l_mx',
+       'radius_hand_l_on_hand_l_in_hand_l_my',
+       'radius_hand_l_on_hand_l_in_hand_l_mz',
+       'radius_hand_l_on_hand_l_in_hand_l_px',
+       'radius_hand_l_on_hand_l_in_hand_l_py',
+       'radius_hand_l_on_hand_l_in_hand_l_pz'],
+      dtype='object', length=199)
+Axis 1: RangeIndex(start=0, stop=708, step=1)
+NumericBlock: slice(0, 199, 1), 199 x 708, dtype: float64</_mgr>
+   <_item_cache>{'hip_r_on_femur_r_in_femur_r_fx': 0       901.779761
+1       901.823192
+2       901.919038
+3       902.075935
+4       902.281024
+          ...     
+703    1301.380261
+704    1301.361209
+705    1301.542326
+706    1301.853496
+707    1302.196276
+Name: hip_r_on_femur_r_in_femur_r_fx, Length: 708, dtype: float64, 'hip_r_on_femur_r_in_femur_r_fy': 0     -15390.103049
+1     -15389.590923
+2     -15389.337248
+3     -15389.309079
+4     -15389.376307
+           ...     
+703   -14774.433560
+704   -14778.055839
+705   -14781.910742
+706   -14785.925345
+707   -14790.084196
+Name: hip_r_on_femur_r_in_femur_r_fy, Length: 708, dtype: float64, 'hip_r_on_femur_r_in_femur_r_fz': 0      236.064293
+1      235.863687
+2      235.713319
+3      235.604855
+4      235.498820
+          ...    
+703   -727.599579
+704   -720.412767
+705   -713.788468
+706   -707.540042
+707   -701.435362
+Name: hip_r_on_femur_r_in_femur_r_fz, Length: 708, dtype: float64, 'time': 0     -0.000
+1      0.005
+2      0.010
+3      0.015
+4      0.020
+       ...  
+703    3.515
+704    3.520
+705    3.525
+706    3.530
+707    3.535
+Name: time, Length: 708, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fx': 0      529.871249
+1      529.902879
+2      529.944945
+3      529.986397
+4      530.011454
+          ...    
+703    795.407984
+704    785.575333
+705    776.787961
+706    768.732688
+707    761.078012
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fx, Length: 708, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fy': 0     -7681.805898
+1     -7681.249615
+2     -7681.063732
+3     -7681.239182
+4     -7681.638142
+          ...     
+703   -7882.205127
+704   -7882.744597
+705   -7883.404499
+706   -7884.200758
+707   -7885.185356
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fy, Length: 708, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fz': 0     -880.056094
+1     -880.046717
+2     -880.025409
+3     -879.988010
+4     -879.936839
+          ...    
+703   -678.868758
+704   -681.794864
+705   -684.476052
+706   -686.989102
+707   -689.423248
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fz, Length: 708, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fx': 0     -388.015819
+1     -388.114648
+2     -388.173242
+3     -388.191938
+4     -388.182014
+          ...    
+703   -382.166788
+704   -381.658476
+705   -381.313906
+706   -381.116017
+707   -381.030226
+Name: ankle_r_on_talus_r_in_talus_r_fx, Length: 708, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fy': 0     -236.446643
+1     -235.507320
+2     -234.989559
+3     -234.884880
+4     -235.039301
+          ...    
+703   -300.268344
+704   -298.818684
+705   -297.472870
+706   -296.276112
+707   -295.297168
+Name: ankle_r_on_talus_r_in_talus_r_fy, Length: 708, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fz': 0     -152.852080
+1     -152.493416
+2     -152.267557
+3     -152.171730
+4     -152.141805
+          ...    
+703    -38.688313
+704    -39.321572
+705    -39.920105
+706    -40.523261
+707    -41.156934
+Name: ankle_r_on_talus_r_in_talus_r_fz, Length: 708, dtype: float64}</_item_cache>
+   <_attrs>{}</_attrs>
+   <_flags>&lt;Flags(allows_duplicate_labels=True)&gt;</_flags>
+</TrialSettings>
