@@ -33,7 +33,7 @@ class Execute:
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
@@ -103,6 +103,7 @@ def run_all_step(analyse: utils.Analyse):
 
     # Run Joint Reaction Analysis
     if Execute().JRA:
+        analyse.update_trial_attribute('jra', analyse.jra.replace('Analyse_JRA_ReactionLoads.sto','Analyse_JRA_ReactionLoads_SO.sto'))
         analyse.run_jra()
         
     # Normalise EMG data

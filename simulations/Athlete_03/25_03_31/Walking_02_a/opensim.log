@@ -11245,3 +11245,175 @@ Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model
 [2025-12-04 21:49:40.486] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2025-12-04 21:49:40.486] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a1_b1_g1000\MuscleForces.sto.
 [2025-12-04 21:49:41.839] [info] Printing results of investigation Analyse to .
+[2025-12-04 22:30:17.195] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:18.081] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:18.099] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:18.135] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:18.206] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:18.241] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:18.438] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-04 22:30:18.496] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-04 22:30:18.497] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-04 22:30:18.497] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-04 22:30:18.507] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 22:30:18.507] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:18.511] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 22:30:18.766] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-04 22:30:18.772] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 22:30:19.027] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-04 22:30:19.027] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-04 22:30:19.028] [info] Loading actuator forces from file Execution_a1_b1_g1000\MuscleForces_so_columns.sto.
+[2025-12-04 22:30:19.040] [info] Storage: read data file = Execution_a1_b1_g1000\MuscleForces_so_columns.sto (nr=217 nc=141)
+[2025-12-04 22:30:19.052] [info] Found 140 actuator forces with time stamps ranging from 0.175to 1.255.
+[2025-12-04 22:30:19.052] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-12-04 22:30:19.052] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a1_b1_g1000\MuscleForces_so_columns.sto.
+[2025-12-04 22:30:19.854] [info] Printing results of investigation Analyse to .
+[2025-12-04 22:30:56.408] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:56.456] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:56.461] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:56.503] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:56.561] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:56.592] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:30:56.724] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-04 22:30:56.779] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-04 22:30:56.779] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-04 22:30:56.779] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-04 22:30:56.789] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 22:30:56.789] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:30:56.792] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 22:30:57.037] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-04 22:30:57.045] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 22:30:57.298] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-04 22:30:57.298] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-04 22:30:57.300] [info] Loading actuator forces from file Execution_a1_b1_g1000\MuscleForces.sto.
+[2025-12-04 22:30:57.300] [info] Storage: read data file = Execution_a1_b1_g1000\MuscleForces.sto (nr=217 nc=141)
+[2025-12-04 22:30:57.312] [info] Found 140 actuator forces with time stamps ranging from 0.175to 1.255.
+[2025-12-04 22:30:57.312] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-12-04 22:30:57.312] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a1_b1_g1000\MuscleForces.sto.
+[2025-12-04 22:30:58.085] [info] Printing results of investigation Analyse to .
+[2025-12-04 22:31:40.367] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:31:40.414] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:31:40.418] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:31:40.452] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:31:40.525] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:31:40.556] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:31:40.687] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-04 22:31:40.743] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-04 22:31:40.743] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-04 22:31:40.743] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-04 22:31:40.752] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 22:31:40.753] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:31:40.756] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 22:31:40.988] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-04 22:31:40.995] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 22:31:41.233] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-04 22:31:41.233] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-04 22:31:41.234] [info] Loading actuator forces from file Execution_a1_b1_g100\MuscleForces.sto.
+[2025-12-04 22:31:41.234] [info] Old version storage/motion file encountered
+[2025-12-04 22:31:41.234] [info] Storage: read data file = Execution_a1_b1_g100\MuscleForces.sto (nr=217 nc=81)
+[2025-12-04 22:31:41.234] [info] .. assuming rotations in Radians..
+[2025-12-04 22:31:41.241] [info] Found 80 actuator forces with time stamps ranging from 0.175to 1.255.
+[2025-12-04 22:31:41.241] [warning] The forces file does not contain enough actuators.
+[2025-12-04 22:31:41.241] [info] Actuator forces will be constructed from the states.
+[2025-12-04 22:31:42.023] [info] Printing results of investigation Analyse to .
+[2025-12-04 22:32:11.336] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:32:11.386] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:32:11.391] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:32:11.431] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:32:11.510] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:32:11.541] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-04 22:32:11.682] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-04 22:32:11.738] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-04 22:32:11.738] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-04 22:32:11.738] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-04 22:32:11.748] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-04 22:32:11.748] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-04 22:32:11.752] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-04 22:32:12.006] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-04 22:32:12.013] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-04 22:32:12.272] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-04 22:32:12.272] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-04 22:32:12.274] [info] Loading actuator forces from file Execution_a1_b1_g100\MuscleForces_so_columns.sto.
+[2025-12-04 22:32:12.274] [error] IO.OpenInputFile(const string&,openmode mode): failed to open Execution_a1_b1_g100\MuscleForces_so_columns.sto.
+[2025-12-05 09:35:34.738] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:35:34.827] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:35:34.834] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:35:34.914] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:35:35.011] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:35:35.062] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:35:35.273] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-05 09:35:35.350] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-05 09:35:35.350] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-05 09:35:35.350] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-05 09:35:35.366] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-05 09:35:35.366] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:35:35.372] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-05 09:35:35.760] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-05 09:35:35.770] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-05 09:35:36.099] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-05 09:35:36.099] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-05 09:35:36.102] [info] Loading actuator forces from file Execution_a1_b1_g100\MuscleForces_so_columns.sto.
+[2025-12-05 09:35:36.102] [info] Storage: read data file = Execution_a1_b1_g100\MuscleForces_so_columns.sto (nr=217 nc=141)
+[2025-12-05 09:35:36.115] [info] Found 140 actuator forces with time stamps ranging from 0.175to 1.255.
+[2025-12-05 09:35:36.116] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-12-05 09:35:36.116] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a1_b1_g100\MuscleForces_so_columns.sto.
+[2025-12-05 09:35:37.194] [info] Printing results of investigation Analyse to .
+[2025-12-05 09:38:23.242] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:38:23.291] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:38:23.305] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:38:23.336] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:38:23.387] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:38:23.413] [info] Loaded model Athlete_03 from file ..\..\..\..\models\Athlete_03\25_03_31\scaled.osim
+[2025-12-05 09:38:23.551] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2025-12-05 09:38:23.599] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2025-12-05 09:38:23.599] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2025-12-05 09:38:23.599] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2025-12-05 09:38:23.609] [info] Loading coordinates from file 'joint_angles.mot'.
+[2025-12-05 09:38:23.609] [info] Storage: read data file = joint_angles.mot (nr=217 nc=40)
+[2025-12-05 09:38:23.612] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-12-05 09:38:23.835] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288463386785e-09 required: 1e-10.
+[2025-12-05 09:38:23.842] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.0458288407844039e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2025-12-05 09:38:24.050] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2025-12-05 09:38:24.050] [info] Executing the analyses from 0.175 to 1.255...
+[2025-12-05 09:38:24.051] [info] Loading actuator forces from file Execution_a1_b1_g1000\MuscleForces.sto.
+[2025-12-05 09:38:24.062] [info] Storage: read data file = Execution_a1_b1_g1000\MuscleForces.sto (nr=217 nc=141)
+[2025-12-05 09:38:24.073] [info] Found 140 actuator forces with time stamps ranging from 0.175to 1.255.
+[2025-12-05 09:38:24.073] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2025-12-05 09:38:24.073] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a1_b1_g1000\MuscleForces.sto.
+[2025-12-05 09:38:24.755] [info] Printing results of investigation Analyse to .
