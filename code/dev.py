@@ -9,15 +9,16 @@ import openSim
 import ceinms
 import exportC3D
 
-subjectLiist = ['Athlete_03'] #Athlete_03_MRI_BG
+subjectLiist = ['Athlete_03_MRI_Katya'] #Athlete_03_MRI_BG
 session = '25_03_31'
-trial = 'Walking_02'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
+trial = 'Walking_03'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
 
 for subject in subjectLiist:
                 
         trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
         print(f'Analyzing trial at path: {trialPath}')
         analysis = utils.Analyse(trialPath)
+      
 
         #%% Load settings
         if False:  analysis.reset_settings_xml()
@@ -28,56 +29,58 @@ for subject in subjectLiist:
         print(f"time range: {analysis.time_range}")
         print(f"IK file: {analysis.ik}")
 
-        if False: analysis.run_ik()
-        if False: analysis.run_id()
-        if False:  analysis.run_ma()
-        if False:  analysis.run_so()
-        if False:  analysis.run_jra()
-        if False:  analysis.run_emg_normalise()
-        if False:  analysis.scale_emg(scale_factor=0.70)
+        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
+        analysis.update_model(new_model)
+        if True: analysis.run_ik()
+        if True: analysis.run_id()
+        if True:  analysis.run_ma()
+        if True:  analysis.run_so()
+
+        if True:  analysis.run_emg_normalise()
+        if True:  analysis.scale_emg(scale_factor=0.70)
 
         #%% CEINMS setups
         if False:  analysis.create_ceinms_model()
-        if False:  analysis.create_ceinms_input_data()
+        if True:  analysis.create_ceinms_input_data()
 
-        if False:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=['Squat_bw_01'])
+        if False:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=['Walking_02'])
 
         if False:  analysis.create_ceinms_calibration_setup()
 
         if False:  analysis.create_excitation_generator()
 
-        if False:  analysis.create_ceinms_exe_cfg()
-
-        if False:  analysis.create_ceinms_exe_setup()
 
         #%% CEINMS calibration and optimization
-        if True:  analysis.run_ceinms_calibration()
+        if False:  analysis.run_ceinms_calibration()
         if False:  ceinms.plot_ceinms_model_parameters(os.path.join(analysis.path, '..\subjectCalibrated.xml'))
         if False:  ceinms.plot_ceinms_calibration_results(setupXML_path=analysis.ceinms_calibration_setup)
-        if True:  ceinms.plot_compare_ceinms_models(analysis.ceinms_uncalibrated_model, analysis.ceinms_calibrated_model)
+        if False:  ceinms.plot_compare_ceinms_models(analysis.ceinms_uncalibrated_model, analysis.ceinms_calibrated_model)
 
-                                        
-        if False:  analysis.create_ceinms_exe_setup()
-        if False:  analysis.create_ceinms_exe_cfg()
+        if True:  analysis.create_ceinms_exe_cfg()
+
+        if True:  analysis.create_ceinms_exe_setup()
+
         if False:  analysis.run_ceinms_exe_loop()
-        if False:  analysis.run_ceinms_exe()
+        if True:  analysis.run_ceinms_exe()
         if False:  analysis.create_ceinms_optimise_setup()
         if False:  analysis.run_ceinms_optimise()
 
+        analysis.update_trial_attribute('jra_forces_ceinms', 'Execution_a10_b1_g1000\MuscleForces.sto')
+        analysis.load_settings(analysis.settingsXML)
 
-        if False:      
+        if True:      
                 analysis.replace = True
                 new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
                 analysis.update_model(new_model)
                 analysis.run_jra_ceinms()
 
-        if False:
+        if True:
                 analysis.replace = True
                 new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
                 analysis.update_model(new_model)
                 analysis.run_jra()
 
-        if False: analysis.push_trial_results_to_git()
+        if True: analysis.push_trial_results_to_git()
 
         
 

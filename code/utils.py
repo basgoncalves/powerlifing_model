@@ -61,7 +61,7 @@ class Inputs:
         self.emg_normalised = 'EMG_filtered_normalised.sto'
         self.emg_plot = self.emg_normalised
         self.grf_mot = 'grf.mot'
-        self.markers = 'markers.trc'
+        self.markers = 'marker_experimental.trc'
         self.events = 'events.csv'
         
         # setups 
@@ -156,7 +156,7 @@ class CEINMSParameters:
         self.tendonSlackLength = '0.5 3'
         self.strengthCoefficient = '0.75 3.5'
         
-        self.Target_Muscles = ['all']  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
+        self.Target_Muscles = 'all'  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
         
         self.EMG_muscle_mapping = {
         # Left Leg Muscles
@@ -498,6 +498,7 @@ class Analyse(Inputs):
                     setup_xml=self.setup_ik,
                     time_range=self.time_range,
                     resultsDir=self.path)
+            
             print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {self.path}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Kinematics: {e}')
