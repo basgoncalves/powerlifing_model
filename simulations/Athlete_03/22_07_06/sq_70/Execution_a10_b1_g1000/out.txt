@@ -103,4 +103,22 @@ Assuming vasint_l pennation angle in radians: 0.0631
 Assuming vaslat_l pennation angle in radians: 0.252867
 Assuming vasmed_l pennation angle in radians: 0.422223
 No OpenSim model associated to the subject
-Excitation generator: could not find EMG_Channels_EMG06_bic_fem_r input signal
+ generator names - file names
+Voltage_EMG1_vast_lat_l  <>  EMG_add_mag_l
+Voltage_EMG2_vast_lat_r  <>  EMG_add_mag_r
+Voltage_EMG3_rect_fem_l  <>  EMG_bic_fem_l
+Voltage_EMG4_rect_fem_r  <>  EMG_bic_fem_r
+Voltage_EMG5_bic_fem_l  <>  EMG_free
+Voltage_EMG6_bic_fem_r  <>  EMG_gast_med_l
+Voltage_EMG7_glut_max_l  <>  EMG_gast_med_r
+Voltage_EMG8_glut_max_r  <>  EMG_glut_max_l
+Voltage_EMG9_gast_med_l  <>  EMG_glut_max_r
+Voltage_EMG10_gast_med_r  <>  EMG_lat_dor_l
+Voltage_EMG11_lat_dor_l  <>  EMG_lat_dor_r
+Voltage_EMG12_lat_dor_r  <>  EMG_rect_fem_l
+Voltage_EMG13_add_mag_l  <>  EMG_rect_fem_r
+Voltage_EMG14_add_mag_r  <>  EMG_vast_lat_l
+Voltage_EMG15_free  <>  EMG_vast_lat_r
+Voltage_EMG16_free  <>  Voltage_EMG10_gast_med_r
+The excitation generator is not able to generate excitations for your muscles.
+Muscle names are different between excitation generator and input file
