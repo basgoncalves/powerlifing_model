@@ -346,12 +346,21 @@ if __name__ == "__main__":
         
         output_dir = input("Enter output directory for plots: ").strip('"')
         
-        # Load baseline data
-        baseline_data = {
-            'moments': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_ID_Moments.sto')),
-            'activations': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_SO_activation.sto')),
-            'forces': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_SO_force.sto'))
-        }
+        # Load baseline data with error handling
+        try:
+            baseline_data = {
+                'moments': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_ID_Moments.sto')),
+                'activations': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_SO_activation.sto')),
+                'forces': utils.load_any_data_file(os.path.join(baseline_path, 'Analyse_SO_force.sto'))
+            }
+            
+            # Check if any critical data is missing
+            if all(v is None for v in baseline_data.values()):
+                print("Error: No data could be loaded from baseline trial path")
+                exit(1)
+        except Exception as e:
+            print(f"Error loading baseline data: {e}")
+            exit(1)
         
         # Load loaded trial data
         loaded_data_list = []

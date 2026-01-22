@@ -344,9 +344,16 @@ if __name__ == "__main__":
     if model1_data['jra'] is not None and model2_data['jra'] is not None:
         print("\nCreating JRA comparison figure...")
         jra_path = os.path.join(output_dir, 'jra_comparison.png')
+        
+        # Extract joint names dynamically from column names
+        force_components = ['_X', '_Y', '_Z', '_sum']
+        all_cols = set(model1_data['jra'].columns) | set(model2_data['jra'].columns)
+        joint_list = list(set([col.split('_')[0] for col in all_cols 
+                              if any(comp in col for comp in force_components) and col != 'time']))[:3]  # Limit to 3 joints
+        
         create_jra_comparison_figure(
             model1_data['jra'], model2_data['jra'],
-            joint_list=['Hip_Forces'],  # Customize as needed
+            joint_list=joint_list if joint_list else None,
             model1_name="BG", model2_name="Katya",
             output_path=jra_path
         )

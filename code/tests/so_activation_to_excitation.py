@@ -47,7 +47,7 @@ def convert_so_activations_to_excitations(
         f.write(f"version=1\n")
         f.write(f"nRows={len(excitation_data)}\n")
         f.write(f"nColumns={len(excitation_data.columns)}\n")
-        f.write(f"inDegrees=no\n")
+        f.write(f"in_degrees=no\n")
         f.write(f"endheader\n")
         
         # Write data

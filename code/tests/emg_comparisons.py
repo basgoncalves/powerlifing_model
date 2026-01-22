@@ -76,19 +76,32 @@ def compare_emg_with_activations(
                        label=f'Model: {muscle}', linewidth=2, 
                        color=colors[i % len(colors)], linestyle='--', alpha=0.7)
                 
-                # Calculate correlation if time series match
-                if len(emg_data) == len(activation_data):
-                    try:
-                        corr, p_value = pearsonr(emg_data[emg_label], activation_data[muscle])
-                        rmse = np.sqrt(mean_squared_error(emg_data[emg_label], activation_data[muscle]))
-                        
-                        comparison_metrics[f'{emg_label}_{muscle}'] = {
-                            'correlation': corr,
-                            'p_value': p_value,
-                            'rmse': rmse
-                        }
-                    except Exception as e:
-                        print(f"Could not calculate metrics for {emg_label} vs {muscle}: {e}")
+                # Calculate correlation with proper time alignment
+                try:
+                    # Check if we need to interpolate to common time base
+                    if len(emg_data) == len(activation_data) and np.allclose(emg_data[emg_time], activation_data[act_time]):
+                        # Time series already aligned
+                        emg_values = emg_data[emg_label].values
+                        act_values = activation_data[muscle].values
+                    else:
+                        # Interpolate activation to EMG time base
+                        from scipy.interpolate import interp1d
+                        interp_func = interp1d(activation_data[act_time], activation_data[muscle], 
+                                             bounds_error=False, fill_value='extrapolate')
+                        act_values = interp_func(emg_data[emg_time])
+                        emg_values = emg_data[emg_label].values
+                    
+                    # Calculate metrics
+                    corr, p_value = pearsonr(emg_values, act_values)
+                    rmse = np.sqrt(mean_squared_error(emg_values, act_values))
+                    
+                    comparison_metrics[f'{emg_label}_{muscle}'] = {
+                        'correlation': corr,
+                        'p_value': p_value,
+                        'rmse': rmse
+                    }
+                except Exception as e:
+                    print(f"Could not calculate metrics for {emg_label} vs {muscle}: {e}")
         
         ax.set_title(f'{emg_label}', fontsize=10)
         ax.set_xlabel('Time (s)', fontsize=8)
