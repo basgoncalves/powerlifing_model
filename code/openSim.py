@@ -864,7 +864,7 @@ def run_emg_normalise(target_emg_path=None, normalise_emg_list=None):
     
     if target_emg is None:
         utils.print_to_log(f"Target EMG file not found or could not be loaded: {target_emg_path}")
-    
+
     
     # Normalise the target EMG to its own max values
     max_per_column = max_values.max(axis=0)

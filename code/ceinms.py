@@ -1484,7 +1484,74 @@ def plot_experimental_vs_ceinms(emgFile=None,
     print(f"External torques vs CEINMS torques plot saved to: {fig_path}")
     plt.close()
 
+def plot_ceinms_muscle_forces(ceinmsForcesFile=None):
 
+    if not ceinmsForcesFile:
+        ceinmsForcesFile = input("Enter path to CEINMS muscle forces file: ").strip('"')
+
+    ceinms_forces = utils.load_any_data_file(ceinmsForcesFile)
+    ceinms_activations = utils.load_any_data_file(ceinmsForcesFile.replace('MuscleForces', 'Activations'))
+    ceinms_fibre_lengths = utils.load_any_data_file(ceinmsForcesFile.replace('MuscleForces', 'FibreLengths'))
+    
+    muscle_names = [col for col in ceinms_forces.columns if col != 'time']
+
+    n_muscles = len(muscle_names)
+    if n_muscles == 0:
+        print("No muscle columns found in CEINMS forces file.")
+        return
+    
+    n_cols = int(np.ceil(np.sqrt(n_muscles)))
+    n_rows = int(np.ceil(n_muscles / n_cols))
+
+    fig, axs = plt.subplots(n_rows, n_cols, figsize=(n_cols * 4, n_rows * 3))
+    plt.suptitle('CEINMS Muscle Forces', fontsize=16)
+
+    # Normalize axs to 1D array for easy indexing
+    if isinstance(axs, np.ndarray):
+        axs_flat = axs.flatten()
+    else:
+        axs_flat = np.array([axs])
+
+    for i, muscle in enumerate(muscle_names):
+        ax = axs_flat[i]
+        ax.plot(ceinms_forces['time'], ceinms_forces[muscle], label=muscle, color='green', linewidth=1.5)
+
+        # add activations on secondary y-axis
+        ax2 = ax.twinx()
+        if muscle in ceinms_activations.columns:
+            ax2.plot(ceinms_activations['time'], ceinms_activations[muscle], label=f'{muscle} Activation', color='gray', alpha=0.6, linewidth=3)
+            ax2.set_ylabel('Activation')
+
+        ax.set_title(muscle)
+        ax.set_ylabel('Force (N)')
+        # Only the bottom row gets x labels
+        row = i // n_cols
+        if row < n_rows - 1:
+            ax.set_xticklabels([])
+        else:
+            ax.set_xlabel('Time (%)')
+        # create simple legend with generic labels 'force' and 'activation'
+        h1, l1 = ax.get_legend_handles_labels()
+        h2, l2 = ax2.get_legend_handles_labels()
+        h_force = h1[0] if h1 else None
+        h_act = h2[0] if h2 else None
+        legend_handles = [h for h in (h_force, h_act) if h is not None]
+        legend_labels = ['force', 'activation'][:len(legend_handles)]
+        if legend_handles:
+            ax.legend(legend_handles, legend_labels, fontsize='small')
+
+    # Hide any unused subplots
+    for j in range(n_muscles, n_rows * n_cols):
+        axs_flat[j].set_visible(False)
+
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+
+    # save figure
+    ext = os.path.splitext(ceinmsForcesFile)[1]
+    fig_path = ceinmsForcesFile.replace(ext, '.png')
+    plt.savefig(fig_path)
+    print(f"CEINMS muscle forces plot saved to: {os.path.abspath(fig_path)}")
+    plt.close()
 
 if __name__ == "__main__":
     

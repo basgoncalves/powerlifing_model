@@ -10,7 +10,7 @@ import exportC3D
 
 SUBJECTS_TO_ANALYSE =  ['Athlete_03'] 
 SESSIONS_TO_ANALYSE = ['25_03_31'] 
-TRIALS_TO_ANALYSE =  ['Walking_02'] 
+TRIALS_TO_ANALYSE =  ['Walking_03'] 
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
 
 class Execute:
@@ -33,7 +33,7 @@ class Execute:
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False
@@ -103,6 +103,7 @@ def run_all_step(analyse: utils.Analyse):
 
     # Run Joint Reaction Analysis
     if Execute().JRA:
+        analyse.update_trial_attribute('jra', 'Analyse_JRA_ReactionLoads_SO.sto')
         analyse.run_jra()
         
     # Normalise EMG data
