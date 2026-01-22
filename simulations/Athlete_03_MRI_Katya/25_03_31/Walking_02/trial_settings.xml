@@ -2,7 +2,7 @@
 <TrialSettings>
    <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
    <model_name>scaled.osim</model_name>
-   <model_dir>..\..\..\..\models\Athlete_03\25_03_31\scaled.osim</model_dir>
+   <model_dir>..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_increased_3.00.osim</model_dir>
    <time_range>[0.175, 1.255]</time_range>
    <c3d>c3dfile.c3d</c3d>
    <emg_raw>emg.mot</emg_raw>
@@ -37,7 +37,7 @@
    <ma>muscleAnalysis</ma>
    <so_forces>SO_StaticOptimization_force.sto</so_forces>
    <so_activations>SO_StaticOptimization_activation.sto</so_activations>
-   <jra>Analyse_JRA_ReactionLoads.sto</jra>
+   <jra>Analyse_JRA_ReactionLoads_SO.sto</jra>
    <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
    <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
    <ceinms_exe_dir>Execution</ceinms_exe_dir>
