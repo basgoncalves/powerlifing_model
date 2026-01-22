@@ -393,6 +393,7 @@ class Analyse(Inputs):
 
     def update_model(self, new_model_name):
         '''Update the model path for the trial and save to XML'''
+        
         model_path = os.path.join(MODELS_DIR, self.subject, self.session, new_model_name)
         rel_model_path = os.path.relpath(model_path, self.path)
         self.model_dir = rel_model_path
@@ -983,7 +984,7 @@ class Analyse(Inputs):
             output_file: Path for output ceinms_cfg_optimise.xml
         """
         os.chdir(self.path)
-        excitation_file = self.ceinms_excitations
+        excitation_file = self.ceinms_excitation_generator
         output_file = self.ceinms_exe_cfg
         
         # Parse the excitation generator XML
@@ -1030,7 +1031,7 @@ class Analyse(Inputs):
         
         # Add DOF set (you may need to adjust this based on your model)
         dof_set = ET.SubElement(hybrid, 'dofSet')
-        dof_set.text = ' '.join(settings.DOFs)
+        dof_set.text = CEINMSParameters().DofSet
         
         # Add synthMTUs
         synth_mtus_elem = ET.SubElement(hybrid, 'synthMTUs')
@@ -1258,7 +1259,7 @@ def print_to_log(message, terminal=False):
     timestamp = time.strftime('%d.%m.%Y_%H:%M:%S', time.localtime()) + f":{int((time.time() % 1) * 1000):03d}"
     print(f'{timestamp} {message}')
     
-    with open(MODULE_DIR + '\\log.txt', 'a') as log_file:
+    with open(CODE_DIR + '\\log.txt', 'a') as log_file:
         log_file.write(f'{timestamp}: {message}\n')
         
     if terminal:
