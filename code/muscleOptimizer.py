@@ -584,7 +584,19 @@ def optimMuscleParams(osimModel_ref_filepath, osimModel_targ_filepath, N_eval, l
     # initializing log file
     log_folder = Path(log_folder)
     log_folder.mkdir(parents=True, exist_ok=True)
-    logging.basicConfig(filename = str(log_folder) + '/' + name + '_opt' + res_file_id_exp +'.log', filemode = 'w', format = '%(levelname)s:%(message)s', level = logging.INFO)
+    log_file_path = log_folder / (name + '_opt' + res_file_id_exp + '.log')
+    
+    # Check if log file exists and find last processed muscle
+    processed_muscles = set()
+    if log_file_path.exists():
+        with open(log_file_path, 'r') as f:
+            for line in f:
+                if 'Calculated optimized muscle parameters for' in line:
+                    muscle_name = line.split('Calculated optimized muscle parameters for')[1].split('in')[0].strip()
+                    processed_muscles.add(muscle_name)
+        print(f'Found {len(processed_muscles)} already processed muscles in log file')
+    
+    logging.basicConfig(filename=str(log_file_path), filemode='a', format='%(levelname)s:%(message)s', level=logging.INFO)
         
     # get muscles
     muscles = osimModel_ref.getMuscles()
@@ -596,10 +608,15 @@ def optimMuscleParams(osimModel_ref_filepath, osimModel_targ_filepath, N_eval, l
     
     for n_mus in range(0, muscles.getSize()):
         
-        tic = time()
-        
         # current muscle name (here so that it is possible to choose a single muscle when developing).
         curr_mus_name = muscles.get(n_mus).getName()
+        
+        # Skip if already processed
+        if curr_mus_name in processed_muscles:
+            print(f'Skipping muscle {n_mus+1}: {curr_mus_name} (already processed)')
+            continue
+        
+        tic = time()
         print('processing mus ' + str(n_mus+1) + ': ' + curr_mus_name)
         
         # import muscles
@@ -733,9 +750,9 @@ def optimMuscleParams(osimModel_ref_filepath, osimModel_targ_filepath, N_eval, l
         SimInfo[n_mus]['sampledEvalPoints'] = evalOkPoints
         SimInfo[n_mus]['sampledEvalPoints'] = evalTotPoints
         SimInfo[n_mus]['fval'] = fval
-        
+    
     # assigning optimized model as output
-    osimModel_opt = osimModel_targ;
+    osimModel_opt = osimModel_targ
             
     return osimModel_opt, SimInfo
 
