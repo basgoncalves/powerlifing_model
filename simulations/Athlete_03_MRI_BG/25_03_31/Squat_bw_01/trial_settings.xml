@@ -41,7 +41,7 @@
    <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
    <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
    <ceinms_exe_dir>Execution</ceinms_exe_dir>
-   <jra_forces_ceinms>Execution_a100_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
+   <jra_forces_ceinms>Execution_a1_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
    <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
    <replace>True</replace>
    <path>.</path>
@@ -52,7 +52,7 @@
    <parentdir>..</parentdir>
    <hybridCalibration>true</hybridCalibration>
    <numberOfSynergies>8</numberOfSynergies>
-   <alpha>100</alpha>
+   <alpha>1</alpha>
    <beta>1</beta>
    <gamma>1000</gamma>
    <betaMin>1</betaMin>
@@ -72,4 +72,142 @@
    <tendonSlackLength>0.5 3</tendonSlackLength>
    <strengthCoefficient>0.75 3.5</strengthCoefficient>
    <Target_Muscles>all</Target_Muscles>
+   <_is_copy>None</_is_copy>
+   <_mgr>BlockManager
+Items: Index(['time', 'ground_pelvis_on_pelvis_in_pelvis_fx',
+       'ground_pelvis_on_pelvis_in_pelvis_fy',
+       'ground_pelvis_on_pelvis_in_pelvis_fz',
+       'ground_pelvis_on_pelvis_in_pelvis_mx',
+       'ground_pelvis_on_pelvis_in_pelvis_my',
+       'ground_pelvis_on_pelvis_in_pelvis_mz',
+       'ground_pelvis_on_pelvis_in_pelvis_px',
+       'ground_pelvis_on_pelvis_in_pelvis_py',
+       'ground_pelvis_on_pelvis_in_pelvis_pz',
+       ...
+       'radioulnar_l_on_radius_l_in_radius_l_pz',
+       'radius_hand_l_on_hand_l_in_hand_l_fx',
+       'radius_hand_l_on_hand_l_in_hand_l_fy',
+       'radius_hand_l_on_hand_l_in_hand_l_fz',
+       'radius_hand_l_on_hand_l_in_hand_l_mx',
+       'radius_hand_l_on_hand_l_in_hand_l_my',
+       'radius_hand_l_on_hand_l_in_hand_l_mz',
+       'radius_hand_l_on_hand_l_in_hand_l_px',
+       'radius_hand_l_on_hand_l_in_hand_l_py',
+       'radius_hand_l_on_hand_l_in_hand_l_pz'],
+      dtype='object', length=199)
+Axis 1: RangeIndex(start=0, stop=707, step=1)
+NumericBlock: slice(0, 199, 1), 199 x 707, dtype: float64</_mgr>
+   <_item_cache>{'hip_r_on_femur_r_in_femur_r_fx': 0     -81.411182
+1     -45.499319
+2      -9.527233
+3      26.491860
+4      29.974808
+         ...    
+702   -48.542028
+703   -44.717249
+704   -39.981868
+705   -35.007085
+706   -30.445997
+Name: hip_r_on_femur_r_in_femur_r_fx, Length: 707, dtype: float64, 'hip_r_on_femur_r_in_femur_r_fy': 0      -750.614039
+1      -808.558052
+2      -866.765869
+3      -925.135464
+4      -953.522273
+          ...     
+702   -1176.764160
+703   -1178.263233
+704   -1179.177031
+705   -1179.330844
+706   -1179.114786
+Name: hip_r_on_femur_r_in_femur_r_fy, Length: 707, dtype: float64, 'hip_r_on_femur_r_in_femur_r_fz': 0       4.500676
+1       9.610662
+2      14.791174
+3      20.014104
+4      21.762734
+         ...    
+702   -20.669725
+703   -24.820120
+704   -29.083295
+705   -32.939677
+706   -35.955260
+Name: hip_r_on_femur_r_in_femur_r_fz, Length: 707, dtype: float64, 'time': 0      0.005
+1      0.010
+2      0.015
+3      0.020
+4      0.025
+       ...  
+702    3.515
+703    3.520
+704    3.525
+705    3.530
+706    3.535
+Name: time, Length: 707, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fx': 0     -12.357210
+1      -9.578995
+2      -6.784391
+3      -3.982401
+4       3.821343
+         ...    
+702    51.924306
+703    49.374035
+704    46.724819
+705    44.236459
+706    42.174763
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fx, Length: 707, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fy': 0      -914.949756
+1      -906.177785
+2      -897.796694
+3      -889.659294
+4      -889.628732
+          ...     
+702   -1008.206367
+703   -1003.756253
+704    -997.921491
+705    -991.255059
+706    -984.784744
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fy, Length: 707, dtype: float64, 'walker_knee_r_on_tibia_r_in_tibia_r_fz': 0     -18.864512
+1     -17.803388
+2     -16.741409
+3     -15.677681
+4     -15.394540
+         ...    
+702   -71.913699
+703   -68.635531
+704   -65.067262
+705   -61.570961
+706   -58.586975
+Name: walker_knee_r_on_tibia_r_in_tibia_r_fz, Length: 707, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fx': 0      414.835626
+1      410.481130
+2      406.186147
+3      401.933447
+4      397.527950
+          ...    
+702    376.965389
+703    378.509312
+704    379.704345
+705    380.603075
+706    381.314402
+Name: ankle_r_on_talus_r_in_talus_r_fx, Length: 707, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fy': 0     -768.723263
+1     -750.981825
+2     -733.681099
+3     -716.655134
+4     -702.247941
+          ...    
+702   -621.922637
+703   -624.223940
+704   -626.353180
+705   -628.311612
+706   -630.134956
+Name: ankle_r_on_talus_r_in_talus_r_fy, Length: 707, dtype: float64, 'ankle_r_on_talus_r_in_talus_r_fz': 0     -50.914455
+1     -49.608169
+2     -48.429883
+3     -47.315301
+4     -46.426267
+         ...    
+702   -17.785461
+703   -17.225618
+704   -16.681099
+705   -16.212434
+706   -15.854625
+Name: ankle_r_on_talus_r_in_talus_r_fz, Length: 707, dtype: float64}</_item_cache>
+   <_attrs>{}</_attrs>
+   <_flags>&lt;Flags(allows_duplicate_labels=True)&gt;</_flags>
 </TrialSettings>
