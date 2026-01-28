@@ -127,6 +127,7 @@ class Inputs:
         
         return fileExist    
 
+
 class CEINMSParameters:
     def __init__(self):
         self.hybridCalibration = 'true'
@@ -440,6 +441,7 @@ class Analyse(Inputs):
         self.model_dir = new_model_path
         self._to_xml()
 
+    # analyses to run
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -465,7 +467,6 @@ class Analyse(Inputs):
         # Update the EMG normalised path
         self.update_trial_attribute('emg_normalised', scaled_emg_path)
         
-    # analyses to run
     def export_c3d(self):
         import exportC3D
         
@@ -920,6 +921,7 @@ class Analyse(Inputs):
         self.ceinms_activations = load_any_data_file(os.path.join(ceinms_output_dir, 'Activations.sto'))
         self.ceinms_forces = load_any_data_file(os.path.join(ceinms_output_dir, 'MuscleForces.sto'))
         
+        # plott
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
         
@@ -1116,6 +1118,25 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] Failed to create CEINMS executable configuration: {e}', terminal=True)
 
+    def get_muscle_excitation_mapping(self, muscle_name):
+        """
+        Check if a muscle is present in the excitation mapping of the excitation generator XML.
+        
+        Args:
+            muscle_name (str): Name of the muscle to check.
+        """
+        tree = ET.parse(self.ceinms_excitation_generator)
+        root = tree.getroot()
+        
+        mapping = root.find('mapping')
+        if mapping is not None:
+            for excitation in mapping.findall('excitation'):
+                if excitation.get('id') == muscle_name:
+                    inputs = excitation.findall('input')
+                    if inputs:
+                        return [inp.text for inp in inputs]
+        return []
+
     # --- run ceinms analyses
     def run_ceinms_calibration(self):        
         
@@ -1215,8 +1236,22 @@ class Analyse(Inputs):
         
         # run ceinms executable loop
         ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
-    
-    
+
+    def check_best_ceinms_results(self):
+        ''' loop through ceinms exe results and find best alpha, beta, gamma based on RMS error for joint moments and EMG vs CEINMS excitations '''
+        os.chdir(self.path)
+
+        self.load_settings(settingsXML=self.settingsXML)
+        best_params_csv = os.path.join(self.path, 'best_ceinms_parameters.csv')
+
+        if os.path.exists(best_params_csv) and not self.replace:
+            print_to_log(f'Loading existing best CEINMS parameters from {best_params_csv}')
+            best_params_df = pd.read_csv(best_params_csv)
+        else:
+            best_params_df = pd.DataFrame(columns=['alpha', 'beta', 'gamma', 'moment_rms_error', 'emg_rms_error'])
+            best_params_df.to_csv(best_params_csv, index=False)
+            print_to_log(f'Saved best CEINMS parameters to {best_params_csv}')
+
     #--- Plot ceinms
     def plot_ceinms_calibration_results(self):
 
@@ -1248,7 +1283,8 @@ class Analyse(Inputs):
             print_to_log(f'[Warning] Failed to push to git: {e}')
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
-             
+
+
 def print_to_log(message, terminal=False):
     """
     Prints a message to the console and logs it to a file.
@@ -2659,6 +2695,31 @@ class osimTools():
         model.printToXML(model_file_path)    
     ####
 
+
+# Project specific command line interface
+class Organise():
+    def __init__(self):
+        pass
+
+    def open_dir_in_explorer(self):
+        'Open the models and simulations directory in file explorer'
+
+        try:
+            os.startfile(MODELS_DIR)
+        except Exception as e:
+            print(f"Error opening models directory: {e}")
+
+        try:
+            os.startfile(SIMULATIONS_DIR)
+        except Exception as e:
+            print(f"Error opening simulations directory: {e}")
+
+
+    def rename_files_in_dir(self):
+        dir_path = input("Enter directory path: ").strip('"')
+        old_str = input("Enter string to be replaced: ")
+        new_str = input("Enter new string: ")
+        rename_all_files_in_dir(dir_path, old_str, new_str)
 
 if __name__ == "__main__":
     

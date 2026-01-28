@@ -9,7 +9,7 @@ import openSim
 import ceinms
 import exportC3D
 
-subjectLiist = ['Athlete_03_MRI_Katya'] #Athlete_03_MRI_BG, 'Athlete_03_Katya'
+subjectLiist = ['Athlete_03_MRI_Katya'] #Athlete_03_MRI_BG, 'Athlete_03_MRI_Katya'
 session = '25_03_31' # 25_03_31  22_07_06
 trial = 'Squat_bw_01'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
 
@@ -22,14 +22,14 @@ class Run():
                 self.emg_normalise = False
                 self.emg_scale = False
 
-                self.ceinms_model = False
+                self.ceinms_model = True
                 self.ceinms_input_data = False
                 self.ceinms_calibration_cfg = False
                 self.ceinms_calibration_setup = False
-                self.ceinms_excitation_generator = False
+                self.ceinms_excitation_generator = True
                 self.ceinms_calibration = False
 
-                self.plot_ceinms_model_parameters = False
+                self.plot_ceinms_model_parameters = True
                 self.plot_ceinms_calibration_results = False
 
                 self.create_ceinms_exe_cfg = False
@@ -37,12 +37,12 @@ class Run():
 
                 self.ceinms_exe_loop = False
 
-                self.ceinms_exe = False
+                self.ceinms_exe = True
                 self.create_ceinms_optimise_setup = False
                 self.ceinms_optimise = False
 
-                self.jra_ceinms = False
-                self.jra = False
+                self.jra_ceinms = True
+                self.jra = True
 
                 self.plot_muscle_forces = True
 
@@ -124,3 +124,7 @@ for subject in subjectLiist:
 
         
 
+if __name__ == "__main__":
+
+        Run().gui_select()      
+        # main()
