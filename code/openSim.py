@@ -3,6 +3,7 @@ import opensim as osim
 import pandas as pd
 import utils
 import os
+import datetime
 
 
 def scale_body_masses(osim_modelPath):
@@ -85,13 +86,16 @@ def print_body_mass_per_segment(osim_modelPath):
     for body in model.getBodySet():
         print(f"{body.getName()}: {body.getMass()} kg ({body.getMass() / model.getTotalMass(state) * 100:.2f}%)")
 
-def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=3):
+def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=None):
     """
     Increase the isometric force of a specified muscle by a given factor.
     """
     if not osim_modelPath:
         osim_modelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
     
+    if not factor:
+        factor = float(input("Enter factor to increase max isometric force (e.g., 1.2 for 20% increase): "))
+
     model = osim.Model(osim_modelPath)
     
     if muscleList == 'all':
@@ -276,7 +280,32 @@ def create_grf_xml(markerTrcPath=None, grfMotFile=None, grfXmlPath=None):
     
     print('Under construction...')
 
+def convert_mot_to_sto(mot_file_path = None):
+    """
+    Convert a .mot file to a .sto file.
+    """
+    if not mot_file_path:
+        mot_file_path = input("Enter path to .mot file: ").strip('"')
+    
+    sto_file_path = mot_file_path.replace('.mot', '.sto')
+    
+    if not os.path.exists(mot_file_path):
+        print(f".mot file not found: {mot_file_path}")
+        return
 
+    if os.path.exists(sto_file_path):
+        print(f".sto file already exists: {sto_file_path}")
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        sto_file_path = mot_file_path.replace('.mot', f'_{timestamp}.sto')
+    
+    mot_data = utils.load_any_data_file(mot_file_path)
+    utils.write_sto_file(mot_data, sto_file_path)
+    
+    print(f"Converted {mot_file_path} to {sto_file_path}")
+
+    return sto_file_path
+    
+    
 # --- Inverse Kinematics ---
 
 def create_setup_IK(osim_modelPath=None, marker_trc=None,

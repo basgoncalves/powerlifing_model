@@ -627,9 +627,9 @@ def create_ceinms_cfg(ceinmsModelPath=None, alpha=1, beta=100, gamma=1000, dofSe
     for muscle in muscle_names:    
         excitation = mapping.find(f".//excitation[@id='{muscle}']")
         if excitation is not None and excitation.find('input') is not None:
-            synthMTUs.append(muscle)
-        else:
             adjustMTUs.append(muscle)
+        else:
+            synthMTUs.append(muscle)
     
     ET.SubElement(hybrid, "synthMTUs").text = " ".join(synthMTUs)
     ET.SubElement(hybrid, "adjustMTUs").text = " ".join(adjustMTUs)

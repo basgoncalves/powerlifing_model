@@ -628,6 +628,21 @@ class Analyse(Inputs):
         openSim.run_emg_normalise(target_emg_path= str(self.emg_filtered),
                                 normalise_emg_list=emg_normalise_list)
     
+    def convert_mot_to_sto(self, attr=None):
+
+        os.chdir(self.path)
+        if attr:
+            mot_file = getattr(self, attr)
+        
+        sto_file_path = mot_file.replace('.mot', '.sto')
+        if os.path.exists(sto_file_path) and not self.replace:
+            print_to_log(f'STO file already exists: {sto_file_path}')
+            return
+        
+        sto_file_path = openSim.convert_mot_to_sto(mot_file_path=os.path.abspath(mot_file))
+
+        self.update_trial_attribute(attr, os.path.relpath(sto_file_path, self.path))
+
     @staticmethod
     def muscles_per_coordinate(osimModel, coord_name):
         muscles = []
@@ -890,7 +905,7 @@ class Analyse(Inputs):
                 ax.legend(loc='upper right')
         
         # save figure and return
-        savePath = os.path.join(emg_file_path.replace('.sto','.png'))
+        savePath = emg_file_path.replace('.sto', '.png').replace('.mot', '.png')
         plt.savefig(savePath)
         print(f'Figure saved to {savePath}')
 
@@ -924,6 +939,7 @@ class Analyse(Inputs):
         # plott
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
+    
         
     # ceinms
     def create_ceinms_model(self):
@@ -1197,7 +1213,11 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS executable run completed for trial: {self.trial}')
         except Exception as e:
             print_to_log(f'[Error] during CEINMS executable run: {e}')
-    
+
+        # add so columns to ceinms forces
+        self.update_trial_attribute('jra_forces_ceinms', os.path.join(setup.find('outputDirectory').text, 'MuscleForces.sto'))
+        self.add_so_columns_to_ceinms_results()
+
     def run_ceinms_optimise(self):
         
         os.chdir(self.path)
@@ -1251,6 +1271,27 @@ class Analyse(Inputs):
             best_params_df = pd.DataFrame(columns=['alpha', 'beta', 'gamma', 'moment_rms_error', 'emg_rms_error'])
             best_params_df.to_csv(best_params_csv, index=False)
             print_to_log(f'Saved best CEINMS parameters to {best_params_csv}')
+
+    def add_so_columns_to_ceinms_results(self):
+
+        so_forces = load_any_data_file(self.jra_forces)
+        ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+
+        # Find columns in SO forces that are not in CEINMS forces
+        missing_columns = [col for col in so_forces.columns if col not in ceinms_forces.columns]
+
+        # Create new dataframe starting with CEINMS forces
+        updated_forces = ceinms_forces.copy()
+
+        # Add missing columns from SO forces
+        for col in missing_columns:
+            updated_forces[col] = so_forces[col]
+
+        # Save to new .sto file
+        write_sto_file(updated_forces, self.jra_forces_ceinms)
+        print_to_log(f'[Success] Added SO columns to CEINMS forces for trial: {self.trial}')
+        print(f"Updated forces saved to: {self.jra_forces_ceinms}")
+        print(f"Added {len(missing_columns)} columns from SO forces")
 
     #--- Plot ceinms
     def plot_ceinms_calibration_results(self):

@@ -9,31 +9,34 @@ import openSim
 import ceinms
 import exportC3D
 
-subjectLiist = ['Athlete_03_MRI_Katya'] #Athlete_03_MRI_BG, 'Athlete_03_MRI_Katya'
-session = '25_03_31' # 25_03_31  22_07_06
-trial = 'Squat_bw_01'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
+subjectLiist = ['P54'] #Athlete_03, Athlete_03_MRI_BG 'Athlete_03_MRI_Katya' P54
+session = 'walking' # 25_03_31  22_07_06
+trial = 'Walking03'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
+
+calibration_trials = ['Walking03']
 
 class Run():
         def __init__(self):
-                self.ik = False
+                self.ik = True
                 self.id = False
                 self.ma = False
                 self.so = False
                 self.emg_normalise = False
                 self.emg_scale = False
+                self.emg_convert = True
 
-                self.ceinms_model = True
-                self.ceinms_input_data = False
+                self.ceinms_model = False
+                self.ceinms_input_data = True
                 self.ceinms_calibration_cfg = False
                 self.ceinms_calibration_setup = False
-                self.ceinms_excitation_generator = True
-                self.ceinms_calibration = False
+                self.ceinms_excitation_generator = False
 
-                self.plot_ceinms_model_parameters = True
+                self.ceinms_calibration = False
+                self.plot_ceinms_model_parameters = False
                 self.plot_ceinms_calibration_results = False
 
-                self.create_ceinms_exe_cfg = False
-                self.create_ceinms_exe_setup = False
+                self.create_ceinms_exe_cfg = True
+                self.create_ceinms_exe_setup = True
 
                 self.ceinms_exe_loop = False
 
@@ -46,7 +49,7 @@ class Run():
 
                 self.plot_muscle_forces = True
 
-                self.push_trial_results_to_git = False
+                self.push_trial_results_to_git = True
 
 
 for subject in subjectLiist:
@@ -54,6 +57,8 @@ for subject in subjectLiist:
         trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
         print(f'Analyzing trial at path: {trialPath}')
         analysis = utils.Analyse(trialPath)
+
+        analysis.replace = True
 
         if not hasattr(analysis, 'path'):
                 print("Analysis has no 'path' attribute, skipping this subject.")
@@ -68,9 +73,14 @@ for subject in subjectLiist:
         print(f"time range: {analysis.time_range}")
         print(f"IK file: {analysis.ik}")
 
-        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
-        
+        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_opt_N10.osim')
         analysis.update_model(new_model)
+
+        if Run().emg_convert:
+                analysis.convert_mot_to_sto(attr='emg_normalised')
+                analysis.update_trial_attribute(attr_name='emg_plot', new_value=analysis.emg_normalised)
+                analysis.update_trial_attribute(attr_name='ceinms_excitations', new_value=analysis.emg_normalised)
+        breakpoint()
 
         if Run().ik: analysis.run_ik()
         if Run().id: analysis.run_id()
@@ -84,7 +94,7 @@ for subject in subjectLiist:
         if Run().ceinms_model:  analysis.create_ceinms_model()
         if Run().ceinms_input_data:  analysis.create_ceinms_input_data()
 
-        if Run().ceinms_calibration_cfg:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=['Walking_02'])
+        if Run().ceinms_calibration_cfg:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
 
         if Run().ceinms_calibration_setup:  analysis.create_ceinms_calibration_setup()
 
@@ -106,14 +116,14 @@ for subject in subjectLiist:
         if Run().ceinms_optimise:  analysis.run_ceinms_optimise()
 
         if Run().jra_ceinms:      
-                analysis.replace = True
-                new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
+                # analysis.replace = True
+                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
                 analysis.update_model(new_model)
                 analysis.run_jra_ceinms()
 
         if Run().jra:      
-                analysis.replace = True
-                new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
+                # analysis.replace = True
+                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
                 analysis.update_model(new_model)
                 analysis.run_jra()
 
@@ -123,8 +133,3 @@ for subject in subjectLiist:
         if Run().push_trial_results_to_git: analysis.push_trial_results_to_git()
 
         
-
-if __name__ == "__main__":
-
-        Run().gui_select()      
-        # main()
