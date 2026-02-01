@@ -534,7 +534,89 @@ def create_analysis_tool(marker_trc, externalloadsfile, osim_modelPath,
     # Return the analysis tool
     return analyze_tool
 
+# --- Induced Acceleration Analysis ---
+def create_iaa_tool(osim_modelPath=None, ik_output=None, grf_xml=None, setup_file_path=None, so_controls_file=None, actuators=None):
+    """
+    Create and configure an OpenSim Induced Acceleration Tool object.
 
+    Args:
+        osim_modelPath (str): Path to the OpenSim model file (.osim).
+        ik_output (str): Path to the Inverse Kinematics output file (.mot).
+        grf_xml (str): Path to the Ground Reaction Forces XML file (.xml).
+        setup_file_path (str): Path to the Induced Acceleration setup XML file (.xml).
+        so_controls_file (str, optional): Path to the Static Optimization controls file (.sto).
+
+    Returns:
+        OpenSim InducedAccelerationTool object.
+    """
+
+    if not osim_modelPath:
+        osim_modelPath = input("Enter the path to the OpenSim model file (.osim): ").strip('"')
+
+    if not ik_output:
+        ik_output = input("Enter the path to the Inverse Kinematics output file (.mot): ").strip('"')
+
+    if not grf_xml:
+        grf_xml = input("Enter the path to the Ground Reaction Forces XML file (.xml): ").strip('"')
+
+    if not setup_file_path:
+        setup_file_path = os.path.join(os.path.dirname(os.path.abspath(ik_output)), 'setup_IAA.xml')
+
+    if not so_controls_file:
+        so_controls_file = input("Enter the path to the Static Optimization controls file (.sto): ").strip('"')
+
+        activation_file = input("Enter the path to the Static Optimization activations file (.sto) (or press Enter to skip): ").strip('"')
+
+    # Create and set model
+    model = osim.Model(osim_modelPath)
+    breakpoint()
+    tool = osim.AnalyzeTool(model)
+    tool.setName("InducedAccelerations_Tool")
+    tool.setModelFilename(osim_modelPath)
+
+    # Load motion to get start/end times
+    motion = osim.Storage(ik_output)
+    initial_time = motion.getFirstTime()
+    final_time = motion.getLastTime()
+
+    # Set Tool Parameters
+    tool.setInitialTime(initial_time)
+    tool.setFinalTime(final_time)
+    tool.setCoordinatesFileName(ik_output)
+    tool.setExternalLoadsFileName(grf_xml)
+    tool.setControlsFileName(so_controls_file)
+    tool.setSolveForEquilibrium(True)
+    tool.setLowpassCutoffFrequency(6.0) # Filter coordinates
+
+    tool.setStatesFileName(activation_file)
+    tool.setSolveForEquilibrium(False)
+    
+    # Set results directory relative to where the setup file will be, or absolute
+    results_dir = os.path.join(os.path.dirname(setup_file_path), "IAA_Results")
+    tool.setResultsDir(results_dir)
+
+    # Set actuator force files (if provided)
+    if actuators:
+        force_set = osim.ArrayStr()
+        for file in actuators:
+            force_set.append(os.path.abspath(file))
+        tool.setForceSetFiles(force_set)
+        tool.setReplaceForceSet(False)
+
+    # 3. Configure the InducedAccelerations Analysis
+    iaa_analysis = osim.InducedAccelerations()
+    iaa_analysis.setName("InducedAccelerations")
+    iaa_analysis.setStartTime(initial_time)
+    iaa_analysis.setEndTime(final_time)
+    
+    # Add the Analysis to the Tool
+    tool.getAnalysisSet().adoptAndAppend(iaa_analysis)
+
+    # Save the setup file for reference
+    tool.printToXML(setup_file_path)
+    print(f"IAA Tool configured. Setup file saved to: {setup_file_path}")
+    tool.run()
+    return tool
 
 # --- Main OSIM Analysis ---
 

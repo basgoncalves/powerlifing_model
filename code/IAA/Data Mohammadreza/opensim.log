@@ -1,0 +1,57 @@
+[2026-01-30 15:57:44.387] [info] AbstractTool subject01 loading model Sub01_Scaled_adjusted.osim
+[2026-01-30 15:57:44.652] [info] Loaded model subject01 from file Sub01_Scaled_adjusted.osim
+[2026-01-30 15:57:44.654] [warning] Couldn't find file 'treadmill.vtp'.
+[2026-01-30 15:57:44.658] [warning] Couldn't find file 'sacrum.vtp'.
+[2026-01-30 15:57:44.659] [warning] Couldn't find file 'pelvis.vtp'.
+[2026-01-30 15:57:44.660] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2026-01-30 15:57:44.661] [warning] Couldn't find file 'femur.vtp'.
+[2026-01-30 15:57:44.662] [warning] Couldn't find file 'tibia.vtp'.
+[2026-01-30 15:57:44.663] [warning] Couldn't find file 'fibula.vtp'.
+[2026-01-30 15:57:44.667] [warning] Couldn't find file 'talus.vtp'.
+[2026-01-30 15:57:44.702] [warning] Couldn't find file 'foot.vtp'.
+[2026-01-30 15:57:44.703] [warning] Couldn't find file 'bofoot.vtp'.
+[2026-01-30 15:57:44.704] [warning] Couldn't find file 'l_femur.vtp'.
+[2026-01-30 15:57:44.704] [warning] Couldn't find file 'l_tibia.vtp'.
+[2026-01-30 15:57:44.705] [warning] Couldn't find file 'l_fibula.vtp'.
+[2026-01-30 15:57:44.705] [warning] Couldn't find file 'l_talus.vtp'.
+[2026-01-30 15:57:44.711] [warning] Couldn't find file 'l_foot.vtp'.
+[2026-01-30 15:57:44.714] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2026-01-30 15:57:44.715] [warning] Couldn't find file 'hat_spine.vtp'.
+[2026-01-30 15:57:44.717] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2026-01-30 15:57:44.718] [warning] Couldn't find file 'hat_skull.vtp'.
+[2026-01-30 15:57:44.719] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2026-01-30 15:57:44.746] [info] Adding force object set from gait2392_CMC_Actuators.xml
+[2026-01-30 15:57:44.871] [error] ControlSetController::extendFinalizeFromProperties Unable to load control set file 'CMC_controls.xml'.
+Details: Object: Cannot open file CMC_controls.xml. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+[2026-01-30 15:57:45.542] [warning] ControlSetController::extendFinalizeFromProperties 'CMC_controls.xml' loaded and will replace existing ControlSet 'subject01'.
+[2026-01-30 15:57:45.721] [info] Old version storage/motion file encountered
+[2026-01-30 15:57:45.722] [info] Storage: read data file = Walk01_grf.mot (nr=1531 nc=19)
+[2026-01-30 15:57:45.722] [info] .. assuming rotations in Degrees..
+[2026-01-30 15:57:45.753] [info] ExternalForce::GRF_R Data source being set to Walk01_grf.mot
+[2026-01-30 15:57:45.754] [info] ExternalForce::GRF_L Data source being set to Walk01_grf.mot
+[2026-01-30 15:57:45.805] [info] Loading states from file 'CMC_states.sto'.
+[2026-01-30 15:57:45.879] [info] Storage: read data file = CMC_states.sto (nr=1741 nc=231)
+[2026-01-30 15:57:46.550] [info] Found 1741 state vectors with time stamps ranging from 0.36 to 1.289.
+[2026-01-30 15:57:46.550] [info] Executing the analyses from 0.93377 to 1.22693...
+[2026-01-30 15:57:46.977] [warning] ControlSetController::extendFinalizeFromProperties 'CMC_controls.xml' loaded and will replace existing ControlSet 'subject01'.
+[2026-01-30 15:57:47.025] [info] Old version storage/motion file encountered
+[2026-01-30 15:57:47.025] [info] Storage: read data file = Walk01_grf.mot (nr=1531 nc=19)
+[2026-01-30 15:57:47.025] [info] .. assuming rotations in Degrees..
+[2026-01-30 15:57:47.045] [info] ExternalForce::GRF_R Data source being set to Walk01_grf.mot
+[2026-01-30 15:57:47.046] [info] ExternalForce::GRF_L Data source being set to Walk01_grf.mot
+[2026-01-30 15:57:47.101] [info] Performing Induced Accelerations Analysis
+[2026-01-30 15:57:47.102] [info] time = 0.93377
+[2026-01-30 15:57:47.540] [info] time = 0.941418
+[2026-01-30 15:57:47.726] [info] time = 0.962399
+[2026-01-30 15:57:47.923] [info] time = 0.986982
+[2026-01-30 15:57:48.127] [info] time = 1.01945
+[2026-01-30 15:57:48.333] [info] time = 1.05
+[2026-01-30 15:57:48.511] [info] time = 1.08031
+[2026-01-30 15:57:48.724] [info] time = 1.11533
+[2026-01-30 15:57:49.004] [info] time = 1.14344
+[2026-01-30 15:57:49.214] [info] time = 1.16209
+[2026-01-30 15:57:49.375] [info] time = 1.18884
+[2026-01-30 15:57:49.550] [info] time = 1.21576
+[2026-01-30 15:57:49.734] [info] time = 1.22693
+[2026-01-30 15:57:49.904] [info] Printing results of investigation subject01 to ResultsInducedAccelerations

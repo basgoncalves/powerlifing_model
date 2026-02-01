@@ -17,7 +17,7 @@ calibration_trials = ['Walking03']
 
 class Run():
         def __init__(self):
-                self.ik = True
+                self.ik = False
                 self.id = False
                 self.ma = False
                 self.so = False
@@ -26,7 +26,7 @@ class Run():
                 self.emg_convert = True
 
                 self.ceinms_model = False
-                self.ceinms_input_data = True
+                self.ceinms_input_data = False
                 self.ceinms_calibration_cfg = False
                 self.ceinms_calibration_setup = False
                 self.ceinms_excitation_generator = False
@@ -35,7 +35,7 @@ class Run():
                 self.plot_ceinms_model_parameters = False
                 self.plot_ceinms_calibration_results = False
 
-                self.create_ceinms_exe_cfg = True
+                self.create_ceinms_exe_cfg = False
                 self.create_ceinms_exe_setup = True
 
                 self.ceinms_exe_loop = False
