@@ -441,6 +441,26 @@ class Analyse(Inputs):
         self.model_dir = new_model_path
         self._to_xml()
 
+    def get_body_mass(self):
+        """Retrieve body mass from the scaled model.
+        
+        Returns:
+            float: Body mass in kg.
+        """
+        os.chdir(self.path)
+        
+        if not os.path.exists(self.model_dir):
+            print(f"Scaled model not found: {self.model_dir}")
+            return None
+
+        # Load the model
+        model = osim.Model(self.model_dir)
+        state = model.initSystem()
+        
+        body_mass = model.getTotalMass(state)
+        print(f"Body mass from model: {body_mass:.2f} kg")
+        return body_mass
+    
     # analyses to run
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
@@ -1627,7 +1647,26 @@ def load_any_data_file(file_path):
         except Exception as e:
             print(f"Error: Could not read the file at {file_path}. Please check the file format and try again.")
             print(f"Details: {e}")
-            
+
+def load_any_data_file_time_normalized(file_path, time_column='time'):
+    """
+    Loads any data file (TRC, MOT, STO, C3D) into a pandas DataFrame and normalizes the time column.
+
+    Args:
+        file_path (str): The path to the data file.
+        time_column (str): The name of the time column to normalize.
+    Returns:
+        pd.DataFrame: The loaded and time-normalized data.
+    """
+    data = load_any_data_file(file_path)
+    
+    if time_column in data.columns:
+        data = time_normalise_df(data)
+    else:
+        print(f"Warning: Time column '{time_column}' not found in data.")
+    
+    return data
+
 def save_data_file(file_path, data, metadata):
     """
     Saves the DataFrame back to a file in the original format.
@@ -1922,6 +1961,44 @@ def figure_suplots_grid(n_subplots, fig_size=(12, 8)):
     axes = axes.flatten()  # Flatten in case of multiple rows/columns
     return fig, axes
 
+def mmfn(fig: plt.Figure, n_rows: int, n_cols: int):
+    '''make my figure nice
+    '''
+    axes = fig.get_axes()
+    if len(axes) != n_rows * n_cols:
+        raise ValueError(f'Number of axes ({len(axes)}) does not match n_rows * n_cols ({n_rows * n_cols})')
+    
+    for idx, ax in enumerate(axes):
+        row = idx // n_cols
+        col = idx % n_cols
+        
+        # Remove x-tick labels from all but last row
+        if row < n_rows - 1:
+            ax.set_xticklabels([])
+            ax.set_xlabel('')
+
+        # Remove title from all but first row
+        if row > 0:
+            ax.set_title('')
+    
+    plt.tight_layout()
+    return fig
+
+def plot_mean_error_shade(ax: plt.Axes, df_list: list, xcol: str, ycol: str, color: str):
+    '''Plot mean and error shade for a list of dataframes
+    '''
+    # Interpolate all data to common time vector
+    df_mean = get_mean_across_trial_dfs(df_list, mode='mean')
+    df_error = get_mean_across_trial_dfs(df_list, mode='stdev')
+
+    ax.plot(df_mean[xcol], df_mean[ycol], color=color)
+    ax.fill_between(df_mean[xcol], 
+                    df_mean[ycol] - df_error[ycol],
+                    df_mean[ycol] + df_error[ycol],
+                    color=color, alpha=0.3)
+
+    return ax
+
 # data manipulation
 def time_normalise_df(df, fs=''):
 
@@ -1975,6 +2052,50 @@ def time_normalise_file(filepath=None, fs=None):
     # save normalised file
     normalised_filepath = filepath.replace('.sto', '_timeNormalised.sto')
     write_sto_file(normalised_df, normalised_filepath)
+
+def get_mean_across_trial_dfs(df_list, mode = 'mean') -> pd.DataFrame:
+    """
+    Groups a list of DataFrames by their row position and returns the mean.
+    
+    Args:
+        df_list (list): List of DataFrames (one per trial)
+        mode (str): 'mean' to calculate mean, 'median' to calculate median, 'stdev' for standard deviation.
+        
+    Returns:
+        pd.DataFrame: A single DataFrame of 101 rows (mean of all trials)
+    """
+    processed_dfs = []
+    
+    for i, df in enumerate(df_list):
+        temp_df = df.copy()
+        
+        # 1. Add a trial ID for tracking
+        temp_df['trial_id'] = i
+        
+        # 2. Create a 'sample_index' (0, 1, 2...) to align trials
+        # This ensures row 1 of Trial A matches row 1 of Trial B
+        temp_df['sample_index'] = range(len(temp_df))
+        
+        processed_dfs.append(temp_df)
+    
+    # Combine all trials into one large DataFrame
+    combined_df = pd.concat(processed_dfs, axis=0)
+    
+    # Group by the sample_index and calculate mean
+    # We drop 'trial_id' because averaging IDs isn't useful
+    if mode == 'mean':
+        result_df = combined_df.groupby('sample_index').mean().drop(columns=['trial_id'], errors='ignore')
+    elif mode == 'median':
+        result_df = combined_df.groupby('sample_index').median().drop(columns=['trial_id'], errors='ignore')
+    elif mode == 'stdev':
+        result_df = combined_df.groupby('sample_index').std().drop(columns=['trial_id'], errors='ignore')
+    else:
+        raise ValueError("Invalid mode. Choose from 'mean', 'median', or 'stdev'.")
+    
+    # Reset index to make sample_index a regular column
+    result_df = result_df.reset_index(drop=True)
+    
+    return result_df
 
 def get_unique_names(paths):
     # Split each path into parts
