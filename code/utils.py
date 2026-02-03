@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.offsetbox import AnchoredText
+import webbrowser
 
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog
@@ -126,6 +127,7 @@ class Inputs:
                 fileExist[attr] = True
         
         return fileExist    
+
 
 class CEINMSParameters:
     def __init__(self):
@@ -440,6 +442,27 @@ class Analyse(Inputs):
         self.model_dir = new_model_path
         self._to_xml()
 
+    def get_body_mass(self):
+        """Retrieve body mass from the scaled model.
+        
+        Returns:
+            float: Body mass in kg.
+        """
+        os.chdir(self.path)
+        
+        if not os.path.exists(self.model_dir):
+            print(f"Scaled model not found: {self.model_dir}")
+            return None
+
+        # Load the model
+        model = osim.Model(self.model_dir)
+        state = model.initSystem()
+        
+        body_mass = model.getTotalMass(state)
+        print(f"Body mass from model: {body_mass:.2f} kg")
+        return body_mass
+    
+    # analyses to run
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -465,7 +488,6 @@ class Analyse(Inputs):
         # Update the EMG normalised path
         self.update_trial_attribute('emg_normalised', scaled_emg_path)
         
-    # analyses to run
     def export_c3d(self):
         import exportC3D
         
@@ -627,6 +649,21 @@ class Analyse(Inputs):
         openSim.run_emg_normalise(target_emg_path= str(self.emg_filtered),
                                 normalise_emg_list=emg_normalise_list)
     
+    def convert_mot_to_sto(self, attr=None):
+
+        os.chdir(self.path)
+        if attr:
+            mot_file = getattr(self, attr)
+        
+        sto_file_path = mot_file.replace('.mot', '.sto')
+        if os.path.exists(sto_file_path) and not self.replace:
+            print_to_log(f'STO file already exists: {sto_file_path}')
+            return
+        
+        sto_file_path = openSim.convert_mot_to_sto(mot_file_path=os.path.abspath(mot_file))
+
+        self.update_trial_attribute(attr, os.path.relpath(sto_file_path, self.path))
+
     @staticmethod
     def muscles_per_coordinate(osimModel, coord_name):
         muscles = []
@@ -889,7 +926,7 @@ class Analyse(Inputs):
                 ax.legend(loc='upper right')
         
         # save figure and return
-        savePath = os.path.join(emg_file_path.replace('.sto','.png'))
+        savePath = emg_file_path.replace('.sto', '.png').replace('.mot', '.png')
         plt.savefig(savePath)
         print(f'Figure saved to {savePath}')
 
@@ -920,8 +957,10 @@ class Analyse(Inputs):
         self.ceinms_activations = load_any_data_file(os.path.join(ceinms_output_dir, 'Activations.sto'))
         self.ceinms_forces = load_any_data_file(os.path.join(ceinms_output_dir, 'MuscleForces.sto'))
         
+        # plott
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
+    
         
     # ceinms
     def create_ceinms_model(self):
@@ -1116,6 +1155,25 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] Failed to create CEINMS executable configuration: {e}', terminal=True)
 
+    def get_muscle_excitation_mapping(self, muscle_name):
+        """
+        Check if a muscle is present in the excitation mapping of the excitation generator XML.
+        
+        Args:
+            muscle_name (str): Name of the muscle to check.
+        """
+        tree = ET.parse(self.ceinms_excitation_generator)
+        root = tree.getroot()
+        
+        mapping = root.find('mapping')
+        if mapping is not None:
+            for excitation in mapping.findall('excitation'):
+                if excitation.get('id') == muscle_name:
+                    inputs = excitation.findall('input')
+                    if inputs:
+                        return [inp.text for inp in inputs]
+        return []
+
     # --- run ceinms analyses
     def run_ceinms_calibration(self):        
         
@@ -1176,7 +1234,11 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS executable run completed for trial: {self.trial}')
         except Exception as e:
             print_to_log(f'[Error] during CEINMS executable run: {e}')
-    
+
+        # add so columns to ceinms forces
+        self.update_trial_attribute('jra_forces_ceinms', os.path.join(setup.find('outputDirectory').text, 'MuscleForces.sto'))
+        self.add_so_columns_to_ceinms_results()
+
     def run_ceinms_optimise(self):
         
         os.chdir(self.path)
@@ -1215,8 +1277,43 @@ class Analyse(Inputs):
         
         # run ceinms executable loop
         ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
-    
-    
+
+    def check_best_ceinms_results(self):
+        ''' loop through ceinms exe results and find best alpha, beta, gamma based on RMS error for joint moments and EMG vs CEINMS excitations '''
+        os.chdir(self.path)
+
+        self.load_settings(settingsXML=self.settingsXML)
+        best_params_csv = os.path.join(self.path, 'best_ceinms_parameters.csv')
+
+        if os.path.exists(best_params_csv) and not self.replace:
+            print_to_log(f'Loading existing best CEINMS parameters from {best_params_csv}')
+            best_params_df = pd.read_csv(best_params_csv)
+        else:
+            best_params_df = pd.DataFrame(columns=['alpha', 'beta', 'gamma', 'moment_rms_error', 'emg_rms_error'])
+            best_params_df.to_csv(best_params_csv, index=False)
+            print_to_log(f'Saved best CEINMS parameters to {best_params_csv}')
+
+    def add_so_columns_to_ceinms_results(self):
+
+        so_forces = load_any_data_file(self.jra_forces)
+        ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+
+        # Find columns in SO forces that are not in CEINMS forces
+        missing_columns = [col for col in so_forces.columns if col not in ceinms_forces.columns]
+
+        # Create new dataframe starting with CEINMS forces
+        updated_forces = ceinms_forces.copy()
+
+        # Add missing columns from SO forces
+        for col in missing_columns:
+            updated_forces[col] = so_forces[col]
+
+        # Save to new .sto file
+        write_sto_file(updated_forces, self.jra_forces_ceinms)
+        print_to_log(f'[Success] Added SO columns to CEINMS forces for trial: {self.trial}')
+        print(f"Updated forces saved to: {self.jra_forces_ceinms}")
+        print(f"Added {len(missing_columns)} columns from SO forces")
+
     #--- Plot ceinms
     def plot_ceinms_calibration_results(self):
 
@@ -1248,7 +1345,8 @@ class Analyse(Inputs):
             print_to_log(f'[Warning] Failed to push to git: {e}')
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
-             
+
+
 def print_to_log(message, terminal=False):
     """
     Prints a message to the console and logs it to a file.
@@ -1550,7 +1648,26 @@ def load_any_data_file(file_path):
         except Exception as e:
             print(f"Error: Could not read the file at {file_path}. Please check the file format and try again.")
             print(f"Details: {e}")
-            
+
+def load_any_data_file_time_normalized(file_path, time_column='time'):
+    """
+    Loads any data file (TRC, MOT, STO, C3D) into a pandas DataFrame and normalizes the time column.
+
+    Args:
+        file_path (str): The path to the data file.
+        time_column (str): The name of the time column to normalize.
+    Returns:
+        pd.DataFrame: The loaded and time-normalized data.
+    """
+    data = load_any_data_file(file_path)
+    
+    if time_column in data.columns:
+        data = time_normalise_df(data)
+    else:
+        print(f"Warning: Time column '{time_column}' not found in data.")
+    
+    return data
+
 def save_data_file(file_path, data, metadata):
     """
     Saves the DataFrame back to a file in the original format.
@@ -1845,6 +1962,83 @@ def figure_suplots_grid(n_subplots, fig_size=(12, 8)):
     axes = axes.flatten()  # Flatten in case of multiple rows/columns
     return fig, axes
 
+def mmfn(fig: plt.Figure, n_rows: int, n_cols: int):
+    '''make my figure nice
+    '''
+    axes = fig.get_axes()
+    if len(axes) != n_rows * n_cols:
+        raise ValueError(f'Number of axes ({len(axes)}) does not match n_rows * n_cols ({n_rows * n_cols})')
+    
+    for idx, ax in enumerate(axes):
+        row = idx // n_cols
+        col = idx % n_cols
+        
+        # Remove x-tick labels from all but last row
+        if row < n_rows - 1:
+            ax.set_xticklabels([])
+            ax.set_xlabel('')
+
+        # Remove title from all but first row
+        if row > 0:
+            ax.set_title('')
+    
+    plt.tight_layout()
+    return fig
+
+def plot_mean_error_shade(ax: plt.Axes, df_list: list, xcol: str, ycol: str, color: str):
+    '''Plot mean and error shade for a list of dataframes
+    '''
+    # Interpolate all data to common time vector
+    df_mean = get_mean_across_trial_dfs(df_list, mode='mean')
+    df_error = get_mean_across_trial_dfs(df_list, mode='stdev')
+
+    ax.plot(df_mean[xcol], df_mean[ycol], color=color)
+    ax.fill_between(df_mean[xcol], 
+                    df_mean[ycol] - df_error[ycol],
+                    df_mean[ycol] + df_error[ycol],
+                    color=color, alpha=0.3)
+
+    return ax
+
+def add_picture_to_ax(ax: plt.Axes, image_path: str, scale: float = 1.0):
+    from scipy.ndimage import zoom
+
+    if os.path.exists(image_path):
+            img = plt.imread(image_path)
+            ax.imshow(img)
+            # Scale image if needed
+            if scale != 1.0:
+                img = zoom(img, (scale, scale, 1), order=1)
+            ax.imshow(img)
+            ax.axis('off')
+    else:
+            print(f"Warning: Image file not found at {image_path}. Adding task name text instead.")
+            ax.text(0.5, 0.5, "Image not found", ha='center', va='center', fontsize=12)
+            ax.axis('off')
+
+def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
+    """
+    Convert a Matplotlib figure to an interactive Plotly figure and display it.
+
+    Parameters:
+    fig (plt.Figure): The Matplotlib figure to convert.
+    """
+    import plotly.io as pio
+    import plotly.tools as tls
+
+    # Convert the Matplotlib figure to a Plotly figure
+    plotly_fig = tls.mpl_to_plotly(fig)
+
+    # save HTML file
+    pio.write_html(plotly_fig, file=html_path, auto_open=False)
+    print(f"Interactive joint angles plot saved: {html_path}")
+    # Open the HTML file in the default web browser
+    webbrowser.open('file://' + os.path.abspath(html_path))
+
+    # Display the interactive Plotly figure
+    pio.show(plotly_fig)
+
+
 # data manipulation
 def time_normalise_df(df, fs=''):
 
@@ -1898,6 +2092,50 @@ def time_normalise_file(filepath=None, fs=None):
     # save normalised file
     normalised_filepath = filepath.replace('.sto', '_timeNormalised.sto')
     write_sto_file(normalised_df, normalised_filepath)
+
+def get_mean_across_trial_dfs(df_list, mode = 'mean') -> pd.DataFrame:
+    """
+    Groups a list of DataFrames by their row position and returns the mean.
+    
+    Args:
+        df_list (list): List of DataFrames (one per trial)
+        mode (str): 'mean' to calculate mean, 'median' to calculate median, 'stdev' for standard deviation.
+        
+    Returns:
+        pd.DataFrame: A single DataFrame of 101 rows (mean of all trials)
+    """
+    processed_dfs = []
+    
+    for i, df in enumerate(df_list):
+        temp_df = df.copy()
+        
+        # 1. Add a trial ID for tracking
+        temp_df['trial_id'] = i
+        
+        # 2. Create a 'sample_index' (0, 1, 2...) to align trials
+        # This ensures row 1 of Trial A matches row 1 of Trial B
+        temp_df['sample_index'] = range(len(temp_df))
+        
+        processed_dfs.append(temp_df)
+    
+    # Combine all trials into one large DataFrame
+    combined_df = pd.concat(processed_dfs, axis=0)
+    
+    # Group by the sample_index and calculate mean
+    # We drop 'trial_id' because averaging IDs isn't useful
+    if mode == 'mean':
+        result_df = combined_df.groupby('sample_index').mean().drop(columns=['trial_id'], errors='ignore')
+    elif mode == 'median':
+        result_df = combined_df.groupby('sample_index').median().drop(columns=['trial_id'], errors='ignore')
+    elif mode == 'stdev':
+        result_df = combined_df.groupby('sample_index').std().drop(columns=['trial_id'], errors='ignore')
+    else:
+        raise ValueError("Invalid mode. Choose from 'mean', 'median', or 'stdev'.")
+    
+    # Reset index to make sample_index a regular column
+    result_df = result_df.reset_index(drop=True)
+    
+    return result_df
 
 def get_unique_names(paths):
     # Split each path into parts
@@ -2659,6 +2897,31 @@ class osimTools():
         model.printToXML(model_file_path)    
     ####
 
+
+# Project specific command line interface
+class Organise():
+    def __init__(self):
+        pass
+
+    def open_dir_in_explorer(self):
+        'Open the models and simulations directory in file explorer'
+
+        try:
+            os.startfile(MODELS_DIR)
+        except Exception as e:
+            print(f"Error opening models directory: {e}")
+
+        try:
+            os.startfile(SIMULATIONS_DIR)
+        except Exception as e:
+            print(f"Error opening simulations directory: {e}")
+
+
+    def rename_files_in_dir(self):
+        dir_path = input("Enter directory path: ").strip('"')
+        old_str = input("Enter string to be replaced: ")
+        new_str = input("Enter new string: ")
+        rename_all_files_in_dir(dir_path, old_str, new_str)
 
 if __name__ == "__main__":
     

@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<excitationGenerator>
+   <inputSignals type="EMG">EMG01_right_gast_med EMG02_right_glut_max EMG03_left_gast_med EMG04_left_glut_max EMG05_right_glut_med EMG06_right_bic_fem EMG07_right_rect_fem EMG08_right_vast_lat EMG09_right_vast_med EMG10_right_tens_fasc_lat EMG11_left_glut_med EMG12_left_bic_fem EMG13_left_rect_fem EMG14_left_vast_lat EMG15_left_vast_med EMG16_left_tens_fasc_lat</inputSignals>
+   <mapping>
+      <excitation id="addbrev_r"/>
+      <excitation id="addlong_r"/>
+      <excitation id="addmagDist_r"/>
+      <excitation id="addmagIsch_r"/>
+      <excitation id="addmagMid_r"/>
+      <excitation id="addmagProx_r"/>
+      <excitation id="bflh_r">
+         <input weight="1">EMG06_right_bic_fem</input>
+      </excitation>
+      <excitation id="bfsh_r">
+         <input weight="1">EMG06_right_bic_fem</input>
+      </excitation>
+      <excitation id="edl_r"/>
+      <excitation id="ehl_r"/>
+      <excitation id="fdl_r"/>
+      <excitation id="fhl_r"/>
+      <excitation id="gaslat_r"/>
+      <excitation id="gasmed_r">
+         <input weight="1">EMG01_right_gast_med</input>
+      </excitation>
+      <excitation id="glmax1_r">
+         <input weight="1">EMG02_right_glut_max</input>
+      </excitation>
+      <excitation id="glmax2_r">
+         <input weight="1">EMG02_right_glut_max</input>
+      </excitation>
+      <excitation id="glmax3_r">
+         <input weight="1">EMG02_right_glut_max</input>
+      </excitation>
+      <excitation id="glmed1_r">
+         <input weight="1">EMG05_right_glut_med</input>
+      </excitation>
+      <excitation id="glmed2_r">
+         <input weight="1">EMG05_right_glut_med</input>
+      </excitation>
+      <excitation id="glmed3_r">
+         <input weight="1">EMG05_right_glut_med</input>
+      </excitation>
+      <excitation id="glmin1_r"/>
+      <excitation id="glmin2_r"/>
+      <excitation id="glmin3_r"/>
+      <excitation id="grac_r"/>
+      <excitation id="iliacus_r"/>
+      <excitation id="perbrev_r"/>
+      <excitation id="perlong_r"/>
+      <excitation id="piri_r"/>
+      <excitation id="psoas_r"/>
+      <excitation id="recfem_r">
+         <input weight="1">EMG07_right_rect_fem</input>
+      </excitation>
+      <excitation id="sart_r"/>
+      <excitation id="semimem_r">
+         <input weight="1">EMG06_right_bic_fem</input>
+      </excitation>
+      <excitation id="semiten_r">
+         <input weight="1">EMG06_right_bic_fem</input>
+      </excitation>
+      <excitation id="soleus_r"/>
+      <excitation id="tfl_r">
+         <input weight="1">EMG10_right_tens_fasc_lat</input>
+      </excitation>
+      <excitation id="tibant_r"/>
+      <excitation id="tibpost_r"/>
+      <excitation id="vasint_r"/>
+      <excitation id="vaslat_r">
+         <input weight="1">EMG08_right_vast_lat</input>
+      </excitation>
+      <excitation id="vasmed_r">
+         <input weight="1">EMG09_right_vast_med</input>
+      </excitation>
+      <excitation id="addbrev_l"/>
+      <excitation id="addlong_l"/>
+      <excitation id="addmagDist_l"/>
+      <excitation id="addmagIsch_l"/>
+      <excitation id="addmagMid_l"/>
+      <excitation id="addmagProx_l"/>
+      <excitation id="bflh_l">
+         <input weight="1">EMG12_left_bic_fem</input>
+      </excitation>
+      <excitation id="bfsh_l">
+         <input weight="1">EMG12_left_bic_fem</input>
+      </excitation>
+      <excitation id="edl_l"/>
+      <excitation id="ehl_l"/>
+      <excitation id="fdl_l"/>
+      <excitation id="fhl_l"/>
+      <excitation id="gaslat_l"/>
+      <excitation id="gasmed_l"/>
+         <input weight="1">EMG03_left_gast_med</input>
+      </excitation>
+      <excitation id="glmax1_l">
+         <input weight="1">EMG04_left_glut_max</input>
+      </excitation>
+      <excitation id="glmax2_l">
+         <input weight="1">EMG04_left_glut_max</input>
+      </excitation>
+      <excitation id="glmax3_l">
+         <input weight="1">EMG04_left_glut_max</input>
+      </excitation>
+      <excitation id="glmed1_l">
+         <input weight="1">EMG11_left_glut_med</input>
+      </excitation>
+      <excitation id="glmed2_l">
+         <input weight="1">EMG11_left_glut_med</input>
+      </excitation>
+      <excitation id="glmed3_l">
+         <input weight="1">EMG11_left_glut_med</input>
+      </excitation>
+      <excitation id="glmin1_l"/>
+      <excitation id="glmin2_l"/>
+      <excitation id="glmin3_l"/>
+      <excitation id="grac_l"/>
+      <excitation id="iliacus_l"/>
+      <excitation id="perbrev_l"/>
+      <excitation id="perlong_l"/>
+      <excitation id="piri_l"/>
+      <excitation id="psoas_l"/>
+      <excitation id="recfem_l">
+         <input weight="1">EMG13_left_rect_fem</input>
+      </excitation>
+      <excitation id="sart_l"/>
+      <excitation id="semimem_l">
+         <input weight="1">EMG12_left_bic_fem</input>
+      </excitation>
+      <excitation id="semiten_l">
+         <input weight="1">EMG12_left_bic_fem</input>
+      </excitation>
+      <excitation id="soleus_l"/>
+      <excitation id="tfl_l">
+         <input weight="1">EMG16_left_tens_fasc_lat</input>
+      </excitation>
+      <excitation id="tibant_l"/>
+      <excitation id="tibpost_l"/>
+      <excitation id="vasint_l"/>
+      <excitation id="vaslat_l">
+         <input weight="1">EMG14_left_vast_lat</input>
+      </excitation>
+      <excitation id="vasmed_l">
+         <input weight="1">EMG15_left_vast_med</input>
+      </excitation>
+   </mapping>
+</excitationGenerator>
