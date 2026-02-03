@@ -15,7 +15,7 @@ trial = 'Walking03'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
 
 calibration_trials = ['Walking03']
 
-class Run():
+class Batch():
         def __init__(self):
                 self.ik = False
                 self.id = False
@@ -51,85 +51,120 @@ class Run():
 
                 self.push_trial_results_to_git = True
 
+        def print_attributes(self):
+                attrs = vars(self)
+                print("Batch class attributes and their values:")
+                for attr, value in attrs.items():
+                        print(f"{attr}: {value}")
 
-for subject in subjectLiist:
-                
-        trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
-        print(f'Analyzing trial at path: {trialPath}')
-        analysis = utils.Analyse(trialPath)
+        def inverse_kinematics(self):
+                for subject in subjectLiist:
+                        trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
+                        print(f'Analyzing trial at path: {trialPath}')
+                        self.analysis = utils.Analyse(trialPath)
 
-        analysis.replace = True
+                        self.analysis.replace = False
 
-        if not hasattr(analysis, 'path'):
-                print("Analysis has no 'path' attribute, skipping this subject.")
-                continue
+                        if not hasattr(self.analysis, 'path'):
+                                print("Analysis has no 'path' attribute, skipping this subject.")
+                                continue
 
-        #%% Load settings
-        if False:  analysis.reset_settings_xml()
+                        # print main inputs
+                        print("Main inputs:")
+                        print(f"Model file: {self.analysis.model_dir}")
+                        print(f"time range: {self.analysis.time_range}")
+                        print(f"IK file: {self.analysis.ik}")
 
-        # print main inputs
-        print("Main inputs:")
-        print(f"Model file: {analysis.model_dir}")
-        print(f"time range: {analysis.time_range}")
-        print(f"IK file: {analysis.ik}")
+                        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_opt_N10.osim')
+                        self.analysis.update_model(new_model)
 
-        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_opt_N10.osim')
-        analysis.update_model(new_model)
+                        self.analysis.run_ik()
 
-        if Run().emg_convert:
-                analysis.convert_mot_to_sto(attr='emg_normalised')
-                analysis.update_trial_attribute(attr_name='emg_plot', new_value=analysis.emg_normalised)
-                analysis.update_trial_attribute(attr_name='ceinms_excitations', new_value=analysis.emg_normalised)
-        breakpoint()
+        def subject_loop(self):
 
-        if Run().ik: analysis.run_ik()
-        if Run().id: analysis.run_id()
-        if Run().ma: analysis.run_ma()
-        if Run().so: analysis.run_so()
+                for subject in subjectLiist:
+                                
+                        trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
+                        print(f'Analyzing trial at path: {trialPath}')
+                        analysis = utils.Analyse(trialPath)
 
-        if Run().emg_normalise: analysis.run_emg_normalise()
-        if Run().emg_scale:  analysis.scale_emg(scale_factor=0.70)
+                        analysis.replace = True
 
-        #%% CEINMS setups
-        if Run().ceinms_model:  analysis.create_ceinms_model()
-        if Run().ceinms_input_data:  analysis.create_ceinms_input_data()
+                        if not hasattr(analysis, 'path'):
+                                print("Analysis has no 'path' attribute, skipping this subject.")
+                                continue
 
-        if Run().ceinms_calibration_cfg:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
+                        #%% Load settings
+                        if False:  analysis.reset_settings_xml()
 
-        if Run().ceinms_calibration_setup:  analysis.create_ceinms_calibration_setup()
+                        # print main inputs
+                        print("Main inputs:")
+                        print(f"Model file: {analysis.model_dir}")
+                        print(f"time range: {analysis.time_range}")
+                        print(f"IK file: {analysis.ik}")
 
-        if Run().ceinms_excitation_generator:  analysis.create_excitation_generator()
+                        new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_opt_N10.osim')
+                        analysis.update_model(new_model)
 
-        #%% CEINMS calibration and optimization
-        if Run().ceinms_calibration:  analysis.run_ceinms_calibration()
-        if Run().plot_ceinms_model_parameters:  ceinms.plot_ceinms_model_parameters(os.path.join(analysis.path, '..\subjectCalibrated.xml'))
-        if Run().plot_ceinms_calibration_results:  ceinms.plot_ceinms_calibration_results(setupXML_path=analysis.ceinms_calibration_setup)
-        if Run().plot_ceinms_calibration_results:  ceinms.plot_compare_ceinms_models(analysis.ceinms_uncalibrated_model, analysis.ceinms_calibrated_model)
+                        if self.emg_convert:
+                                analysis.convert_mot_to_sto(attr='emg_normalised')
+                                analysis.update_trial_attribute(attr_name='emg_plot', new_value=analysis.emg_normalised)
+                                analysis.update_trial_attribute(attr_name='ceinms_excitations', new_value=analysis.emg_normalised)
+                        breakpoint()
 
-        if Run().create_ceinms_exe_cfg:  analysis.create_ceinms_exe_cfg()
+                        if self.ik: analysis.run_ik()
+                        if self.id: analysis.run_id()
+                        if self.ma: analysis.run_ma()
+                        if self.so: analysis.run_so()
 
-        if Run().create_ceinms_exe_setup:  analysis.create_ceinms_exe_setup()
+                        if self.emg_normalise: analysis.run_emg_normalise()
+                        if self.emg_scale:  analysis.scale_emg(scale_factor=0.70)
 
-        if Run().ceinms_exe_loop:  analysis.run_ceinms_exe_loop()
-        if Run().ceinms_exe:  analysis.run_ceinms_exe()
-        if Run().create_ceinms_optimise_setup:  analysis.create_ceinms_optimise_setup()
-        if Run().ceinms_optimise:  analysis.run_ceinms_optimise()
+                        #%% CEINMS setups
+                        if self.ceinms_model:  analysis.create_ceinms_model()
+                        if self.ceinms_input_data:  analysis.create_ceinms_input_data()
+                        if self.ceinms_calibration_cfg:  analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
 
-        if Run().jra_ceinms:      
-                # analysis.replace = True
-                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
-                analysis.update_model(new_model)
-                analysis.run_jra_ceinms()
+                        if self.ceinms_calibration_setup:  analysis.create_ceinms_calibration_setup()
 
-        if Run().jra:      
-                # analysis.replace = True
-                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
-                analysis.update_model(new_model)
-                analysis.run_jra()
+                        if self.ceinms_excitation_generator:  analysis.create_excitation_generator()
+
+                        #%% CEINMS calibration and optimization
+                        if self.ceinms_calibration:  analysis.run_ceinms_calibration()
+                        if self.plot_ceinms_model_parameters:  ceinms.plot_ceinms_model_parameters(os.path.join(analysis.path, '..\subjectCalibrated.xml'))
+                        if self.plot_ceinms_calibration_results:  ceinms.plot_ceinms_calibration_results(setupXML_path=analysis.ceinms_calibration_setup)
+                        if self.plot_ceinms_calibration_results:  ceinms.plot_compare_ceinms_models(analysis.ceinms_uncalibrated_model, analysis.ceinms_calibrated_model)
+
+                        if self.create_ceinms_exe_cfg:  analysis.create_ceinms_exe_cfg()
+
+                        if self.create_ceinms_exe_setup:  analysis.create_ceinms_exe_setup()
+
+                        if self.ceinms_exe_loop:  analysis.run_ceinms_exe_loop()
+                        if self.ceinms_exe:  analysis.run_ceinms_exe()
+                        if self.create_ceinms_optimise_setup:  analysis.create_ceinms_optimise_setup()
+                        if self.ceinms_optimise:  analysis.run_ceinms_optimise()
+
+                        if self.jra_ceinms:      
+                                # analysis.replace = True
+                                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim')
+                                analysis.update_model(new_model)
+                                analysis.run_jra_ceinms()
+
+                        if self.jra:      
+                                # analysis.replace = True
+                                # new_model = os.path.join(utils.MODELS_DIR, subject, session, 'scaled_increased_3.00.osim')
+                                analysis.update_model(new_model)
+                                analysis.run_jra()
 
 
-        if Run().plot_muscle_forces:  ceinms.plot_ceinms_muscle_forces(analysis.jra_forces_ceinms)
+                        if self.plot_muscle_forces:  ceinms.plot_ceinms_muscle_forces(analysis.jra_forces_ceinms)
 
-        if Run().push_trial_results_to_git: analysis.push_trial_results_to_git()
+                        if self.push_trial_results_to_git: analysis.push_trial_results_to_git()
 
-        
+
+if __name__ == "__main__":
+    
+#     Batch().subject_loop()
+    Batch().inverse_kinematics()
+
+# END       

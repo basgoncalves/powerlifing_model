@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.offsetbox import AnchoredText
+import webbrowser
 
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog
@@ -1998,6 +1999,45 @@ def plot_mean_error_shade(ax: plt.Axes, df_list: list, xcol: str, ycol: str, col
                     color=color, alpha=0.3)
 
     return ax
+
+def add_picture_to_ax(ax: plt.Axes, image_path: str, scale: float = 1.0):
+    from scipy.ndimage import zoom
+
+    if os.path.exists(image_path):
+            img = plt.imread(image_path)
+            ax.imshow(img)
+            # Scale image if needed
+            if scale != 1.0:
+                img = zoom(img, (scale, scale, 1), order=1)
+            ax.imshow(img)
+            ax.axis('off')
+    else:
+            print(f"Warning: Image file not found at {image_path}. Adding task name text instead.")
+            ax.text(0.5, 0.5, "Image not found", ha='center', va='center', fontsize=12)
+            ax.axis('off')
+
+def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
+    """
+    Convert a Matplotlib figure to an interactive Plotly figure and display it.
+
+    Parameters:
+    fig (plt.Figure): The Matplotlib figure to convert.
+    """
+    import plotly.io as pio
+    import plotly.tools as tls
+
+    # Convert the Matplotlib figure to a Plotly figure
+    plotly_fig = tls.mpl_to_plotly(fig)
+
+    # save HTML file
+    pio.write_html(plotly_fig, file=html_path, auto_open=False)
+    print(f"Interactive joint angles plot saved: {html_path}")
+    # Open the HTML file in the default web browser
+    webbrowser.open('file://' + os.path.abspath(html_path))
+
+    # Display the interactive Plotly figure
+    pio.show(plotly_fig)
+
 
 # data manipulation
 def time_normalise_df(df, fs=''):
