@@ -304,7 +304,16 @@ def convert_mot_to_sto(mot_file_path = None):
     print(f"Converted {mot_file_path} to {sto_file_path}")
 
     return sto_file_path
+
+def scale_model(osim_modelPath, setup_xml_path, scaled_model_path):
+    """
+    Scale an OpenSim model using a ScaleTool setup XML file.
+    """
+    scaleTool = osim.ScaleTool(setup_xml_path)
+    scaleTool.run()
     
+    # The ScaleTool saves the scaled model to the specified path
+    print(f"Scaled model saved to: {scaled_model_path}")
     
 # --- Inverse Kinematics ---
 
