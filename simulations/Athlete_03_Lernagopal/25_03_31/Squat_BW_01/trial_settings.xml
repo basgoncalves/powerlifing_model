@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<TrialSettings>
+   <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
+   <model_name>scaled.osim</model_name>
+   <model_dir>..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled.osim</model_dir>
+   <time_range>[0.005, 3.535]</time_range>
+   <c3d>c3dfile.c3d</c3d>
+   <emg_raw>emg.mot</emg_raw>
+   <emg_filtered>EMG_filtered.sto</emg_filtered>
+   <emg_normalised>EMG_filtered_normalised.sto</emg_normalised>
+   <emg_plot>EMG_filtered_normalised.sto</emg_plot>
+   <grf_mot>grf.mot</grf_mot>
+   <markers>marker_experimental.trc</markers>
+   <events>events.csv</events>
+   <setup_ik>setup_IK.xml</setup_ik>
+   <setup_grf>GRF.xml</setup_grf>
+   <setup_id>setup_ID.xml</setup_id>
+   <setup_ma>setup_MA.xml</setup_ma>
+   <actuators_so>actuators_so.xml</actuators_so>
+   <setup_so>setup_SO.xml</setup_so>
+   <jra_forces>SO_StaticOptimization_force.sto</jra_forces>
+   <setup_jra>setup_JRA.xml</setup_jra>
+   <ceinms_excitations>EMG_filtered_normalised.sto</ceinms_excitations>
+   <ceinms_uncalibrated_model>..\subjectUncalibrated.xml</ceinms_uncalibrated_model>
+   <ceinms_calibrated_model>..\subjectCalibrated.xml</ceinms_calibrated_model>
+   <ceinms_calibration_cfg>..\calibrationCfg.xml</ceinms_calibration_cfg>
+   <ceinms_calibration_setup>..\calibrationSetup.xml</ceinms_calibration_setup>
+   <ceinms_input_data>inputData.xml</ceinms_input_data>
+   <ceinms_excitation_generator>..\excitationGenerator.xml</ceinms_excitation_generator>
+   <ceinms_optimise_setup>ceinms_setup_optimise.xml</ceinms_optimise_setup>
+   <ceinms_optimise_cfg>ceinms_cfg_optimise.xml</ceinms_optimise_cfg>
+   <ceinms_exe_cfg>ceinms_cfg.xml</ceinms_exe_cfg>
+   <ceinms_exe_setup>ceinms_setup.xml</ceinms_exe_setup>
+   <ik>joint_angles.mot</ik>
+   <model_markers>_ik_model_marker_locations.sto</model_markers>
+   <id>inverse_dynamics.sto</id>
+   <ma>muscleAnalysis</ma>
+   <so_forces>SO_StaticOptimization_force.sto</so_forces>
+   <so_activations>SO_StaticOptimization_activation.sto</so_activations>
+   <jra>Analyse_JRA_ReactionLoads_SO.sto</jra>
+   <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
+   <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
+   <ceinms_exe_dir>Execution</ceinms_exe_dir>
+   <jra_forces_ceinms>Optimised\MuscleForces.sto</jra_forces_ceinms>
+   <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
+   <replace>True</replace>
+   <path>.</path>
+   <settingsXML>trial_settings.xml</settingsXML>
+   <subject>Athlete_03_Lernagopal</subject>
+   <session>25_03_31</session>
+   <trial>Squat_BW_01</trial>
+   <parentdir>..</parentdir>
+   <hybridCalibration>true</hybridCalibration>
+   <numberOfSynergies>8</numberOfSynergies>
+   <alpha>10</alpha>
+   <beta>1</beta>
+   <gamma>1000</gamma>
+   <betaMin>1</betaMin>
+   <betaMax>100</betaMax>
+   <betaDelta>10</betaDelta>
+   <gammaMin>1</gammaMin>
+   <gammaMax>100</gammaMax>
+   <gammaDelta>50</gammaDelta>
+   <alphas>1 10 100</alphas>
+   <betas>1 10</betas>
+   <gammas>1 10 100 500 1000 1500 2000 3000 4000 5000</gammas>
+   <DofSet>hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l</DofSet>
+   <c1>-0.99 -0.05</c1>
+   <c2>-0.95 -0.05</c2>
+   <shapefactor>-2.999 -0.001</shapefactor>
+   <optimalFiberLength>0.5 3</optimalFiberLength>
+   <tendonSlackLength>0.5 3</tendonSlackLength>
+   <strengthCoefficient>0.75 3.5</strengthCoefficient>
+   <Target_Muscles>all</Target_Muscles>
+   <EMG_muscle_mapping>{'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'], 'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'], 'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'], 'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'], 'EMG_Channels_EMG09_gast_med_l': [], 'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'], 'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'], 'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'], 'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'], 'EMG_Channels_EMG10_gast_med_r': []}</EMG_muscle_mapping>
+   <Objective_Functions>['\'\\\'\\\\\\\'&quot;{\\\\\\\\\\\\\\\'name\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'MomentError\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'targets\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'all\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'weight\\\\\\\\\\\\\\\': 1}&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;{\\\\\\\\\\\\\\\'name\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'Penalty\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'targetType\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'normalisedFibreLength\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'weight\\\\\\\\\\\\\\\': 10&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'exponent\\\\\\\\\\\\\\\': 2&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'range\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'0.5 1.5\\\\\\\\\\\\\\\'}&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;{\\\\\\\\\\\\\\\'name\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'Penalty\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'targetType\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'tendonStrain\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'weight\\\\\\\\\\\\\\\': 1000&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'exponent\\\\\\\\\\\\\\\': 2&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'range\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'0. 0.5\\\\\\\\\\\\\\\'}&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;{\\\\\\\\\\\\\\\'name\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'ExcitationsSquared\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'weight\\\\\\\\\\\\\\\': 1}&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;{\\\\\\\\\\\\\\\'name\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'SynergyExtraction\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'mseWeight\\\\\\\\\\\\\\\': 100&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'range\\\\\\\\\\\\\\\': \\\\\\\\\\\\\\\'0. 1.\\\\\\\\\\\\\\\'&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'rangeExponent\\\\\\\\\\\\\\\': 2&quot;\\\\\\\'\\\'\'', '\'\\\'\\\\\\\'&quot;\\\\\\\\\\\\\\\'rangeWeight\\\\\\\\\\\\\\\': 1000}&quot;\\\\\\\'\\\'\'']</Objective_Functions>
+</TrialSettings>
