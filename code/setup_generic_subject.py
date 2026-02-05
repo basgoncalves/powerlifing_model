@@ -563,7 +563,7 @@ class LernagopalSubjectSetup(GenericSubject):
             source_session='25_03_31',
             target_session='25_03_31',
             static_session='25_03_31',
-            trials=['Walking_02', 'Squat_BW_01', 'Squat_35kg_01']
+            trials=['Walking_02']
         )
 
 
