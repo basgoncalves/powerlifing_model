@@ -462,6 +462,10 @@ def sampleMuscleQuantities(osimModel,OSMuscle,muscleQuant, N_EvalPoints):
                 constraint_coord_name = curr_coord_name
                 # finding the independent coordinate
                 ind_coord_name, ind_coord_joint_name = getIndipCoordAndJoint(osimModel, constraint_coord_name)
+                # skip if no independent coordinate found
+                if not ind_coord_name:
+                    logging.warning(f' Could not find independent coordinate for constrained coordinate {constraint_coord_name}. Skipping.')
+                    continue
                 # updating the coordinate name to be saved in the list
                 curr_coord_name = ind_coord_name
                 effect_DOF -= 1
@@ -501,6 +505,32 @@ def sampleMuscleQuantities(osimModel,OSMuscle,muscleQuant, N_EvalPoints):
             if limit_discr == 1 and degIncrem[-1] < np.radians(min_increm_in_deg):
                 degIncrem[-1] = np.radians(min_increm_in_deg)
     
+    # Check if there are any valid DOFs to sample
+    if not DOF_Index:
+        logging.warning(f' Muscle {OSMuscle.getName()} has no valid DOFs to sample (all joints are welded, locked, or constrained). Returning single evaluation at default pose.')
+        # Return single evaluation at default pose
+        if muscleQuant == 'MTL':
+            return [OSMuscle.getGeometryPath().getLength(currentState)]
+        elif muscleQuant == 'LfibNorm':
+            OSMuscle.setActivation(currentState,1.0)
+            osimModel.equilibrateMuscles(currentState)
+            return [OSMuscle.getNormalizedFiberLength(currentState)]
+        elif muscleQuant == 'Lten':
+            OSMuscle.setActivation(currentState,1.0)
+            osimModel.equilibrateMuscles(currentState)
+            return [OSMuscle.getTendonLength(currentState)]
+        elif muscleQuant == 'Ffib':
+            OSMuscle.setActivation(currentState,1.0)
+            osimModel.equilibrateMuscles(currentState)
+            return [OSMuscle.getActiveFiberForce(currentState)]
+        elif muscleQuant == 'all':
+            OSMuscle.setActivation(currentState,1.0)
+            osimModel.equilibrateMuscles(currentState)
+            return [[ OSMuscle.getGeometryPath().getLength(currentState), \
+                    OSMuscle.getNormalizedFiberLength(currentState), \
+                    OSMuscle.getTendonLength(currentState), \
+                    OSMuscle.getActiveFiberForce(currentState), \
+                    OSMuscle.getPennationAngle(currentState) ]]
         
     # assigns an interval of variation following the initial and final value
     # for each dof X
@@ -523,40 +553,64 @@ def sampleMuscleQuantities(osimModel,OSMuscle,muscleQuant, N_EvalPoints):
     
     # looping on all the dofs combinations
     musOutput = [None] * len(CoordinateCombinations)
+    total_combinations = len(CoordinateCombinations)
+    print(f'  Sampling {total_combinations} pose combinations for {len(DOF_Index)} DOFs...')
+    
+    # Progress reporting interval
+    report_interval = max(1, total_combinations // 10)
     
     for iteration, DOF_comb in enumerate(CoordinateCombinations):
-        # Set the model pose
-        for dof_ind in DOF_comb.keys():
-            coordToUpd = osimModel.getCoordinateSet().get(int(dof_ind))
-            coordToUpd.setValue(currentState, CoordinateCombinations[iteration][dof_ind])
+        # Progress reporting
+        if iteration % report_interval == 0 and iteration > 0:
+            print(f'  Progress: {iteration}/{total_combinations} ({100*iteration/total_combinations:.1f}%)')
         
-        # calculating muscle length for the muscle    
-        if muscleQuant == 'MTL':
-            musOutput[iteration] = OSMuscle.getGeometryPath().getLength(currentState)
+        try:
+            # Set the model pose
+            for dof_ind in DOF_comb.keys():
+                coordToUpd = osimModel.getCoordinateSet().get(int(dof_ind))
+                coordToUpd.setValue(currentState, CoordinateCombinations[iteration][dof_ind])
             
-        if muscleQuant == 'LfibNorm':
-            OSMuscle.setActivation(currentState,1.0)
-            osimModel.equilibrateMuscles(currentState)
-            musOutput[iteration] = OSMuscle.getNormalizedFiberLength(currentState)
-            
-        if muscleQuant == 'Lten':
-            OSMuscle.setActivation(currentState,1.0)
-            osimModel.equilibrateMuscles(currentState)
-            musOutput[iteration] = OSMuscle.getTendonLength(currentState)
-            
-        if muscleQuant == 'Ffib':
-            OSMuscle.setActivation(currentState,1.0)
-            osimModel.equilibrateMuscles(currentState)
-            musOutput[iteration] = OSMuscle.getActiveFiberForce(currentState)
-            
-        if muscleQuant == 'all':
-            OSMuscle.setActivation(currentState,1.0)
-            osimModel.equilibrateMuscles(currentState)
-            musOutput[iteration] = [ OSMuscle.getGeometryPath().getLength(currentState), \
-                                    OSMuscle.getNormalizedFiberLength(currentState), \
-                                    OSMuscle.getTendonLength(currentState), \
-                                    OSMuscle.getActiveFiberForce(currentState), \
-                                    OSMuscle.getPennationAngle(currentState) ]
+            # calculating muscle length for the muscle    
+            if muscleQuant == 'MTL':
+                musOutput[iteration] = OSMuscle.getGeometryPath().getLength(currentState)
+                
+            if muscleQuant == 'LfibNorm':
+                OSMuscle.setActivation(currentState,1.0)
+                osimModel.equilibrateMuscles(currentState)
+                musOutput[iteration] = OSMuscle.getNormalizedFiberLength(currentState)
+                
+            if muscleQuant == 'Lten':
+                OSMuscle.setActivation(currentState,1.0)
+                osimModel.equilibrateMuscles(currentState)
+                musOutput[iteration] = OSMuscle.getTendonLength(currentState)
+                
+            if muscleQuant == 'Ffib':
+                OSMuscle.setActivation(currentState,1.0)
+                osimModel.equilibrateMuscles(currentState)
+                musOutput[iteration] = OSMuscle.getActiveFiberForce(currentState)
+                
+            if muscleQuant == 'all':
+                OSMuscle.setActivation(currentState,1.0)
+                osimModel.equilibrateMuscles(currentState)
+                musOutput[iteration] = [ OSMuscle.getGeometryPath().getLength(currentState), \
+                                        OSMuscle.getNormalizedFiberLength(currentState), \
+                                        OSMuscle.getTendonLength(currentState), \
+                                        OSMuscle.getActiveFiberForce(currentState), \
+                                        OSMuscle.getPennationAngle(currentState) ]
+        except Exception as e:
+            logging.warning(f' Error evaluating pose {iteration} for muscle {OSMuscle.getName()}: {str(e)}')
+            # Use default values for failed evaluations
+            if muscleQuant == 'MTL':
+                musOutput[iteration] = OSMuscle.getGeometryPath().getLength(osimModel.initSystem())
+            else:
+                musOutput[iteration] = None
+    
+    # Filter out None values if any poses failed
+    musOutput = [x for x in musOutput if x is not None]
+    if len(musOutput) < total_combinations:
+        logging.warning(f' {total_combinations - len(musOutput)} poses failed for muscle {OSMuscle.getName()}')
+    
+    print(f'  Completed sampling {len(musOutput)}/{total_combinations} poses')
 
     return musOutput
 
