@@ -1,3 +1,4 @@
+from logging import root
 import math
 import os
 import shutil
@@ -127,7 +128,6 @@ class Inputs:
                 fileExist[attr] = True
         
         return fileExist    
-
 
 class CEINMSParameters:
     def __init__(self):
@@ -263,6 +263,7 @@ class Analyse(Inputs):
         self.model_dir = os.path.relpath(os.path.join(MODELS_DIR, self.subject, self.session, self.model_name), os.path.abspath(self.path))
         
         self.time_range = self.get_time_range()
+        self.body_mass = self.get_body_mass()
         
         self._to_xml()
     
@@ -462,6 +463,27 @@ class Analyse(Inputs):
         print(f"Body mass from model: {body_mass:.2f} kg")
         return body_mass
     
+    def get_muscle_list(self):
+        """Retrieve list of muscles from the model_dir.
+        
+        Returns:
+            list: List of muscle names.
+        """
+        os.chdir(self.path)
+        
+        if not os.path.exists(self.model_dir):
+            print(f"Model not found: {self.model_dir}")
+            return None
+
+        # Load the model
+        osim.Logger.setLevelString("error")
+        model = osim.Model(self.model_dir)
+        state = model.initSystem()
+        
+        muscle_list = [model.getMuscles().get(i).getName() for i in range(model.getMuscles().getSize())]
+        # print(f"Muscles in model: {muscle_list}")
+        return muscle_list
+
     # analyses to run
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
@@ -802,32 +824,63 @@ class Analyse(Inputs):
         return fig, axes
     
     def plot_so(self):
-        self.so_forces = load_any_data_file(self.so_forces)
-        self.so_activations = load_any_data_file(self.so_activations)
+        os.chdir(self.path)
+        so_forces = load_any_data_file(self.so_forces)
+        so_activations = load_any_data_file(self.so_activations)
+        emg_normalised = load_any_data_file(self.emg_plot)
+
+        # crop to time range of the trial
+        time_range = self.get_time_range()
+        so_forces = so_forces[(so_forces['time'] >= time_range[0]) & (so_forces['time'] <= time_range[1])]
+        so_activations = so_activations[(so_activations['time'] >= time_range[0]) & (so_activations['time'] <= time_range[1])]
+        emg_normalised = emg_normalised[(emg_normalised['time'] >= time_range[0]) & (emg_normalised['time'] <= time_range[1])]
+
+        # get the emg mapping from the ceinms excitation generator xml
+        emg_mapping = ET.parse(self.ceinms_excitation_generator)
+        muscle_to_emg = {}
+        root = emg_mapping.getroot()
+        mapping = root.find('mapping')
+        if mapping is not None:
+            for excitation in mapping.findall('excitation'):
+                muscle_id = excitation.get('id')
+                inputs = excitation.findall('input')
+                if inputs and len(inputs) > 0:
+                    # Use the first EMG channel if multiple exist
+                    muscle_to_emg[muscle_id] = inputs[0].text
+                else:
+                    muscle_to_emg[muscle_id] = None  # No EMG for this muscle
         
-        muscleGroups = self.Muscle_Groups
         
-        n_vars = len(muscleGroups)
+        muscle_list = self.get_muscle_list()
+        
+        n_vars = len(muscle_list)
         fig, axes = self.plot_create_subplot(n_vars)
         
         fig.suptitle(f"Static Optimization Muscle Forces: {self.trial}", fontsize=16)
-        for i, (group, muscles) in enumerate(muscleGroups.items()):
+        for i, muscle in enumerate(muscle_list):
             ax = axes[i]
-            muscleForces = self.so_forces[muscles].sum(axis=1)
-            line1 = ax.plot(self.so_forces['time'], muscleForces, label='Force')
+            muscleForces = so_forces[muscle]
+            line1 = ax.plot(so_forces['time'], muscleForces, label='Force')
             # on a secondary y-axis plot activations
-            activations = self.so_activations[muscles].mean(axis=1)
+            activations = so_activations[muscle]
+            emg = emg_normalised[muscle_to_emg[muscle]] if muscle_to_emg[muscle] in emg_normalised.columns else None
             ax2 = ax.twinx()
-            line2 = ax2.plot(self.so_activations['time'], activations, color='orange', linestyle='--', label='Activation')
+            line2 = ax2.plot(so_activations['time'], activations, color='orange', linestyle='--', label='Activation')
+            try:
+                line3 = ax2.fill_between(emg_normalised['time'], 0, emg, color='grey', alpha=0.3, label='EMG') 
+            except Exception as e:
+                print(f"Error plotting EMG for muscle {muscle}: {e}")
+                line3 = []
 
-            ax.set_title(f"{group}")
+
+            ax.set_title(f"{muscle}")
             ax.set_xlabel("Time")
             ax.set_ylabel("Force (N)")
             ax2.set_ylabel("Activation")
             
             if i == 0:
                 # Combine lines from both axes
-                lines = line1 + line2
+                lines = line1 + line2 + (line3 if emg is not None else [])
                 labels = [l.get_label() for l in lines]
                 ax.legend(lines, labels, loc='upper right')
         
@@ -1630,7 +1683,7 @@ def load_any_data_file(file_path):
         # For XML files, we can use the XML_tools module to read them
         tree = ET.parse(file_path)
         if tree is not None:
-            return pd.DataFrame([elem.attrib for elem in tree.findall('.//')])
+            return tree
         else:
             raise ValueError(f"Could not read XML file: {file_path}")
     
@@ -1768,6 +1821,7 @@ def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
         coord_line = "\t\t" + "\t".join([f"X{i+1}\tY{i+1}\tZ{i+1}" for i in range(n_markers)]) + "\n"
         writer.write(coord_line)
 
+        markers_df = markers_df.apply(pd.to_numeric, errors="coerce")
         # Data rows
         for i in range(num_frames):
             frame_num = first_frame + i
@@ -1775,6 +1829,8 @@ def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
             row = [f"{frame_num}", f"{time_val:.6f}"]
             row.extend([f"{coord:.6f}" for coord in markers_df.iloc[i].values])
             writer.write("\t".join(row) + "\n")
+
+    print(f"Saved TRC file to: {os.path.abspath(trc_file)}")
 
 def write_mot(analog_df, labels, mot_file):
     """
@@ -2904,17 +2960,15 @@ class Organise():
         pass
 
     def open_dir_in_explorer(self):
-        'Open the models and simulations directory in file explorer'
+        'Open the models and simulations directory in file explorer in the same window'
 
         try:
-            os.startfile(MODELS_DIR)
-        except Exception as e:
-            print(f"Error opening models directory: {e}")
+            # Open the first directory
+            os.startfile(POWERLIFTING_DIR)
+            time.sleep(0.5)  # Small delay to ensure first window opens
 
-        try:
-            os.startfile(SIMULATIONS_DIR)
         except Exception as e:
-            print(f"Error opening simulations directory: {e}")
+            print(f"Error opening directories: {e}")
 
 
     def rename_files_in_dir(self):
