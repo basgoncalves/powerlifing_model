@@ -46,7 +46,7 @@ import re
 
 # Public functions
 def getModelJointDefinitions(osimModel):
-    
+    """Cache joint structure once - avoid repeated XML parsing"""
     # functon to retun a strcuture for a specifc model, returning a list of the
     # joints present in the model and their associated frames and subsequently
     # the bodies which make up these joints - operating under the assumption
@@ -151,50 +151,29 @@ def getModelJointDefinitions(osimModel):
         
     return jointStructure
 
+# NEW: Cache joint structure at module level or pass it around
+_joint_structure_cache = {}
+
+def get_cached_joint_structure(osimModel):
+    """Get or create cached joint structure"""
+    model_path = osimModel.getInputFileName()
+    if model_path not in _joint_structure_cache:
+        _joint_structure_cache[model_path] = getModelJointDefinitions(osimModel)
+    return _joint_structure_cache[model_path]
+
 def getChildBodyJoint(jointStructure, bodyName):
-    # Functon to return the name of the joint from a specified model and joint
-    # structure ( generatate using getModelJointDefinitions.m ) , where the
-    # specified body is the child body
-    
-    # Written by Emiliano Ravera emiliano.ravera@uner.edu.ar as part of the 
-    # Python version of work by Luca Modenese in the parameterisation of muscle
-    # tendon properties.
-    
-    # Input: OpenSim model objects
-    # Output: jointName - the joint where the specified body is the child
-    
-    jointName = []
-    
-    for joint in jointStructure:
-        jointName.append([joint  for (key, value) in jointStructure[joint].items() if value == bodyName and key == 'childBody'])
-        
-    jointName = list(filter(None, jointName))
-    
-    jointName = jointName[0]
-    
-    return jointName
+    """Optimized: use dict lookup instead of list comprehension"""
+    for joint_name, joint_data in jointStructure.items():
+        if joint_data.get('childBody') == bodyName:
+            return [joint_name]
+    return []
 
 def getParentBodyJoint(jointStructure, bodyName):
-    # Functon to return the name of the joint from a specified model and joint
-    # structure ( generatate using getModelJointDefinitions.m ) , where the
-    # specified body is the parent body
-    
-    # Written by Emiliano Ravera emiliano.ravera@uner.edu.ar as part of the 
-    # Python version of work by Luca Modenese in the parameterisation of muscle
-    # tendon properties.
-    
-    # Input: OpenSim model objects
-    # Output: jointName - the joint where the specified body is the parent
-    
-    jointName = []
-    
-    for joint in jointStructure:
-        jointName.append([joint  for (key, value) in jointStructure[joint].items() if value == bodyName and key == 'parentBody'])
-        
-    jointName = list(filter(None, jointName))
-    jointName = jointName[0]
-    
-    return jointName
+    """Optimized: use dict lookup instead of list comprehension"""
+    for joint_name, joint_data in jointStructure.items():
+        if joint_data.get('parentBody') == bodyName:
+            return [joint_name]
+    return []
 
 def getMuscleAttachBody(osimModel, musclePathPointName):
     # Functon to return the name of the muscel path point from a specified model
@@ -233,107 +212,62 @@ def getMuscleAttachBody(osimModel, musclePathPointName):
 
 # Private functions
 def getJointsSpannedByMuscle(osimModel, OSMuscleName):
-    # Given as INPUT a muscle OSMuscleName from an OpenSim model, this function
-    # returns the OUTPUT list jointNameSet containing the OpenSim jointNames
-    # crossed by the OSMuscle.
-    # 
-    # It works through the following steps:
-    #   1) extracts the GeometryPath
-    #   2) loops through the single points, determining the body they belong to
-    #   3) stores the bodies to which the muscle points are attached to
-    #   4) determines the nr of joints based on body indexes
-    #   5) stores the crossed OpenSim joints in the output list named jointNameSet
-    #
-    # NB this function return the crossed joints independently on the
-    # constraints applied to the coordinates. Eg patello-femoral is considered as a
-    # joint, although in Arnold's model it does not have independent
-    # coordinates, but it is moved in dependency of the knee flexion angle.
-    
-    # Written by Emiliano Ravera emiliano.ravera@uner.edu.ar as part of the 
-    # Python version of work by Luca Modenese in the parameterisation of muscle
-    # tendon properties.
-    
-    # useful initializations
+    """Optimized version"""
     BodySet = osimModel.getBodySet()
-    muscle  = osimModel.getMuscles().get(OSMuscleName)
+    muscle = osimModel.getMuscles().get(OSMuscleName)
     
-    # additions BAK -> adapted by ER
-    # load a jointStrucute detailing bone and joint configurations
-    # osimModel_file = osimModel.getInputFileName()
-    jointStructure = getModelJointDefinitions(osimModel)
+    # Use cached joint structure
+    jointStructure = get_cached_joint_structure(osimModel)
     
-    # Extracting the PathPointSet via GeometryPath
+    # Build body-to-parent-joint lookup once (MAJOR SPEEDUP)
+    body_to_child_joint = {}
+    for joint_name, joint_data in jointStructure.items():
+        child_body = joint_data['childBody']
+        body_to_child_joint[child_body] = joint_name
+    
+    # Extract path points
     musclePath = muscle.getGeometryPath()
     musclePathPointSet = musclePath.getPathPointSet()
     
-    # for loops to get the attachment bodies
     muscleAttachBodies = []
-    muscleAttachIndex = []
+    currentAttachBody = None
     
-    for n_point in range(0, musclePathPointSet.getSize()):
+    for n_point in range(musclePathPointSet.getSize()):
+        muscelPathPoint_name = musclePathPointSet.get(n_point).getName()
+        newAttachBody = getMuscleAttachBody(osimModel, muscelPathPoint_name)
         
-        # get the current muscle point
-        muscelPathPoint_name =  musclePathPointSet.get(n_point).getName()
-        currentAttachBody = getMuscleAttachBody(osimModel, muscelPathPoint_name)
-        
-        # Initialize
-        if n_point == 0:
-            previousAttachBody = currentAttachBody
-            muscleAttachBodies.append(currentAttachBody)
-            muscleAttachIndex.append(BodySet.getIndex(currentAttachBody))
-        # building a list of the bodies attached to the muscles
-        if currentAttachBody != previousAttachBody:
-            muscleAttachBodies.append(currentAttachBody)
-            muscleAttachIndex.append(BodySet.getIndex(currentAttachBody))
-            previousAttachBody = currentAttachBody
-            
-    # end of loops to get the attacement bodies
-            
-    # From distal body checking the joint names going up until the desired
-    # OSJointName is found or the proximal body is reached as parent body.
+        if newAttachBody != currentAttachBody:
+            muscleAttachBodies.append(newAttachBody)
+            currentAttachBody = newAttachBody
+    
+    # Traverse from distal to proximal
     DistalBodyName = muscleAttachBodies[-1]
-    bodyName = DistalBodyName
     ProximalBodyName = muscleAttachBodies[0]
-    body =  BodySet.get(DistalBodyName)
     
-    spannedJointNameOld = ''
-    NoDofjointNameSet = []
     jointNameSet = []
+    NoDofjointNameSet = []
+    bodyName = DistalBodyName
+    visited_joints = set()  # Prevent infinite loops
     
     while bodyName != ProximalBodyName:
-            
-        # BAK implementation -> adapted by ER
-        spannedJointName = getChildBodyJoint(jointStructure, body.getName())
-        spannedJoint = osimModel.getJointSet().get(spannedJointName[0])
+        # Fast lookup using pre-built dictionary
+        spannedJointName = body_to_child_joint.get(bodyName)
         
-        if spannedJointName == spannedJointNameOld:
-            # BAK implementation -> adapted by ER
-            body = osimModel.getBodySet().get(bodyName)
-            spannedJointNameOld = spannedJointName[0]
+        if not spannedJointName or spannedJointName in visited_joints:
+            break
+        
+        visited_joints.add(spannedJointName)
+        spannedJoint = osimModel.getJointSet().get(spannedJointName)
+        
+        if spannedJoint.numCoordinates() > 0:
+            jointNameSet.append(spannedJointName)
         else:
-            if spannedJoint.numCoordinates() != 0:
-                jointNameSet.append(spannedJointName[0])
-            else:
-                NoDofjointNameSet.append(spannedJointName[0])
-            
-            spannedJointNameOld = spannedJointName[0]
-            bodyName = jointStructure[spannedJointName[0]]['parentBody']
-            body = osimModel.getBodySet().get(bodyName)
-            
-        bodyName = body.getName()
+            NoDofjointNameSet.append(spannedJointName)
+        
+        # Move to parent body
+        bodyName = jointStructure[spannedJointName]['parentBody']
     
-     
-    if not jointNameSet:
-        print('ERORR: ' + 'No joint detected for muscle ' + OSMuscleName)
-    
-    if NoDofjointNameSet:
-        for value in NoDofjointNameSet:
-            print('Joint ' + value + ' has no dof.')
-    
-    varargout = NoDofjointNameSet 
-    
-    
-    return jointNameSet, varargout
+    return jointNameSet, NoDofjointNameSet
 
 def getIndipCoordAndJoint(osimModel, constraint_coord_name):
     # Function that given a dependent coordinate finds the independent
@@ -381,55 +315,20 @@ def getIndipCoordAndJoint(osimModel, constraint_coord_name):
             
     return ind_coord_name, ind_coord_joint_name
 
-def sampleMuscleQuantities(osimModel,OSMuscle,muscleQuant, N_EvalPoints):
-    # Given as INPUT an OpenSim muscle OSModel, OSMuscle, a muscle variable and a nr
-    # of evaluation points this function returns as
-    # musOutput a vector of the muscle variable of interest
-    # obtained by sampling the ROM of the joint spanned by the muscle in
-    # N_EvalPoints evaluation points.
-    # For multidof joint the combinations of ROMs are considered.
-    # For multiarticular muscles the combination of ROM are considered.
-    # The script is totally general because based on generating strings of code 
-    # correspondent to the encountered code. The strings are evaluated at the end.
-    
-    # IMPORTANT 1
-    # The function can decrease the N_EvalPoints if there are too many dof 
-    # involved (ASSUMPTION is that a better sampling will be vanified by the 
-    # huge amount of data generated). This is an option that can be controlled
-    # by the user by deciding if to use it or not (setting limit_discr = 0/1)
-    # and, in case the sampling is limited, by setting a lower limit to the
-    # discretization.
-    
-    # IMPORTANT 2
-    # Another check is done on the dofs: only INDEPENDENT coordinate are
-    # considered. This is fundamental for patellofemoral joint that both in
-    # LLLM and Arnold's model are constrained dof, dependent on the knee
-    # flexion angle. This function assumes to be used with Arnold's model.
-    # currentState is initialState;
-    
-    # IMPORTANT 3
-    # At the purposes of the muscle optimizer it is important that here the
-    # model is initialize every time. So there are no risk of working with an
-    # old state (important for Schutte muscles for instance, where we observed
-    # that it was necessary to re-initialize the muscle after updating the
-    # muscle parameters).
-    
-    # Written by Emiliano Ravera emiliano.ravera@uner.edu.ar as part of the 
-    # Python version of work by Luca Modenese in the parameterisation of muscle
-    # tendon properties.
-    
-    # ======= SETTINGS ======
-    # limit (1) or not (0) the discretization of the joint space sampling
-    limit_discr = 0
-    # minimum angular discretization
-    min_increm_in_deg = 1
-    # =======================
-    
-    # initialize the model
+def sampleMuscleQuantities(osimModel, OSMuscle, muscleQuant, N_EvalPoints):
+    """Optimized version - use cached joint structure"""
     currentState = osimModel.initSystem()
     
-    # getting the joint crossed by a muscle
+    # Configuration parameters for joint space sampling
+    limit_discr = 0  # Set to 1 to limit discretization increment
+    min_increm_in_deg = 5  # Minimum increment in degrees when limit_discr is enabled
+    
+    # Use optimized joint traversal (now much faster)
     muscleCrossedJointSet, _ = getJointsSpannedByMuscle(osimModel, OSMuscle.getName())
+    
+    # Filter out zero-DOF joints early (SPEEDUP for welded joints)
+    muscleCrossedJointSet = [j for j in muscleCrossedJointSet 
+                             if osimModel.getJointSet().get(j).numCoordinates() > 0]
     
     # index for effective dofs
     DOF_Index = []
@@ -813,7 +712,7 @@ def main(osim_model_ref_filepath=None, osim_model_targ_filepath=None):
     optimized_model_folder = os.path.dirname(osim_model_targ_filepath)
     
     # evaluations
-    n_eval = 10
+    n_eval = 2
     # ===============================
 
     # initializing folders and log file

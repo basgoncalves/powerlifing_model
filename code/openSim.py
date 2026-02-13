@@ -115,6 +115,61 @@ def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=None)
 
     model.printToXML(osim_modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
 
+def lock_model_coordinates(osim_modelPath=None, coordinates_to_lock: list = None, save_path=None):
+    """
+    Lock specified coordinates in the OpenSim model.
+    """
+    if not osim_modelPath:
+        osim_modelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
+    
+    if not coordinates_to_lock:
+        coordinates_to_lock = input("Enter coordinates to lock (comma-separated): ").split(',')
+
+    model = osim.Model(osim_modelPath)
+    state = model.initSystem()
+    
+    for coord_name in coordinates_to_lock:
+        coord = model.getCoordinateSet().get(coord_name)
+        if coord:
+            coord.setDefaultLocked(True)
+            print(f"Locked coordinate: {coord_name}")
+        else:
+            print(f"Coordinate '{coord_name}' not found in the model.")
+
+    if not save_path:
+        save_path = osim_modelPath.replace('.osim', '_lockedCoords.osim')
+    model.printToXML(save_path)
+    print(f"Updated model with locked coordinates saved to: {save_path}")
+
+def coord_moment_arms(osim_model, muscle_list):
+    '''Check which coordinates the muscles in the list have moment arms about (non-zero across the range of the model)'''
+
+    model = osim.Model(osim_model)
+    state = model.initSystem()
+    coord_moment_arms = {}
+
+    for muscle_name in muscle_list:
+        try:
+            muscle = model.getMuscles().get(muscle_name)
+            moment_arms = {}
+            for i in range(model.getNumCoordinates()):
+                coord = model.getCoordinateSet().get(i)
+                model.realizePosition(state)
+                moment_arm_value = muscle.computeMomentArm(state, coord)
+                if not np.isclose(moment_arm_value, 0):
+                    moment_arms[coord.getName()] = moment_arm_value
+            coord_moment_arms[muscle_name] = moment_arms
+        except Exception as e:
+            print(f"Error processing muscle {muscle_name}: {e}")
+    
+    coord_names = set()
+    for muscle, mom_arms in coord_moment_arms.items():
+        for coord in mom_arms.keys():
+            if not np.isnan(mom_arms[coord]):
+                coord_names.add(coord)
+
+    return coord_names
+
 # Marker data and inverse kinematics functions    
 def validate_markers_used(osim_modelPath, ikTool, markers_path):
     
@@ -413,7 +468,6 @@ def run_ik(osim_modelPath=None, marker_trc=None,
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
 
-    
 # --- Static optimisation --
 def edit_pelvis_com_actuators(osim_modelPath, actuatorsFilePath):
     """
@@ -999,8 +1053,29 @@ def run_emg_normalise(target_emg_path=None, normalise_emg_list=None):
 
     utils.print_to_log(f"Normalised EMG data saved to: {savePath}")
 
+def run_iaa(osim_modelPath=None, ik_output=None, grf_xml=None, setup_file_path=None, so_controls_file=None, actuators=None, setup_xml=None):
+    """
+    Run an Induced Acceleration Analysis (IAA) using OpenSim.
+    """
 
- 
+    if os.path.exists(setup_xml):
+        try:
+            tool = osim.AnalyzeTool(setup_xml)
+            tool.run()
+            utils.print_to_log(f"IAA run successfully with existing setup XML: {setup_xml}")
+            return
+        except Exception as e:
+            print(f"Error running IAA with existing setup XML: {e}")
+            print("Falling back to creating a new IAA tool.")
+            utils.print_to_log(f"Error running IAA with existing setup XML: {e}. Falling back to creating a new IAA tool.")
+    
+    try:
+        tool = create_iaa_tool(osim_modelPath, ik_output, grf_xml, setup_file_path, so_controls_file, actuators)
+        tool.run()
+        utils.print_to_log("IAA run successfully.")
+    except Exception as e:
+        print(f"Error running IAA: {e}")
+        utils.print_to_log(f"Error running IAA: {e}")
 
 if __name__ == "__main__":
     

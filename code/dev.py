@@ -165,6 +165,25 @@ class Batch():
 if __name__ == "__main__":
     
 #     Batch().subject_loop()
-    Batch().inverse_kinematics()
+#     Batch().inverse_kinematics()
+
+        trial_path = r'C:\Users\Basilio\ucloud\BSc_thesis_2025W\Andreas Wolf\data\013\sprint_1'
+        model_path = os.path.join(os.path.dirname(trial_path), '013_Rajagopal2015_FAI.osim')
+        trc_path = os.path.join(trial_path, 'markers.trc')
+        ik_output_path = os.path.join(trial_path, 'joint_angles.mot')
+        taskSetPath = os.path.join(utils.SETUP_DIR, 'IK_task_set.xml')
+
+        setup_xml = os.path.join(trial_path, 'setup_ik.xml')
+
+        openSim.create_setup_IK(osim_modelPath=model_path, marker_trc=trc_path,
+                        ik_output=ik_output_path, taskSetPath=taskSetPath, time_range=None,
+                        saveXMLPath=setup_xml)
+
+        openSim.run_ik(osim_modelPath=model_path, 
+                marker_trc=trc_path,
+                ik_output=ik_output_path,
+                setup_xml=setup_xml)
+
+
 
 # END       
