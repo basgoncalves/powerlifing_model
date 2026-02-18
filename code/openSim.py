@@ -5,6 +5,16 @@ import utils
 import os
 import datetime
 
+def terminal_warnings(mode='off'):
+    """Set OpenSim terminal warnings on or off."""
+    if mode == 'off':
+        osim.Logger.setLevelString('warning')
+        print("OpenSim terminal warnings turned OFF.")
+    elif mode == 'on':
+        osim.Logger.setLevelString('info')
+        print("OpenSim terminal warnings turned ON.")
+    else:
+        print("Invalid mode. Use 'on' or 'off'.")
 
 def scale_body_masses(osim_modelPath):
     """ 
@@ -115,7 +125,7 @@ def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=None)
 
     model.printToXML(osim_modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
 
-def lock_model_coordinates(osim_modelPath=None, coordinates_to_lock: list = None, save_path=None):
+def lock_model_coordinates(osim_modelPath=None, coordinates_to_lock: list = None, save_path=None, unlock=False):
     """
     Lock specified coordinates in the OpenSim model.
     """
@@ -131,8 +141,12 @@ def lock_model_coordinates(osim_modelPath=None, coordinates_to_lock: list = None
     for coord_name in coordinates_to_lock:
         coord = model.getCoordinateSet().get(coord_name)
         if coord:
-            coord.setDefaultLocked(True)
-            print(f"Locked coordinate: {coord_name}")
+            if unlock:
+                coord.setDefaultLocked(False)
+                print(f"Unlocked coordinate: {coord_name}")
+            else:
+                coord.setDefaultLocked(True)
+                print(f"Locked coordinate: {coord_name}")
         else:
             print(f"Coordinate '{coord_name}' not found in the model.")
 

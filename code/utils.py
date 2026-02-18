@@ -870,8 +870,7 @@ class Analyse(Inputs):
                 line3 = ax2.fill_between(emg_normalised['time'], 0, emg, color='grey', alpha=0.3, label='EMG') 
             except Exception as e:
                 print(f"Error plotting EMG for muscle {muscle}: {e}")
-                line3 = []
-
+                line3 = ax2.fill_between([], [], [], color='grey', alpha=0.3, label='EMG ')  
 
             ax.set_title(f"{muscle}")
             ax.set_xlabel("Time")
@@ -879,8 +878,7 @@ class Analyse(Inputs):
             ax2.set_ylabel("Activation")
             
             if i == 0:
-                # Combine lines from both axes
-                lines = line1 + line2 + (line3 if emg is not None else [])
+                lines = line1 + line2 + line3 # Combine lines from both axes
                 labels = [l.get_label() for l in lines]
                 ax.legend(lines, labels, loc='upper right')
         
@@ -2041,14 +2039,16 @@ def mmfn(fig: plt.Figure, n_rows: int, n_cols: int):
     plt.tight_layout()
     return fig
 
-def plot_mean_error_shade(ax: plt.Axes, df_list: list, xcol: str, ycol: str, color: str):
+def plot_mean_error_shade(ax: plt.Axes, df_list: list, xcol: str, ycol: str, color: str, label: str = ''):
     '''Plot mean and error shade for a list of dataframes
     '''
     # Interpolate all data to common time vector
     df_mean = get_mean_across_trial_dfs(df_list, mode='mean')
     df_error = get_mean_across_trial_dfs(df_list, mode='stdev')
 
-    ax.plot(df_mean[xcol], df_mean[ycol], color=color)
+    # breakpoint()
+    ax.plot(df_mean[xcol], df_mean[ycol], color=color, label=label)
+    
     ax.fill_between(df_mean[xcol], 
                     df_mean[ycol] - df_error[ycol],
                     df_mean[ycol] + df_error[ycol],

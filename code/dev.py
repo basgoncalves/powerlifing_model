@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import openSim
 import ceinms
 import exportC3D
+import pandas as pd
 
 subjectLiist = ['P54'] #Athlete_03, Athlete_03_MRI_BG 'Athlete_03_MRI_Katya' P54
 session = 'walking' # 25_03_31  22_07_06
@@ -161,29 +162,100 @@ class Batch():
 
                         if self.push_trial_results_to_git: analysis.push_trial_results_to_git()
 
+from sklearn.metrics import mean_squared_error, r2_score
+
+def plot_muscle_forces_3_tasks(tasks, muscleGroups, tasks_figures, results_dir, colors, font_size, forces_type='so'):
+    '''Function to plot muscle forces for multiple tasks and muscle groups.
+
+    Parameters:
+    tasks (dict): Dictionary with task names as keys and tuples of (scaled_trials, mri_trials) as values.
+    muscleGroups (dict): Dictionary with muscle group names as keys and lists of muscle names as values.
+    tasks_figures (dict): Dictionary with task names as keys and paths to task figure images as values.
+    results_dir (str): Directory to save the resulting plot.
+    colors (dict): Dictionary with color codes for 'scaled' and 'MRI_BG'.
+    font_size (int): Font size for plot titles and labels.
+    forces_type (str): Type of muscle forces to plot ('so' for Static Optimization, 'ceinms' for CEINMS).
+
+    '''    
+        
+    fig, axes = plt.subplots(nrows=len(tasks), ncols=len(muscleGroups)+1, figsize=(150, 25),
+                        gridspec_kw={'width_ratios': [1] + [2]*len(muscleGroups), 'wspace': 0.3})
+
+    for task_idx, (task_name, (scaled_trials, mri_trials)) in enumerate(tasks.items()):
+        
+        # Add task figure in the first column
+        task_fig_path = tasks_figures[task_name]
+        utils.add_picture_to_ax(axes[task_idx, 0], task_fig_path, scale=1.0)
+
+        # Load results for all trials
+        if forces_type == 'so':
+            scaled_dfs = [utils.load_any_data_file(os.path.join(trial.path, trial.so_forces)) for trial in scaled_trials]
+            mri_dfs = [utils.load_any_data_file(os.path.join(trial.path, trial.so_forces)) for trial in mri_trials]
+        elif forces_type == 'ceinms':
+            scaled_dfs = [utils.load_any_data_file(os.path.join(trial.path, trial.jra_forces_ceinms)) for trial in scaled_trials]
+            mri_dfs = [utils.load_any_data_file(os.path.join(trial.path, trial.jra_forces_ceinms)) for trial in mri_trials]
+                    
+        # Plot each muscle group
+        for muscle_idx, (group_name, muscles) in enumerate(muscleGroups.items()):
+            col_idx = muscle_idx + 1
+            ax = axes[task_idx, col_idx]
+
+            scaled_dfs = [df.copy() for df in scaled_dfs]
+            for df in scaled_dfs:
+                df[group_name] = df[muscles].sum(axis=1)
+
+            mri_dfs = [df.copy() for df in mri_dfs]
+            for df in mri_dfs:
+                df[group_name] = df[muscles].sum(axis=1)
+
+            ax = utils.plot_mean_error_shade(ax, scaled_dfs, 'time', group_name, colors['Cateli'], label='Cateli')
+                    
+            ax = utils.plot_mean_error_shade(ax, mri_dfs, 'time', group_name, colors['Lernagopal'], label='Lernagopal')
+
+            ax.set_label(f'{group_name}')
+            ax.set_title(f'{group_name}', fontsize=font_size)
+            ax.tick_params(axis='both', which='major', labelsize=font_size)
+            ax.grid(True)
+
+            # add RMSE and R2 between scaled and mri
+            scaled_mean = pd.concat(scaled_dfs)[group_name].values # Get mean values for scaled and MRI
+            mri_mean = pd.concat(mri_dfs)[group_name].values
+
+            min_len = min(len(scaled_mean), len(mri_mean)) # Ensure same length by interpolation or trimming
+            scaled_mean = scaled_mean[:min_len]
+            mri_mean = mri_mean[:min_len]
+
+            rmse = utils.rmse(scaled_mean, mri_mean)
+            r2 = utils.rsquared(scaled_mean, mri_mean)
+
+            # Add text box with metrics
+            textstr = f'RMSE: {rmse:.2f} N\nR²: {r2:.3f}'
+            props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+            ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=font_size-4,
+                verticalalignment='top', bbox=props)
+            
+            if col_idx == 1:
+                ax.set_ylabel('Force (N)', fontsize=font_size)
+
+            # Add legend only to first data subplot
+            if task_idx == 0 and col_idx == 1:
+                ax.legend(fontsize=font_size)
+
+    utils.mmfn(fig, n_rows=len(tasks), n_cols=len(muscleGroups)+1)
+    save_path = os.path.join(results_dir, f'muscle_forces_{forces_type}.png')
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    print(f"{forces_type.upper()} comparison plot saved: {save_path}")
 
 if __name__ == "__main__":
     
 #     Batch().subject_loop()
 #     Batch().inverse_kinematics()
-
-        trial_path = r'C:\Users\Basilio\ucloud\BSc_thesis_2025W\Andreas Wolf\data\013\sprint_1'
-        model_path = os.path.join(os.path.dirname(trial_path), '013_Rajagopal2015_FAI.osim')
-        trc_path = os.path.join(trial_path, 'markers.trc')
-        ik_output_path = os.path.join(trial_path, 'joint_angles.mot')
-        taskSetPath = os.path.join(utils.SETUP_DIR, 'IK_task_set.xml')
-
-        setup_xml = os.path.join(trial_path, 'setup_ik.xml')
-
-        openSim.create_setup_IK(osim_modelPath=model_path, marker_trc=trc_path,
-                        ik_output=ik_output_path, taskSetPath=taskSetPath, time_range=None,
-                        saveXMLPath=setup_xml)
-
-        openSim.run_ik(osim_modelPath=model_path, 
-                marker_trc=trc_path,
-                ik_output=ik_output_path,
-                setup_xml=setup_xml)
-
-
+        subject  = 'Athlete_03_Lernagopal_optimised'
+        session = '25_03_31'
+        trial = 'Squat_35kg_01' #'Squat_BW_01' Squat_35kg_01 Walking_02
+        analyse = utils.Analyse(trialPath=os.path.join(utils.SIMULATIONS_DIR, subject, session, trial))
+        
+        analyse.replace = True
+        analyse.run_so()
 
 # END       
