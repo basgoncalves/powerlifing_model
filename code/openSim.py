@@ -16,6 +16,7 @@ def terminal_warnings(mode='off'):
     else:
         print("Invalid mode. Use 'on' or 'off'.")
 
+# Model editing functions
 def scale_body_masses(osim_modelPath):
     """ 
     Scale the body masses of model_target to match the percentages of model_reference.
@@ -183,6 +184,102 @@ def coord_moment_arms(osim_model, muscle_list):
                 coord_names.add(coord)
 
     return coord_names
+
+def add_wrapping_surfaces(reference_model_path, target_model_path, output_model_path):
+    """
+    Add wrapping surfaces from reference OpenSim model to target model.
+    
+    Args:
+        reference_model_path (str): Path to reference .osim file
+        target_model_path (str): Path to target .osim file
+        output_model_path (str): Path for output .osim file with wrapping surfaces
+    """
+    try:
+        # Load both models
+        reference_model = osim.Model(reference_model_path)
+        target_model = osim.Model(target_model_path)
+        
+        # Get wrapping surfaces from reference model
+        reference_bodies = reference_model.getBodySet()
+        target_bodies = target_model.getBodySet()
+        
+        # Add wrapping surfaces to target model
+        for i in range(reference_bodies.getSize()):
+            ref_body = reference_bodies.get(i)
+            wrapping_surfaces = ref_body.getWrapObjectSet()
+            
+            if wrapping_surfaces.getSize() > 0:
+                try:
+                    target_body = target_bodies.get(ref_body.getName())
+                    target_wrap_set = target_body.getWrapObjectSet()
+                    
+                    for j in range(wrapping_surfaces.getSize()):
+                        wrap_obj = wrapping_surfaces.get(j)
+                        wrap_name = wrap_obj.getName()
+                        
+                        # Check if surface already exists
+                        if target_wrap_set.getIndex(wrap_name) >= 0:
+                            print(f"Skipped wrapping surface '{wrap_name}' on body '{target_body.getName()}' (already exists)")
+                        else:
+                            target_body.addWrapObject(wrap_obj)
+                            print(f"Added wrapping surface '{wrap_name}' to body '{target_body.getName()}'")
+                except RuntimeError:
+                    print(f"Body '{ref_body.getName()}' not found in target model")
+        
+        # change model name to avoid confusion
+        target_model.setName(target_model.getName() + "_with_wrapping")
+
+        # Save output model
+        target_model.printToXML(output_model_path)
+        print(f"\nModel saved to: {output_model_path}")
+        
+    except ImportError:
+        print("Error: OpenSim Python API not installed. Please install opensim package.")
+    except FileNotFoundError as e:
+        print(f"Error: File not found - {e}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+def edit_model_range_coordinates(osim_modelPath, coordinate_name, new_range: list, save_path):
+    """
+    Edit the range of motion for a specific coordinate in the OpenSim model.
+    """
+    model = osim.Model(osim_modelPath)
+    state = model.initSystem()
+
+    coordinate = model.getCoordinateSet().get(coordinate_name)
+
+    if coordinate:
+        current_range = (coordinate.getRangeMin(), coordinate.getRangeMax())
+        coordinate.setRangeMin(new_range[0])
+        coordinate.setRangeMax(new_range[1])
+        model.printToXML(save_path)
+        print(f"Updated {coordinate_name} range from {current_range} to {new_range}.")
+    else:
+        print(f"Coordinate '{coordinate_name}' not found in the model.")
+
+def hide_model_muscles(osim_modelPath, muscle_names: list, save_path):
+    """
+    Hide specific muscles in the model by setting their visibility to false.
+
+    Args:
+        osim_modelPath (str): Path to the .osim model file.
+        muscle_names (list): List of muscle names to hide.
+        save_path (str): Path to save the modified .osim model file.
+    """
+    model = osim.Model(osim_modelPath)
+    state = model.initSystem()
+
+    for muscle_name in muscle_names:
+        muscle = model.getMuscles().get(muscle_name)
+        if muscle:
+            muscle.setVisible(False)
+            print(f"Muscle '{muscle_name}' hidden.")
+        else:
+            print(f"Muscle '{muscle_name}' not found in the model.")
+
+    model.printToXML(save_path)
+    print(f"Model saved with hidden muscles to: {save_path}")
 
 # Marker data and inverse kinematics functions    
 def validate_markers_used(osim_modelPath, ikTool, markers_path):

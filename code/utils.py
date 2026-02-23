@@ -484,7 +484,24 @@ class Analyse(Inputs):
         # print(f"Muscles in model: {muscle_list}")
         return muscle_list
 
+    def edit_model_range_coordinates(self, coordinate_name, new_range: list):
+        """Change the range of motion for a specific degree of freedom in the model.
+        
+        Args:
+            coordinate_name (str): Name of the coordinate to modify.
+            new_range (list): New range of motion as [min, max] in degrees.
+        """
+        os.chdir(self.path)
+        
+        if not os.path.exists(self.model_dir):
+            print(f"Model not found: {self.model_dir}")
+            return
+        
+        openSim.edit_model_range_coordinates(osim_modelPath=self.model_dir, coordinate_name=coordinate_name, new_range=new_range, save_path=self.model_dir)
+
+
     # analyses to run
+
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -2084,6 +2101,15 @@ def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
 
     # Convert the Matplotlib figure to a Plotly figure
     plotly_fig = tls.mpl_to_plotly(fig)
+
+    # use only legend that has unique labels (remove duplicates)
+    seen_labels = set()
+    for trace in plotly_fig['data']:
+        label = trace['name']
+        if label in seen_labels:
+            trace['showlegend'] = False  # Hide duplicate legend entries
+        else:
+            seen_labels.add(label)
 
     # save HTML file
     pio.write_html(plotly_fig, file=html_path, auto_open=False)

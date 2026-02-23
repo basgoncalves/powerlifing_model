@@ -1076,7 +1076,7 @@ def optimise(setupXML_path=None):
 
 # Plotting
 def plot_ceinms_model_parameters(ceinmsModelPath=None):
-
+    ''' p+otp´goégop'''
     if not ceinmsModelPath:
         ceinmsModelPath = input("Enter path to optimised CEINMS model file: ").strip('"')
 

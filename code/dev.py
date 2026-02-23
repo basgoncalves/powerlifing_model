@@ -254,8 +254,21 @@ if __name__ == "__main__":
         session = '25_03_31'
         trial = 'Squat_35kg_01' #'Squat_BW_01' Squat_35kg_01 Walking_02
         analyse = utils.Analyse(trialPath=os.path.join(utils.SIMULATIONS_DIR, subject, session, trial))
-        
+
+        # open the settings XML in the editor to check the new model path
+        os.startfile(analyse.settingsXML)
+
         analyse.replace = True
+        # analyse.run_so()
+        # analyse.edit_model_range_coordinates(coordinate_name='knee_angle_r', new_range=[-2.44346, 0.17453293])
+
+        # analyse.edit_model_range_coordinates(coordinate_name='knee_angle_l', new_range=[-2.44346, 0.17453293])
+
+        # analyse.run_ik()
+        # analyse.run_id()
+        # analyse.run_ma()
         analyse.run_so()
+
+        
 
 # END       

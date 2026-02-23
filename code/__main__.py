@@ -112,7 +112,7 @@ def run_all_step(analyse: utils.Analyse):
         utils.print_to_log(f'Normalising EMG data for: {analyse.subject} / {analyse.trial}')
         emg_normalise_list = []
 
-        for name in settings.TRIALS_TO_ANALYSE:
+        for name in TRIALS_TO_ANALYSE:
 
             abs_path_emg = str(analyse.emg_filtered)
             if os.path.exists(abs_path_emg):
