@@ -1405,7 +1405,7 @@ class Analyse(Inputs):
             subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
 
             # Push to remote
-            subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+            result = subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
 
             print_to_log(f'[Success] Results pushed to git for: {self.subject} / {self.trial}')
 
