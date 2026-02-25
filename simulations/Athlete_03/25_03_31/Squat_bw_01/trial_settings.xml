@@ -1,8 +1,11 @@
 <?xml version="1.0" ?>
 <TrialSettings>
+   <replace>True</replace>
+   <path>.</path>
+   <settingsXML>trial_settings.xml</settingsXML>
    <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
-   <model_name>scaled.osim</model_name>
-   <model_dir>..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10.osim</model_dir>
+   <model_name>scaled_opt_N10_increased_3.00.osim</model_name>
+   <model_dir>..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim</model_dir>
    <time_range>[0.0, 5.535]</time_range>
    <c3d>c3dfile.c3d</c3d>
    <emg_raw>emg.mot</emg_raw>
@@ -43,9 +46,6 @@
    <ceinms_exe_dir>Execution</ceinms_exe_dir>
    <jra_forces_ceinms>Execution_a1_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
    <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
-   <replace>True</replace>
-   <path>.</path>
-   <settingsXML>trial_settings.xml</settingsXML>
    <leon>Good</leon>
    <subject>Athlete_03</subject>
    <session>25_03_31</session>
