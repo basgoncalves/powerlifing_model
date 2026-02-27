@@ -1,9 +1,17 @@
 <?xml version="1.0" ?>
 <TrialSettings>
-   <setup_dir>..\..\..\..\code\SetupFiles\Lernagopal</setup_dir>
-   <model_name>scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim</model_name>
+   <replace>True</replace>
+   <path>.</path>
+   <settingsXML>trial_settings.xml</settingsXML>
+   <subject>Athlete_03_Lernagopal</subject>
+   <session>25_03_31</session>
+   <trial>Walking_02</trial>
+   <parentdir>..</parentdir>
    <model_dir>..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim</model_dir>
-   <time_range>[0.175, 1.255]</time_range>
+   <body_mass>99.99999999999996</body_mass>
+   <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
+   <model_name>scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim</model_name>
+   <time_range>[0.005, 2.46]</time_range>
    <c3d>c3dfile.c3d</c3d>
    <emg_raw>emg.mot</emg_raw>
    <emg_filtered>EMG_filtered.sto</emg_filtered>
@@ -41,15 +49,8 @@
    <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
    <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
    <ceinms_exe_dir>Execution</ceinms_exe_dir>
-   <jra_forces_ceinms>Execution_a10_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
+   <jra_forces_ceinms>Optimised\MuscleForces.sto</jra_forces_ceinms>
    <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
-   <replace>False</replace>
-   <path>.</path>
-   <settingsXML>trial_settings.xml</settingsXML>
-   <subject>Athlete_03_Lernagopal</subject>
-   <session>25_03_31</session>
-   <trial>Walking_02</trial>
-   <parentdir>..</parentdir>
    <hybridCalibration>true</hybridCalibration>
    <numberOfSynergies>8</numberOfSynergies>
    <alpha>10</alpha>
@@ -72,4 +73,6 @@
    <tendonSlackLength>0.5 3</tendonSlackLength>
    <strengthCoefficient>0.75 3.5</strengthCoefficient>
    <Target_Muscles>all</Target_Muscles>
+   <EMG_muscle_mapping>{'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'], 'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'], 'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'], 'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'], 'EMG_Channels_EMG09_gast_med_l': [], 'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'], 'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'], 'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'], 'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'], 'EMG_Channels_EMG10_gast_med_r': []}</EMG_muscle_mapping>
+   <Objective_Functions>[{'name': 'MomentError', 'targets': 'all', 'weight': 1}, {'name': 'Penalty', 'targetType': 'normalisedFibreLength', 'weight': 10, 'exponent': 2, 'range': '0.5 1.5'}, {'name': 'Penalty', 'targetType': 'tendonStrain', 'weight': 1000, 'exponent': 2, 'range': '0. 0.5'}, {'name': 'ExcitationsSquared', 'weight': 1}, {'name': 'SynergyExtraction', 'mseWeight': 100, 'range': '0. 1.', 'rangeExponent': 2, 'rangeWeight': 1000}]</Objective_Functions>
 </TrialSettings>

@@ -6,7 +6,7 @@
       <force_set_files> actuators_so.xml</force_set_files>
       <results_directory>.</results_directory>
       <output_precision>8</output_precision>
-      <initial_time>0</initial_time>
+      <initial_time>0.0050000000000000001</initial_time>
       <final_time>2.645</final_time>
       <solve_for_equilibrium_for_auxiliary_states>false</solve_for_equilibrium_for_auxiliary_states>
       <maximum_number_of_integrator_steps>20000</maximum_number_of_integrator_steps>
@@ -17,7 +17,7 @@
          <objects>
             <StaticOptimization name="StaticOptimization">
                <on>true</on>
-               <start_time>0</start_time>
+               <start_time>0.0050000000000000001</start_time>
                <end_time>2.645</end_time>
                <step_interval>1</step_interval>
                <in_degrees>true</in_degrees>
