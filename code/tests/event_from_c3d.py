@@ -1,4 +1,5 @@
 import c3d
+import numpy as np
 
 def get_events_from_c3d(file_path):
     """
@@ -30,9 +31,56 @@ def get_events_from_c3d(file_path):
                 events.append((f"{context} {label}".strip(), event_time))
     return events
 
+def calculate_trial_events_from_mot(mot_file_path=None, joint_angles_col=None, grf_col=None):
+    """
+    Calculates event times from motion (.mot) file based on joint angles and ground reaction forces.
+    
+    Args:
+        mot_file_path (str): Path to the .mot file.
+        joint_angles_col (str): Column name for joint angles to analyze.
+        grf_col (str): Column name for ground reaction force (typically vertical GRF).
+    
+    Returns:
+        List of tuples: (event_label, event_time)
+    """
+    
+    if mot_file_path is None:
+        mot_file_path = input("Please provide the path to the .mot file: ")
+
+
+    
+
+    events = []
+    data = {}
+    header_lines = 0
+    
+    with open(mot_file_path, 'r') as f:
+        lines = f.readlines()
+        for i, line in enumerate(lines):
+            if line.startswith('time'):
+                header_lines = i
+                break
+        
+        columns = lines[header_lines].split()
+        data_rows = [list(map(float, line.split())) for line in lines[header_lines + 1:] if line.strip()]
+        
+        for col in columns:
+            data[col] = np.array([row[columns.index(col)] for row in data_rows])
+    
+    time = data.get('time', np.arange(len(data_rows)))
+    
+    # Detect foot contact events from GRF threshold
+    if grf_col and grf_col in data:
+        grf = data[grf_col]
+        threshold = np.max(grf) * 0.05
+        contact_frames = np.where(grf > threshold)[0]
+        if len(contact_frames) > 0:
+            events.append(('Foot Contact', time[contact_frames[0]]))
+            events.append(('Foot Off', time[contact_frames[-1]]))
+    
+    return events
+
 if __name__ == "__main__":
-    import paths
-    c3d_file_path = paths.C3D_PATH  # Adjust this path as needed
-    events = get_events_from_c3d(c3d_file_path)
-    for event in events:
-        print(f"Event: {event[0]}, Time: {event[1]:.2f} seconds")
+    pass
+
+    

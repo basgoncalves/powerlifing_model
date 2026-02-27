@@ -1,4 +1,4 @@
-from logging import root
+# from logging import root
 import math
 import os
 import shutil
@@ -37,7 +37,7 @@ CODE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODULE_DIR = os.path.dirname(CODE_DIR)
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(CODE_DIR, 'SetupFiles', 'Purzel')
+SETUP_DIR = os.path.join(CODE_DIR, 'SetupFiles')
 POWERLIFTING_DIR = os.path.dirname(CODE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
@@ -48,12 +48,13 @@ CEINMS_DIR = os.path.join(CODE_DIR, 'executables')
 CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')   
-    
+
+PRINT_TERMINAL = False
 
 class Inputs:
     def __init__(self, parentdir=None):
         
-        self.setup_dir = SETUP_DIR
+        self.setup_dir = os.path.join(SETUP_DIR, 'Purzel')
         self.model_name = 'scaled.osim'
         self.model_dir = ''
         self.time_range = '0.00 1.00'
@@ -129,87 +130,6 @@ class Inputs:
         
         return fileExist    
 
-class CEINMSParameters:
-    def __init__(self):
-        self.hybridCalibration = 'true'
-        self.numberOfSynergies = 8
-        
-        self.alpha = 10
-        self.beta = 1
-        self.gamma = 1000
-        
-        self.betaMin = 1
-        self.betaMax = 100
-        self.betaDelta = 10
-        self.gammaMin = 1
-        self.gammaMax = 100
-        self.gammaDelta = 50
-        
-        self.alphas = '1 10 100'
-        self.betas = '1 10'
-        self.gammas = '1 10 100 500 1000 1500 2000 3000 4000 5000'
-        
-        self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l'
-        
-        self.c1 = '-0.99 -0.05'
-        self.c2 = '-0.95 -0.05'
-        self.shapefactor = '-2.999 -0.001'
-        self.optimalFiberLength = '0.5 3'
-        self.tendonSlackLength = '0.5 3'
-        self.strengthCoefficient = '0.75 3.5'
-        
-        self.Target_Muscles = 'all'  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
-        
-        self.EMG_muscle_mapping = {
-        # Left Leg Muscles
-        'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'],
-        'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
-        'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
-        'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
-        'EMG_Channels_EMG09_gast_med_l': [],
-
-        # Right Leg Muscles
-        'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'],
-        'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
-        'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
-        'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
-        'EMG_Channels_EMG10_gast_med_r': []
-    }
-
-
-        
-        self.Objective_Functions = []
-        self.Objective_Functions.append({
-            'name': 'MomentError',
-            'targets': 'all',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'normalisedFibreLength',
-            'weight': 10,
-            'exponent': 2,
-            'range': '0.5 1.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'tendonStrain',
-            'weight': 1000,
-            'exponent': 2,
-            'range': '0. 0.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'ExcitationsSquared',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'SynergyExtraction',
-            'mseWeight': 100,
-            'range': '0. 1.',
-            'rangeExponent': 2,
-            'rangeWeight': 1000
-        })   
-
 class Analyse(Inputs):
     '''
     Contains paths from the user settings and functions to implement in the OpenSim/Ceinms analysis
@@ -217,28 +137,35 @@ class Analyse(Inputs):
     subject_name: Name of the subject (or the trial path if session_name and trial_name are None)
     '''
     def __init__(self, trialPath=None):
-        super().__init__()
+        
         self.replace = False
+        self.path = os.path.abspath(trialPath)
+        self.settingsXML = 'trial_settings.xml'
         
         if not os.path.exists(trialPath):
             print_to_log(f"Trial path not found: {trialPath}")
+            os.makedirs(trialPath)
+            self.reset_settings_xml()
             return
         
         else:
-            
-            self.path = os.path.abspath(trialPath)
             os.chdir(self.path)
-
-            # try to load existing settings xml
-            self.settingsXML = os.path.relpath(os.path.join(self.path, 'trial_settings.xml'), self.path)
+            
             try:
                 self.load_settings(self.settingsXML)
             except:
                 print_to_log("Settings XML not found or could not be loaded. Creating new settings XML.")
                 self.reset_settings_xml()
+        
+        time.sleep(1)
                   
     def reset_settings_xml(self):
         '''Create a settings xml for the trial at the specified path'''
+        os.chdir(self.path)
+        # delete existing settings xml if it exists
+        if os.path.exists(self.settingsXML):
+            os.remove(self.settingsXML)
+            print_to_log(f"Existing settings XML deleted: {self.settingsXML}")
         
         path_parts = os.path.normpath(self.path).split(os.sep)
         self.subject = path_parts[-3]
@@ -246,7 +173,14 @@ class Analyse(Inputs):
         self.trial = path_parts[-1]
 
         self.parentdir = os.path.dirname(self.path)
-            
+
+        self._tweek_analysis_attributes()
+        self.model_dir = self.update_model(self.model_name)
+        
+        self.body_mass = self.get_body_mass()  
+        self.time_range = self.get_time_range()
+        
+        # add each Input to the trial settings
         inputs = Inputs(parentdir=self.path)
         for varInput in inputs.__dict__.items():
             filepath = os.path.join(self.path, varInput[1])
@@ -255,15 +189,10 @@ class Analyse(Inputs):
             else:
                 setattr(self, varInput[0], varInput[1])
             
-        # add ceinms parameters
-        ceinms_params = CEINMSParameters()
+        # add each of the CEINMS parameters
+        ceinms_params = ceinms.TemplateParameters()
         for varParam in ceinms_params.__dict__.items():
             setattr(self, varParam[0], varParam[1])
-        
-        self.model_dir = os.path.relpath(os.path.join(MODELS_DIR, self.subject, self.session, self.model_name), os.path.abspath(self.path))
-        
-        self.time_range = self.get_time_range()
-        self.body_mass = self.get_body_mass()
         
         self._to_xml()
     
@@ -294,6 +223,34 @@ class Analyse(Inputs):
         save_pretty_xml(tree, self.settingsXML)
         print(f"Trial settings saved to: {os.path.abspath(self.settingsXML)}")
     
+    def _tweek_analysis_attributes(self):
+        '''
+        Personalise and tweek the analysis based on the subject name or other trial characteristics. This is where you can implement any changes to the analysis that are specific to certain subjects or trials, such as updating the model, changing EMG paths, etc.
+        '''
+
+        if self.subject == 'Athlete_03':
+            self.update_model('scaled_opt_N10_increased_3.00.osim')
+        elif self.subject == 'Athlete_03_Lernagopal':
+            self.update_model('scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim')
+        elif self.subject == 'Athlete_03_Lernagopal_optimised':
+            self.update_model('lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim')
+        elif self.subject == 'Athlete_03_MRI_Katya':
+            self.update_model('scaled_opt_N10_increased_3.00.osim')
+        else:
+            self.update_model('scaled.osim')
+
+        # edit emg tags
+        if os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised_scaled_0.70.sto')):
+            emg_name = 'EMG_filtered_normalised_scaled_0.70.sto'
+        elif os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised.sto')):
+            emg_name = 'EMG_filtered_normalised.sto'
+        else:
+            emg_name = Inputs().emg_normalised
+
+        self.update_trial_attribute('emg_normalised', emg_name)
+        self.update_trial_attribute('emg_plot', emg_name)
+        self.update_trial_attribute('ceinms_excitations', emg_name)
+
     def convert_to_dict(self, attr_name):
         '''Convert a specific attribute of the trial to a dictionary'''
         attr_value = getattr(self, attr_name, None)
@@ -362,8 +319,28 @@ class Analyse(Inputs):
 
         print(f"Settings loaded from: {os.path.abspath(self.settingsXML)}")
     
+    def _trial_type(self):
+
+        if self.trial.lower().__contains__('squat'):
+            return 'squatting'
+
+    def get_time_range_from_eventDetector(self):
+        '''Get time range from event detector'''
+
+        os.chdir(self.path)
+        try:
+            detector = EventDetector()
+            events = detector.analyze_task(trc_file=self.markers, grf_file=self.grf_mot, kinematics_file=self.ik, task=self._trial_type())
+            breakpoint()
+            return events
+        
+        except Exception as e:
+            print(f"Error determining time range from events: {e}")
+            return False
+
     def get_time_range(self):
         os.chdir(self.path)
+
         if os.path.exists(self.events):
             event_data = pd.read_csv(self.events, index_col=None, header=None)
             self.time_range = [event_data.iloc[:, 1].min(), event_data.iloc[:, 1].max()]
@@ -394,11 +371,44 @@ class Analyse(Inputs):
         else:
             print_to_log(f'Attribute {attr_name} not found in trial at {self.path}')
 
+    def copy_input_files(self, src_subject, replace=False):
+        """
+        Copy input files from a template subject to the trial directory if they don't already exist or if replace is True.
+
+        
+
+        """
+        input_files = [
+            'trial_settings.xml','EMG_filtered_normalised.sto','EMG_filtered_normalised_scaled_0.70.sto','marker_experimental.trc','events.csv','c3dfile.c3d','GRF.xml', 'grf.mot'
+        ]
+        
+        trial = self.trial
+        src_trial_path = os.path.join(SIMULATIONS_DIR, src_subject, self.session, trial)
+        dest_trial_path = self.path
+        
+        os.makedirs(dest_trial_path, exist_ok=True)
+        
+        for file_name in input_files:
+            src_file = os.path.join(src_trial_path, file_name)
+            dest_file = os.path.join(dest_trial_path, file_name)
+            if os.path.exists(src_file) and (not os.path.exists(dest_file) or replace):
+                shutil.copy2(src_file, dest_file)
+                print(f"Copied {src_file} to {dest_file}")
+            else:
+                print(f"Warning: {src_file} does not exist and was not copied.")
+
+    # Model manipulation functions
     def update_model(self, new_model_name):
-        '''Update the model path for the trial and save to XML'''
+        '''Update the model path for the trial and save to XML
+        
+        new_model_name: name of the new model file (should be located in MODELS_DIR/subject/session/)
+        
+        '''
         
         model_path = os.path.join(MODELS_DIR, self.subject, self.session, new_model_name)
         rel_model_path = os.path.relpath(model_path, self.path)
+
+        self.model_name = new_model_name
         self.model_dir = rel_model_path
         print_to_log(f'Updated model path to {model_path} for trial at {self.path}')
         self._to_xml()
@@ -453,7 +463,7 @@ class Analyse(Inputs):
         
         if not os.path.exists(self.model_dir):
             print(f"Scaled model not found: {self.model_dir}")
-            return None
+            return 'Unknown'
 
         # Load the model
         model = osim.Model(self.model_dir)
@@ -499,9 +509,7 @@ class Analyse(Inputs):
         
         openSim.edit_model_range_coordinates(osim_modelPath=self.model_dir, coordinate_name=coordinate_name, new_range=new_range, save_path=self.model_dir)
 
-
     # analyses to run
-
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -526,6 +534,8 @@ class Analyse(Inputs):
 
         # Update the EMG normalised path
         self.update_trial_attribute('emg_normalised', scaled_emg_path)
+        self.update_trial_attribute('emg_plot', scaled_emg_path)
+        self.update_trial_attribute('ceinms_excitations', scaled_emg_path)
         
     def export_c3d(self):
         import exportC3D
@@ -540,19 +550,24 @@ class Analyse(Inputs):
         
     def run_ik(self):
         os.chdir(os.path.abspath(self.path))
-        
-        if not os.path.exists(self.setup_ik) or self.replace:       
+        # Create IK setup file if it doesn't exist or if replace is True
+        if not os.path.exists(self.setup_ik) or self.replace:  
+            breakpoint()     
             openSim.create_setup_IK(osim_modelPath=self.model_dir,
                                 marker_trc=self.markers,
                                 ik_output=self.ik,
                                 taskSetPath=None,
                                 time_range=self.time_range,
                                 saveXMLPath=self.setup_ik)
-        
-        if os.path.exists(self.ik) and not self.replace:
+        else:
             print_to_log(f'Inverse Kinematics output already exists: {self.ik}')
             return
         
+        if os.path.exists(self.ik) and not self.replace:
+            print(f'Inverse Kinematics output already exists: {self.ik}')
+            return
+
+        # Run IK using OpenSim API
         try:
             openSim.run_ik(osim_modelPath=self.model_dir,
                     marker_trc=self.markers,
@@ -564,7 +579,15 @@ class Analyse(Inputs):
             print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {self.path}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Kinematics: {e}')
-            
+        
+        # Plot IK results and marker errors
+        try:
+            self.plot_ik()
+            self.compare_marker_locations()
+            print_to_log(f'[Success] IK results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during IK plotting: {e}')
+
     def run_id(self):
         
         os.chdir(self.path)
@@ -577,6 +600,7 @@ class Analyse(Inputs):
             print_to_log(f'Inverse Dynamics output already exists: {self.id}')
             return
         
+        # Run ID using OpenSim API
         try:
             openSim.run_id(osimModelPath=self.model_dir,
                     ikOutputPath=self.ik,
@@ -586,7 +610,14 @@ class Analyse(Inputs):
             print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {self.id}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Dynamics: {e}')
-    
+
+        # Plot ID results
+        try:
+            self.plot_id()
+            print_to_log(f'[Success] ID results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during ID plotting: {e}')
+
     def run_ma(self):
         
         os.chdir(self.path)
@@ -603,10 +634,9 @@ class Analyse(Inputs):
             print_to_log(f'[Error] during Muscle Analysis: {e}')
     
     def run_so(self):
-        
         os.chdir(self.path)
 
-        if not os.path.exists(self.actuators_so):            
+        if not os.path.exists(self.actuators_so):          
             template_actuators_path = os.path.join(self.setup_dir, self.actuators_so)
             shutil.copyfile(template_actuators_path, self.actuators_so)
         
@@ -629,8 +659,9 @@ class Analyse(Inputs):
             print_to_log(f'[Error] during Static Optimization: {e}')
         
     def run_jra(self):
-        
         os.chdir(self.path)
+        self.load_settings(self.settingsXML)
+
         if not os.path.exists(self.setup_jra):
             template_jra_path = os.path.join(self.setup_dir, self.setup_jra)
             shutil.copyfile(template_jra_path, self.setup_jra)
@@ -653,6 +684,10 @@ class Analyse(Inputs):
     def run_jra_ceinms(self):
         os.chdir(self.path)
         self.load_settings(self.settingsXML)
+
+        if not os.path.exists(self.setup_jra):
+            template_jra_path = os.path.join(self.setup_dir, self.setup_jra)
+            shutil.copyfile(template_jra_path, self.setup_jra)
 
         if os.path.exists(self.jra_ceinms) and not self.replace:
             print_to_log(f'JRA CEINMS output already exists: {self.jra_ceinms} and replace is set to False.')
@@ -721,9 +756,9 @@ class Analyse(Inputs):
     
     #--- Valid
     def compare_marker_locations(self):
+        os.chdir(self.path)
         try:
-            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.markers),
-                                        marker_virtual_path=os.path.abspath(self.MODEL_MARKERS))
+            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.markers),marker_virtual_path=os.path.abspath('.\\_ik_model_marker_locations.sto'))
         
             print_to_log(f'[Success] Marker location comparison completed: {self.model_markers} vs {self.markers}')
         except Exception as e:
@@ -1028,7 +1063,6 @@ class Analyse(Inputs):
         # plott
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
-    
         
     # ceinms
     def create_ceinms_model(self):
@@ -1138,7 +1172,7 @@ class Analyse(Inputs):
         
         # Add DOF set (you may need to adjust this based on your model)
         dof_set = ET.SubElement(hybrid, 'dofSet')
-        dof_set.text = CEINMSParameters().DofSet
+        dof_set.text = ceinms.TemplateParameters().DofSet
         
         # Add synthMTUs
         synth_mtus_elem = ET.SubElement(hybrid, 'synthMTUs')
@@ -1192,8 +1226,13 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS optimisation setup already exists: {os.path.abspath(self.ceinms_optimise_setup)}', terminal=True)
             return
         
-        ceinms.create_optimise_setupFiles(ceinmsModelPath=self.        
-                                        ceinms_calibrated_model, inputDataFile=self.ceinms_input_data,calibrationCfgPath=self.ceinms_optimise_cfg,excitationGeneratorFilePath=self.ceinms_excitation_generator,outputDirectory=self.ceinms_optimisation_dir,setupXMLPath=self.ceinms_optimise_setup)
+        ceinms.create_optimise_setupFiles(ceinmsModelPath=self.ceinms_calibrated_model,
+                                          inputDataFile=self.ceinms_input_data,
+                                          calibrationCfgPath=self.ceinms_optimise_cfg,
+                                          excitationGeneratorFilePath=self.ceinms_excitation_generator,
+                                          outputDirectory=self.ceinms_optimisation_dir,
+                                          setupXMLPath=self.ceinms_optimise_setup,
+                                          templateCfgXMLPath=os.path.join(self.setup_dir, self.ceinms_optimise_cfg))
 
     def create_ceinms_exe_setup(self):
 
@@ -1251,6 +1290,8 @@ class Analyse(Inputs):
         ceinms.plot_ceinms_model_parameters(self.ceinms_uncalibrated_model)
         
         calibrationSetupPath = os.path.abspath(self.ceinms_calibration_setup)
+
+        edit_xml_tag_value(calibrationSetupPath, 'outputDirectory', 'calibrationOutput')
         ceinms.calibrate(setupXML_path=calibrationSetupPath)
 
         # update calibrated model from setupXML
@@ -1265,20 +1306,22 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS calibration completed successfully in {mod_time - start_time:.2f} seconds.')
             ceinms.plot_ceinms_model_parameters(self.ceinms_calibrated_model)
             
+            # plot moments vs ceinms results
             try:
                 ceinmsTorquesFile = os.path.join(self.ceinms_calibration_dir, 'Moments_inputData.csv')
                 ceinms.plot_moments_calibration_results(momentResultsCSV=ceinmsTorquesFile)
+                print_to_log(f'[Success] Plotted moments vs CEINMS results.')
             except:
-                print_to_log(f'Could not plot moments vs CEINMS results.')
-                
+                print_to_log(f'[ERROR] Could not plot moments vs CEINMS results.')
+            
+            # plot emg vs ceinms excitations using uncalibrated model as reference
             try:
-                ceinms.plot_compare_ceinms_models(uncalibratedModelPath=self.ceinms_uncalibrated_model,
-                                                 calibratedModelPath=self.CEINMS_CALIBRATED_MODEL)
-                print_to_log(f'Could not plot EMG vs CEINMS results.')
+                ceinms.plot_compare_ceinms_models(uncalibratedModelPath=self.ceinms_uncalibrated_model,calibratedModelPath=self.ceinms_calibrated_model)
+                print_to_log(f'[Success] Plotted EMG vs CEINMS results for calibrated model: {self.ceinms_calibrated_model}')
             except:
-                print_to_log(f'Could not plot EMG vs CEINMS results.')
+                print_to_log(f'[ERROR] Could not plot EMG vs CEINMS results for calibrated model: {self.ceinms_calibrated_model}')
         else:
-            print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
+            print_to_log(f'[WARNING] CEINMS calibration may have failed: calibrated model not updated.')
             
     def run_ceinms_exe(self):
         os.chdir(self.path)
@@ -1297,15 +1340,27 @@ class Analyse(Inputs):
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='beta',new_value=str(self.beta))
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='gamma',new_value=str(self.gamma))
         
+        # run ceinms executable
         try:
             ceinms.executable(setupXML_path=os.path.abspath(self.ceinms_exe_setup))
             print_to_log(f'CEINMS executable run completed for trial: {self.trial}')
         except Exception as e:
             print_to_log(f'[Error] during CEINMS executable run: {e}')
 
-        # add so columns to ceinms forces
+        # update jra ceinms forces path from setup output directory
         self.update_trial_attribute('jra_forces_ceinms', os.path.join(setup.find('outputDirectory').text, 'MuscleForces.sto'))
-        self.add_so_columns_to_ceinms_results()
+
+        # check if ceinms forces file exists before trying to add so columns
+        if not os.path.exists(self.jra_forces_ceinms):
+            print_to_log(f'[Error] CEINMS forces file not found: {self.jra_forces_ceinms}')
+            return
+
+        # add so columns to ceinms forces
+        try:
+            self.add_so_columns_to_ceinms_results()
+            print_to_log(f'Added SO columns to CEINMS forces for trial: {self.trial}')
+        except Exception as e:
+            print_to_log(f'[Error] during adding SO columns to CEINMS forces: {e}')
 
     def run_ceinms_optimise(self):
         
@@ -1334,17 +1389,21 @@ class Analyse(Inputs):
         if not os.path.exists(self.ceinms_exe_cfg):
             ceinms.create_ceinms_cfg(ceinmsModelPath=self.ceinms_calibrated_model, alpha=self.alpha, beta=self.beta, gamma=self.gamma, dofSet=' '.join(self.DofSet),excitationGeneratorFilePath=self.ceinms_excitation_generator, outputPath=self.ceinms_exe_cfg)
         
-        self.load_settings(settingsXML=self.settingsXML)
-        alpha_values = [int(x) for x in self.alphas.split(' ')]
-        beta_values = [int(x) for x in self.betas.split(' ')]
-        gamma_values = [int(x) for x in self.gammas.split(' ')]
+        try:
+            self.load_settings(settingsXML=self.settingsXML)
+            alpha_values = [int(x) for x in self.alphas.split(' ')]
+            beta_values = [int(x) for x in self.betas.split(' ')]
+            gamma_values = [int(x) for x in self.gammas.split(' ')]
 
-        # change output directory in setup to match base name
-        setup = ET.parse(self.ceinms_exe_setup).getroot()
-        setup.find('outputDirectory').text = self.ceinms_exe_dir
-        
-        # run ceinms executable loop
-        ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
+            # change output directory in setup to match base name
+            setup = ET.parse(self.ceinms_exe_setup).getroot()
+            setup.find('outputDirectory').text = self.ceinms_exe_dir
+            
+            # run ceinms executable loop
+            ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
+
+        except Exception as e:
+                print_to_log(f'[Error] during CEINMS executable loop: {e}')
 
     def check_best_ceinms_results(self):
         ''' loop through ceinms exe results and find best alpha, beta, gamma based on RMS error for joint moments and EMG vs CEINMS excitations '''
@@ -1363,8 +1422,12 @@ class Analyse(Inputs):
 
     def add_so_columns_to_ceinms_results(self):
 
-        so_forces = load_any_data_file(self.jra_forces)
-        ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+        try:
+            so_forces = load_any_data_file(self.jra_forces)
+            ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+        except Exception as e:
+            print_to_log(f'[Error] loading SO or CEINMS forces for adding columns: {e}')
+            return
 
         # Find columns in SO forces that are not in CEINMS forces
         missing_columns = [col for col in so_forces.columns if col not in ceinms_forces.columns]
@@ -1393,19 +1456,69 @@ class Analyse(Inputs):
             print_to_log(f'[Error] during plotting CEINMS calibration results: {e}')
 
     #--- git integration
+    def git_status(self):
+        '''Check git status of the trial and subject directories
+        
+        Outputs uncommitted changes in trial and subject directories to log.
+        
+        Returns a dictionary with boolean values indicating if trial and subject directories are clean (no uncommitted changes).
+
+            git_status() -> {'trial_dir': bool, 'subject_dir': bool}
+
+            True: No uncommitted changes in the directory
+            False: Uncommitted changes present in the directory
+
+        '''
+        os.chdir(self.path)
+
+        isClean = {'trial_dir': True, 'subject_dir': True}
+        try:
+            result = subprocess.run(['git', 'status', '--porcelain'], check=True, stdout=subprocess.PIPE, text=False, cwd=os.getcwd())
+
+            if result.stdout:
+                print_to_log(f'[Git Status] Uncommitted changes in trial directory: {self.path}')
+                isClean['trial_dir'] = False
+            else:
+                print_to_log(f'[Git Status] No uncommitted changes in trial directory: {self.path}')
+                isClean['trial_dir'] = True
+            subject_path = updir(self.path, levels=2)
+            result_subject = subprocess.run(['git', 'status', '--porcelain'], check=True, stdout=subprocess.PIPE, text=False, cwd=subject_path)
+            if result_subject.stdout:
+                print_to_log(f'[Git Status] Uncommitted changes in subject directory: {subject_path}')
+                isClean['subject_dir'] = False
+            else:
+                print_to_log(f'[Git Status] No uncommitted changes in subject directory: {subject_path}', terminal=True)
+                isClean['subject_dir'] = True
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Error] Failed to check git status: {e}')
+
+        return isClean
+    
     def push_trial_results_to_git(self):
         """Push trial results to git after completion"""
         os.chdir(self.path)
+        breakpoint()
         try:
+          
             # Add all changes in the trial directory
             subprocess.run(['git', 'add', self.path], check=True, cwd=os.getcwd())
+
+            # Add changes to model directory if it exists
+            if os.path.exists(os.path.dirname(self.model_dir)):
+                subprocess.run(['git', 'add', os.path.dirname(self.model_dir)], check=True, cwd=os.getcwd())
 
             # Commit with descriptive message
             commit_message = f"[RESULT] {self.subject}/{self.trial}"
             subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to commit to git: {e}')
 
-            # Push to remote
-            result = subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        try:
+            subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError:
+            # set upstream for current branch then push
+            branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=os.getcwd(), text=True).strip()
+            subprocess.run(['git', 'push', '--set-upstream', 'origin', branch],check=True, cwd=os.getcwd())
 
             print_to_log(f'[Success] Results pushed to git for: {self.subject} / {self.trial}')
 
@@ -1414,8 +1527,246 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
 
+    def push_subject_results_to_git(self):
+        """Push subject results to git after completion"""
+        os.chdir(self.parentdir)
+        subject_path = updir(self.path, levels=2)  # Move up to subject directory
+        subject_model_dir = os.path.join(MODELS_DIR, self.subject)
 
-def print_to_log(message, terminal=False):
+        status = self.git_status()
+        if status['subject_dir']:
+            print(f'[Git] No uncommitted changes in trial or subject directories for {self.subject}. Skipping git push.')
+            time.sleep(2)  
+            return
+        
+        try:
+            # Add all changes in the subject directory
+            subprocess.run(['git', 'add', subject_path], check=True, cwd=os.getcwd())
+            subprocess.run(['git', 'add', subject_model_dir], check=True, cwd=os.getcwd())
+
+            # Commit with descriptive message
+            commit_message = f"[RESULT] {self.subject}"
+            subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to commit to git: {e}')
+
+        try:
+            subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError:
+            # set upstream for current branch then push
+            branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=os.getcwd(), text=True).strip()
+            subprocess.run(['git', 'push', '--set-upstream', 'origin', branch],check=True, cwd=os.getcwd())
+
+            print_to_log(f'[Success] Results pushed to git for subject: {self.subject}')
+
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to push to git: {e}')
+        except Exception as e:
+            print_to_log(f'[Warning] Git operation failed: {e}')
+
+import numpy as np
+import pandas as pd
+from scipy.signal import find_peaks
+
+class EventDetector:
+    """
+    A task-specific event detector that reads .trc and .mot files natively.
+    Synchronizes high-frequency GRF data with lower-frequency kinematic data using time stamps.
+    """
+
+    def __init__(self, grf_threshold: float = 20.0, vertical_axis: str = 'Y'):
+        """
+        Args:
+            grf_threshold (float): Threshold in Newtons to define ground contact.
+            vertical_axis (str): The vertical axis in your lab's coordinate system ('Y' or 'Z').
+                                 OpenSim conventionally uses 'Y' as up.
+        """
+        self.grf_threshold = grf_threshold
+        self.vertical_axis = vertical_axis.upper()
+
+    def _read_mot(self, file_path: str) -> pd.DataFrame:
+        """Parses OpenSim .mot files (GRF and Joint Angles)."""
+        skip_rows = 0
+        with open(file_path, 'r') as f:
+            for i, line in enumerate(f):
+                if line.strip() == 'endheader':
+                    skip_rows = i + 1
+                    break
+        return pd.read_csv(file_path, sep='\t', skiprows=skip_rows)
+
+    def _read_trc(self, file_path: str) -> pd.DataFrame:
+        """Parses standard .trc marker trajectory files."""
+        with open(file_path, 'r') as f:
+            lines = f.readlines()
+        
+        # Marker names are typically located on the 4th line (index 3)
+        header_line = lines[3].strip('\n').split('\t')
+        marker_names = [m for m in header_line[2:] if m.strip()]
+        
+        cols = ['Frame', 'Time']
+        for m in marker_names:
+            cols.extend([f"{m}_X", f"{m}_Y", f"{m}_Z"])
+            
+        df = pd.read_csv(file_path, sep='\t', skiprows=5, header=None)
+        # Trim excess columns if trailing tabs existed in the raw file
+        df = df.iloc[:, :len(cols)]
+        df.columns = cols
+        return df
+
+    def analyze_task(self, trc_file: str, grf_file: str, kinematics_file: str, task: str) -> dict:
+        """
+        Main entry point. Loads the required files into DataFrames and routes 
+        them to the specific task analyzer.
+        Args:
+            trc_file (str): Path to the .trc file containing marker trajectories.
+            grf_file (str): Path to the .mot file containing ground reaction forces.
+            kinematics_file (str): Path to the .mot file containing joint kinematics.
+            task (str): 'walking', 'squatting', or 'jumping' (case-insensitive)
+        
+        Returns:
+            dict: A dictionary containing detected events and relevant kinematic/GRF data for the specified task.
+        """
+        # 1. Load the three mandatory files
+        trc_df = self._read_trc(trc_file)
+        grf_df = self._read_mot(grf_file)
+        kin_df = self._read_mot(kinematics_file) # Always loaded per requirements
+        
+        task = task.lower()
+        
+        # Extract total vertical GRF (Assumes OpenSim standard where '_vy' is vertical)
+        vy_cols = [c for c in grf_df.columns if 'force' in c and c.endswith(f'_v{self.vertical_axis.lower()}')]
+        if not vy_cols:
+            raise ValueError(f"Could not find vertical force columns ending in '_v{self.vertical_axis.lower()}'")
+        vertical_grf = grf_df[vy_cols].sum(axis=1).values
+
+        # 2. Route to Task Logic
+        if task == 'walking':
+            return self._analyze_walking(trc_df, grf_df, vertical_grf)
+        elif task == 'squatting':
+            return self._analyze_squatting(trc_df)
+        elif task == 'jumping':
+            return self._analyze_jumping(trc_df, grf_df, vertical_grf)
+        else:
+            raise ValueError(f"Task '{task}' is not recognized.")
+
+    def _analyze_walking(self, trc_df: pd.DataFrame, grf_df: pd.DataFrame, vertical_grf: np.ndarray) -> dict:
+        """
+        Walking: Uses GRF rising edge for Heel Strike. 
+        Checks the RHEE and LHEE marker vertical positions at the moment of impact 
+        to classify right vs. left leg strikes.
+        """
+        grf_time = grf_df['time'].values
+        contact = (vertical_grf > self.grf_threshold).astype(int)
+        transitions = np.diff(contact)
+        
+        # Events based on GRF Time
+        hs_times = grf_time[np.where(transitions == 1)[0] + 1]
+        to_times = grf_time[np.where(transitions == -1)[0] + 1]
+        
+        # Classify Right/Left based on which foot marker is lower at Heel Strike
+        right_hs, left_hs = [], []
+        trc_time = trc_df['Time'].values
+        
+        r_heel_v = trc_df[f'RHEE_{self.vertical_axis}'].values
+        l_heel_v = trc_df[f'LHEE_{self.vertical_axis}'].values
+        
+        for t in hs_times:
+            # Find the closest frame in the lower-frequency TRC data
+            closest_trc_idx = np.argmin(np.abs(trc_time - t))
+            
+            if r_heel_v[closest_trc_idx] < l_heel_v[closest_trc_idx]:
+                right_hs.append(t)
+            else:
+                left_hs.append(t)
+
+        return {
+            'heel_strike_times': hs_times,
+            'toe_off_times': to_times,
+            'right_heel_strike_times': np.array(right_hs),
+            'left_heel_strike_times': np.array(left_hs)
+        }
+
+    def _analyze_squatting(self, trc_df: pd.DataFrame) -> dict:
+        """
+        Squatting: Uses ONLY Pelvis markers (SACR) to find the bottom of the squat, 
+        and calculates vertical velocities/accelerations to define movement phases.
+        """
+        breakpoint()
+        time = trc_df['Time'].values
+        dt = time[1] - time[0]
+        
+        # Average the Sacrum markers to find the true pelvis center
+        sacrum_cols = [c for c in trc_df.columns if 'SACR' in c and c.endswith(f'_{self.vertical_axis}')]
+        if not sacrum_cols:
+            raise ValueError("Squatting analysis requires 'SACR' markers in the TRC file.")
+            
+        pelvis_v = trc_df[sacrum_cols].mean(axis=1).values
+        
+        # 1. Find the bottom of the squat (Invert signal to find peak)
+        inverted_pelvis = -pelvis_v
+        # Prominence of 50 units (mm) to avoid noise being counted as a squat
+        bottom_indices, _ = find_peaks(inverted_pelvis, prominence=50.0) 
+        
+        # 2. Derive Kinematics
+        velocity = np.gradient(pelvis_v, dt)
+        acceleration = np.gradient(velocity, dt)
+        
+        return {
+            'squat_bottom_times': time[bottom_indices],
+            'pelvis_vertical_velocity': velocity,
+            'pelvis_vertical_acceleration': acceleration,
+            'trc_time_array': time
+        }
+
+    def _analyze_jumping(self, trc_df: pd.DataFrame, grf_df: pd.DataFrame, vertical_grf: np.ndarray) -> dict:
+        """
+        Jumping: Uses GRF to find Take-off and Landing times. 
+        Uses Pelvis markers to calculate the apex (max height) of the jump during flight.
+        """
+        grf_time = grf_df['time'].values
+        trc_time = trc_df['Time'].values
+        
+        contact = (vertical_grf > self.grf_threshold).astype(int)
+        transitions = np.diff(contact)
+        
+        take_off_times = grf_time[np.where(transitions == -1)[0] + 1]
+        landing_times = grf_time[np.where(transitions == 1)[0] + 1]
+        
+        sacrum_cols = [c for c in trc_df.columns if 'SACR' in c and c.endswith(f'_{self.vertical_axis}')]
+        pelvis_v = trc_df[sacrum_cols].mean(axis=1).values
+        
+        apex_times = []
+        for to_t in take_off_times:
+            # Find the subsequent landing for this specific take-off
+            subsequent_lands = landing_times[landing_times > to_t]
+            if len(subsequent_lands) > 0:
+                land_t = subsequent_lands[0]
+                
+                # Slice the flight phase in the TRC time domain
+                start_idx = np.argmin(np.abs(trc_time - to_t))
+                end_idx = np.argmin(np.abs(trc_time - land_t))
+                
+                if start_idx < end_idx:
+                    flight_phase = pelvis_v[start_idx:end_idx]
+                    apex_idx = start_idx + np.argmax(flight_phase)
+                    apex_times.append(trc_time[apex_idx])
+
+        return {
+            'take_off_times': take_off_times,
+            'landing_times': landing_times,
+            'apex_times': np.array(apex_times)
+        }
+
+
+
+## Utility functions
+def updir(path, levels=1):
+    """Move up a directory path by a specified number of levels."""
+    for _ in range(levels):
+        path = os.path.dirname(path)
+    return path
+
+def print_to_log(message, terminal=PRINT_TERMINAL):
     """
     Prints a message to the console and logs it to a file.
     
@@ -1423,7 +1774,6 @@ def print_to_log(message, terminal=False):
         message (str): The message to print and log.
     """
     timestamp = time.strftime('%d.%m.%Y_%H:%M:%S', time.localtime()) + f":{int((time.time() % 1) * 1000):03d}"
-    print(f'{timestamp} {message}')
     
     with open(CODE_DIR + '\\log.txt', 'a') as log_file:
         log_file.write(f'{timestamp}: {message}\n')
@@ -1978,6 +2328,23 @@ def save_pretty_xml(tree, save_path):
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
 
+def edit_xml_tag_value(xml_path, tag, new_value):
+    """Edits the value of a specific XML tag given its path."""
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+
+        elem_list = root.findall(tag)
+        if elem_list:
+            for elem in elem_list:
+                elem.text = str(new_value)
+            save_pretty_xml(tree, xml_path)  # Save back to the original file
+            print(f"Updated tag '{tag}' to new value: {new_value}")
+        else:
+            print(f"Error: Tag '{tag}' not found in the XML tree.")
+    except Exception as e:
+        print(f"Error editing XML tag '{tag}': {e}")
+
 # plotting
 def save_fig(fig, save_path):
     """Saves the figure to the specified path."""
@@ -2110,6 +2477,10 @@ def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
             trace['showlegend'] = False  # Hide duplicate legend entries
         else:
             seen_labels.add(label)
+    
+    # add suptitle if exists in original fig
+    if fig._suptitle is not None:
+        plotly_fig.update_layout(title=fig._suptitle.get_text(), title_x=0.5)
 
     # save HTML file
     pio.write_html(plotly_fig, file=html_path, auto_open=False)
@@ -2119,7 +2490,6 @@ def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
 
     # Display the interactive Plotly figure
     pio.show(plotly_fig)
-
 
 # data manipulation
 def time_normalise_df(df, fs=''):

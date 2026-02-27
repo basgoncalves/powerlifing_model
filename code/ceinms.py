@@ -2,7 +2,6 @@ import os
 import shutil
 import subprocess
 import time
-
 import numpy as np
 import settings
 import xml.etree.ElementTree as ET
@@ -11,6 +10,89 @@ import utils
 import matplotlib.pyplot as plt
 import pandas as pd
 import scipy
+
+class TemplateParameters:
+    def __init__(self):
+        self.hybridCalibration = 'true'
+        self.numberOfSynergies = 8
+        
+        self.alpha = 10
+        self.beta = 1
+        self.gamma = 1000
+        
+        self.betaMin = 1
+        self.betaMax = 100
+        self.betaDelta = 10
+        self.gammaMin = 1
+        self.gammaMax = 100
+        self.gammaDelta = 50
+        
+        self.alphas = '1 10 100'
+        self.betas = '1 10'
+        self.gammas = '1 10 100 500 1000 1500 2000 3000 4000 5000'
+        
+        self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l'
+        
+        self.c1 = '-0.99 -0.05'
+        self.c2 = '-0.95 -0.05'
+        self.shapefactor = '-2.999 -0.001'
+        self.optimalFiberLength = '0.5 3'
+        self.tendonSlackLength = '0.5 3'
+        self.strengthCoefficient = '0.75 3.5'
+        
+        self.Target_Muscles = 'all'  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
+        
+        self.EMG_muscle_mapping = {
+        # Left Leg Muscles
+        'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'],
+        'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
+        'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+        'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
+        'EMG_Channels_EMG09_gast_med_l': [],
+
+        # Right Leg Muscles
+        'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'],
+        'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
+        'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+        'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
+        'EMG_Channels_EMG10_gast_med_r': []
+    }
+
+
+        
+        self.Objective_Functions = []
+        self.Objective_Functions.append({
+            'name': 'MomentError',
+            'targets': 'all',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'normalisedFibreLength',
+            'weight': 10,
+            'exponent': 2,
+            'range': '0.5 1.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'Penalty',
+            'targetType': 'tendonStrain',
+            'weight': 1000,
+            'exponent': 2,
+            'range': '0. 0.5'
+        })
+        self.Objective_Functions.append({
+            'name': 'ExcitationsSquared',
+            'weight': 1
+        })
+        self.Objective_Functions.append({
+            'name': 'SynergyExtraction',
+            'mseWeight': 100,
+            'range': '0. 1.',
+            'rangeExponent': 2,
+            'rangeWeight': 1000
+        })   
+
+
 
 def upWorkingDirectory():
     current_dir = os.getcwd()
@@ -184,7 +266,7 @@ def create_excitation_generator(osim_model_path=None, emg_path=None, save_path=N
 
     # Add mapping element
     mapping = ET.SubElement(root, 'mapping')
-    mapping_dict = utils.CEINMSParameters().EMG_muscle_mapping    
+    mapping_dict = TemplateParameters().EMG_muscle_mapping    
     
     for muscle in muscleList:
         used = False
@@ -212,75 +294,90 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
     Create a CEINMS calibration XML configuration from input parameters.
     
     Args:
-        optimiser_config: Dictionary containing optimiser settings
-        tendon_type: Type of tendon model (default: "elastic")
-        parameters_to_calibrate: Dictionary of parameter ranges
-        objective_functions: List of objective function configurations
-        muscle_groups: List of muscle groups (each group is a list of muscle names)
-        trial_set_path: Path to the trial set input data
-        output_path: Optional path to save the XML file
-    
+    - osimModelPath (str): Path to the OpenSim model (.osim). Multiple trials allowed, path must be either full or relative to the calibrationCfgPath.
+    - inputPaths (list): List of trial paths for "inputData.xml". 
+    - outputPath (str): Path to save the generated calibration configuration XML file.
+
     Returns:
-        ET.Element: Root XML element
+    - outputPath (str): The path to the saved calibration configuration XML file.
     """
 
     if not osimModelPath: 
         osimModelPath = input("Enter path to OpenSim model (.osim): ").strip('"')
     
     if not inputPaths:
-        inputPaths = settings.CEINMS_CALIBRATION_TRIALS
+        print
 
     if not outputPath:
         outputPath = input("Enter path to save the calibration configuration XML file: ")
     
-    template_cfg = os.path.join(utils.SETUP_DIR, os.path.basename(utils.Inputs().ceinms_calibration_cfg))
-    
-    # read template to get structure
-    tree = ET.parse(template_cfg)
-    root = tree.getroot()
-    
-    for param in utils.CEINMSParameters().__dict__.items():
-        tag, value = param
-        for elem in root.findall(f'.//{tag}'):
-            elem.text = str(value)
+    params = TemplateParameters()
+    root = ET.Element("calibration")
 
-    # Parameter to calibrate ranges
-    parametersToCalibrate = root.find('calibrationTargets').find('parametersToCalibrate')
-    for param in parametersToCalibrate: 
-        if param.get('name') in utils.CEINMSParameters().__dict__:
-            param.text =  utils.CEINMSParameters().__dict__[param.get('name')]
-
-    # trialSet
-    trialSet = root.find('trialSet')
-    trialSet.text = ' '.join(inputPaths) 
+    # --- Optimiser ---
+    optimiser = ET.SubElement(root, "optimiser")
+    ET.SubElement(optimiser, "debug").text = "true"
+    ET.SubElement(optimiser, "hybridCalibration").text = str(getattr(params, "hybridCalibration", "true"))
+    ET.SubElement(optimiser, "learningRate").text = str(getattr(params, "learningRate", "0.02"))
+    ET.SubElement(optimiser, "maxIterations").text = str(getattr(params, "maxIterations", "1000"))
     
-    # edit muscleGroups
-    muscleGroups = root.find('calibrationTargets').find('parametersToCalibrate').find('muscleGroups')
-    muscleGroups.clear()
+    earlyStopping = ET.SubElement(optimiser, "earlyStopping")
+    ET.SubElement(earlyStopping, "minImprovement").text = str(getattr(params, "minImprovement", "0.1"))
+    ET.SubElement(earlyStopping, "patience").text = str(getattr(params, "patience", "20"))
+    
+    ET.SubElement(optimiser, "numberOfSynergies").text = str(getattr(params, "numberOfSynergies", 8))
+
+    # --- Tendon ---
+    tendon = ET.SubElement(root, "tendon")
+    tendon.text = getattr(params, "tendonType", "elastic")
+
+    # --- calibrationTargets ---
+    calibrationTargets = ET.SubElement(root, "calibrationTargets")
+
+    # parametersToCalibrate - only range parameters
+    parametersToCalibrate = ET.SubElement(calibrationTargets, "parametersToCalibrate")
+    
+    # Calibration parameter ranges (name -> "min max" string)
+    param_ranges = {
+        "c1": getattr(params, "c1", "-0.99 -0.05"),
+        "c2": getattr(params, "c2", "-0.95 -0.05"),
+        "shapefactor": getattr(params, "shapefactor", "-2.999 -0.001"),
+        "optimalFiberLength": getattr(params, "optimalFiberLength", "0.5 3"),
+        "tendonSlackLength": getattr(params, "tendonSlackLength", "0.5 3"),
+        "strengthCoefficient": getattr(params, "strengthCoefficient", "0.75 3.5"),
+    }
+    for name, value in param_ranges.items():
+        param_elem = ET.SubElement(parametersToCalibrate, "parameter", name=name)
+        param_elem.text = str(value)
+
+    # muscleGroups
+    muscleGroups = ET.SubElement(parametersToCalibrate, "muscleGroups")
     for group, muscles in settings.Muscle_Groups.items():
-        muscleGroup = ET.SubElement(muscleGroups, 'muscles')
-        muscleGroup.text = ' '.join(muscles)
+        muscleGroup = ET.SubElement(muscleGroups, "muscles")
+        muscleGroup.text = " ".join(muscles)
 
-    # edit objectiveFunctions
-    objectiveFunctions = root.find('calibrationTargets').find('objectiveFunctions')
-    objectiveFunctions.clear()
-    for func in utils.CEINMSParameters().Objective_Functions:
-        objFunc = ET.SubElement(objectiveFunctions, 'objectiveFunction')
+    # objectiveFunctions
+    objectiveFunctions = ET.SubElement(calibrationTargets, "objectiveFunctions")
+    for func in params.Objective_Functions:
+        objFunc = ET.SubElement(objectiveFunctions, "objectiveFunction")
         for key, value in func.items():
-            elem = ET.SubElement(objFunc, key)
-            elem.text = str(value)
-            
-    targetMuscles = root.find('calibrationTargets').find('muscles')
-    targetMuscles.clear()
-    for muscle in utils.CEINMSParameters().Target_Muscles:
-        muscleElem = ET.SubElement(targetMuscles, 'muscle')
-        muscleElem.text = muscle
+            ET.SubElement(objFunc, key).text = str(value)
+
+    # target muscles
+    targetMuscles = ET.SubElement(calibrationTargets, "muscles")
+    for muscle in params.Target_Muscles:
+        ET.SubElement(targetMuscles, "muscle").text = muscle
+
+    # --- trialSet ---
+    trialSet = ET.SubElement(root, "trialSet")
+    trialSet.text = " ".join(inputPaths)
 
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, outputPath)
     print(f"Calibration configuration XML saved to: {os.path.abspath(outputPath)}")
 
-    return root
+
+    return outputPath
 
 def create_calibrationSetupXML(uncalibratedCEINMSModelPath=None, 
                                excitationGeneratorFile=None,
@@ -946,7 +1043,8 @@ def create_optimise_setupFiles(ceinmsModelPath=None,
                              calibrationCfgPath=None,
                              excitationGeneratorFilePath=None,
                              outputDirectory=None,
-                             setupXMLPath=None):
+                             setupXMLPath=None,
+                             templateCfgXMLPath=None):
     '''
     create CEINMS setup and configuration XML files for optimisation
     
@@ -984,22 +1082,22 @@ def create_optimise_setupFiles(ceinmsModelPath=None,
     outputDirectoryTag.text = os.path.relpath(outputDirectory, baseDir)
     
     betaMinTag = ET.SubElement(root, "betaMin")
-    betaMinTag.text = str(utils.CEINMSParameters().betaMin)
+    betaMinTag.text = str(TemplateParameters().betaMin)
         
     betaMaxTag = ET.SubElement(root, "betaMax")
-    betaMaxTag.text = str(utils.CEINMSParameters().betaMax)
+    betaMaxTag.text = str(TemplateParameters().betaMax)
 
     betaDeltaTag = ET.SubElement(root, "betaDelta")
-    betaDeltaTag.text = str(utils.CEINMSParameters().betaDelta)
+    betaDeltaTag.text = str(TemplateParameters().betaDelta)
 
     gammaMinTag = ET.SubElement(root, "gammaMin")
-    gammaMinTag.text = str(utils.CEINMSParameters().gammaMin)
+    gammaMinTag.text = str(TemplateParameters().gammaMin)
 
     gammaMaxTag = ET.SubElement(root, "gammaMax")
-    gammaMaxTag.text = str(utils.CEINMSParameters().gammaMax)
+    gammaMaxTag.text = str(TemplateParameters().gammaMax)
 
     gammaDeltaTag = ET.SubElement(root, "gammaDelta")
-    gammaDeltaTag.text = str(utils.CEINMSParameters().gammaDelta)
+    gammaDeltaTag.text = str(TemplateParameters().gammaDelta)
 
     tree = ET.ElementTree(root)
     utils.save_pretty_xml(tree, setupXMLPath)
@@ -1007,8 +1105,7 @@ def create_optimise_setupFiles(ceinmsModelPath=None,
     print(f"Optimization setup XML saved to: {os.path.abspath(setupXMLPath)}")
 
     # --- Create cfg file
-    template_cfg = os.path.join(utils.SETUP_DIR, os.path.basename(utils.Inputs().ceinms_optimise_cfg))
-    cfgTemplate = ET.parse(template_cfg).getroot()
+    cfgTemplate = ET.parse(templateCfgXMLPath).getroot()
     
     # apply DOFs from CEINMS model
     ceinmsModel = ET.parse(ceinmsModelPath).getroot()

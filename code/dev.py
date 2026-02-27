@@ -9,12 +9,9 @@ import openSim
 import ceinms
 import exportC3D
 import pandas as pd
+from sklearn.metrics import mean_squared_error, r2_score
 
-subjectLiist = ['P54'] #Athlete_03, Athlete_03_MRI_BG 'Athlete_03_MRI_Katya' P54
-session = 'walking' # 25_03_31  22_07_06
-trial = 'Walking03'  # 'Walking_02', 'Squat_35kg_01', 'Squat_bw_01'
 
-calibration_trials = ['Walking_02']
 
 class Batch():
         def __init__(self):
@@ -162,7 +159,6 @@ class Batch():
 
                         if self.push_trial_results_to_git: analysis.push_trial_results_to_git()
 
-from sklearn.metrics import mean_squared_error, r2_score
 
 def plot_muscle_forces_3_tasks(tasks, muscleGroups, tasks_figures, results_dir, colors, font_size, forces_type='so'):
     '''Function to plot muscle forces for multiple tasks and muscle groups.
@@ -246,57 +242,60 @@ def plot_muscle_forces_3_tasks(tasks, muscleGroups, tasks_figures, results_dir, 
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
     print(f"{forces_type.upper()} comparison plot saved: {save_path}")
 
+
 if __name__ == "__main__":
     
 #     Batch().subject_loop()
 #     Batch().inverse_kinematics()
-        subject  = 'Athlete_03_Lernagopal'
+        calibration_trials = ['Walking_02']
+
+        subject  = 'Athlete_03_Lernagopal_optimised' # Athlete_03_Lernagopal Athlete_03_MRI_Katya
         session = '25_03_31'
-        trial = 'Walking_03' #'Squat_BW_01' Squat_35kg_01 Walking_02
-        analyse = utils.Analyse(trialPath=os.path.join(utils.SIMULATIONS_DIR, subject, session, trial))
-  
-        # copy settings XML from Walking_02 to trial folder
-        settings_xml_path = os.path.join(utils.SIMULATIONS_DIR, subject, session, 'Walking_02', 'trial_settings.xml')
-        new_settings_xml_path = os.path.join(analyse.path, 'trial_settings.xml')
-        if not os.path.exists(new_settings_xml_path):
-                import shutil
-                shutil.copyfile(settings_xml_path, new_settings_xml_path)
-                print(f"Copied settings XML to: {new_settings_xml_path}")
+        trial = 'Squat_35kg_01' #'Squat_BW_01' Squat_35kg_01 Walking_02
+        analysis = utils.Analyse(trialPath=os.path.join(utils.SIMULATIONS_DIR, subject, session, trial))
 
+        # time_range = analysis.get_time_range_from_eventDetector()
+        # print(f"Determined time range for analysis: {time_range}")
+        
+        analysis.copy_input_files(src_subject='Athlete_03') 
+
+        analysis._tweek_analysis_attributes()
+        
         # open the settings XML in the editor to check the new model path
-        os.startfile(analyse.settingsXML)
-
-        analyse.update_model(os.path.join(utils.MODELS_DIR, subject, session, 'scaled.osim'))
-
-        analyse.replace = False
-        # analyse.run_so()
-        # analyse.edit_model_range_coordinates(coordinate_name='knee_angle_r', new_range=[-2.44346, 0.17453293])
-
-        # analyse.edit_model_range_coordinates(coordinate_name='knee_angle_l', new_range=[-2.44346, 0.17453293])
-
-        analyse.run_ik()
-        analyse.run_id()
-        analyse.run_ma()
-        analyse.run_so()
-        analyse.create_ceinms_input_data()
-        analyse.create_excitation_generator()
-
-        if any(trial in analyse.path for trial in calibration_trials):
-                analyse.create_ceinms_model()
-                analyse.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
-                analyse.create_ceinms_calibration_setup()
-                analyse.run_ceinms_calibration()
+        os.startfile(analysis.settingsXML)
 
         
-        analyse.create_ceinms_exe_cfg()
-        analyse.create_ceinms_exe_setup()
+        # analysis.edit_model_range_coordinates(coordinate_name='knee_angle_r', new_range=[-2.44346, 0.17453293])
 
-        analyse.run_ceinms_exe()
+        # analysis.edit_model_range_coordinates(coordinate_name='knee_angle_l', new_range=[-2.44346, 0.17453293])
+        
+        # run the full analysis pipeline
+        analysis.update_trial_attribute('replace', 'True')
+       
+        # analysis.run_ik()
+        # analysis.run_id()
+        # analysis.run_ma()
+        analysis.run_so()
+        analysis.run_jra()
 
-        analyse.run_jra_ceinms()
-        analyse.run_jra()
 
-        analyse.push_trial_results_to_git()
+        # analysis.create_ceinms_input_data()
+        # analysis.create_excitation_generator()
+
+        # if any(trial in analysis.path for trial in calibration_trials):
+        #         analysis.create_ceinms_model()
+        #         analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
+        #         analysis.create_ceinms_calibration_setup()
+        #         analysis.run_ceinms_calibration()
+
+        # analysis.create_ceinms_exe_cfg()
+        # analysis.create_ceinms_exe_setup()
+
+        # analysis.run_ceinms_exe()
+
+        # analysis.run_jra_ceinms()
+        
+        # analysis.push_subject_results_to_git()
 
         
 

@@ -4,6 +4,7 @@ import pandas as pd
 import utils
 import os
 import datetime
+import matplotlib.pyplot as plt
 
 def terminal_warnings(mode='off'):
     """Set OpenSim terminal warnings on or off."""
@@ -185,7 +186,7 @@ def coord_moment_arms(osim_model, muscle_list):
 
     return coord_names
 
-def add_wrapping_surfaces(reference_model_path, target_model_path, output_model_path):
+def add_wrapping_surfaces(reference_model_path=None, target_model_path=None, output_model_path=None):
     """
     Add wrapping surfaces from reference OpenSim model to target model.
     
@@ -194,6 +195,16 @@ def add_wrapping_surfaces(reference_model_path, target_model_path, output_model_
         target_model_path (str): Path to target .osim file
         output_model_path (str): Path for output .osim file with wrapping surfaces
     """
+
+    # prompt user for paths if not provided
+    if not reference_model_path:
+        reference_model_path = input("Enter path to reference OpenSim model (.osim): ").strip('"')
+    if not target_model_path:
+        target_model_path = input("Enter path to target OpenSim model (.osim): ").strip('"')
+    if not output_model_path:
+        output_model_path = input("Enter path to save output OpenSim model with wrapping surfaces (.osim): ").strip('"')
+
+    # turn off OpenSim terminal warnings for cleaner output    terminal_warnings('off')
     try:
         # Load both models
         reference_model = osim.Model(reference_model_path)
@@ -210,6 +221,7 @@ def add_wrapping_surfaces(reference_model_path, target_model_path, output_model_
             
             if wrapping_surfaces.getSize() > 0:
                 try:
+                    # find matching body in target model
                     target_body = target_bodies.get(ref_body.getName())
                     target_wrap_set = target_body.getWrapObjectSet()
                     
@@ -342,6 +354,7 @@ def compare_marker_locations(marker_experimental_path=None, marker_virtual_path=
         marker_virtual_path = input("Enter path to virtual .sto markers file: ").strip('"')
         if not marker_virtual_path: return # User cancelled
 
+    # Load marker data
     virtual_markers_df = utils.load_sto(marker_virtual_path)
     experimental_markers_df = utils.load_trc(marker_experimental_path,
                                 combine_headers=True)
@@ -411,14 +424,16 @@ def compare_marker_locations(marker_experimental_path=None, marker_virtual_path=
     print(f"Mean errors saved to: {mean_errors_filename}")
     print(f"All error data saved to: {all_errors_filename}")
     
-    
-    # plot marker errors
-    import matplotlib.pyplot as plt
-    
+    # plot marker errors over time    
     plt.figure(figsize=(12, 6))
     for marker_name in distances.columns:
         if marker_name != 'time':
             plt.plot(distances['time'], distances[marker_name], label=marker_name)
+    
+    # plot mean error as a dashed line
+    mean_errors = distances.drop(columns='time').mean(axis=1)
+    plt.plot(distances['time'], mean_errors, label='Mean Error', linestyle='--', color='black')
+    
     plt.xlabel('Time (s)')
     plt.ylabel('Marker Error (m)')
     plt.title('Marker Errors Over Time')
