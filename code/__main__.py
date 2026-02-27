@@ -6,7 +6,7 @@ import openSim
 import ceinms
 import exportC3D
 
-SUBJECTS_TO_ANALYSE =  ['Athlete_03_Lernagopal_optimised']  # ,'Athlete_03_MRI_Katya','Athlete_03_Lernagopal'
+SUBJECTS_TO_ANALYSE =  ['Athlete_03','Athlete_03_MRI_Katya', 'Athlete_03_Lernagopal','Athlete_03_Lernagopal_optimised']  # ,'Athlete_03_MRI_Katya','Athlete_03_Lernagopal'
 SESSIONS_TO_ANALYSE = ['25_03_31'] 
 TRIALS_TO_ANALYSE =  ['Walking_03','Squat_35kg_01', 'Squat_35kg_02', 'Squat_bw_01', 'Squat_bw_02'] #Walking_02 Squat_bw_02 Squat_35kg_01
 CEINMS_CALIBRATION_TRIALS = ['Walking_02'] 
@@ -20,18 +20,18 @@ class Execute:
         self.INCREASE_MUSCLE_FORCE = False
         self.SCALE_FACTOR = 3
         self.exportC3D = False
-        self.IK = True
-        self.ID = True
-        self.MA = True
+        self.IK = False
+        self.ID = False
+        self.MA = False
         self.MOMENT_ARMS = False
-        self.SO = True
-        self.JRA = True
+        self.SO = False
+        self.JRA = False
         
         self.EMG_NORMALISE = False
         self.SCALE_EMG = False
         self.EMG_SCALE_FACTOR = 0.7
         
-        self.CREATE_CEINMS_FILES = True
+        self.CREATE_CEINMS_FILES = False
         self.CREATE_CEINMS_MODEL = False
         
         self.CEINMS_CALIBRATION = False

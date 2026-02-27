@@ -6789,3 +6789,1827 @@ Try increasing the strength and/or range of the following force(s):
 [2026-02-20 14:33:26.921] [cout] [info] time = 3.22 Performance = 24.2502 Constraint violation = 5.95208e-12
 [2026-02-20 14:33:27.488] [cout] [info] time = 3.225 Performance = 23.9369 Constraint violation = 1.50325e-11
 [2026-02-20 14:33:27.493] [info] Printing results of investigation SO to .
+[2026-02-27 11:13:20.773] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:13:21.693] [info] Storage: read data file = joint_angles.mot (nr=645 nc=32)
+[2026-02-27 11:13:21.813] [info] AbstractTool SO loading model ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:13:21.870] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:13:21.975] [info] Adding force object set from actuators_so.xml
+[2026-02-27 11:13:22.195] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2026-02-27 11:13:22.319] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2026-02-27 11:13:22.319] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2026-02-27 11:13:22.341] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-02-27 11:13:22.341] [info] Storage: read data file = joint_angles.mot (nr=645 nc=32)
+[2026-02-27 11:13:22.357] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-02-27 11:13:23.369] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9418144272611642e-09 required: 1e-10.
+[2026-02-27 11:13:23.456] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9418142052165592e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-02-27 11:13:24.447] [info] Found 1289 state vectors with time stamps ranging from -1.60500 to 4.835.
+[2026-02-27 11:13:24.448] [info] Executing the analyses from 0.00500000 to 3.225...
+[2026-02-27 11:13:24.578] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2026-02-27 11:13:24.700] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2026-02-27 11:13:24.700] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2026-02-27 11:13:24.763] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2026-02-27 11:13:24.910] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2026-02-27 11:13:24.911] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2026-02-27 11:13:26.895] [cout] [info] time = 0.00500000 Performance = 16.7758 Constraint violation = 9.5377e-12
+[2026-02-27 11:13:26.900] [info] Bounds for 'addbrev_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.900] [info] Bounds for 'addlong_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'addmagDist_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'addmagIsch_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'addmagMid_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'addmagProx_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'bflh_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'bfsh_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'edl_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'ehl_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'fdl_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'fhl_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'gaslat_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'gasmed_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.901] [info] Bounds for 'glmax1_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmax2_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmax3_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmed1_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmed2_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmed3_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmin1_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmin2_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'glmin3_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'grac_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'iliacus_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'perbrev_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'perlong_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.902] [info] Bounds for 'piri_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.903] [info] Bounds for 'psoas_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.903] [info] Bounds for 'recfem_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.903] [info] Bounds for 'sart_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'semimem_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'semiten_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'soleus_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'tfl_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'tibant_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'tibpost_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'vasint_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'vaslat_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'vasmed_r': 0.01 to 1.0.
+[2026-02-27 11:13:26.904] [info] Bounds for 'addbrev_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'addlong_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'addmagDist_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'addmagIsch_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'addmagMid_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'addmagProx_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'bflh_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'bfsh_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'edl_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'ehl_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'fdl_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'fhl_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.905] [info] Bounds for 'gaslat_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.906] [info] Bounds for 'gasmed_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.906] [info] Bounds for 'glmax1_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.906] [info] Bounds for 'glmax2_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.906] [info] Bounds for 'glmax3_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.906] [info] Bounds for 'glmed1_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'glmed2_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'glmed3_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'glmin1_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'glmin2_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'glmin3_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'grac_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'iliacus_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'perbrev_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'perlong_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.907] [info] Bounds for 'piri_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'psoas_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'recfem_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'sart_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'semimem_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'semiten_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.908] [info] Bounds for 'soleus_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'tfl_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'tibant_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'tibpost_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'vasint_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'vaslat_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'vasmed_l': 0.01 to 1.0.
+[2026-02-27 11:13:26.909] [info] Bounds for 'lumbar_ext': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'lumbar_bend': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'lumbar_rot': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'FX': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'FY': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'FZ': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'MX': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'MY': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'MZ': -inf to inf.
+[2026-02-27 11:13:26.909] [info] Bounds for 'hip_flexion_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'hip_adduction_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'hip_rotation_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'knee_angle_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'knee_adduction_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'ankle_angle_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'subtalar_angle_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'mtp_angle_r_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'hip_flexion_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'hip_adduction_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'hip_rotation_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'knee_angle_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'knee_adduction_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'ankle_angle_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'subtalar_angle_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'mtp_angle_l_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'lumbar_extension_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'lumbar_bending_reserve': -inf to inf.
+[2026-02-27 11:13:26.910] [info] Bounds for 'lumbar_rotation_reserve': -inf to inf.
+[2026-02-27 11:13:27.306] [cout] [info] time = 0.01 Performance = 17.1605 Constraint violation = 3.82155e-12
+[2026-02-27 11:13:27.732] [cout] [info] time = 0.015 Performance = 17.5706 Constraint violation = 4.2475e-12
+[2026-02-27 11:13:28.174] [cout] [info] time = 0.02 Performance = 17.9801 Constraint violation = 1.45054e-11
+[2026-02-27 11:13:28.561] [cout] [info] time = 0.025 Performance = 18.3622 Constraint violation = 1.1848e-11
+[2026-02-27 11:13:28.982] [cout] [info] time = 0.03 Performance = 18.6915 Constraint violation = 1.72699e-12
+[2026-02-27 11:13:29.362] [cout] [info] time = 0.035 Performance = 18.9487 Constraint violation = 3.97408e-12
+[2026-02-27 11:13:29.755] [cout] [info] time = 0.04 Performance = 19.1305 Constraint violation = 5.85053e-12
+[2026-02-27 11:13:30.148] [cout] [info] time = 0.045 Performance = 19.2404 Constraint violation = 1.42643e-11
+[2026-02-27 11:13:30.538] [cout] [info] time = 0.05 Performance = 19.2881 Constraint violation = 1.13176e-11
+[2026-02-27 11:13:30.931] [cout] [info] time = 0.055 Performance = 19.2847 Constraint violation = 2.09099e-11
+[2026-02-27 11:13:31.315] [cout] [info] time = 0.06 Performance = 19.2416 Constraint violation = 1.81998e-12
+[2026-02-27 11:13:31.713] [cout] [info] time = 0.065 Performance = 19.1647 Constraint violation = 2.97679e-12
+[2026-02-27 11:13:32.100] [cout] [info] time = 0.07 Performance = 19.0568 Constraint violation = 8.69803e-12
+[2026-02-27 11:13:32.495] [cout] [info] time = 0.075 Performance = 18.9163 Constraint violation = 2.52451e-11
+[2026-02-27 11:13:32.889] [cout] [info] time = 0.08 Performance = 18.7408 Constraint violation = 6.64914e-12
+[2026-02-27 11:13:33.284] [cout] [info] time = 0.085 Performance = 18.5311 Constraint violation = 1.48913e-11
+[2026-02-27 11:13:33.629] [cout] [info] time = 0.09 Performance = 18.292 Constraint violation = 4.92896e-12
+[2026-02-27 11:13:34.009] [cout] [info] time = 0.095 Performance = 18.0273 Constraint violation = 5.39543e-12
+[2026-02-27 11:13:34.426] [cout] [info] time = 0.1 Performance = 17.7372 Constraint violation = 1.17987e-11
+[2026-02-27 11:13:34.850] [cout] [info] time = 0.105000 Performance = 17.4206 Constraint violation = 8.45305e-12
+[2026-02-27 11:13:35.288] [cout] [info] time = 0.11 Performance = 17.0746 Constraint violation = 7.55948e-12
+[2026-02-27 11:13:35.639] [cout] [info] time = 0.115 Performance = 16.6976 Constraint violation = 8.43541e-12
+[2026-02-27 11:13:36.013] [cout] [info] time = 0.12 Performance = 16.2911 Constraint violation = 4.631e-12
+[2026-02-27 11:13:36.403] [cout] [info] time = 0.125 Performance = 15.8556 Constraint violation = 1.41085e-11
+[2026-02-27 11:13:36.769] [cout] [info] time = 0.13 Performance = 15.3943 Constraint violation = 1.86153e-11
+[2026-02-27 11:13:37.157] [cout] [info] time = 0.135 Performance = 14.9151 Constraint violation = 9.47109e-12
+[2026-02-27 11:13:37.544] [cout] [info] time = 0.14 Performance = 14.424 Constraint violation = 9.21723e-12
+[2026-02-27 11:13:37.995] [cout] [info] time = 0.145 Performance = 13.93 Constraint violation = 7.56753e-12
+[2026-02-27 11:13:38.456] [cout] [info] time = 0.15 Performance = 13.4426 Constraint violation = 1.22129e-11
+[2026-02-27 11:13:38.893] [cout] [info] time = 0.155 Performance = 12.9682 Constraint violation = 6.03376e-12
+[2026-02-27 11:13:39.299] [cout] [info] time = 0.16 Performance = 12.5132 Constraint violation = 1.80496e-12
+[2026-02-27 11:13:39.687] [cout] [info] time = 0.165 Performance = 12.0843 Constraint violation = 4.28375e-12
+[2026-02-27 11:13:40.132] [cout] [info] time = 0.17 Performance = 11.6868 Constraint violation = 3.83168e-12
+[2026-02-27 11:13:40.568] [cout] [info] time = 0.175 Performance = 11.3224 Constraint violation = 2.55121e-12
+[2026-02-27 11:13:41.003] [cout] [info] time = 0.18 Performance = 10.9935 Constraint violation = 6.73505e-12
+[2026-02-27 11:13:41.378] [cout] [info] time = 0.185 Performance = 10.7075 Constraint violation = 4.46829e-12
+[2026-02-27 11:13:41.752] [cout] [info] time = 0.19 Performance = 10.4701 Constraint violation = 4.79011e-12
+[2026-02-27 11:13:42.160] [cout] [info] time = 0.195 Performance = 10.2841 Constraint violation = 1.63847e-12
+[2026-02-27 11:13:42.670] [cout] [info] time = 0.2 Performance = 10.149 Constraint violation = 2.40959e-12
+[2026-02-27 11:13:43.289] [cout] [info] time = 0.205000 Performance = 10.0663 Constraint violation = 3.75831e-12
+[2026-02-27 11:13:43.857] [cout] [info] time = 0.21 Performance = 10.0338 Constraint violation = 3.66538e-12
+[2026-02-27 11:13:44.423] [cout] [info] time = 0.215 Performance = 10.0502 Constraint violation = 2.15528e-12
+[2026-02-27 11:13:45.049] [cout] [info] time = 0.22 Performance = 10.1116 Constraint violation = 3.41172e-12
+[2026-02-27 11:13:45.580] [cout] [info] time = 0.225 Performance = 10.212 Constraint violation = 2.85132e-12
+[2026-02-27 11:13:46.058] [cout] [info] time = 0.23 Performance = 10.3466 Constraint violation = 3.09183e-12
+[2026-02-27 11:13:46.469] [cout] [info] time = 0.235 Performance = 10.5166 Constraint violation = 1.52456e-12
+[2026-02-27 11:13:46.918] [cout] [info] time = 0.24 Performance = 10.7297 Constraint violation = 2.56135e-12
+[2026-02-27 11:13:47.443] [cout] [info] time = 0.245 Performance = 10.992 Constraint violation = 3.98179e-12
+[2026-02-27 11:13:47.891] [cout] [info] time = 0.25 Performance = 11.3090 Constraint violation = 4.38184e-12
+[2026-02-27 11:13:48.329] [cout] [info] time = 0.255 Performance = 11.6854 Constraint violation = 2.87788e-12
+[2026-02-27 11:13:48.777] [cout] [info] time = 0.26 Performance = 12.1261 Constraint violation = 2.21834e-12
+[2026-02-27 11:13:49.292] [cout] [info] time = 0.265 Performance = 12.6364 Constraint violation = 2.03917e-12
+[2026-02-27 11:13:49.750] [cout] [info] time = 0.27 Performance = 13.2181 Constraint violation = 1.97857e-12
+[2026-02-27 11:13:50.253] [cout] [info] time = 0.275 Performance = 13.8679 Constraint violation = 2.77737e-12
+[2026-02-27 11:13:50.692] [cout] [info] time = 0.28 Performance = 14.5794 Constraint violation = 7.37938e-12
+[2026-02-27 11:13:51.091] [cout] [info] time = 0.285 Performance = 15.345 Constraint violation = 1.99959e-12
+[2026-02-27 11:13:51.544] [cout] [info] time = 0.29 Performance = 16.1667 Constraint violation = 2.92131e-12
+[2026-02-27 11:13:51.922] [cout] [info] time = 0.295 Performance = 17.0463 Constraint violation = 1.3575e-11
+[2026-02-27 11:13:52.323] [cout] [info] time = 0.3 Performance = 17.9885 Constraint violation = 7.04009e-12
+[2026-02-27 11:13:52.685] [cout] [info] time = 0.305000 Performance = 18.9981 Constraint violation = 4.1933e-12
+[2026-02-27 11:13:53.112] [cout] [info] time = 0.31 Performance = 20.0673 Constraint violation = 2.18116e-12
+[2026-02-27 11:13:53.502] [cout] [info] time = 0.315 Performance = 21.1787 Constraint violation = 7.90079e-12
+[2026-02-27 11:13:53.949] [cout] [info] time = 0.32 Performance = 22.3090 Constraint violation = 1.47341e-11
+[2026-02-27 11:13:54.329] [cout] [info] time = 0.325 Performance = 23.4246 Constraint violation = 4.10619e-12
+[2026-02-27 11:13:54.694] [cout] [info] time = 0.33 Performance = 24.4865 Constraint violation = 1.68889e-12
+[2026-02-27 11:13:55.113] [cout] [info] time = 0.335 Performance = 25.4556 Constraint violation = 1.56664e-11
+[2026-02-27 11:13:55.611] [cout] [info] time = 0.34 Performance = 26.2968 Constraint violation = 3.65568e-12
+[2026-02-27 11:13:56.004] [cout] [info] time = 0.345 Performance = 26.9842 Constraint violation = 4.38595e-12
+[2026-02-27 11:13:56.424] [cout] [info] time = 0.35 Performance = 27.5008 Constraint violation = 3.93218e-12
+[2026-02-27 11:13:56.812] [cout] [info] time = 0.355 Performance = 27.8417 Constraint violation = 3.43448e-12
+[2026-02-27 11:13:57.200] [cout] [info] time = 0.36 Performance = 28.017 Constraint violation = 7.99218e-12
+[2026-02-27 11:13:57.591] [cout] [info] time = 0.365 Performance = 28.0407 Constraint violation = 4.02085e-12
+[2026-02-27 11:13:58.031] [cout] [info] time = 0.37 Performance = 27.9266 Constraint violation = 8.35239e-12
+[2026-02-27 11:13:58.443] [cout] [info] time = 0.375 Performance = 27.6856 Constraint violation = 4.82468e-12
+[2026-02-27 11:13:58.788] [cout] [info] time = 0.38 Performance = 27.3266 Constraint violation = 3.9111e-12
+[2026-02-27 11:13:59.191] [cout] [info] time = 0.385 Performance = 26.8601 Constraint violation = 4.93733e-12
+[2026-02-27 11:13:59.597] [cout] [info] time = 0.39 Performance = 26.3060 Constraint violation = 2.11095e-12
+[2026-02-27 11:13:59.992] [cout] [info] time = 0.395 Performance = 25.6809 Constraint violation = 3.31834e-12
+[2026-02-27 11:14:00.480] [cout] [info] time = 0.4 Performance = 25.0011 Constraint violation = 3.66332e-12
+[2026-02-27 11:14:00.865] [cout] [info] time = 0.405000 Performance = 24.2802 Constraint violation = 1.19982e-11
+[2026-02-27 11:14:01.318] [cout] [info] time = 0.41 Performance = 23.5346 Constraint violation = 2.12424e-12
+[2026-02-27 11:14:01.719] [cout] [info] time = 0.415 Performance = 22.7805 Constraint violation = 3.71539e-12
+[2026-02-27 11:14:02.143] [cout] [info] time = 0.42 Performance = 22.0324 Constraint violation = 3.26202e-12
+[2026-02-27 11:14:02.558] [cout] [info] time = 0.425 Performance = 21.3045 Constraint violation = 3.26853e-12
+[2026-02-27 11:14:02.967] [cout] [info] time = 0.43 Performance = 20.6037 Constraint violation = 2.68646e-12
+[2026-02-27 11:14:03.421] [cout] [info] time = 0.435 Performance = 19.9329 Constraint violation = 4.23345e-12
+[2026-02-27 11:14:03.773] [cout] [info] time = 0.44 Performance = 19.2942 Constraint violation = 4.00002e-12
+[2026-02-27 11:14:04.117] [cout] [info] time = 0.445 Performance = 18.693 Constraint violation = 6.29419e-12
+[2026-02-27 11:14:04.444] [cout] [info] time = 0.45 Performance = 18.1363 Constraint violation = 3.25272e-12
+[2026-02-27 11:14:04.777] [cout] [info] time = 0.455 Performance = 17.6361 Constraint violation = 3.4965e-12
+[2026-02-27 11:14:05.120] [cout] [info] time = 0.46 Performance = 17.1934 Constraint violation = 2.39443e-12
+[2026-02-27 11:14:05.453] [cout] [info] time = 0.465 Performance = 16.8097 Constraint violation = 4.81689e-12
+[2026-02-27 11:14:05.790] [cout] [info] time = 0.47 Performance = 16.4823 Constraint violation = 2.78626e-12
+[2026-02-27 11:14:06.110] [cout] [info] time = 0.475 Performance = 16.1976 Constraint violation = 3.4565e-12
+[2026-02-27 11:14:06.444] [cout] [info] time = 0.48 Performance = 15.9491 Constraint violation = 4.83768e-12
+[2026-02-27 11:14:06.779] [cout] [info] time = 0.485 Performance = 15.7322 Constraint violation = 2.6773e-12
+[2026-02-27 11:14:07.109] [cout] [info] time = 0.49 Performance = 15.539 Constraint violation = 5.28701e-12
+[2026-02-27 11:14:07.445] [cout] [info] time = 0.495 Performance = 15.3628 Constraint violation = 2.24516e-12
+[2026-02-27 11:14:07.777] [cout] [info] time = 0.5 Performance = 15.2013 Constraint violation = 3.44872e-12
+[2026-02-27 11:14:08.111] [cout] [info] time = 0.505000 Performance = 15.0593 Constraint violation = 3.79911e-12
+[2026-02-27 11:14:08.445] [cout] [info] time = 0.51 Performance = 14.9462 Constraint violation = 2.91049e-12
+[2026-02-27 11:14:08.767] [cout] [info] time = 0.515 Performance = 14.87 Constraint violation = 3.28334e-12
+[2026-02-27 11:14:09.103] [cout] [info] time = 0.52 Performance = 14.8391 Constraint violation = 3.88711e-12
+[2026-02-27 11:14:09.442] [cout] [info] time = 0.525 Performance = 14.8627 Constraint violation = 2.7695e-12
+[2026-02-27 11:14:09.776] [cout] [info] time = 0.53 Performance = 14.9489 Constraint violation = 1.03613e-11
+[2026-02-27 11:14:10.098] [cout] [info] time = 0.535 Performance = 15.1027 Constraint violation = 2.582e-12
+[2026-02-27 11:14:10.429] [cout] [info] time = 0.54 Performance = 15.3183 Constraint violation = 3.39027e-12
+[2026-02-27 11:14:10.797] [cout] [info] time = 0.545 Performance = 15.5816 Constraint violation = 6.54312e-12
+[2026-02-27 11:14:11.125] [cout] [info] time = 0.55 Performance = 15.8805 Constraint violation = 1.54579e-11
+[2026-02-27 11:14:11.457] [cout] [info] time = 0.555 Performance = 16.2062 Constraint violation = 2.65097e-12
+[2026-02-27 11:14:11.813] [cout] [info] time = 0.56 Performance = 16.5459 Constraint violation = 8.84785e-12
+[2026-02-27 11:14:12.142] [cout] [info] time = 0.565 Performance = 16.8849 Constraint violation = 6.10333e-12
+[2026-02-27 11:14:12.482] [cout] [info] time = 0.57 Performance = 17.2081 Constraint violation = 4.72815e-12
+[2026-02-27 11:14:12.815] [cout] [info] time = 0.575 Performance = 17.499 Constraint violation = 3.32783e-12
+[2026-02-27 11:14:13.143] [cout] [info] time = 0.58 Performance = 17.7445 Constraint violation = 2.62052e-12
+[2026-02-27 11:14:13.475] [cout] [info] time = 0.585 Performance = 17.9428 Constraint violation = 1.03005e-11
+[2026-02-27 11:14:13.820] [cout] [info] time = 0.59 Performance = 18.1027 Constraint violation = 4.50113e-12
+[2026-02-27 11:14:14.144] [cout] [info] time = 0.595 Performance = 18.2331 Constraint violation = 5.29416e-12
+[2026-02-27 11:14:14.515] [cout] [info] time = 0.6 Performance = 18.3409 Constraint violation = 4.90490e-12
+[2026-02-27 11:14:14.853] [cout] [info] time = 0.605000 Performance = 18.436 Constraint violation = 8.98348e-12
+[2026-02-27 11:14:15.230] [cout] [info] time = 0.61 Performance = 18.5271 Constraint violation = 1.69334e-12
+[2026-02-27 11:14:15.580] [cout] [info] time = 0.615 Performance = 18.6251 Constraint violation = 2.77292e-12
+[2026-02-27 11:14:15.923] [cout] [info] time = 0.62 Performance = 18.7442 Constraint violation = 1.71666e-11
+[2026-02-27 11:14:16.271] [cout] [info] time = 0.625 Performance = 18.899 Constraint violation = 2.08836e-12
+[2026-02-27 11:14:16.633] [cout] [info] time = 0.63 Performance = 19.0969 Constraint violation = 1.30602e-11
+[2026-02-27 11:14:16.995] [cout] [info] time = 0.635 Performance = 19.3384 Constraint violation = 4.55031e-12
+[2026-02-27 11:14:17.389] [cout] [info] time = 0.64 Performance = 19.6127 Constraint violation = 8.91767e-12
+[2026-02-27 11:14:17.744] [cout] [info] time = 0.645 Performance = 19.9010 Constraint violation = 4.10317e-12
+[2026-02-27 11:14:18.118] [cout] [info] time = 0.65 Performance = 20.1735 Constraint violation = 9.97961e-12
+[2026-02-27 11:14:18.475] [cout] [info] time = 0.655 Performance = 20.3891 Constraint violation = 1.36373e-11
+[2026-02-27 11:14:18.830] [cout] [info] time = 0.66 Performance = 20.5075 Constraint violation = 9.4678e-12
+[2026-02-27 11:14:19.197] [cout] [info] time = 0.665 Performance = 20.5031 Constraint violation = 2.85338e-12
+[2026-02-27 11:14:19.537] [cout] [info] time = 0.67 Performance = 20.36 Constraint violation = 6.58439e-12
+[2026-02-27 11:14:19.879] [cout] [info] time = 0.675 Performance = 20.0684 Constraint violation = 1.08083e-11
+[2026-02-27 11:14:20.210] [cout] [info] time = 0.68 Performance = 19.6376 Constraint violation = 4.52553e-11
+[2026-02-27 11:14:20.612] [cout] [info] time = 0.685 Performance = 19.0882 Constraint violation = 4.71622e-12
+[2026-02-27 11:14:20.944] [cout] [info] time = 0.69 Performance = 18.4439 Constraint violation = 5.30720e-12
+[2026-02-27 11:14:21.273] [cout] [info] time = 0.695 Performance = 17.7299 Constraint violation = 8.30395e-12
+[2026-02-27 11:14:21.608] [cout] [info] time = 0.7 Performance = 16.9746 Constraint violation = 1.05417e-11
+[2026-02-27 11:14:21.950] [cout] [info] time = 0.705000 Performance = 16.214 Constraint violation = 2.29419e-11
+[2026-02-27 11:14:22.283] [cout] [info] time = 0.71 Performance = 15.4605 Constraint violation = 3.86538e-12
+[2026-02-27 11:14:22.616] [cout] [info] time = 0.715 Performance = 14.7333 Constraint violation = 1.38293e-11
+[2026-02-27 11:14:22.955] [cout] [info] time = 0.72 Performance = 14.031 Constraint violation = 3.94618e-12
+[2026-02-27 11:14:23.285] [cout] [info] time = 0.725 Performance = 13.3391 Constraint violation = 1.18457e-11
+[2026-02-27 11:14:23.615] [cout] [info] time = 0.73 Performance = 12.6348 Constraint violation = 3.48693e-12
+[2026-02-27 11:14:23.938] [cout] [info] time = 0.735 Performance = 11.8982 Constraint violation = 1.30816e-12
+[2026-02-27 11:14:24.253] [cout] [info] time = 0.74 Performance = 11.1139 Constraint violation = 3.00093e-12
+[2026-02-27 11:14:24.577] [cout] [info] time = 0.745 Performance = 10.2666 Constraint violation = 6.45329e-12
+[2026-02-27 11:14:24.889] [cout] [info] time = 0.75 Performance = 9.35281 Constraint violation = 1.53357e-12
+[2026-02-27 11:14:25.212] [cout] [info] time = 0.755 Performance = 8.40680 Constraint violation = 2.64965e-12
+[2026-02-27 11:14:25.551] [cout] [info] time = 0.76 Performance = 7.47446 Constraint violation = 1.2795e-12
+[2026-02-27 11:14:25.888] [cout] [info] time = 0.765 Performance = 6.61219 Constraint violation = 2.11864e-12
+[2026-02-27 11:14:26.203] [cout] [info] time = 0.77 Performance = 5.86942 Constraint violation = 3.55098e-12
+[2026-02-27 11:14:26.535] [cout] [info] time = 0.775 Performance = 5.27737 Constraint violation = 1.10067e-12
+[2026-02-27 11:14:26.869] [cout] [info] time = 0.78 Performance = 4.8487 Constraint violation = 1.0662e-12
+[2026-02-27 11:14:27.187] [cout] [info] time = 0.785 Performance = 4.58012 Constraint violation = 1.84422e-12
+[2026-02-27 11:14:27.522] [cout] [info] time = 0.79 Performance = 4.46039 Constraint violation = 1.56286e-12
+[2026-02-27 11:14:27.837] [cout] [info] time = 0.795 Performance = 4.47782 Constraint violation = 2.58402e-12
+[2026-02-27 11:14:28.156] [cout] [info] time = 0.8 Performance = 4.62435 Constraint violation = 2.71055e-12
+[2026-02-27 11:14:28.514] [cout] [info] time = 0.805000 Performance = 4.89741 Constraint violation = 3.2943e-12
+[2026-02-27 11:14:28.839] [cout] [info] time = 0.81 Performance = 5.29688 Constraint violation = 1.00576e-12
+[2026-02-27 11:14:29.160] [cout] [info] time = 0.815 Performance = 5.8254 Constraint violation = 1.91571e-12
+[2026-02-27 11:14:29.485] [cout] [info] time = 0.82 Performance = 6.48693 Constraint violation = 3.36764e-12
+[2026-02-27 11:14:29.810] [cout] [info] time = 0.825 Performance = 7.2829 Constraint violation = 2.2114e-12
+[2026-02-27 11:14:30.131] [cout] [info] time = 0.83 Performance = 8.20709 Constraint violation = 3.43872e-12
+[2026-02-27 11:14:30.458] [cout] [info] time = 0.835 Performance = 9.24533 Constraint violation = 2.22657e-12
+[2026-02-27 11:14:30.784] [cout] [info] time = 0.84 Performance = 10.3791 Constraint violation = 4.7245e-12
+[2026-02-27 11:14:31.113] [cout] [info] time = 0.845 Performance = 11.6223 Constraint violation = 1.5632e-12
+[2026-02-27 11:14:31.453] [cout] [info] time = 0.85 Performance = 12.9085 Constraint violation = 1.28179e-11
+[2026-02-27 11:14:31.796] [cout] [info] time = 0.855 Performance = 14.2751 Constraint violation = 3.1137e-12
+[2026-02-27 11:14:32.114] [cout] [info] time = 0.86 Performance = 15.7351 Constraint violation = 2.77342e-12
+[2026-02-27 11:14:32.432] [cout] [info] time = 0.865 Performance = 17.2916 Constraint violation = 2.84426e-12
+[2026-02-27 11:14:32.751] [cout] [info] time = 0.87 Performance = 18.9367 Constraint violation = 3.48617e-12
+[2026-02-27 11:14:33.082] [cout] [info] time = 0.875 Performance = 20.6462 Constraint violation = 2.47689e-12
+[2026-02-27 11:14:33.400] [cout] [info] time = 0.88 Performance = 22.379 Constraint violation = 2.464e-12
+[2026-02-27 11:14:33.736] [cout] [info] time = 0.885 Performance = 24.0758 Constraint violation = 2.45258e-12
+[2026-02-27 11:14:34.054] [cout] [info] time = 0.89 Performance = 25.653 Constraint violation = 2.05515e-11
+[2026-02-27 11:14:34.389] [cout] [info] time = 0.895 Performance = 27.0055 Constraint violation = 1.53597e-11
+[2026-02-27 11:14:34.707] [cout] [info] time = 0.9 Performance = 28.0338 Constraint violation = 1.53588e-11
+[2026-02-27 11:14:35.026] [cout] [info] time = 0.905000 Performance = 28.6822 Constraint violation = 1.7182e-11
+[2026-02-27 11:14:35.359] [cout] [info] time = 0.91 Performance = 28.9647 Constraint violation = 2.56572e-12
+[2026-02-27 11:14:35.683] [cout] [info] time = 0.915 Performance = 28.9603 Constraint violation = 3.05351e-11
+[2026-02-27 11:14:36.002] [cout] [info] time = 0.92 Performance = 28.7856 Constraint violation = 2.61445e-11
+[2026-02-27 11:14:36.322] [cout] [info] time = 0.925 Performance = 28.5539 Constraint violation = 3.03284e-12
+[2026-02-27 11:14:36.661] [cout] [info] time = 0.93 Performance = 28.3341 Constraint violation = 9.00251e-12
+[2026-02-27 11:14:36.985] [cout] [info] time = 0.935 Performance = 28.1368 Constraint violation = 5.37805e-12
+[2026-02-27 11:14:37.300] [cout] [info] time = 0.94 Performance = 27.9275 Constraint violation = 1.69729e-12
+[2026-02-27 11:14:37.611] [cout] [info] time = 0.945 Performance = 27.6436 Constraint violation = 7.14803e-12
+[2026-02-27 11:14:37.936] [cout] [info] time = 0.95 Performance = 27.2195 Constraint violation = 6.67667e-12
+[2026-02-27 11:14:38.247] [cout] [info] time = 0.955 Performance = 26.6205 Constraint violation = 1.2739e-11
+[2026-02-27 11:14:38.574] [cout] [info] time = 0.96 Performance = 25.863 Constraint violation = 7.6369e-12
+[2026-02-27 11:14:38.897] [cout] [info] time = 0.965 Performance = 25.0125 Constraint violation = 8.78011e-13
+[2026-02-27 11:14:39.238] [cout] [info] time = 0.97 Performance = 24.1592 Constraint violation = 1.78891e-12
+[2026-02-27 11:14:39.627] [cout] [info] time = 0.975 Performance = 23.384 Constraint violation = 2.25006e-12
+[2026-02-27 11:14:40.016] [cout] [info] time = 0.98 Performance = 22.7342 Constraint violation = 4.33567e-12
+[2026-02-27 11:14:40.359] [cout] [info] time = 0.985 Performance = 22.2193 Constraint violation = 8.68662e-12
+[2026-02-27 11:14:40.709] [cout] [info] time = 0.99 Performance = 21.8155 Constraint violation = 1.67006e-12
+[2026-02-27 11:14:41.088] [cout] [info] time = 0.995 Performance = 21.4977 Constraint violation = 1.89526e-12
+[2026-02-27 11:14:41.453] [cout] [info] time = 1.0 Performance = 21.2698 Constraint violation = 2.13201e-12
+[2026-02-27 11:14:41.841] [cout] [info] time = 1.00500 Performance = 21.1675 Constraint violation = 1.93377e-12
+[2026-02-27 11:14:42.223] [cout] [info] time = 1.01 Performance = 21.2468 Constraint violation = 1.26636e-11
+[2026-02-27 11:14:42.578] [cout] [info] time = 1.015 Performance = 21.5688 Constraint violation = 7.93292e-12
+[2026-02-27 11:14:42.894] [cout] [info] time = 1.02 Performance = 22.1744 Constraint violation = 3.78339e-12
+[2026-02-27 11:14:43.241] [cout] [info] time = 1.025 Performance = 23.0609 Constraint violation = 1.56411e-11
+[2026-02-27 11:14:43.565] [cout] [info] time = 1.03 Performance = 24.1745 Constraint violation = 1.83244e-11
+[2026-02-27 11:14:43.891] [cout] [info] time = 1.035 Performance = 25.4317 Constraint violation = 1.27419e-11
+[2026-02-27 11:14:44.211] [cout] [info] time = 1.04 Performance = 26.7534 Constraint violation = 2.05090e-12
+[2026-02-27 11:14:44.533] [cout] [info] time = 1.045 Performance = 28.0876 Constraint violation = 2.71824e-12
+[2026-02-27 11:14:44.876] [cout] [info] time = 1.05 Performance = 29.4246 Constraint violation = 2.77867e-11
+[2026-02-27 11:14:45.202] [cout] [info] time = 1.055 Performance = 30.7925 Constraint violation = 4.23306e-11
+[2026-02-27 11:14:45.522] [cout] [info] time = 1.06 Performance = 32.2402 Constraint violation = 6.91814e-12
+[2026-02-27 11:14:45.894] [cout] [info] time = 1.065 Performance = 33.821 Constraint violation = 3.37024e-11
+[2026-02-27 11:14:46.236] [cout] [info] time = 1.07 Performance = 35.57 Constraint violation = 1.85961e-12
+[2026-02-27 11:14:46.547] [cout] [info] time = 1.075 Performance = 37.4766 Constraint violation = 1.90617e-12
+[2026-02-27 11:14:46.886] [cout] [info] time = 1.08 Performance = 39.4832 Constraint violation = 3.42929e-12
+[2026-02-27 11:14:47.207] [cout] [info] time = 1.085 Performance = 41.5040 Constraint violation = 5.60694e-12
+[2026-02-27 11:14:47.544] [cout] [info] time = 1.09 Performance = 43.4509 Constraint violation = 2.76061e-12
+[2026-02-27 11:14:47.873] [cout] [info] time = 1.095 Performance = 45.2658 Constraint violation = 1.54508e-11
+[2026-02-27 11:14:48.196] [cout] [info] time = 1.1 Performance = 46.933 Constraint violation = 6.09973e-12
+[2026-02-27 11:14:48.525] [cout] [info] time = 1.10500 Performance = 48.4778 Constraint violation = 1.13614e-11
+[2026-02-27 11:14:48.874] [cout] [info] time = 1.11 Performance = 49.9624 Constraint violation = 1.02092e-10
+[2026-02-27 11:14:49.193] [cout] [info] time = 1.115 Performance = 51.4601 Constraint violation = 1.82781e-11
+[2026-02-27 11:14:49.538] [cout] [info] time = 1.12 Performance = 53.0156 Constraint violation = 8.33254e-11
+[2026-02-27 11:14:49.882] [cout] [info] time = 1.125 Performance = 54.625 Constraint violation = 2.33437e-11
+[2026-02-27 11:14:50.198] [cout] [info] time = 1.13 Performance = 56.2429 Constraint violation = 1.32146e-11
+[2026-02-27 11:14:50.565] [cout] [info] time = 1.135 Performance = 57.8066 Constraint violation = 1.58765e-11
+[2026-02-27 11:14:50.886] [cout] [info] time = 1.14 Performance = 59.2624 Constraint violation = 3.05906e-12
+[2026-02-27 11:14:51.203] [cout] [info] time = 1.145 Performance = 60.5828 Constraint violation = 2.47729e-11
+[2026-02-27 11:14:51.521] [cout] [info] time = 1.15 Performance = 61.7625 Constraint violation = 6.38973e-11
+[2026-02-27 11:14:51.836] [cout] [info] time = 1.155 Performance = 62.8214 Constraint violation = 1.38174e-10
+[2026-02-27 11:14:52.159] [cout] [info] time = 1.16 Performance = 63.7936 Constraint violation = 2.37298e-11
+[2026-02-27 11:14:52.498] [cout] [info] time = 1.165 Performance = 64.6996 Constraint violation = 9.66674e-12
+[2026-02-27 11:14:52.820] [cout] [info] time = 1.17 Performance = 65.5385 Constraint violation = 5.23141e-11
+[2026-02-27 11:14:53.138] [cout] [info] time = 1.175 Performance = 66.289 Constraint violation = 1.70828e-12
+[2026-02-27 11:14:53.453] [cout] [info] time = 1.18 Performance = 66.931 Constraint violation = 4.90077e-12
+[2026-02-27 11:14:53.783] [cout] [info] time = 1.185 Performance = 67.4549 Constraint violation = 7.70772e-12
+[2026-02-27 11:14:54.110] [cout] [info] time = 1.19 Performance = 67.8654 Constraint violation = 5.32724e-11
+[2026-02-27 11:14:54.426] [cout] [info] time = 1.195 Performance = 68.1744 Constraint violation = 1.72577e-11
+[2026-02-27 11:14:54.743] [cout] [info] time = 1.2 Performance = 68.3935 Constraint violation = 2.55404e-11
+[2026-02-27 11:14:55.059] [cout] [info] time = 1.20500 Performance = 68.5273 Constraint violation = 1.99497e-11
+[2026-02-27 11:14:55.380] [cout] [info] time = 1.21 Performance = 68.5699 Constraint violation = 2.26972e-11
+[2026-02-27 11:14:55.708] [cout] [info] time = 1.215 Performance = 68.5079 Constraint violation = 4.91e-11
+[2026-02-27 11:14:56.030] [cout] [info] time = 1.22 Performance = 68.3268 Constraint violation = 5.00594e-11
+[2026-02-27 11:14:56.350] [cout] [info] time = 1.225 Performance = 68.0072 Constraint violation = 1.25806e-11
+[2026-02-27 11:14:56.667] [cout] [info] time = 1.23 Performance = 67.5343 Constraint violation = 4.91644e-12
+[2026-02-27 11:14:57.021] [cout] [info] time = 1.235 Performance = 66.8691 Constraint violation = 2.23404e-11
+[2026-02-27 11:14:57.358] [cout] [info] time = 1.24 Performance = 66.0344 Constraint violation = 2.51804e-11
+[2026-02-27 11:14:57.697] [cout] [info] time = 1.245 Performance = 65.0432 Constraint violation = 2.92777e-12
+[2026-02-27 11:14:58.019] [cout] [info] time = 1.25 Performance = 63.9298 Constraint violation = 4.01206e-11
+[2026-02-27 11:14:58.347] [cout] [info] time = 1.255 Performance = 62.7327 Constraint violation = 3.23010e-11
+[2026-02-27 11:14:58.665] [cout] [info] time = 1.26 Performance = 61.495 Constraint violation = 6.3176e-12
+[2026-02-27 11:14:58.987] [cout] [info] time = 1.265 Performance = 60.2556 Constraint violation = 1.15768e-11
+[2026-02-27 11:14:59.320] [cout] [info] time = 1.27 Performance = 59.0472 Constraint violation = 1.05965e-11
+[2026-02-27 11:14:59.645] [cout] [info] time = 1.275 Performance = 57.9081 Constraint violation = 8.09553e-12
+[2026-02-27 11:14:59.970] [cout] [info] time = 1.28 Performance = 56.8851 Constraint violation = 1.17e-11
+[2026-02-27 11:15:00.313] [cout] [info] time = 1.285 Performance = 56.0294 Constraint violation = 1.84623e-11
+[2026-02-27 11:15:00.640] [cout] [info] time = 1.29 Performance = 55.3942 Constraint violation = 1.61613e-12
+[2026-02-27 11:15:00.965] [cout] [info] time = 1.295 Performance = 55.0271 Constraint violation = 6.12685e-12
+[2026-02-27 11:15:01.281] [cout] [info] time = 1.3 Performance = 54.9577 Constraint violation = 4.42506e-12
+[2026-02-27 11:15:01.598] [cout] [info] time = 1.30500 Performance = 55.1926 Constraint violation = 8.94641e-12
+[2026-02-27 11:15:01.923] [cout] [info] time = 1.31 Performance = 55.7228 Constraint violation = 1.43854e-11
+[2026-02-27 11:15:02.242] [cout] [info] time = 1.315 Performance = 56.5422 Constraint violation = 1.39001e-11
+[2026-02-27 11:15:02.580] [cout] [info] time = 1.32 Performance = 57.6411 Constraint violation = 4.33724e-11
+[2026-02-27 11:15:02.907] [cout] [info] time = 1.325 Performance = 59.0145 Constraint violation = 6.67398e-12
+[2026-02-27 11:15:03.224] [cout] [info] time = 1.33 Performance = 60.6644 Constraint violation = 6.23533e-12
+[2026-02-27 11:15:03.545] [cout] [info] time = 1.335 Performance = 62.5807 Constraint violation = 5.61284e-11
+[2026-02-27 11:15:03.863] [cout] [info] time = 1.34 Performance = 64.7399 Constraint violation = 4.77535e-11
+[2026-02-27 11:15:04.181] [cout] [info] time = 1.345 Performance = 67.1088 Constraint violation = 1.43838e-11
+[2026-02-27 11:15:04.496] [cout] [info] time = 1.35 Performance = 69.6574 Constraint violation = 1.88895e-12
+[2026-02-27 11:15:04.815] [cout] [info] time = 1.355 Performance = 72.3507 Constraint violation = 5.27526e-11
+[2026-02-27 11:15:05.129] [cout] [info] time = 1.36 Performance = 75.1554 Constraint violation = 2.52845e-11
+[2026-02-27 11:15:05.449] [cout] [info] time = 1.365 Performance = 78.0416 Constraint violation = 3.45489e-11
+[2026-02-27 11:15:05.768] [cout] [info] time = 1.37 Performance = 80.9882 Constraint violation = 5.3272e-12
+[2026-02-27 11:15:06.094] [cout] [info] time = 1.375 Performance = 83.9851 Constraint violation = 7.80493e-12
+[2026-02-27 11:15:06.408] [cout] [info] time = 1.38 Performance = 87.0257 Constraint violation = 5.11019e-12
+[2026-02-27 11:15:06.731] [cout] [info] time = 1.385 Performance = 90.1045 Constraint violation = 1.10405e-11
+[2026-02-27 11:15:07.060] [cout] [info] time = 1.39 Performance = 93.2064 Constraint violation = 1.65673e-11
+[2026-02-27 11:15:07.379] [cout] [info] time = 1.395 Performance = 96.3121 Constraint violation = 8.40705e-12
+[2026-02-27 11:15:07.705] [cout] [info] time = 1.4 Performance = 99.4018 Constraint violation = 1.28442e-11
+[2026-02-27 11:15:08.054] [cout] [info] time = 1.40500 Performance = 102.449 Constraint violation = 3.07741e-11
+[2026-02-27 11:15:08.373] [cout] [info] time = 1.41 Performance = 105.418 Constraint violation = 1.73745e-12
+[2026-02-27 11:15:08.688] [cout] [info] time = 1.415 Performance = 108.276 Constraint violation = 5.40722e-11
+[2026-02-27 11:15:09.017] [cout] [info] time = 1.42 Performance = 111.005 Constraint violation = 3.36292e-11
+[2026-02-27 11:15:09.343] [cout] [info] time = 1.425 Performance = 113.586 Constraint violation = 1.92203e-11
+[2026-02-27 11:15:09.661] [cout] [info] time = 1.43 Performance = 115.998 Constraint violation = 3.36743e-11
+[2026-02-27 11:15:09.983] [cout] [info] time = 1.435 Performance = 118.218 Constraint violation = 1.49706e-11
+[2026-02-27 11:15:10.305] [cout] [info] time = 1.44 Performance = 120.223 Constraint violation = 5.64491e-11
+[2026-02-27 11:15:10.631] [cout] [info] time = 1.445 Performance = 121.998 Constraint violation = 1.58081e-11
+[2026-02-27 11:15:10.952] [cout] [info] time = 1.45 Performance = 123.541 Constraint violation = 1.37286e-11
+[2026-02-27 11:15:11.281] [cout] [info] time = 1.455 Performance = 124.865 Constraint violation = 2.27281e-11
+[2026-02-27 11:15:11.614] [cout] [info] time = 1.46 Performance = 125.979 Constraint violation = 7.69816e-11
+[2026-02-27 11:15:11.971] [cout] [info] time = 1.465 Performance = 126.89 Constraint violation = 3.29083e-11
+[2026-02-27 11:15:12.312] [cout] [info] time = 1.47 Performance = 127.59 Constraint violation = 4.88931e-11
+[2026-02-27 11:15:12.659] [cout] [info] time = 1.475 Performance = 128.063 Constraint violation = 3.13053e-12
+[2026-02-27 11:15:12.992] [cout] [info] time = 1.48 Performance = 128.289 Constraint violation = 4.3196e-11
+[2026-02-27 11:15:13.334] [cout] [info] time = 1.485 Performance = 128.254 Constraint violation = 8.32757e-12
+[2026-02-27 11:15:13.666] [cout] [info] time = 1.49 Performance = 127.959 Constraint violation = 1.63125e-11
+[2026-02-27 11:15:14.012] [cout] [info] time = 1.495 Performance = 127.42 Constraint violation = 2.19804e-11
+[2026-02-27 11:15:14.343] [cout] [info] time = 1.5 Performance = 126.671 Constraint violation = 2.60027e-11
+[2026-02-27 11:15:14.709] [cout] [info] time = 1.50500 Performance = 125.757 Constraint violation = 1.50776e-11
+[2026-02-27 11:15:15.053] [cout] [info] time = 1.51 Performance = 124.717 Constraint violation = 1.34926e-11
+[2026-02-27 11:15:15.384] [cout] [info] time = 1.515 Performance = 123.58 Constraint violation = 8.50950e-12
+[2026-02-27 11:15:15.714] [cout] [info] time = 1.52 Performance = 122.366 Constraint violation = 6.38971e-12
+[2026-02-27 11:15:16.060] [cout] [info] time = 1.525 Performance = 121.096 Constraint violation = 3.90878e-12
+[2026-02-27 11:15:16.417] [cout] [info] time = 1.53 Performance = 119.788 Constraint violation = 1.69053e-11
+[2026-02-27 11:15:16.750] [cout] [info] time = 1.535 Performance = 118.458 Constraint violation = 5.85343e-11
+[2026-02-27 11:15:17.091] [cout] [info] time = 1.54 Performance = 117.124 Constraint violation = 5.07755e-11
+[2026-02-27 11:15:17.438] [cout] [info] time = 1.545 Performance = 115.806 Constraint violation = 5.57472e-11
+[2026-02-27 11:15:17.777] [cout] [info] time = 1.55 Performance = 114.526 Constraint violation = 2.35948e-12
+[2026-02-27 11:15:18.109] [cout] [info] time = 1.555 Performance = 113.311 Constraint violation = 5.86081e-12
+[2026-02-27 11:15:18.451] [cout] [info] time = 1.56 Performance = 112.194 Constraint violation = 2.55633e-12
+[2026-02-27 11:15:18.809] [cout] [info] time = 1.565 Performance = 111.225 Constraint violation = 2.64878e-12
+[2026-02-27 11:15:19.144] [cout] [info] time = 1.57 Performance = 110.461 Constraint violation = 2.77189e-12
+[2026-02-27 11:15:19.489] [cout] [info] time = 1.575 Performance = 109.952 Constraint violation = 3.04436e-12
+[2026-02-27 11:15:19.836] [cout] [info] time = 1.58 Performance = 109.725 Constraint violation = 3.65379e-12
+[2026-02-27 11:15:20.192] [cout] [info] time = 1.585 Performance = 109.784 Constraint violation = 7.20547e-12
+[2026-02-27 11:15:20.542] [cout] [info] time = 1.59 Performance = 110.121 Constraint violation = 1.80579e-11
+[2026-02-27 11:15:20.891] [cout] [info] time = 1.595 Performance = 110.718 Constraint violation = 8.57665e-12
+[2026-02-27 11:15:21.231] [cout] [info] time = 1.6 Performance = 111.558 Constraint violation = 4.3557e-12
+[2026-02-27 11:15:21.561] [cout] [info] time = 1.60500 Performance = 112.618 Constraint violation = 4.95272e-12
+[2026-02-27 11:15:21.895] [cout] [info] time = 1.61 Performance = 113.879 Constraint violation = 5.44868e-11
+[2026-02-27 11:15:22.252] [cout] [info] time = 1.615 Performance = 115.322 Constraint violation = 2.97872e-11
+[2026-02-27 11:15:22.639] [cout] [info] time = 1.62 Performance = 116.931 Constraint violation = 1.28638e-11
+[2026-02-27 11:15:23.010] [cout] [info] time = 1.625 Performance = 118.685 Constraint violation = 1.58815e-12
+[2026-02-27 11:15:23.342] [cout] [info] time = 1.63 Performance = 120.554 Constraint violation = 6.47092e-12
+[2026-02-27 11:15:23.705] [cout] [info] time = 1.635 Performance = 122.501 Constraint violation = 2.98195e-12
+[2026-02-27 11:15:24.051] [cout] [info] time = 1.64 Performance = 124.493 Constraint violation = 2.68016e-12
+[2026-02-27 11:15:24.433] [cout] [info] time = 1.645 Performance = 126.5 Constraint violation = 2.37358e-12
+[2026-02-27 11:15:24.792] [cout] [info] time = 1.65 Performance = 128.497 Constraint violation = 1.63951e-12
+[2026-02-27 11:15:25.128] [cout] [info] time = 1.655 Performance = 130.466 Constraint violation = 7.77322e-12
+[2026-02-27 11:15:25.491] [cout] [info] time = 1.66 Performance = 132.389 Constraint violation = 3.10869e-12
+[2026-02-27 11:15:25.843] [cout] [info] time = 1.665 Performance = 134.247 Constraint violation = 2.93193e-12
+[2026-02-27 11:15:26.200] [cout] [info] time = 1.67 Performance = 136.031 Constraint violation = 3.9575e-12
+[2026-02-27 11:15:26.574] [cout] [info] time = 1.675 Performance = 137.746 Constraint violation = 2.34012e-12
+[2026-02-27 11:15:26.918] [cout] [info] time = 1.68 Performance = 139.408 Constraint violation = 4.47646e-12
+[2026-02-27 11:15:27.252] [cout] [info] time = 1.685 Performance = 141.032 Constraint violation = 9.09571e-12
+[2026-02-27 11:15:27.585] [cout] [info] time = 1.69 Performance = 142.629 Constraint violation = 1.90694e-12
+[2026-02-27 11:15:27.964] [cout] [info] time = 1.695 Performance = 144.2 Constraint violation = 1.28774e-11
+[2026-02-27 11:15:28.340] [cout] [info] time = 1.7 Performance = 145.747 Constraint violation = 3.53254e-12
+[2026-02-27 11:15:28.658] [cout] [info] time = 1.70500 Performance = 147.275 Constraint violation = 6.15353e-12
+[2026-02-27 11:15:28.993] [cout] [info] time = 1.71 Performance = 148.778 Constraint violation = 6.59474e-12
+[2026-02-27 11:15:29.307] [cout] [info] time = 1.715 Performance = 150.234 Constraint violation = 4.52117e-12
+[2026-02-27 11:15:29.639] [cout] [info] time = 1.72 Performance = 151.583 Constraint violation = 3.07769e-12
+[2026-02-27 11:15:29.977] [cout] [info] time = 1.725 Performance = 152.859 Constraint violation = 8.59924e-12
+[2026-02-27 11:15:30.302] [cout] [info] time = 1.73 Performance = 154.013 Constraint violation = 3.62206e-12
+[2026-02-27 11:15:30.630] [cout] [info] time = 1.735 Performance = 155.043 Constraint violation = 1.57412e-12
+[2026-02-27 11:15:30.963] [cout] [info] time = 1.74 Performance = 156.353 Constraint violation = 4.10496e-12
+[2026-02-27 11:15:31.286] [cout] [info] time = 1.745 Performance = 158.232 Constraint violation = 9.36231e-12
+[2026-02-27 11:15:31.617] [cout] [info] time = 1.75 Performance = 160.681 Constraint violation = 2.9251e-12
+[2026-02-27 11:15:31.948] [cout] [info] time = 1.755 Performance = 163.59 Constraint violation = 3.41152e-12
+[2026-02-27 11:15:32.279] [cout] [info] time = 1.76 Performance = 166.957 Constraint violation = 3.48082e-06
+[2026-02-27 11:15:32.629] [cout] [info] time = 1.765 Performance = 170.722 Constraint violation = 1.14082e-05
+[2026-02-27 11:15:32.961] [cout] [info] time = 1.77 Performance = 174.905 Constraint violation = 1.89657e-05
+[2026-02-27 11:15:33.297] [cout] [info] time = 1.775 Performance = 179.604 Constraint violation = 3.05409e-05
+[2026-02-27 11:15:33.650] [cout] [info] time = 1.78 Performance = 184.827 Constraint violation = 4.18305e-05
+[2026-02-27 11:15:33.995] [cout] [info] time = 1.785 Performance = 190.527 Constraint violation = 5.44885e-05
+[2026-02-27 11:15:34.329] [cout] [info] time = 1.79 Performance = 196.778 Constraint violation = 6.51015e-05
+[2026-02-27 11:15:34.669] [cout] [info] time = 1.795 Performance = 203.725 Constraint violation = 7.42807e-05
+[2026-02-27 11:15:35.002] [cout] [info] time = 1.8 Performance = 211.487 Constraint violation = 8.49979e-05
+[2026-02-27 11:15:35.341] [cout] [info] time = 1.80500 Performance = 220.207 Constraint violation = 9.6926e-05
+[2026-02-27 11:15:35.684] [cout] [info] time = 1.81 Performance = 229.793 Constraint violation = 0.000108214
+[2026-02-27 11:15:36.021] [cout] [info] time = 1.815 Performance = 239.787 Constraint violation = 0.000118938
+[2026-02-27 11:15:36.357] [cout] [info] time = 1.82 Performance = 249.791 Constraint violation = 0.000127925
+[2026-02-27 11:15:36.686] [cout] [info] time = 1.825 Performance = 259.707 Constraint violation = 0.000135527
+[2026-02-27 11:15:37.029] [cout] [info] time = 1.83 Performance = 269.695 Constraint violation = 0.000142799
+[2026-02-27 11:15:37.366] [cout] [info] time = 1.835 Performance = 279.967 Constraint violation = 0.000149422
+[2026-02-27 11:15:37.711] [cout] [info] time = 1.84 Performance = 290.989 Constraint violation = 0.000155660
+[2026-02-27 11:15:38.048] [cout] [info] time = 1.845 Performance = 303.274 Constraint violation = 0.000161775
+[2026-02-27 11:15:38.382] [cout] [info] time = 1.85 Performance = 317.141 Constraint violation = 0.000167828
+[2026-02-27 11:15:38.722] [cout] [info] time = 1.855 Performance = 332.408 Constraint violation = 0.000173640
+[2026-02-27 11:15:39.070] [cout] [info] time = 1.86 Performance = 348.583 Constraint violation = 0.000179019
+[2026-02-27 11:15:39.412] [cout] [info] time = 1.865 Performance = 364.691 Constraint violation = 0.000183751
+[2026-02-27 11:15:39.750] [cout] [info] time = 1.87 Performance = 380.346 Constraint violation = 0.000187858
+[2026-02-27 11:15:40.093] [cout] [info] time = 1.875 Performance = 395.665 Constraint violation = 0.000191487
+[2026-02-27 11:15:40.427] [cout] [info] time = 1.88 Performance = 411.35 Constraint violation = 0.000194852
+[2026-02-27 11:15:40.779] [cout] [info] time = 1.885 Performance = 428.127 Constraint violation = 0.000198107
+[2026-02-27 11:15:41.111] [cout] [info] time = 1.89 Performance = 446.394 Constraint violation = 0.000201305
+[2026-02-27 11:15:41.444] [cout] [info] time = 1.895 Performance = 466.188 Constraint violation = 0.000204421
+[2026-02-27 11:15:41.787] [cout] [info] time = 1.9 Performance = 487.049 Constraint violation = 0.000207385
+[2026-02-27 11:15:42.129] [cout] [info] time = 1.90500 Performance = 508.539 Constraint violation = 0.000210150
+[2026-02-27 11:15:42.459] [cout] [info] time = 1.91 Performance = 530.174 Constraint violation = 0.000212688
+[2026-02-27 11:15:42.821] [cout] [info] time = 1.915 Performance = 551.953 Constraint violation = 0.000215028
+[2026-02-27 11:15:43.181] [cout] [info] time = 1.92 Performance = 574.73 Constraint violation = 0.000217237
+[2026-02-27 11:15:43.552] [cout] [info] time = 1.925 Performance = 599.307 Constraint violation = 0.000219398
+[2026-02-27 11:15:43.958] [cout] [info] time = 1.93 Performance = 626.309 Constraint violation = 0.000221290
+[2026-02-27 11:15:44.458] [cout] [info] time = 1.935 Performance = 655.928 Constraint violation = 0.000223222
+[2026-02-27 11:15:44.811] [cout] [info] time = 1.94 Performance = 688.009 Constraint violation = 0.000224736
+[2026-02-27 11:15:45.200] [cout] [info] time = 1.945 Performance = 722.11 Constraint violation = 0.000226384
+[2026-02-27 11:15:45.683] [cout] [info] time = 1.95 Performance = 758.389 Constraint violation = 0.000228345
+[2026-02-27 11:15:46.124] [cout] [info] time = 1.955 Performance = 797.364 Constraint violation = 0.000230409
+[2026-02-27 11:15:49.132] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:15:49.133] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:15:49.133] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 1.96.
+[2026-02-27 11:15:49.133] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:15:49.134] [cout] [info] time = 1.96 Performance = 839.895 Constraint violation = 21.3763
+[2026-02-27 11:15:49.804] [cout] [info] time = 1.965 Performance = 885.714 Constraint violation = 0.000235908
+[2026-02-27 11:15:53.058] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:15:53.059] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:15:53.059] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 1.97.
+[2026-02-27 11:15:53.059] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:15:53.059] [cout] [info] time = 1.97 Performance = 934.471 Constraint violation = 0.000239503
+[2026-02-27 11:15:53.495] [cout] [info] time = 1.975 Performance = 985.485 Constraint violation = 0.000243469
+[2026-02-27 11:15:56.441] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:15:56.442] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:15:56.442] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 1.98.
+[2026-02-27 11:15:56.442] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:15:56.442] [cout] [info] time = 1.98 Performance = 979.812 Constraint violation = 212.701
+[2026-02-27 11:15:58.798] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:15:58.799] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:15:58.799] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 1.985.
+[2026-02-27 11:15:58.799] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:15:58.800] [cout] [info] time = 1.985 Performance = 1087.65 Constraint violation = 163.174
+[2026-02-27 11:15:59.154] [cout] [info] time = 1.99 Performance = 1138.95 Constraint violation = 0.000257318
+[2026-02-27 11:15:59.619] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:15:59.620] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:15:59.620] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 1.995.
+[2026-02-27 11:15:59.620] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:15:59.620] [cout] [info] time = 1.995 Performance = 1187.26 Constraint violation = 0.000202079
+[2026-02-27 11:16:02.208] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:16:02.208] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:02.208] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.0.
+[2026-02-27 11:16:02.208] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:02.209] [cout] [info] time = 2.0 Performance = 1235.16 Constraint violation = 0.000136665
+[2026-02-27 11:16:04.975] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:04.975] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:04.975] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.00500.
+[2026-02-27 11:16:04.976] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:04.976] [cout] [info] time = 2.00500 Performance = 1282.37 Constraint violation = 22.0655
+[2026-02-27 11:16:05.411] [cout] [info] time = 2.01 Performance = 1327.0 Constraint violation = 0.000279580
+[2026-02-27 11:16:07.386] [cout] [info] time = 2.015 Performance = 1368.23 Constraint violation = 0.000284875
+[2026-02-27 11:16:09.677] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:16:09.677] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:09.677] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.02.
+[2026-02-27 11:16:09.678] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:09.678] [cout] [info] time = 2.02 Performance = 1405.98 Constraint violation = 7.8151e-05
+[2026-02-27 11:16:12.363] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:12.364] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:12.364] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.025.
+[2026-02-27 11:16:12.364] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:12.364] [cout] [info] time = 2.025 Performance = 1439.24 Constraint violation = 70.6878
+[2026-02-27 11:16:15.677] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:15.677] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:15.677] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.03.
+[2026-02-27 11:16:15.677] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:15.677] [cout] [info] time = 2.03 Performance = 1468.63 Constraint violation = 202.276
+[2026-02-27 11:16:18.571] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:18.571] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:18.571] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.035.
+[2026-02-27 11:16:18.571] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:18.572] [cout] [info] time = 2.035 Performance = 1493.93 Constraint violation = 353.062
+[2026-02-27 11:16:20.976] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:20.976] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:20.976] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.04.
+[2026-02-27 11:16:20.976] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:20.977] [cout] [info] time = 2.04 Performance = 1518.01 Constraint violation = 108.817
+[2026-02-27 11:16:24.314] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:24.315] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:24.315] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.045.
+[2026-02-27 11:16:24.315] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:24.315] [cout] [info] time = 2.045 Performance = 1542.86 Constraint violation = 64.1641
+[2026-02-27 11:16:27.349] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:27.350] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:27.350] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.05.
+[2026-02-27 11:16:27.350] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:27.350] [cout] [info] time = 2.05 Performance = 1567.93 Constraint violation = 134.719
+[2026-02-27 11:16:29.828] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:29.828] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:29.829] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.055.
+[2026-02-27 11:16:29.829] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:29.829] [cout] [info] time = 2.055 Performance = 1600.14 Constraint violation = 3.26689
+[2026-02-27 11:16:33.359] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:33.359] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:33.359] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.06.
+[2026-02-27 11:16:33.359] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:33.360] [cout] [info] time = 2.06 Performance = 1626.02 Constraint violation = 24.3529
+[2026-02-27 11:16:37.069] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:37.069] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:37.069] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.065.
+[2026-02-27 11:16:37.070] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:37.070] [cout] [info] time = 2.065 Performance = 1654.15 Constraint violation = 6.69464
+[2026-02-27 11:16:38.070] [cout] [info] time = 2.07 Performance = 1687.12 Constraint violation = 0.000319754
+[2026-02-27 11:16:41.122] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:41.123] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:41.123] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.075.
+[2026-02-27 11:16:41.123] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:41.123] [cout] [info] time = 2.075 Performance = 1719.29 Constraint violation = 278.188
+[2026-02-27 11:16:44.817] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:44.817] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:44.817] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.08.
+[2026-02-27 11:16:44.817] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:44.818] [cout] [info] time = 2.08 Performance = 1759.98 Constraint violation = 236.116
+[2026-02-27 11:16:47.958] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:47.958] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:47.959] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.085.
+[2026-02-27 11:16:47.959] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:47.959] [cout] [info] time = 2.085 Performance = 3426.05 Constraint violation = 638.535
+[2026-02-27 11:16:51.013] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:51.014] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:51.014] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.09.
+[2026-02-27 11:16:51.014] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:51.015] [cout] [info] time = 2.09 Performance = 1839.87 Constraint violation = 6.68782
+[2026-02-27 11:16:54.027] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:54.028] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:54.028] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.095.
+[2026-02-27 11:16:54.028] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:54.028] [cout] [info] time = 2.095 Performance = 1881.95 Constraint violation = 24.7728
+[2026-02-27 11:16:57.503] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:16:57.504] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:16:57.504] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.1.
+[2026-02-27 11:16:57.504] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:16:57.505] [cout] [info] time = 2.1 Performance = 1924.66 Constraint violation = 0.513079
+[2026-02-27 11:17:00.513] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:00.513] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:00.513] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.10500.
+[2026-02-27 11:17:00.513] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:00.514] [cout] [info] time = 2.10500 Performance = 1967.12 Constraint violation = 207.884
+[2026-02-27 11:17:02.929] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:02.929] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:02.930] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.11.
+[2026-02-27 11:17:02.930] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:02.930] [cout] [info] time = 2.11 Performance = 2006.61 Constraint violation = 511.211
+[2026-02-27 11:17:06.439] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:06.440] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:06.440] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.115.
+[2026-02-27 11:17:06.440] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:06.441] [cout] [info] time = 2.115 Performance = 2043.0 Constraint violation = 0.434344
+[2026-02-27 11:17:09.138] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:09.138] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:09.138] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.12.
+[2026-02-27 11:17:09.138] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:09.139] [cout] [info] time = 2.12 Performance = 2076.37 Constraint violation = 6.60140
+[2026-02-27 11:17:11.418] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:11.419] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:11.419] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.125.
+[2026-02-27 11:17:11.419] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:11.419] [cout] [info] time = 2.125 Performance = 2110.65 Constraint violation = 4.80631e-12
+[2026-02-27 11:17:14.666] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:14.667] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:14.667] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.13.
+[2026-02-27 11:17:14.667] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:14.667] [cout] [info] time = 2.13 Performance = 2145.04 Constraint violation = 5.91481
+[2026-02-27 11:17:17.497] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:17.497] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:17.497] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.135.
+[2026-02-27 11:17:17.497] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:17.497] [cout] [info] time = 2.135 Performance = 2143.82 Constraint violation = 505.212
+[2026-02-27 11:17:19.862] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:19.862] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:19.862] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.14.
+[2026-02-27 11:17:19.863] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:19.863] [cout] [info] time = 2.14 Performance = 5455.8 Constraint violation = 12.7704
+[2026-02-27 11:17:22.507] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:22.508] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:22.508] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.145.
+[2026-02-27 11:17:22.508] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:22.508] [cout] [info] time = 2.145 Performance = 2262.38 Constraint violation = 0.252891
+[2026-02-27 11:17:25.793] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:25.793] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:25.793] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.15.
+[2026-02-27 11:17:25.793] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:25.794] [cout] [info] time = 2.15 Performance = 2306.93 Constraint violation = 66.1865
+[2026-02-27 11:17:28.330] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:28.330] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:28.330] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.155.
+[2026-02-27 11:17:28.331] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:28.331] [cout] [info] time = 2.155 Performance = 2355.68 Constraint violation = 311.124
+[2026-02-27 11:17:31.611] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:31.611] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:31.611] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.16.
+[2026-02-27 11:17:31.611] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:31.612] [cout] [info] time = 2.16 Performance = 2407.69 Constraint violation = 1.16679
+[2026-02-27 11:17:35.480] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:35.480] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:35.480] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.165.
+[2026-02-27 11:17:35.481] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:35.481] [cout] [info] time = 2.165 Performance = 2460.99 Constraint violation = 16.8008
+[2026-02-27 11:17:38.384] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:38.384] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:38.384] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.17.
+[2026-02-27 11:17:38.384] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:38.385] [cout] [info] time = 2.17 Performance = 2508.71 Constraint violation = 478.588
+[2026-02-27 11:17:40.509] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:40.509] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:40.509] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.175.
+[2026-02-27 11:17:40.509] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:40.509] [cout] [info] time = 2.175 Performance = 2566.4 Constraint violation = 5.92274e-12
+[2026-02-27 11:17:43.301] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:43.301] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:43.301] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.18.
+[2026-02-27 11:17:43.301] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:43.302] [cout] [info] time = 2.18 Performance = 2614.22 Constraint violation = 15.0416
+[2026-02-27 11:17:46.421] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:46.421] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:46.421] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.185.
+[2026-02-27 11:17:46.421] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:46.421] [cout] [info] time = 2.185 Performance = 1748.14 Constraint violation = 469.247
+[2026-02-27 11:17:49.064] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:17:49.065] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:49.065] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.19.
+[2026-02-27 11:17:49.065] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:49.066] [cout] [info] time = 2.19 Performance = 2698.67 Constraint violation = 1.34545e-05
+[2026-02-27 11:17:49.767] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:17:49.768] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:49.768] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.195.
+[2026-02-27 11:17:49.768] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:49.768] [cout] [info] time = 2.195 Performance = 2728.32 Constraint violation = 5.64724e-09
+[2026-02-27 11:17:52.779] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:52.779] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:52.779] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.2.
+[2026-02-27 11:17:52.779] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:52.780] [cout] [info] time = 2.2 Performance = 2748.1 Constraint violation = 130.28
+[2026-02-27 11:17:55.373] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:55.373] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:55.373] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.20500.
+[2026-02-27 11:17:55.373] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:55.374] [cout] [info] time = 2.20500 Performance = 2755.67 Constraint violation = 2.83832
+[2026-02-27 11:17:58.238] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:17:58.239] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:17:58.239] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.21.
+[2026-02-27 11:17:58.239] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:17:58.239] [cout] [info] time = 2.21 Performance = 2751.17 Constraint violation = 33.2889
+[2026-02-27 11:18:01.712] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:01.712] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:01.712] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.215.
+[2026-02-27 11:18:01.713] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vaslat_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:01.713] [cout] [info] time = 2.215 Performance = 1161.71 Constraint violation = 3959.82
+[2026-02-27 11:18:04.307] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:04.307] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:04.307] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.22.
+[2026-02-27 11:18:04.308] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:04.308] [cout] [info] time = 2.22 Performance = 2709.71 Constraint violation = 92.0872
+[2026-02-27 11:18:07.790] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:07.791] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:07.791] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.225.
+[2026-02-27 11:18:07.791] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:07.791] [cout] [info] time = 2.225 Performance = 2660.18 Constraint violation = 53.478
+[2026-02-27 11:18:10.875] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:10.875] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:10.875] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.23.
+[2026-02-27 11:18:10.876] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:10.876] [cout] [info] time = 2.23 Performance = 12445.9 Constraint violation = 0.760806
+[2026-02-27 11:18:12.876] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:12.876] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:12.876] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.235.
+[2026-02-27 11:18:12.876] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:12.877] [cout] [info] time = 2.235 Performance = 2553.28 Constraint violation = 0.000337681
+[2026-02-27 11:18:15.459] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:15.459] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:15.460] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.24.
+[2026-02-27 11:18:15.460] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:15.460] [cout] [info] time = 2.24 Performance = 2485.81 Constraint violation = 94.2188
+[2026-02-27 11:18:18.136] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:18.136] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:18.136] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.245.
+[2026-02-27 11:18:18.136] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:18.137] [cout] [info] time = 2.245 Performance = 2408.2 Constraint violation = 17.5217
+[2026-02-27 11:18:20.169] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:20.169] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:20.169] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.25.
+[2026-02-27 11:18:20.170] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:20.170] [cout] [info] time = 2.25 Performance = 2320.0 Constraint violation = 60.6477
+[2026-02-27 11:18:20.747] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:20.748] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:20.748] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.255.
+[2026-02-27 11:18:20.748] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:20.748] [cout] [info] time = 2.255 Performance = 2223.23 Constraint violation = 0.000418098
+[2026-02-27 11:18:23.231] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:23.231] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:23.231] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.26.
+[2026-02-27 11:18:23.232] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:23.232] [cout] [info] time = 2.26 Performance = 2119.18 Constraint violation = 21.8954
+[2026-02-27 11:18:25.755] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:25.755] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:25.756] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.265.
+[2026-02-27 11:18:25.756] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:25.756] [cout] [info] time = 2.265 Performance = 1980.95 Constraint violation = 1627.1
+[2026-02-27 11:18:27.257] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:27.257] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:27.257] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.27.
+[2026-02-27 11:18:27.257] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:27.257] [cout] [info] time = 2.27 Performance = 1887.41 Constraint violation = 0.000165781
+[2026-02-27 11:18:27.775] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:27.776] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:27.776] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.275.
+[2026-02-27 11:18:27.776] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:27.776] [cout] [info] time = 2.275 Performance = 1765.9 Constraint violation = 0.000121817
+[2026-02-27 11:18:28.248] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:28.249] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:28.249] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.28.
+[2026-02-27 11:18:28.249] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+
+[2026-02-27 11:18:28.250] [cout] [info] time = 2.28 Performance = 1643.65 Constraint violation = 0.000234779
+[2026-02-27 11:18:30.749] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:30.749] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:30.749] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.285.
+[2026-02-27 11:18:30.749] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:30.750] [cout] [info] time = 2.285 Performance = 1522.46 Constraint violation = 203.352
+[2026-02-27 11:18:33.305] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:33.305] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:33.305] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.29.
+[2026-02-27 11:18:33.306] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:33.306] [cout] [info] time = 2.29 Performance = 1402.32 Constraint violation = 58.0997
+[2026-02-27 11:18:33.736] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:33.737] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:33.737] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.295.
+[2026-02-27 11:18:33.737] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:33.738] [cout] [info] time = 2.295 Performance = 1282.1 Constraint violation = 0.000377686
+[2026-02-27 11:18:37.099] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:37.099] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:37.099] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.3.
+[2026-02-27 11:18:37.099] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:37.099] [cout] [info] time = 2.3 Performance = 1162.05 Constraint violation = 10.7609
+[2026-02-27 11:18:39.642] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Maximum iterations exceeded (status -1)
+[2026-02-27 11:18:39.643] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:39.643] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.30500.
+[2026-02-27 11:18:39.643] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:39.643] [cout] [info] time = 2.30500 Performance = 1044.92 Constraint violation = 0.000354814
+[2026-02-27 11:18:40.346] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:40.346] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:40.346] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.31.
+[2026-02-27 11:18:40.346] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:40.347] [cout] [info] time = 2.31 Performance = 932.424 Constraint violation = 0.000342895
+[2026-02-27 11:18:41.769] [warning] SimTK Exception thrown at InteriorPointOptimizer.cpp:264:
+  Optimizer failed: Ipopt: Restoration failed (status -2)
+[2026-02-27 11:18:41.769] [warning] OPTIMIZATION FAILED...
+[2026-02-27 11:18:41.769] [warning] StaticOptimization.record: The optimizer could not find a solution at time = 2.315.
+[2026-02-27 11:18:41.769] [warning] The model appears too weak for static optimization.
+Try increasing the strength and/or range of the following force(s):
+   addmagProx_r approaching upper bound of 1
+   bflh_r approaching upper bound of 1
+   glmax3_r approaching upper bound of 1
+   sart_r approaching upper bound of 1
+   vasmed_r approaching upper bound of 1
+   addmagProx_l approaching upper bound of 1
+   bflh_l approaching upper bound of 1
+   glmax3_l approaching upper bound of 1
+   sart_l approaching upper bound of 1
+   vasmed_l approaching upper bound of 1
+
+[2026-02-27 11:18:41.770] [cout] [info] time = 2.315 Performance = 826.433 Constraint violation = 0.000331958
+[2026-02-27 11:18:42.613] [cout] [info] time = 2.32 Performance = 728.342 Constraint violation = 0.000321939
+[2026-02-27 11:18:42.970] [cout] [info] time = 2.325 Performance = 639.02 Constraint violation = 0.000313643
+[2026-02-27 11:18:43.305] [cout] [info] time = 2.33 Performance = 559.262 Constraint violation = 0.000305046
+[2026-02-27 11:18:43.653] [cout] [info] time = 2.335 Performance = 489.57 Constraint violation = 0.000294316
+[2026-02-27 11:18:43.992] [cout] [info] time = 2.34 Performance = 430.695 Constraint violation = 0.000278189
+[2026-02-27 11:18:44.323] [cout] [info] time = 2.345 Performance = 382.767 Constraint violation = 0.000256060
+[2026-02-27 11:18:44.677] [cout] [info] time = 2.35 Performance = 344.615 Constraint violation = 0.000223457
+[2026-02-27 11:18:45.014] [cout] [info] time = 2.355 Performance = 316.441 Constraint violation = 0.000170130
+[2026-02-27 11:18:45.347] [cout] [info] time = 2.36 Performance = 298.533 Constraint violation = 9.8787e-05
+[2026-02-27 11:18:45.677] [cout] [info] time = 2.365 Performance = 291.376 Constraint violation = 2.42531e-05
+[2026-02-27 11:18:46.021] [cout] [info] time = 2.37 Performance = 294.239 Constraint violation = 3.52051e-12
+[2026-02-27 11:18:46.350] [cout] [info] time = 2.375 Performance = 304.66 Constraint violation = 5.30743e-12
+[2026-02-27 11:18:46.696] [cout] [info] time = 2.38 Performance = 317.113 Constraint violation = 1.30101e-11
+[2026-02-27 11:18:47.029] [cout] [info] time = 2.385 Performance = 330.617 Constraint violation = 1.05567e-11
+[2026-02-27 11:18:47.367] [cout] [info] time = 2.39 Performance = 344.925 Constraint violation = 4.20229e-11
+[2026-02-27 11:18:47.701] [cout] [info] time = 2.395 Performance = 359.782 Constraint violation = 4.2168e-12
+[2026-02-27 11:18:48.035] [cout] [info] time = 2.4 Performance = 374.842 Constraint violation = 2.23481e-11
+[2026-02-27 11:18:48.370] [cout] [info] time = 2.40500 Performance = 389.758 Constraint violation = 5.17582e-12
+[2026-02-27 11:18:48.700] [cout] [info] time = 2.41 Performance = 404.093 Constraint violation = 4.52816e-12
+[2026-02-27 11:18:49.028] [cout] [info] time = 2.415 Performance = 417.406 Constraint violation = 6.24044e-11
+[2026-02-27 11:18:49.354] [cout] [info] time = 2.42 Performance = 429.264 Constraint violation = 5.23144e-11
+[2026-02-27 11:18:49.670] [cout] [info] time = 2.425 Performance = 439.283 Constraint violation = 1.0144e-11
+[2026-02-27 11:18:50.003] [cout] [info] time = 2.43 Performance = 447.115 Constraint violation = 3.14232e-11
+[2026-02-27 11:18:50.320] [cout] [info] time = 2.435 Performance = 452.459 Constraint violation = 6.02496e-11
+[2026-02-27 11:18:50.652] [cout] [info] time = 2.44 Performance = 455.072 Constraint violation = 2.83272e-11
+[2026-02-27 11:18:50.975] [cout] [info] time = 2.445 Performance = 454.786 Constraint violation = 2.41793e-11
+[2026-02-27 11:18:51.291] [cout] [info] time = 2.45 Performance = 451.506 Constraint violation = 3.07803e-12
+[2026-02-27 11:18:51.622] [cout] [info] time = 2.455 Performance = 445.215 Constraint violation = 3.26436e-11
+[2026-02-27 11:18:51.955] [cout] [info] time = 2.46 Performance = 435.954 Constraint violation = 6.22078e-11
+[2026-02-27 11:18:52.271] [cout] [info] time = 2.465 Performance = 423.834 Constraint violation = 3.58653e-12
+[2026-02-27 11:18:52.604] [cout] [info] time = 2.47 Performance = 409.05 Constraint violation = 6.99123e-11
+[2026-02-27 11:18:52.942] [cout] [info] time = 2.475 Performance = 391.874 Constraint violation = 3.22596e-11
+[2026-02-27 11:18:53.270] [cout] [info] time = 2.48 Performance = 372.64 Constraint violation = 3.29864e-11
+[2026-02-27 11:18:53.582] [cout] [info] time = 2.485 Performance = 351.726 Constraint violation = 6.8687e-12
+[2026-02-27 11:18:53.906] [cout] [info] time = 2.49 Performance = 329.533 Constraint violation = 1.50489e-11
+[2026-02-27 11:18:54.219] [cout] [info] time = 2.495 Performance = 306.473 Constraint violation = 6.48414e-12
+[2026-02-27 11:18:54.539] [cout] [info] time = 2.5 Performance = 282.95 Constraint violation = 2.72516e-11
+[2026-02-27 11:18:54.858] [cout] [info] time = 2.50500 Performance = 259.364 Constraint violation = 4.9794e-11
+[2026-02-27 11:18:55.187] [cout] [info] time = 2.51 Performance = 236.089 Constraint violation = 3.68413e-11
+[2026-02-27 11:18:55.510] [cout] [info] time = 2.515 Performance = 213.458 Constraint violation = 1.82959e-11
+[2026-02-27 11:18:55.827] [cout] [info] time = 2.52 Performance = 191.752 Constraint violation = 4.1969e-12
+[2026-02-27 11:18:56.158] [cout] [info] time = 2.525 Performance = 171.199 Constraint violation = 6.73012e-11
+[2026-02-27 11:18:56.470] [cout] [info] time = 2.53 Performance = 151.981 Constraint violation = 1.02474e-11
+[2026-02-27 11:18:56.794] [cout] [info] time = 2.535 Performance = 134.231 Constraint violation = 1.28605e-11
+[2026-02-27 11:18:57.117] [cout] [info] time = 2.54 Performance = 118.025 Constraint violation = 2.94539e-12
+[2026-02-27 11:18:57.434] [cout] [info] time = 2.545 Performance = 103.386 Constraint violation = 1.03686e-11
+[2026-02-27 11:18:57.764] [cout] [info] time = 2.55 Performance = 90.3007 Constraint violation = 3.11357e-11
+[2026-02-27 11:18:58.076] [cout] [info] time = 2.555 Performance = 78.7207 Constraint violation = 2.82271e-12
+[2026-02-27 11:18:58.411] [cout] [info] time = 2.56 Performance = 68.5621 Constraint violation = 1.78583e-12
+[2026-02-27 11:18:58.743] [cout] [info] time = 2.565 Performance = 59.7049 Constraint violation = 8.15021e-12
+[2026-02-27 11:18:59.057] [cout] [info] time = 2.57 Performance = 52.0179 Constraint violation = 8.51032e-11
+[2026-02-27 11:18:59.390] [cout] [info] time = 2.575 Performance = 45.3743 Constraint violation = 1.34704e-11
+[2026-02-27 11:18:59.716] [cout] [info] time = 2.58 Performance = 39.6513 Constraint violation = 8.9525e-12
+[2026-02-27 11:19:00.033] [cout] [info] time = 2.585 Performance = 34.7306 Constraint violation = 5.63107e-12
+[2026-02-27 11:19:00.351] [cout] [info] time = 2.59 Performance = 30.5022 Constraint violation = 4.53105e-12
+[2026-02-27 11:19:00.676] [cout] [info] time = 2.595 Performance = 26.878 Constraint violation = 1.63982e-12
+[2026-02-27 11:19:01.004] [cout] [info] time = 2.6 Performance = 23.7848 Constraint violation = 1.78696e-12
+[2026-02-27 11:19:01.323] [cout] [info] time = 2.60500 Performance = 21.1587 Constraint violation = 1.50184e-12
+[2026-02-27 11:19:01.638] [cout] [info] time = 2.61 Performance = 18.9386 Constraint violation = 1.31677e-12
+[2026-02-27 11:19:01.960] [cout] [info] time = 2.615 Performance = 17.0685 Constraint violation = 8.93859e-13
+[2026-02-27 11:19:02.285] [cout] [info] time = 2.62 Performance = 15.4918 Constraint violation = 4.69115e-12
+[2026-02-27 11:19:02.611] [cout] [info] time = 2.625 Performance = 14.1579 Constraint violation = 2.59029e-12
+[2026-02-27 11:19:02.930] [cout] [info] time = 2.63 Performance = 13.0215 Constraint violation = 3.45829e-12
+[2026-02-27 11:19:03.240] [cout] [info] time = 2.635 Performance = 12.0439 Constraint violation = 2.13654e-12
+[2026-02-27 11:19:03.553] [cout] [info] time = 2.64 Performance = 11.196 Constraint violation = 2.83486e-12
+[2026-02-27 11:19:03.865] [cout] [info] time = 2.645 Performance = 10.4621 Constraint violation = 7.35898e-13
+[2026-02-27 11:19:04.176] [cout] [info] time = 2.65 Performance = 9.83877 Constraint violation = 1.14867e-12
+[2026-02-27 11:19:04.490] [cout] [info] time = 2.655 Performance = 9.33233 Constraint violation = 3.16328e-12
+[2026-02-27 11:19:04.812] [cout] [info] time = 2.66 Performance = 8.95882 Constraint violation = 2.17402e-12
+[2026-02-27 11:19:05.134] [cout] [info] time = 2.665 Performance = 8.73982 Constraint violation = 2.83749e-12
+[2026-02-27 11:19:05.458] [cout] [info] time = 2.67 Performance = 8.6975 Constraint violation = 1.07731e-12
+[2026-02-27 11:19:05.786] [cout] [info] time = 2.675 Performance = 8.83621 Constraint violation = 2.20099e-12
+[2026-02-27 11:19:06.103] [cout] [info] time = 2.68 Performance = 9.15351 Constraint violation = 2.22121e-12
+[2026-02-27 11:19:06.419] [cout] [info] time = 2.685 Performance = 9.62931 Constraint violation = 4.01456e-12
+[2026-02-27 11:19:06.737] [cout] [info] time = 2.69 Performance = 10.2315 Constraint violation = 2.83654e-12
+[2026-02-27 11:19:07.058] [cout] [info] time = 2.695 Performance = 10.9228 Constraint violation = 2.24663e-12
+[2026-02-27 11:19:07.388] [cout] [info] time = 2.7 Performance = 11.6671 Constraint violation = 3.70248e-12
+[2026-02-27 11:19:07.704] [cout] [info] time = 2.70500 Performance = 12.4324 Constraint violation = 1.39722e-12
+[2026-02-27 11:19:08.029] [cout] [info] time = 2.71 Performance = 13.1848 Constraint violation = 2.40351e-12
+[2026-02-27 11:19:08.356] [cout] [info] time = 2.715 Performance = 13.8893 Constraint violation = 1.40912e-12
+[2026-02-27 11:19:08.683] [cout] [info] time = 2.72 Performance = 14.5165 Constraint violation = 3.40852e-12
+[2026-02-27 11:19:09.019] [cout] [info] time = 2.725 Performance = 15.0485 Constraint violation = 1.38256e-12
+[2026-02-27 11:19:09.346] [cout] [info] time = 2.73 Performance = 15.4733 Constraint violation = 1.98524e-12
+[2026-02-27 11:19:09.671] [cout] [info] time = 2.735 Performance = 15.7819 Constraint violation = 1.58923e-12
+[2026-02-27 11:19:09.995] [cout] [info] time = 2.74 Performance = 15.9617 Constraint violation = 1.93412e-12
+[2026-02-27 11:19:10.322] [cout] [info] time = 2.745 Performance = 15.9962 Constraint violation = 1.76939e-12
+[2026-02-27 11:19:10.648] [cout] [info] time = 2.75 Performance = 15.8744 Constraint violation = 1.61143e-12
+[2026-02-27 11:19:10.982] [cout] [info] time = 2.755 Performance = 15.5918 Constraint violation = 2.09774e-12
+[2026-02-27 11:19:11.308] [cout] [info] time = 2.76 Performance = 15.1584 Constraint violation = 2.05519e-12
+[2026-02-27 11:19:11.620] [cout] [info] time = 2.765 Performance = 14.5996 Constraint violation = 2.15884e-12
+[2026-02-27 11:19:11.949] [cout] [info] time = 2.77 Performance = 13.9356 Constraint violation = 3.95896e-12
+[2026-02-27 11:19:12.269] [cout] [info] time = 2.775 Performance = 13.1957 Constraint violation = 1.65044e-12
+[2026-02-27 11:19:12.586] [cout] [info] time = 2.78 Performance = 12.4092 Constraint violation = 1.60846e-12
+[2026-02-27 11:19:12.933] [cout] [info] time = 2.785 Performance = 11.6061 Constraint violation = 1.66371e-12
+[2026-02-27 11:19:13.264] [cout] [info] time = 2.79 Performance = 10.815 Constraint violation = 1.74682e-12
+[2026-02-27 11:19:13.615] [cout] [info] time = 2.795 Performance = 10.0418 Constraint violation = 5.78328e-13
+[2026-02-27 11:19:13.948] [cout] [info] time = 2.8 Performance = 9.33998 Constraint violation = 4.45422e-12
+[2026-02-27 11:19:14.282] [cout] [info] time = 2.80500 Performance = 8.70012 Constraint violation = 1.51432e-12
+[2026-02-27 11:19:14.618] [cout] [info] time = 2.81 Performance = 8.11757 Constraint violation = 1.36664e-12
+[2026-02-27 11:19:14.950] [cout] [info] time = 2.815 Performance = 7.58357 Constraint violation = 2.32886e-12
+[2026-02-27 11:19:15.287] [cout] [info] time = 2.82 Performance = 7.09049 Constraint violation = 3.9694e-12
+[2026-02-27 11:19:15.621] [cout] [info] time = 2.825 Performance = 6.6376 Constraint violation = 1.97396e-12
+[2026-02-27 11:19:15.973] [cout] [info] time = 2.83 Performance = 6.22457 Constraint violation = 5.09386e-12
+[2026-02-27 11:19:16.327] [cout] [info] time = 2.835 Performance = 5.84644 Constraint violation = 1.32292e-12
+[2026-02-27 11:19:16.664] [cout] [info] time = 2.84 Performance = 5.49603 Constraint violation = 1.67011e-12
+[2026-02-27 11:19:17.050] [cout] [info] time = 2.845 Performance = 5.16412 Constraint violation = 2.54389e-12
+[2026-02-27 11:19:17.427] [cout] [info] time = 2.85 Performance = 4.84218 Constraint violation = 2.82756e-12
+[2026-02-27 11:19:17.787] [cout] [info] time = 2.855 Performance = 4.52319 Constraint violation = 1.61284e-12
+[2026-02-27 11:19:18.115] [cout] [info] time = 2.86 Performance = 4.20612 Constraint violation = 1.55983e-12
+[2026-02-27 11:19:18.476] [cout] [info] time = 2.865 Performance = 3.89774 Constraint violation = 1.70831e-12
+[2026-02-27 11:19:18.811] [cout] [info] time = 2.87 Performance = 3.61116 Constraint violation = 9.5189e-13
+[2026-02-27 11:19:19.166] [cout] [info] time = 2.875 Performance = 3.36576 Constraint violation = 2.00635e-12
+[2026-02-27 11:19:19.581] [cout] [info] time = 2.88 Performance = 3.18637 Constraint violation = 1.14224e-12
+[2026-02-27 11:19:19.911] [cout] [info] time = 2.885 Performance = 3.10508 Constraint violation = 1.70924e-12
+[2026-02-27 11:19:20.263] [cout] [info] time = 2.89 Performance = 3.15936 Constraint violation = 1.5236e-12
+[2026-02-27 11:19:20.610] [cout] [info] time = 2.895 Performance = 3.38732 Constraint violation = 7.20685e-13
+[2026-02-27 11:19:20.974] [cout] [info] time = 2.9 Performance = 3.82169 Constraint violation = 2.43612e-12
+[2026-02-27 11:19:21.326] [cout] [info] time = 2.90500 Performance = 4.48367 Constraint violation = 2.6841e-12
+[2026-02-27 11:19:21.690] [cout] [info] time = 2.91 Performance = 5.37757 Constraint violation = 2.31862e-12
+[2026-02-27 11:19:22.068] [cout] [info] time = 2.915 Performance = 6.49098 Constraint violation = 1.10924e-12
+[2026-02-27 11:19:22.432] [cout] [info] time = 2.92 Performance = 7.79838 Constraint violation = 8.64763e-13
+[2026-02-27 11:19:22.789] [cout] [info] time = 2.925 Performance = 9.25527 Constraint violation = 3.25235e-12
+[2026-02-27 11:19:23.133] [cout] [info] time = 2.93 Performance = 10.8238 Constraint violation = 9.08724e-12
+[2026-02-27 11:19:23.498] [cout] [info] time = 2.935 Performance = 12.4422 Constraint violation = 1.04418e-11
+[2026-02-27 11:19:23.851] [cout] [info] time = 2.94 Performance = 14.0524 Constraint violation = 4.57051e-12
+[2026-02-27 11:19:24.186] [cout] [info] time = 2.945 Performance = 15.6065 Constraint violation = 2.59114e-12
+[2026-02-27 11:19:24.532] [cout] [info] time = 2.95 Performance = 17.07 Constraint violation = 3.20140e-12
+[2026-02-27 11:19:24.872] [cout] [info] time = 2.955 Performance = 18.4269 Constraint violation = 4.45518e-12
+[2026-02-27 11:19:25.213] [cout] [info] time = 2.96 Performance = 19.6849 Constraint violation = 2.38596e-12
+[2026-02-27 11:19:25.568] [cout] [info] time = 2.965 Performance = 20.8658 Constraint violation = 2.34764e-12
+[2026-02-27 11:19:25.918] [cout] [info] time = 2.97 Performance = 21.9978 Constraint violation = 4.41448e-12
+[2026-02-27 11:19:26.253] [cout] [info] time = 2.975 Performance = 23.1085 Constraint violation = 1.65533e-11
+[2026-02-27 11:19:26.580] [cout] [info] time = 2.98 Performance = 24.2193 Constraint violation = 1.65634e-12
+[2026-02-27 11:19:26.920] [cout] [info] time = 2.985 Performance = 25.3413 Constraint violation = 2.16372e-11
+[2026-02-27 11:19:27.250] [cout] [info] time = 2.99 Performance = 26.4709 Constraint violation = 2.63198e-12
+[2026-02-27 11:19:27.579] [cout] [info] time = 2.995 Performance = 27.5917 Constraint violation = 5.14991e-12
+[2026-02-27 11:19:27.922] [cout] [info] time = 3.0 Performance = 28.6711 Constraint violation = 3.93348e-12
+[2026-02-27 11:19:28.253] [cout] [info] time = 3.00500 Performance = 29.6588 Constraint violation = 3.33336e-12
+[2026-02-27 11:19:28.588] [cout] [info] time = 3.01 Performance = 30.4894 Constraint violation = 2.70306e-12
+[2026-02-27 11:19:28.924] [cout] [info] time = 3.015 Performance = 31.096 Constraint violation = 3.60292e-11
+[2026-02-27 11:19:29.265] [cout] [info] time = 3.02 Performance = 31.4229 Constraint violation = 2.90167e-11
+[2026-02-27 11:19:29.594] [cout] [info] time = 3.025 Performance = 31.4339 Constraint violation = 3.18723e-12
+[2026-02-27 11:19:29.931] [cout] [info] time = 3.03 Performance = 31.1168 Constraint violation = 1.18583e-11
+[2026-02-27 11:19:30.272] [cout] [info] time = 3.035 Performance = 30.4915 Constraint violation = 4.94895e-12
+[2026-02-27 11:19:30.607] [cout] [info] time = 3.04 Performance = 29.6113 Constraint violation = 3.32581e-11
+[2026-02-27 11:19:30.948] [cout] [info] time = 3.045 Performance = 28.5526 Constraint violation = 8.92305e-12
+[2026-02-27 11:19:31.275] [cout] [info] time = 3.05 Performance = 27.3988 Constraint violation = 3.18813e-12
+[2026-02-27 11:19:31.618] [cout] [info] time = 3.055 Performance = 26.2249 Constraint violation = 5.6442e-12
+[2026-02-27 11:19:31.946] [cout] [info] time = 3.06 Performance = 25.0932 Constraint violation = 2.11076e-11
+[2026-02-27 11:19:32.278] [cout] [info] time = 3.065 Performance = 24.0468 Constraint violation = 2.54315e-12
+[2026-02-27 11:19:32.607] [cout] [info] time = 3.07 Performance = 23.1102 Constraint violation = 1.52946e-11
+[2026-02-27 11:19:32.934] [cout] [info] time = 3.075 Performance = 22.293 Constraint violation = 1.10137e-10
+[2026-02-27 11:19:33.262] [cout] [info] time = 3.08 Performance = 21.5904 Constraint violation = 1.33262e-11
+[2026-02-27 11:19:33.598] [cout] [info] time = 3.085 Performance = 20.9932 Constraint violation = 4.39627e-11
+[2026-02-27 11:19:33.928] [cout] [info] time = 3.09 Performance = 20.4943 Constraint violation = 4.17789e-12
+[2026-02-27 11:19:34.259] [cout] [info] time = 3.095 Performance = 20.0878 Constraint violation = 1.08323e-11
+[2026-02-27 11:19:34.600] [cout] [info] time = 3.1 Performance = 19.7697 Constraint violation = 6.64212e-12
+[2026-02-27 11:19:34.937] [cout] [info] time = 3.10500 Performance = 19.5384 Constraint violation = 4.41659e-12
+[2026-02-27 11:19:35.268] [cout] [info] time = 3.11 Performance = 19.3984 Constraint violation = 4.04346e-12
+[2026-02-27 11:19:35.612] [cout] [info] time = 3.115 Performance = 19.3565 Constraint violation = 6.61721e-12
+[2026-02-27 11:19:35.947] [cout] [info] time = 3.12 Performance = 19.4171 Constraint violation = 3.79501e-12
+[2026-02-27 11:19:36.290] [cout] [info] time = 3.125 Performance = 19.5814 Constraint violation = 2.30400e-11
+[2026-02-27 11:19:36.627] [cout] [info] time = 3.13 Performance = 19.8484 Constraint violation = 6.93046e-12
+[2026-02-27 11:19:36.954] [cout] [info] time = 3.135 Performance = 20.2165 Constraint violation = 1.01622e-11
+[2026-02-27 11:19:37.287] [cout] [info] time = 3.14 Performance = 20.6772 Constraint violation = 2.23023e-11
+[2026-02-27 11:19:37.611] [cout] [info] time = 3.145 Performance = 21.2136 Constraint violation = 2.45372e-12
+[2026-02-27 11:19:37.975] [cout] [info] time = 3.15 Performance = 21.8062 Constraint violation = 3.06186e-11
+[2026-02-27 11:19:38.304] [cout] [info] time = 3.155 Performance = 22.4288 Constraint violation = 1.24164e-11
+[2026-02-27 11:19:38.637] [cout] [info] time = 3.16 Performance = 23.052 Constraint violation = 1.35478e-11
+[2026-02-27 11:19:38.954] [cout] [info] time = 3.165 Performance = 23.6475 Constraint violation = 6.64504e-12
+[2026-02-27 11:19:39.289] [cout] [info] time = 3.17 Performance = 24.1905 Constraint violation = 5.32516e-12
+[2026-02-27 11:19:39.611] [cout] [info] time = 3.175 Performance = 24.6615 Constraint violation = 3.10200e-12
+[2026-02-27 11:19:39.942] [cout] [info] time = 3.18 Performance = 25.0435 Constraint violation = 2.09248e-11
+[2026-02-27 11:19:40.274] [cout] [info] time = 3.185 Performance = 25.3225 Constraint violation = 5.20687e-12
+[2026-02-27 11:19:40.596] [cout] [info] time = 3.19 Performance = 25.4852 Constraint violation = 1.1511e-11
+[2026-02-27 11:19:40.916] [cout] [info] time = 3.195 Performance = 25.523 Constraint violation = 1.98664e-11
+[2026-02-27 11:19:41.261] [cout] [info] time = 3.2 Performance = 25.4364 Constraint violation = 4.31021e-12
+[2026-02-27 11:19:41.589] [cout] [info] time = 3.20500 Performance = 25.2386 Constraint violation = 7.00734e-12
+[2026-02-27 11:19:41.920] [cout] [info] time = 3.21 Performance = 24.9511 Constraint violation = 3.05934e-12
+[2026-02-27 11:19:42.250] [cout] [info] time = 3.215 Performance = 24.6056 Constraint violation = 1.18555e-11
+[2026-02-27 11:19:42.583] [cout] [info] time = 3.22 Performance = 24.2502 Constraint violation = 5.95208e-12
+[2026-02-27 11:19:42.922] [cout] [info] time = 3.225 Performance = 23.9369 Constraint violation = 1.50325e-11
+[2026-02-27 11:19:42.925] [info] Printing results of investigation SO to .
+[2026-02-27 11:19:43.592] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:19:43.652] [info] Storage: read data file = joint_angles.mot (nr=645 nc=32)
+[2026-02-27 11:19:43.724] [info] Storage: read data file = joint_angles.mot (nr=645 nc=32)
+[2026-02-27 11:19:43.790] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:19:43.879] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:19:43.931] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-02-27 11:19:44.125] [info] Storage: read data file = grf.mot (nr=6460 nc=46)
+[2026-02-27 11:19:44.240] [info] ExternalForce::grf_r_4 Data source being set to grf
+[2026-02-27 11:19:44.240] [info] ExternalForce::grf_l_5 Data source being set to grf
+[2026-02-27 11:19:44.256] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-02-27 11:19:44.257] [info] Storage: read data file = joint_angles.mot (nr=645 nc=32)
+[2026-02-27 11:19:44.271] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-02-27 11:19:45.229] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9418144272611642e-09 required: 1e-10.
+[2026-02-27 11:19:45.277] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 9.9418142052165592e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-02-27 11:19:46.214] [info] Found 1289 state vectors with time stamps ranging from -1.60500 to 4.835.
+[2026-02-27 11:19:46.215] [info] Executing the analyses from 0.00500000 to 3.225...
+[2026-02-27 11:19:46.218] [info] Loading actuator forces from file SO_StaticOptimization_force.sto.
+[2026-02-27 11:19:46.235] [info] Storage: read data file = SO_StaticOptimization_force.sto (nr=645 nc=127)
+[2026-02-27 11:19:46.289] [info] Found 126 actuator forces with time stamps ranging from 0.00500000to 3.225.
+[2026-02-27 11:19:46.289] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2026-02-27 11:19:46.289] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
+[2026-02-27 11:19:48.879] [info] Printing results of investigation Analyse to .
