@@ -177,13 +177,15 @@ class Analyse(Inputs):
         self._tweek_analysis_attributes()
         self.model_dir = self.update_model(self.model_name)
         
-        self.body_mass = self.get_body_mass()  
-        self.time_range = self.get_time_range()
+        self.body_mass = None # Placeholder, will be updated from the model if possible
+        self.time_range = None
         
         # add each Input to the trial settings
         inputs = Inputs(parentdir=self.path)
         for varInput in inputs.__dict__.items():
             filepath = os.path.join(self.path, varInput[1])
+            if varInput[0] in ['model_dir', 'model_name']:
+                continue
             if os.path.exists(filepath):
                 setattr(self, varInput[0], os.path.relpath(filepath, self.path))
             else:
@@ -194,6 +196,14 @@ class Analyse(Inputs):
         for varParam in ceinms_params.__dict__.items():
             setattr(self, varParam[0], varParam[1])
         
+
+        # Update from data 
+        try:
+            self.body_mass = self.get_body_mass()  
+            self.time_range = self.get_time_range()
+        except Exception as e:
+            print_to_log(f"Error updating from data: {e}")
+
         self._to_xml()
     
     def _to_xml(self):
@@ -236,6 +246,8 @@ class Analyse(Inputs):
             self.update_model('lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim')
         elif self.subject == 'Athlete_03_MRI_Katya':
             self.update_model('scaled_opt_N10_increased_3.00.osim')
+        elif self.subject == 'Athlete_03_GPK':
+            self.update_model('GPK_scaled_muscles_added.osim')
         else:
             self.update_model('scaled.osim')
 
@@ -341,20 +353,27 @@ class Analyse(Inputs):
     def get_time_range(self):
         os.chdir(self.path)
 
-        if os.path.exists(self.events):
+        try:
             event_data = pd.read_csv(self.events, index_col=None, header=None)
             self.time_range = [event_data.iloc[:, 1].min(), event_data.iloc[:, 1].max()]
             return self.time_range
+        except:
+            pass
 
-        if os.path.exists(self.markers):
+        try:
             marker_data = load_any_data_file(self.markers)
             self.time_range = [marker_data['time'].min(), marker_data['time'].max()]
             return self.time_range
+        except:
+            pass
 
-        if os.path.exists(self.c3d):
-            c3d_data = load_any_data_file(self.c3d)
-            self.time_range = [c3d_data['time'].min(), c3d_data['time'].max()]
-            return self.time_range
+        try:
+            if os.path.exists(self.c3d):
+                c3d_data = load_any_data_file(self.c3d)
+                self.time_range = [c3d_data['time'].min(), c3d_data['time'].max()]
+                return self.time_range
+        except:
+            pass
 
     def update_trial_attribute(self, attr_name, new_value):      
         '''Update a specific attribute of the trial and save to XML'''
@@ -412,6 +431,8 @@ class Analyse(Inputs):
         self.model_dir = rel_model_path
         print_to_log(f'Updated model path to {model_path} for trial at {self.path}')
         self._to_xml()
+
+        return self.model_dir
 
     def increase_muscle_force(self, factor=1):
         """Increase muscle force in the scaled model by a given factor.
@@ -1563,201 +1584,6 @@ class Analyse(Inputs):
             print_to_log(f'[Warning] Failed to push to git: {e}')
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
-
-import numpy as np
-import pandas as pd
-from scipy.signal import find_peaks
-
-class EventDetector:
-    """
-    A task-specific event detector that reads .trc and .mot files natively.
-    Synchronizes high-frequency GRF data with lower-frequency kinematic data using time stamps.
-    """
-
-    def __init__(self, grf_threshold: float = 20.0, vertical_axis: str = 'Y'):
-        """
-        Args:
-            grf_threshold (float): Threshold in Newtons to define ground contact.
-            vertical_axis (str): The vertical axis in your lab's coordinate system ('Y' or 'Z').
-                                 OpenSim conventionally uses 'Y' as up.
-        """
-        self.grf_threshold = grf_threshold
-        self.vertical_axis = vertical_axis.upper()
-
-    def _read_mot(self, file_path: str) -> pd.DataFrame:
-        """Parses OpenSim .mot files (GRF and Joint Angles)."""
-        skip_rows = 0
-        with open(file_path, 'r') as f:
-            for i, line in enumerate(f):
-                if line.strip() == 'endheader':
-                    skip_rows = i + 1
-                    break
-        return pd.read_csv(file_path, sep='\t', skiprows=skip_rows)
-
-    def _read_trc(self, file_path: str) -> pd.DataFrame:
-        """Parses standard .trc marker trajectory files."""
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-        
-        # Marker names are typically located on the 4th line (index 3)
-        header_line = lines[3].strip('\n').split('\t')
-        marker_names = [m for m in header_line[2:] if m.strip()]
-        
-        cols = ['Frame', 'Time']
-        for m in marker_names:
-            cols.extend([f"{m}_X", f"{m}_Y", f"{m}_Z"])
-            
-        df = pd.read_csv(file_path, sep='\t', skiprows=5, header=None)
-        # Trim excess columns if trailing tabs existed in the raw file
-        df = df.iloc[:, :len(cols)]
-        df.columns = cols
-        return df
-
-    def analyze_task(self, trc_file: str, grf_file: str, kinematics_file: str, task: str) -> dict:
-        """
-        Main entry point. Loads the required files into DataFrames and routes 
-        them to the specific task analyzer.
-        Args:
-            trc_file (str): Path to the .trc file containing marker trajectories.
-            grf_file (str): Path to the .mot file containing ground reaction forces.
-            kinematics_file (str): Path to the .mot file containing joint kinematics.
-            task (str): 'walking', 'squatting', or 'jumping' (case-insensitive)
-        
-        Returns:
-            dict: A dictionary containing detected events and relevant kinematic/GRF data for the specified task.
-        """
-        # 1. Load the three mandatory files
-        trc_df = self._read_trc(trc_file)
-        grf_df = self._read_mot(grf_file)
-        kin_df = self._read_mot(kinematics_file) # Always loaded per requirements
-        
-        task = task.lower()
-        
-        # Extract total vertical GRF (Assumes OpenSim standard where '_vy' is vertical)
-        vy_cols = [c for c in grf_df.columns if 'force' in c and c.endswith(f'_v{self.vertical_axis.lower()}')]
-        if not vy_cols:
-            raise ValueError(f"Could not find vertical force columns ending in '_v{self.vertical_axis.lower()}'")
-        vertical_grf = grf_df[vy_cols].sum(axis=1).values
-
-        # 2. Route to Task Logic
-        if task == 'walking':
-            return self._analyze_walking(trc_df, grf_df, vertical_grf)
-        elif task == 'squatting':
-            return self._analyze_squatting(trc_df)
-        elif task == 'jumping':
-            return self._analyze_jumping(trc_df, grf_df, vertical_grf)
-        else:
-            raise ValueError(f"Task '{task}' is not recognized.")
-
-    def _analyze_walking(self, trc_df: pd.DataFrame, grf_df: pd.DataFrame, vertical_grf: np.ndarray) -> dict:
-        """
-        Walking: Uses GRF rising edge for Heel Strike. 
-        Checks the RHEE and LHEE marker vertical positions at the moment of impact 
-        to classify right vs. left leg strikes.
-        """
-        grf_time = grf_df['time'].values
-        contact = (vertical_grf > self.grf_threshold).astype(int)
-        transitions = np.diff(contact)
-        
-        # Events based on GRF Time
-        hs_times = grf_time[np.where(transitions == 1)[0] + 1]
-        to_times = grf_time[np.where(transitions == -1)[0] + 1]
-        
-        # Classify Right/Left based on which foot marker is lower at Heel Strike
-        right_hs, left_hs = [], []
-        trc_time = trc_df['Time'].values
-        
-        r_heel_v = trc_df[f'RHEE_{self.vertical_axis}'].values
-        l_heel_v = trc_df[f'LHEE_{self.vertical_axis}'].values
-        
-        for t in hs_times:
-            # Find the closest frame in the lower-frequency TRC data
-            closest_trc_idx = np.argmin(np.abs(trc_time - t))
-            
-            if r_heel_v[closest_trc_idx] < l_heel_v[closest_trc_idx]:
-                right_hs.append(t)
-            else:
-                left_hs.append(t)
-
-        return {
-            'heel_strike_times': hs_times,
-            'toe_off_times': to_times,
-            'right_heel_strike_times': np.array(right_hs),
-            'left_heel_strike_times': np.array(left_hs)
-        }
-
-    def _analyze_squatting(self, trc_df: pd.DataFrame) -> dict:
-        """
-        Squatting: Uses ONLY Pelvis markers (SACR) to find the bottom of the squat, 
-        and calculates vertical velocities/accelerations to define movement phases.
-        """
-        breakpoint()
-        time = trc_df['Time'].values
-        dt = time[1] - time[0]
-        
-        # Average the Sacrum markers to find the true pelvis center
-        sacrum_cols = [c for c in trc_df.columns if 'SACR' in c and c.endswith(f'_{self.vertical_axis}')]
-        if not sacrum_cols:
-            raise ValueError("Squatting analysis requires 'SACR' markers in the TRC file.")
-            
-        pelvis_v = trc_df[sacrum_cols].mean(axis=1).values
-        
-        # 1. Find the bottom of the squat (Invert signal to find peak)
-        inverted_pelvis = -pelvis_v
-        # Prominence of 50 units (mm) to avoid noise being counted as a squat
-        bottom_indices, _ = find_peaks(inverted_pelvis, prominence=50.0) 
-        
-        # 2. Derive Kinematics
-        velocity = np.gradient(pelvis_v, dt)
-        acceleration = np.gradient(velocity, dt)
-        
-        return {
-            'squat_bottom_times': time[bottom_indices],
-            'pelvis_vertical_velocity': velocity,
-            'pelvis_vertical_acceleration': acceleration,
-            'trc_time_array': time
-        }
-
-    def _analyze_jumping(self, trc_df: pd.DataFrame, grf_df: pd.DataFrame, vertical_grf: np.ndarray) -> dict:
-        """
-        Jumping: Uses GRF to find Take-off and Landing times. 
-        Uses Pelvis markers to calculate the apex (max height) of the jump during flight.
-        """
-        grf_time = grf_df['time'].values
-        trc_time = trc_df['Time'].values
-        
-        contact = (vertical_grf > self.grf_threshold).astype(int)
-        transitions = np.diff(contact)
-        
-        take_off_times = grf_time[np.where(transitions == -1)[0] + 1]
-        landing_times = grf_time[np.where(transitions == 1)[0] + 1]
-        
-        sacrum_cols = [c for c in trc_df.columns if 'SACR' in c and c.endswith(f'_{self.vertical_axis}')]
-        pelvis_v = trc_df[sacrum_cols].mean(axis=1).values
-        
-        apex_times = []
-        for to_t in take_off_times:
-            # Find the subsequent landing for this specific take-off
-            subsequent_lands = landing_times[landing_times > to_t]
-            if len(subsequent_lands) > 0:
-                land_t = subsequent_lands[0]
-                
-                # Slice the flight phase in the TRC time domain
-                start_idx = np.argmin(np.abs(trc_time - to_t))
-                end_idx = np.argmin(np.abs(trc_time - land_t))
-                
-                if start_idx < end_idx:
-                    flight_phase = pelvis_v[start_idx:end_idx]
-                    apex_idx = start_idx + np.argmax(flight_phase)
-                    apex_times.append(trc_time[apex_idx])
-
-        return {
-            'take_off_times': take_off_times,
-            'landing_times': landing_times,
-            'apex_times': np.array(apex_times)
-        }
-
-
 
 ## Utility functions
 def updir(path, levels=1):

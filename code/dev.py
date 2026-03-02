@@ -249,17 +249,18 @@ if __name__ == "__main__":
 #     Batch().inverse_kinematics()
         calibration_trials = ['Walking_02']
 
-        subject  = 'Athlete_03_Lernagopal_optimised' # Athlete_03_Lernagopal Athlete_03_MRI_Katya
+        subject  = 'Athlete_03_GPK' # Athlete_03_Lernagopal Athlete_03_MRI_Katya Athlete_03_Lernagopal_optimised
         session = '25_03_31'
-        trial = 'Squat_35kg_01' #'Squat_BW_01' Squat_35kg_01 Walking_02
+        trial = 'Walking_02' #'Squat_BW_01' Squat_35kg_01 Walking_02
         analysis = utils.Analyse(trialPath=os.path.join(utils.SIMULATIONS_DIR, subject, session, trial))
 
         # time_range = analysis.get_time_range_from_eventDetector()
         # print(f"Determined time range for analysis: {time_range}")
         
-        analysis.copy_input_files(src_subject='Athlete_03') 
+        # analysis.copy_input_files(src_subject='Athlete_03') 
+        analysis.reset_settings_xml()
 
-        analysis._tweek_analysis_attributes()
+        # analysis._tweek_analysis_attributes()
         
         # open the settings XML in the editor to check the new model path
         os.startfile(analysis.settingsXML)
@@ -275,8 +276,8 @@ if __name__ == "__main__":
         # analysis.run_ik()
         # analysis.run_id()
         # analysis.run_ma()
-        analysis.run_so()
-        analysis.run_jra()
+        # analysis.run_so()
+        # analysis.run_jra()
 
 
         # analysis.create_ceinms_input_data()
@@ -297,6 +298,6 @@ if __name__ == "__main__":
         
         # analysis.push_subject_results_to_git()
 
-        
+
 
 # END       

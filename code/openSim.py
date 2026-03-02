@@ -270,28 +270,171 @@ def edit_model_range_coordinates(osim_modelPath, coordinate_name, new_range: lis
     else:
         print(f"Coordinate '{coordinate_name}' not found in the model.")
 
-def hide_model_muscles(osim_modelPath, muscle_names: list, save_path):
+def add_wrapping_surface_to_model(model_path, surface_name, wrap_name, save_path=None):
     """
-    Hide specific muscles in the model by setting their visibility to false.
-
+    Add a wrapping surface to an OpenSim model.
+    
     Args:
-        osim_modelPath (str): Path to the .osim model file.
-        muscle_names (list): List of muscle names to hide.
-        save_path (str): Path to save the modified .osim model file.
+        model_path (str): Path to the .osim model file
+        surface_name (str): Name of the wrapping surface to add
+        wrap_name (str): Name of the wrap object to create
+        save_path (str, optional): Path to save the modified model. If None, saves to model_path with '_wrap_added' suffix
+    
+    Returns:
+        str: Path to the saved model file
     """
-    model = osim.Model(osim_modelPath)
+    
+    # Load model
+    model = osim.Model(model_path)
+    
+    # Initialize system
     state = model.initSystem()
+    
+    try:
+        # Create wrapping surface (example: a cylinder)
+        wrap_surface = osim.WrapCylinder(surface_name, 0.05, 0.1)  # name, radius, length
+        
+        # Add wrapping surface to model
+        model.addWrapObject(wrap_surface)
+        
+        print(f"Added wrapping surface: {surface_name}")
+        
+    except Exception as e:
+        print(f"Error adding wrapping surface '{surface_name}': {e}")
+    
+    # Finalize connections and initialize system
+    model.finalizeConnections()
+    
+    # Determine save path
+    if save_path is None:
+        base_name = os.path.splitext(model_path)[0]
+        save_path = f"{base_name}_wrap_added.osim"
+    
+    # change model name to indicate wrap added
+    model.setName(model.getName() + "_wrap_added")
 
-    for muscle_name in muscle_names:
-        muscle = model.getMuscles().get(muscle_name)
-        if muscle:
-            muscle.setVisible(False)
-            print(f"Muscle '{muscle_name}' hidden.")
-        else:
-            print(f"Muscle '{muscle_name}' not found in the model.")
-
+    # Save the modified model
     model.printToXML(save_path)
-    print(f"Model saved with hidden muscles to: {save_path}")
+    
+    print(f"Modified model saved to: {save_path}")
+    
+    return save_path
+
+def add_muscles_to_model(source_model_path, target_model_path, muscle_names, save_path=None):
+    """
+    Add muscles from a source OpenSim model to a target OpenSim model.
+    
+    Args:
+        source_model_path (str): Path to the source .osim model file
+        target_model_path (str): Path to the target .osim model file
+        muscle_names (list): List of muscle names to copy from source to target
+        save_path (str, optional): Path to save the modified model. If None, saves to target_model_path with '_muscles_added' suffix
+    
+    Returns:
+        str: Path to the saved model file
+    """
+    
+    # Load models
+    source_model = osim.Model(source_model_path)
+    target_model = osim.Model(target_model_path)
+    
+    # Initialize systems
+    source_state = source_model.initSystem()
+    target_state = target_model.initSystem()
+    
+    muscles_added = []
+    muscles_skipped = []
+    
+    for muscle_name in muscle_names:
+        try:
+            # Check if muscle already exists in target
+            if target_model.getMuscles().contains(muscle_name):
+                print(f"Muscle '{muscle_name}' already exists in target model. Skipping.")
+                muscles_skipped.append(muscle_name)
+                continue
+            
+            # Get muscle from source model
+            source_muscle = source_model.getMuscles().get(muscle_name)
+            
+            # Clone the muscle
+            cloned_muscle = source_muscle.clone()
+            
+            # Add to target model
+            target_model.addForce(cloned_muscle)
+            
+            # Find wrap objects referenced by this muscle's geometry path
+            source_path_wraps = source_muscle.getGeometryPath().getWrapSet()
+
+            for i in range(source_path_wraps.getSize()):
+                path_wrap = source_path_wraps.get(i)
+                wrap_object_name = path_wrap.getWrapObjectName()
+
+                # Search all bodies in source model for the wrap object
+                source_wrap_obj = None
+                source_body = None
+                body_set = source_model.getBodySet()
+                for b in range(body_set.getSize()):
+                    body = body_set.get(b)
+                    wrap_set = body.getWrapObjectSet()
+                    for w in range(wrap_set.getSize()):
+                        if wrap_set.get(w).getName() == wrap_object_name:
+                            source_wrap_obj = wrap_set.get(w)
+                            source_body = body
+                            break
+                    if source_wrap_obj is not None:
+                        break
+
+                if source_wrap_obj is None:
+                    print(f"Wrap object '{wrap_object_name}' not found in source model. Skipping.")
+                    continue
+
+                target_body_name = source_body.getName()
+                if not target_model.getBodySet().contains(target_body_name):
+                    print(f"Body '{target_body_name}' not found in target model. Cannot add wrap object '{wrap_object_name}'.")
+                    continue
+
+                target_body = target_model.getBodySet().get(target_body_name)
+                target_wrap_set = target_body.getWrapObjectSet()
+
+                # Check if wrap object already exists on that body
+                wrap_exists = any(target_wrap_set.get(w).getName() == wrap_object_name
+                                  for w in range(target_wrap_set.getSize()))
+                if not wrap_exists:
+                    cloned_wrap = source_wrap_obj.clone()
+                    target_body.addWrapObject(cloned_wrap)
+                    print(f"Added wrap object: {wrap_object_name} to body: {target_body_name} for muscle: {muscle_name}")
+                else:
+                    print(f"Wrap object '{wrap_object_name}' already exists on body '{target_body_name}'. Skipping.")
+            muscles_added.append(muscle_name)
+            print(f"Added muscle: {muscle_name}")
+
+
+            
+        except Exception as e:
+            print(f"Error adding muscle '{muscle_name}': {e}")
+            muscles_skipped.append(muscle_name)
+    
+    # Finalize connections and initialize system
+    target_model.finalizeConnections()
+    
+    # Determine save path
+    if save_path is None:
+        base_name = os.path.splitext(target_model_path)[0]
+        save_path = f"{base_name}_muscles_added.osim"
+    
+    # change model name to indicate muscles added
+    target_model.setName(target_model.getName() + "_muscles_added")
+
+    # Save the modified model
+    target_model.printToXML(save_path)
+    
+    print(f"\n=== Summary ===")
+    print(f"Muscles added: {len(muscles_added)}")
+    print(f"Muscles skipped: {len(muscles_skipped)}")
+    print(f"Modified model saved to: {save_path}")
+    
+    return save_path
+
 
 # Marker data and inverse kinematics functions    
 def validate_markers_used(osim_modelPath, ikTool, markers_path):
