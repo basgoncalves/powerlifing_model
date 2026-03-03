@@ -3,6 +3,8 @@
 	<InverseKinematicsTool>
 		<!--Name of the directory where results are written. Be default this is the directory in which the setup file is be  executed.-->
 		<results_directory>./</results_directory>
+		<!--Name/path to the xml .osim file.-->
+		<model_file>..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim</model_file>
 		<!--The time range for the study.-->
 		<time_range>0.0050000000000000001 3.2250000000000001</time_range>
 		<!--Name of the resulting inverse kinematics motion (.mot) file.-->
