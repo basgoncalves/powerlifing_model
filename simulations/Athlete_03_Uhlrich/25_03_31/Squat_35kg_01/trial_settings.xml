@@ -1,0 +1,999 @@
+<?xml version="1.0" ?>
+<TrialSettings>
+   <replace>True</replace>
+   <path>.</path>
+   <settingsXML>trial_settings.xml</settingsXML>
+   <subject>Athlete_03_Uhlrich</subject>
+   <session>25_03_31</session>
+   <trial>Squat_35kg_01</trial>
+   <parentdir>..</parentdir>
+   <model_name>scaled.osim</model_name>
+   <model_dir>..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim</model_dir>
+   <emg_normalised>EMG_filtered_normalised.sto</emg_normalised>
+   <emg_plot>EMG_filtered_normalised.sto</emg_plot>
+   <ceinms_excitations>EMG_filtered_normalised.sto</ceinms_excitations>
+   <body_mass>99.99999999999999</body_mass>
+   <time_range>[0.005, 3.225]</time_range>
+   <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
+   <c3d>c3dfile.c3d</c3d>
+   <emg_raw>emg.mot</emg_raw>
+   <emg_filtered>EMG_filtered.sto</emg_filtered>
+   <grf_mot>grf.mot</grf_mot>
+   <markers>marker_experimental.trc</markers>
+   <events>events.csv</events>
+   <setup_ik>setup_IK.xml</setup_ik>
+   <setup_grf>GRF.xml</setup_grf>
+   <setup_id>setup_ID.xml</setup_id>
+   <setup_ma>setup_MA.xml</setup_ma>
+   <actuators_so>actuators_so.xml</actuators_so>
+   <setup_so>setup_SO.xml</setup_so>
+   <jra_forces>SO_StaticOptimization_force.sto</jra_forces>
+   <setup_jra>setup_JRA.xml</setup_jra>
+   <ceinms_uncalibrated_model>..\subjectUncalibrated.xml</ceinms_uncalibrated_model>
+   <ceinms_calibrated_model>..\subjectCalibrated.xml</ceinms_calibrated_model>
+   <ceinms_calibration_cfg>..\calibrationCfg.xml</ceinms_calibration_cfg>
+   <ceinms_calibration_setup>..\calibrationSetup.xml</ceinms_calibration_setup>
+   <ceinms_input_data>inputData.xml</ceinms_input_data>
+   <ceinms_excitation_generator>..\excitationGenerator.xml</ceinms_excitation_generator>
+   <ceinms_optimise_setup>ceinms_setup_optimise.xml</ceinms_optimise_setup>
+   <ceinms_optimise_cfg>ceinms_cfg_optimise.xml</ceinms_optimise_cfg>
+   <ceinms_exe_cfg>ceinms_cfg.xml</ceinms_exe_cfg>
+   <ceinms_exe_setup>ceinms_setup.xml</ceinms_exe_setup>
+   <ik>joint_angles.mot</ik>
+   <model_markers>_ik_model_marker_locations.sto</model_markers>
+   <id>inverse_dynamics.sto</id>
+   <ma>muscleAnalysis</ma>
+   <so_forces>SO_StaticOptimization_force.sto</so_forces>
+   <so_activations>SO_StaticOptimization_activation.sto</so_activations>
+   <jra>Analyse_JRA_ReactionLoads_SO.sto</jra>
+   <ceinms_calibration_dir>..\calibrationOutput</ceinms_calibration_dir>
+   <ceinms_optimisation_dir>Optimised</ceinms_optimisation_dir>
+   <ceinms_exe_dir>Execution</ceinms_exe_dir>
+   <jra_forces_ceinms>Execution_a10_b1_g1000\MuscleForces.sto</jra_forces_ceinms>
+   <jra_ceinms>Analyse_JRA_ReactionLoads_CEINMS.sto</jra_ceinms>
+   <hybridCalibration>true</hybridCalibration>
+   <numberOfSynergies>8</numberOfSynergies>
+   <alpha>10</alpha>
+   <beta>1</beta>
+   <gamma>1000</gamma>
+   <betaMin>1</betaMin>
+   <betaMax>100</betaMax>
+   <betaDelta>10</betaDelta>
+   <gammaMin>1</gammaMin>
+   <gammaMax>100</gammaMax>
+   <gammaDelta>50</gammaDelta>
+   <alphas>1 10 100</alphas>
+   <betas>1 10</betas>
+   <gammas>1 10 100 500 1000 1500 2000 3000 4000 5000</gammas>
+   <DofSet>hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l</DofSet>
+   <c1>-0.99 -0.05</c1>
+   <c2>-0.95 -0.05</c2>
+   <shapefactor>-2.999 -0.001</shapefactor>
+   <optimalFiberLength>0.5 3</optimalFiberLength>
+   <tendonSlackLength>0.5 3</tendonSlackLength>
+   <strengthCoefficient>0.75 3.5</strengthCoefficient>
+   <Target_Muscles>all</Target_Muscles>
+   <EMG_muscle_mapping>{'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'], 'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'], 'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'], 'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'], 'EMG_Channels_EMG09_gast_med_l': [], 'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'], 'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'], 'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'], 'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'], 'EMG_Channels_EMG10_gast_med_r': []}</EMG_muscle_mapping>
+   <Objective_Functions>[&quot;{'name': 'MomentError'&quot;, &quot;'targets': 'all'&quot;, &quot;'weight': 1}&quot;, &quot;{'name': 'Penalty'&quot;, &quot;'targetType': 'normalisedFibreLength'&quot;, &quot;'weight': 10&quot;, &quot;'exponent': 2&quot;, &quot;'range': '0.5 1.5'}&quot;, &quot;{'name': 'Penalty'&quot;, &quot;'targetType': 'tendonStrain'&quot;, &quot;'weight': 1000&quot;, &quot;'exponent': 2&quot;, &quot;'range': '0. 0.5'}&quot;, &quot;{'name': 'ExcitationsSquared'&quot;, &quot;'weight': 1}&quot;, &quot;{'name': 'SynergyExtraction'&quot;, &quot;'mseWeight': 100&quot;, &quot;'range': '0. 1.'&quot;, &quot;'rangeExponent': 2&quot;, &quot;'rangeWeight': 1000}&quot;]</Objective_Functions>
+   <_is_copy>None</_is_copy>
+   <_mgr>BlockManager
+Items: Index(['time', 'pelvis_tilt', 'pelvis_list', 'pelvis_rotation', 'pelvis_tx',
+       'pelvis_ty', 'pelvis_tz', 'hip_flexion_r', 'hip_adduction_r',
+       'hip_rotation_r', 'knee_angle_r', 'knee_angle_r_beta', 'ankle_angle_r',
+       'subtalar_angle_r', 'mtp_angle_r', 'hip_flexion_l', 'hip_adduction_l',
+       'hip_rotation_l', 'knee_angle_l', 'knee_angle_l_beta', 'ankle_angle_l',
+       'subtalar_angle_l', 'mtp_angle_l', 'lumbar_extension', 'lumbar_bending',
+       'lumbar_rotation', 'arm_flex_r', 'arm_add_r', 'arm_rot_r',
+       'elbow_flex_r', 'pro_sup_r', 'wrist_flex_r', 'wrist_dev_r',
+       'arm_flex_l', 'arm_add_l', 'arm_rot_l', 'elbow_flex_l', 'pro_sup_l',
+       'wrist_flex_l', 'wrist_dev_l'],
+      dtype='object')
+Axis 1: RangeIndex(start=0, stop=645, step=1)
+NumericBlock: slice(0, 40, 1), 40 x 645, dtype: float64</_mgr>
+   <_item_cache>{'time': 0      0.005
+1      0.010
+2      0.015
+3      0.020
+4      0.025
+       ...  
+640    3.205
+641    3.210
+642    3.215
+643    3.220
+644    3.225
+Name: time, Length: 645, dtype: float64, 'pelvis_tilt': 0     -1.280236
+1     -1.271053
+2     -1.215646
+3     -1.292221
+4     -1.294411
+         ...   
+640   -8.010252
+641   -7.963794
+642   -7.879234
+643   -7.970515
+644   -7.959127
+Name: pelvis_tilt, Length: 645, dtype: float64, 'pelvis_list': 0      3.817522
+1      3.816232
+2      3.793775
+3      3.792303
+4      3.711073
+         ...   
+640    3.528084
+641    3.464449
+642    3.428659
+643    3.424789
+644    3.471726
+Name: pelvis_list, Length: 645, dtype: float64, 'pelvis_rotation': 0     -2.634137
+1     -2.638050
+2     -2.582155
+3     -2.589495
+4     -2.571317
+         ...   
+640   -2.015717
+641   -2.088053
+642   -2.114921
+643   -2.021089
+644   -2.057128
+Name: pelvis_rotation, Length: 645, dtype: float64, 'pelvis_tx': 0      0.224750
+1      0.224715
+2      0.224650
+3      0.224744
+4      0.224753
+         ...   
+640    0.233250
+641    0.233252
+642    0.233235
+643    0.233228
+644    0.233253
+Name: pelvis_tx, Length: 645, dtype: float64, 'pelvis_ty': 0      0.903079
+1      0.903103
+2      0.903208
+3      0.903084
+4      0.903079
+         ...   
+640    0.896920
+641    0.896973
+642    0.897108
+643    0.896928
+644    0.896971
+Name: pelvis_ty, Length: 645, dtype: float64, 'pelvis_tz': 0     -1.196395
+1     -1.196377
+2     -1.196449
+3     -1.196439
+4     -1.196455
+         ...   
+640   -1.193824
+641   -1.193660
+642   -1.193635
+643   -1.193826
+644   -1.193761
+Name: pelvis_tz, Length: 645, dtype: float64, 'hip_flexion_r': 0      2.679403
+1      2.650091
+2      2.599264
+3      2.641478
+4      2.619944
+         ...   
+640    9.310548
+641    9.304923
+642    9.221103
+643    9.294245
+644    9.277108
+Name: hip_flexion_r, Length: 645, dtype: float64, 'hip_adduction_r': 0     -25.323827
+1     -25.298004
+2     -25.308533
+3     -25.274791
+4     -25.179055
+         ...    
+640   -24.474897
+641   -24.402340
+642   -24.366156
+643   -24.401848
+644   -24.420541
+Name: hip_adduction_r, Length: 645, dtype: float64, 'hip_rotation_r': 0     -34.765167
+1     -34.704036
+2     -34.880940
+3     -34.791281
+4     -34.823666
+         ...    
+640   -35.514554
+641   -35.505566
+642   -35.530999
+643   -35.665169
+644   -35.556912
+Name: hip_rotation_r, Length: 645, dtype: float64, 'knee_angle_r': 0      6.988496
+1      6.927254
+2      7.025676
+3      6.926987
+4      6.910047
+         ...   
+640    6.827117
+641    6.871314
+642    6.882614
+643    6.938556
+644    6.868586
+Name: knee_angle_r, Length: 645, dtype: float64, 'knee_angle_r_beta': 0      0.121972
+1      0.120903
+2      0.122621
+3      0.120899
+4      0.120603
+         ...   
+640    0.119156
+641    0.119927
+642    0.120124
+643    0.121101
+644    0.119879
+Name: knee_angle_r_beta, Length: 645, dtype: float64, 'ankle_angle_r': 0     -7.074705
+1     -7.129848
+2     -7.134920
+3     -7.113418
+4     -7.117353
+         ...   
+640   -8.186882
+641   -8.141153
+642   -8.152871
+643   -8.085001
+644   -8.123675
+Name: ankle_angle_r, Length: 645, dtype: float64, 'subtalar_angle_r': 0      13.213123
+1      13.107088
+2      13.062357
+3      13.149603
+4      13.158729
+         ...    
+640    12.451135
+641    12.580597
+642    12.593687
+643    12.692418
+644    12.621284
+Name: subtalar_angle_r, Length: 645, dtype: float64, 'mtp_angle_r': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: mtp_angle_r, Length: 645, dtype: float64, 'hip_flexion_l': 0      1.690971
+1      1.684979
+2      1.714009
+3      1.746077
+4      1.777240
+         ...   
+640    8.280278
+641    8.183025
+642    8.094719
+643    8.277104
+644    8.206230
+Name: hip_flexion_l, Length: 645, dtype: float64, 'hip_adduction_l': 0     -16.084705
+1     -16.087665
+2     -16.168980
+3     -16.137466
+4     -16.259830
+         ...    
+640   -16.361232
+641   -16.437305
+642   -16.479772
+643   -16.527437
+644   -16.434742
+Name: hip_adduction_l, Length: 645, dtype: float64, 'hip_rotation_l': 0     -37.917248
+1     -37.904130
+2     -37.985994
+3     -37.909956
+4     -37.933447
+         ...    
+640   -38.731417
+641   -38.762964
+642   -38.767890
+643   -38.811378
+644   -38.769895
+Name: hip_rotation_l, Length: 645, dtype: float64, 'knee_angle_l': 0      6.623185
+1      6.626386
+2      6.803735
+3      6.689279
+4      6.774953
+         ...   
+640    5.432743
+641    5.389975
+642    5.431798
+643    5.562476
+644    5.437683
+Name: knee_angle_l, Length: 645, dtype: float64, 'knee_angle_l_beta': 0      0.115596
+1      0.115652
+2      0.118748
+3      0.116750
+4      0.118245
+         ...   
+640    0.094819
+641    0.094073
+642    0.094803
+643    0.097084
+644    0.094905
+Name: knee_angle_l_beta, Length: 645, dtype: float64, 'ankle_angle_l': 0     -6.124522
+1     -6.127950
+2     -6.075606
+3     -6.108507
+4     -6.040772
+         ...   
+640   -8.355575
+641   -8.381397
+642   -8.259005
+643   -8.261568
+644   -8.320897
+Name: ankle_angle_l, Length: 645, dtype: float64, 'subtalar_angle_l': 0      19.088289
+1      19.091210
+2      19.152376
+3      19.146102
+4      19.216128
+         ...    
+640    17.515311
+641    17.520298
+642    17.446773
+643    17.695149
+644    17.584722
+Name: subtalar_angle_l, Length: 645, dtype: float64, 'mtp_angle_l': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: mtp_angle_l, Length: 645, dtype: float64, 'lumbar_extension': 0     -15.631230
+1     -15.653114
+2     -15.732593
+3     -15.619656
+4     -15.614406
+         ...    
+640   -10.894152
+641   -10.957492
+642   -11.059758
+643   -10.949007
+644   -10.956690
+Name: lumbar_extension, Length: 645, dtype: float64, 'lumbar_bending': 0     -2.138130
+1     -2.143484
+2     -2.105324
+3     -2.102500
+4     -2.003086
+         ...   
+640   -1.484548
+641   -1.416706
+642   -1.373673
+643   -1.352198
+644   -1.421264
+Name: lumbar_bending, Length: 645, dtype: float64, 'lumbar_rotation': 0     -0.182693
+1     -0.151113
+2     -0.183711
+3     -0.204212
+4     -0.208366
+         ...   
+640   -0.202500
+641   -0.108370
+642   -0.075737
+643   -0.205432
+644   -0.179592
+Name: lumbar_rotation, Length: 645, dtype: float64, 'arm_flex_r': 0      44.185041
+1      44.214761
+2      44.219533
+3      44.218499
+4      44.243448
+         ...    
+640    44.999924
+641    44.999924
+642    44.999924
+643    44.999924
+644    44.999924
+Name: arm_flex_r, Length: 645, dtype: float64, 'arm_add_r': 0     -16.517317
+1     -16.433335
+2     -16.418823
+3     -16.419466
+4     -16.351437
+         ...    
+640   -15.000000
+641   -15.000000
+642   -15.000000
+643   -15.000000
+644   -15.000000
+Name: arm_add_r, Length: 645, dtype: float64, 'arm_rot_r': 0      44.185041
+1      44.214761
+2      44.219533
+3      44.218499
+4      44.243448
+         ...    
+640    44.999924
+641    44.999924
+642    44.999924
+643    44.999924
+644    44.999924
+Name: arm_rot_r, Length: 645, dtype: float64, 'elbow_flex_r': 0      75.073082
+1      75.066466
+2      75.065155
+3      75.064885
+4      75.059907
+         ...    
+640    75.000176
+641    75.000176
+642    75.000176
+643    75.000176
+644    75.000176
+Name: elbow_flex_r, Length: 645, dtype: float64, 'pro_sup_r': 0      44.920796
+1      44.933662
+2      44.936992
+3      44.938770
+4      44.946805
+         ...    
+640    45.000000
+641    45.000000
+642    45.000000
+643    45.000000
+644    45.000000
+Name: pro_sup_r, Length: 645, dtype: float64, 'wrist_flex_r': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: wrist_flex_r, Length: 645, dtype: float64, 'wrist_dev_r': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: wrist_dev_r, Length: 645, dtype: float64, 'arm_flex_l': 0      44.185041
+1      44.214761
+2      44.219533
+3      44.218499
+4      44.243448
+         ...    
+640    44.999924
+641    44.999924
+642    44.999924
+643    44.999924
+644    44.999924
+Name: arm_flex_l, Length: 645, dtype: float64, 'arm_add_l': 0     -16.517317
+1     -16.433335
+2     -16.418823
+3     -16.419466
+4     -16.351437
+         ...    
+640   -15.000000
+641   -15.000000
+642   -15.000000
+643   -15.000000
+644   -15.000000
+Name: arm_add_l, Length: 645, dtype: float64, 'arm_rot_l': 0      44.185041
+1      44.214761
+2      44.219533
+3      44.218499
+4      44.243448
+         ...    
+640    44.999924
+641    44.999924
+642    44.999924
+643    44.999924
+644    44.999924
+Name: arm_rot_l, Length: 645, dtype: float64, 'elbow_flex_l': 0      75.073082
+1      75.066466
+2      75.065155
+3      75.064885
+4      75.059907
+         ...    
+640    75.000176
+641    75.000176
+642    75.000176
+643    75.000176
+644    75.000176
+Name: elbow_flex_l, Length: 645, dtype: float64, 'pro_sup_l': 0      44.920796
+1      44.933662
+2      44.936992
+3      44.938770
+4      44.946805
+         ...    
+640    45.000000
+641    45.000000
+642    45.000000
+643    45.000000
+644    45.000000
+Name: pro_sup_l, Length: 645, dtype: float64, 'wrist_flex_l': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: wrist_flex_l, Length: 645, dtype: float64, 'wrist_dev_l': 0      0.0
+1      0.0
+2      0.0
+3      0.0
+4      0.0
+      ... 
+640    0.0
+641    0.0
+642    0.0
+643    0.0
+644    0.0
+Name: wrist_dev_l, Length: 645, dtype: float64}</_item_cache>
+   <_attrs>{}</_attrs>
+   <_flags>&lt;Flags(allows_duplicate_labels=True)&gt;</_flags>
+   <_is_copy>None</_is_copy>
+   <_mgr>BlockManager
+Items: Index(['time', 'pelvis_tilt_moment', 'pelvis_list_moment',
+       'pelvis_rotation_moment', 'pelvis_tx_force', 'pelvis_ty_force',
+       'pelvis_tz_force', 'hip_flexion_r_moment', 'hip_adduction_r_moment',
+       'hip_rotation_r_moment', 'hip_flexion_l_moment',
+       'hip_adduction_l_moment', 'hip_rotation_l_moment',
+       'lumbar_extension_moment', 'lumbar_bending_moment',
+       'lumbar_rotation_moment', 'knee_angle_r_moment',
+       'knee_angle_r_beta_force', 'knee_angle_l_moment',
+       'knee_angle_l_beta_force', 'arm_flex_r_moment', 'arm_add_r_moment',
+       'arm_rot_r_moment', 'arm_flex_l_moment', 'arm_add_l_moment',
+       'arm_rot_l_moment', 'ankle_angle_r_moment', 'ankle_angle_l_moment',
+       'elbow_flex_r_moment', 'elbow_flex_l_moment', 'subtalar_angle_r_moment',
+       'subtalar_angle_l_moment', 'pro_sup_r_moment', 'pro_sup_l_moment',
+       'mtp_angle_r_moment', 'mtp_angle_l_moment', 'wrist_flex_r_moment',
+       'wrist_dev_r_moment', 'wrist_flex_l_moment', 'wrist_dev_l_moment'],
+      dtype='object')
+Axis 1: RangeIndex(start=0, stop=645, step=1)
+NumericBlock: slice(0, 40, 1), 40 x 645, dtype: float64</_mgr>
+   <_item_cache>{'time': 0      0.005
+1      0.010
+2      0.015
+3      0.020
+4      0.025
+       ...  
+640    3.205
+641    3.210
+642    3.215
+643    3.220
+644    3.225
+Name: time, Length: 645, dtype: float64, 'pelvis_tilt_moment': 0      28.377416
+1      28.683827
+2      29.057704
+3      29.465130
+4      29.872642
+         ...    
+640    20.540436
+641    21.366374
+642    22.059755
+643    22.543593
+644    22.778396
+Name: pelvis_tilt_moment, Length: 645, dtype: float64, 'pelvis_list_moment': 0     -32.089068
+1     -32.433971
+2     -32.721443
+3     -32.957395
+4     -33.141822
+         ...    
+640   -30.167544
+641   -29.929043
+642   -29.626165
+643   -29.342790
+644   -29.170977
+Name: pelvis_list_moment, Length: 645, dtype: float64, 'pelvis_rotation_moment': 0      1.426793
+1      1.222588
+2      1.051526
+3      0.907717
+4      0.785892
+         ...   
+640   -2.714940
+641   -2.453569
+642   -2.143969
+643   -1.785253
+644   -1.389070
+Name: pelvis_rotation_moment, Length: 645, dtype: float64, 'pelvis_tx_force': 0       2.908743
+1       2.267071
+2       1.746753
+3       1.331688
+4       1.001305
+         ...    
+640    10.525695
+641    10.341246
+642     9.898767
+643     9.124115
+644     8.001376
+Name: pelvis_tx_force, Length: 645, dtype: float64, 'pelvis_ty_force': 0     -241.905320
+1     -243.195679
+2     -243.981550
+3     -244.401267
+4     -244.597771
+          ...    
+640   -247.915155
+641   -246.591789
+642   -245.164904
+643   -244.032330
+644   -243.582004
+Name: pelvis_ty_force, Length: 645, dtype: float64, 'pelvis_tz_force': 0     -6.440182
+1     -6.735971
+2     -7.030025
+3     -7.340584
+4     -7.677595
+         ...   
+640   -7.447491
+641   -7.203514
+642   -6.954828
+643   -6.574903
+644   -5.956985
+Name: pelvis_tz_force, Length: 645, dtype: float64, 'hip_flexion_r_moment': 0      -6.486357
+1      -6.655035
+2      -6.738338
+3      -6.756755
+4      -6.736159
+         ...    
+640   -21.750926
+641   -21.281075
+642   -20.845565
+643   -20.493013
+644   -20.260140
+Name: hip_flexion_r_moment, Length: 645, dtype: float64, 'hip_adduction_r_moment': 0      15.292805
+1      15.408149
+2      15.490674
+3      15.558511
+4      15.629482
+         ...    
+640     2.681203
+641     2.734885
+642     2.723932
+643     2.669623
+644     2.595978
+Name: hip_adduction_r_moment, Length: 645, dtype: float64, 'hip_rotation_r_moment': 0     -3.645872
+1     -3.616303
+2     -3.594466
+3     -3.582646
+4     -3.578869
+         ...   
+640   -1.344128
+641   -1.396810
+642   -1.440928
+643   -1.470412
+644   -1.483469
+Name: hip_rotation_r_moment, Length: 645, dtype: float64, 'hip_flexion_l_moment': 0     -12.309236
+1     -12.283829
+2     -12.239519
+3     -12.181680
+4     -12.114364
+         ...    
+640   -26.495262
+641   -26.089299
+642   -25.721656
+643   -25.451994
+644   -25.319838
+Name: hip_flexion_l_moment, Length: 645, dtype: float64, 'hip_adduction_l_moment': 0      33.297071
+1      33.552750
+2      33.727636
+3      33.846443
+4      33.927753
+         ...    
+640    21.300144
+641    21.062330
+642    20.703806
+643    20.328727
+644    20.047432
+Name: hip_adduction_l_moment, Length: 645, dtype: float64, 'hip_rotation_l_moment': 0     -2.626075
+1     -2.631574
+2     -2.636777
+3     -2.644133
+4     -2.654937
+         ...   
+640   -2.755008
+641   -2.698996
+642   -2.649240
+643   -2.613653
+644   -2.597847
+Name: hip_rotation_l_moment, Length: 645, dtype: float64, 'lumbar_extension_moment': 0      58.192325
+1      58.597611
+2      58.984764
+3      59.338995
+4      59.649829
+         ...    
+640    65.054634
+641    64.983886
+642    64.851607
+643    64.674648
+644    64.473847
+Name: lumbar_extension_moment, Length: 645, dtype: float64, 'lumbar_bending_moment': 0     -5.633527
+1     -5.724789
+2     -5.816950
+3     -5.911360
+4     -6.009392
+         ...   
+640   -6.009226
+641   -5.994214
+642   -5.994072
+643   -6.005363
+644   -6.025183
+Name: lumbar_bending_moment, Length: 645, dtype: float64, 'lumbar_rotation_moment': 0      0.083231
+1     -0.084613
+2     -0.246854
+3     -0.399067
+4     -0.538092
+         ...   
+640   -0.612001
+641   -0.456853
+642   -0.280676
+643   -0.089564
+644    0.109150
+Name: lumbar_rotation_moment, Length: 645, dtype: float64, 'knee_angle_r_moment': 0       4.284181
+1       4.375402
+2       4.415810
+3       4.417817
+4       4.400194
+         ...    
+640    15.208860
+641    15.132324
+642    15.050150
+643    14.987820
+644    14.967397
+Name: knee_angle_r_moment, Length: 645, dtype: float64, 'knee_angle_r_beta_force': 0     -0.036966
+1     -0.036975
+2     -0.036985
+3     -0.036995
+4     -0.037004
+         ...   
+640   -0.037027
+641   -0.037049
+642   -0.037069
+643   -0.037087
+644   -0.037105
+Name: knee_angle_r_beta_force, Length: 645, dtype: float64, 'knee_angle_l_moment': 0      28.983423
+1      28.990156
+2      28.969820
+3      28.933379
+4      28.886923
+         ...    
+640    41.341513
+641    41.098110
+642    40.811309
+643    40.555446
+644    40.401804
+Name: knee_angle_l_moment, Length: 645, dtype: float64, 'knee_angle_l_beta_force': 0     -0.040378
+1     -0.040345
+2     -0.040314
+3     -0.040285
+4     -0.040261
+         ...   
+640   -0.040878
+641   -0.040890
+642   -0.040893
+643   -0.040891
+644   -0.040885
+Name: knee_angle_l_beta_force, Length: 645, dtype: float64, 'arm_flex_r_moment': 0      6.725158
+1      6.735706
+2      6.745717
+3      6.754738
+4      6.762542
+         ...   
+640    6.680508
+641    6.647062
+642    6.607144
+643    6.562599
+644    6.515651
+Name: arm_flex_r_moment, Length: 645, dtype: float64, 'arm_add_r_moment': 0      0.205036
+1      0.161444
+2      0.119302
+3      0.079828
+4      0.044075
+         ...   
+640    0.454011
+641    0.463635
+642    0.475769
+643    0.489758
+644    0.504778
+Name: arm_add_r_moment, Length: 645, dtype: float64, 'arm_rot_r_moment': 0     -1.802438
+1     -1.819224
+2     -1.835402
+3     -1.850469
+4     -1.864048
+         ...   
+640   -1.786552
+641   -1.770499
+642   -1.751361
+643   -1.730011
+644   -1.707500
+Name: arm_rot_r_moment, Length: 645, dtype: float64, 'arm_flex_l_moment': 0      6.729256
+1      6.755662
+2      6.780887
+3      6.804039
+4      6.824543
+         ...   
+640    6.773947
+641    6.719487
+642    6.656007
+643    6.586113
+644    6.512860
+Name: arm_flex_l_moment, Length: 645, dtype: float64, 'arm_add_l_moment': 0     -0.420293
+1     -0.428163
+2     -0.436144
+3     -0.444287
+4     -0.452394
+         ...   
+640   -0.096273
+641   -0.108982
+642   -0.124965
+643   -0.143350
+644   -0.163055
+Name: arm_add_l_moment, Length: 645, dtype: float64, 'arm_rot_l_moment': 0     -1.915647
+1     -1.924892
+2     -1.933810
+3     -1.942151
+4     -1.949709
+         ...   
+640   -1.880433
+641   -1.868955
+642   -1.855518
+643   -1.840699
+644   -1.825167
+Name: arm_rot_l_moment, Length: 645, dtype: float64, 'ankle_angle_r_moment': 0     -17.440251
+1     -17.440177
+2     -17.426804
+3     -17.397705
+4     -17.359000
+         ...    
+640   -34.897248
+641   -34.821906
+642   -34.754912
+643   -34.703624
+644   -34.674017
+Name: ankle_angle_r_moment, Length: 645, dtype: float64, 'ankle_angle_l_moment': 0     -48.539589
+1     -48.493618
+2     -48.444313
+3     -48.394121
+4     -48.341788
+         ...    
+640   -65.062534
+641   -64.909448
+642   -64.736338
+643   -64.573577
+644   -64.456763
+Name: ankle_angle_l_moment, Length: 645, dtype: float64, 'elbow_flex_r_moment': 0      2.861193
+1      2.856728
+2      2.852245
+3      2.847758
+4      2.843345
+         ...   
+640    2.933537
+641    2.929017
+642    2.923241
+643    2.916565
+644    2.909421
+Name: elbow_flex_r_moment, Length: 645, dtype: float64, 'elbow_flex_l_moment': 0      2.755657
+1      2.758303
+2      2.760643
+3      2.762448
+4      2.763626
+         ...   
+640    2.852762
+641    2.842727
+642    2.830278
+643    2.816085
+644    2.800959
+Name: elbow_flex_l_moment, Length: 645, dtype: float64, 'subtalar_angle_r_moment': 0     -16.000493
+1     -16.043263
+2     -16.060013
+3     -16.066424
+4     -16.073383
+         ...    
+640   -13.943573
+641   -13.977547
+642   -14.006816
+643   -14.029624
+644   -14.048087
+Name: subtalar_angle_r_moment, Length: 645, dtype: float64, 'subtalar_angle_l_moment': 0      10.017449
+1      10.024841
+2      10.037044
+3      10.051073
+4      10.065932
+         ...    
+640    10.388713
+641    10.419174
+642    10.441535
+643    10.455068
+644    10.455100
+Name: subtalar_angle_l_moment, Length: 645, dtype: float64, 'pro_sup_r_moment': 0     -0.047327
+1     -0.047903
+2     -0.048460
+3     -0.048982
+4     -0.049457
+         ...   
+640   -0.046611
+641   -0.046111
+642   -0.045524
+643   -0.044875
+644   -0.044194
+Name: pro_sup_r_moment, Length: 645, dtype: float64, 'pro_sup_l_moment': 0     -0.051196
+1     -0.051443
+2     -0.051682
+3     -0.051910
+4     -0.052121
+         ...   
+640   -0.049293
+641   -0.049064
+642   -0.048800
+643   -0.048513
+644   -0.048213
+Name: pro_sup_l_moment, Length: 645, dtype: float64, 'mtp_angle_r_moment': 0     -0.047237
+1     -0.047243
+2     -0.047247
+3     -0.047244
+4     -0.047235
+         ...   
+640   -0.048347
+641   -0.048135
+642   -0.047910
+643   -0.047677
+644   -0.047441
+Name: mtp_angle_r_moment, Length: 645, dtype: float64, 'mtp_angle_l_moment': 0     -0.033330
+1     -0.033368
+2     -0.033404
+3     -0.033437
+4     -0.033468
+         ...   
+640   -0.033350
+641   -0.033346
+642   -0.033346
+643   -0.033351
+644   -0.033358
+Name: mtp_angle_l_moment, Length: 645, dtype: float64, 'wrist_flex_r_moment': 0      0.158054
+1      0.156323
+2      0.154630
+3      0.153013
+4      0.151506
+         ...   
+640    0.163807
+641    0.164470
+642    0.165205
+643    0.165992
+644    0.166806
+Name: wrist_flex_r_moment, Length: 645, dtype: float64, 'wrist_dev_r_moment': 0     -0.313943
+1     -0.315197
+2     -0.316392
+3     -0.317482
+4     -0.318436
+         ...   
+640   -0.318431
+641   -0.316513
+642   -0.314207
+643   -0.311623
+644   -0.308895
+Name: wrist_dev_r_moment, Length: 645, dtype: float64, 'wrist_flex_l_moment': 0      0.144097
+1      0.143844
+2      0.143576
+3      0.143285
+4      0.142972
+         ...   
+640    0.155098
+641    0.154604
+642    0.153970
+643    0.153234
+644    0.152442
+Name: wrist_flex_l_moment, Length: 645, dtype: float64, 'wrist_dev_l_moment': 0     -0.316831
+1     -0.317810
+2     -0.318739
+3     -0.319579
+4     -0.320307
+         ...   
+640   -0.320213
+641   -0.318551
+642   -0.316547
+643   -0.314300
+644   -0.311925
+Name: wrist_dev_l_moment, Length: 645, dtype: float64}</_item_cache>
+   <_attrs>{}</_attrs>
+   <_flags>&lt;Flags(allows_duplicate_labels=True)&gt;</_flags>
+</TrialSettings>
