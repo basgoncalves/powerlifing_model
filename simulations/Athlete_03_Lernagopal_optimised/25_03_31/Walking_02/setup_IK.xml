@@ -3,6 +3,8 @@
 	<InverseKinematicsTool>
 		<!--Name of the directory where results are written. Be default this is the directory in which the setup file is be  executed.-->
 		<results_directory>./</results_directory>
+		<!--Name/path to the xml .osim file.-->
+		<model_file>..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim</model_file>
 		<!--The time range for the study.-->
 		<time_range>0.17499999999999999 1.2549999999999999</time_range>
 		<!--Name of the resulting inverse kinematics motion (.mot) file.-->

@@ -23,7 +23,7 @@
    <setup_so>setup_SO.xml</setup_so>
    <jra_forces>SO_StaticOptimization_force.sto</jra_forces>
    <setup_jra>setup_JRA.xml</setup_jra>
-   <ceinms_excitations>EMG_filtered_normalised.sto</ceinms_excitations>
+   <ceinms_excitations>emg.mot</ceinms_excitations>
    <ceinms_uncalibrated_model>..\subjectUncalibrated.xml</ceinms_uncalibrated_model>
    <ceinms_calibrated_model>..\subjectCalibrated.xml</ceinms_calibrated_model>
    <ceinms_calibration_cfg>..\calibrationCfg.xml</ceinms_calibration_cfg>
@@ -449,4 +449,5 @@ Name: mtp_angle_l_moment, Length: 217, dtype: float64}</_item_cache>
    <body_mass>99.99999999999996</body_mass>
    <EMG_muscle_mapping>{'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'], 'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'], 'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'], 'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'], 'EMG_Channels_EMG09_gast_med_l': [], 'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'], 'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'], 'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'], 'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'], 'EMG_Channels_EMG10_gast_med_r': []}</EMG_muscle_mapping>
    <Objective_Functions>[{'name': 'MomentError', 'targets': 'all', 'weight': 1}, {'name': 'Penalty', 'targetType': 'normalisedFibreLength', 'weight': 10, 'exponent': 2, 'range': '0.5 1.5'}, {'name': 'Penalty', 'targetType': 'tendonStrain', 'weight': 1000, 'exponent': 2, 'range': '0. 0.5'}, {'name': 'ExcitationsSquared', 'weight': 1}, {'name': 'SynergyExtraction', 'mseWeight': 100, 'range': '0. 1.', 'rangeExponent': 2, 'rangeWeight': 1000}]</Objective_Functions>
+   <emg>emg.mot</emg>
 </TrialSettings>
