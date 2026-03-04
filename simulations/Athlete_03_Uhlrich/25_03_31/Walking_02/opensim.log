@@ -4940,3 +4940,985 @@ Assembly error tolerance achieved: 9.9455570023352231e-09 required: 1e-10..Model
 [2026-03-04 01:05:32.732] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2026-03-04 01:05:32.732] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from Execution_a10_b1_g1000\MuscleForces.sto.
 [2026-03-04 01:05:34.976] [info] Printing results of investigation Analyse to .
+[2026-03-04 19:07:54.484] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:54.784] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:07:55.109] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:55.376] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:07:55.629] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:55.859] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:07:56.107] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:56.337] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:07:56.583] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:56.785] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:07:57.011] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:57.191] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:07:57.376] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:57.560] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:07:57.775] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:57.972] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:07:58.185] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:58.377] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:07:58.565] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:58.744] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:07:58.954] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:59.134] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:07:59.373] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:07:59.607] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:08:00.218] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:00.347] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:08:00.566] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:00.802] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:08:01.019] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:01.173] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:08:01.317] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:01.519] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:08:01.736] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:01.919] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:08:02.124] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:08:02.322] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:17.747] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:17.869] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:17.994] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:18.105] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:18.262] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:18.377] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:18.493] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:18.605] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:18.729] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:18.842] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:18.965] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:19.078] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:19.191] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:19.301] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:19.421] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:19.539] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:19.671] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:19.784] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:19.895] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:20.003] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:20.121] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:20.236] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:20.358] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:20.472] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:20.580] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:20.660] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:20.775] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:20.885] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:21.010] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:21.090] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:10:21.170] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:21.276] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:10:21.392] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:21.501] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:10:21.620] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:10:21.727] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:12:33.389] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:12:33.463] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:12:33.494] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:12:33.524] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:12:33.708] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:12:33.763] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:12:33.763] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:12:33.763] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:12:33.776] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:12:33.777] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:12:33.780] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:12:34.777] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676826861657219e-09 required: 1e-10.
+[2026-03-04 19:12:34.813] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676827139212975e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:12:35.040] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:12:35.040] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:12:35.046] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2026-03-04 19:12:35.046] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2026-03-04 19:13:15.060] [info] Printing results of investigation  to MuscleAnalysis
+[2026-03-04 19:13:22.106] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:22.237] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:22.373] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:22.503] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:22.629] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:22.743] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:13:22.862] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:22.974] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:23.097] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:23.220] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:23.601] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:23.716] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:13:23.830] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:23.941] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:24.065] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:24.190] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:24.319] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:24.433] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:13:24.546] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:24.654] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:24.772] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:24.894] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:25.014] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:25.124] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:13:25.233] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:25.312] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:25.428] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:25.548] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:25.673] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:25.753] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:13:25.832] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:25.940] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:13:26.057] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:26.192] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:13:26.336] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:13:26.454] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:18:10.967] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:18:11.056] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:18:11.076] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:18:11.108] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:18:11.295] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:18:11.357] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:18:11.357] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:18:11.357] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:18:11.373] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:18:11.373] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:18:11.377] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:18:12.576] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676826861657219e-09 required: 1e-10.
+[2026-03-04 19:18:12.612] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676827139212975e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:18:12.875] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:18:12.875] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:18:12.881] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2026-03-04 19:18:12.881] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2026-03-04 19:18:59.228] [info] Printing results of investigation  to MuscleAnalysis
+[2026-03-04 19:23:14.501] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:14.623] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:14.748] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:14.876] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:15.066] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:15.199] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:23:15.328] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:15.483] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:15.631] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:15.763] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:15.898] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:16.030] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:23:16.151] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:16.269] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:16.401] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:16.534] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:16.666] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:16.788] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:23:16.908] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:17.024] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:17.150] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:17.281] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:17.411] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:17.532] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:23:17.648] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:17.731] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:17.855] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:17.983] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:18.116] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:18.204] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:23:18.289] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:18.402] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:23:18.528] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:18.654] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:23:18.779] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:23:18.894] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:18.695] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:18.829] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:18.981] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:19.105] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:19.240] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:19.364] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:19.478] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:19.605] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:19.739] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:19.863] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:20.004] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:20.131] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:20.257] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:20.390] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:20.531] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:20.650] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:20.784] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:20.903] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:21.019] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:21.134] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:21.260] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:21.372] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:21.495] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:21.611] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:21.720] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:21.804] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:21.925] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:22.042] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:22.171] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:22.260] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:30:22.346] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:22.460] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:30:22.581] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:22.691] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:30:22.852] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:30:22.980] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:32:57.307] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:06.597] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:06.720] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:06.850] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:06.925] [cout] [info] 
+               MODEL: Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00
+         coordinates: 31
+              forces: 83
+           actuators: 83
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 24
+              joints: 24
+         constraints: 4
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2026-03-04 19:33:06.925] [info] Running tool .
+[2026-03-04 19:33:07.239] [info] Frame 35 (t = 0.175):	 total squared error = 0.00162771, marker error: RMS = 0.00841250, max = 0.0180115 (STRN)
+[2026-03-04 19:33:07.324] [info] Frame 36 (t = 0.18):	 total squared error = 0.00162992, marker error: RMS = 0.00841819, max = 0.0181045 (STRN)
+[2026-03-04 19:33:07.430] [info] Frame 37 (t = 0.185):	 total squared error = 0.00162556, marker error: RMS = 0.00840693, max = 0.0181466 (STRN)
+[2026-03-04 19:33:07.514] [info] Frame 38 (t = 0.19):	 total squared error = 0.00161655, marker error: RMS = 0.00838359, max = 0.0181906 (STRN)
+[2026-03-04 19:33:07.609] [info] Frame 39 (t = 0.195):	 total squared error = 0.00160220, marker error: RMS = 0.00834630, max = 0.0181737 (STRN)
+[2026-03-04 19:33:07.682] [info] Frame 40 (t = 0.2):	 total squared error = 0.00158552, marker error: RMS = 0.00830274, max = 0.0180375 (STRN)
+[2026-03-04 19:33:07.784] [info] Frame 41 (t = 0.205000):	 total squared error = 0.00156244, marker error: RMS = 0.00824211, max = 0.0180149 (STRN)
+[2026-03-04 19:33:07.911] [info] Frame 42 (t = 0.21):	 total squared error = 0.00154064, marker error: RMS = 0.00818441, max = 0.0178728 (STRN)
+[2026-03-04 19:33:08.059] [info] Frame 43 (t = 0.215):	 total squared error = 0.00151962, marker error: RMS = 0.00812836, max = 0.0176575 (STRN)
+[2026-03-04 19:33:08.161] [info] Frame 44 (t = 0.22):	 total squared error = 0.00150110, marker error: RMS = 0.00807869, max = 0.017418 (STRN)
+[2026-03-04 19:33:08.249] [info] Frame 45 (t = 0.225):	 total squared error = 0.00148608, marker error: RMS = 0.00803818, max = 0.0171657 (STRN)
+[2026-03-04 19:33:08.312] [info] Frame 46 (t = 0.23):	 total squared error = 0.00147225, marker error: RMS = 0.00800068, max = 0.0167181 (STRN)
+[2026-03-04 19:33:08.403] [info] Frame 47 (t = 0.235):	 total squared error = 0.00145933, marker error: RMS = 0.00796550, max = 0.0164153 (STRN)
+[2026-03-04 19:33:08.503] [info] Frame 48 (t = 0.24):	 total squared error = 0.00144393, marker error: RMS = 0.00792335, max = 0.0160124 (STRN)
+[2026-03-04 19:33:08.584] [info] Frame 49 (t = 0.245):	 total squared error = 0.00142479, marker error: RMS = 0.00787068, max = 0.0156046 (STRN)
+[2026-03-04 19:33:08.665] [info] Frame 50 (t = 0.25):	 total squared error = 0.00139925, marker error: RMS = 0.00779980, max = 0.0151588 (STRN)
+[2026-03-04 19:33:08.753] [info] Frame 51 (t = 0.255):	 total squared error = 0.00136615, marker error: RMS = 0.00770700, max = 0.0146847 (STRN)
+[2026-03-04 19:33:08.838] [info] Frame 52 (t = 0.26):	 total squared error = 0.00132250, marker error: RMS = 0.00758289, max = 0.0142212 (STRN)
+[2026-03-04 19:33:08.928] [info] Frame 53 (t = 0.265):	 total squared error = 0.00127187, marker error: RMS = 0.00743631, max = 0.0137063 (STRN)
+[2026-03-04 19:33:09.030] [info] Frame 54 (t = 0.27):	 total squared error = 0.00121412, marker error: RMS = 0.00726552, max = 0.0132083 (STRN)
+[2026-03-04 19:33:09.155] [info] Frame 55 (t = 0.275):	 total squared error = 0.00115339, marker error: RMS = 0.00708147, max = 0.0127096 (STRN)
+[2026-03-04 19:33:09.256] [info] Frame 56 (t = 0.28):	 total squared error = 0.00109102, marker error: RMS = 0.00688735, max = 0.0122264 (STRN)
+[2026-03-04 19:33:09.354] [info] Frame 57 (t = 0.285):	 total squared error = 0.00103617, marker error: RMS = 0.00671200, max = 0.0120099 (XIPH)
+[2026-03-04 19:33:09.439] [info] Frame 58 (t = 0.29):	 total squared error = 0.000987650, marker error: RMS = 0.00655296, max = 0.0118025 (XIPH)
+[2026-03-04 19:33:09.528] [info] Frame 59 (t = 0.295):	 total squared error = 0.000950531, marker error: RMS = 0.00642864, max = 0.0116552 (LTH2)
+[2026-03-04 19:33:09.615] [info] Frame 60 (t = 0.3):	 total squared error = 0.000926499, marker error: RMS = 0.00634685, max = 0.0118706 (LTH2)
+[2026-03-04 19:33:09.695] [info] Frame 61 (t = 0.305000):	 total squared error = 0.000915791, marker error: RMS = 0.00631007, max = 0.0122074 (LTH2)
+[2026-03-04 19:33:09.774] [info] Frame 62 (t = 0.31):	 total squared error = 0.000918702, marker error: RMS = 0.00632009, max = 0.0123773 (LTH2)
+[2026-03-04 19:33:09.861] [info] Frame 63 (t = 0.315):	 total squared error = 0.000933406, marker error: RMS = 0.00637047, max = 0.0125523 (LTH2)
+[2026-03-04 19:33:09.949] [info] Frame 64 (t = 0.32):	 total squared error = 0.000956564, marker error: RMS = 0.00644901, max = 0.0127969 (LTH2)
+[2026-03-04 19:33:10.031] [info] Frame 65 (t = 0.325):	 total squared error = 0.000985741, marker error: RMS = 0.00654663, max = 0.0131725 (LTH2)
+[2026-03-04 19:33:10.106] [info] Frame 66 (t = 0.33):	 total squared error = 0.00101999, marker error: RMS = 0.00665940, max = 0.013447 (LTH2)
+[2026-03-04 19:33:10.177] [info] Frame 67 (t = 0.335):	 total squared error = 0.00105540, marker error: RMS = 0.00677400, max = 0.0137255 (LTH2)
+[2026-03-04 19:33:10.264] [info] Frame 68 (t = 0.34):	 total squared error = 0.00109535, marker error: RMS = 0.00690100, max = 0.0141293 (LTH2)
+[2026-03-04 19:33:10.342] [info] Frame 69 (t = 0.345):	 total squared error = 0.00113509, marker error: RMS = 0.00702509, max = 0.0143352 (LTH2)
+[2026-03-04 19:33:10.422] [info] Frame 70 (t = 0.35):	 total squared error = 0.00117510, marker error: RMS = 0.00714781, max = 0.0145076 (LTH2)
+[2026-03-04 19:33:10.497] [info] Frame 71 (t = 0.355):	 total squared error = 0.00121557, marker error: RMS = 0.00726987, max = 0.0145448 (LTH2)
+[2026-03-04 19:33:10.571] [info] Frame 72 (t = 0.36):	 total squared error = 0.00125622, marker error: RMS = 0.00739041, max = 0.0145507 (LTH2)
+[2026-03-04 19:33:10.657] [info] Frame 73 (t = 0.365):	 total squared error = 0.00129470, marker error: RMS = 0.00750275, max = 0.0144955 (LTH2)
+[2026-03-04 19:33:10.746] [info] Frame 74 (t = 0.37):	 total squared error = 0.00133066, marker error: RMS = 0.00760622, max = 0.014388 (LTH2)
+[2026-03-04 19:33:10.826] [info] Frame 75 (t = 0.375):	 total squared error = 0.00136192, marker error: RMS = 0.00769507, max = 0.0141855 (LTH2)
+[2026-03-04 19:33:10.903] [info] Frame 76 (t = 0.38):	 total squared error = 0.00138811, marker error: RMS = 0.00776869, max = 0.0139557 (LTH2)
+[2026-03-04 19:33:11.002] [info] Frame 77 (t = 0.385):	 total squared error = 0.00140707, marker error: RMS = 0.00782158, max = 0.0135711 (LTH2)
+[2026-03-04 19:33:11.080] [info] Frame 78 (t = 0.39):	 total squared error = 0.00141979, marker error: RMS = 0.00785685, max = 0.0131182 (RTHOL)
+[2026-03-04 19:33:11.159] [info] Frame 79 (t = 0.395):	 total squared error = 0.00142429, marker error: RMS = 0.00786928, max = 0.0131661 (RTHOL)
+[2026-03-04 19:33:11.240] [info] Frame 80 (t = 0.4):	 total squared error = 0.00142262, marker error: RMS = 0.00786468, max = 0.0129946 (RTHOL)
+[2026-03-04 19:33:11.314] [info] Frame 81 (t = 0.405000):	 total squared error = 0.00141671, marker error: RMS = 0.00784833, max = 0.0129753 (RTHOL)
+[2026-03-04 19:33:11.415] [info] Frame 82 (t = 0.41):	 total squared error = 0.00140828, marker error: RMS = 0.00782494, max = 0.0129119 (RTHOL)
+[2026-03-04 19:33:11.497] [info] Frame 83 (t = 0.415):	 total squared error = 0.00140017, marker error: RMS = 0.00780237, max = 0.012958 (RTHOL)
+[2026-03-04 19:33:11.583] [info] Frame 84 (t = 0.42):	 total squared error = 0.00139355, marker error: RMS = 0.00778390, max = 0.0128261 (RTHOL)
+[2026-03-04 19:33:11.667] [info] Frame 85 (t = 0.425):	 total squared error = 0.00139046, marker error: RMS = 0.00777527, max = 0.0128097 (RTHOL)
+[2026-03-04 19:33:11.745] [info] Frame 86 (t = 0.43):	 total squared error = 0.00139259, marker error: RMS = 0.00778122, max = 0.0127981 (RTHOL)
+[2026-03-04 19:33:11.811] [info] Frame 87 (t = 0.435):	 total squared error = 0.00140115, marker error: RMS = 0.00780509, max = 0.0128714 (RTHOL)
+[2026-03-04 19:33:11.905] [info] Frame 88 (t = 0.44):	 total squared error = 0.00140901, marker error: RMS = 0.00782696, max = 0.0128713 (RTHOL)
+[2026-03-04 19:33:12.000] [info] Frame 89 (t = 0.445):	 total squared error = 0.00142370, marker error: RMS = 0.00786765, max = 0.0129655 (RTHOL)
+[2026-03-04 19:33:12.096] [info] Frame 90 (t = 0.45):	 total squared error = 0.00144237, marker error: RMS = 0.00791908, max = 0.0129184 (RTHOL)
+[2026-03-04 19:33:12.183] [info] Frame 91 (t = 0.455):	 total squared error = 0.00146528, marker error: RMS = 0.00798171, max = 0.0130485 (RTHOL)
+[2026-03-04 19:33:12.260] [info] Frame 92 (t = 0.46):	 total squared error = 0.00149281, marker error: RMS = 0.00805634, max = 0.012985 (RTHOL)
+[2026-03-04 19:33:12.350] [info] Frame 93 (t = 0.465):	 total squared error = 0.00152336, marker error: RMS = 0.00813836, max = 0.0131656 (RTHOL)
+[2026-03-04 19:33:12.452] [info] Frame 94 (t = 0.47):	 total squared error = 0.00155877, marker error: RMS = 0.00823241, max = 0.0132231 (RTHOL)
+[2026-03-04 19:33:12.550] [info] Frame 95 (t = 0.475):	 total squared error = 0.00159796, marker error: RMS = 0.00833525, max = 0.0132492 (RTHOL)
+[2026-03-04 19:33:12.630] [info] Frame 96 (t = 0.48):	 total squared error = 0.00164187, marker error: RMS = 0.00844901, max = 0.0133603 (RTHOL)
+[2026-03-04 19:33:12.720] [info] Frame 97 (t = 0.485):	 total squared error = 0.00168897, marker error: RMS = 0.00856935, max = 0.0133743 (RTHOL)
+[2026-03-04 19:33:12.818] [info] Frame 98 (t = 0.49):	 total squared error = 0.00174037, marker error: RMS = 0.00869875, max = 0.0132436 (RTHOL)
+[2026-03-04 19:33:12.909] [info] Frame 99 (t = 0.495):	 total squared error = 0.00179510, marker error: RMS = 0.00883448, max = 0.0132919 (RTHOL)
+[2026-03-04 19:33:12.997] [info] Frame 100 (t = 0.5):	 total squared error = 0.00185180, marker error: RMS = 0.00897290, max = 0.0132654 (RTHOL)
+[2026-03-04 19:33:13.096] [info] Frame 101 (t = 0.505000):	 total squared error = 0.00191078, marker error: RMS = 0.00911468, max = 0.013196 (XIPH)
+[2026-03-04 19:33:13.205] [info] Frame 102 (t = 0.51):	 total squared error = 0.00196875, marker error: RMS = 0.00925191, max = 0.0132524 (XIPH)
+[2026-03-04 19:33:13.400] [info] Frame 103 (t = 0.515):	 total squared error = 0.00202415, marker error: RMS = 0.00938119, max = 0.0133108 (LSHA2)
+[2026-03-04 19:33:13.497] [info] Frame 104 (t = 0.52):	 total squared error = 0.00207243, marker error: RMS = 0.00949239, max = 0.0136916 (LSHA2)
+[2026-03-04 19:33:13.592] [info] Frame 105 (t = 0.525):	 total squared error = 0.00211208, marker error: RMS = 0.00958278, max = 0.0140716 (LSHA2)
+[2026-03-04 19:33:13.683] [info] Frame 106 (t = 0.53):	 total squared error = 0.00213866, marker error: RMS = 0.00964288, max = 0.0142822 (LSHA2)
+[2026-03-04 19:33:13.771] [info] Frame 107 (t = 0.535):	 total squared error = 0.00214942, marker error: RMS = 0.00966712, max = 0.0143924 (LSHA2)
+[2026-03-04 19:33:13.862] [info] Frame 108 (t = 0.54):	 total squared error = 0.00214255, marker error: RMS = 0.00965164, max = 0.0143246 (LSHA2)
+[2026-03-04 19:33:13.955] [info] Frame 109 (t = 0.545):	 total squared error = 0.00211693, marker error: RMS = 0.00959377, max = 0.0141179 (LSHA2)
+[2026-03-04 19:33:14.054] [info] Frame 110 (t = 0.55):	 total squared error = 0.00207128, marker error: RMS = 0.00948977, max = 0.013723 (LSHA2)
+[2026-03-04 19:33:14.151] [info] Frame 111 (t = 0.555):	 total squared error = 0.00200845, marker error: RMS = 0.00934473, max = 0.0135651 (XIPH)
+[2026-03-04 19:33:14.224] [info] Frame 112 (t = 0.56):	 total squared error = 0.00193130, marker error: RMS = 0.00916349, max = 0.0136016 (XIPH)
+[2026-03-04 19:33:14.322] [info] Frame 113 (t = 0.565):	 total squared error = 0.00184039, marker error: RMS = 0.00894522, max = 0.0136033 (XIPH)
+[2026-03-04 19:33:14.443] [info] Frame 114 (t = 0.57):	 total squared error = 0.00174387, marker error: RMS = 0.00870748, max = 0.0135797 (XIPH)
+[2026-03-04 19:33:14.570] [info] Frame 115 (t = 0.575):	 total squared error = 0.00164362, marker error: RMS = 0.00845351, max = 0.0135769 (XIPH)
+[2026-03-04 19:33:14.679] [info] Frame 116 (t = 0.58):	 total squared error = 0.00154656, marker error: RMS = 0.00820010, max = 0.0135698 (XIPH)
+[2026-03-04 19:33:14.781] [info] Frame 117 (t = 0.585):	 total squared error = 0.00145664, marker error: RMS = 0.00795814, max = 0.0135293 (XIPH)
+[2026-03-04 19:33:14.873] [info] Frame 118 (t = 0.59):	 total squared error = 0.00137682, marker error: RMS = 0.00773703, max = 0.0134794 (XIPH)
+[2026-03-04 19:33:14.970] [info] Frame 119 (t = 0.595):	 total squared error = 0.00131117, marker error: RMS = 0.00755034, max = 0.0134335 (XIPH)
+[2026-03-04 19:33:15.069] [info] Frame 120 (t = 0.6):	 total squared error = 0.00126087, marker error: RMS = 0.00740409, max = 0.0134191 (XIPH)
+[2026-03-04 19:33:15.159] [info] Frame 121 (t = 0.605000):	 total squared error = 0.00122804, marker error: RMS = 0.00730706, max = 0.0133777 (XIPH)
+[2026-03-04 19:33:15.268] [info] Frame 122 (t = 0.61):	 total squared error = 0.00121218, marker error: RMS = 0.00725973, max = 0.013228 (XIPH)
+[2026-03-04 19:33:15.365] [info] Frame 123 (t = 0.615):	 total squared error = 0.00121227, marker error: RMS = 0.00725998, max = 0.0132219 (XIPH)
+[2026-03-04 19:33:15.455] [info] Frame 124 (t = 0.62):	 total squared error = 0.00122673, marker error: RMS = 0.00730316, max = 0.0131699 (XIPH)
+[2026-03-04 19:33:15.555] [info] Frame 125 (t = 0.625):	 total squared error = 0.00125277, marker error: RMS = 0.00738027, max = 0.0130895 (XIPH)
+[2026-03-04 19:33:15.632] [info] Frame 126 (t = 0.63):	 total squared error = 0.00128802, marker error: RMS = 0.00748337, max = 0.0134065 (RTHOL)
+[2026-03-04 19:33:15.733] [info] Frame 127 (t = 0.635):	 total squared error = 0.00132876, marker error: RMS = 0.00760081, max = 0.0133944 (RTHOL)
+[2026-03-04 19:33:15.837] [info] Frame 128 (t = 0.64):	 total squared error = 0.00137148, marker error: RMS = 0.00772202, max = 0.0136986 (RTHOL)
+[2026-03-04 19:33:15.935] [info] Frame 129 (t = 0.645):	 total squared error = 0.00141444, marker error: RMS = 0.00784203, max = 0.0139752 (RTHOL)
+[2026-03-04 19:33:16.027] [info] Frame 130 (t = 0.65):	 total squared error = 0.00145643, marker error: RMS = 0.00795759, max = 0.0141057 (RTHOL)
+[2026-03-04 19:33:16.126] [info] Frame 131 (t = 0.655):	 total squared error = 0.00149438, marker error: RMS = 0.00806058, max = 0.0144064 (RTHOL)
+[2026-03-04 19:33:16.215] [info] Frame 132 (t = 0.66):	 total squared error = 0.00152951, marker error: RMS = 0.00815479, max = 0.0146194 (RTHOL)
+[2026-03-04 19:33:16.290] [info] Frame 133 (t = 0.665):	 total squared error = 0.00156060, marker error: RMS = 0.00823726, max = 0.0147617 (RTHOL)
+[2026-03-04 19:33:16.388] [info] Frame 134 (t = 0.67):	 total squared error = 0.00159091, marker error: RMS = 0.00831685, max = 0.0149558 (RTHOL)
+[2026-03-04 19:33:16.470] [info] Frame 135 (t = 0.675):	 total squared error = 0.00162098, marker error: RMS = 0.00839507, max = 0.015263 (RTHOL)
+[2026-03-04 19:33:16.574] [info] Frame 136 (t = 0.68):	 total squared error = 0.00165065, marker error: RMS = 0.00847155, max = 0.0152205 (RTHOL)
+[2026-03-04 19:33:16.675] [info] Frame 137 (t = 0.685):	 total squared error = 0.00168349, marker error: RMS = 0.00855542, max = 0.0154092 (RTHOL)
+[2026-03-04 19:33:16.756] [info] Frame 138 (t = 0.69):	 total squared error = 0.00171958, marker error: RMS = 0.00864665, max = 0.0155406 (RTHOL)
+[2026-03-04 19:33:16.845] [info] Frame 139 (t = 0.695):	 total squared error = 0.00176099, marker error: RMS = 0.00875013, max = 0.0157319 (RTHOL)
+[2026-03-04 19:33:16.937] [info] Frame 140 (t = 0.7):	 total squared error = 0.00180803, marker error: RMS = 0.00886622, max = 0.0158397 (RTHOL)
+[2026-03-04 19:33:17.030] [info] Frame 141 (t = 0.705000):	 total squared error = 0.00185650, marker error: RMS = 0.00898428, max = 0.0160503 (RTHOL)
+[2026-03-04 19:33:17.107] [info] Frame 142 (t = 0.71):	 total squared error = 0.00190607, marker error: RMS = 0.00910345, max = 0.0161793 (RTHOL)
+[2026-03-04 19:33:17.177] [info] Frame 143 (t = 0.715):	 total squared error = 0.00195945, marker error: RMS = 0.00923002, max = 0.0163154 (RTHOL)
+[2026-03-04 19:33:17.279] [info] Frame 144 (t = 0.72):	 total squared error = 0.00200156, marker error: RMS = 0.00932869, max = 0.0165393 (RTHOL)
+[2026-03-04 19:33:17.376] [info] Frame 145 (t = 0.725):	 total squared error = 0.00204107, marker error: RMS = 0.00942032, max = 0.0168168 (RTHOL)
+[2026-03-04 19:33:17.526] [info] Frame 146 (t = 0.73):	 total squared error = 0.00207132, marker error: RMS = 0.00948985, max = 0.0169771 (RTHOL)
+[2026-03-04 19:33:17.613] [info] Frame 147 (t = 0.735):	 total squared error = 0.00209071, marker error: RMS = 0.00953417, max = 0.0171692 (RTHOL)
+[2026-03-04 19:33:17.705] [info] Frame 148 (t = 0.74):	 total squared error = 0.00210035, marker error: RMS = 0.00955612, max = 0.0173754 (RTHOL)
+[2026-03-04 19:33:17.786] [info] Frame 149 (t = 0.745):	 total squared error = 0.00209776, marker error: RMS = 0.00955024, max = 0.0177532 (RTOE)
+[2026-03-04 19:33:17.876] [info] Frame 150 (t = 0.75):	 total squared error = 0.00208749, marker error: RMS = 0.00952683, max = 0.0181207 (RTOE)
+[2026-03-04 19:33:17.955] [info] Frame 151 (t = 0.755):	 total squared error = 0.00206914, marker error: RMS = 0.00948487, max = 0.0185445 (RTOE)
+[2026-03-04 19:33:18.043] [info] Frame 152 (t = 0.76):	 total squared error = 0.00204611, marker error: RMS = 0.00943194, max = 0.018819 (RTOE)
+[2026-03-04 19:33:18.131] [info] Frame 153 (t = 0.765):	 total squared error = 0.00201923, marker error: RMS = 0.00936978, max = 0.0190740 (RTOE)
+[2026-03-04 19:33:18.207] [info] Frame 154 (t = 0.77):	 total squared error = 0.00198899, marker error: RMS = 0.00929935, max = 0.0192058 (RTOE)
+[2026-03-04 19:33:18.288] [info] Frame 155 (t = 0.775):	 total squared error = 0.00195487, marker error: RMS = 0.00921924, max = 0.0193173 (RTOE)
+[2026-03-04 19:33:18.367] [info] Frame 156 (t = 0.78):	 total squared error = 0.00191498, marker error: RMS = 0.00912470, max = 0.0192415 (RTOE)
+[2026-03-04 19:33:18.456] [info] Frame 157 (t = 0.785):	 total squared error = 0.00186686, marker error: RMS = 0.00900932, max = 0.0191688 (RTOE)
+[2026-03-04 19:33:18.521] [info] Frame 158 (t = 0.79):	 total squared error = 0.00181072, marker error: RMS = 0.00887282, max = 0.0188257 (RTOE)
+[2026-03-04 19:33:18.617] [info] Frame 159 (t = 0.795):	 total squared error = 0.00173968, marker error: RMS = 0.00869704, max = 0.0187597 (RTOE)
+[2026-03-04 19:33:18.708] [info] Frame 160 (t = 0.8):	 total squared error = 0.00165939, marker error: RMS = 0.00849395, max = 0.0183485 (RTOE)
+[2026-03-04 19:33:18.803] [info] Frame 161 (t = 0.805000):	 total squared error = 0.00156879, marker error: RMS = 0.00825883, max = 0.017777 (RTOE)
+[2026-03-04 19:33:18.891] [info] Frame 162 (t = 0.81):	 total squared error = 0.00147067, marker error: RMS = 0.00799639, max = 0.0171869 (RTOE)
+[2026-03-04 19:33:18.985] [info] Frame 163 (t = 0.815):	 total squared error = 0.00136648, marker error: RMS = 0.00770793, max = 0.0162831 (RTOE)
+[2026-03-04 19:33:19.075] [info] Frame 164 (t = 0.82):	 total squared error = 0.00126104, marker error: RMS = 0.00740458, max = 0.0153745 (RTOE)
+[2026-03-04 19:33:19.178] [info] Frame 165 (t = 0.825):	 total squared error = 0.00115776, marker error: RMS = 0.00709490, max = 0.0144079 (RTOE)
+[2026-03-04 19:33:19.271] [info] Frame 166 (t = 0.83):	 total squared error = 0.00106036, marker error: RMS = 0.00678990, max = 0.0133309 (RTOE)
+[2026-03-04 19:33:19.352] [info] Frame 167 (t = 0.835):	 total squared error = 0.000972291, marker error: RMS = 0.00650181, max = 0.0120390 (RTOE)
+[2026-03-04 19:33:19.441] [info] Frame 168 (t = 0.84):	 total squared error = 0.000894342, marker error: RMS = 0.00623574, max = 0.0110247 (RTOE)
+[2026-03-04 19:33:19.533] [info] Frame 169 (t = 0.845):	 total squared error = 0.000827642, marker error: RMS = 0.00599870, max = 0.0103288 (SACR3)
+[2026-03-04 19:33:19.626] [info] Frame 170 (t = 0.85):	 total squared error = 0.000773214, marker error: RMS = 0.00579810, max = 0.0101770 (SACR3)
+[2026-03-04 19:33:19.699] [info] Frame 171 (t = 0.855):	 total squared error = 0.000730644, marker error: RMS = 0.00563623, max = 0.00982116 (SACR3)
+[2026-03-04 19:33:19.786] [info] Frame 172 (t = 0.86):	 total squared error = 0.000693146, marker error: RMS = 0.00548970, max = 0.00980166 (SACR3)
+[2026-03-04 19:33:19.881] [info] Frame 173 (t = 0.865):	 total squared error = 0.000663865, marker error: RMS = 0.00537249, max = 0.00966510 (SACR3)
+[2026-03-04 19:33:19.966] [info] Frame 174 (t = 0.87):	 total squared error = 0.000640387, marker error: RMS = 0.00527664, max = 0.00937906 (SACR3)
+[2026-03-04 19:33:20.051] [info] Frame 175 (t = 0.875):	 total squared error = 0.000619475, marker error: RMS = 0.00518977, max = 0.00934073 (XIPH)
+[2026-03-04 19:33:20.157] [info] Frame 176 (t = 0.88):	 total squared error = 0.000602521, marker error: RMS = 0.00511826, max = 0.00966007 (XIPH)
+[2026-03-04 19:33:20.254] [info] Frame 177 (t = 0.885):	 total squared error = 0.000589419, marker error: RMS = 0.00506230, max = 0.00991740 (XIPH)
+[2026-03-04 19:33:20.346] [info] Frame 178 (t = 0.89):	 total squared error = 0.000580710, marker error: RMS = 0.00502477, max = 0.0102806 (XIPH)
+[2026-03-04 19:33:20.447] [info] Frame 179 (t = 0.895):	 total squared error = 0.000576435, marker error: RMS = 0.00500623, max = 0.0105786 (XIPH)
+[2026-03-04 19:33:20.545] [info] Frame 180 (t = 0.9):	 total squared error = 0.000577377, marker error: RMS = 0.00501033, max = 0.0109562 (XIPH)
+[2026-03-04 19:33:20.635] [info] Frame 181 (t = 0.905000):	 total squared error = 0.000584068, marker error: RMS = 0.00503927, max = 0.0111991 (XIPH)
+[2026-03-04 19:33:20.736] [info] Frame 182 (t = 0.91):	 total squared error = 0.000594371, marker error: RMS = 0.00508352, max = 0.0115678 (XIPH)
+[2026-03-04 19:33:20.834] [info] Frame 183 (t = 0.915):	 total squared error = 0.000607926, marker error: RMS = 0.00514116, max = 0.0117991 (XIPH)
+[2026-03-04 19:33:20.936] [info] Frame 184 (t = 0.92):	 total squared error = 0.000623857, marker error: RMS = 0.00520809, max = 0.0120549 (XIPH)
+[2026-03-04 19:33:21.018] [info] Frame 185 (t = 0.925):	 total squared error = 0.000640936, marker error: RMS = 0.00527890, max = 0.0121679 (XIPH)
+[2026-03-04 19:33:21.127] [info] Frame 186 (t = 0.93):	 total squared error = 0.000655535, marker error: RMS = 0.00533868, max = 0.0123917 (XIPH)
+[2026-03-04 19:33:21.222] [info] Frame 187 (t = 0.935):	 total squared error = 0.000668947, marker error: RMS = 0.00539302, max = 0.0125068 (XIPH)
+[2026-03-04 19:33:21.328] [info] Frame 188 (t = 0.94):	 total squared error = 0.000679016, marker error: RMS = 0.00543346, max = 0.0126433 (XIPH)
+[2026-03-04 19:33:21.426] [info] Frame 189 (t = 0.945):	 total squared error = 0.000686205, marker error: RMS = 0.00546214, max = 0.0126863 (XIPH)
+[2026-03-04 19:33:21.536] [info] Frame 190 (t = 0.95):	 total squared error = 0.000690446, marker error: RMS = 0.00547899, max = 0.0127299 (XIPH)
+[2026-03-04 19:33:21.628] [info] Frame 191 (t = 0.955):	 total squared error = 0.000692879, marker error: RMS = 0.00548864, max = 0.0128030 (XIPH)
+[2026-03-04 19:33:21.723] [info] Frame 192 (t = 0.96):	 total squared error = 0.000692195, marker error: RMS = 0.00548593, max = 0.0127685 (XIPH)
+[2026-03-04 19:33:21.825] [info] Frame 193 (t = 0.965):	 total squared error = 0.000691043, marker error: RMS = 0.00548136, max = 0.0127811 (XIPH)
+[2026-03-04 19:33:21.934] [info] Frame 194 (t = 0.97):	 total squared error = 0.000688951, marker error: RMS = 0.00547306, max = 0.012748 (XIPH)
+[2026-03-04 19:33:22.040] [info] Frame 195 (t = 0.975):	 total squared error = 0.000687391, marker error: RMS = 0.00546686, max = 0.0127209 (XIPH)
+[2026-03-04 19:33:22.141] [info] Frame 196 (t = 0.98):	 total squared error = 0.000686281, marker error: RMS = 0.00546244, max = 0.0127044 (XIPH)
+[2026-03-04 19:33:22.234] [info] Frame 197 (t = 0.985):	 total squared error = 0.000689608, marker error: RMS = 0.00547567, max = 0.0126964 (XIPH)
+[2026-03-04 19:33:22.347] [info] Frame 198 (t = 0.99):	 total squared error = 0.000684109, marker error: RMS = 0.00545379, max = 0.0126802 (XIPH)
+[2026-03-04 19:33:22.452] [info] Frame 199 (t = 0.995):	 total squared error = 0.000681989, marker error: RMS = 0.00544534, max = 0.0125994 (XIPH)
+[2026-03-04 19:33:22.557] [info] Frame 200 (t = 1.0):	 total squared error = 0.000681898, marker error: RMS = 0.00544498, max = 0.0125827 (XIPH)
+[2026-03-04 19:33:22.654] [info] Frame 201 (t = 1.00500):	 total squared error = 0.000681744, marker error: RMS = 0.00544436, max = 0.0125397 (XIPH)
+[2026-03-04 19:33:22.769] [info] Frame 202 (t = 1.01):	 total squared error = 0.000680875, marker error: RMS = 0.00544089, max = 0.0125063 (XIPH)
+[2026-03-04 19:33:22.881] [info] Frame 203 (t = 1.015):	 total squared error = 0.000680975, marker error: RMS = 0.00544129, max = 0.0125064 (XIPH)
+[2026-03-04 19:33:22.983] [info] Frame 204 (t = 1.02):	 total squared error = 0.000683393, marker error: RMS = 0.00545094, max = 0.0125373 (XIPH)
+[2026-03-04 19:33:23.080] [info] Frame 205 (t = 1.025):	 total squared error = 0.000684738, marker error: RMS = 0.00545630, max = 0.0125459 (XIPH)
+[2026-03-04 19:33:23.191] [info] Frame 206 (t = 1.03):	 total squared error = 0.000686728, marker error: RMS = 0.00546422, max = 0.0125848 (XIPH)
+[2026-03-04 19:33:23.293] [info] Frame 207 (t = 1.035):	 total squared error = 0.000694311, marker error: RMS = 0.00549431, max = 0.0125838 (XIPH)
+[2026-03-04 19:33:23.397] [info] Frame 208 (t = 1.04):	 total squared error = 0.000701211, marker error: RMS = 0.00552154, max = 0.0125861 (XIPH)
+[2026-03-04 19:33:23.503] [info] Frame 209 (t = 1.045):	 total squared error = 0.000713014, marker error: RMS = 0.00556782, max = 0.0126541 (XIPH)
+[2026-03-04 19:33:23.616] [info] Frame 210 (t = 1.05):	 total squared error = 0.000728622, marker error: RMS = 0.00562843, max = 0.0126776 (XIPH)
+[2026-03-04 19:33:23.707] [info] Frame 211 (t = 1.055):	 total squared error = 0.000749567, marker error: RMS = 0.00570875, max = 0.0127861 (XIPH)
+[2026-03-04 19:33:23.792] [info] Frame 212 (t = 1.06):	 total squared error = 0.000773549, marker error: RMS = 0.00579936, max = 0.0127758 (XIPH)
+[2026-03-04 19:33:23.892] [info] Frame 213 (t = 1.065):	 total squared error = 0.000800947, marker error: RMS = 0.00590117, max = 0.0128575 (XIPH)
+[2026-03-04 19:33:23.995] [info] Frame 214 (t = 1.07):	 total squared error = 0.000833342, marker error: RMS = 0.00601932, max = 0.012934 (XIPH)
+[2026-03-04 19:33:24.091] [info] Frame 215 (t = 1.075):	 total squared error = 0.000867579, marker error: RMS = 0.00614173, max = 0.0130035 (XIPH)
+[2026-03-04 19:33:24.209] [info] Frame 216 (t = 1.08):	 total squared error = 0.000903497, marker error: RMS = 0.00626757, max = 0.0130843 (XIPH)
+[2026-03-04 19:33:24.320] [info] Frame 217 (t = 1.085):	 total squared error = 0.000941681, marker error: RMS = 0.00639864, max = 0.0132029 (XIPH)
+[2026-03-04 19:33:24.434] [info] Frame 218 (t = 1.09):	 total squared error = 0.000977618, marker error: RMS = 0.00651960, max = 0.0132986 (XIPH)
+[2026-03-04 19:33:24.555] [info] Frame 219 (t = 1.095):	 total squared error = 0.00101180, marker error: RMS = 0.00663260, max = 0.0134070 (XIPH)
+[2026-03-04 19:33:24.648] [info] Frame 220 (t = 1.1):	 total squared error = 0.00104278, marker error: RMS = 0.00673338, max = 0.0135144 (XIPH)
+[2026-03-04 19:33:24.751] [info] Frame 221 (t = 1.10500):	 total squared error = 0.00106762, marker error: RMS = 0.00681309, max = 0.0136578 (XIPH)
+[2026-03-04 19:33:24.865] [info] Frame 222 (t = 1.11):	 total squared error = 0.00108497, marker error: RMS = 0.00686823, max = 0.0138275 (XIPH)
+[2026-03-04 19:33:24.956] [info] Frame 223 (t = 1.115):	 total squared error = 0.00109623, marker error: RMS = 0.00690378, max = 0.0139698 (XIPH)
+[2026-03-04 19:33:25.042] [info] Frame 224 (t = 1.12):	 total squared error = 0.00110015, marker error: RMS = 0.00691610, max = 0.0141131 (XIPH)
+[2026-03-04 19:33:25.154] [info] Frame 225 (t = 1.125):	 total squared error = 0.00109757, marker error: RMS = 0.00690799, max = 0.0142846 (XIPH)
+[2026-03-04 19:33:25.254] [info] Frame 226 (t = 1.13):	 total squared error = 0.00109137, marker error: RMS = 0.00688847, max = 0.0144575 (XIPH)
+[2026-03-04 19:33:25.367] [info] Frame 227 (t = 1.135):	 total squared error = 0.00108292, marker error: RMS = 0.00686175, max = 0.0145941 (XIPH)
+[2026-03-04 19:33:25.482] [info] Frame 228 (t = 1.14):	 total squared error = 0.00107517, marker error: RMS = 0.00683714, max = 0.0147753 (XIPH)
+[2026-03-04 19:33:25.598] [info] Frame 229 (t = 1.145):	 total squared error = 0.00107062, marker error: RMS = 0.00682266, max = 0.0149496 (XIPH)
+[2026-03-04 19:33:25.717] [info] Frame 230 (t = 1.15):	 total squared error = 0.00107128, marker error: RMS = 0.00682478, max = 0.0151001 (XIPH)
+[2026-03-04 19:33:25.833] [info] Frame 231 (t = 1.155):	 total squared error = 0.00107859, marker error: RMS = 0.00684801, max = 0.0152707 (XIPH)
+[2026-03-04 19:33:25.950] [info] Frame 232 (t = 1.16):	 total squared error = 0.00109356, marker error: RMS = 0.00689538, max = 0.0154456 (XIPH)
+[2026-03-04 19:33:26.055] [info] Frame 233 (t = 1.165):	 total squared error = 0.00111708, marker error: RMS = 0.00696913, max = 0.0155644 (XIPH)
+[2026-03-04 19:33:26.187] [info] Frame 234 (t = 1.17):	 total squared error = 0.00114566, marker error: RMS = 0.00705771, max = 0.0157184 (XIPH)
+[2026-03-04 19:33:26.328] [info] Frame 235 (t = 1.175):	 total squared error = 0.00118025, marker error: RMS = 0.00716345, max = 0.015823 (XIPH)
+[2026-03-04 19:33:26.470] [info] Frame 236 (t = 1.18):	 total squared error = 0.00121925, marker error: RMS = 0.00728086, max = 0.0159599 (XIPH)
+[2026-03-04 19:33:26.621] [info] Frame 237 (t = 1.185):	 total squared error = 0.00126019, marker error: RMS = 0.00740210, max = 0.0160680 (XIPH)
+[2026-03-04 19:33:26.751] [info] Frame 238 (t = 1.19):	 total squared error = 0.00130128, marker error: RMS = 0.00752179, max = 0.0162078 (XIPH)
+[2026-03-04 19:33:26.878] [info] Frame 239 (t = 1.195):	 total squared error = 0.00134188, marker error: RMS = 0.00763824, max = 0.0162709 (XIPH)
+[2026-03-04 19:33:27.006] [info] Frame 240 (t = 1.2):	 total squared error = 0.00138014, marker error: RMS = 0.00774635, max = 0.0163957 (XIPH)
+[2026-03-04 19:33:27.088] [info] Frame 241 (t = 1.20500):	 total squared error = 0.00141650, marker error: RMS = 0.00784775, max = 0.0165499 (XIPH)
+[2026-03-04 19:33:27.190] [info] Frame 242 (t = 1.21):	 total squared error = 0.00144654, marker error: RMS = 0.00793052, max = 0.0165517 (XIPH)
+[2026-03-04 19:33:27.296] [info] Frame 243 (t = 1.215):	 total squared error = 0.00147471, marker error: RMS = 0.00800737, max = 0.0166039 (XIPH)
+[2026-03-04 19:33:27.409] [info] Frame 244 (t = 1.22):	 total squared error = 0.00149946, marker error: RMS = 0.00807428, max = 0.0166152 (XIPH)
+[2026-03-04 19:33:27.517] [info] Frame 245 (t = 1.225):	 total squared error = 0.00152109, marker error: RMS = 0.00813231, max = 0.0167415 (XIPH)
+[2026-03-04 19:33:27.622] [info] Frame 246 (t = 1.23):	 total squared error = 0.00154111, marker error: RMS = 0.00818566, max = 0.0167832 (XIPH)
+[2026-03-04 19:33:27.721] [info] Frame 247 (t = 1.235):	 total squared error = 0.00155685, marker error: RMS = 0.00822735, max = 0.0168272 (XIPH)
+[2026-03-04 19:33:27.810] [info] Frame 248 (t = 1.24):	 total squared error = 0.00157129, marker error: RMS = 0.00826540, max = 0.0168715 (XIPH)
+[2026-03-04 19:33:27.888] [info] Frame 249 (t = 1.245):	 total squared error = 0.00158507, marker error: RMS = 0.00830158, max = 0.0169505 (XIPH)
+[2026-03-04 19:33:27.992] [info] Frame 250 (t = 1.25):	 total squared error = 0.00159115, marker error: RMS = 0.00831749, max = 0.0168539 (XIPH)
+[2026-03-04 19:33:28.087] [info] Frame 251 (t = 1.255):	 total squared error = 0.00159679, marker error: RMS = 0.00833222, max = 0.0168253 (XIPH)
+[2026-03-04 19:33:28.096] [info] InverseKinematicsTool completed 217 frames in 21 second(s).
+[2026-03-04 19:33:34.149] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:34.222] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:33:34.332] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:34.391] [cout] [info] 
+               MODEL: Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00
+         coordinates: 31
+              forces: 83
+           actuators: 83
+             muscles: 80
+            analyses: 0
+              probes: 0
+              bodies: 24
+              joints: 24
+         constraints: 4
+             markers: 45
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2026-03-04 19:33:34.391] [info] Running tool ...
+[2026-03-04 19:33:34.467] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:33:34.528] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:33:34.528] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:33:34.528] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:33:34.547] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:33:34.550] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:33:34.955] [info] InverseDynamicsTool: 217 time frames in 354 millisecond(s).
+[2026-03-04 19:33:40.947] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:41.011] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:33:41.036] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:41.063] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:33:41.236] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:33:41.295] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:33:41.295] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:33:41.295] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:33:41.311] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:33:41.311] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:33:41.314] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:33:42.456] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10.
+[2026-03-04 19:33:42.494] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:33:42.748] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:33:42.748] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:33:42.754] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2026-03-04 19:33:42.754] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2026-03-04 19:34:29.039] [info] Printing results of investigation  to MuscleAnalysis
+[2026-03-04 19:34:30.091] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:34:30.132] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:34:30.165] [info] AbstractTool SO loading model ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:34:30.194] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:34:30.254] [info] Adding force object set from actuators_so.xml
+[2026-03-04 19:34:30.327] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:34:30.406] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:34:30.406] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:34:30.406] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:34:30.422] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:34:30.422] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:34:30.427] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:34:32.059] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10.
+[2026-03-04 19:34:32.103] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:34:32.374] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:34:32.374] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:34:32.458] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:34:32.516] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:34:32.516] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:34:32.516] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:34:32.549] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:34:32.610] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:34:32.610] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:34:32.610] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:34:33.601] [cout] [info] time = 0.175 Performance = 1.63212 Constraint violation = 5.73369e-13
+[2026-03-04 19:34:33.603] [info] Bounds for 'addbrev_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addlong_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagDist_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagIsch_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagMid_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagProx_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'bflh_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'bfsh_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'edl_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'ehl_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'fdl_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'fhl_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'gaslat_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'gasmed_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax1_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax2_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax3_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed1_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed2_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed3_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin1_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin2_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin3_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'grac_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'iliacus_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'perbrev_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'perlong_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'piri_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'psoas_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'recfem_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'sart_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'semimem_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'semiten_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'soleus_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tfl_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tibant_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tibpost_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vasint_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vaslat_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vasmed_r': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addbrev_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addlong_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagDist_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagIsch_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagMid_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'addmagProx_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'bflh_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'bfsh_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'edl_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'ehl_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'fdl_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'fhl_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'gaslat_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'gasmed_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax1_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax2_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmax3_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed1_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed2_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmed3_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin1_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin2_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'glmin3_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'grac_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'iliacus_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'perbrev_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'perlong_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'piri_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'psoas_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'recfem_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'sart_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'semimem_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'semiten_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'soleus_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tfl_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tibant_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'tibpost_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vasint_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vaslat_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'vasmed_l': 0.01 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'lumbar_ext': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'lumbar_bend': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'lumbar_rot': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'FX': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'FY': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'FZ': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'MX': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'MY': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'MZ': -inf to inf.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_flexion_r_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_adduction_r_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_rotation_r_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'knee_angle_r_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'ankle_angle_r_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_flexion_l_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_adduction_l_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'hip_rotation_l_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'knee_angle_l_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'ankle_angle_l_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.603] [info] Bounds for 'lumbar_extension_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.604] [info] Bounds for 'lumbar_bending_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.604] [info] Bounds for 'lumbar_rotation_reserve': -1.0 to 1.0.
+[2026-03-04 19:34:33.754] [cout] [info] time = 0.18 Performance = 1.20448 Constraint violation = 5.64625e-13
+[2026-03-04 19:34:33.899] [cout] [info] time = 0.185 Performance = 0.978976 Constraint violation = 5.63075e-13
+[2026-03-04 19:34:34.047] [cout] [info] time = 0.19 Performance = 0.778871 Constraint violation = 1.22268e-12
+[2026-03-04 19:34:34.199] [cout] [info] time = 0.195 Performance = 0.644187 Constraint violation = 6.07786e-13
+[2026-03-04 19:34:34.343] [cout] [info] time = 0.2 Performance = 0.562557 Constraint violation = 1.85947e-12
+[2026-03-04 19:34:34.487] [cout] [info] time = 0.205000 Performance = 0.507391 Constraint violation = 1.08191e-12
+[2026-03-04 19:34:34.634] [cout] [info] time = 0.21 Performance = 0.458533 Constraint violation = 5.77769e-13
+[2026-03-04 19:34:34.776] [cout] [info] time = 0.215 Performance = 0.418346 Constraint violation = 8.23224e-13
+[2026-03-04 19:34:34.923] [cout] [info] time = 0.22 Performance = 0.376793 Constraint violation = 3.97937e-13
+[2026-03-04 19:34:35.069] [cout] [info] time = 0.225 Performance = 0.346397 Constraint violation = 5.38833e-13
+[2026-03-04 19:34:35.211] [cout] [info] time = 0.23 Performance = 0.321517 Constraint violation = 3.22443e-13
+[2026-03-04 19:34:35.354] [cout] [info] time = 0.235 Performance = 0.303850 Constraint violation = 7.9583e-13
+[2026-03-04 19:34:35.497] [cout] [info] time = 0.24 Performance = 0.295176 Constraint violation = 1.37485e-12
+[2026-03-04 19:34:35.652] [cout] [info] time = 0.245 Performance = 0.290417 Constraint violation = 7.71284e-13
+[2026-03-04 19:34:35.805] [cout] [info] time = 0.25 Performance = 0.287302 Constraint violation = 1.4257e-12
+[2026-03-04 19:34:35.955] [cout] [info] time = 0.255 Performance = 0.283572 Constraint violation = 2.46599e-12
+[2026-03-04 19:34:36.088] [cout] [info] time = 0.26 Performance = 0.278126 Constraint violation = 5.80881e-13
+[2026-03-04 19:34:36.235] [cout] [info] time = 0.265 Performance = 0.270225 Constraint violation = 1.28959e-12
+[2026-03-04 19:34:36.387] [cout] [info] time = 0.27 Performance = 0.260388 Constraint violation = 1.44743e-12
+[2026-03-04 19:34:36.531] [cout] [info] time = 0.275 Performance = 0.248535 Constraint violation = 2.13174e-12
+[2026-03-04 19:34:36.669] [cout] [info] time = 0.28 Performance = 0.235645 Constraint violation = 3.53239e-12
+[2026-03-04 19:34:36.803] [cout] [info] time = 0.285 Performance = 0.221789 Constraint violation = 1.37072e-12
+[2026-03-04 19:34:36.954] [cout] [info] time = 0.29 Performance = 0.208333 Constraint violation = 2.25627e-12
+[2026-03-04 19:34:37.128] [cout] [info] time = 0.295 Performance = 0.195808 Constraint violation = 3.94056e-12
+[2026-03-04 19:34:37.275] [cout] [info] time = 0.3 Performance = 0.184298 Constraint violation = 2.05129e-12
+[2026-03-04 19:34:37.427] [cout] [info] time = 0.305000 Performance = 0.172588 Constraint violation = 2.29155e-12
+[2026-03-04 19:34:37.587] [cout] [info] time = 0.31 Performance = 0.162185 Constraint violation = 1.97999e-12
+[2026-03-04 19:34:37.733] [cout] [info] time = 0.315 Performance = 0.15233 Constraint violation = 5.0473e-12
+[2026-03-04 19:34:37.873] [cout] [info] time = 0.32 Performance = 0.14474 Constraint violation = 2.29364e-12
+[2026-03-04 19:34:38.023] [cout] [info] time = 0.325 Performance = 0.134132 Constraint violation = 1.87112e-12
+[2026-03-04 19:34:38.177] [cout] [info] time = 0.33 Performance = 0.128219 Constraint violation = 1.76877e-12
+[2026-03-04 19:34:38.333] [cout] [info] time = 0.335 Performance = 0.120907 Constraint violation = 3.82221e-12
+[2026-03-04 19:34:38.510] [cout] [info] time = 0.34 Performance = 0.114868 Constraint violation = 3.87916e-12
+[2026-03-04 19:34:38.744] [cout] [info] time = 0.345 Performance = 0.110596 Constraint violation = 4.71895e-12
+[2026-03-04 19:34:38.900] [cout] [info] time = 0.35 Performance = 0.108200 Constraint violation = 4.83046e-12
+[2026-03-04 19:34:39.040] [cout] [info] time = 0.355 Performance = 0.107212 Constraint violation = 3.26599e-12
+[2026-03-04 19:34:39.181] [cout] [info] time = 0.36 Performance = 0.107219 Constraint violation = 1.17559e-12
+[2026-03-04 19:34:39.324] [cout] [info] time = 0.365 Performance = 0.107821 Constraint violation = 2.75484e-12
+[2026-03-04 19:34:39.504] [cout] [info] time = 0.37 Performance = 0.108389 Constraint violation = 3.52697e-12
+[2026-03-04 19:34:39.659] [cout] [info] time = 0.375 Performance = 0.108415 Constraint violation = 3.31685e-12
+[2026-03-04 19:34:39.837] [cout] [info] time = 0.38 Performance = 0.107649 Constraint violation = 1.01448e-12
+[2026-03-04 19:34:39.985] [cout] [info] time = 0.385 Performance = 0.105903 Constraint violation = 4.13192e-12
+[2026-03-04 19:34:40.134] [cout] [info] time = 0.39 Performance = 0.103154 Constraint violation = 1.09159e-12
+[2026-03-04 19:34:40.276] [cout] [info] time = 0.395 Performance = 0.0994995 Constraint violation = 2.27618e-12
+[2026-03-04 19:34:40.420] [cout] [info] time = 0.4 Performance = 0.0951867 Constraint violation = 5.41274e-12
+[2026-03-04 19:34:40.557] [cout] [info] time = 0.405000 Performance = 0.0903789 Constraint violation = 2.43727e-12
+[2026-03-04 19:34:40.701] [cout] [info] time = 0.41 Performance = 0.0853875 Constraint violation = 3.19097e-12
+[2026-03-04 19:34:40.856] [cout] [info] time = 0.415 Performance = 0.0804640 Constraint violation = 2.71548e-12
+[2026-03-04 19:34:41.000] [cout] [info] time = 0.42 Performance = 0.0757498 Constraint violation = 2.39525e-12
+[2026-03-04 19:34:41.141] [cout] [info] time = 0.425 Performance = 0.0683818 Constraint violation = 2.73835e-12
+[2026-03-04 19:34:41.283] [cout] [info] time = 0.43 Performance = 0.0645671 Constraint violation = 3.69842e-12
+[2026-03-04 19:34:41.423] [cout] [info] time = 0.435 Performance = 0.0613907 Constraint violation = 6.33573e-13
+[2026-03-04 19:34:41.565] [cout] [info] time = 0.44 Performance = 0.0588864 Constraint violation = 2.86592e-12
+[2026-03-04 19:34:41.721] [cout] [info] time = 0.445 Performance = 0.0570966 Constraint violation = 4.61592e-12
+[2026-03-04 19:34:41.879] [cout] [info] time = 0.45 Performance = 0.0559445 Constraint violation = 2.49876e-12
+[2026-03-04 19:34:42.032] [cout] [info] time = 0.455 Performance = 0.0553168 Constraint violation = 2.8869e-12
+[2026-03-04 19:34:42.170] [cout] [info] time = 0.46 Performance = 0.0550166 Constraint violation = 4.57325e-12
+[2026-03-04 19:34:42.313] [cout] [info] time = 0.465 Performance = 0.0548567 Constraint violation = 4.24162e-12
+[2026-03-04 19:34:42.458] [cout] [info] time = 0.47 Performance = 0.0545406 Constraint violation = 1.18026e-12
+[2026-03-04 19:34:42.603] [cout] [info] time = 0.475 Performance = 0.0541472 Constraint violation = 1.75344e-12
+[2026-03-04 19:34:42.749] [cout] [info] time = 0.48 Performance = 0.052938 Constraint violation = 9.04772e-13
+[2026-03-04 19:34:42.901] [cout] [info] time = 0.485 Performance = 0.0521192 Constraint violation = 5.03837e-12
+[2026-03-04 19:34:43.048] [cout] [info] time = 0.49 Performance = 0.0516118 Constraint violation = 8.50115e-13
+[2026-03-04 19:34:43.190] [cout] [info] time = 0.495 Performance = 0.0505670 Constraint violation = 1.54527e-12
+[2026-03-04 19:34:43.336] [cout] [info] time = 0.5 Performance = 0.0496988 Constraint violation = 1.0583e-12
+[2026-03-04 19:34:43.481] [cout] [info] time = 0.505000 Performance = 0.0492183 Constraint violation = 6.73673e-13
+[2026-03-04 19:34:43.632] [cout] [info] time = 0.51 Performance = 0.0494296 Constraint violation = 4.64751e-12
+[2026-03-04 19:34:43.777] [cout] [info] time = 0.515 Performance = 0.0505215 Constraint violation = 1.37164e-12
+[2026-03-04 19:34:43.939] [cout] [info] time = 0.52 Performance = 0.0526274 Constraint violation = 2.50234e-12
+[2026-03-04 19:34:44.092] [cout] [info] time = 0.525 Performance = 0.0558803 Constraint violation = 3.24090e-12
+[2026-03-04 19:34:44.236] [cout] [info] time = 0.53 Performance = 0.0600010 Constraint violation = 1.22149e-12
+[2026-03-04 19:34:44.397] [cout] [info] time = 0.535 Performance = 0.064948 Constraint violation = 1.4943e-12
+[2026-03-04 19:34:44.603] [cout] [info] time = 0.54 Performance = 0.0705574 Constraint violation = 5.18435e-12
+[2026-03-04 19:34:44.752] [cout] [info] time = 0.545 Performance = 0.0765443 Constraint violation = 1.26429e-12
+[2026-03-04 19:34:44.890] [cout] [info] time = 0.55 Performance = 0.083378 Constraint violation = 8.54221e-13
+[2026-03-04 19:34:45.033] [cout] [info] time = 0.555 Performance = 0.089278 Constraint violation = 3.04060e-12
+[2026-03-04 19:34:45.172] [cout] [info] time = 0.56 Performance = 0.0945608 Constraint violation = 2.84881e-12
+[2026-03-04 19:34:45.310] [cout] [info] time = 0.565 Performance = 0.0976233 Constraint violation = 4.64089e-12
+[2026-03-04 19:34:45.454] [cout] [info] time = 0.57 Performance = 0.101211 Constraint violation = 3.72834e-12
+[2026-03-04 19:34:45.606] [cout] [info] time = 0.575 Performance = 0.103666 Constraint violation = 1.43502e-12
+[2026-03-04 19:34:45.745] [cout] [info] time = 0.58 Performance = 0.105154 Constraint violation = 1.22682e-12
+[2026-03-04 19:34:45.889] [cout] [info] time = 0.585 Performance = 0.105805 Constraint violation = 2.01774e-12
+[2026-03-04 19:34:46.054] [cout] [info] time = 0.59 Performance = 0.105695 Constraint violation = 8.8371e-13
+[2026-03-04 19:34:46.200] [cout] [info] time = 0.595 Performance = 0.104851 Constraint violation = 1.29809e-12
+[2026-03-04 19:34:46.339] [cout] [info] time = 0.6 Performance = 0.103555 Constraint violation = 1.94965e-12
+[2026-03-04 19:34:46.519] [cout] [info] time = 0.605000 Performance = 0.101731 Constraint violation = 3.09641e-12
+[2026-03-04 19:34:46.671] [cout] [info] time = 0.61 Performance = 0.0998542 Constraint violation = 3.10578e-12
+[2026-03-04 19:34:46.810] [cout] [info] time = 0.615 Performance = 0.0982947 Constraint violation = 6.50352e-12
+[2026-03-04 19:34:46.979] [cout] [info] time = 0.62 Performance = 0.0971567 Constraint violation = 1.23709e-12
+[2026-03-04 19:34:47.174] [cout] [info] time = 0.625 Performance = 0.0972593 Constraint violation = 1.43861e-12
+[2026-03-04 19:34:47.377] [cout] [info] time = 0.63 Performance = 0.0983779 Constraint violation = 2.76628e-12
+[2026-03-04 19:34:47.559] [cout] [info] time = 0.635 Performance = 0.100734 Constraint violation = 7.44231e-13
+[2026-03-04 19:34:47.780] [cout] [info] time = 0.64 Performance = 0.104985 Constraint violation = 1.41814e-12
+[2026-03-04 19:34:47.973] [cout] [info] time = 0.645 Performance = 0.110515 Constraint violation = 2.00468e-12
+[2026-03-04 19:34:48.190] [cout] [info] time = 0.65 Performance = 0.118193 Constraint violation = 2.87435e-12
+[2026-03-04 19:34:48.367] [cout] [info] time = 0.655 Performance = 0.128074 Constraint violation = 2.91199e-12
+[2026-03-04 19:34:48.557] [cout] [info] time = 0.66 Performance = 0.140159 Constraint violation = 2.08435e-12
+[2026-03-04 19:34:48.791] [cout] [info] time = 0.665 Performance = 0.154821 Constraint violation = 2.95001e-12
+[2026-03-04 19:34:48.956] [cout] [info] time = 0.67 Performance = 0.171941 Constraint violation = 1.12509e-12
+[2026-03-04 19:34:49.126] [cout] [info] time = 0.675 Performance = 0.191423 Constraint violation = 1.79897e-12
+[2026-03-04 19:34:49.270] [cout] [info] time = 0.68 Performance = 0.212811 Constraint violation = 3.75478e-12
+[2026-03-04 19:34:49.419] [cout] [info] time = 0.685 Performance = 0.235475 Constraint violation = 1.53033e-12
+[2026-03-04 19:34:49.566] [cout] [info] time = 0.69 Performance = 0.259019 Constraint violation = 1.17121e-12
+[2026-03-04 19:34:49.764] [cout] [info] time = 0.695 Performance = 0.282861 Constraint violation = 7.81186e-13
+[2026-03-04 19:34:49.984] [cout] [info] time = 0.7 Performance = 0.306574 Constraint violation = 3.32727e-12
+[2026-03-04 19:34:50.171] [cout] [info] time = 0.705000 Performance = 0.329644 Constraint violation = 3.41506e-12
+[2026-03-04 19:34:50.340] [cout] [info] time = 0.71 Performance = 0.351515 Constraint violation = 2.0273e-12
+[2026-03-04 19:34:50.483] [cout] [info] time = 0.715 Performance = 0.371924 Constraint violation = 1.30918e-12
+[2026-03-04 19:34:50.624] [cout] [info] time = 0.72 Performance = 0.390656 Constraint violation = 1.98318e-12
+[2026-03-04 19:34:50.771] [cout] [info] time = 0.725 Performance = 0.410853 Constraint violation = 2.33536e-12
+[2026-03-04 19:34:50.912] [cout] [info] time = 0.73 Performance = 0.427309 Constraint violation = 1.96991e-12
+[2026-03-04 19:34:51.065] [cout] [info] time = 0.735 Performance = 0.443215 Constraint violation = 1.9429e-12
+[2026-03-04 19:34:51.212] [cout] [info] time = 0.74 Performance = 0.463112 Constraint violation = 7.86676e-13
+[2026-03-04 19:34:51.356] [cout] [info] time = 0.745 Performance = 0.490732 Constraint violation = 1.59324e-12
+[2026-03-04 19:34:51.502] [cout] [info] time = 0.75 Performance = 0.523055 Constraint violation = 9.00833e-13
+[2026-03-04 19:34:51.649] [cout] [info] time = 0.755 Performance = 0.563954 Constraint violation = 2.11283e-12
+[2026-03-04 19:34:51.791] [cout] [info] time = 0.76 Performance = 0.619145 Constraint violation = 1.30995e-12
+[2026-03-04 19:34:51.946] [cout] [info] time = 0.765 Performance = 0.693576 Constraint violation = 1.14426e-12
+[2026-03-04 19:34:52.100] [cout] [info] time = 0.77 Performance = 0.780265 Constraint violation = 5.41888e-13
+[2026-03-04 19:34:52.240] [cout] [info] time = 0.775 Performance = 0.884159 Constraint violation = 9.79171e-13
+[2026-03-04 19:34:52.378] [cout] [info] time = 0.78 Performance = 1.00399 Constraint violation = 8.94735e-13
+[2026-03-04 19:34:52.521] [cout] [info] time = 0.785 Performance = 1.13374 Constraint violation = 6.28324e-13
+[2026-03-04 19:34:52.668] [cout] [info] time = 0.79 Performance = 1.27236 Constraint violation = 1.01617e-12
+[2026-03-04 19:34:52.805] [cout] [info] time = 0.795 Performance = 1.40502 Constraint violation = 9.20661e-13
+[2026-03-04 19:34:52.943] [cout] [info] time = 0.8 Performance = 1.52348 Constraint violation = 8.04056e-13
+[2026-03-04 19:34:53.084] [cout] [info] time = 0.805000 Performance = 1.61245 Constraint violation = 1.05534e-12
+[2026-03-04 19:34:53.222] [cout] [info] time = 0.81 Performance = 1.98986 Constraint violation = 9.16313e-13
+[2026-03-04 19:34:53.359] [cout] [info] time = 0.815 Performance = 2.05801 Constraint violation = 1.01503e-12
+[2026-03-04 19:34:53.501] [cout] [info] time = 0.82 Performance = 2.12886 Constraint violation = 1.41044e-12
+[2026-03-04 19:34:53.639] [cout] [info] time = 0.825 Performance = 2.19893 Constraint violation = 1.01327e-12
+[2026-03-04 19:34:53.779] [cout] [info] time = 0.83 Performance = 2.26341 Constraint violation = 7.83696e-13
+[2026-03-04 19:34:53.914] [cout] [info] time = 0.835 Performance = 2.31856 Constraint violation = 7.15657e-13
+[2026-03-04 19:34:54.054] [cout] [info] time = 0.84 Performance = 2.36438 Constraint violation = 7.41853e-13
+[2026-03-04 19:34:54.206] [cout] [info] time = 0.845 Performance = 2.393 Constraint violation = 7.52624e-13
+[2026-03-04 19:34:54.345] [cout] [info] time = 0.85 Performance = 2.40092 Constraint violation = 1.20706e-12
+[2026-03-04 19:34:54.485] [cout] [info] time = 0.855 Performance = 2.39228 Constraint violation = 5.92893e-13
+[2026-03-04 19:34:54.630] [cout] [info] time = 0.86 Performance = 2.36383 Constraint violation = 1.3952e-12
+[2026-03-04 19:34:54.770] [cout] [info] time = 0.865 Performance = 2.31925 Constraint violation = 1.44301e-12
+[2026-03-04 19:34:54.905] [cout] [info] time = 0.87 Performance = 2.25534 Constraint violation = 1.14756e-12
+[2026-03-04 19:34:55.052] [cout] [info] time = 0.875 Performance = 2.17708 Constraint violation = 5.01955e-13
+[2026-03-04 19:34:55.192] [cout] [info] time = 0.88 Performance = 2.08746 Constraint violation = 1.33651e-12
+[2026-03-04 19:34:55.336] [cout] [info] time = 0.885 Performance = 1.98961 Constraint violation = 1.75005e-12
+[2026-03-04 19:34:55.479] [cout] [info] time = 0.89 Performance = 1.88666 Constraint violation = 8.58017e-13
+[2026-03-04 19:34:55.619] [cout] [info] time = 0.895 Performance = 1.78147 Constraint violation = 1.08948e-12
+[2026-03-04 19:34:55.761] [cout] [info] time = 0.9 Performance = 1.67653 Constraint violation = 1.25862e-12
+[2026-03-04 19:34:55.899] [cout] [info] time = 0.905000 Performance = 1.57396 Constraint violation = 1.30926e-12
+[2026-03-04 19:34:56.034] [cout] [info] time = 0.91 Performance = 1.47536 Constraint violation = 1.54933e-12
+[2026-03-04 19:34:56.177] [cout] [info] time = 0.915 Performance = 1.38209 Constraint violation = 2.05819e-12
+[2026-03-04 19:34:56.319] [cout] [info] time = 0.92 Performance = 1.29468 Constraint violation = 2.40257e-12
+[2026-03-04 19:34:56.461] [cout] [info] time = 0.925 Performance = 1.21377 Constraint violation = 1.03151e-12
+[2026-03-04 19:34:56.605] [cout] [info] time = 0.93 Performance = 1.13957 Constraint violation = 1.1523e-12
+[2026-03-04 19:34:56.752] [cout] [info] time = 0.935 Performance = 1.07216 Constraint violation = 1.45551e-12
+[2026-03-04 19:34:56.892] [cout] [info] time = 0.94 Performance = 1.01129 Constraint violation = 7.39827e-13
+[2026-03-04 19:34:57.057] [cout] [info] time = 0.945 Performance = 0.957105 Constraint violation = 1.39467e-12
+[2026-03-04 19:34:57.203] [cout] [info] time = 0.95 Performance = 0.909166 Constraint violation = 1.17578e-12
+[2026-03-04 19:34:57.347] [cout] [info] time = 0.955 Performance = 0.867322 Constraint violation = 7.00455e-13
+[2026-03-04 19:34:57.498] [cout] [info] time = 0.96 Performance = 0.831612 Constraint violation = 7.60561e-13
+[2026-03-04 19:34:57.642] [cout] [info] time = 0.965 Performance = 0.801751 Constraint violation = 7.60912e-13
+[2026-03-04 19:34:57.842] [cout] [info] time = 0.97 Performance = 0.777662 Constraint violation = 1.13965e-12
+[2026-03-04 19:34:57.999] [cout] [info] time = 0.975 Performance = 0.759096 Constraint violation = 2.19632e-12
+[2026-03-04 19:34:58.178] [cout] [info] time = 0.98 Performance = 0.741883 Constraint violation = 1.27299e-12
+[2026-03-04 19:34:58.360] [cout] [info] time = 0.985 Performance = 0.734393 Constraint violation = 8.89457e-13
+[2026-03-04 19:34:58.508] [cout] [info] time = 0.99 Performance = 0.731716 Constraint violation = 1.6767e-12
+[2026-03-04 19:34:58.658] [cout] [info] time = 0.995 Performance = 0.733097 Constraint violation = 9.48917e-13
+[2026-03-04 19:34:58.804] [cout] [info] time = 1.0 Performance = 0.738807 Constraint violation = 3.82565e-13
+[2026-03-04 19:34:58.962] [cout] [info] time = 1.00500 Performance = 0.747147 Constraint violation = 8.51437e-13
+[2026-03-04 19:34:59.112] [cout] [info] time = 1.01 Performance = 0.759994 Constraint violation = 3.76786e-13
+[2026-03-04 19:34:59.256] [cout] [info] time = 1.015 Performance = 0.774516 Constraint violation = 2.39416e-12
+[2026-03-04 19:34:59.402] [cout] [info] time = 1.02 Performance = 0.790850 Constraint violation = 1.46923e-12
+[2026-03-04 19:34:59.552] [cout] [info] time = 1.025 Performance = 0.808654 Constraint violation = 4.60572e-13
+[2026-03-04 19:34:59.698] [cout] [info] time = 1.03 Performance = 0.827631 Constraint violation = 9.08462e-13
+[2026-03-04 19:34:59.847] [cout] [info] time = 1.035 Performance = 0.847617 Constraint violation = 6.55841e-13
+[2026-03-04 19:34:59.999] [cout] [info] time = 1.04 Performance = 0.868673 Constraint violation = 1.67735e-12
+[2026-03-04 19:35:00.158] [cout] [info] time = 1.045 Performance = 0.890998 Constraint violation = 1.10243e-12
+[2026-03-04 19:35:00.304] [cout] [info] time = 1.05 Performance = 0.914965 Constraint violation = 7.38461e-13
+[2026-03-04 19:35:00.454] [cout] [info] time = 1.055 Performance = 0.941097 Constraint violation = 1.18758e-12
+[2026-03-04 19:35:00.607] [cout] [info] time = 1.06 Performance = 0.969904 Constraint violation = 1.10216e-12
+[2026-03-04 19:35:00.749] [cout] [info] time = 1.065 Performance = 1.00190 Constraint violation = 1.02937e-12
+[2026-03-04 19:35:00.897] [cout] [info] time = 1.07 Performance = 1.03744 Constraint violation = 8.64786e-13
+[2026-03-04 19:35:01.056] [cout] [info] time = 1.075 Performance = 1.07672 Constraint violation = 9.54349e-13
+[2026-03-04 19:35:01.204] [cout] [info] time = 1.08 Performance = 1.11963 Constraint violation = 1.46751e-12
+[2026-03-04 19:35:01.349] [cout] [info] time = 1.085 Performance = 1.1655 Constraint violation = 9.98098e-13
+[2026-03-04 19:35:01.497] [cout] [info] time = 1.09 Performance = 1.21351 Constraint violation = 1.34145e-12
+[2026-03-04 19:35:01.651] [cout] [info] time = 1.095 Performance = 1.26363 Constraint violation = 7.05047e-13
+[2026-03-04 19:35:01.798] [cout] [info] time = 1.1 Performance = 1.31513 Constraint violation = 1.49172e-12
+[2026-03-04 19:35:01.942] [cout] [info] time = 1.10500 Performance = 1.36741 Constraint violation = 6.33714e-13
+[2026-03-04 19:35:02.093] [cout] [info] time = 1.11 Performance = 1.41894 Constraint violation = 1.00396e-12
+[2026-03-04 19:35:02.242] [cout] [info] time = 1.115 Performance = 1.47068 Constraint violation = 1.54865e-12
+[2026-03-04 19:35:02.391] [cout] [info] time = 1.12 Performance = 1.52144 Constraint violation = 9.7266e-13
+[2026-03-04 19:35:02.535] [cout] [info] time = 1.125 Performance = 1.57476 Constraint violation = 1.86277e-12
+[2026-03-04 19:35:02.681] [cout] [info] time = 1.13 Performance = 1.62257 Constraint violation = 7.93079e-13
+[2026-03-04 19:35:02.823] [cout] [info] time = 1.135 Performance = 1.66881 Constraint violation = 1.55574e-12
+[2026-03-04 19:35:02.970] [cout] [info] time = 1.14 Performance = 1.71344 Constraint violation = 5.07638e-13
+[2026-03-04 19:35:03.115] [cout] [info] time = 1.145 Performance = 1.75789 Constraint violation = 7.2333e-13
+[2026-03-04 19:35:03.264] [cout] [info] time = 1.15 Performance = 1.80096 Constraint violation = 1.60968e-12
+[2026-03-04 19:35:03.420] [cout] [info] time = 1.155 Performance = 1.83903 Constraint violation = 7.39223e-13
+[2026-03-04 19:35:03.570] [cout] [info] time = 1.16 Performance = 1.8771 Constraint violation = 1.14427e-12
+[2026-03-04 19:35:03.710] [cout] [info] time = 1.165 Performance = 1.91352 Constraint violation = 5.52743e-13
+[2026-03-04 19:35:03.853] [cout] [info] time = 1.17 Performance = 1.9461 Constraint violation = 5.98453e-13
+[2026-03-04 19:35:03.998] [cout] [info] time = 1.175 Performance = 1.97661 Constraint violation = 8.78013e-13
+[2026-03-04 19:35:04.140] [cout] [info] time = 1.18 Performance = 2.00187 Constraint violation = 6.8898e-13
+[2026-03-04 19:35:04.284] [cout] [info] time = 1.185 Performance = 2.0243 Constraint violation = 8.9728e-13
+[2026-03-04 19:35:04.426] [cout] [info] time = 1.19 Performance = 2.04275 Constraint violation = 3.90339e-13
+[2026-03-04 19:35:04.572] [cout] [info] time = 1.195 Performance = 2.0562 Constraint violation = 6.12566e-13
+[2026-03-04 19:35:04.720] [cout] [info] time = 1.2 Performance = 2.06579 Constraint violation = 4.51946e-13
+[2026-03-04 19:35:04.861] [cout] [info] time = 1.20500 Performance = 2.06709 Constraint violation = 5.80484e-13
+[2026-03-04 19:35:05.002] [cout] [info] time = 1.21 Performance = 2.06013 Constraint violation = 4.78876e-13
+[2026-03-04 19:35:05.149] [cout] [info] time = 1.215 Performance = 2.04652 Constraint violation = 6.74177e-13
+[2026-03-04 19:35:05.292] [cout] [info] time = 1.22 Performance = 2.02391 Constraint violation = 5.05782e-13
+[2026-03-04 19:35:05.437] [cout] [info] time = 1.225 Performance = 1.99389 Constraint violation = 8.07462e-13
+[2026-03-04 19:35:05.588] [cout] [info] time = 1.23 Performance = 1.94935 Constraint violation = 4.33251e-13
+[2026-03-04 19:35:05.750] [cout] [info] time = 1.235 Performance = 1.89852 Constraint violation = 8.6596e-13
+[2026-03-04 19:35:05.900] [cout] [info] time = 1.24 Performance = 1.83758 Constraint violation = 4.26466e-13
+[2026-03-04 19:35:06.047] [cout] [info] time = 1.245 Performance = 1.76896 Constraint violation = 7.60698e-13
+[2026-03-04 19:35:06.199] [cout] [info] time = 1.25 Performance = 1.69482 Constraint violation = 6.17089e-13
+[2026-03-04 19:35:06.350] [cout] [info] time = 1.255 Performance = 1.62016 Constraint violation = 7.12734e-13
+[2026-03-04 19:35:06.352] [info] Printing results of investigation SO to .
+[2026-03-04 19:35:06.785] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:06.990] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:07.193] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:07.376] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:07.558] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:07.731] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:07.903] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.013] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.115] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.293] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.470] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.557] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.648] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:08.819] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:12.017] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:12.069] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:35:12.089] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:35:12.129] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:12.206] [info] AbstractTool Analyse loading model ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:12.239] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:35:12.392] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:35:12.478] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:35:12.481] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:35:12.481] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:35:12.492] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:35:12.492] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:35:12.497] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:35:14.006] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10.
+[2026-03-04 19:35:14.050] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 6.7900598754722097e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:35:14.338] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:35:14.338] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:35:14.341] [info] Loading actuator forces from file SO_StaticOptimization_force.sto.
+[2026-03-04 19:35:14.341] [info] Storage: read data file = SO_StaticOptimization_force.sto (nr=217 nc=130)
+[2026-03-04 19:35:14.364] [info] Found 129 actuator forces with time stamps ranging from 0.175to 1.255.
+[2026-03-04 19:35:14.369] [warning] The forces file contains actuators that are not in the model's actuator set.
+[2026-03-04 19:35:14.369] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
+[2026-03-04 19:35:15.099] [info] Printing results of investigation Analyse to .
+[2026-03-04 19:37:39.892] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:03.569] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:03.690] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:03.802] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:03.919] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:04.053] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:04.171] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:04.283] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:04.396] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:04.505] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:04.622] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:04.751] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:04.866] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:04.986] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:05.100] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:05.214] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:05.333] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:05.461] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:05.576] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:05.691] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:05.804] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:05.917] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:06.034] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:06.176] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:06.311] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:06.431] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:06.515] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:06.630] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:06.751] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:06.881] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:06.971] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:07.056] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:07.164] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:07.273] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:07.388] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:07.514] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:07.627] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:08.000] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:08.122] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:08.239] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:08.364] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:08.504] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:08.627] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:08.759] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:08.973] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:09.100] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:09.221] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:09.355] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:09.475] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:09.596] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:09.717] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:10.152] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:10.282] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:10.425] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:10.550] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:10.675] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:10.789] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:10.904] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:11.026] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:11.155] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:11.274] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:11.423] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:11.507] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:11.626] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:11.747] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:11.889] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:11.973] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim
+[2026-03-04 19:39:12.056] [info] Loaded model Athlete_03_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02\..\..\..\..\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:12.171] [info] Loaded model Athlete_03_Lernagopal_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim
+[2026-03-04 19:39:12.289] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:12.411] [info] Loaded model Athlete_03_GPK_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim
+[2026-03-04 19:39:12.541] [info] Loaded model Athlete_03_MRI_Katya_scaled_opt_N10_increased_3.00 from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:39:12.661] [info] Loaded model Athlete_03_Uhlrich_scaled from file c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\..\..\..\..\models\Athlete_03_Uhlrich\25_03_31\scaled.osim

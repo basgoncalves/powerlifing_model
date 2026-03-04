@@ -12326,3 +12326,28 @@ Assembly error tolerance achieved: 7.7953241639505677e-09 required: 1e-10..Model
 [2026-03-04 14:09:57.917] [warning] The forces file contains actuators that are not in the model's actuator set.
 [2026-03-04 14:09:57.917] [warning] Ignoring fiber lengths and activations from the states since forces_file is also set. Actuator forces will be constructed from SO_StaticOptimization_force.sto.
 [2026-03-04 14:09:59.084] [info] Printing results of investigation Analyse to .
+[2026-03-04 19:21:43.963] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:21:44.164] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:21:44.254] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:21:44.277] [info] AbstractTool  loading model ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:21:44.317] [info] Loaded model Athlete_03_Lernagopal_Catelli_opt_N10_increased_3.00 from file ..\..\..\..\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim
+[2026-03-04 19:21:44.517] [info] Storage: read data file = grf.mot (nr=4930 nc=46)
+[2026-03-04 19:21:44.589] [info] ExternalForce::grf_r_2 Data source being set to grf
+[2026-03-04 19:21:44.589] [info] ExternalForce::grf_l_3 Data source being set to grf
+[2026-03-04 19:21:44.589] [info] ExternalForce::grf_l_4 Data source being set to grf
+[2026-03-04 19:21:44.620] [info] Loading coordinates from file 'joint_angles.mot'.
+[2026-03-04 19:21:44.621] [info] Storage: read data file = joint_angles.mot (nr=217 nc=32)
+[2026-03-04 19:21:44.628] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2026-03-04 19:21:46.128] [info] AssemblySolver::track() attempt Failed: SimTK Exception thrown at Assembler.cpp:973:
+  Method Assembler::track() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676826861657219e-09 required: 1e-10.
+[2026-03-04 19:21:46.179] [error] Model unable to assemble: AssemblySolver::assemble() Failed: SimTK Exception thrown at Assembler.cpp:897:
+  Method Assembler::assemble() failed because:
+Unable to achieve required assembly error tolerance.
+Assembly error tolerance achieved: 7.3676827139212975e-09 required: 1e-10..Model relaxing constraints and trying again.
+[2026-03-04 19:21:46.462] [info] Found 433 state vectors with time stamps ranging from -0.365 to 1.795.
+[2026-03-04 19:21:46.462] [info] Executing the analyses from 0.175 to 1.255...
+[2026-03-04 19:21:46.469] [warning] MuscleAnalysis: coordinate mtp_angle_r is locked and can't be varied.
+[2026-03-04 19:21:46.469] [warning] MuscleAnalysis: coordinate mtp_angle_l is locked and can't be varied.
+[2026-03-04 19:22:29.710] [info] Printing results of investigation  to MuscleAnalysis
