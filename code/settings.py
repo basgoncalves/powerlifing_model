@@ -66,7 +66,8 @@ class Execute:
         
         
         self.push_to_git = True
-               
+
+
 DOFs = ['hip_flexion_l', 'hip_flexion_r',
                 'hip_adduction_l', 'hip_adduction_r',
                 'hip_rotation_l', 'hip_rotation_r',
@@ -84,23 +85,7 @@ DOFs_moments = {'hip_flexion_r': 'hip_flexion_r_moment',
                 'knee_angle_l': 'knee_angle_l_moment',
                 'ankle_angle_l': 'ankle_angle_l_moment'}
 
-Muscle_Groups = { 'R Adductors': ['addbrev_r','addlong_r','addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r','grac_r'],
-    'R Hamstrings': ['bflh_r','semimem_r','semiten_r','bfsh_r'],
-    'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
-    'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
-    'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'],
-    'R Hip flexors':['sart_r','recfem_r','tfl_r','iliacus_r','psoas_r'],            
-    'R Triceps Surae':['soleus_r','gaslat_r','gasmed_r'],
-    'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
-    'L Adductors': ['addbrev_l','addlong_l','addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l','grac_l'],
-    'L Hamstrings': ['bflh_l','semimem_l','semiten_l','bfsh_l'],
-    'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
-    'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
-    'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
-    'L Hip flexors':['sart_l','recfem_l','tfl_l','iliacus_l','psoas_l'],
-    'L Triceps Surae':['soleus_l','gaslat_l','gasmed_l'],
-    'L Vasti':['vasint_l','vaslat_l','vasmed_l']
-    }
+
 
 # To match Pürzel, A. et al. (2025) Scand. J. Med. Sci. Sports 35
 # Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],

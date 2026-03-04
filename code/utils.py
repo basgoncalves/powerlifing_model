@@ -43,6 +43,7 @@ MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
 SIMULATIONS_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
 RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results')
+TASK_FIGURES_DIR = os.path.join(RESULTS_DIR, 'task_figures')
 
 CEINMS_DIR = os.path.join(CODE_DIR, 'executables')
 CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
@@ -59,10 +60,7 @@ class Inputs:
         self.model_dir = ''
         self.time_range = '0.00 1.00'
         self.c3d = 'c3dfile.c3d'
-        self.emg_raw = 'emg.mot'
-        self.emg_filtered = 'EMG_filtered.sto'
-        self.emg_normalised = 'EMG_filtered_normalised.sto'
-        self.emg_plot = self.emg_normalised
+        self.emg = 'emg.mot'
         self.grf_mot = 'grf.mot'
         self.markers = 'marker_experimental.trc'
         self.events = 'events.csv'
@@ -77,7 +75,7 @@ class Inputs:
         self.jra_forces = 'SO_StaticOptimization_force.sto'
         self.setup_jra = 'setup_JRA.xml'
         
-        self.ceinms_excitations = self.emg_normalised
+        self.ceinms_excitations = self.emg
         self.ceinms_uncalibrated_model= '..\subjectUncalibrated.xml'
         self.ceinms_calibrated_model = '..\subjectCalibrated.xml'
         self.ceinms_calibration_cfg = '..\calibrationCfg.xml'
@@ -174,8 +172,8 @@ class Analyse(Inputs):
 
         self.parentdir = os.path.dirname(self.path)
 
-        self._tweek_analysis_attributes()
-        self.model_dir = self.update_model(self.model_name)
+        self._update_model()
+        self._update_emg_tag() 
         
         self.body_mass = None # Placeholder, will be updated from the model if possible
         self.time_range = None
@@ -202,7 +200,7 @@ class Analyse(Inputs):
             self.body_mass = self.get_body_mass()  
             self.time_range = self.get_time_range()
         except Exception as e:
-            print_to_log(f"Error updating from data: {e}")
+            print_to_log(f"Error updating from data: {e}", terminal=True)
 
         self._to_xml()
     
@@ -211,6 +209,10 @@ class Analyse(Inputs):
         os.chdir(self.path)
         root = ET.Element("TrialSettings")
         for attr, value in self.__dict__.items():
+
+            # Skip pandas DataFrames and Series - they have __dict__ but shouldn't be serialized
+            if isinstance(value, (pd.DataFrame, pd.Series)):
+                continue
             
             if isinstance(value, (str, int, float, bool, list, dict)):
                 child = ET.SubElement(root, attr)
@@ -233,34 +235,41 @@ class Analyse(Inputs):
         save_pretty_xml(tree, self.settingsXML)
         print(f"Trial settings saved to: {os.path.abspath(self.settingsXML)}")
     
-    def _tweek_analysis_attributes(self):
+    def _update_model(self):
         '''
-        Personalise and tweek the analysis based on the subject name or other trial characteristics. This is where you can implement any changes to the analysis that are specific to certain subjects or trials, such as updating the model, changing EMG paths, etc.
+        update the model path in the xml settings
         '''
 
         if self.subject == 'Athlete_03':
             self.update_model('scaled_opt_N10_increased_3.00.osim')
+
         elif self.subject == 'Athlete_03_Lernagopal':
             self.update_model('scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim')
+
         elif self.subject == 'Athlete_03_Lernagopal_optimised':
             self.update_model('lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim')
+
         elif self.subject == 'Athlete_03_MRI_Katya':
             self.update_model('scaled_opt_N10_increased_3.00.osim')
+
         elif self.subject == 'Athlete_03_GPK':
-            self.update_model('GPK_scaled_muscles_added.osim')
+            self.update_model('GPK_scaled.osim')
+
+        elif self.subject == '022':
+            self.update_model('022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim')
         else:
             self.update_model('scaled.osim')
 
-        # edit emg tags
+    def _update_emg_tag(self):
+        '''Update settingd XML with specific EMG types for a trial if needed'''
         if os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised_scaled_0.70.sto')):
             emg_name = 'EMG_filtered_normalised_scaled_0.70.sto'
         elif os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised.sto')):
             emg_name = 'EMG_filtered_normalised.sto'
         else:
-            emg_name = Inputs().emg_normalised
+            emg_name = Inputs().emg
 
-        self.update_trial_attribute('emg_normalised', emg_name)
-        self.update_trial_attribute('emg_plot', emg_name)
+        self.update_trial_attribute('emg', emg_name)
         self.update_trial_attribute('ceinms_excitations', emg_name)
 
     def convert_to_dict(self, attr_name):
@@ -410,7 +419,7 @@ class Analyse(Inputs):
         for file_name in input_files:
             src_file = os.path.join(src_trial_path, file_name)
             dest_file = os.path.join(dest_trial_path, file_name)
-            if os.path.exists(src_file) and (not os.path.exists(dest_file) or replace):
+            if os.path.exists(src_file) or replace:
                 shutil.copy2(src_file, dest_file)
                 print(f"Copied {src_file} to {dest_file}")
             else:
@@ -571,9 +580,10 @@ class Analyse(Inputs):
         
     def run_ik(self):
         os.chdir(os.path.abspath(self.path))
+ 
         # Create IK setup file if it doesn't exist or if replace is True
         if not os.path.exists(self.setup_ik) or self.replace:  
-            breakpoint()     
+               
             openSim.create_setup_IK(osim_modelPath=self.model_dir,
                                 marker_trc=self.markers,
                                 ik_output=self.ik,
@@ -679,6 +689,13 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] during Static Optimization: {e}')
         
+        # Plot SO results
+        try:
+            self.plot_so()
+            print_to_log(f'[Success] SO results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during SO plotting: {e}')
+
     def run_jra(self):
         os.chdir(self.path)
         self.load_settings(self.settingsXML)
@@ -841,8 +858,9 @@ class Analyse(Inputs):
             ax.set_ylabel("Moment Arm")
         
         axes[0].legend()
+
         return fig, axes
-            
+
     def plot_ik(self, columns_to_plot='all'):
         os.chdir(self.path)
         self.joint_angles = load_any_data_file(self.ik)
@@ -896,11 +914,11 @@ class Analyse(Inputs):
         
         return fig, axes
     
-    def plot_so(self):
+    def plot_so(self, ):
         os.chdir(self.path)
         so_forces = load_any_data_file(self.so_forces)
         so_activations = load_any_data_file(self.so_activations)
-        emg_normalised = load_any_data_file(self.emg_plot)
+        emg_normalised = load_any_data_file(self.emg)
 
         # crop to time range of the trial
         time_range = self.get_time_range()
@@ -908,57 +926,60 @@ class Analyse(Inputs):
         so_activations = so_activations[(so_activations['time'] >= time_range[0]) & (so_activations['time'] <= time_range[1])]
         emg_normalised = emg_normalised[(emg_normalised['time'] >= time_range[0]) & (emg_normalised['time'] <= time_range[1])]
 
-        # get the emg mapping from the ceinms excitation generator xml
-        emg_mapping = ET.parse(self.ceinms_excitation_generator)
-        muscle_to_emg = {}
-        root = emg_mapping.getroot()
-        mapping = root.find('mapping')
-        if mapping is not None:
-            for excitation in mapping.findall('excitation'):
-                muscle_id = excitation.get('id')
-                inputs = excitation.findall('input')
-                if inputs and len(inputs) > 0:
-                    # Use the first EMG channel if multiple exist
-                    muscle_to_emg[muscle_id] = inputs[0].text
-                else:
-                    muscle_to_emg[muscle_id] = None  # No EMG for this muscle
+
+        coordinates = {'hip_flexion': None, 'hip_adduction': None, 'hip_rotation': None,
+                        'knee_flexion': None, 'knee_adduction': None, 'knee_rotation': None,
+                        'ankle_angle': None}
         
-        
-        muscle_list = self.get_muscle_list()
-        
-        n_vars = len(muscle_list)
-        fig, axes = self.plot_create_subplot(n_vars)
+        muscleGroups = {}
+        for coord in list(coordinates.keys()):
+            for leg in ['_r', '_l']:
+                coord_name = coord + leg
+                try:
+                    muscles, indexes = self.muscles_per_coordinate(osim.Model(self.model_dir), coord_name)
+                    muscleGroups[coord_name] = muscles
+                except Exception as e:
+                    # remove the key from the dictionary if there is an error (e.g. coordinate not found in model)
+                    print(f"Error finding muscles for coordinate {coord}: {e}")
+                    coordinates.pop(coord, None)
+
+        n_vars = len(muscleGroups)
+        fig, axes = plt.subplots(n_vars//2, 2, figsize=(26, 10), constrained_layout=True)
         
         fig.suptitle(f"Static Optimization Muscle Forces: {self.trial}", fontsize=16)
-        for i, muscle in enumerate(muscle_list):
-            ax = axes[i]
-            muscleForces = so_forces[muscle]
-            line1 = ax.plot(so_forces['time'], muscleForces, label='Force')
-            # on a secondary y-axis plot activations
-            activations = so_activations[muscle]
-            emg = emg_normalised[muscle_to_emg[muscle]] if muscle_to_emg[muscle] in emg_normalised.columns else None
-            ax2 = ax.twinx()
-            line2 = ax2.plot(so_activations['time'], activations, color='orange', linestyle='--', label='Activation')
-            try:
-                line3 = ax2.fill_between(emg_normalised['time'], 0, emg, color='grey', alpha=0.3, label='EMG') 
-            except Exception as e:
-                print(f"Error plotting EMG for muscle {muscle}: {e}")
-                line3 = ax2.fill_between([], [], [], color='grey', alpha=0.3, label='EMG ')  
+        for irow, (coord, _) in enumerate(coordinates.items()):
+            for icol, leg in enumerate(['_r', '_l']):
+                coord_name = coord + leg
+                muscles = muscleGroups.get(coord_name, [])
+                if not muscles:
+                    continue
+                
+                ax = axes[irow, icol]
+                for muscle in muscles:
+                    line1 = ax.plot(so_forces['time'], so_forces[muscle], label=muscle)
+                    # on a secondary y-axis plot activations
+                    activations = so_activations[muscle]
 
-            ax.set_title(f"{muscle}")
-            ax.set_xlabel("Time")
-            ax.set_ylabel("Force (N)")
-            ax2.set_ylabel("Activation")
-            
-            if i == 0:
-                lines = line1 + line2 + line3 # Combine lines from both axes
-                labels = [l.get_label() for l in lines]
-                ax.legend(lines, labels, loc='upper right')
+                ax.set_title(f"{coord_name}")
+                ax.set_xlabel("Time")
+
+                if icol == 0:
+                    ax.set_ylabel("Force (N)")
+        
+        # Legend only for unique muscle names across all subplots
+        unique_muscles = set(muscle for muscles in muscleGroups.values() for muscle in muscles)
+        handles = [plt.Line2D([0], [0], color='C0', label=muscle) for muscle in unique_muscles]
+        axes[0, 0].legend(handles=handles, loc='upper right', fontsize='small')
         
         # save figure and return
-        plt.savefig(os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png"))
-        print(f'Figure saved to {os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png")}')
+        save_path = os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png")
+        plt.savefig(save_path)
+        print(f'Figure saved to {save_path}')
         
+        # save interactive figure
+        interactive_save_path = save_path.replace('.png', '.html')
+        # convert_to_interactive_fig(fig, interactive_save_path)
+
         return fig, axes
     
     def plot_jra(self, origin='SO'):
@@ -1476,6 +1497,85 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] during plotting CEINMS calibration results: {e}')
 
+    def plot_ceinms_vs_so_muscle_moments(self):
+        from plotly.subplots import make_subplots
+        import plotly.graph_objects as go
+
+        ik_columns = ['hip_flexion_r', 'hip_adduction_r', 'hip_rotation_r', 'knee_angle_r', 'ankle_angle_r']
+        id_columns = ['hip_flexion_r_moment', 'hip_adduction_r_moment', 'hip_rotation_r_moment', 'knee_angle_r_moment', 'ankle_angle_r_moment']
+
+        id = load_any_data_file(os.path.join(self.path, self.id))
+        so_forces = load_any_data_file(os.path.join(self.path, self.so_forces))
+        ceinms_forces = load_any_data_file(os.path.join(self.path, self.jra_forces_ceinms))
+
+        fig, ax = plt.subplots(nrows=len(ik_columns), ncols=2, figsize=(28, 16))
+        fontsize = 25
+
+        fig_int = make_subplots(rows=len(ik_columns), cols=2, shared_xaxes=True,
+                                subplot_titles=[f"{dof} - SO" if i % 2 == 0 else f"{dof} - CEINMS"
+                                                for dof in ik_columns for i in range(2)])
+
+        for count, dof in enumerate(ik_columns):
+            ma = load_any_data_file(os.path.join(self.path, self.ma, f'_MuscleAnalysis_MomentArm_{dof}.sto'))
+
+            muscle_list = [col for col in so_forces.columns if col != 'time']
+            muscles = openSim.find_non_zero_mom_arm_muscles(ma, muscle_list)
+            print(f"Non-zero moment arm muscles for {dof}: {muscles}")
+
+            colors = plt.cm.tab20(np.linspace(0, 1, max(len(muscles), 1)))
+
+            if count == 0:
+                ax[count, 0].set_title('SO', fontsize=fontsize)
+                ax[count, 1].set_title('CEINMS', fontsize=fontsize)
+
+            # Plot ID (static)
+            ax[count, 0].plot(id['time'], id[f'{dof}_moment'], label='ID', color='blue')
+            ax[count, 0].set_ylabel(f'{dof} (Nm)', fontsize=fontsize)
+            ax[count, 0].tick_params(labelsize=fontsize)
+
+            ax[count, 1].plot(id['time'], id[f'{dof}_moment'], label='ID', color='blue')
+            ax[count, 1].tick_params(labelsize=fontsize)
+
+            
+            # Plot muscle moments SO (static)
+            for i, m in enumerate(muscles):
+                ax[count, 0].plot(so_forces['time'], so_forces[m] * ma[m],
+                                label=m, color=colors[i], linestyle='--')
+
+            sum_moments_so = so_forces[muscles].mul(ma[muscles], axis=0).sum(axis=1)
+            ax[count, 0].fill_between(so_forces['time'], 0, sum_moments_so, color='grey', alpha=0.2, label='Sum')
+
+            # Plot muscle moments CEINMS (static)
+            for i, m in enumerate(muscles):
+                breakpoint()
+                ax[count, 1].plot(ceinms_forces['time'], ceinms_forces[m] * ma[m],
+                                label=m, color=colors[i], linestyle='--')
+            
+            sum_moments_ce = ceinms_forces[muscles].mul(ma[muscles], axis=0).sum(axis=1)
+            ax[count, 1].fill_between(ceinms_forces['time'], 0, sum_moments_ce, color='grey', alpha=0.2, label='Sum')
+
+            # add RMSE and R2 values between ID and SO, and ID and CEINMS
+            rmse_so = rmse(id[f'{dof}_moment'], sum_moments_so)
+            r2_so = rsquared(id[f'{dof}_moment'], sum_moments_so)
+            rmse_ce = rmse(id[f'{dof}_moment'], sum_moments_ce)
+            r2_ce = rsquared(id[f'{dof}_moment'], sum_moments_ce)
+            textstr_so = f'RMSE={rmse_so:.2f} Nm\nR²={r2_so:.3f}'
+            textstr_ce = f'RMSE={rmse_ce:.2f} Nm\nR²={r2_ce:.3f}'
+            ax[count, 0].text(0.95, 0.95, textstr_so, transform=ax[count, 0].transAxes, fontsize=fontsize,
+                            verticalalignment='top', horizontalalignment='right',
+                            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            ax[count, 1].text(0.95, 0.95, textstr_ce, transform=ax[count, 1].transAxes, fontsize=fontsize,
+                            verticalalignment='top', horizontalalignment='right',
+                            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))    
+
+
+        plt.tight_layout()
+        save_path = os.path.join(self.path, 'muscle_moments.png')
+        plt.savefig(save_path)
+        print(f"Muscle moments comparison plot saved: {save_path}")
+
+        convert_to_interactive_fig(fig, html_path=os.path.join(self.path, 'muscle_moments_interactive.html'))
+
     #--- git integration
     def git_status(self):
         '''Check git status of the trial and subject directories
@@ -1584,6 +1684,13 @@ class Analyse(Inputs):
             print_to_log(f'[Warning] Failed to push to git: {e}')
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
+
+
+class Compare():
+    def __init__(self):
+        pass
+
+        
 
 ## Utility functions
 def updir(path, levels=1):
@@ -2282,40 +2389,71 @@ def add_picture_to_ax(ax: plt.Axes, image_path: str, scale: float = 1.0):
             ax.text(0.5, 0.5, "Image not found", ha='center', va='center', fontsize=12)
             ax.axis('off')
 
-def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
+def convert_to_interactive_fig(fig: plt.Figure, html_path: str, launch_browser: bool = True):
     """
-    Convert a Matplotlib figure to an interactive Plotly figure and display it.
-
-    Parameters:
-    fig (plt.Figure): The Matplotlib figure to convert.
+    Convert Matplotlib figure to Plotly and:
+    1) show each legend label only once
+    2) toggle all traces with that label across all subplots
+    3) order legend labels alphabetically
     """
     import plotly.io as pio
     import plotly.tools as tls
 
-    # Convert the Matplotlib figure to a Plotly figure
     plotly_fig = tls.mpl_to_plotly(fig)
 
-    # use only legend that has unique labels (remove duplicates)
-    seen_labels = set()
-    for trace in plotly_fig['data']:
-        label = trace['name']
-        if label in seen_labels:
-            trace['showlegend'] = False  # Hide duplicate legend entries
-        else:
-            seen_labels.add(label)
-    
-    # add suptitle if exists in original fig
+    # Keep suptitle if present
     if fig._suptitle is not None:
         plotly_fig.update_layout(title=fig._suptitle.get_text(), title_x=0.5)
 
-    # save HTML file
-    pio.write_html(plotly_fig, file=html_path, auto_open=False)
-    print(f"Interactive joint angles plot saved: {html_path}")
-    # Open the HTML file in the default web browser
-    webbrowser.open('file://' + os.path.abspath(html_path))
+    # Ensure all traces have a name
+    for trace in plotly_fig.data:
+        if not trace.name:
+            trace.name = "Unnamed"
 
-    # Display the interactive Plotly figure
-    pio.show(plotly_fig)
+    # Sort traces alphabetically by label
+    sorted_traces = sorted(plotly_fig.data, key=lambda t: t.name.lower())
+
+    # Merge repeated legend labels and link traces by legendgroup
+    seen = set()
+    for trace in sorted_traces:
+        name = trace.name
+        trace.legendgroup = name
+        trace.showlegend = name not in seen
+        seen.add(name)
+
+    # Apply sorted order back to figure
+    plotly_fig.data = tuple(sorted_traces)
+
+    # Clicking one legend item toggles the whole group (all subplots)
+    plotly_fig.update_layout(
+        legend=dict(groupclick="togglegroup", traceorder="normal")
+    )
+    
+    # # add a button so all plots reset to ylims of each row
+    # plotly_fig.update_layout(
+    #     updatemenus=[
+    #         dict(
+    #             type="buttons",
+    #             direction="right",
+    #             x=0.7,
+    #             y=1.2,
+    #             buttons=list([
+    #                 dict(
+    #                     label="Reset Y-Limits",
+    #                     method="relayout",
+    #                     args=[{"yaxis.autorange": True}]
+    #                 )
+    #             ])
+    #         )
+    #     ]
+    # )
+
+    pio.write_html(plotly_fig, file=html_path, full_html=True, auto_open=False)
+
+    print(f"Interactive plot saved: {html_path}")
+
+    if launch_browser:
+        webbrowser.open("file://" + os.path.abspath(html_path))
 
 # data manipulation
 def time_normalise_df(df, fs=''):

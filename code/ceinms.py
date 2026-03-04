@@ -3,13 +3,19 @@ import shutil
 import subprocess
 import time
 import numpy as np
-import settings
+# import settings
 import xml.etree.ElementTree as ET
 import opensim as osim
 import utils
 import matplotlib.pyplot as plt
 import pandas as pd
 import scipy
+import openSim
+
+__version__ = '0.1.0'
+
+MODEL_TYPE = 'Lernagopal' # 'Lernagopal', 'GPK', 'Catelli', 'Uhlrich'
+EMG_MAPPING = 'Powerlifting_s1' # 'session1', 'session2', 'running_fai'
 
 class TemplateParameters:
     def __init__(self):
@@ -92,6 +98,130 @@ class TemplateParameters:
             'rangeWeight': 1000
         })   
 
+class settings:
+    def __init__(self):
+
+        self.dofs = self.get_dofs()
+        self.EMG_muscle_mapping = self.get_emg_mappring()
+        self.muscleGroups = self.get_muscle_groups()
+
+    def get_dofs(self):
+
+        DOFs = []
+        if MODEL_TYPE in ['Lernagopal', 'GPK']:
+            DOFs = ['hip_flexion_l', 'hip_flexion_r',
+                    'hip_adduction_l', 'hip_adduction_r',
+                    'hip_rotation_l', 'hip_rotation_r',
+                    'knee_angle_l', 'knee_angle_r',
+                    'knee_adduction_l', 'knee_adduction_r',
+                    'ankle_angle_l', 'ankle_angle_r']
+        elif MODEL_TYPE in ['Catelli', 'Uhlrich']:
+            DOFs = ['hip_flexion_l', 'hip_flexion_r',
+                    'hip_adduction_l', 'hip_adduction_r',
+                    'hip_rotation_l', 'hip_rotation_r',
+                    'knee_angle_l', 'knee_angle_r',
+                    'ankle_angle_l', 'ankle_angle_r']
+        else:
+            print(f"Model type {MODEL_TYPE} not recognised. Returning empty DOF list.")
+
+        return DOFs
+
+    def get_emg_mappring(self, example=EMG_MAPPING):
+        
+        if example == 'Powerlifting_s1':
+            EMG_muscle_mapping = {
+                # Left Leg Muscles
+                'Voltage_EMG1_vast_lat_l': ['vaslat_l', 'vasmed_l'],
+                'Voltage_EMG3_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
+                'Voltage_EMG5_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+                'Voltage_EMG7_glut_max_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
+                'Voltage_EMG9_gast_med_l': [],
+                'Voltage_EMG13_add_mag_l': [],
+
+                # Right Leg Muscles
+                'Voltage_EMG2_vast_lat_r': ['vaslat_r', 'vasmed_r'],
+                'Voltage_EMG4_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
+                'Voltage_EMG6_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+                'Voltage_EMG8_glut_max_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
+                'Voltage_EMG10_gast_med_r': [],
+                'Voltage_EMG14_add_mag_r': []
+            }
+
+        # session 2
+        elif example == 'Powerlifting_s2':
+            EMG_muscle_mapping = {
+                # Left Leg Muscles
+                'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'],
+                'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
+                'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
+                'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
+                'EMG_Channels_EMG09_gast_med_l': [],
+
+                # Right Leg Muscles
+                'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'],
+                'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
+                'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
+                'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
+                'EMG_Channels_EMG10_gast_med_r': []
+            }
+
+        # running session
+        elif example == 'running_fai':
+            EMG_muscle_mapping = {
+                'VM': ['vasmed_r'],
+                'VL': ['vaslat_r'],
+                'RF': ['recfem_r', 'sart_r', 'tfl_r'],
+                'GRA': ['grac_r'],
+                'ADDLONG': ['addlong_r', 'addbrev_r','addmagDist_r',
+                            'addmagIsch_r','addmagMid_r','addmagProx_r'],
+                'SEMIMEM': ['semimem_r', 'semiten_r'],
+                'BF': ['bflh_r', 'bfsh_r'],
+                'GM': ['gasmed_r'],
+                'GL': ['gaslat_r'],
+                'MG': ['soleus_r'],
+            }
+
+        return EMG_muscle_mapping
+
+    def get_muscle_groups(self, example=EMG_MAPPING):
+
+        # To match Pürzel, A. et al. (2025) Scand. J. Med. Sci. Sports 35
+        # Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+        #                         'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+        #                         'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'], 
+        #                         'R Adductor Magnus': ['addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r'],
+        #                         'R Biceps Femoris': ['bflh_r','bfsh_r'],
+        #                         'R Semimembranosus': ['semimem_r'],
+        #                         'R Semitendinosus': ['semiten_r'],
+        #                         'R Rectus Femoris': ['recfem_r'],
+        #                         'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+        #                         'R Gastrocnemius': ['gaslat_r','gasmed_r'],
+        #                         'R Soleus': ['soleus_r'],
+        #                         'L Gluteus maximus':['glmax1_l','glmax2_l','glmax3_l'],
+        #                         'L Gluteus medius':['glmed1_l','glmed2_l','glmed3_l'],
+        #                         'L Gluteus minimus':['glmin1_l','glmin2_l','glmin3_l'],
+        #                         'L Adductor Magnus': ['addmagDist_l','addmagIsch_l','addmagMid_l','addmagProx_l'],
+        #                         'L Biceps Femoris': ['bflh_l','bfsh_l'],
+        #                         'L Semimembranosus': ['semimem_l'],
+        #                         'L Semitendinosus': ['semiten_l'],
+        #                         'L Rectus Femoris': ['recfem_l'],
+        #                         'L Vasti':['vasint_l','vaslat_l','vasmed_l'],
+        #                         'L Gastrocnemius': ['gaslat_l','gasmed_l'],
+        #                         'L Soleus': ['soleus_l']}
+        if example == 'Powerlifting_s1' or example == 'Powerlifting_s2' or example == 'running_fai':
+            muscleGroups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
+                                'R Gluteus medius':['glmed1_r','glmed2_r','glmed3_r'],
+                                'R Gluteus minimus':['glmin1_r','glmin2_r','glmin3_r'], 
+                                'R Adductor Magnus': ['addmagDist_r','addmagIsch_r','addmagMid_r','addmagProx_r'],
+                                'R Biceps Femoris': ['bflh_r','bfsh_r'],
+                                'R Semimembranosus': ['semimem_r'],
+                                'R Semitendinosus': ['semiten_r'],
+                                'R Rectus Femoris': ['recfem_r'],
+                                'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
+                                'R Triceps Surae': ['soleus_r','gaslat_r','gasmed_r']
+                                }
+            
+        return muscleGroups
 
 
 def upWorkingDirectory():
@@ -100,7 +230,7 @@ def upWorkingDirectory():
     os.chdir(parent_dir)
     print(f"Changed working directory to: {parent_dir}")
 
-def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
+def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None, DOFs: list = None):
     """
     Create a CEINMS subject XML file with muscle parameters extracted from the OpenSim model.
     """
@@ -109,6 +239,11 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
 
     if not outputCEINMSModelPath:
         outputCEINMSModelPath = input("Enter path to output CEINMS model (.xml): ").strip('"')
+
+    if DOFs is None:
+        DOFs = TemplateParameters().DofSet.split()
+        print(f"Using DOFs: {DOFs}")
+        time.sleep(2)
 
     print(f"Creating CEINMS model from OpenSim model")
     # Load the OpenSim model
@@ -185,7 +320,7 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None):
         coord = coordinates.get(i)
         coord_name = coord.getName()
         
-        if coord_name not in settings.DOFs:
+        if coord_name not in DOFs:
             continue
         
         # Get muscles that cross this coordinate
@@ -352,7 +487,7 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
 
     # muscleGroups
     muscleGroups = ET.SubElement(parametersToCalibrate, "muscleGroups")
-    for group, muscles in settings.Muscle_Groups.items():
+    for group, muscles in settings.muscleGroups.items():
         muscleGroup = ET.SubElement(muscleGroups, "muscles")
         muscleGroup.text = " ".join(muscles)
 
@@ -460,7 +595,7 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None,
     # Add moment arms files 
     moment_arms = ET.SubElement(root, "momentArmsFiles")
     
-    for dof in settings.DOFs:
+    for dof in settings.dofs:
 
         dof_path = os.path.join(MAFolder, f'_MuscleAnalysis_MomentArm_{dof}.sto')
         dof_elem = ET.SubElement(moment_arms, "momentArmsFile")
@@ -1390,16 +1525,16 @@ def plot_ceinms_calibration_results(setupXML_path=None):
     # find all files ending with _calibrationResults.sto
     result_files = os.listdir(calibrationOutputDir)
     result_files = [os.path.join(calibrationOutputDir, f) for f in result_files if f.endswith('.csv')]
-    Muscle_Groups = settings.Muscle_Groups
+    muscleGroups = settings.muscleGroups
     for result_file in result_files:
         data = utils.load_any_data_file(result_file)
         
         muscle_names = [col for col in data.columns if col != 'time']
 
-        n_muscle_groups = len(Muscle_Groups)
+        n_muscle_groups = len(muscleGroups)
         fig, axs = plt.subplots(n_muscle_groups, 1, figsize=(10, n_muscle_groups*3))
         plt.suptitle(f'Calibration Results: {os.path.basename(result_file)}', fontsize=16)
-        for i, (muscle_group, muscles) in enumerate(Muscle_Groups.items()):
+        for i, (muscle_group, muscles) in enumerate(muscleGroups.items()):
             ax = axs[i] if n_muscle_groups > 1 else axs
             for muscle in muscles:
                 if muscle in muscle_names:
@@ -1429,16 +1564,16 @@ def plot_optimisation_results(optimisationOutputDir=None):
     # find all files ending with _optimisationResults.sto
     result_files = os.listdir(optimisationOutputDir)
     result_files = [os.path.join(optimisationOutputDir, f) for f in result_files if f.endswith('.sto')]
-    Muscle_Groups = settings.Muscle_Groups
+    muscleGroups = settings.muscleGroups
     for result_file in result_files:
         data = utils.load_any_data_file(result_file)
         
         muscle_names = [col for col in data.columns if col != 'time']
 
-        n_muscle_groups = len(Muscle_Groups)
+        n_muscle_groups = len(muscleGroups)
         fig, axs = plt.subplots(n_muscle_groups, 1, figsize=(10, n_muscle_groups*3))
         plt.suptitle(f'Optimisation Results: {os.path.basename(result_file)}', fontsize=16)
-        for i, (muscle_group, muscles) in enumerate(Muscle_Groups.items()):
+        for i, (muscle_group, muscles) in enumerate(muscleGroups.items()):
             ax = axs[i] if n_muscle_groups > 1 else axs
             for muscle in muscles:
                 if muscle in muscle_names:

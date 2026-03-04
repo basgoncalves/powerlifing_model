@@ -98,7 +98,7 @@ def print_body_mass_per_segment(osim_modelPath):
     for body in model.getBodySet():
         print(f"{body.getName()}: {body.getMass()} kg ({body.getMass() / model.getTotalMass(state) * 100:.2f}%)")
 
-def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=None):
+def increase_isometric_force(osim_modelPath=None, muscleList='all', factor: float = None):
     """
     Increase the isometric force of a specified muscle by a given factor.
     """
@@ -125,7 +125,9 @@ def increase_isometric_force(osim_modelPath=None, muscleList='all', factor=None)
         else:
             print(f"Muscle '{muscle_name}' not found in the model.")
 
-    model.printToXML(osim_modelPath.replace('.osim', f'_increasedForce{factor}.osim'))
+    model.printToXML(osim_modelPath.replace('.osim', f'_increased_{factor:.2f}.osim'))
+
+    print(f"Updated model saved to: {osim_modelPath.replace('.osim', f'_increased_{factor:.2f}.osim')}")
 
 def lock_model_coordinates(osim_modelPath=None, coordinates_to_lock: list = None, save_path=None, unlock=False):
     """
@@ -687,6 +689,7 @@ def create_setup_IK(osim_modelPath=None, marker_trc=None,
     
     # Set the model and parameters
     ikTool.setModel(model)
+    ikTool.set_model_file(osim_modelPath)
     # Set the marker data file and time range
     ikTool.setMarkerDataFileName(marker_trc)
     ikTool.set_report_marker_locations(True)
@@ -736,6 +739,21 @@ def run_ik(osim_modelPath=None, marker_trc=None,
     
     print(f"Inverse Kinematics calculation completed. Results saved to {resultsDir}")
 
+# --- Muscle Analysis ---
+def find_non_zero_mom_arm_muscles(ma_data: pd.DataFrame, muscles: list) -> list:
+    '''
+    Find the muscles that have non-zero moment arms in the given data.
+    '''
+    
+    non_zero_muscles = []
+    for muscle in muscles:
+        if ma_data is None:
+            continue
+        if muscle not in ma_data.columns:
+            continue
+        if ma_data[muscle].abs().sum() > 0:
+            non_zero_muscles.append(muscle)
+    return non_zero_muscles
 
 # --- Static optimisation --
 def edit_pelvis_com_actuators(osim_modelPath, actuatorsFilePath):
