@@ -9,10 +9,10 @@
    <parentdir>..</parentdir>
    <model_name>GPK_scaled.osim</model_name>
    <model_dir>..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim</model_dir>
-   <emg_normalised>EMG_filtered_normalised_scaled_0.70.sto</emg_normalised>
-   <emg_plot>EMG_filtered_normalised_scaled_0.70.sto</emg_plot>
-   <ceinms_excitations>EMG_filtered_normalised_scaled_0.70.sto</ceinms_excitations>
-   <body_mass>75.33700029999997</body_mass>
+   <emg_normalised>EMG_filtered_normalised.sto</emg_normalised>
+   <emg_plot>EMG_filtered_normalised.sto</emg_plot>
+   <ceinms_excitations>EMG_filtered_normalised.sto</ceinms_excitations>
+   <body_mass>99.99999999999996</body_mass>
    <time_range>[0.175, 1.255]</time_range>
    <setup_dir>..\..\..\..\code\SetupFiles\Purzel</setup_dir>
    <c3d>c3dfile.c3d</c3d>
@@ -447,4 +447,6 @@ Name: mtp_angle_r_moment, Length: 217, dtype: float64, 'mtp_angle_l_moment': 0  
 Name: mtp_angle_l_moment, Length: 217, dtype: float64}</_item_cache>
    <_attrs>{}</_attrs>
    <_flags>&lt;Flags(allows_duplicate_labels=True)&gt;</_flags>
+   <EMG_muscle_mapping>{'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'], 'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'], 'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'], 'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'], 'EMG_Channels_EMG09_gast_med_l': [], 'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'], 'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'], 'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'], 'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'], 'EMG_Channels_EMG10_gast_med_r': []}</EMG_muscle_mapping>
+   <Objective_Functions>[{'name': 'MomentError', 'targets': 'all', 'weight': 1}, {'name': 'Penalty', 'targetType': 'normalisedFibreLength', 'weight': 10, 'exponent': 2, 'range': '0.5 1.5'}, {'name': 'Penalty', 'targetType': 'tendonStrain', 'weight': 1000, 'exponent': 2, 'range': '0. 0.5'}, {'name': 'ExcitationsSquared', 'weight': 1}, {'name': 'SynergyExtraction', 'mseWeight': 100, 'range': '0. 1.', 'rangeExponent': 2, 'rangeWeight': 1000}]</Objective_Functions>
 </TrialSettings>
