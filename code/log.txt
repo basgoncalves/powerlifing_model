@@ -9998,3 +9998,1140 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 02.03.2026_22:24:51:605: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
 02.03.2026_22:24:56:226: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a10_b1_g1000\MuscleForces.sto'. Verify that the file exists at the specified location.
 	Thrown at Storage.cpp:185 in Storage().
+02.03.2026_22:55:48:894: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:904: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:912: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:921: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:929: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:937: Attribute EMG_muscle_mapping not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_22:55:48:937: Attribute Objective_Functions not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:00:14:498: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:00:14:624: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:00:14:639: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:00:14:662: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:00:14:681: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+02.03.2026_23:01:19:605: [Success] Static Optimization completed. Results are saved in:
+02.03.2026_23:01:19:606:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+02.03.2026_23:01:19:606:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+02.03.2026_23:01:23:413: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+02.03.2026_23:01:24:428: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+02.03.2026_23:01:24:442: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+02.03.2026_23:01:24:453: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+02.03.2026_23:01:24:463: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+02.03.2026_23:01:24:471: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+02.03.2026_23:03:46:247: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:03:46:255: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:03:46:263: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:03:46:267: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:04:06:011: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:04:06:015: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:04:06:021: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:04:06:025: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:08:959: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:08:964: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:08:970: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:08:975: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:535: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:541: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:547: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:553: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:557: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:563: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:05:36:568: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:06:00:683: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:06:10:263: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:06:19:378: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+02.03.2026_23:06:19:380: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:06:26:162: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+02.03.2026_23:06:33:248: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:06:38:801: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:07:18:615: [Success] Static Optimization completed. Results are saved in:
+02.03.2026_23:07:18:615:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_force.sto
+02.03.2026_23:07:18:618:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_activation.sto
+02.03.2026_23:07:25:033: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_SO.sto
+02.03.2026_23:07:25:034: Settings XML not found or could not be loaded. Creating new settings XML.
+02.03.2026_23:07:25:034: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:25:037: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:25:040: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:25:043: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:25:046: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:537: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:547: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:556: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:561: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:569: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+02.03.2026_23:07:26:761: [Error] during Static Optimization: std::exception in 'OpenSim::Storage::Storage(std::string const &)': Storage: Failed to open file 'joint_angles.mot'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+02.03.2026_23:07:26:975: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Storage::Storage(std::string const &)': Storage: Failed to open file 'joint_angles.mot'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+02.03.2026_23:08:01:540: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+02.03.2026_23:08:01:565: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:09:08:945: [Success] Static Optimization completed. Results are saved in:
+02.03.2026_23:09:08:945:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\SO_StaticOptimization_force.sto
+02.03.2026_23:09:08:947:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\SO_StaticOptimization_activation.sto
+02.03.2026_23:09:08:963: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:09:12:225: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\Analyse_JRA_ReactionLoads_SO.sto
+02.03.2026_23:23:35:295: Existing settings XML deleted: trial_settings.xml
+02.03.2026_23:23:35:300: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:23:35:456: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:23:35:698: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:23:35:936: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:23:36:114: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:23:46:741: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:26:43:671: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+02.03.2026_23:26:43:690: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:28:50:672: [Success] Static Optimization completed. Results are saved in:
+02.03.2026_23:28:50:674:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\SO_StaticOptimization_force.sto
+02.03.2026_23:28:50:674:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\SO_StaticOptimization_activation.sto
+02.03.2026_23:28:50:700: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+02.03.2026_23:28:55:820: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_11:20:48:511: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:20:48:518: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:20:48:522: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:20:48:524: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:20:48:528: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:21:42:981: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_11:22:25:506: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_11:22:25:506:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_11:22:25:506:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_11:22:27:887: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_11:22:28:897: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_11:22:28:899: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_11:22:28:899: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_11:22:28:906: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_11:22:28:910: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_11:24:30:791: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_11:27:57:510: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_11:27:57:510:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_force.sto
+03.03.2026_11:27:57:510:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_activation.sto
+03.03.2026_11:28:01:108: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_11:28:02:120: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:28:02:120: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:28:02:184: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:28:02:184: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:28:02:190: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:28:02:193: [Error] during Muscle Analysis: Inverse Kinematics motion file not found: joint_angles.mot
+03.03.2026_11:28:02:277: [Error] during Static Optimization: std::exception in 'OpenSim::Storage::Storage(std::string const &)': Storage: Failed to open file 'joint_angles.mot'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+03.03.2026_11:28:02:375: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Storage::Storage(std::string const &)': Storage: Failed to open file 'joint_angles.mot'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+03.03.2026_11:30:09:180: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:09:185: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:09:189: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:09:192: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:09:194: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:23:932: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:23:937: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:23:942: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:23:944: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:30:23:946: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:31:27:692: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:31:32:249: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_11:31:32:249: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:31:34:024: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_11:31:36:925: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_11:34:10:970: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:973: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:977: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:980: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:983: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:986: Attribute EMG_muscle_mapping not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:10:986: Attribute Objective_Functions not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:34:38:648: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_11:37:24:658: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_unlockedCoords.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:37:27:079: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_11:37:27:079:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\SO_StaticOptimization_force.sto
+03.03.2026_11:37:27:079:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\SO_StaticOptimization_activation.sto
+03.03.2026_11:37:30:833: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_11:37:46:135: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:37:46:142: OpenSim model file not found: ..\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_unlockedCoords.osim
+03.03.2026_11:37:46:144: [Error] during Inverse Kinematics: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_unlockedCoords.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+03.03.2026_11:37:50:333: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_11:37:50:337: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:39:17:000: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_unlockedCoords.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:09:556: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:09:562: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:09:565: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:09:565: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:09:574: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:34:829: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:38:759: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_11:41:38:760: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:41:39:705: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_11:41:42:319: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:42:39:215: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_11:43:25:384: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_11:43:25:384:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_11:43:25:384:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_11:43:27:886: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_11:49:01:660: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:663: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:663: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:663: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:674: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:676: Attribute EMG_muscle_mapping not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:01:676: Attribute Objective_Functions not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:49:13:530: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\..\..\..\..\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_unlockedCoords.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:52:44:968: Existing settings XML deleted: trial_settings.xml
+03.03.2026_11:52:44:971: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:52:44:975: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:52:44:978: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:52:44:979: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:52:44:979: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:53:52:226: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_lockedCoords.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_11:57:45:861: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_increased_3.00_lockedCoords.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_12:56:32:779: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_12:56:55:570: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_12:56:58:813: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_12:56:58:815: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:15:27:782: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_13:15:30:843: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:15:32:787: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:16:36:688: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_13:21:36:390: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:396: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:397: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:397: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:397: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:406: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:36:409: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:21:44:101: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:22:28:623: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_13:22:28:624:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_13:22:28:624:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_13:29:07:468: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:29:07:475: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:29:07:478: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:29:07:481: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:32:19:189: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:32:19:193: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:32:19:193: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:32:19:201: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:34:00:441: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:34:00:449: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:34:00:452: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:34:00:453: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:41:45:728: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:41:45:734: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:41:45:737: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:41:45:742: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:43:11:258: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:43:11:265: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:43:11:268: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:43:11:272: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:44:48:044: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:44:48:052: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:44:48:056: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:44:48:058: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:45:45:771: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:45:45:776: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:45:45:780: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:45:45:781: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:47:58:204: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:47:58:213: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:47:58:218: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:47:58:223: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:48:41:635: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:48:41:643: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:48:41:646: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:48:41:650: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:50:37:233: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:50:37:239: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:50:37:243: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:50:37:247: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:20:248: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:20:254: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:20:257: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:20:260: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:45:705: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:45:712: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:45:715: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:51:45:718: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:04:032: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:04:032: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:04:043: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:04:043: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:46:312: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:46:318: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:46:322: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:53:46:324: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:55:14:084: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:55:14:089: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:55:14:093: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:55:14:097: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:05:696: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:05:701: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:05:707: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:05:711: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:42:915: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:42:923: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:42:926: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_13:58:42:929: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:01:20:346: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:01:20:347: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:01:20:354: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:01:20:354: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:13:847: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces__unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:13:853: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:13:856: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:13:859: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:43:702: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:02:46:544: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_14:03:22:096: Updated replace to False for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:04:06:731: [Success] CEINMS uncalibrated model created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\subjectUncalibrated.xml
+03.03.2026_14:04:06:755: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:04:07:036: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+03.03.2026_14:04:43:114: CEINMS calibration completed successfully in 34.99 seconds.
+03.03.2026_14:04:50:672: [Success] Plotted moments vs CEINMS results.
+03.03.2026_14:04:54:980: [Success] Plotted EMG vs CEINMS results for calibrated model: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\subjectCalibrated.xml
+03.03.2026_14:08:17:294: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:08:17:450: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK
+03.03.2026_14:08:49:637: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:49:643: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:49:643: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:49:656: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:50:717: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:50:722: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:08:50:726: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:09:11:286: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:09:35:566: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:09:40:578: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_14:09:40:579: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:09:45:344: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_14:09:51:025: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:09:54:766: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+03.03.2026_14:10:31:026: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_14:10:31:026:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_14:10:31:026:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_14:17:02:559: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:567: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:574: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:578: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:581: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:585: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:02:588: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:19:872: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:24:261: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:28:463: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_14:17:28:464: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:32:278: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_14:17:36:868: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:17:40:211: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:18:24:079: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_14:18:24:095: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+03.03.2026_14:19:03:193: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_14:19:03:193:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_14:19:03:193:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_14:34:21:584: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:34:21:621: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:34:21:626: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:34:21:629: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:34:22:642: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:34:22:652: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:34:22:656: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:34:22:659: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:34:23:670: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled_muscles_added_with_wrapping_surfaces_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_14:34:23:674: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_14:34:23:677: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_14:34:23:677: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_14:50:00:095: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:00:097: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:00:097: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:00:097: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:00:111: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:23:293: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:27:178: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_14:50:27:178: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:50:28:029: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_14:50:30:512: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:51:28:071: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_14:52:11:141: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_14:52:11:141:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+03.03.2026_14:52:11:141:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+03.03.2026_14:52:18:543: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+03.03.2026_14:52:22:600: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_14:52:23:609: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:23:616: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:23:620: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:23:624: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:23:630: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:43:265: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:50:791: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_14:52:50:792: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:52:52:850: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_14:52:57:367: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_14:55:46:184: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_14:59:51:667: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_14:59:51:668:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_force.sto
+03.03.2026_14:59:51:668:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\SO_StaticOptimization_activation.sto
+03.03.2026_14:59:58:853: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01
+03.03.2026_15:00:04:175: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_15:00:05:191: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:00:05:198: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:00:05:203: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:00:05:207: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:00:05:213: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:01:27:396: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:01:32:494: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_15:01:32:495: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:01:34:362: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_15:01:37:616: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:05:10:689: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_15:09:01:468: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_15:09:01:468:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\SO_StaticOptimization_force.sto
+03.03.2026_15:09:01:468:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\SO_StaticOptimization_activation.sto
+03.03.2026_15:09:10:543: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:09:14:684: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_15:09:15:610: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_35kg_01
+03.03.2026_15:09:16:105: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK
+03.03.2026_17:44:41:323: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:345: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:359: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:369: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:381: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:393: Attribute EMG_muscle_mapping not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:44:41:393: Attribute Objective_Functions not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:280: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:288: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:292: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:300: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:300: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:300: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:45:22:317: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:13:584: Existing settings XML deleted: trial_settings.xml
+03.03.2026_17:57:13:584: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:13:600: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:13:611: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:13:618: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:13:634: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:57:32:329: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:59:33:354: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:59:40:703: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+03.03.2026_17:59:40:703: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:59:48:141: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+03.03.2026_17:59:54:463: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_17:59:58:676: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_18:06:14:504: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+03.03.2026_18:06:14:531: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_18:11:30:677: [Success] Static Optimization completed. Results are saved in:
+03.03.2026_18:11:30:681:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01\SO_StaticOptimization_force.sto
+03.03.2026_18:11:30:681:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01\SO_StaticOptimization_activation.sto
+03.03.2026_18:11:44:080: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_18:11:44:096: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_18:11:53:028: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01\Analyse_JRA_ReactionLoads_SO.sto
+03.03.2026_18:14:59:123: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+03.03.2026_18:14:59:288: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK
+04.03.2026_00:11:33:392: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:393: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:393: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:395: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:395: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:396: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:403: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:405: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:407: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:411: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:414: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:416: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:11:33:418: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:12:02:216: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:12:02:216: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:12:02:220: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:12:02:223: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:12:02:227: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:12:02:230: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:15:56:356: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:15:56:356: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:15:56:359: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:15:56:361: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:15:56:364: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:15:56:367: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:27:02:185: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:185: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:190: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:191: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:192: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:193: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:198: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:200: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:202: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:204: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:02:336: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:10:689: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:27:10:690: [Error] during Inverse Kinematics: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:27:10:690: [Error] during IK plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:27:10:690: [Error] during Inverse Dynamics: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:27:10:690: [Error] during ID plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:27:10:690: [Error] during Muscle Analysis: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:27:10:733: [Error] during Static Optimization: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:27:10:832: [Error] during SO plotting: 'NoneType' object is not subscriptable
+04.03.2026_00:27:10:854: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:27:10:855: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02\inputData.xml
+04.03.2026_00:27:10:855: [Error] Failed to create CEINMS excitation generator: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:27:10:855: [Error] Failed to create CEINMS uncalibrated model: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:27:16:599: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:16:607: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:16:610: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:16:614: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:27:16:619: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:31:36:576: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:31:36:584: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:31:36:586: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:31:36:589: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:31:36:594: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:21:328: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:21:333: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:21:337: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:21:339: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:21:344: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:43:445: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:43:452: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:43:454: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:43:457: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:32:43:472: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:005: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:010: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:013: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:016: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:031: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:33:47:031: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:034: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:037: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:039: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:042: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:198: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:33:47:202: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:33:47:202: [Error] during Inverse Kinematics: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:33:47:204: [Error] during IK plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:33:47:204: [Error] during Inverse Dynamics: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:33:47:205: [Error] during ID plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:33:47:205: [Error] during Muscle Analysis: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim
+04.03.2026_00:33:47:205: [Error] during Static Optimization: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:33:47:305: [Error] during SO plotting: 'NoneType' object is not subscriptable
+04.03.2026_00:33:47:307: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:33:47:307: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02\inputData.xml
+04.03.2026_00:33:47:309: [Error] Failed to create CEINMS excitation generator: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:33:47:309: [Error] Failed to create CEINMS uncalibrated model: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\Rajagopal2015_passiveCal_hipAbdMoved_with_markers_scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:34:57:924: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:930: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:932: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:935: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:951: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:34:57:951: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:954: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:956: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:958: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:57:961: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:58:031: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:34:58:035: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim
+04.03.2026_00:34:58:035: [Error] during Inverse Kinematics: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:34:58:035: [Error] during IK plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:34:58:036: [Error] during Inverse Dynamics: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim
+04.03.2026_00:34:58:036: [Error] during ID plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_00:34:58:036: [Error] during Muscle Analysis: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim
+04.03.2026_00:34:58:036: [Error] during Static Optimization: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:34:58:131: [Error] during SO plotting: 'NoneType' object is not subscriptable
+04.03.2026_00:34:58:133: [Error] during Joint Reaction Analysis: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:34:58:134: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02\inputData.xml
+04.03.2026_00:34:58:135: [Error] Failed to create CEINMS excitation generator: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:34:58:135: [Error] Failed to create CEINMS uncalibrated model: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Ulrich\25_03_31\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_00:35:39:502: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:507: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:509: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:511: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:525: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:35:39:525: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:528: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:530: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:534: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:537: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Ulrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:35:39:601: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Ulrich\25_03_31\Walking_02
+04.03.2026_00:38:52:114: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich \25_03_31\Walking_02
+04.03.2026_00:39:07:113: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:120: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:123: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:126: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:139: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:39:07:139: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:142: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:145: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:148: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:150: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:07:349: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:11:426: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:15:686: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_00:39:15:686: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:39:16:450: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_00:39:18:915: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:40:01:519: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_00:40:13:712: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:13:713: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:13:714: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:13:715: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:13:717: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:13:717: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_bw_01
+04.03.2026_00:40:42:732: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_00:40:42:733:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+04.03.2026_00:40:42:733:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+04.03.2026_00:40:48:666: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:40:50:483: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_00:40:50:497: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\inputData.xml
+04.03.2026_00:40:50:681: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_00:41:13:513: [Success] CEINMS uncalibrated model created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\subjectUncalibrated.xml
+04.03.2026_00:41:35:425: CEINMS calibration completed successfully in 21.17 seconds.
+04.03.2026_00:41:39:134: [Success] Plotted moments vs CEINMS results.
+04.03.2026_00:41:41:042: [Success] Plotted EMG vs CEINMS results for calibrated model: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\subjectCalibrated.xml
+04.03.2026_00:41:41:042: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\ceinms_cfg.xml
+04.03.2026_00:42:27:689: CEINMS executable run completed for trial: Walking_02
+04.03.2026_00:42:27:690: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:42:27:823: [Success] Added SO columns to CEINMS forces for trial: Walking_02
+04.03.2026_00:42:27:824: Added SO columns to CEINMS forces for trial: Walking_02
+04.03.2026_00:42:29:762: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_CEINMS.sto
+04.03.2026_00:42:30:779: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:781: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:781: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:781: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:904: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:42:30:904: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:909: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:911: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:912: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:30:916: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:31:067: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:44:619: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:49:216: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_00:42:49:217: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:42:50:807: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_00:42:54:186: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:45:18:016: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_00:45:20:886: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:20:887: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02
+04.03.2026_00:45:20:903: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02
+04.03.2026_00:45:20:906: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02
+04.03.2026_00:45:20:906: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02
+04.03.2026_00:45:20:916: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_02
+04.03.2026_00:45:22:098: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:22:098: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_00:45:22:104: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_00:45:22:107: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_00:45:22:108: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_00:45:22:108: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_00:45:23:288: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:23:288: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_00:45:23:301: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_00:45:23:304: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_00:45:23:307: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_00:45:23:310: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_00:45:24:833: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:24:833: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_00:45:24:838: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_00:45:24:846: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_00:45:24:850: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_00:45:24:853: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_00:45:26:034: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:26:034: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+04.03.2026_00:45:26:036: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+04.03.2026_00:45:26:036: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+04.03.2026_00:45:26:046: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+04.03.2026_00:45:26:050: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_02
+04.03.2026_00:45:27:268: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:45:27:268: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:45:27:270: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:45:27:275: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:45:27:277: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:45:27:282: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:49:58:560: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_00:49:58:560:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\SO_StaticOptimization_force.sto
+04.03.2026_00:49:58:563:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\SO_StaticOptimization_activation.sto
+04.03.2026_00:50:11:658: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:50:19:037: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_00:50:19:072: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\inputData.xml
+04.03.2026_00:50:19:452: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_00:50:19:461: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\ceinms_cfg.xml
+04.03.2026_00:52:10:852: CEINMS executable run completed for trial: Squat_BW_01
+04.03.2026_00:52:10:852: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01
+04.03.2026_00:52:11:279: [Success] Added SO columns to CEINMS forces for trial: Squat_BW_01
+04.03.2026_00:52:11:279: Added SO columns to CEINMS forces for trial: Squat_BW_01
+04.03.2026_00:52:17:964: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_CEINMS.sto
+04.03.2026_00:52:17:964: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:17:966: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:17:966: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:17:971: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:17:973: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:17:975: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:171: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:177: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:182: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:183: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:321: Existing settings XML deleted: trial_settings.xml
+04.03.2026_00:52:18:321: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:328: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:330: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:336: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:342: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:18:686: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:47:079: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:56:880: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_00:52:56:880: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:52:59:478: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_00:53:04:945: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_00:56:51:407: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_00:58:39:290: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:293: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:305: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:309: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:317: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:321: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_00:58:39:330: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_02
+04.03.2026_01:03:36:031: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_01:03:36:031:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\SO_StaticOptimization_force.sto
+04.03.2026_01:03:36:031:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\SO_StaticOptimization_activation.sto
+04.03.2026_01:03:46:856: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_01:03:52:245: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_01:03:52:245: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\inputData.xml
+04.03.2026_01:03:52:559: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_01:03:52:598: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\ceinms_cfg.xml
+04.03.2026_01:05:29:523: CEINMS executable run completed for trial: Squat_35kg_01
+04.03.2026_01:05:29:526: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_01:05:29:929: [Success] Added SO columns to CEINMS forces for trial: Squat_35kg_01
+04.03.2026_01:05:29:929: Added SO columns to CEINMS forces for trial: Squat_35kg_01
+04.03.2026_01:05:35:064: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01\Analyse_JRA_ReactionLoads_CEINMS.sto
+04.03.2026_01:05:35:197: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_01
+04.03.2026_01:05:35:306: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich
+04.03.2026_08:28:30:628: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:628: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:628: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:635: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:635: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:638: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:751: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:755: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:757: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:759: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:820: Existing settings XML deleted: trial_settings.xml
+04.03.2026_08:28:30:820: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:827: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:829: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:829: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:30:834: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:31:006: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:35:129: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:39:217: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_08:28:39:217: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:28:39:835: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_08:28:42:432: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:29:25:100: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_08:30:09:731: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_08:30:09:731:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03\SO_StaticOptimization_force.sto
+04.03.2026_08:30:09:731:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03\SO_StaticOptimization_activation.sto
+04.03.2026_08:30:12:554: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:30:13:964: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_08:30:13:966: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03\inputData.xml
+04.03.2026_08:30:14:097: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_08:30:14:101: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03\ceinms_cfg.xml
+04.03.2026_08:30:14:607: CEINMS executable run completed for trial: Walking_03
+04.03.2026_08:30:14:607: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_08:30:14:668: [Error] CEINMS forces file not found: Execution_a10_b1_g1000\MuscleForces.sto
+04.03.2026_08:30:15:476: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a10_b1_g1000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+04.03.2026_08:30:15:488: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:489: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:490: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:491: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:491: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:491: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:603: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:608: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:611: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:612: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:674: Existing settings XML deleted: trial_settings.xml
+04.03.2026_08:30:15:674: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:680: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:682: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:685: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:687: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:15:872: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:27:252: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:32:881: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_08:30:32:881: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:30:34:203: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_08:30:36:982: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:32:17:916: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_08:35:01:135: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_08:35:01:135:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02\SO_StaticOptimization_force.sto
+04.03.2026_08:35:01:135:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02\SO_StaticOptimization_activation.sto
+04.03.2026_08:35:04:195: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:35:07:412: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_08:35:07:414: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02\inputData.xml
+04.03.2026_08:35:07:620: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_08:35:07:634: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02\ceinms_cfg.xml
+04.03.2026_08:35:08:568: CEINMS executable run completed for trial: Squat_BW_02
+04.03.2026_08:35:08:568: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_BW_02
+04.03.2026_08:35:08:642: [Error] CEINMS forces file not found: Execution_a10_b1_g1000\MuscleForces.sto
+04.03.2026_08:35:10:421: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a10_b1_g1000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+04.03.2026_08:35:10:439: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:440: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:442: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:443: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:444: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:446: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:570: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:570: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:576: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:580: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:653: Existing settings XML deleted: trial_settings.xml
+04.03.2026_08:35:10:653: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:657: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:660: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:665: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:671: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:10:884: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:22:169: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:28:420: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_08:35:28:420: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:35:29:412: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_08:35:31:969: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:37:06:275: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_08:40:31:955: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_08:40:31:956:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\SO_StaticOptimization_force.sto
+04.03.2026_08:40:31:956:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\SO_StaticOptimization_activation.sto
+04.03.2026_08:40:35:427: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:40:37:872: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_08:40:37:876: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\inputData.xml
+04.03.2026_08:40:38:063: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_08:40:38:072: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\ceinms_cfg.xml
+04.03.2026_08:41:30:683: CEINMS executable run completed for trial: Squat_35kg_02
+04.03.2026_08:41:30:683: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:41:30:905: [Success] Added SO columns to CEINMS forces for trial: Squat_35kg_02
+04.03.2026_08:41:30:915: Added SO columns to CEINMS forces for trial: Squat_35kg_02
+04.03.2026_08:41:33:373: JRA CEINMS analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02\Analyse_JRA_ReactionLoads_CEINMS.sto
+04.03.2026_08:41:33:446: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Squat_35kg_02
+04.03.2026_08:41:33:501: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich
+04.03.2026_09:18:34:361: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:34:362: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_03
+04.03.2026_09:18:34:374: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_03
+04.03.2026_09:18:34:378: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_03
+04.03.2026_09:18:34:381: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_03
+04.03.2026_09:18:34:384: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03\25_03_31\Walking_03
+04.03.2026_09:18:35:616: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:35:617: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_03
+04.03.2026_09:18:35:627: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_03
+04.03.2026_09:18:35:631: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_03
+04.03.2026_09:18:35:634: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_03
+04.03.2026_09:18:35:638: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_03
+04.03.2026_09:18:36:784: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:36:785: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_09:18:36:793: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_09:18:36:797: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_09:18:36:802: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_09:18:36:805: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_09:18:37:986: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:37:986: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+04.03.2026_09:18:37:995: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+04.03.2026_09:18:38:000: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+04.03.2026_09:18:38:003: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+04.03.2026_09:18:38:006: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_03
+04.03.2026_09:18:39:200: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:39:201: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_03
+04.03.2026_09:18:39:206: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_03
+04.03.2026_09:18:39:210: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_03
+04.03.2026_09:18:39:213: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_03
+04.03.2026_09:18:39:216: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_MRI_Katya\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_MRI_Katya\25_03_31\Walking_03
+04.03.2026_09:18:40:367: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:18:40:368: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_09:18:40:373: Updated emg_normalised to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_09:18:40:376: Updated emg_plot to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_09:18:40:380: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_09:18:40:384: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\25_03_31\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31\Walking_03
+04.03.2026_09:27:10:812: Trial path not found: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:813: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\pre\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:821: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:823: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:825: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:826: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\pre\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:834: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\pre\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:837: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:841: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:844: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:850: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:27:10:850: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\pre\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:855: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:858: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:862: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:10:867: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Uhlrich\pre\scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:11:065: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\pre\Run_baselineA1
+04.03.2026_09:27:39:439: OpenSim model file not found: ..\..\..\..\models\Athlete_03_Uhlrich\pre\scaled.osim
+04.03.2026_09:27:39:440: [Error] during Inverse Kinematics: std::exception in 'OpenSim::Model::Model(std::string const &)': Object: Cannot open file ..\..\..\..\models\Athlete_03_Uhlrich\pre\scaled.osim. It may not exist or you do not have permission to read it.
+	Thrown at Object.cpp:105 in Object().
+04.03.2026_09:27:39:440: [Error] during IK plotting: 'NoneType' object has no attribute 'columns'
+04.03.2026_09:27:59:966: Settings XML not found or could not be loaded. Creating new settings XML.
+04.03.2026_09:27:59:966: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:27:59:971: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:27:59:973: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:27:59:975: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:27:59:976: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:221: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:224: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:227: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:233: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:236: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:28:01:236: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:239: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:243: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:247: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:253: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:28:01:585: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:08:038: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:08:045: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:08:049: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:08:052: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:08:145: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:34:592: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:34:598: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:34:601: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:30:34:605: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:44:02:184: Existing settings XML deleted: trial_settings.xml
+04.03.2026_09:44:02:184: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:44:02:187: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:44:02:190: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:44:02:200: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:44:02:204: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:48:41:725: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:48:41:729: Updated emg_normalised to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:48:41:733: Updated emg_plot to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:48:41:735: Updated ceinms_excitations to EMG_filtered_normalised.sto for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:48:55:962: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:49:00:995: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs markers.trc
+04.03.2026_09:49:00:995: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:49:01:660: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_09:49:05:077: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_09:55:02:620: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_10:05:31:591: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_10:05:31:592:  - Forces: c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1\SO_StaticOptimization_force.sto
+04.03.2026_10:05:31:592:  - Activations: c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1\SO_StaticOptimization_activation.sto
+04.03.2026_10:05:31:666: [Error] during SO plotting: 'NoneType' object is not subscriptable
+04.03.2026_11:01:35:703: Updated model path to c:\Git\powerlifing_model_clean\models\022\pre\022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim for trial at c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_11:01:43:115: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1\inputData.xml
+04.03.2026_11:01:46:884: [Error] Failed to create CEINMS excitation generator: 'NoneType' object has no attribute 'columns'
+04.03.2026_11:02:17:856: [Success] CEINMS excitation generator created: ..\excitationGenerator.xml
+04.03.2026_11:03:12:800: [Success] CEINMS uncalibrated model created: c:\Git\powerlifing_model_clean\simulations\022\pre\subjectUncalibrated.xml
+04.03.2026_11:12:47:840: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1\inputData.xml
+04.03.2026_11:14:34:772: CEINMS calibration completed successfully in 23.46 seconds.
+04.03.2026_11:14:42:748: [ERROR] Could not plot moments vs CEINMS results.
+04.03.2026_11:14:49:822: [Success] Plotted EMG vs CEINMS results for calibrated model: c:\Git\powerlifing_model_clean\simulations\022\pre\subjectCalibrated.xml
+04.03.2026_11:39:45:622: Plotted Experimental vs CEINMS results c:\Git\powerlifing_model_clean\simulations\022\pre\Run_baselineA1
+04.03.2026_12:23:28:331: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:23:28:650: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:23:50:417: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:23:50:450: Existing settings XML deleted: trial_settings.xml
+04.03.2026_12:25:12:341: Settings XML not found or could not be loaded. Creating new settings XML.
+04.03.2026_12:25:12:343: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:25:53:976: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:25:54:010: Existing settings XML deleted: trial_settings.xml
+04.03.2026_12:25:54:012: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:25:54:021: Updated emg to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:25:54:034: Updated ceinms_excitations to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:25:55:524: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:26:24:972: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:26:24:997: Existing settings XML deleted: trial_settings.xml
+04.03.2026_12:26:24:997: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:26:25:008: Updated emg to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:26:25:019: Updated ceinms_excitations to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:26:25:457: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:27:39:523: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:27:40:050: Existing settings XML deleted: trial_settings.xml
+04.03.2026_12:27:40:050: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:27:40:063: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:27:40:074: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:27:41:652: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:29:07:903: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:29:16:152: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_12:29:16:152: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:29:18:468: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_12:29:22:700: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:32:31:010: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_12:37:05:403: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_12:37:05:404:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02\SO_StaticOptimization_force.sto
+04.03.2026_12:37:05:404:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02\SO_StaticOptimization_activation.sto
+04.03.2026_12:37:05:592: [Error] during SO plotting: 'Analyse' object has no attribute 'emg_plot'
+04.03.2026_12:37:12:618: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_12:37:12:622: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02\inputData.xml
+04.03.2026_12:37:12:767: [Error] Failed to create CEINMS excitation generator: 'NoneType' object has no attribute 'columns'
+04.03.2026_12:37:14:156: Could not plot EMG vs CEINMS results c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:37:14:160: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02\ceinms_cfg.xml
+04.03.2026_12:37:15:225: CEINMS executable run completed for trial: Squat_BW_02
+04.03.2026_12:37:15:225: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:37:15:328: [Error] CEINMS forces file not found: Execution_a10_b1_g1000\MuscleForces.sto
+04.03.2026_12:37:18:013: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a10_b1_g1000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+04.03.2026_12:37:18:156: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_02
+04.03.2026_12:37:18:298: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised
+04.03.2026_13:40:33:569: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:40:33:595: Existing settings XML deleted: trial_settings.xml
+04.03.2026_13:40:33:595: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:40:33:595: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:40:33:605: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:40:34:159: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:41:38:198: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:41:43:879: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_13:41:43:879: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:41:45:748: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_13:41:49:458: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:45:13:658: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_13:48:35:433: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_13:48:35:434:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02\SO_StaticOptimization_force.sto
+04.03.2026_13:48:35:434:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02\SO_StaticOptimization_activation.sto
+04.03.2026_13:48:40:359: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:48:45:130: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_13:48:45:134: [Success] CEINMS input data created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02\inputData.xml
+04.03.2026_13:48:45:267: [Error] Failed to create CEINMS excitation generator: 'NoneType' object has no attribute 'columns'
+04.03.2026_13:48:46:469: Could not plot EMG vs CEINMS results c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:48:46:474: [Success] CEINMS exe cfg created: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02\ceinms_cfg.xml
+04.03.2026_13:48:47:480: CEINMS executable run completed for trial: Squat_BW_02
+04.03.2026_13:48:47:480: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:48:47:573: [Error] CEINMS forces file not found: Execution_a10_b1_g1000\MuscleForces.sto
+04.03.2026_13:48:50:035: [Error] during Joint Reaction Analysis CEINMS: std::exception in 'bool OpenSim::AnalyzeTool::run()': Storage: Failed to open file 'Execution_a10_b1_g1000\MuscleForces.sto'. Verify that the file exists at the specified location.
+	Thrown at Storage.cpp:185 in Storage().
+04.03.2026_13:48:50:104: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_BW_02
+04.03.2026_13:48:50:159: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK
+04.03.2026_14:03:27:358: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:27:434: Existing settings XML deleted: trial_settings.xml
+04.03.2026_14:03:27:435: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:27:438: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:27:442: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:27:885: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:53:728: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:58:612: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_14:03:58:612: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:03:59:538: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_14:04:02:466: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:05:10:762: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_14:06:23:091: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_14:06:23:092:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+04.03.2026_14:06:23:092:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+04.03.2026_14:06:28:638: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_14:06:32:815: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_14:06:33:817: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:06:33:913: Existing settings XML deleted: trial_settings.xml
+04.03.2026_14:06:33:914: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:06:33:920: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:06:33:926: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:06:34:186: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:07:12:769: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:07:22:906: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_14:07:22:906: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:07:23:937: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_14:07:28:218: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:08:48:425: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_14:09:49:289: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_14:09:49:290:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03\SO_StaticOptimization_force.sto
+04.03.2026_14:09:49:290:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03\SO_StaticOptimization_activation.sto
+04.03.2026_14:09:54:628: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:09:59:119: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_14:09:59:424: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_03
+04.03.2026_14:09:59:591: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised
+04.03.2026_14:50:41:157: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03\25_03_31\scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:50:41:382: Existing settings XML deleted: trial_settings.xml
+04.03.2026_14:50:41:382: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:50:41:394: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:50:41:407: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:50:41:831: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:51:39:389: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:47:287: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:537: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:545: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:553: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:563: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:567: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:51:59:574: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:52:22:358: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:53:54:246: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_14:53:54:246:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+04.03.2026_14:53:54:246:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+04.03.2026_14:54:02:823: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Walking_02
+04.03.2026_14:54:32:807: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:32:814: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:32:827: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:32:839: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:32:848: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:32:848: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:54:37:884: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_14:55:53:783: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_14:55:53:783:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01\SO_StaticOptimization_force.sto
+04.03.2026_14:55:53:783:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01\SO_StaticOptimization_activation.sto
+04.03.2026_14:55:59:786: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:56:07:418: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_14:56:07:639: [Git Status] Uncommitted changes in trial directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Squat_BW_01
+04.03.2026_14:56:07:743: [Git Status] Uncommitted changes in subject directory: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised
+04.03.2026_15:16:34:986: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_GPK\25_03_31\GPK_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:34:994: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:35:005: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:35:010: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:35:010: Attribute EMG_muscle_mapping not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:35:010: Attribute Objective_Functions not found in trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:52:705: [Error] during CEINMS executable run: [Errno 2] No such file or directory: 'inputData.xml'
+04.03.2026_15:16:52:706: Updated jra_forces_ceinms to Execution_a10_b1_g1000\MuscleForces.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK\25_03_31\Squat_bw_01
+04.03.2026_15:16:52:711: [Error] CEINMS forces file not found: Execution_a10_b1_g1000\MuscleForces.sto
+04.03.2026_19:11:59:863: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:11:59:872: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:11:59:876: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:11:59:879: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:11:59:883: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:11:59:887: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:12:33:353: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:13:15:718: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_19:18:10:921: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:19:00:058: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_19:21:43:834: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:21:43:909: Existing settings XML deleted: trial_settings.xml
+04.03.2026_19:21:43:910: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal_optimised\25_03_31\lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:21:43:911: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:21:43:911: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:21:44:115: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal_optimised\25_03_31\Walking_02
+04.03.2026_19:22:31:054: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_19:30:52:943: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:30:52:946: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:30:52:949: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:30:52:949: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:30:52:961: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:30:52:961: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:32:57:261: Existing settings XML deleted: trial_settings.xml
+04.03.2026_19:32:57:261: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:32:57:265: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:32:57:270: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:33:06:560: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:33:28:115: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:33:31:800: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+04.03.2026_19:33:31:801: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:33:34:989: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+04.03.2026_19:33:38:445: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:33:40:860: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:34:29:957: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+04.03.2026_19:34:29:983: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:35:06:555: [Success] Static Optimization completed. Results are saved in:
+04.03.2026_19:35:06:555:  - Forces: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\SO_StaticOptimization_force.sto
+04.03.2026_19:35:06:555:  - Activations: c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\SO_StaticOptimization_activation.sto
+04.03.2026_19:35:10:618: [Success] SO results plotted and saved in c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:35:11:819: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:35:15:141: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02\Analyse_JRA_ReactionLoads_SO.sto
+04.03.2026_19:37:39:725: Existing settings XML deleted: trial_settings.xml
+04.03.2026_19:37:39:725: Updated model path to c:\Git\powerlifing_model_clean\models\Athlete_03_Lernagopal\25_03_31\scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:37:39:771: Updated emg to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
+04.03.2026_19:37:39:810: Updated ceinms_excitations to EMG_filtered_normalised_scaled_0.70.sto for trial at c:\Git\powerlifing_model_clean\simulations\Athlete_03_Lernagopal\25_03_31\Walking_02
