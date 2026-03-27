@@ -176,7 +176,7 @@ class Analyse(Inputs):
         self._update_emg_tag() 
         
         self.body_mass = None # Placeholder, will be updated from the model if possible
-        self.time_range = None
+        self.time_range = 'None' # Placeholder, will be updated from data if possible
         
         # add each Input to the trial settings
         inputs = Inputs(parentdir=self.path)
@@ -203,7 +203,7 @@ class Analyse(Inputs):
             print_to_log(f"Error updating from data: {e}", terminal=True)
 
         self._to_xml()
-    
+
     def _to_xml(self):
         '''Print all settings for the trial to an xml in trial.path'''
         os.chdir(self.path)
@@ -235,6 +235,18 @@ class Analyse(Inputs):
         save_pretty_xml(tree, self.settingsXML)
         print(f"Trial settings saved to: {os.path.abspath(self.settingsXML)}")
     
+    def _update_input_files(self):
+
+        # change .mot file to match the self.grf_mot
+        if os.path.exists(os.path.join(self.path, self.trial + '.mot')):
+            os.rename(os.path.join(self.path, self.trial + '.mot'), os.path.join(self.path, self.grf_mot))
+            print(f"Renamed {self.trial + '.mot'} to {self.grf_mot}")
+
+        # change .trc file to match the self.markers
+        if os.path.exists(os.path.join(self.path, self.trial + '.trc')):
+            os.rename(os.path.join(self.path, self.trial + '.trc'), os.path.join(self.path, self.markers))
+            print(f"Renamed {self.trial + '.trc'} to {self.markers}")
+
     def _update_model(self):
         '''
         update the model path in the xml settings
@@ -254,9 +266,16 @@ class Analyse(Inputs):
 
         elif self.subject == 'Athlete_03_GPK':
             self.update_model('GPK_scaled.osim')
+        
+        elif self.subject == 'Athlete_03_GPK_MRI':
+            self.update_model('scaled.osim')
 
         elif self.subject == '022':
             self.update_model('022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim')
+        
+        elif self.subject in ['HC835B']:
+            self.update_model('GPK_generic_Lukas_scaled.osim')
+            
         else:
             self.update_model('scaled.osim')
 
@@ -271,6 +290,20 @@ class Analyse(Inputs):
 
         self.update_trial_attribute('emg', emg_name)
         self.update_trial_attribute('ceinms_excitations', emg_name)
+
+    def _remove_outputs(self):
+        '''Remove existing output files from the trial directory to ensure a clean slate for the analysis'''
+        input_files = [self.emg, self.c3d, self.grf_mot, self.markers, self.events]
+        # walk through the trial directory and delete any files that are not in the input_files list
+        for root, dirs, files in os.walk(self.path):
+            for file in files:
+                if file not in input_files:
+                    file_path = os.path.join(root, file)
+                    try:
+                        os.remove(file_path)
+                        print(f"Deleted existing output file: {file_path}")
+                    except Exception as e:
+                        print(f"Failed to delete file {file_path}: {e}")
 
     def convert_to_dict(self, attr_name):
         '''Convert a specific attribute of the trial to a dictionary'''
@@ -403,7 +436,8 @@ class Analyse(Inputs):
         """
         Copy input files from a template subject to the trial directory if they don't already exist or if replace is True.
 
-        
+        src_subject: name of the subject to copy input files from (should be located in SIMULATIONS_DIR/subject/session/)
+        replace: whether to replace existing files in the trial directory (default is False)
 
         """
         input_files = [
@@ -443,7 +477,7 @@ class Analyse(Inputs):
 
         return self.model_dir
 
-    def increase_muscle_force(self, factor=1):
+    def increase_muscle_force(self, factor: float = 1.0, muscle_list: list = ['all']):
         """Increase muscle force in the scaled model by a given factor.
         
         Args:
@@ -457,6 +491,9 @@ class Analyse(Inputs):
             return
 
         new_model_path = self.model_dir.replace('.osim', f'_increased_{factor:.2f}.osim')
+
+        if muscle_list != ['all']:
+            new_model_path = new_model_path.replace('.osim', f'_selected_muscles.osim')
         
         if os.path.exists(new_model_path) or not self.replace:
             print(f"Modified model already exists: {new_model_path}")
@@ -470,14 +507,15 @@ class Analyse(Inputs):
         # Increase max isometric force for each muscle
         for i in range(model.getMuscles().getSize()):
             muscle = model.getMuscles().get(i)
-            original_force = muscle.getMaxIsometricForce()
-            new_force = original_force * factor
-            muscle.setMaxIsometricForce(new_force)
-            print(f"Muscle: {muscle.getName()}, Original Force: {original_force:.2f}, New Force: {new_force:.2f}")
+            if muscle_list == ['all'] or muscle.getName() in muscle_list:
+                original_force = muscle.getMaxIsometricForce()
+                new_force = original_force * factor
+                muscle.setMaxIsometricForce(new_force)
+                print(f"Muscle: {muscle.getName()}, Original Force: {original_force:.2f}, New Force: {new_force:.2f}")
         
         # Save the modified model
         model.printToXML(new_model_path)
-        print(f"Modified model saved to: {new_model_path}")
+        print(f"Modified model saved to: {os.path.abspath(new_model_path)}")
         
         # Update the used model path
         self.model_dir = new_model_path
@@ -624,8 +662,15 @@ class Analyse(Inputs):
         os.chdir(self.path)
 
         if not os.path.exists(self.setup_grf):            
-            template_grf_path = os.path.join(self.setup_dir, self.setup_grf)
-            shutil.copyfile(template_grf_path, self.setup_grf)
+            try:
+                template_grf_path = os.path.join(self.setup_dir, self.setup_grf)
+                shutil.copyfile(template_grf_path, self.setup_grf)
+            except Exception as e:
+                openSim.create_grf_xml(grf_mot_path=self.grf_mot, 
+                        output_xml_path=self.setup_grf,
+                        marker_trc_path=self.markers,
+                        right_foot_markers=None, left_foot_markers=None,right_foot_body='calcn_r', left_foot_body='calcn_l',
+                        vert_force_threshold=10.0, filter_cutoff=6, datafile=None)
 
         if os.path.exists(self.id) and not self.replace:
             print_to_log(f'Inverse Dynamics output already exists: {self.id}')
@@ -1121,12 +1166,11 @@ class Analyse(Inputs):
     
     def create_ceinms_input_data(self):
         os.chdir(self.path)
-        
         try:
             ceinms.create_input_data(MAFolder=self.ma,excitationsFile=self.ceinms_excitations,motionFile=self.ik, externalTorquesFile=self.id,externalLoadsFile=self.setup_grf,startStopTime=self.time_range)
-            print_to_log(f'[Success] CEINMS input data created: {os.path.abspath(self.ceinms_input_data)}')
+            print_to_log(f'[Success] CEINMS input data created: {os.path.abspath(self.ceinms_input_data)}', terminal=True)
         except Exception as e:
-            print_to_log(f'[Error] Failed to create CEINMS input data: {e}')
+            print_to_log(f'[Error] Failed to create CEINMS input data: {e}', terminal=True)
     
     def create_ceinms_calibration_cfg(self, calibration_trial_names=None):
         """
@@ -1381,7 +1425,7 @@ class Analyse(Inputs):
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='alpha',new_value=str(self.alpha))
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='beta',new_value=str(self.beta))
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='gamma',new_value=str(self.gamma))
-        
+        breakpoint()
         # run ceinms executable
         try:
             ceinms.executable(setupXML_path=os.path.abspath(self.ceinms_exe_setup))
@@ -1685,12 +1729,33 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
 
-
 class Compare():
     def __init__(self):
         pass
 
-        
+def create_session(subject, session):
+
+    subject_path = os.path.join(SIMULATIONS_DIR, subject)
+    session_path = os.path.join(SIMULATIONS_DIR, subject, session)
+    
+    model_path = os.path.join(MODELS_DIR, subject, session)
+
+    if not os.path.exists(session_path):
+        try:
+            os.makedirs(session_path, exist_ok=True)
+            print_to_log(f'[Success] Created session directory: {session_path}', terminal=True)
+        except Exception as e:
+            print_to_log(f'[Error] Failed to create session directory: {e}', terminal=True)
+
+    if not os.path.exists(model_path):
+        try:
+            os.makedirs(model_path, exist_ok=True)
+            print_to_log(f'[Success] Created model directory: {model_path}', terminal=True)
+        except Exception as e:
+            print_to_log(f'[Error] Failed to create model directory: {e}', terminal=True)
+
+
+    return session_path
 
 ## Utility functions
 def updir(path, levels=1):
@@ -1779,6 +1844,7 @@ def load_trc(path=None, output=False, combine_headers=False):
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
         return None
     
+    header_start_line += 0 
     df = pd.read_csv(path,sep='\t',skiprows=header_start_line,index_col=False)
     
     # Create a temporary frame from the multi-index, forward-fill, and get values
@@ -2092,6 +2158,16 @@ def load_sto_header(file_path):
 def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
     """
     Write marker data (frames, n_markers, 3) to TRC.
+
+    inputs:
+        markers_df: The DataFrame containing the marker data with a multi-index for columns (Marker, Coordinate). (use load_trc to read in the data and get the correct format)
+
+        trc_file: The path to the output TRC file.
+
+        units: The units for the marker data (e.g., 'mm' or 'm').
+
+        frame_rate: The frame rate of the data (e.g., 100 for 100 Hz).
+
     """
     
     # remove time column
@@ -2261,13 +2337,20 @@ def save_pretty_xml(tree, save_path):
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
 
-def edit_xml_tag_value(xml_path, tag, new_value):
-    """Edits the value of a specific XML tag given its path."""
+def edit_xml_tag_value(xml_path, tag, new_value): 
+    """Edits the value of a specific XML tag given its path.
+    
+    Args:
+        xml_path (str): The path to the XML file.
+        tag (str): The tag whose value needs to be edited. 
+        new_value (str): The new value to set for the specified tag.
+    """
     try:
         tree = ET.parse(xml_path)
         root = tree.getroot()
 
-        elem_list = root.findall(tag)
+        elem_list = root.findall(f".//{tag}")
+        
         if elem_list:
             for elem in elem_list:
                 elem.text = str(new_value)
