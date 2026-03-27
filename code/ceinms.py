@@ -37,7 +37,7 @@ class TemplateParameters:
         self.betas = '1 10'
         self.gammas = '1 10 100 500 1000 1500 2000 3000 4000 5000'
         
-        self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l'
+        self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_adduction_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_adduction_l knee_angle_l ankle_angle_l'
         
         self.c1 = '-0.99 -0.05'
         self.c2 = '-0.95 -0.05'
@@ -183,7 +183,7 @@ class settings:
 
         return EMG_muscle_mapping
 
-    def get_muscle_groups(self, example=EMG_MAPPING):
+    def get_muscle_groups(self, example=EMG_MAPPING): 
 
         # To match Pürzel, A. et al. (2025) Scand. J. Med. Sci. Sports 35
         # Muscle_Groups = {'R Gluteus maximus':['glmax1_r','glmax2_r','glmax3_r'],
@@ -220,6 +220,8 @@ class settings:
                                 'R Vasti':['vasint_r','vaslat_r','vasmed_r'],
                                 'R Triceps Surae': ['soleus_r','gaslat_r','gasmed_r']
                                 }
+        else:
+            muscleGroups = {}
             
         return muscleGroups
 
@@ -316,6 +318,7 @@ def create_ceinms_model(osimModelPath=None, outputCEINMSModelPath=None, DOFs: li
     dof_muscles = {}
     coordinates = model.getCoordinateSet()
     print('Adding muscles to DOFs...')
+    print(f'DOFs selected for calibration: {DOFs}')
     for i in range(coordinates.getSize()):
         coord = coordinates.get(i)
         coord_name = coord.getName()
@@ -487,7 +490,8 @@ def create_calibrationCfg(osimModelPath=None, inputPaths: list = [], outputPath:
 
     # muscleGroups
     muscleGroups = ET.SubElement(parametersToCalibrate, "muscleGroups")
-    for group, muscles in settings.muscleGroups.items():
+
+    for group, muscles in settings().muscleGroups.items():
         muscleGroup = ET.SubElement(muscleGroups, "muscles")
         muscleGroup.text = " ".join(muscles)
 
@@ -595,7 +599,7 @@ def create_input_data(MAFolder=None, excitationsFile=None, motionFile=None,
     # Add moment arms files 
     moment_arms = ET.SubElement(root, "momentArmsFiles")
     
-    for dof in settings.dofs:
+    for dof in settings().dofs:
 
         dof_path = os.path.join(MAFolder, f'_MuscleAnalysis_MomentArm_{dof}.sto')
         dof_elem = ET.SubElement(moment_arms, "momentArmsFile")

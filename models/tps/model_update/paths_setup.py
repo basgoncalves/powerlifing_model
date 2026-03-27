@@ -5,9 +5,11 @@ root_dir = os.path.abspath('../')
 mri_dir = os.path.abspath('../mri/results')
 template_dir = os.path.abspath('../templates')
 
+model_name = 'GPK_generic_muscles_added_with_wrappings.osim'
+
 path_to_json = os.path.join(mri_dir, 'orientation_Katya.mrk.json')
 xml_path = os.path.join(template_dir, 'markers_and_bone_markers_in_bodies.xml')
-osim_path = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
+osim_path = os.path.join(template_dir, model_name)
 nrrd_path = os.path.join(mri_dir, 'athlete_03.nrrd') # path to the nrrd file with MRI data
 
 scene_path = os.path.join(mri_dir, '2025-10-07-Scene.mrml')
@@ -15,8 +17,8 @@ scene_path = os.path.join(mri_dir, '2025-10-07-Scene.mrml')
 vtp_path = os.path.join(template_dir, 'Geometry')
 
 # templates
-generic_model_with_bone_landmarks = os.path.join(template_dir, 'Catelli-V4.0_Nu_with_bone_skin_markers.osim')
-generic_model = os.path.join(template_dir, 'Catelli-V4.0_Nu.osim')
+generic_model_with_bone_landmarks = os.path.join(template_dir, 'GPK_generic_muscles_added_with_wrappings_with_bone_skin_markers.osim')
+generic_model = os.path.join(template_dir, model_name)
 scaling_settings_path = os.path.join(template_dir, 'scaling_setting.xml')
 
 # created objects
@@ -43,8 +45,8 @@ age_text = '33'
 experimental_markers = os.path.join(root_dir, 'motion_lab/static/static_01/task.trc')
 
 # paths to generic model and marker set
-path_to_generic_model = os.path.join(root_dir, 'templates/Catelli-V4.0.osim')
-path_to_generic_marker_set =  os.path.join(root_dir, 'templates/generic_skin_markers.xml')
+path_to_generic_model = os.path.join(root_dir, 'templates', model_name)
+path_to_generic_marker_set =  os.path.join(root_dir, 'templates', 'generic_skin_markers.xml')
 
 
 # <output_scale_file>
