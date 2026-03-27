@@ -16,11 +16,15 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 if __name__ == "__main__":
         
-        calibration_trials = ['walking_02', 'squat_bw_01']
+        calibration_trials = ['HC835B_OGW_0001', 'HC835B_OGR_0001']
 
         subject  = 'pilot_01' # Athlete_03_Lernagopal Athlete_03_MRI_Katya Athlete_03_Lernagopal_optimised Athlete_03_GPK Athlete_03_Uhlrich
         session = '09-03-2026' # 25_03_31
         trialList = ['walking_02', 'squat_bw_01', 'walking_03', 'squat_35kg_02'] #'squat_bw_01' squat_35kg_01 walking_02
+
+        subject      = 'HC835B'
+        session      = 'Session1'
+        trialList = ['HC835B_OGW_0001', 'HC835B_OGR_0003', 'HC835B_OGR_0004', 'HC835B_OGR_0005', 'HC835B_OGR_0006', 'HC835B_OGR_0007', 'HC835B_OGR_0008']
 
         for trial in trialList[0:1]:
                 trialPath = os.path.join(utils.SIMULATIONS_DIR, subject, session, trial)
@@ -43,18 +47,18 @@ if __name__ == "__main__":
                 # run the full analysis pipeline
                 analysis.update_trial_attribute('replace', 'True')
         
-                # analysis.run_ik()
-                # analysis.run_id()
-                # analysis.run_ma()
-                # analysis.run_so()
+                analysis.run_ik()
+                analysis.run_id()
+                analysis.run_ma()
+                analysis.run_so()
                 analysis.run_jra()
                 
-                analysis.create_ceinms_input_data()
-                analysis.create_excitation_generator()
+                # analysis.create_ceinms_input_data()
+                # analysis.create_excitation_generator()
 
-                if any(trial in analysis.path for trial in calibration_trials):
-                        analysis.create_ceinms_model()
-                        analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
+                # if any(trial in analysis.path for trial in calibration_trials):
+                #         analysis.create_ceinms_model()
+                #         analysis.create_ceinms_calibration_cfg(calibration_trial_names=calibration_trials)
         #                 analysis.create_ceinms_calibration_setup()
         #                 analysis.run_ceinms_calibration()
 

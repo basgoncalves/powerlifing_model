@@ -11604,3 +11604,34 @@ RUN MAIN HPC full test18.07.2025_15:40:33:366: Starting analysis...
 27.03.2026_13:32:41:093: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0002
 27.03.2026_13:32:49:175: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
 27.03.2026_13:32:49:176: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0002
+27.03.2026_15:17:02:844: Updated model path to c:\Git\powerlifing_model_clean\models\HC835B\Session1\GPK_generic_Lukas_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:859: Updated emg to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:868: Updated ceinms_excitations to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:880: Updated ceinms_calibration_trials to ['HC835B_OGR_0001'] for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:888: Updated Target_Muscles to all for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:897: Deleted attribute EMG_muscle_mapping for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:17:02:907: Deleted attribute Objective_Functions for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:21:01:213: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:21:50:134: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:21:57:527: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+27.03.2026_15:21:57:529: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGR_0001
+27.03.2026_15:29:22:224: Settings XML not found or could not be loaded. Creating new settings XML.
+27.03.2026_15:29:22:224: Updated model path to c:\Git\powerlifing_model_clean\models\HC835B\Session1\GPK_generic_Lukas_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:22:230: Updated emg to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:22:233: Updated ceinms_excitations to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:23:578: Existing settings XML deleted: trial_settings.xml
+27.03.2026_15:29:23:579: Updated model path to c:\Git\powerlifing_model_clean\models\HC835B\Session1\GPK_generic_Lukas_scaled.osim for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:23:591: Updated emg to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:23:608: Updated ceinms_excitations to emg.mot for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:29:24:503: Updated replace to True for trial at c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:31:23:290: [Success] Inverse Kinematics completed. Results are saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:31:29:720: [Success] Marker location comparison completed: _ik_model_marker_locations.sto vs marker_experimental.trc
+27.03.2026_15:31:29:720: [Success] IK results plotted and saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:31:31:227: [Success] Inverse Dynamics completed. Results are saved in inverse_dynamics.sto
+27.03.2026_15:31:36:436: [Success] ID results plotted and saved in c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001
+27.03.2026_15:33:10:528: [Success] Muscle Analysis completed. Results are saved in muscleAnalysis
+27.03.2026_15:36:03:128: [Success] Static Optimization completed. Results are saved in:
+27.03.2026_15:36:03:130:  - Forces: c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001\SO_StaticOptimization_force.sto
+27.03.2026_15:36:03:130:  - Activations: c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001\SO_StaticOptimization_activation.sto
+27.03.2026_15:36:03:250: [Error] during SO plotting: 'NoneType' object is not subscriptable
+27.03.2026_15:36:05:826: JRA analysis complete. Results saved c:\Git\powerlifing_model_clean\simulations\HC835B\Session1\HC835B_OGW_0001\Analyse_JRA_ReactionLoads_SO.sto
