@@ -1,0 +1,162 @@
+[2026-03-23 15:06:35.609] [info] Processing subject Athlete_03...
+[2026-03-23 15:06:35.609] [info] Step 1: Loading generic model
+[2026-03-23 15:06:35.649] [info] Loaded model tps_transformed from file c:\Git\powerlifing_model_clean\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed.osim
+[2026-03-23 15:06:35.650] [warning] Couldn't find file 'r_pelvis.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'l_pelvis.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'sacrum.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'femur_r.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'tibia_r.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'fibula_r.stl'.
+[2026-03-23 15:06:35.651] [warning] Couldn't find file 'patella_r.stl'.
+[2026-03-23 15:06:35.652] [warning] Couldn't find file 'femur_l.stl'.
+[2026-03-23 15:06:35.652] [warning] Couldn't find file 'tibia_l.stl'.
+[2026-03-23 15:06:35.652] [warning] Couldn't find file 'fibula_l.stl'.
+[2026-03-23 15:06:35.652] [warning] Couldn't find file 'patella_l.stl'.
+[2026-03-23 15:06:35.739] [info] Step 2: Scaling generic model
+[2026-03-23 15:06:35.792] [info] Loaded marker file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (80 markers, 372 frames)
+[2026-03-23 15:06:35.792] [info] Measurement 'pelvis_z'
+[2026-03-23 15:06:35.792] [info] 	pair 0 (LASI, RASI): model = 0.232465, experimental = 0.247508
+[2026-03-23 15:06:35.793] [info] 	overall scale factor = 1.06471
+[2026-03-23 15:06:35.793] [info] Measurement 'pelvis_y'
+[2026-03-23 15:06:35.793] [warning] Marker RHJCWK in pelvis_y measurement not found in Athlete_03.
+[2026-03-23 15:06:35.793] [warning] 'pelvis_y' measurement not used to scale Athlete_03
+[2026-03-23 15:06:35.793] [info] Measurement 'femur_r_y'
+[2026-03-23 15:06:35.793] [warning] Marker RHJCWK in femur_r_y measurement not found in Athlete_03.
+[2026-03-23 15:06:35.793] [warning] 'femur_r_y' measurement not used to scale Athlete_03
+[2026-03-23 15:06:35.793] [info] Measurement 'femur_l_y'
+[2026-03-23 15:06:35.793] [warning] Marker LHJCWK in femur_l_y measurement not found in Athlete_03.
+[2026-03-23 15:06:35.793] [warning] 'femur_l_y' measurement not used to scale Athlete_03
+[2026-03-23 15:06:35.793] [info] Measurement 'tibia_r_y'
+[2026-03-23 15:06:35.793] [warning] Marker RKJCWK in tibia_r_y measurement not found in Athlete_03.
+[2026-03-23 15:06:35.793] [warning] 'tibia_r_y' measurement not used to scale Athlete_03
+[2026-03-23 15:06:35.793] [info] Measurement 'tibia_l_y'
+[2026-03-23 15:06:35.793] [warning] Marker LKJCWK in tibia_l_y measurement not found in Athlete_03.
+[2026-03-23 15:06:35.793] [warning] 'tibia_l_y' measurement not used to scale Athlete_03
+[2026-03-23 15:06:35.793] [info] Measurement 'talus_r_z'
+[2026-03-23 15:06:35.793] [info] 	pair 0 (RMALM, RMALL): model = 0.0928802, experimental = 0.0975621
+[2026-03-23 15:06:35.793] [info] 	overall scale factor = 1.05041
+[2026-03-23 15:06:35.793] [info] Measurement 'talus_r_y'
+[2026-03-23 15:06:35.793] [info] 	pair 0 (RHEE, RMALM): model = 0.106075, experimental = 0.103393
+[2026-03-23 15:06:35.793] [info] 	overall scale factor = 0.974712
+[2026-03-23 15:06:35.793] [info] Measurement 'talus_l_z'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (LMALL, LMALM): model = 0.0947974, experimental = 0.0954712
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 1.00711
+[2026-03-23 15:06:35.794] [info] Measurement 'talus_l_y'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (LHEE, LMALM): model = 0.104020, experimental = 0.0941542
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 0.905158
+[2026-03-23 15:06:35.794] [info] Measurement 'calcn_r_y'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (RHEE, RMALM): model = 0.106075, experimental = 0.103393
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 0.974712
+[2026-03-23 15:06:35.794] [info] Measurement 'calcn_l_y'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (LHEE, LMALM): model = 0.104020, experimental = 0.0941542
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 0.905158
+[2026-03-23 15:06:35.794] [info] Measurement 'calcn_r_x'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (RHEE, RTOE): model = 0.211009, experimental = 0.21483
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 1.0181
+[2026-03-23 15:06:35.794] [info] Measurement 'calcn_l_x'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (LHEE, LTOE): model = 0.212017, experimental = 0.217961
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 1.02803
+[2026-03-23 15:06:35.794] [info] Measurement 'torso_x'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (STRN, SACROL): model = 0.419699, experimental = 0.465135
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 1.10826
+[2026-03-23 15:06:35.794] [info] Measurement 'torso_y'
+[2026-03-23 15:06:35.794] [info] 	pair 0 (STRN, SACROL): model = 0.419699, experimental = 0.465135
+[2026-03-23 15:06:35.794] [info] 	overall scale factor = 1.10826
+[2026-03-23 15:06:35.794] [info] Measurement 'torso_z'
+[2026-03-23 15:06:35.795] [info] 	pair 0 (LASI, RASI): model = 0.232465, experimental = 0.247508
+[2026-03-23 15:06:35.795] [info] 	overall scale factor = 1.06471
+[2026-03-23 15:06:35.795] [info] Measurement 'pelvis_x'
+[2026-03-23 15:06:35.795] [info] 	pair 0 (SACROL, LASI): model = 0.226615, experimental = 0.249444
+[2026-03-23 15:06:35.795] [info] 	pair 1 (SACROL, RASI): model = 0.246727, experimental = 0.272953
+[2026-03-23 15:06:35.795] [info] 	overall scale factor = 1.10352
+[2026-03-23 15:06:35.918] [info] Wrote model file '..\..\..\..\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed_scaled.osim' from model.
+[2026-03-23 15:06:35.918] [info] Wrote scale file 'scale_set.xml' for model Athlete_03.
+[2026-03-23 15:06:35.919] [info] Step 3: Placing markers on model
+[2026-03-23 15:06:35.955] [info] Loaded marker file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (80 markers, 372 frames)
+[2026-03-23 15:06:35.956] [info] Averaged frames from time 0.0 to 0.05 in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (frames 1 to 11)
+[2026-03-23 15:06:35.956] [info] Deleted 9 unused markers from model Athlete_03.
+[2026-03-23 15:06:36.041] [info] Frame at (t = 0.0):	 total squared error = 0.0532194, marker error: RMS = 0.0369405, max = 0.115614 (RTH3)
+[2026-03-23 15:06:36.041] [info] Moved markers in model Athlete_03 to match locations in marker file 'c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc'.
+[2026-03-23 15:06:36.065] [info] Wrote model file '..\..\..\..\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed_scaled.osim' from model Athlete_03.
+[2026-03-23 15:06:36.067] [info] Wrote marker file 'static_output.trc' from model Athlete_03.
+[2026-03-23 15:07:31.622] [info] Processing subject Athlete_03...
+[2026-03-23 15:07:31.622] [info] Step 1: Loading generic model
+[2026-03-23 15:07:31.666] [info] Loaded model tps_transformed from file c:\Git\powerlifing_model_clean\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed.osim
+[2026-03-23 15:07:31.668] [warning] Couldn't find file 'r_pelvis.stl'.
+[2026-03-23 15:07:31.668] [warning] Couldn't find file 'l_pelvis.stl'.
+[2026-03-23 15:07:31.668] [warning] Couldn't find file 'sacrum.stl'.
+[2026-03-23 15:07:31.668] [warning] Couldn't find file 'femur_r.stl'.
+[2026-03-23 15:07:31.668] [warning] Couldn't find file 'tibia_r.stl'.
+[2026-03-23 15:07:31.669] [warning] Couldn't find file 'fibula_r.stl'.
+[2026-03-23 15:07:31.669] [warning] Couldn't find file 'patella_r.stl'.
+[2026-03-23 15:07:31.669] [warning] Couldn't find file 'femur_l.stl'.
+[2026-03-23 15:07:31.670] [warning] Couldn't find file 'tibia_l.stl'.
+[2026-03-23 15:07:31.670] [warning] Couldn't find file 'fibula_l.stl'.
+[2026-03-23 15:07:31.670] [warning] Couldn't find file 'patella_l.stl'.
+[2026-03-23 15:07:31.753] [info] Step 2: Scaling generic model
+[2026-03-23 15:07:31.801] [info] Loaded marker file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (80 markers, 372 frames)
+[2026-03-23 15:07:31.801] [info] Measurement 'pelvis_z'
+[2026-03-23 15:07:31.801] [info] 	pair 0 (LASI, RASI): model = 0.232465, experimental = 0.247508
+[2026-03-23 15:07:31.801] [info] 	overall scale factor = 1.06471
+[2026-03-23 15:07:31.801] [info] Measurement 'pelvis_y'
+[2026-03-23 15:07:31.801] [warning] Marker RHJCWK in pelvis_y measurement not found in Athlete_03.
+[2026-03-23 15:07:31.801] [warning] 'pelvis_y' measurement not used to scale Athlete_03
+[2026-03-23 15:07:31.801] [info] Measurement 'femur_r_y'
+[2026-03-23 15:07:31.802] [warning] Marker RHJCWK in femur_r_y measurement not found in Athlete_03.
+[2026-03-23 15:07:31.802] [warning] 'femur_r_y' measurement not used to scale Athlete_03
+[2026-03-23 15:07:31.802] [info] Measurement 'femur_l_y'
+[2026-03-23 15:07:31.802] [warning] Marker LHJCWK in femur_l_y measurement not found in Athlete_03.
+[2026-03-23 15:07:31.802] [warning] 'femur_l_y' measurement not used to scale Athlete_03
+[2026-03-23 15:07:31.802] [info] Measurement 'tibia_r_y'
+[2026-03-23 15:07:31.802] [warning] Marker RKJCWK in tibia_r_y measurement not found in Athlete_03.
+[2026-03-23 15:07:31.802] [warning] 'tibia_r_y' measurement not used to scale Athlete_03
+[2026-03-23 15:07:31.802] [info] Measurement 'tibia_l_y'
+[2026-03-23 15:07:31.802] [warning] Marker LKJCWK in tibia_l_y measurement not found in Athlete_03.
+[2026-03-23 15:07:31.802] [warning] 'tibia_l_y' measurement not used to scale Athlete_03
+[2026-03-23 15:07:31.802] [info] Measurement 'talus_r_z'
+[2026-03-23 15:07:31.802] [info] 	pair 0 (RMALM, RMALL): model = 0.0928802, experimental = 0.0975621
+[2026-03-23 15:07:31.802] [info] 	overall scale factor = 1.05041
+[2026-03-23 15:07:31.802] [info] Measurement 'talus_r_y'
+[2026-03-23 15:07:31.802] [info] 	pair 0 (RHEE, RMALM): model = 0.106075, experimental = 0.103393
+[2026-03-23 15:07:31.802] [info] 	overall scale factor = 0.974712
+[2026-03-23 15:07:31.802] [info] Measurement 'talus_l_z'
+[2026-03-23 15:07:31.802] [info] 	pair 0 (LMALL, LMALM): model = 0.0947974, experimental = 0.0954712
+[2026-03-23 15:07:31.802] [info] 	overall scale factor = 1.00711
+[2026-03-23 15:07:31.803] [info] Measurement 'talus_l_y'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (LHEE, LMALM): model = 0.104020, experimental = 0.0941542
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 0.905158
+[2026-03-23 15:07:31.803] [info] Measurement 'calcn_r_y'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (RHEE, RMALM): model = 0.106075, experimental = 0.103393
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 0.974712
+[2026-03-23 15:07:31.803] [info] Measurement 'calcn_l_y'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (LHEE, LMALM): model = 0.104020, experimental = 0.0941542
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 0.905158
+[2026-03-23 15:07:31.803] [info] Measurement 'calcn_r_x'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (RHEE, RTOE): model = 0.211009, experimental = 0.21483
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 1.0181
+[2026-03-23 15:07:31.803] [info] Measurement 'calcn_l_x'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (LHEE, LTOE): model = 0.212017, experimental = 0.217961
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 1.02803
+[2026-03-23 15:07:31.803] [info] Measurement 'torso_x'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (STRN, SACROL): model = 0.419699, experimental = 0.465135
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 1.10826
+[2026-03-23 15:07:31.803] [info] Measurement 'torso_y'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (STRN, SACROL): model = 0.419699, experimental = 0.465135
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 1.10826
+[2026-03-23 15:07:31.803] [info] Measurement 'torso_z'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (LASI, RASI): model = 0.232465, experimental = 0.247508
+[2026-03-23 15:07:31.803] [info] 	overall scale factor = 1.06471
+[2026-03-23 15:07:31.803] [info] Measurement 'pelvis_x'
+[2026-03-23 15:07:31.803] [info] 	pair 0 (SACROL, LASI): model = 0.226615, experimental = 0.249444
+[2026-03-23 15:07:31.803] [info] 	pair 1 (SACROL, RASI): model = 0.246727, experimental = 0.272953
+[2026-03-23 15:07:31.804] [info] 	overall scale factor = 1.10352
+[2026-03-23 15:07:31.919] [info] Wrote model file '..\..\..\..\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed_scaled.osim' from model.
+[2026-03-23 15:07:31.920] [info] Wrote scale file 'scale_set.xml' for model Athlete_03.
+[2026-03-23 15:07:31.920] [info] Step 3: Placing markers on model
+[2026-03-23 15:07:31.955] [info] Loaded marker file c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (80 markers, 372 frames)
+[2026-03-23 15:07:31.955] [info] Averaged frames from time 0.0 to 0.05 in c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc (frames 1 to 11)
+[2026-03-23 15:07:31.956] [info] Deleted 9 unused markers from model Athlete_03.
+[2026-03-23 15:07:32.045] [info] Frame at (t = 0.0):	 total squared error = 0.0532194, marker error: RMS = 0.0369405, max = 0.115614 (RTH3)
+[2026-03-23 15:07:32.046] [info] Moved markers in model Athlete_03 to match locations in marker file 'c:\Git\powerlifing_model_clean\simulations\Athlete_03_GPK_MRI\25_03_31\Static_01\marker_experimental_with_JointCenters.trc'.
+[2026-03-23 15:07:32.073] [info] Wrote model file '..\..\..\..\models\Athlete_03_GPK_MRI\25_03_31\tps_transformed_scaled.osim' from model Athlete_03.
+[2026-03-23 15:07:32.075] [info] Wrote marker file 'static_output.trc' from model Athlete_03.

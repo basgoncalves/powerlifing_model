@@ -9,6 +9,7 @@
 ##
 import os
 import re
+import shutil
 import opensim
 import utils
 import pandas as pd
@@ -51,7 +52,7 @@ def write_mot(analog_df, labels, mot_file):
             # breakpoint()
             writer.write(f"{row['time']:.6f}\t" + "\t".join([f"{val:.6f}" for val in row[1:]]) + "\n")
 
-def export_emg(c3d_filepath):
+def export_emg(c3d_filepath, emg_strings_list=['emg']):
     print(f"Reading C3D file: {c3d_filepath}")
     try:
         reader = c3d.Reader(open(c3d_filepath, "rb"))
@@ -106,7 +107,7 @@ def export_emg(c3d_filepath):
 
 
     # Write EMG MOT
-    emg_indices = [i for i, lbl in enumerate(analog_labels) if "emg" in lbl.lower()]
+    emg_indices = [i for i, lbl in enumerate(analog_labels) if any(s in lbl.lower() for s in emg_strings_list)]
     if emg_indices:
         emg_mot_path = os.path.join(os.path.dirname(c3d_filepath), "emg.mot")
         emg_labels = [analog_labels[i] for i in emg_indices]
@@ -115,10 +116,6 @@ def export_emg(c3d_filepath):
     else:
         print("Warning: No EMG channels found among available analog channels.")
         
-    # Write GRF MOT
-    breakpoint()    
-    grf_indices = [i for i, lbl in enumerate(analog_labels) if re.match(r'^[fpm]\d[xyz]$', lbl.lower())]
-
 def transform_labels(labels):
     """
     Transforms a list of labels from a compact format to a more descriptive format.
@@ -198,8 +195,8 @@ def export_markers(c3d_filepath, strings_to_remove=[]):
     markers_task.setColumnLabels(labels)
 
     trc_adapter = opensim.TRCFileAdapter()
-    trc_adapter.write(markers_task, os.path.join(output_dir, 'markers_experimental.trc'))
-    print(f"Successfully exported {os.path.join(output_dir, 'markers_experimental.trc')}")
+    trc_adapter.write(markers_task, os.path.join(output_dir, 'marker_experimental.trc'))
+    print(f"Successfully exported {os.path.join(output_dir, 'marker_experimental.trc')}")
     
 def export_grf(c3d_filepath):
     print(f"Exporting ground reaction forces for {c3d_filepath}")
@@ -247,15 +244,24 @@ def define_time_range(trc_filepath, markers, algorithm):
     print(f"Successfully exported {os.path.dirname(trc_filepath) + '/events.csv'}")
     return start_time, end_time
 
-def main(c3d_filepath, plot=False):
-    # trc_filepath = os.path.dirname(c3d_filepath) + '/markers_experimental.trc'
-    # define_time_range(trc_filepath, markers=['SACROL'], algorithm='deadlift')
-    # exit()
-    # OpenSim data adapters
-    export_markers(c3d_filepath, strings_to_remove = [])
-    export_grf(c3d_filepath)
+def main(c3d_filepath, emg_string_list=['emg'], plot=False):
     
-    # export_emg(c3d_filepath)
+    # create a directory for the output files
+    output_dir = os.path.join(os.path.dirname(c3d_filepath), os.path.splitext(os.path.basename(c3d_filepath))[0])
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # copy the c3d file to the output directory for reference
+    c3d_output_path = os.path.join(output_dir, os.path.basename(c3d_filepath))
+    if not os.path.exists(c3d_output_path):
+        shutil.copy(c3d_filepath, c3d_output_path)
+        print(f"Copied {c3d_filepath} to {c3d_output_path}")
+
+    # OpenSim data adapters
+    export_markers(c3d_output_path, strings_to_remove = [])
+    export_grf(c3d_output_path)
+    
+    export_emg(c3d_output_path)
 
 if __name__ == "__main__":
 

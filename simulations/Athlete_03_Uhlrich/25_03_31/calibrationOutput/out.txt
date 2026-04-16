@@ -1,0 +1,810 @@
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|A|u|t|o|-|D|i|f|f|e|r|e|n|t|i|a|b|l|e|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|C|a|l|i|b|r|a|t|e|d|
++-+-+-+-+-+-+-+-+-+-+-+-+
+|E|M|G|-|I|n|f|o|r|m|e|d|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|N|e|u|r|o|m|u|s|c|u|l|o|s|k|e|l|e|t|a|l|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|M|o|d|e|l|l|i|n|g|
++-+-+-+-+-+-+-+-+-+
+|T|o|o|l|b|o|x|
++-+-+-+-+-+-+-+
+
+ceinms-nn-calibrate version 0.6.0
+Software developers: Matthew Hambly
+
+Successfully loaded subject file 'c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/subjectUncalibrated.xml'
+Successfully loaded excitation generator file 'c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/excitationGenerator.xml'
+Successfully loaded calibration file 'c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/calibrationCfg.xml'
+Loading input data
+  Lmt: 
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_Length.sto DONE
+
+  EMG: 
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/EMG_filtered_normalised.sto DONE
+
+  Ma: 
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_r.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_adduction_r.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_rotation_r.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_knee_angle_r.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_ankle_angle_r.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_flexion_l.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_adduction_l.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_hip_rotation_l.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_knee_angle_l.sto DONE
+
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/muscleAnalysis\_MuscleAnalysis_MomentArm_ankle_angle_l.sto DONE
+
+  externalTorques: 
+      Reading from c:\Git\powerlifing_model_clean\simulations\Athlete_03_Uhlrich\25_03_31/Walking_02/inverse_dynamics.sto DONE
+
+  Cropping trial between 0.175s and 1.255s DONE
+
+Iteration 1:
+ Total loss = 285.316 (best: 1.79769e+308, iterations without improvement: 1)
+  - Moment error = 282.467
+  - Normalised fiber length penalty = 0.184107
+  - Tendon strain penalty = 2.57207
+  - Synthesised excitations squared = 0.00390665
+  - Synergy exctraction = 0.0881092
+    - EMG tracking error = 0.0881092
+    - Primitives range penalty = 0
+    - Muscle weightings range penalty = 0
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 50.9237 Nm, R2 = 0.709537
+    - hip_adduction_r: RMSE = 35.7681 Nm, R2 = 0.204602
+    - hip_rotation_r: RMSE = 6.54055 Nm, R2 = 0.00686163
+    - knee_angle_r: RMSE = 20.696 Nm, R2 = 0.47041
+    - ankle_angle_r: RMSE = 40.2465 Nm, R2 = 0.207447
+    - hip_flexion_l: RMSE = 56.1235 Nm, R2 = 0.490087
+    - hip_adduction_l: RMSE = 24.9745 Nm, R2 = 0.0886402
+    - hip_rotation_l: RMSE = 4.00179 Nm, R2 = 0.138298
+    - knee_angle_l: RMSE = 22.9558 Nm, R2 = 0.650304
+    - ankle_angle_l: RMSE = 20.237 Nm, R2 = 0.430161
+ Synergy accuracy:
+  - Mean RMSE = 0.00400565
+  - Mean R2 = 0.93711
+=====================================================
+
+
+Iteration 2:
+ Total loss = 272.805 (best: 285.316, iterations without improvement: 1)
+  - Moment error = 261.274
+  - Normalised fiber length penalty = 0.426631
+  - Tendon strain penalty = 2.53434
+  - Synthesised excitations squared = 0.00316417
+  - Synergy exctraction = 6.37217
+    - EMG tracking error = 0.590506
+    - Primitives range penalty = 0.578337
+    - Muscle weightings range penalty = 5.20333
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 2.19544
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 29.1796 Nm, R2 = 0.612482
+    - hip_adduction_r: RMSE = 29.8446 Nm, R2 = 0.000369446
+    - hip_rotation_r: RMSE = 5.87401 Nm, R2 = 0.110892
+    - knee_angle_r: RMSE = 41.6943 Nm, R2 = 0.23393
+    - ankle_angle_r: RMSE = 44.1813 Nm, R2 = 0.513072
+    - hip_flexion_l: RMSE = 44.1788 Nm, R2 = 0.506758
+    - hip_adduction_l: RMSE = 21.9192 Nm, R2 = 0.00980592
+    - hip_rotation_l: RMSE = 2.88143 Nm, R2 = 0.288768
+    - knee_angle_l: RMSE = 33.2548 Nm, R2 = 0.768507
+    - ankle_angle_l: RMSE = 8.26577 Nm, R2 = 0.442172
+ Synergy accuracy:
+  - Mean RMSE = 0.0150399
+  - Mean R2 = 0.891741
+=====================================================
+
+
+Iteration 3:
+ Total loss = 207.292 (best: 272.805, iterations without improvement: 1)
+  - Moment error = 199.838
+  - Normalised fiber length penalty = 2.66427
+  - Tendon strain penalty = 2.43699
+  - Synthesised excitations squared = 0.00315033
+  - Synergy exctraction = 1.59643
+    - EMG tracking error = 0.3716
+    - Primitives range penalty = 0.0617597
+    - Muscle weightings range penalty = 1.16307
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.752554
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 18.7204 Nm, R2 = 0.735988
+    - hip_adduction_r: RMSE = 21.0412 Nm, R2 = 0.222966
+    - hip_rotation_r: RMSE = 6.30706 Nm, R2 = 0.304483
+    - knee_angle_r: RMSE = 26.3047 Nm, R2 = 0.378109
+    - ankle_angle_r: RMSE = 38.7678 Nm, R2 = 0.574079
+    - hip_flexion_l: RMSE = 38.334 Nm, R2 = 0.466291
+    - hip_adduction_l: RMSE = 18.8936 Nm, R2 = 0.0227076
+    - hip_rotation_l: RMSE = 2.50187 Nm, R2 = 0.320367
+    - knee_angle_l: RMSE = 22.2228 Nm, R2 = 0.785515
+    - ankle_angle_l: RMSE = 6.7446 Nm, R2 = 0.210063
+ Synergy accuracy:
+  - Mean RMSE = 0.0119561
+  - Mean R2 = 0.923876
+=====================================================
+
+
+Iteration 4:
+ Total loss = 173.196 (best: 207.292, iterations without improvement: 1)
+  - Moment error = 162.639
+  - Normalised fiber length penalty = 6.51177
+  - Tendon strain penalty = 2.26123
+  - Synthesised excitations squared = 0.00356009
+  - Synergy exctraction = 1.52245
+    - EMG tracking error = 0.537586
+    - Primitives range penalty = 0.0186928
+    - Muscle weightings range penalty = 0.966173
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.257792
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.1466 Nm, R2 = 0.762445
+    - hip_adduction_r: RMSE = 14.2056 Nm, R2 = 0.711586
+    - hip_rotation_r: RMSE = 6.84386 Nm, R2 = 0.447462
+    - knee_angle_r: RMSE = 14.9557 Nm, R2 = 0.559022
+    - ankle_angle_r: RMSE = 43.0013 Nm, R2 = 0.541205
+    - hip_flexion_l: RMSE = 30.4961 Nm, R2 = 0.405981
+    - hip_adduction_l: RMSE = 16.051 Nm, R2 = 0.039803
+    - hip_rotation_l: RMSE = 2.32812 Nm, R2 = 0.310783
+    - knee_angle_l: RMSE = 14.383 Nm, R2 = 0.670045
+    - ankle_angle_l: RMSE = 4.22818 Nm, R2 = 0.0155856
+ Synergy accuracy:
+  - Mean RMSE = 0.0143267
+  - Mean R2 = 0.900764
+=====================================================
+
+
+Iteration 5:
+ Total loss = 156.639 (best: 173.196, iterations without improvement: 1)
+  - Moment error = 141.856
+  - Normalised fiber length penalty = 10.7821
+  - Tendon strain penalty = 2.08478
+  - Synthesised excitations squared = 0.00417308
+  - Synergy exctraction = 1.76787
+    - EMG tracking error = 0.833916
+    - Primitives range penalty = 0.0176191
+    - Muscle weightings range penalty = 0.916338
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.143652
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.4564 Nm, R2 = 0.740455
+    - hip_adduction_r: RMSE = 12.2545 Nm, R2 = 0.758236
+    - hip_rotation_r: RMSE = 7.02786 Nm, R2 = 0.484033
+    - knee_angle_r: RMSE = 14.2875 Nm, R2 = 0.571048
+    - ankle_angle_r: RMSE = 40.9326 Nm, R2 = 0.557042
+    - hip_flexion_l: RMSE = 21.7788 Nm, R2 = 0.321221
+    - hip_adduction_l: RMSE = 13.1624 Nm, R2 = 0.0462306
+    - hip_rotation_l: RMSE = 2.27845 Nm, R2 = 0.310506
+    - knee_angle_l: RMSE = 9.4991 Nm, R2 = 0.534515
+    - ankle_angle_l: RMSE = 4.1788 Nm, R2 = 0.000208639
+ Synergy accuracy:
+  - Mean RMSE = 0.0182026
+  - Mean R2 = 0.836401
+=====================================================
+
+
+Iteration 6:
+ Total loss = 160.114 (best: 156.639, iterations without improvement: 1)
+  - Moment error = 137.286
+  - Normalised fiber length penalty = 19.0111
+  - Tendon strain penalty = 1.93717
+  - Synthesised excitations squared = 0.00494574
+  - Synergy exctraction = 1.81043
+    - EMG tracking error = 1.11837
+    - Primitives range penalty = 0.0300516
+    - Muscle weightings range penalty = 0.662008
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.0649191
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.5678 Nm, R2 = 0.719978
+    - hip_adduction_r: RMSE = 14.8089 Nm, R2 = 0.666685
+    - hip_rotation_r: RMSE = 8.05707 Nm, R2 = 0.533585
+    - knee_angle_r: RMSE = 16.2334 Nm, R2 = 0.516284
+    - ankle_angle_r: RMSE = 35.2793 Nm, R2 = 0.617931
+    - hip_flexion_l: RMSE = 20.6153 Nm, R2 = 0.193431
+    - hip_adduction_l: RMSE = 11.5225 Nm, R2 = 0.0524682
+    - hip_rotation_l: RMSE = 2.19587 Nm, R2 = 0.299546
+    - knee_angle_l: RMSE = 7.6483 Nm, R2 = 0.447675
+    - ankle_angle_l: RMSE = 4.35727 Nm, R2 = 0.00181187
+ Synergy accuracy:
+  - Mean RMSE = 0.0212028
+  - Mean R2 = 0.78465
+=====================================================
+
+
+Iteration 7:
+ Total loss = 166.757 (best: 156.639, iterations without improvement: 2)
+  - Moment error = 131.716
+  - Normalised fiber length penalty = 31.3531
+  - Tendon strain penalty = 1.84744
+  - Synthesised excitations squared = 0.00577949
+  - Synergy exctraction = 1.7603
+    - EMG tracking error = 1.30029
+    - Primitives range penalty = 0.0488003
+    - Muscle weightings range penalty = 0.41121
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.0738832
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 17.2238 Nm, R2 = 0.696341
+    - hip_adduction_r: RMSE = 13.7621 Nm, R2 = 0.700641
+    - hip_rotation_r: RMSE = 5.82843 Nm, R2 = 0.503608
+    - knee_angle_r: RMSE = 17.604 Nm, R2 = 0.481948
+    - ankle_angle_r: RMSE = 30.7266 Nm, R2 = 0.640425
+    - hip_flexion_l: RMSE = 20.5275 Nm, R2 = 0.158249
+    - hip_adduction_l: RMSE = 10.0288 Nm, R2 = 0.000468551
+    - hip_rotation_l: RMSE = 2.2168 Nm, R2 = 0.265989
+    - knee_angle_l: RMSE = 9.3878 Nm, R2 = 0.472379
+    - ankle_angle_l: RMSE = 4.41027 Nm, R2 = 0.0125608
+ Synergy accuracy:
+  - Mean RMSE = 0.0228334
+  - Mean R2 = 0.750272
+=====================================================
+
+
+Iteration 8:
+ Total loss = 185.197 (best: 156.639, iterations without improvement: 3)
+  - Moment error = 133.855
+  - Normalised fiber length penalty = 47.8611
+  - Tendon strain penalty = 1.80188
+  - Synthesised excitations squared = 0.00661944
+  - Synergy exctraction = 1.56144
+    - EMG tracking error = 1.34396
+    - Primitives range penalty = 0.0603223
+    - Muscle weightings range penalty = 0.157157
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.110666
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 17.9042 Nm, R2 = 0.674164
+    - hip_adduction_r: RMSE = 13.1998 Nm, R2 = 0.770795
+    - hip_rotation_r: RMSE = 4.90701 Nm, R2 = 0.490958
+    - knee_angle_r: RMSE = 17.9803 Nm, R2 = 0.472043
+    - ankle_angle_r: RMSE = 34.2588 Nm, R2 = 0.636663
+    - hip_flexion_l: RMSE = 18.6324 Nm, R2 = 0.235918
+    - hip_adduction_l: RMSE = 9.77437 Nm, R2 = 0.00145467
+    - hip_rotation_l: RMSE = 2.49605 Nm, R2 = 0.217088
+    - knee_angle_l: RMSE = 10.3151 Nm, R2 = 0.51865
+    - ankle_angle_l: RMSE = 4.38668 Nm, R2 = 0.0280815
+ Synergy accuracy:
+  - Mean RMSE = 0.0230614
+  - Mean R2 = 0.732934
+=====================================================
+
+
+Iteration 9:
+ Total loss = 198.256 (best: 156.639, iterations without improvement: 4)
+  - Moment error = 127.099
+  - Normalised fiber length penalty = 67.7281
+  - Tendon strain penalty = 1.76081
+  - Synthesised excitations squared = 0.0074302
+  - Synergy exctraction = 1.48769
+    - EMG tracking error = 1.33137
+    - Primitives range penalty = 0.0626063
+    - Muscle weightings range penalty = 0.0937089
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.172985
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 18.3933 Nm, R2 = 0.658839
+    - hip_adduction_r: RMSE = 10.9606 Nm, R2 = 0.824492
+    - hip_rotation_r: RMSE = 4.80462 Nm, R2 = 0.541776
+    - knee_angle_r: RMSE = 17.3391 Nm, R2 = 0.489994
+    - ankle_angle_r: RMSE = 30.9267 Nm, R2 = 0.667485
+    - hip_flexion_l: RMSE = 17.0782 Nm, R2 = 0.299477
+    - hip_adduction_l: RMSE = 9.91601 Nm, R2 = 0.00428326
+    - hip_rotation_l: RMSE = 2.83307 Nm, R2 = 0.1758
+    - knee_angle_l: RMSE = 10.5178 Nm, R2 = 0.545413
+    - ankle_angle_l: RMSE = 4.32968 Nm, R2 = 0.0395941
+ Synergy accuracy:
+  - Mean RMSE = 0.0229419
+  - Mean R2 = 0.728007
+=====================================================
+
+
+Iteration 10:
+ Total loss = 214.709 (best: 156.639, iterations without improvement: 5)
+  - Moment error = 122.707
+  - Normalised fiber length penalty = 88.5097
+  - Tendon strain penalty = 1.73849
+  - Synthesised excitations squared = 0.00821279
+  - Synergy exctraction = 1.5184
+    - EMG tracking error = 1.30949
+    - Primitives range penalty = 0.0649322
+    - Muscle weightings range penalty = 0.143982
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.226899
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 18.2765 Nm, R2 = 0.6637
+    - hip_adduction_r: RMSE = 11.6366 Nm, R2 = 0.830769
+    - hip_rotation_r: RMSE = 5.0157 Nm, R2 = 0.494488
+    - knee_angle_r: RMSE = 16.9633 Nm, R2 = 0.499424
+    - ankle_angle_r: RMSE = 27.4998 Nm, R2 = 0.715445
+    - hip_flexion_l: RMSE = 16.2525 Nm, R2 = 0.332071
+    - hip_adduction_l: RMSE = 9.81112 Nm, R2 = 0.00813266
+    - hip_rotation_l: RMSE = 2.98594 Nm, R2 = 0.168636
+    - knee_angle_l: RMSE = 10.044 Nm, R2 = 0.555893
+    - ankle_angle_l: RMSE = 4.22193 Nm, R2 = 0.0467666
+ Synergy accuracy:
+  - Mean RMSE = 0.0229523
+  - Mean R2 = 0.731817
+=====================================================
+
+
+Iteration 11:
+ Total loss = 233.496 (best: 156.639, iterations without improvement: 6)
+  - Moment error = 120.657
+  - Normalised fiber length penalty = 109.283
+  - Tendon strain penalty = 1.76064
+  - Synthesised excitations squared = 0.00895277
+  - Synergy exctraction = 1.49985
+    - EMG tracking error = 1.21163
+    - Primitives range penalty = 0.069685
+    - Muscle weightings range penalty = 0.218539
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.285608
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 17.2972 Nm, R2 = 0.695922
+    - hip_adduction_r: RMSE = 10.0834 Nm, R2 = 0.835802
+    - hip_rotation_r: RMSE = 4.75324 Nm, R2 = 0.36478
+    - knee_angle_r: RMSE = 17.1012 Nm, R2 = 0.482967
+    - ankle_angle_r: RMSE = 29.869 Nm, R2 = 0.731966
+    - hip_flexion_l: RMSE = 16.0872 Nm, R2 = 0.338281
+    - hip_adduction_l: RMSE = 9.56984 Nm, R2 = 0.0104681
+    - hip_rotation_l: RMSE = 2.87396 Nm, R2 = 0.19065
+    - knee_angle_l: RMSE = 8.91244 Nm, R2 = 0.55571
+    - ankle_angle_l: RMSE = 4.1096 Nm, R2 = 0.0516705
+ Synergy accuracy:
+  - Mean RMSE = 0.0222226
+  - Mean R2 = 0.741865
+=====================================================
+
+
+Iteration 12:
+ Total loss = 251.693 (best: 156.639, iterations without improvement: 7)
+  - Moment error = 118.912
+  - Normalised fiber length penalty = 129.334
+  - Tendon strain penalty = 1.77062
+  - Synthesised excitations squared = 0.00978357
+  - Synergy exctraction = 1.32605
+    - EMG tracking error = 1.04356
+    - Primitives range penalty = 0.0755647
+    - Muscle weightings range penalty = 0.206925
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.340607
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.9849 Nm, R2 = 0.726018
+    - hip_adduction_r: RMSE = 11.2031 Nm, R2 = 0.840234
+    - hip_rotation_r: RMSE = 5.28156 Nm, R2 = 0.24002
+    - knee_angle_r: RMSE = 17.0508 Nm, R2 = 0.491923
+    - ankle_angle_r: RMSE = 28.4147 Nm, R2 = 0.764752
+    - hip_flexion_l: RMSE = 16.2392 Nm, R2 = 0.343549
+    - hip_adduction_l: RMSE = 9.63885 Nm, R2 = 0.00124082
+    - hip_rotation_l: RMSE = 2.71855 Nm, R2 = 0.227752
+    - knee_angle_l: RMSE = 7.38445 Nm, R2 = 0.538761
+    - ankle_angle_l: RMSE = 3.9956 Nm, R2 = 0.0550795
+ Synergy accuracy:
+  - Mean RMSE = 0.020661
+  - Mean R2 = 0.753938
+=====================================================
+
+
+Iteration 13:
+ Total loss = 263.542 (best: 156.639, iterations without improvement: 8)
+  - Moment error = 111.704
+  - Normalised fiber length penalty = 148.567
+  - Tendon strain penalty = 1.77277
+  - Synthesised excitations squared = 0.0107255
+  - Synergy exctraction = 1.10601
+    - EMG tracking error = 0.873625
+    - Primitives range penalty = 0.0829499
+    - Muscle weightings range penalty = 0.149437
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.380618
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.4435 Nm, R2 = 0.742321
+    - hip_adduction_r: RMSE = 9.30187 Nm, R2 = 0.843659
+    - hip_rotation_r: RMSE = 6.17715 Nm, R2 = 0.218014
+    - knee_angle_r: RMSE = 16.5386 Nm, R2 = 0.521652
+    - ankle_angle_r: RMSE = 24.0171 Nm, R2 = 0.78621
+    - hip_flexion_l: RMSE = 16.2888 Nm, R2 = 0.353806
+    - hip_adduction_l: RMSE = 9.68009 Nm, R2 = 0.000271413
+    - hip_rotation_l: RMSE = 2.71448 Nm, R2 = 0.259185
+    - knee_angle_l: RMSE = 6.67201 Nm, R2 = 0.492069
+    - ankle_angle_l: RMSE = 3.87076 Nm, R2 = 0.0591994
+ Synergy accuracy:
+  - Mean RMSE = 0.0188565
+  - Mean R2 = 0.765956
+=====================================================
+
+
+Iteration 14:
+ Total loss = 282.419 (best: 156.639, iterations without improvement: 9)
+  - Moment error = 111.816
+  - Normalised fiber length penalty = 167.415
+  - Tendon strain penalty = 1.78007
+  - Synthesised excitations squared = 0.0116195
+  - Synergy exctraction = 0.996728
+    - EMG tracking error = 0.760852
+    - Primitives range penalty = 0.0775984
+    - Muscle weightings range penalty = 0.158277
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.399874
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.2039 Nm, R2 = 0.743524
+    - hip_adduction_r: RMSE = 10.21 Nm, R2 = 0.848836
+    - hip_rotation_r: RMSE = 5.6304 Nm, R2 = 0.373128
+    - knee_angle_r: RMSE = 15.9646 Nm, R2 = 0.540599
+    - ankle_angle_r: RMSE = 25.2972 Nm, R2 = 0.784594
+    - hip_flexion_l: RMSE = 15.7846 Nm, R2 = 0.374598
+    - hip_adduction_l: RMSE = 9.52886 Nm, R2 = 0.000217985
+    - hip_rotation_l: RMSE = 2.69097 Nm, R2 = 0.276365
+    - knee_angle_l: RMSE = 6.77523 Nm, R2 = 0.469705
+    - ankle_angle_l: RMSE = 3.7303 Nm, R2 = 0.0628911
+ Synergy accuracy:
+  - Mean RMSE = 0.0175609
+  - Mean R2 = 0.781399
+=====================================================
+
+
+Iteration 15:
+ Total loss = 298.018 (best: 156.639, iterations without improvement: 10)
+  - Moment error = 108.787
+  - Normalised fiber length penalty = 186.097
+  - Tendon strain penalty = 1.78849
+  - Synthesised excitations squared = 0.012232
+  - Synergy exctraction = 0.927614
+    - EMG tracking error = 0.724588
+    - Primitives range penalty = 0.0585569
+    - Muscle weightings range penalty = 0.144469
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.406368
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 16.2363 Nm, R2 = 0.747519
+    - hip_adduction_r: RMSE = 9.23702 Nm, R2 = 0.853617
+    - hip_rotation_r: RMSE = 4.64303 Nm, R2 = 0.491308
+    - knee_angle_r: RMSE = 15.6507 Nm, R2 = 0.547346
+    - ankle_angle_r: RMSE = 25.6519 Nm, R2 = 0.792533
+    - hip_flexion_l: RMSE = 14.9507 Nm, R2 = 0.420463
+    - hip_adduction_l: RMSE = 9.22276 Nm, R2 = 0.0104268
+    - hip_rotation_l: RMSE = 2.53268 Nm, R2 = 0.290914
+    - knee_angle_l: RMSE = 7.05849 Nm, R2 = 0.455198
+    - ankle_angle_l: RMSE = 3.60298 Nm, R2 = 0.0616262
+ Synergy accuracy:
+  - Mean RMSE = 0.0171698
+  - Mean R2 = 0.79794
+=====================================================
+
+
+Iteration 16:
+ Total loss = 310.086 (best: 156.639, iterations without improvement: 11)
+  - Moment error = 102.426
+  - Normalised fiber length penalty = 204.486
+  - Tendon strain penalty = 1.78549
+  - Synthesised excitations squared = 0.0126756
+  - Synergy exctraction = 0.965536
+    - EMG tracking error = 0.720843
+    - Primitives range penalty = 0.0494917
+    - Muscle weightings range penalty = 0.195201
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.410242
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.9477 Nm, R2 = 0.7512
+    - hip_adduction_r: RMSE = 9.5501 Nm, R2 = 0.857758
+    - hip_rotation_r: RMSE = 3.7703 Nm, R2 = 0.559855
+    - knee_angle_r: RMSE = 15.5857 Nm, R2 = 0.534077
+    - ankle_angle_r: RMSE = 21.2566 Nm, R2 = 0.816313
+    - hip_flexion_l: RMSE = 14.1148 Nm, R2 = 0.480915
+    - hip_adduction_l: RMSE = 9.06355 Nm, R2 = 0.0194216
+    - hip_rotation_l: RMSE = 2.4627 Nm, R2 = 0.294282
+    - knee_angle_l: RMSE = 7.19869 Nm, R2 = 0.443325
+    - ankle_angle_l: RMSE = 3.47614 Nm, R2 = 0.0565449
+ Synergy accuracy:
+  - Mean RMSE = 0.0171503
+  - Mean R2 = 0.815949
+=====================================================
+
+
+Iteration 17:
+ Total loss = 326.168 (best: 156.639, iterations without improvement: 12)
+  - Moment error = 101.146
+  - Normalised fiber length penalty = 221.74
+  - Tendon strain penalty = 1.8008
+  - Synthesised excitations squared = 0.0131675
+  - Synergy exctraction = 1.03539
+    - EMG tracking error = 0.707417
+    - Primitives range penalty = 0.0479299
+    - Muscle weightings range penalty = 0.280041
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.43293
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.6508 Nm, R2 = 0.756189
+    - hip_adduction_r: RMSE = 9.65321 Nm, R2 = 0.863721
+    - hip_rotation_r: RMSE = 3.62909 Nm, R2 = 0.588358
+    - knee_angle_r: RMSE = 15.4486 Nm, R2 = 0.515457
+    - ankle_angle_r: RMSE = 21.6117 Nm, R2 = 0.825856
+    - hip_flexion_l: RMSE = 13.3721 Nm, R2 = 0.532863
+    - hip_adduction_l: RMSE = 9.00822 Nm, R2 = 0.0229791
+    - hip_rotation_l: RMSE = 2.45684 Nm, R2 = 0.288459
+    - knee_angle_l: RMSE = 7.00622 Nm, R2 = 0.458388
+    - ankle_angle_l: RMSE = 3.30922 Nm, R2 = 0.0590919
+ Synergy accuracy:
+  - Mean RMSE = 0.016945
+  - Mean R2 = 0.833942
+=====================================================
+
+
+Iteration 18:
+ Total loss = 338.064 (best: 156.639, iterations without improvement: 13)
+  - Moment error = 98.7477
+  - Normalised fiber length penalty = 236.007
+  - Tendon strain penalty = 1.79764
+  - Synthesised excitations squared = 0.0138032
+  - Synergy exctraction = 0.996527
+    - EMG tracking error = 0.692663
+    - Primitives range penalty = 0.0478623
+    - Muscle weightings range penalty = 0.256001
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.501598
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.476 Nm, R2 = 0.758931
+    - hip_adduction_r: RMSE = 8.5202 Nm, R2 = 0.869511
+    - hip_rotation_r: RMSE = 4.01347 Nm, R2 = 0.628624
+    - knee_angle_r: RMSE = 15.2492 Nm, R2 = 0.507794
+    - ankle_angle_r: RMSE = 21.4853 Nm, R2 = 0.834841
+    - hip_flexion_l: RMSE = 12.8326 Nm, R2 = 0.566204
+    - hip_adduction_l: RMSE = 8.90071 Nm, R2 = 0.0299507
+    - hip_rotation_l: RMSE = 2.47125 Nm, R2 = 0.28352
+    - knee_angle_l: RMSE = 6.70006 Nm, R2 = 0.483875
+    - ankle_angle_l: RMSE = 3.09898 Nm, R2 = 0.0907321
+ Synergy accuracy:
+  - Mean RMSE = 0.0166634
+  - Mean R2 = 0.848133
+=====================================================
+
+
+Iteration 19:
+ Total loss = 345.47 (best: 156.639, iterations without improvement: 14)
+  - Moment error = 94.8338
+  - Normalised fiber length penalty = 247.238
+  - Tendon strain penalty = 1.82928
+  - Synthesised excitations squared = 0.0145278
+  - Synergy exctraction = 1.00593
+    - EMG tracking error = 0.699158
+    - Primitives range penalty = 0.0435557
+    - Muscle weightings range penalty = 0.263216
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.548541
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.1573 Nm, R2 = 0.772061
+    - hip_adduction_r: RMSE = 8.64085 Nm, R2 = 0.874645
+    - hip_rotation_r: RMSE = 4.45391 Nm, R2 = 0.664394
+    - knee_angle_r: RMSE = 15.2211 Nm, R2 = 0.492377
+    - ankle_angle_r: RMSE = 18.62 Nm, R2 = 0.8436
+    - hip_flexion_l: RMSE = 12.4292 Nm, R2 = 0.591376
+    - hip_adduction_l: RMSE = 8.66938 Nm, R2 = 0.0465715
+    - hip_rotation_l: RMSE = 2.47351 Nm, R2 = 0.273496
+    - knee_angle_l: RMSE = 6.32666 Nm, R2 = 0.522664
+    - ankle_angle_l: RMSE = 2.84192 Nm, R2 = 0.144402
+ Synergy accuracy:
+  - Mean RMSE = 0.0166676
+  - Mean R2 = 0.85761
+=====================================================
+
+
+Iteration 20:
+ Total loss = 354.785 (best: 156.639, iterations without improvement: 15)
+  - Moment error = 93.9076
+  - Normalised fiber length penalty = 257.357
+  - Tendon strain penalty = 1.86648
+  - Synthesised excitations squared = 0.0151889
+  - Synergy exctraction = 1.00685
+    - EMG tracking error = 0.721496
+    - Primitives range penalty = 0.0444766
+    - Muscle weightings range penalty = 0.240879
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.632079
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 14.7772 Nm, R2 = 0.78761
+    - hip_adduction_r: RMSE = 8.19551 Nm, R2 = 0.88016
+    - hip_rotation_r: RMSE = 4.08829 Nm, R2 = 0.683269
+    - knee_angle_r: RMSE = 15.2295 Nm, R2 = 0.483376
+    - ankle_angle_r: RMSE = 20.1259 Nm, R2 = 0.85152
+    - hip_flexion_l: RMSE = 12.1312 Nm, R2 = 0.611933
+    - hip_adduction_l: RMSE = 8.45131 Nm, R2 = 0.0647605
+    - hip_rotation_l: RMSE = 2.43194 Nm, R2 = 0.278883
+    - knee_angle_l: RMSE = 6.00481 Nm, R2 = 0.562563
+    - ankle_angle_l: RMSE = 2.47191 Nm, R2 = 0.190108
+ Synergy accuracy:
+  - Mean RMSE = 0.0168727
+  - Mean R2 = 0.85969
+=====================================================
+
+
+Iteration 21:
+ Total loss = 359.486 (best: 156.639, iterations without improvement: 16)
+  - Moment error = 90.4089
+  - Normalised fiber length penalty = 265.556
+  - Tendon strain penalty = 1.9169
+  - Synthesised excitations squared = 0.0157557
+  - Synergy exctraction = 0.976354
+    - EMG tracking error = 0.756692
+    - Primitives range penalty = 0.0503048
+    - Muscle weightings range penalty = 0.169357
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.612055
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 14.5575 Nm, R2 = 0.797203
+    - hip_adduction_r: RMSE = 8.88896 Nm, R2 = 0.883789
+    - hip_rotation_r: RMSE = 3.60552 Nm, R2 = 0.695616
+    - knee_angle_r: RMSE = 15.0865 Nm, R2 = 0.492958
+    - ankle_angle_r: RMSE = 17.833 Nm, R2 = 0.8651
+    - hip_flexion_l: RMSE = 11.9791 Nm, R2 = 0.624175
+    - hip_adduction_l: RMSE = 8.2628 Nm, R2 = 0.0832658
+    - hip_rotation_l: RMSE = 2.37343 Nm, R2 = 0.285921
+    - knee_angle_l: RMSE = 5.65646 Nm, R2 = 0.61257
+    - ankle_angle_l: RMSE = 2.16574 Nm, R2 = 0.232768
+ Synergy accuracy:
+  - Mean RMSE = 0.0172219
+  - Mean R2 = 0.855303
+=====================================================
+
+
+Iteration 22:
+ Total loss = 364.099 (best: 156.639, iterations without improvement: 17)
+  - Moment error = 88.0141
+  - Normalised fiber length penalty = 272.579
+  - Tendon strain penalty = 1.98353
+  - Synthesised excitations squared = 0.0163396
+  - Synergy exctraction = 1.03228
+    - EMG tracking error = 0.79618
+    - Primitives range penalty = 0.0588791
+    - Muscle weightings range penalty = 0.177219
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.473739
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.043 Nm, R2 = 0.799348
+    - hip_adduction_r: RMSE = 8.37131 Nm, R2 = 0.888269
+    - hip_rotation_r: RMSE = 3.49138 Nm, R2 = 0.714527
+    - knee_angle_r: RMSE = 14.5588 Nm, R2 = 0.530435
+    - ankle_angle_r: RMSE = 16.6776 Nm, R2 = 0.877227
+    - hip_flexion_l: RMSE = 11.9099 Nm, R2 = 0.629897
+    - hip_adduction_l: RMSE = 8.08074 Nm, R2 = 0.0991977
+    - hip_rotation_l: RMSE = 2.30492 Nm, R2 = 0.293149
+    - knee_angle_l: RMSE = 5.2058 Nm, R2 = 0.672343
+    - ankle_angle_l: RMSE = 2.37071 Nm, R2 = 0.310971
+ Synergy accuracy:
+  - Mean RMSE = 0.0176341
+  - Mean R2 = 0.849424
+=====================================================
+
+
+Iteration 23:
+ Total loss = 367.251 (best: 156.639, iterations without improvement: 18)
+  - Moment error = 87.1701
+  - Normalised fiber length penalty = 276.544
+  - Tendon strain penalty = 2.07886
+  - Synthesised excitations squared = 0.0170554
+  - Synergy exctraction = 1.10184
+    - EMG tracking error = 0.813531
+    - Primitives range penalty = 0.0633691
+    - Muscle weightings range penalty = 0.224935
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.339145
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.7603 Nm, R2 = 0.799459
+    - hip_adduction_r: RMSE = 7.93545 Nm, R2 = 0.887716
+    - hip_rotation_r: RMSE = 3.54435 Nm, R2 = 0.734107
+    - knee_angle_r: RMSE = 13.9828 Nm, R2 = 0.566645
+    - ankle_angle_r: RMSE = 16.2626 Nm, R2 = 0.886359
+    - hip_flexion_l: RMSE = 11.8611 Nm, R2 = 0.627853
+    - hip_adduction_l: RMSE = 8.15364 Nm, R2 = 0.0791635
+    - hip_rotation_l: RMSE = 2.24241 Nm, R2 = 0.304286
+    - knee_angle_l: RMSE = 4.88971 Nm, R2 = 0.70182
+    - ankle_angle_l: RMSE = 2.5378 Nm, R2 = 0.325725
+ Synergy accuracy:
+  - Mean RMSE = 0.017827
+  - Mean R2 = 0.844789
+=====================================================
+
+
+Iteration 24:
+ Total loss = 366.999 (best: 156.639, iterations without improvement: 19)
+  - Moment error = 85.8848
+  - Normalised fiber length penalty = 277.512
+  - Tendon strain penalty = 2.15475
+  - Synthesised excitations squared = 0.0178258
+  - Synergy exctraction = 1.19187
+    - EMG tracking error = 0.810112
+    - Primitives range penalty = 0.0602085
+    - Muscle weightings range penalty = 0.321551
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.237879
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 15.8924 Nm, R2 = 0.803007
+    - hip_adduction_r: RMSE = 8.08597 Nm, R2 = 0.885809
+    - hip_rotation_r: RMSE = 3.44557 Nm, R2 = 0.741086
+    - knee_angle_r: RMSE = 13.9309 Nm, R2 = 0.567149
+    - ankle_angle_r: RMSE = 15.4979 Nm, R2 = 0.889703
+    - hip_flexion_l: RMSE = 11.6424 Nm, R2 = 0.641785
+    - hip_adduction_l: RMSE = 8.22512 Nm, R2 = 0.0667187
+    - hip_rotation_l: RMSE = 2.18474 Nm, R2 = 0.31643
+    - knee_angle_l: RMSE = 5.11761 Nm, R2 = 0.679196
+    - ankle_angle_l: RMSE = 1.86223 Nm, R2 = 0.291686
+ Synergy accuracy:
+  - Mean RMSE = 0.0178102
+  - Mean R2 = 0.842056
+=====================================================
+
+
+Iteration 25:
+ Total loss = 365.743 (best: 156.639, iterations without improvement: 20)
+  - Moment error = 84.5682
+  - Normalised fiber length penalty = 277.529
+  - Tendon strain penalty = 2.24337
+  - Synthesised excitations squared = 0.0184905
+  - Synergy exctraction = 1.2051
+    - EMG tracking error = 0.805733
+    - Primitives range penalty = 0.0569273
+    - Muscle weightings range penalty = 0.342441
+    - Synthesised excitations range penalty = 0
+  - Parameters penalty = 0.178406
+ Model accuracy:
+  - Trial inputData: 
+    - hip_flexion_r: RMSE = 14.8131 Nm, R2 = 0.805221
+    - hip_adduction_r: RMSE = 7.86556 Nm, R2 = 0.889588
+    - hip_rotation_r: RMSE = 3.17717 Nm, R2 = 0.719176
+    - knee_angle_r: RMSE = 14.3091 Nm, R2 = 0.540511
+    - ankle_angle_r: RMSE = 15.532 Nm, R2 = 0.894687
+    - hip_flexion_l: RMSE = 11.483 Nm, R2 = 0.666542
+    - hip_adduction_l: RMSE = 7.91582 Nm, R2 = 0.109094
+    - hip_rotation_l: RMSE = 2.14044 Nm, R2 = 0.313933
+    - knee_angle_l: RMSE = 5.10446 Nm, R2 = 0.684208
+    - ankle_angle_l: RMSE = 2.22756 Nm, R2 = 0.243528
+ Synergy accuracy:
+  - Mean RMSE = 0.0177549
+  - Mean R2 = 0.840812
+=====================================================
+
+
+Excitation synthesizer accuracy:
+ - Mean RMSE = 0.00941788
+ - Mean R2   = 0.984406
+
+Calibration finished
+  Time taken: 17 seconds

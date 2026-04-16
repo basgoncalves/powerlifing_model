@@ -21,8 +21,9 @@ pip install -r requirements.txt
 
 3. Install OpenSim Python API (required):
 ```bash
-pip install opensim
+pip install msk-modelling-python
 ```
+https://pypi.org/project/msk-modelling-python/
 
 ## Basic Usage
 
@@ -50,7 +51,7 @@ python -m code
 from code import openSim
 
 # Run inverse kinematics on a trial
-openSim.run_inverse_kinematics(
+openSim.run_ik(
     model_path='models/Athlete_03/scaled_model.osim',
     marker_file='simulations/Athlete_03/Session01/Trial01/markers.trc',
     output_motion='simulations/Athlete_03/Session01/Trial01/ik_results.mot'
@@ -63,7 +64,7 @@ openSim.run_inverse_kinematics(
 from code import openSim
 
 # Run inverse dynamics
-openSim.run_inverse_dynamics(
+openSim.run_id(
     model_path='models/Athlete_03/scaled_model.osim',
     motion_file='simulations/Athlete_03/Session01/Trial01/ik_results.mot',
     external_loads='simulations/Athlete_03/Session01/Trial01/grf.xml',
@@ -77,7 +78,7 @@ openSim.run_inverse_dynamics(
 from code import openSim
 
 # Run static optimization
-openSim.run_static_optimization(
+openSim.run_so(
     model_path='models/Athlete_03/scaled_model.osim',
     motion_file='simulations/Athlete_03/Session01/Trial01/ik_results.mot',
     output_dir='simulations/Athlete_03/Session01/Trial01/so_results/'
@@ -104,15 +105,13 @@ from code import ceinms
 
 # Create CEINMS model
 ceinms.create_ceinms_model(
-    opensim_model='models/Athlete_03/scaled_model.osim',
-    output_dir='manual_usage_ceinms_nn/'
+    osimModelPath='models/Athlete_03/scaled_model.osim',
+    outputCEINMSModelPath='models/Athlete_03/scaled_model.xml'
 )
 
+
 # Run calibration
-ceinms.run_calibration(
-    subject_dir='manual_usage_ceinms_nn/',
-    calibration_trials=['Walking_02']
-)
+calibrate(setupXML_path='simulations/Athlete_03/Session01/Trial01/setup_calibration.xml')
 ```
 
 ### Export C3D Data
@@ -134,7 +133,6 @@ exportC3D.export_c3d_to_opensim(
 - **code/** - Main source code and analysis scripts
 - **models/** - OpenSim musculoskeletal models (.osim files)
 - **simulations/** - Simulation data organized by subject/session/trial
-- **manual_usage_ceinms_nn/** - CEINMS calibration configuration files
 - **results/** - Analysis results and figures
 - **mrts/** - Measurement and anthropometric data
 
@@ -145,8 +143,8 @@ simulations/
 ├── SubjectXX/
 │   ├── SessionXX/
 │   │   ├── TrialXX/
-│   │   │   ├── input_files/
-│   │   │   └── results/
+│   │   │   ├── .c3d
+│   │   │   └── .trc
 │   │   └── TrialXX/
 │   └── SessionXX/
 └── SubjectXX/
@@ -179,20 +177,6 @@ Common file types in simulation directories:
 
 For a squat analysis of Subject 01, Session 01, Trial 01:
 
-```bash
-# 1. Organize your data
-simulations/Subject01/Session01/Trial01/
-├── input_files/
-│   ├── c3dfile.c3d
-│   ├── experimental_markers.trc
-│   ├── grf.mot
-│   └── squat_emg.sto
-└── results/
-    ├── joint_angles.mot
-    ├── inverse_dynamics.sto
-    ├── setup_IK.xml
-    └── setup_ID.xml
-```
 
 ## Configuration
 

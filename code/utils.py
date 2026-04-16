@@ -1,4 +1,4 @@
-from logging import root
+# from logging import root
 import math
 import os
 import shutil
@@ -37,31 +37,30 @@ CODE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODULE_DIR = os.path.dirname(CODE_DIR)
 
 # For new projects, create a new folder in SetupFiles and update the path here 
-SETUP_DIR = os.path.join(CODE_DIR, 'SetupFiles', 'Purzel')
+SETUP_DIR = os.path.join(CODE_DIR, 'SetupFiles')
 POWERLIFTING_DIR = os.path.dirname(CODE_DIR)
 MODELS_DIR = os.path.join(POWERLIFTING_DIR, 'models')
 
 SIMULATIONS_DIR = os.path.join(POWERLIFTING_DIR, 'simulations')
 RESULTS_DIR = os.path.join(POWERLIFTING_DIR, 'results')
+TASK_FIGURES_DIR = os.path.join(RESULTS_DIR, 'task_figures')
 
 CEINMS_DIR = os.path.join(CODE_DIR, 'executables')
 CEINMS_EXE = os.path.join(CEINMS_DIR, 'CEINMS.exe')
 CEINMS_OPTIMISE_EXE = os.path.join(CEINMS_DIR, 'CEINMSoptimise.exe')
 CEINMS_CALIBRATION_EXE = os.path.join(CEINMS_DIR, 'ceinms-nn-calibrate.exe')   
-    
+
+PRINT_TERMINAL = False
 
 class Inputs:
     def __init__(self, parentdir=None):
         
-        self.setup_dir = SETUP_DIR
+        self.setup_dir = os.path.join(SETUP_DIR, 'Purzel')
         self.model_name = 'scaled.osim'
         self.model_dir = ''
         self.time_range = '0.00 1.00'
         self.c3d = 'c3dfile.c3d'
-        self.emg_raw = 'emg.mot'
-        self.emg_filtered = 'EMG_filtered.sto'
-        self.emg_normalised = 'EMG_filtered_normalised.sto'
-        self.emg_plot = self.emg_normalised
+        self.emg = 'emg.mot'
         self.grf_mot = 'grf.mot'
         self.markers = 'marker_experimental.trc'
         self.events = 'events.csv'
@@ -76,7 +75,7 @@ class Inputs:
         self.jra_forces = 'SO_StaticOptimization_force.sto'
         self.setup_jra = 'setup_JRA.xml'
         
-        self.ceinms_excitations = self.emg_normalised
+        self.ceinms_excitations = self.emg
         self.ceinms_uncalibrated_model= '..\subjectUncalibrated.xml'
         self.ceinms_calibrated_model = '..\subjectCalibrated.xml'
         self.ceinms_calibration_cfg = '..\calibrationCfg.xml'
@@ -129,87 +128,6 @@ class Inputs:
         
         return fileExist    
 
-class CEINMSParameters:
-    def __init__(self):
-        self.hybridCalibration = 'true'
-        self.numberOfSynergies = 8
-        
-        self.alpha = 10
-        self.beta = 1
-        self.gamma = 1000
-        
-        self.betaMin = 1
-        self.betaMax = 100
-        self.betaDelta = 10
-        self.gammaMin = 1
-        self.gammaMax = 100
-        self.gammaDelta = 50
-        
-        self.alphas = '1 10 100'
-        self.betas = '1 10'
-        self.gammas = '1 10 100 500 1000 1500 2000 3000 4000 5000'
-        
-        self.DofSet = 'hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l'
-        
-        self.c1 = '-0.99 -0.05'
-        self.c2 = '-0.95 -0.05'
-        self.shapefactor = '-2.999 -0.001'
-        self.optimalFiberLength = '0.5 3'
-        self.tendonSlackLength = '0.5 3'
-        self.strengthCoefficient = '0.75 3.5'
-        
-        self.Target_Muscles = 'all'  # e.g., ['glmax1_r','glmax2_r','glmax3_r']
-        
-        self.EMG_muscle_mapping = {
-        # Left Leg Muscles
-        'EMG_Channels_EMG01_vast_lat_l': ['vaslat_l', 'vasmed_l'],
-        'EMG_Channels_EMG03_rect_fem_l': ['recfem_l', 'sart_l', 'tfl_l'],
-        'EMG_Channels_EMG05_bic_fem_l': ['bflh_l', 'bfsh_l', 'semimem_l', 'semiten_l'],
-        'EMG_Channels_EMG07_glut_l': ['glmax1_l', 'glmax2_l', 'glmax3_l'],
-        'EMG_Channels_EMG09_gast_med_l': [],
-
-        # Right Leg Muscles
-        'EMG_Channels_EMG02_vast_lat_r': ['vaslat_r', 'vasmed_r'],
-        'EMG_Channels_EMG04_rect_fem_r': ['recfem_r', 'sart_r', 'tfl_r'],
-        'EMG_Channels_EMG06_bic_fem_r': ['bflh_r', 'bfsh_r', 'semimem_r', 'semiten_r'],
-        'EMG_Channels_EMG08_glut_r': ['glmax1_r', 'glmax2_r', 'glmax3_r'],
-        'EMG_Channels_EMG10_gast_med_r': []
-    }
-
-
-        
-        self.Objective_Functions = []
-        self.Objective_Functions.append({
-            'name': 'MomentError',
-            'targets': 'all',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'normalisedFibreLength',
-            'weight': 10,
-            'exponent': 2,
-            'range': '0.5 1.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'Penalty',
-            'targetType': 'tendonStrain',
-            'weight': 1000,
-            'exponent': 2,
-            'range': '0. 0.5'
-        })
-        self.Objective_Functions.append({
-            'name': 'ExcitationsSquared',
-            'weight': 1
-        })
-        self.Objective_Functions.append({
-            'name': 'SynergyExtraction',
-            'mseWeight': 100,
-            'range': '0. 1.',
-            'rangeExponent': 2,
-            'rangeWeight': 1000
-        })   
-
 class Analyse(Inputs):
     '''
     Contains paths from the user settings and functions to implement in the OpenSim/Ceinms analysis
@@ -217,28 +135,35 @@ class Analyse(Inputs):
     subject_name: Name of the subject (or the trial path if session_name and trial_name are None)
     '''
     def __init__(self, trialPath=None):
-        super().__init__()
+        
         self.replace = False
+        self.path = os.path.abspath(trialPath)
+        self.settingsXML = 'trial_settings.xml'
         
         if not os.path.exists(trialPath):
             print_to_log(f"Trial path not found: {trialPath}")
+            os.makedirs(trialPath)
+            self.reset_settings_xml()
             return
         
         else:
-            
-            self.path = os.path.abspath(trialPath)
             os.chdir(self.path)
-
-            # try to load existing settings xml
-            self.settingsXML = os.path.relpath(os.path.join(self.path, 'trial_settings.xml'), self.path)
+            
             try:
                 self.load_settings(self.settingsXML)
             except:
                 print_to_log("Settings XML not found or could not be loaded. Creating new settings XML.")
                 self.reset_settings_xml()
+        
+        time.sleep(1)
                   
     def reset_settings_xml(self):
         '''Create a settings xml for the trial at the specified path'''
+        os.chdir(self.path)
+        # delete existing settings xml if it exists
+        if os.path.exists(self.settingsXML):
+            os.remove(self.settingsXML)
+            print_to_log(f"Existing settings XML deleted: {self.settingsXML}")
         
         path_parts = os.path.normpath(self.path).split(os.sep)
         self.subject = path_parts[-3]
@@ -246,32 +171,48 @@ class Analyse(Inputs):
         self.trial = path_parts[-1]
 
         self.parentdir = os.path.dirname(self.path)
-            
+
+        self._update_model()
+        self._update_emg_tag() 
+        
+        self.body_mass = None # Placeholder, will be updated from the model if possible
+        self.time_range = 'None' # Placeholder, will be updated from data if possible
+        
+        # add each Input to the trial settings
         inputs = Inputs(parentdir=self.path)
         for varInput in inputs.__dict__.items():
             filepath = os.path.join(self.path, varInput[1])
+            if varInput[0] in ['model_dir', 'model_name']:
+                continue
             if os.path.exists(filepath):
                 setattr(self, varInput[0], os.path.relpath(filepath, self.path))
             else:
                 setattr(self, varInput[0], varInput[1])
             
-        # add ceinms parameters
-        ceinms_params = CEINMSParameters()
+        # add each of the CEINMS parameters
+        ceinms_params = ceinms.TemplateParameters()
         for varParam in ceinms_params.__dict__.items():
             setattr(self, varParam[0], varParam[1])
         
-        self.model_dir = os.path.relpath(os.path.join(MODELS_DIR, self.subject, self.session, self.model_name), os.path.abspath(self.path))
-        
-        self.time_range = self.get_time_range()
-        self.body_mass = self.get_body_mass()
-        
+
+        # Update from data 
+        try:
+            self.body_mass = self.get_body_mass()  
+            self.time_range = self.get_time_range()
+        except Exception as e:
+            print_to_log(f"Error updating from data: {e}", terminal=True)
+
         self._to_xml()
-    
+
     def _to_xml(self):
         '''Print all settings for the trial to an xml in trial.path'''
         os.chdir(self.path)
         root = ET.Element("TrialSettings")
         for attr, value in self.__dict__.items():
+
+            # Skip pandas DataFrames and Series - they have __dict__ but shouldn't be serialized
+            if isinstance(value, (pd.DataFrame, pd.Series)):
+                continue
             
             if isinstance(value, (str, int, float, bool, list, dict)):
                 child = ET.SubElement(root, attr)
@@ -294,6 +235,76 @@ class Analyse(Inputs):
         save_pretty_xml(tree, self.settingsXML)
         print(f"Trial settings saved to: {os.path.abspath(self.settingsXML)}")
     
+    def _update_input_files(self):
+
+        # change .mot file to match the self.grf_mot
+        if os.path.exists(os.path.join(self.path, self.trial + '.mot')):
+            os.rename(os.path.join(self.path, self.trial + '.mot'), os.path.join(self.path, self.grf_mot))
+            print(f"Renamed {self.trial + '.mot'} to {self.grf_mot}")
+
+        # change .trc file to match the self.markers
+        if os.path.exists(os.path.join(self.path, self.trial + '.trc')):
+            os.rename(os.path.join(self.path, self.trial + '.trc'), os.path.join(self.path, self.markers))
+            print(f"Renamed {self.trial + '.trc'} to {self.markers}")
+
+    def _update_model(self):
+        '''
+        update the model path in the xml settings
+        '''
+
+        if self.subject == 'Athlete_03':
+            self.update_model('scaled_opt_N10_increased_3.00.osim')
+
+        elif self.subject == 'Athlete_03_Lernagopal':
+            self.update_model('scaled_lockedCoords_opt_N10_unlockedCoords_increased_3.00.osim')
+
+        elif self.subject == 'Athlete_03_Lernagopal_optimised':
+            self.update_model('lernagopal_with_wrapings_scaled_opt_N10_increased_3.00.osim')
+
+        elif self.subject == 'Athlete_03_MRI_Katya':
+            self.update_model('scaled_opt_N10_increased_3.00.osim')
+
+        elif self.subject == 'Athlete_03_GPK':
+            self.update_model('GPK_scaled.osim')
+        
+        elif self.subject == 'Athlete_03_GPK_MRI':
+            self.update_model('scaled.osim')
+
+        elif self.subject == '022':
+            self.update_model('022_Rajagopal2015_FAI_originalMass_opt_N10_hans.osim')
+        
+        elif self.subject in ['HC835B']:
+            self.update_model('GPK_generic_Lukas_scaled.osim')
+            
+        else:
+            self.update_model('scaled.osim')
+
+    def _update_emg_tag(self):
+        '''Update settingd XML with specific EMG types for a trial if needed'''
+        if os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised_scaled_0.70.sto')):
+            emg_name = 'EMG_filtered_normalised_scaled_0.70.sto'
+        elif os.path.exists(os.path.join(self.path, 'EMG_filtered_normalised.sto')):
+            emg_name = 'EMG_filtered_normalised.sto'
+        else:
+            emg_name = Inputs().emg
+
+        self.update_trial_attribute('emg', emg_name)
+        self.update_trial_attribute('ceinms_excitations', emg_name)
+
+    def _remove_outputs(self):
+        '''Remove existing output files from the trial directory to ensure a clean slate for the analysis'''
+        input_files = [self.emg, self.c3d, self.grf_mot, self.markers, self.events]
+        # walk through the trial directory and delete any files that are not in the input_files list
+        for root, dirs, files in os.walk(self.path):
+            for file in files:
+                if file not in input_files:
+                    file_path = os.path.join(root, file)
+                    try:
+                        os.remove(file_path)
+                        print(f"Deleted existing output file: {file_path}")
+                    except Exception as e:
+                        print(f"Failed to delete file {file_path}: {e}")
+
     def convert_to_dict(self, attr_name):
         '''Convert a specific attribute of the trial to a dictionary'''
         attr_value = getattr(self, attr_name, None)
@@ -362,22 +373,49 @@ class Analyse(Inputs):
 
         print(f"Settings loaded from: {os.path.abspath(self.settingsXML)}")
     
+    def _trial_type(self):
+
+        if self.trial.lower().__contains__('squat'):
+            return 'squatting'
+
+    def get_time_range_from_eventDetector(self):
+        '''Get time range from event detector'''
+
+        os.chdir(self.path)
+        try:
+            detector = EventDetector()
+            events = detector.analyze_task(trc_file=self.markers, grf_file=self.grf_mot, kinematics_file=self.ik, task=self._trial_type())
+            breakpoint()
+            return events
+        
+        except Exception as e:
+            print(f"Error determining time range from events: {e}")
+            return False
+
     def get_time_range(self):
         os.chdir(self.path)
-        if os.path.exists(self.events):
+
+        try:
             event_data = pd.read_csv(self.events, index_col=None, header=None)
             self.time_range = [event_data.iloc[:, 1].min(), event_data.iloc[:, 1].max()]
             return self.time_range
+        except:
+            pass
 
-        if os.path.exists(self.markers):
+        try:
             marker_data = load_any_data_file(self.markers)
             self.time_range = [marker_data['time'].min(), marker_data['time'].max()]
             return self.time_range
+        except:
+            pass
 
-        if os.path.exists(self.c3d):
-            c3d_data = load_any_data_file(self.c3d)
-            self.time_range = [c3d_data['time'].min(), c3d_data['time'].max()]
-            return self.time_range
+        try:
+            if os.path.exists(self.c3d):
+                c3d_data = load_any_data_file(self.c3d)
+                self.time_range = [c3d_data['time'].min(), c3d_data['time'].max()]
+                return self.time_range
+        except:
+            pass
 
     def update_trial_attribute(self, attr_name, new_value):      
         '''Update a specific attribute of the trial and save to XML'''
@@ -394,16 +432,52 @@ class Analyse(Inputs):
         else:
             print_to_log(f'Attribute {attr_name} not found in trial at {self.path}')
 
+    def copy_input_files(self, src_subject, replace=False):
+        """
+        Copy input files from a template subject to the trial directory if they don't already exist or if replace is True.
+
+        src_subject: name of the subject to copy input files from (should be located in SIMULATIONS_DIR/subject/session/)
+        replace: whether to replace existing files in the trial directory (default is False)
+
+        """
+        input_files = [
+            'trial_settings.xml','EMG_filtered_normalised.sto','EMG_filtered_normalised_scaled_0.70.sto','marker_experimental.trc','events.csv','c3dfile.c3d','GRF.xml', 'grf.mot'
+        ]
+        
+        trial = self.trial
+        src_trial_path = os.path.join(SIMULATIONS_DIR, src_subject, self.session, trial)
+        dest_trial_path = self.path
+        
+        os.makedirs(dest_trial_path, exist_ok=True)
+        
+        for file_name in input_files:
+            src_file = os.path.join(src_trial_path, file_name)
+            dest_file = os.path.join(dest_trial_path, file_name)
+            if os.path.exists(src_file) or replace:
+                shutil.copy2(src_file, dest_file)
+                print(f"Copied {src_file} to {dest_file}")
+            else:
+                print(f"Warning: {src_file} does not exist and was not copied.")
+
+    # Model manipulation functions
     def update_model(self, new_model_name):
-        '''Update the model path for the trial and save to XML'''
+        '''Update the model path for the trial and save to XML
+        
+        new_model_name: name of the new model file (should be located in MODELS_DIR/subject/session/)
+        
+        '''
         
         model_path = os.path.join(MODELS_DIR, self.subject, self.session, new_model_name)
         rel_model_path = os.path.relpath(model_path, self.path)
+
+        self.model_name = new_model_name
         self.model_dir = rel_model_path
         print_to_log(f'Updated model path to {model_path} for trial at {self.path}')
         self._to_xml()
 
-    def increase_muscle_force(self, factor=1):
+        return self.model_dir
+
+    def increase_muscle_force(self, factor: float = 1.0, muscle_list: list = ['all']):
         """Increase muscle force in the scaled model by a given factor.
         
         Args:
@@ -417,6 +491,9 @@ class Analyse(Inputs):
             return
 
         new_model_path = self.model_dir.replace('.osim', f'_increased_{factor:.2f}.osim')
+
+        if muscle_list != ['all']:
+            new_model_path = new_model_path.replace('.osim', f'_selected_muscles.osim')
         
         if os.path.exists(new_model_path) or not self.replace:
             print(f"Modified model already exists: {new_model_path}")
@@ -430,14 +507,15 @@ class Analyse(Inputs):
         # Increase max isometric force for each muscle
         for i in range(model.getMuscles().getSize()):
             muscle = model.getMuscles().get(i)
-            original_force = muscle.getMaxIsometricForce()
-            new_force = original_force * factor
-            muscle.setMaxIsometricForce(new_force)
-            print(f"Muscle: {muscle.getName()}, Original Force: {original_force:.2f}, New Force: {new_force:.2f}")
+            if muscle_list == ['all'] or muscle.getName() in muscle_list:
+                original_force = muscle.getMaxIsometricForce()
+                new_force = original_force * factor
+                muscle.setMaxIsometricForce(new_force)
+                print(f"Muscle: {muscle.getName()}, Original Force: {original_force:.2f}, New Force: {new_force:.2f}")
         
         # Save the modified model
         model.printToXML(new_model_path)
-        print(f"Modified model saved to: {new_model_path}")
+        print(f"Modified model saved to: {os.path.abspath(new_model_path)}")
         
         # Update the used model path
         self.model_dir = new_model_path
@@ -453,7 +531,7 @@ class Analyse(Inputs):
         
         if not os.path.exists(self.model_dir):
             print(f"Scaled model not found: {self.model_dir}")
-            return None
+            return 'Unknown'
 
         # Load the model
         model = osim.Model(self.model_dir)
@@ -499,9 +577,7 @@ class Analyse(Inputs):
         
         openSim.edit_model_range_coordinates(osim_modelPath=self.model_dir, coordinate_name=coordinate_name, new_range=new_range, save_path=self.model_dir)
 
-
     # analyses to run
-
     def scale_emg(self, scale_factor=1.0):
         """Scale EMG data by a given factor and save to a new file.
         
@@ -526,6 +602,8 @@ class Analyse(Inputs):
 
         # Update the EMG normalised path
         self.update_trial_attribute('emg_normalised', scaled_emg_path)
+        self.update_trial_attribute('emg_plot', scaled_emg_path)
+        self.update_trial_attribute('ceinms_excitations', scaled_emg_path)
         
     def export_c3d(self):
         import exportC3D
@@ -540,19 +618,25 @@ class Analyse(Inputs):
         
     def run_ik(self):
         os.chdir(os.path.abspath(self.path))
-        
-        if not os.path.exists(self.setup_ik) or self.replace:       
+ 
+        # Create IK setup file if it doesn't exist or if replace is True
+        if not os.path.exists(self.setup_ik) or self.replace:  
+               
             openSim.create_setup_IK(osim_modelPath=self.model_dir,
                                 marker_trc=self.markers,
                                 ik_output=self.ik,
                                 taskSetPath=None,
                                 time_range=self.time_range,
                                 saveXMLPath=self.setup_ik)
-        
-        if os.path.exists(self.ik) and not self.replace:
+        else:
             print_to_log(f'Inverse Kinematics output already exists: {self.ik}')
             return
         
+        if os.path.exists(self.ik) and not self.replace:
+            print(f'Inverse Kinematics output already exists: {self.ik}')
+            return
+
+        # Run IK using OpenSim API
         try:
             openSim.run_ik(osim_modelPath=self.model_dir,
                     marker_trc=self.markers,
@@ -564,19 +648,35 @@ class Analyse(Inputs):
             print_to_log(f'[Success] Inverse Kinematics completed. Results are saved in {self.path}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Kinematics: {e}')
-            
+        
+        # Plot IK results and marker errors
+        try:
+            self.plot_ik()
+            self.compare_marker_locations()
+            print_to_log(f'[Success] IK results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during IK plotting: {e}')
+
     def run_id(self):
         
         os.chdir(self.path)
 
         if not os.path.exists(self.setup_grf):            
-            template_grf_path = os.path.join(self.setup_dir, self.setup_grf)
-            shutil.copyfile(template_grf_path, self.setup_grf)
+            try:
+                template_grf_path = os.path.join(self.setup_dir, self.setup_grf)
+                shutil.copyfile(template_grf_path, self.setup_grf)
+            except Exception as e:
+                openSim.create_grf_xml(grf_mot_path=self.grf_mot, 
+                        output_xml_path=self.setup_grf,
+                        marker_trc_path=self.markers,
+                        right_foot_markers=None, left_foot_markers=None,right_foot_body='calcn_r', left_foot_body='calcn_l',
+                        vert_force_threshold=10.0, filter_cutoff=6, datafile=None)
 
         if os.path.exists(self.id) and not self.replace:
             print_to_log(f'Inverse Dynamics output already exists: {self.id}')
             return
         
+        # Run ID using OpenSim API
         try:
             openSim.run_id(osimModelPath=self.model_dir,
                     ikOutputPath=self.ik,
@@ -586,7 +686,14 @@ class Analyse(Inputs):
             print_to_log(f'[Success] Inverse Dynamics completed. Results are saved in {self.id}')
         except Exception as e:
             print_to_log(f'[Error] during Inverse Dynamics: {e}')
-    
+
+        # Plot ID results
+        try:
+            self.plot_id()
+            print_to_log(f'[Success] ID results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during ID plotting: {e}')
+
     def run_ma(self):
         
         os.chdir(self.path)
@@ -603,10 +710,9 @@ class Analyse(Inputs):
             print_to_log(f'[Error] during Muscle Analysis: {e}')
     
     def run_so(self):
-        
         os.chdir(self.path)
 
-        if not os.path.exists(self.actuators_so):            
+        if not os.path.exists(self.actuators_so):          
             template_actuators_path = os.path.join(self.setup_dir, self.actuators_so)
             shutil.copyfile(template_actuators_path, self.actuators_so)
         
@@ -628,9 +734,17 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] during Static Optimization: {e}')
         
+        # Plot SO results
+        try:
+            self.plot_so()
+            print_to_log(f'[Success] SO results plotted and saved in {self.path}')
+        except Exception as e:
+            print_to_log(f'[Error] during SO plotting: {e}')
+
     def run_jra(self):
-        
         os.chdir(self.path)
+        self.load_settings(self.settingsXML)
+
         if not os.path.exists(self.setup_jra):
             template_jra_path = os.path.join(self.setup_dir, self.setup_jra)
             shutil.copyfile(template_jra_path, self.setup_jra)
@@ -653,6 +767,10 @@ class Analyse(Inputs):
     def run_jra_ceinms(self):
         os.chdir(self.path)
         self.load_settings(self.settingsXML)
+
+        if not os.path.exists(self.setup_jra):
+            template_jra_path = os.path.join(self.setup_dir, self.setup_jra)
+            shutil.copyfile(template_jra_path, self.setup_jra)
 
         if os.path.exists(self.jra_ceinms) and not self.replace:
             print_to_log(f'JRA CEINMS output already exists: {self.jra_ceinms} and replace is set to False.')
@@ -721,9 +839,9 @@ class Analyse(Inputs):
     
     #--- Valid
     def compare_marker_locations(self):
+        os.chdir(self.path)
         try:
-            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.markers),
-                                        marker_virtual_path=os.path.abspath(self.MODEL_MARKERS))
+            openSim.compare_marker_locations(marker_experimental_path=os.path.abspath(self.markers),marker_virtual_path=os.path.abspath('.\\_ik_model_marker_locations.sto'))
         
             print_to_log(f'[Success] Marker location comparison completed: {self.model_markers} vs {self.markers}')
         except Exception as e:
@@ -785,8 +903,9 @@ class Analyse(Inputs):
             ax.set_ylabel("Moment Arm")
         
         axes[0].legend()
+
         return fig, axes
-            
+
     def plot_ik(self, columns_to_plot='all'):
         os.chdir(self.path)
         self.joint_angles = load_any_data_file(self.ik)
@@ -840,11 +959,11 @@ class Analyse(Inputs):
         
         return fig, axes
     
-    def plot_so(self):
+    def plot_so(self, ):
         os.chdir(self.path)
         so_forces = load_any_data_file(self.so_forces)
         so_activations = load_any_data_file(self.so_activations)
-        emg_normalised = load_any_data_file(self.emg_plot)
+        emg_normalised = load_any_data_file(self.emg)
 
         # crop to time range of the trial
         time_range = self.get_time_range()
@@ -852,57 +971,60 @@ class Analyse(Inputs):
         so_activations = so_activations[(so_activations['time'] >= time_range[0]) & (so_activations['time'] <= time_range[1])]
         emg_normalised = emg_normalised[(emg_normalised['time'] >= time_range[0]) & (emg_normalised['time'] <= time_range[1])]
 
-        # get the emg mapping from the ceinms excitation generator xml
-        emg_mapping = ET.parse(self.ceinms_excitation_generator)
-        muscle_to_emg = {}
-        root = emg_mapping.getroot()
-        mapping = root.find('mapping')
-        if mapping is not None:
-            for excitation in mapping.findall('excitation'):
-                muscle_id = excitation.get('id')
-                inputs = excitation.findall('input')
-                if inputs and len(inputs) > 0:
-                    # Use the first EMG channel if multiple exist
-                    muscle_to_emg[muscle_id] = inputs[0].text
-                else:
-                    muscle_to_emg[muscle_id] = None  # No EMG for this muscle
+
+        coordinates = {'hip_flexion': None, 'hip_adduction': None, 'hip_rotation': None,
+                        'knee_flexion': None, 'knee_adduction': None, 'knee_rotation': None,
+                        'ankle_angle': None}
         
-        
-        muscle_list = self.get_muscle_list()
-        
-        n_vars = len(muscle_list)
-        fig, axes = self.plot_create_subplot(n_vars)
+        muscleGroups = {}
+        for coord in list(coordinates.keys()):
+            for leg in ['_r', '_l']:
+                coord_name = coord + leg
+                try:
+                    muscles, indexes = self.muscles_per_coordinate(osim.Model(self.model_dir), coord_name)
+                    muscleGroups[coord_name] = muscles
+                except Exception as e:
+                    # remove the key from the dictionary if there is an error (e.g. coordinate not found in model)
+                    print(f"Error finding muscles for coordinate {coord}: {e}")
+                    coordinates.pop(coord, None)
+
+        n_vars = len(muscleGroups)
+        fig, axes = plt.subplots(n_vars//2, 2, figsize=(26, 10), constrained_layout=True)
         
         fig.suptitle(f"Static Optimization Muscle Forces: {self.trial}", fontsize=16)
-        for i, muscle in enumerate(muscle_list):
-            ax = axes[i]
-            muscleForces = so_forces[muscle]
-            line1 = ax.plot(so_forces['time'], muscleForces, label='Force')
-            # on a secondary y-axis plot activations
-            activations = so_activations[muscle]
-            emg = emg_normalised[muscle_to_emg[muscle]] if muscle_to_emg[muscle] in emg_normalised.columns else None
-            ax2 = ax.twinx()
-            line2 = ax2.plot(so_activations['time'], activations, color='orange', linestyle='--', label='Activation')
-            try:
-                line3 = ax2.fill_between(emg_normalised['time'], 0, emg, color='grey', alpha=0.3, label='EMG') 
-            except Exception as e:
-                print(f"Error plotting EMG for muscle {muscle}: {e}")
-                line3 = ax2.fill_between([], [], [], color='grey', alpha=0.3, label='EMG ')  
+        for irow, (coord, _) in enumerate(coordinates.items()):
+            for icol, leg in enumerate(['_r', '_l']):
+                coord_name = coord + leg
+                muscles = muscleGroups.get(coord_name, [])
+                if not muscles:
+                    continue
+                
+                ax = axes[irow, icol]
+                for muscle in muscles:
+                    line1 = ax.plot(so_forces['time'], so_forces[muscle], label=muscle)
+                    # on a secondary y-axis plot activations
+                    activations = so_activations[muscle]
 
-            ax.set_title(f"{muscle}")
-            ax.set_xlabel("Time")
-            ax.set_ylabel("Force (N)")
-            ax2.set_ylabel("Activation")
-            
-            if i == 0:
-                lines = line1 + line2 + line3 # Combine lines from both axes
-                labels = [l.get_label() for l in lines]
-                ax.legend(lines, labels, loc='upper right')
+                ax.set_title(f"{coord_name}")
+                ax.set_xlabel("Time")
+
+                if icol == 0:
+                    ax.set_ylabel("Force (N)")
+        
+        # Legend only for unique muscle names across all subplots
+        unique_muscles = set(muscle for muscles in muscleGroups.values() for muscle in muscles)
+        handles = [plt.Line2D([0], [0], color='C0', label=muscle) for muscle in unique_muscles]
+        axes[0, 0].legend(handles=handles, loc='upper right', fontsize='small')
         
         # save figure and return
-        plt.savefig(os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png"))
-        print(f'Figure saved to {os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png")}')
+        save_path = os.path.join(self.path, f"{self.trial}_SO_Muscle_Forces.png")
+        plt.savefig(save_path)
+        print(f'Figure saved to {save_path}')
         
+        # save interactive figure
+        interactive_save_path = save_path.replace('.png', '.html')
+        # convert_to_interactive_fig(fig, interactive_save_path)
+
         return fig, axes
     
     def plot_jra(self, origin='SO'):
@@ -1028,7 +1150,6 @@ class Analyse(Inputs):
         # plott
         n_rows = 6
         fig, axes = plt.subplots(n_rows, 1, figsize=(15, n_rows*4), constrained_layout=True)
-    
         
     # ceinms
     def create_ceinms_model(self):
@@ -1045,12 +1166,11 @@ class Analyse(Inputs):
     
     def create_ceinms_input_data(self):
         os.chdir(self.path)
-        
         try:
             ceinms.create_input_data(MAFolder=self.ma,excitationsFile=self.ceinms_excitations,motionFile=self.ik, externalTorquesFile=self.id,externalLoadsFile=self.setup_grf,startStopTime=self.time_range)
-            print_to_log(f'[Success] CEINMS input data created: {os.path.abspath(self.ceinms_input_data)}')
+            print_to_log(f'[Success] CEINMS input data created: {os.path.abspath(self.ceinms_input_data)}', terminal=True)
         except Exception as e:
-            print_to_log(f'[Error] Failed to create CEINMS input data: {e}')
+            print_to_log(f'[Error] Failed to create CEINMS input data: {e}', terminal=True)
     
     def create_ceinms_calibration_cfg(self, calibration_trial_names=None):
         """
@@ -1138,7 +1258,7 @@ class Analyse(Inputs):
         
         # Add DOF set (you may need to adjust this based on your model)
         dof_set = ET.SubElement(hybrid, 'dofSet')
-        dof_set.text = CEINMSParameters().DofSet
+        dof_set.text = ceinms.TemplateParameters().DofSet
         
         # Add synthMTUs
         synth_mtus_elem = ET.SubElement(hybrid, 'synthMTUs')
@@ -1192,8 +1312,13 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS optimisation setup already exists: {os.path.abspath(self.ceinms_optimise_setup)}', terminal=True)
             return
         
-        ceinms.create_optimise_setupFiles(ceinmsModelPath=self.        
-                                        ceinms_calibrated_model, inputDataFile=self.ceinms_input_data,calibrationCfgPath=self.ceinms_optimise_cfg,excitationGeneratorFilePath=self.ceinms_excitation_generator,outputDirectory=self.ceinms_optimisation_dir,setupXMLPath=self.ceinms_optimise_setup)
+        ceinms.create_optimise_setupFiles(ceinmsModelPath=self.ceinms_calibrated_model,
+                                          inputDataFile=self.ceinms_input_data,
+                                          calibrationCfgPath=self.ceinms_optimise_cfg,
+                                          excitationGeneratorFilePath=self.ceinms_excitation_generator,
+                                          outputDirectory=self.ceinms_optimisation_dir,
+                                          setupXMLPath=self.ceinms_optimise_setup,
+                                          templateCfgXMLPath=os.path.join(self.setup_dir, self.ceinms_optimise_cfg))
 
     def create_ceinms_exe_setup(self):
 
@@ -1251,6 +1376,8 @@ class Analyse(Inputs):
         ceinms.plot_ceinms_model_parameters(self.ceinms_uncalibrated_model)
         
         calibrationSetupPath = os.path.abspath(self.ceinms_calibration_setup)
+
+        edit_xml_tag_value(calibrationSetupPath, 'outputDirectory', 'calibrationOutput')
         ceinms.calibrate(setupXML_path=calibrationSetupPath)
 
         # update calibrated model from setupXML
@@ -1265,20 +1392,22 @@ class Analyse(Inputs):
             print_to_log(f'CEINMS calibration completed successfully in {mod_time - start_time:.2f} seconds.')
             ceinms.plot_ceinms_model_parameters(self.ceinms_calibrated_model)
             
+            # plot moments vs ceinms results
             try:
                 ceinmsTorquesFile = os.path.join(self.ceinms_calibration_dir, 'Moments_inputData.csv')
                 ceinms.plot_moments_calibration_results(momentResultsCSV=ceinmsTorquesFile)
+                print_to_log(f'[Success] Plotted moments vs CEINMS results.')
             except:
-                print_to_log(f'Could not plot moments vs CEINMS results.')
-                
+                print_to_log(f'[ERROR] Could not plot moments vs CEINMS results.')
+            
+            # plot emg vs ceinms excitations using uncalibrated model as reference
             try:
-                ceinms.plot_compare_ceinms_models(uncalibratedModelPath=self.ceinms_uncalibrated_model,
-                                                 calibratedModelPath=self.CEINMS_CALIBRATED_MODEL)
-                print_to_log(f'Could not plot EMG vs CEINMS results.')
+                ceinms.plot_compare_ceinms_models(uncalibratedModelPath=self.ceinms_uncalibrated_model,calibratedModelPath=self.ceinms_calibrated_model)
+                print_to_log(f'[Success] Plotted EMG vs CEINMS results for calibrated model: {self.ceinms_calibrated_model}')
             except:
-                print_to_log(f'Could not plot EMG vs CEINMS results.')
+                print_to_log(f'[ERROR] Could not plot EMG vs CEINMS results for calibrated model: {self.ceinms_calibrated_model}')
         else:
-            print_to_log(f'CEINMS calibration may have failed: calibrated model not updated.')
+            print_to_log(f'[WARNING] CEINMS calibration may have failed: calibrated model not updated.')
             
     def run_ceinms_exe(self):
         os.chdir(self.path)
@@ -1296,16 +1425,28 @@ class Analyse(Inputs):
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='alpha',new_value=str(self.alpha))
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='beta',new_value=str(self.beta))
         ceinms.replace_ceinms_cfg_parameter(cfgXML_path=self.ceinms_exe_cfg,parameter_name='gamma',new_value=str(self.gamma))
-        
+        breakpoint()
+        # run ceinms executable
         try:
             ceinms.executable(setupXML_path=os.path.abspath(self.ceinms_exe_setup))
             print_to_log(f'CEINMS executable run completed for trial: {self.trial}')
         except Exception as e:
             print_to_log(f'[Error] during CEINMS executable run: {e}')
 
-        # add so columns to ceinms forces
+        # update jra ceinms forces path from setup output directory
         self.update_trial_attribute('jra_forces_ceinms', os.path.join(setup.find('outputDirectory').text, 'MuscleForces.sto'))
-        self.add_so_columns_to_ceinms_results()
+
+        # check if ceinms forces file exists before trying to add so columns
+        if not os.path.exists(self.jra_forces_ceinms):
+            print_to_log(f'[Error] CEINMS forces file not found: {self.jra_forces_ceinms}')
+            return
+
+        # add so columns to ceinms forces
+        try:
+            self.add_so_columns_to_ceinms_results()
+            print_to_log(f'Added SO columns to CEINMS forces for trial: {self.trial}')
+        except Exception as e:
+            print_to_log(f'[Error] during adding SO columns to CEINMS forces: {e}')
 
     def run_ceinms_optimise(self):
         
@@ -1334,17 +1475,21 @@ class Analyse(Inputs):
         if not os.path.exists(self.ceinms_exe_cfg):
             ceinms.create_ceinms_cfg(ceinmsModelPath=self.ceinms_calibrated_model, alpha=self.alpha, beta=self.beta, gamma=self.gamma, dofSet=' '.join(self.DofSet),excitationGeneratorFilePath=self.ceinms_excitation_generator, outputPath=self.ceinms_exe_cfg)
         
-        self.load_settings(settingsXML=self.settingsXML)
-        alpha_values = [int(x) for x in self.alphas.split(' ')]
-        beta_values = [int(x) for x in self.betas.split(' ')]
-        gamma_values = [int(x) for x in self.gammas.split(' ')]
+        try:
+            self.load_settings(settingsXML=self.settingsXML)
+            alpha_values = [int(x) for x in self.alphas.split(' ')]
+            beta_values = [int(x) for x in self.betas.split(' ')]
+            gamma_values = [int(x) for x in self.gammas.split(' ')]
 
-        # change output directory in setup to match base name
-        setup = ET.parse(self.ceinms_exe_setup).getroot()
-        setup.find('outputDirectory').text = self.ceinms_exe_dir
-        
-        # run ceinms executable loop
-        ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
+            # change output directory in setup to match base name
+            setup = ET.parse(self.ceinms_exe_setup).getroot()
+            setup.find('outputDirectory').text = self.ceinms_exe_dir
+            
+            # run ceinms executable loop
+            ceinms.executable_loop(setupXML_path=os.path.abspath(self.ceinms_exe_setup), cfgXML_path=os.path.abspath(self.ceinms_exe_cfg), alphas =alpha_values, betas=beta_values, gammas=gamma_values)
+
+        except Exception as e:
+                print_to_log(f'[Error] during CEINMS executable loop: {e}')
 
     def check_best_ceinms_results(self):
         ''' loop through ceinms exe results and find best alpha, beta, gamma based on RMS error for joint moments and EMG vs CEINMS excitations '''
@@ -1363,8 +1508,12 @@ class Analyse(Inputs):
 
     def add_so_columns_to_ceinms_results(self):
 
-        so_forces = load_any_data_file(self.jra_forces)
-        ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+        try:
+            so_forces = load_any_data_file(self.jra_forces)
+            ceinms_forces = load_any_data_file(self.jra_forces_ceinms)
+        except Exception as e:
+            print_to_log(f'[Error] loading SO or CEINMS forces for adding columns: {e}')
+            return
 
         # Find columns in SO forces that are not in CEINMS forces
         missing_columns = [col for col in so_forces.columns if col not in ceinms_forces.columns]
@@ -1392,20 +1541,149 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Error] during plotting CEINMS calibration results: {e}')
 
+    def plot_ceinms_vs_so_muscle_moments(self):
+        from plotly.subplots import make_subplots
+        import plotly.graph_objects as go
+
+        ik_columns = ['hip_flexion_r', 'hip_adduction_r', 'hip_rotation_r', 'knee_angle_r', 'ankle_angle_r']
+        id_columns = ['hip_flexion_r_moment', 'hip_adduction_r_moment', 'hip_rotation_r_moment', 'knee_angle_r_moment', 'ankle_angle_r_moment']
+
+        id = load_any_data_file(os.path.join(self.path, self.id))
+        so_forces = load_any_data_file(os.path.join(self.path, self.so_forces))
+        ceinms_forces = load_any_data_file(os.path.join(self.path, self.jra_forces_ceinms))
+
+        fig, ax = plt.subplots(nrows=len(ik_columns), ncols=2, figsize=(28, 16))
+        fontsize = 25
+
+        fig_int = make_subplots(rows=len(ik_columns), cols=2, shared_xaxes=True,
+                                subplot_titles=[f"{dof} - SO" if i % 2 == 0 else f"{dof} - CEINMS"
+                                                for dof in ik_columns for i in range(2)])
+
+        for count, dof in enumerate(ik_columns):
+            ma = load_any_data_file(os.path.join(self.path, self.ma, f'_MuscleAnalysis_MomentArm_{dof}.sto'))
+
+            muscle_list = [col for col in so_forces.columns if col != 'time']
+            muscles = openSim.find_non_zero_mom_arm_muscles(ma, muscle_list)
+            print(f"Non-zero moment arm muscles for {dof}: {muscles}")
+
+            colors = plt.cm.tab20(np.linspace(0, 1, max(len(muscles), 1)))
+
+            if count == 0:
+                ax[count, 0].set_title('SO', fontsize=fontsize)
+                ax[count, 1].set_title('CEINMS', fontsize=fontsize)
+
+            # Plot ID (static)
+            ax[count, 0].plot(id['time'], id[f'{dof}_moment'], label='ID', color='blue')
+            ax[count, 0].set_ylabel(f'{dof} (Nm)', fontsize=fontsize)
+            ax[count, 0].tick_params(labelsize=fontsize)
+
+            ax[count, 1].plot(id['time'], id[f'{dof}_moment'], label='ID', color='blue')
+            ax[count, 1].tick_params(labelsize=fontsize)
+
+            
+            # Plot muscle moments SO (static)
+            for i, m in enumerate(muscles):
+                ax[count, 0].plot(so_forces['time'], so_forces[m] * ma[m],
+                                label=m, color=colors[i], linestyle='--')
+
+            sum_moments_so = so_forces[muscles].mul(ma[muscles], axis=0).sum(axis=1)
+            ax[count, 0].fill_between(so_forces['time'], 0, sum_moments_so, color='grey', alpha=0.2, label='Sum')
+
+            # Plot muscle moments CEINMS (static)
+            for i, m in enumerate(muscles):
+                breakpoint()
+                ax[count, 1].plot(ceinms_forces['time'], ceinms_forces[m] * ma[m],
+                                label=m, color=colors[i], linestyle='--')
+            
+            sum_moments_ce = ceinms_forces[muscles].mul(ma[muscles], axis=0).sum(axis=1)
+            ax[count, 1].fill_between(ceinms_forces['time'], 0, sum_moments_ce, color='grey', alpha=0.2, label='Sum')
+
+            # add RMSE and R2 values between ID and SO, and ID and CEINMS
+            rmse_so = rmse(id[f'{dof}_moment'], sum_moments_so)
+            r2_so = rsquared(id[f'{dof}_moment'], sum_moments_so)
+            rmse_ce = rmse(id[f'{dof}_moment'], sum_moments_ce)
+            r2_ce = rsquared(id[f'{dof}_moment'], sum_moments_ce)
+            textstr_so = f'RMSE={rmse_so:.2f} Nm\nR²={r2_so:.3f}'
+            textstr_ce = f'RMSE={rmse_ce:.2f} Nm\nR²={r2_ce:.3f}'
+            ax[count, 0].text(0.95, 0.95, textstr_so, transform=ax[count, 0].transAxes, fontsize=fontsize,
+                            verticalalignment='top', horizontalalignment='right',
+                            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            ax[count, 1].text(0.95, 0.95, textstr_ce, transform=ax[count, 1].transAxes, fontsize=fontsize,
+                            verticalalignment='top', horizontalalignment='right',
+                            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))    
+
+
+        plt.tight_layout()
+        save_path = os.path.join(self.path, 'muscle_moments.png')
+        plt.savefig(save_path)
+        print(f"Muscle moments comparison plot saved: {save_path}")
+
+        convert_to_interactive_fig(fig, html_path=os.path.join(self.path, 'muscle_moments_interactive.html'))
+
     #--- git integration
+    def git_status(self):
+        '''Check git status of the trial and subject directories
+        
+        Outputs uncommitted changes in trial and subject directories to log.
+        
+        Returns a dictionary with boolean values indicating if trial and subject directories are clean (no uncommitted changes).
+
+            git_status() -> {'trial_dir': bool, 'subject_dir': bool}
+
+            True: No uncommitted changes in the directory
+            False: Uncommitted changes present in the directory
+
+        '''
+        os.chdir(self.path)
+
+        isClean = {'trial_dir': True, 'subject_dir': True}
+        try:
+            result = subprocess.run(['git', 'status', '--porcelain'], check=True, stdout=subprocess.PIPE, text=False, cwd=os.getcwd())
+
+            if result.stdout:
+                print_to_log(f'[Git Status] Uncommitted changes in trial directory: {self.path}')
+                isClean['trial_dir'] = False
+            else:
+                print_to_log(f'[Git Status] No uncommitted changes in trial directory: {self.path}')
+                isClean['trial_dir'] = True
+            subject_path = updir(self.path, levels=2)
+            result_subject = subprocess.run(['git', 'status', '--porcelain'], check=True, stdout=subprocess.PIPE, text=False, cwd=subject_path)
+            if result_subject.stdout:
+                print_to_log(f'[Git Status] Uncommitted changes in subject directory: {subject_path}')
+                isClean['subject_dir'] = False
+            else:
+                print_to_log(f'[Git Status] No uncommitted changes in subject directory: {subject_path}', terminal=True)
+                isClean['subject_dir'] = True
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Error] Failed to check git status: {e}')
+
+        return isClean
+    
     def push_trial_results_to_git(self):
         """Push trial results to git after completion"""
         os.chdir(self.path)
+        breakpoint()
         try:
+          
             # Add all changes in the trial directory
             subprocess.run(['git', 'add', self.path], check=True, cwd=os.getcwd())
+
+            # Add changes to model directory if it exists
+            if os.path.exists(os.path.dirname(self.model_dir)):
+                subprocess.run(['git', 'add', os.path.dirname(self.model_dir)], check=True, cwd=os.getcwd())
 
             # Commit with descriptive message
             commit_message = f"[RESULT] {self.subject}/{self.trial}"
             subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to commit to git: {e}')
 
-            # Push to remote
-            result = subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        try:
+            subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError:
+            # set upstream for current branch then push
+            branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=os.getcwd(), text=True).strip()
+            subprocess.run(['git', 'push', '--set-upstream', 'origin', branch],check=True, cwd=os.getcwd())
 
             print_to_log(f'[Success] Results pushed to git for: {self.subject} / {self.trial}')
 
@@ -1414,8 +1692,79 @@ class Analyse(Inputs):
         except Exception as e:
             print_to_log(f'[Warning] Git operation failed: {e}')
 
+    def push_subject_results_to_git(self):
+        """Push subject results to git after completion"""
+        os.chdir(self.parentdir)
+        subject_path = updir(self.path, levels=2)  # Move up to subject directory
+        subject_model_dir = os.path.join(MODELS_DIR, self.subject)
 
-def print_to_log(message, terminal=False):
+        status = self.git_status()
+        if status['subject_dir']:
+            print(f'[Git] No uncommitted changes in trial or subject directories for {self.subject}. Skipping git push.')
+            time.sleep(2)  
+            return
+        
+        try:
+            # Add all changes in the subject directory
+            subprocess.run(['git', 'add', subject_path], check=True, cwd=os.getcwd())
+            subprocess.run(['git', 'add', subject_model_dir], check=True, cwd=os.getcwd())
+
+            # Commit with descriptive message
+            commit_message = f"[RESULT] {self.subject}"
+            subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to commit to git: {e}')
+
+        try:
+            subprocess.run(['git', 'push'], check=True, cwd=os.getcwd())
+        except subprocess.CalledProcessError:
+            # set upstream for current branch then push
+            branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=os.getcwd(), text=True).strip()
+            subprocess.run(['git', 'push', '--set-upstream', 'origin', branch],check=True, cwd=os.getcwd())
+
+            print_to_log(f'[Success] Results pushed to git for subject: {self.subject}')
+
+        except subprocess.CalledProcessError as e:
+            print_to_log(f'[Warning] Failed to push to git: {e}')
+        except Exception as e:
+            print_to_log(f'[Warning] Git operation failed: {e}')
+
+class Compare():
+    def __init__(self):
+        pass
+
+def create_session(subject, session):
+
+    subject_path = os.path.join(SIMULATIONS_DIR, subject)
+    session_path = os.path.join(SIMULATIONS_DIR, subject, session)
+    
+    model_path = os.path.join(MODELS_DIR, subject, session)
+
+    if not os.path.exists(session_path):
+        try:
+            os.makedirs(session_path, exist_ok=True)
+            print_to_log(f'[Success] Created session directory: {session_path}', terminal=True)
+        except Exception as e:
+            print_to_log(f'[Error] Failed to create session directory: {e}', terminal=True)
+
+    if not os.path.exists(model_path):
+        try:
+            os.makedirs(model_path, exist_ok=True)
+            print_to_log(f'[Success] Created model directory: {model_path}', terminal=True)
+        except Exception as e:
+            print_to_log(f'[Error] Failed to create model directory: {e}', terminal=True)
+
+
+    return session_path
+
+## Utility functions
+def updir(path, levels=1):
+    """Move up a directory path by a specified number of levels."""
+    for _ in range(levels):
+        path = os.path.dirname(path)
+    return path
+
+def print_to_log(message, terminal=PRINT_TERMINAL):
     """
     Prints a message to the console and logs it to a file.
     
@@ -1423,7 +1772,6 @@ def print_to_log(message, terminal=False):
         message (str): The message to print and log.
     """
     timestamp = time.strftime('%d.%m.%Y_%H:%M:%S', time.localtime()) + f":{int((time.time() % 1) * 1000):03d}"
-    print(f'{timestamp} {message}')
     
     with open(CODE_DIR + '\\log.txt', 'a') as log_file:
         log_file.write(f'{timestamp}: {message}\n')
@@ -1496,6 +1844,7 @@ def load_trc(path=None, output=False, combine_headers=False):
         print(f"Error: Could not read the file at {path}. Please check the path and try again.")
         return None
     
+    header_start_line += 0 
     df = pd.read_csv(path,sep='\t',skiprows=header_start_line,index_col=False)
     
     # Create a temporary frame from the multi-index, forward-fill, and get values
@@ -1809,6 +2158,16 @@ def load_sto_header(file_path):
 def write_trc(markers_df, trc_file, units, frame_rate, first_frame):
     """
     Write marker data (frames, n_markers, 3) to TRC.
+
+    inputs:
+        markers_df: The DataFrame containing the marker data with a multi-index for columns (Marker, Coordinate). (use load_trc to read in the data and get the correct format)
+
+        trc_file: The path to the output TRC file.
+
+        units: The units for the marker data (e.g., 'mm' or 'm').
+
+        frame_rate: The frame rate of the data (e.g., 100 for 100 Hz).
+
     """
     
     # remove time column
@@ -1978,6 +2337,30 @@ def save_pretty_xml(tree, save_path):
             with open(save_path, 'w') as file:
                 file.write(pretty_xml_no_blanks)
 
+def edit_xml_tag_value(xml_path, tag, new_value): 
+    """Edits the value of a specific XML tag given its path.
+    
+    Args:
+        xml_path (str): The path to the XML file.
+        tag (str): The tag whose value needs to be edited. 
+        new_value (str): The new value to set for the specified tag.
+    """
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+
+        elem_list = root.findall(f".//{tag}")
+        
+        if elem_list:
+            for elem in elem_list:
+                elem.text = str(new_value)
+            save_pretty_xml(tree, xml_path)  # Save back to the original file
+            print(f"Updated tag '{tag}' to new value: {new_value}")
+        else:
+            print(f"Error: Tag '{tag}' not found in the XML tree.")
+    except Exception as e:
+        print(f"Error editing XML tag '{tag}': {e}")
+
 # plotting
 def save_fig(fig, save_path):
     """Saves the figure to the specified path."""
@@ -2089,37 +2472,71 @@ def add_picture_to_ax(ax: plt.Axes, image_path: str, scale: float = 1.0):
             ax.text(0.5, 0.5, "Image not found", ha='center', va='center', fontsize=12)
             ax.axis('off')
 
-def convert_to_interactive_fig(fig: plt.Figure, html_path: str):
+def convert_to_interactive_fig(fig: plt.Figure, html_path: str, launch_browser: bool = True):
     """
-    Convert a Matplotlib figure to an interactive Plotly figure and display it.
-
-    Parameters:
-    fig (plt.Figure): The Matplotlib figure to convert.
+    Convert Matplotlib figure to Plotly and:
+    1) show each legend label only once
+    2) toggle all traces with that label across all subplots
+    3) order legend labels alphabetically
     """
     import plotly.io as pio
     import plotly.tools as tls
 
-    # Convert the Matplotlib figure to a Plotly figure
     plotly_fig = tls.mpl_to_plotly(fig)
 
-    # use only legend that has unique labels (remove duplicates)
-    seen_labels = set()
-    for trace in plotly_fig['data']:
-        label = trace['name']
-        if label in seen_labels:
-            trace['showlegend'] = False  # Hide duplicate legend entries
-        else:
-            seen_labels.add(label)
+    # Keep suptitle if present
+    if fig._suptitle is not None:
+        plotly_fig.update_layout(title=fig._suptitle.get_text(), title_x=0.5)
 
-    # save HTML file
-    pio.write_html(plotly_fig, file=html_path, auto_open=False)
-    print(f"Interactive joint angles plot saved: {html_path}")
-    # Open the HTML file in the default web browser
-    webbrowser.open('file://' + os.path.abspath(html_path))
+    # Ensure all traces have a name
+    for trace in plotly_fig.data:
+        if not trace.name:
+            trace.name = "Unnamed"
 
-    # Display the interactive Plotly figure
-    pio.show(plotly_fig)
+    # Sort traces alphabetically by label
+    sorted_traces = sorted(plotly_fig.data, key=lambda t: t.name.lower())
 
+    # Merge repeated legend labels and link traces by legendgroup
+    seen = set()
+    for trace in sorted_traces:
+        name = trace.name
+        trace.legendgroup = name
+        trace.showlegend = name not in seen
+        seen.add(name)
+
+    # Apply sorted order back to figure
+    plotly_fig.data = tuple(sorted_traces)
+
+    # Clicking one legend item toggles the whole group (all subplots)
+    plotly_fig.update_layout(
+        legend=dict(groupclick="togglegroup", traceorder="normal")
+    )
+    
+    # # add a button so all plots reset to ylims of each row
+    # plotly_fig.update_layout(
+    #     updatemenus=[
+    #         dict(
+    #             type="buttons",
+    #             direction="right",
+    #             x=0.7,
+    #             y=1.2,
+    #             buttons=list([
+    #                 dict(
+    #                     label="Reset Y-Limits",
+    #                     method="relayout",
+    #                     args=[{"yaxis.autorange": True}]
+    #                 )
+    #             ])
+    #         )
+    #     ]
+    # )
+
+    pio.write_html(plotly_fig, file=html_path, full_html=True, auto_open=False)
+
+    print(f"Interactive plot saved: {html_path}")
+
+    if launch_browser:
+        webbrowser.open("file://" + os.path.abspath(html_path))
 
 # data manipulation
 def time_normalise_df(df, fs=''):

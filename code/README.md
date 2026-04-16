@@ -28,7 +28,7 @@ python openSim.py
 
 First, ensure your environment is set up by running:
 ```bash
-msk_setup.bat
+python code\terminal_setup.py
 ```
 
 ## Requirements
